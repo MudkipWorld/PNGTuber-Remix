@@ -431,6 +431,7 @@ layout_mode = 2
 min_value = -180.0
 max_value = 180.0
 step = 0.1
+rounded = true
 
 [node name="SizeLabel" type="Label" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
