@@ -1,22 +1,25 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://cg7wt8xagjs7o"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bbsxibik4788n"]
 
-[sub_resource type="AudioEffectRecord" id="AudioEffectRecord_ucpvm"]
+[sub_resource type="AudioEffectRecord" id="AudioEffectRecord_tvg3x"]
 resource_name = "Record"
-format = 0
 
-[sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_skwrq"]
-resource_name = "SpectrumAnalyzer"
-buffer_length = 0.1
-fft_size = 0
+[sub_resource type="AudioEffectFilter" id="AudioEffectFilter_5tsjl"]
+resource_name = "Filter"
 
 [resource]
-bus/1/name = &"MIC"
+bus/1/name = &"ShadowBus"
 bus/1/solo = false
-bus/1/mute = false
+bus/1/mute = true
 bus/1/bypass_fx = false
-bus/1/volume_db = -80.0
+bus/1/volume_db = 0.0
 bus/1/send = &"Master"
-bus/1/effect/0/effect = SubResource("AudioEffectRecord_ucpvm")
-bus/1/effect/0/enabled = true
-bus/1/effect/1/effect = SubResource("AudioEffectSpectrumAnalyzer_skwrq")
-bus/1/effect/1/enabled = true
+bus/2/name = &"Mic"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"ShadowBus"
+bus/2/effect/0/effect = SubResource("AudioEffectRecord_tvg3x")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectFilter_5tsjl")
+bus/2/effect/1/enabled = true

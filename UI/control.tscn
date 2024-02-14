@@ -1,0 +1,1098 @@
+[gd_scene load_steps=19 format=3 uid="uid://ngta1o5yiqxs"]
+
+[ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_m7ltu"]
+[ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/LightPanel.tres" id="2_6cxu6"]
+[ext_resource type="Script" path="res://Scripts/control.gd" id="2_a5rie"]
+[ext_resource type="Script" path="res://Scripts/UIInput.gd" id="3_1eur5"]
+[ext_resource type="Script" path="res://Scripts/TopBarInput.gd" id="3_d50ks"]
+[ext_resource type="StyleBox" uid="uid://dpeurts54fvip" path="res://Themes/SmallPanelTheme.tres" id="5_w3axc"]
+[ext_resource type="Script" path="res://Scripts/LayersTree.gd" id="5_yro7c"]
+[ext_resource type="StyleBox" uid="uid://xpfmmvo6agir" path="res://Themes/Menubutton.tres" id="6_8vljj"]
+[ext_resource type="Texture2D" uid="uid://bobj6c6goa1d3" path="res://UI/FolderButton.png" id="6_hynel"]
+[ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/ReplaceButton.png" id="7_cg0wr"]
+[ext_resource type="StyleBox" uid="uid://d2jr6q8qqlihn" path="res://Themes/Menubuttondis.tres" id="7_msl4o"]
+[ext_resource type="PackedScene" uid="uid://cwtyu481ec5vq" path="res://UI/StateButton/state_button.tscn" id="8_6lifb"]
+[ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/DupButton.png" id="8_r6auv"]
+[ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="9_jhnap"]
+[ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="10_efci7"]
+[ext_resource type="PackedScene" uid="uid://drok2umdmycjc" path="res://UI/StateButton/state_remap_button.tscn" id="12_w6f4c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcgtm"]
+bg_color = Color(0.227451, 0.580392, 0.431373, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.196078, 0.415686, 0.345098, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iakd"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("1_m7ltu")
+script = ExtResource("2_a5rie")
+
+[node name="TopBarInput" type="Node" parent="."]
+script = ExtResource("3_d50ks")
+
+[node name="UIInput" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_1eur5")
+
+[node name="LeftPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_top = 26.0
+offset_right = 194.0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="LeftPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.948
+anchor_bottom = 0.963
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 0.0879822
+offset_bottom = 0.0139771
+mouse_filter = 2
+
+[node name="VPPanel" type="Panel" parent="LeftPanel/VBox"]
+custom_minimum_size = Vector2(176.701, 101)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gcgtm")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="LeftPanel/VBox/VPPanel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0622522
+anchor_top = 0.0693069
+anchor_right = 0.0622522
+anchor_bottom = 0.0693069
+offset_left = -3.00003
+offset_top = -2.0
+offset_right = 157.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2"]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(160, 93)
+size_2d_override = Vector2i(1280, 720)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="CurrentSelVbox" type="VBoxContainer" parent="LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("5_w3axc")
+
+[node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/Panel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+anchor_right = 0.056
+anchor_bottom = 0.056
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 79.96
+offset_bottom = 79.96
+size_flags_horizontal = 6
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationFramesLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Animation frames :"
+
+[node name="AnimationFramesSlider" type="HSlider" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+min_value = 1.0
+max_value = 12.0
+step = 0.5
+value = 1.0
+rounded = true
+
+[node name="AnimationSpeedLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Animation Speed :"
+
+[node name="AnimationSpeedSlider" type="HSlider" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+min_value = 0.01
+max_value = 2.0
+step = 0.01
+value = 0.11
+
+[node name="LayersButtons" type="HBoxContainer" parent="LeftPanel/VBox"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="FolderButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+texture_normal = ExtResource("6_hynel")
+texture_pressed = ExtResource("6_hynel")
+texture_hover = ExtResource("6_hynel")
+texture_disabled = ExtResource("6_hynel")
+
+[node name="ReplaceButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+texture_normal = ExtResource("7_cg0wr")
+texture_pressed = ExtResource("7_cg0wr")
+texture_hover = ExtResource("7_cg0wr")
+texture_disabled = ExtResource("7_cg0wr")
+
+[node name="DuplicateButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+texture_normal = ExtResource("8_r6auv")
+texture_pressed = ExtResource("8_r6auv")
+texture_hover = ExtResource("8_r6auv")
+texture_disabled = ExtResource("8_r6auv")
+
+[node name="DeleteButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+texture_normal = ExtResource("9_jhnap")
+texture_pressed = ExtResource("9_jhnap")
+texture_hover = ExtResource("9_jhnap")
+texture_disabled = ExtResource("9_jhnap")
+
+[node name="Panel" type="Panel" parent="LeftPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("2_6cxu6")
+metadata/_edit_use_anchors_ = true
+
+[node name="TopPanel" type="Panel" parent="LeftPanel/VBox/Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.0546697
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="LeftPanel/VBox/Panel/TopPanel"]
+layout_mode = 0
+anchor_left = 0.013986
+anchor_top = 0.0833333
+anchor_right = 0.986014
+anchor_bottom = 0.916667
+offset_bottom = -3.0
+theme_override_font_sizes/font_size = 14
+text = "Layers"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LayersTree" type="Tree" parent="LeftPanel/VBox/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.063
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 0.00499916
+offset_right = 168.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+localize_numeral_system = false
+mouse_default_cursor_shape = 2
+theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
+theme_override_constants/item_margin = 8
+theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/title_button_font_size = 8
+allow_reselect = true
+drop_mode_flags = 3
+script = ExtResource("5_yro7c")
+metadata/_edit_use_anchors_ = true
+
+[node name="RightPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = 25.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Properties" type="Panel" parent="RightPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.039801
+anchor_top = 0.0158273
+anchor_right = 0.960199
+anchor_bottom = 0.98705
+offset_bottom = 1.52588e-05
+theme_override_styles/panel = ExtResource("2_6cxu6")
+metadata/_edit_use_anchors_ = true
+
+[node name="Name" type="LineEdit" parent="RightPanel/Properties"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.119
+anchor_top = 0.0127407
+anchor_right = 0.886486
+anchor_bottom = 0.0127407
+offset_left = -0.0150013
+offset_top = 0.13029
+offset_bottom = 23.1303
+theme_override_font_sizes/font_size = 13
+placeholder_text = "Name"
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Grid" type="GridContainer" parent="RightPanel/Properties"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.019
+anchor_top = 0.0629027
+anchor_right = 0.973
+anchor_bottom = 0.646
+offset_left = 0.0542293
+offset_top = -4.4593
+offset_right = 2.51395
+offset_bottom = 22.9501
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="ColorLabel" type="Label" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Color :"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+
+[node name="BlendModeLabel" type="Label" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Blend:"
+
+[node name="BlendMode" type="MenuButton" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = ExtResource("6_8vljj")
+theme_override_styles/pressed = ExtResource("6_8vljj")
+theme_override_styles/hover = ExtResource("6_8vljj")
+theme_override_styles/disabled = ExtResource("7_msl4o")
+text = "Normal"
+flat = false
+alignment = 0
+item_count = 4
+popup/item_0/text = "Normal"
+popup/item_0/checked = true
+popup/item_0/id = 0
+popup/item_1/text = "Add"
+popup/item_1/id = 1
+popup/item_2/text = "Subtract"
+popup/item_2/id = 3
+popup/item_3/text = "Multiply"
+popup/item_3/id = 3
+
+[node name="XALabel" type="Label" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "X-Amp :"
+
+[node name="XAmpSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+min_value = -20.0
+max_value = 20.0
+step = 0.1
+
+[node name="XFLabel" type="Label" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "X-Freq :"
+
+[node name="XFSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+min_value = -20.0
+max_value = 20.0
+step = 0.1
+
+[node name="Sp" type="HSeparator" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Sp2" type="HSeparator" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="YALabel" type="Label" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Y-Amp :"
+
+[node name="YAmpSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+min_value = -20.0
+max_value = 20.0
+step = 0.1
+
+[node name="YFLabel" type="Label" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Y-Freq :"
+
+[node name="YFSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+min_value = -20.0
+max_value = 20.0
+step = 0.1
+
+[node name="Sp3" type="HSeparator" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Sp4" type="HSeparator" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="StretchLabel" type="Label" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Stretch Amount :"
+
+[node name="StretchSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+min_value = -20.0
+max_value = 20.0
+step = 0.1
+
+[node name="Rlable" type="Label" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Rot-Degree :"
+
+[node name="RotationLevel" type="HSlider" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(165, 0)
+layout_mode = 2
+min_value = -180.0
+max_value = 180.0
+step = 0.1
+
+[node name="SizeLabel" type="Label" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Size :"
+
+[node name="SizeSpinBox" type="SpinBox" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="ClipChildren" type="CheckBox" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 10
+text = "Clip Content"
+
+[node name="Visible" type="CheckBox" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10
+text = " Visible           "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+alignment = 1
+
+[node name="CheckEye" type="CheckButton" parent="RightPanel/Properties/Grid/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EyeOpen" type="CheckBox" parent="RightPanel/Properties/Grid/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Eye Open      "
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+alignment = 1
+
+[node name="CheckMouth" type="CheckButton" parent="RightPanel/Properties/Grid/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MouthOpen" type="CheckBox" parent="RightPanel/Properties/Grid/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10
+text = "Mouth Open"
+alignment = 1
+
+[node name="ZOrderLabel" type="Label" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Z Order :"
+
+[node name="ZOrderSpinbox" type="SpinBox" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -9999.0
+max_value = 9999.0
+
+[node name="Sp5" type="HSeparator" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Sp6" type="HSeparator" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="MouthClosedAnimLabel" type="Label" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Mouth Closed Anim :"
+
+[node name="MouthClosedAnim" type="MenuButton" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = ExtResource("6_8vljj")
+theme_override_styles/pressed = ExtResource("6_8vljj")
+theme_override_styles/hover = ExtResource("6_8vljj")
+theme_override_styles/disabled = ExtResource("7_msl4o")
+text = "Idle"
+flat = false
+alignment = 0
+item_count = 3
+popup/item_0/text = "Idle"
+popup/item_0/id = 0
+popup/item_1/text = "Bouncy"
+popup/item_1/id = 1
+popup/item_2/text = "One Bounce"
+popup/item_2/id = 3
+
+[node name="MouthOpenAnimLabel" type="Label" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Mouth Open Anim :"
+
+[node name="MouthOpenAnim" type="MenuButton" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = ExtResource("6_8vljj")
+theme_override_styles/pressed = ExtResource("6_8vljj")
+theme_override_styles/hover = ExtResource("6_8vljj")
+theme_override_styles/disabled = ExtResource("7_msl4o")
+text = "Idle"
+flat = false
+alignment = 0
+item_count = 3
+popup/item_0/text = "Idle"
+popup/item_0/id = 0
+popup/item_1/text = "Bouncy"
+popup/item_1/id = 1
+popup/item_2/text = "One Bounce"
+popup/item_2/id = 3
+
+[node name="BlinkSpeedLabel" type="Label" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Blink Speed :"
+
+[node name="BlinkSpeedSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+min_value = 1.0
+max_value = 12.0
+step = 0.5
+value = 1.0
+
+[node name="StateButtons" type="GridContainer" parent="RightPanel/Properties"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.041
+anchor_top = 0.873
+anchor_right = 0.951
+anchor_bottom = 0.987
+offset_left = 0.131939
+offset_top = -0.275024
+offset_right = -0.0859985
+offset_bottom = -0.225037
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+columns = 5
+
+[node name="StateButton" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+input_key = "State 1"
+
+[node name="StateButton2" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "2"
+state = 1
+input_key = "State 2"
+
+[node name="StateButton3" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "3"
+state = 2
+input_key = "State 3"
+
+[node name="StateButton4" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "4"
+state = 3
+input_key = "State 4"
+
+[node name="StateButton5" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "5"
+state = 4
+input_key = "State 5"
+
+[node name="StateButton6" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "6"
+state = 5
+input_key = "State 6"
+
+[node name="StateButton7" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7"
+state = 6
+input_key = "State 7"
+
+[node name="StateButton8" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "8"
+state = 7
+input_key = "State 8"
+
+[node name="StateButton9" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "9"
+state = 8
+input_key = "State 9"
+
+[node name="StateButton10" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "10"
+state = 9
+input_key = "State 10"
+
+[node name="GridContainer" type="GridContainer" parent="RightPanel/Properties"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.514483
+anchor_top = 0.672593
+anchor_right = 0.977838
+anchor_bottom = 0.834074
+columns = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VolumeBar" type="ProgressBar" parent="RightPanel/Properties/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+max_value = 1.0
+fill_mode = 3
+
+[node name="VolumeSlider" type="VSlider" parent="RightPanel/Properties/GridContainer/VolumeBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("10_efci7")
+theme_override_icons/grabber_highlight = ExtResource("10_efci7")
+theme_override_icons/grabber_disabled = ExtResource("10_efci7")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="SensitivityBar" type="ProgressBar" parent="RightPanel/Properties/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+fill_mode = 3
+
+[node name="SensitivitySlider" type="VSlider" parent="RightPanel/Properties/GridContainer/SensitivityBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("10_efci7")
+theme_override_icons/grabber_highlight = ExtResource("10_efci7")
+theme_override_icons/grabber_disabled = ExtResource("10_efci7")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+min_value = 1.0
+max_value = 10.0
+step = 0.01
+value = 1.0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="RightPanel/Properties"]
+layout_mode = 2
+anchor_left = 0.519175
+anchor_top = 0.84
+anchor_right = 0.969747
+anchor_bottom = 0.865185
+metadata/_edit_use_anchors_ = true
+
+[node name="VolumeLabel" type="Label" parent="RightPanel/Properties/HSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 12
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="SensitivityLabel" type="Label" parent="RightPanel/Properties/HSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 12
+text = "Vol. Sensitivity"
+horizontal_alignment = 1
+
+[node name="TopBar" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 28.0
+
+[node name="HBox" type="HBoxContainer" parent="TopBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="FilesButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Files"
+item_count = 4
+popup/item_0/text = "New"
+popup/item_0/id = 0
+popup/item_1/text = "Open"
+popup/item_1/id = 1
+popup/item_2/text = "Save As"
+popup/item_2/id = 3
+popup/item_3/text = "Add Images"
+popup/item_3/id = 4
+
+[node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Mode"
+item_count = 2
+popup/item_0/text = "Editor"
+popup/item_0/id = 0
+popup/item_1/text = "PNGTube"
+popup/item_1/id = 1
+
+[node name="BGButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BG Color"
+item_count = 6
+popup/item_0/text = "Red"
+popup/item_0/id = 0
+popup/item_1/text = "Blue"
+popup/item_1/id = 1
+popup/item_2/text = "Green"
+popup/item_2/id = 2
+popup/item_3/text = "Magenta"
+popup/item_3/id = 3
+popup/item_4/text = "Transparent"
+popup/item_4/id = 4
+popup/item_5/text = "Gray"
+popup/item_5/id = 5
+
+[node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "About"
+item_count = 2
+popup/item_0/text = "About"
+popup/item_0/id = 0
+popup/item_1/text = "Credits"
+popup/item_1/id = 1
+
+[node name="InputsButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Inputs
+"
+
+[node name="BounceControlButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Bounce
+"
+
+[node name="AboutPopUp" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+initial_position = 2
+size = Vector2i(395, 123)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 385.0
+offset_bottom = 113.0
+
+[node name="CreditLabel" type="Label" parent="AboutPopUp/VBoxContainer"]
+layout_mode = 2
+text = "PNGTuber Remix by TheMime (MudkipWorld)
+Original PNGTuber+ Code by kaiakairos
+"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="AboutPopUp/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Source code : "
+
+[node name="TextureButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Social : "
+
+[node name="TextureButton2" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CreditPopUp" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+initial_position = 2
+size = Vector2i(432, 207)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditPopUp"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 425.0
+offset_bottom = 197.0
+
+[node name="AboutLabel" type="Label" parent="CreditPopUp/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "About
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CreditPopUp/VBoxContainer"]
+layout_mode = 2
+text = "This is a PNGTubing App made to be as lightweight 
+and easy to use as possible.
+This app is based off PNGTuber+.
+Main goal is to implement new features as fix bugs 
+from the original software and improve existing ones."
+
+[node name="InputsPopup" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(277, 384)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InputsPopup"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 267.0
+offset_bottom = 374.0
+
+[node name="InputCheckButton" type="CheckButton" parent="InputsPopup/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+button_pressed = true
+text = "Change States With Inputs : "
+
+[node name="RemapLabel" type="Label" parent="InputsPopup/VBoxContainer"]
+layout_mode = 2
+text = "Remap States Input :"
+
+[node name="Grid" type="GridContainer" parent="InputsPopup/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="State 1" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 1"
+
+[node name="StateRemapButton" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+action = "State 1"
+
+[node name="State 2" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 2
+"
+
+[node name="StateRemapButton2" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 2"
+
+[node name="State 3" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 3
+"
+
+[node name="StateRemapButton3" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 3"
+
+[node name="State 4" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 4
+"
+
+[node name="StateRemapButton4" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 4"
+
+[node name="State 5" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 5
+"
+
+[node name="StateRemapButton5" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 5"
+
+[node name="State 6" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 6
+"
+
+[node name="StateRemapButton6" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 6"
+
+[node name="State 7" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 7
+"
+
+[node name="StateRemapButton7" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 7"
+
+[node name="State 8" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 8
+"
+
+[node name="StateRemapButton8" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 8"
+
+[node name="State 9" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 9
+"
+
+[node name="StateRemapButton9" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 9"
+
+[node name="State 10" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 10
+"
+
+[node name="StateRemapButton10" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+layout_mode = 2
+text = "kp0"
+action = "State 10"
+
+[node name="BounceControlPopup" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(320, 110)
+
+[node name="GridContainer" type="GridContainer" parent="BounceControlPopup"]
+custom_minimum_size = Vector2(300, 0)
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 100.0
+
+[node name="BounceAmount" type="Label" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bounce Amount : "
+
+[node name="BounceAmountSlider" type="HSlider" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 3000.0
+
+[node name="GravityAmount" type="Label" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bounce Gravity : "
+
+[node name="GravityAmountSlider" type="HSlider" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 3000.0
+
+[connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationFramesSlider" to="UIInput" method="_on_animation_frames_slider_value_changed"]
+[connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationSpeedSlider" to="UIInput" method="_on_animation_speed_slider_value_changed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/FolderButton" to="UIInput" method="_on_folder_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/ReplaceButton" to="UIInput" method="_on_replace_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DuplicateButton" to="UIInput" method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DeleteButton" to="UIInput" method="_on_delete_button_pressed"]
+[connection signal="item_selected" from="LeftPanel/VBox/Panel/LayersTree" to="LeftPanel/VBox/Panel/LayersTree" method="_on_item_selected"]
+[connection signal="text_submitted" from="RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
+[connection signal="color_changed" from="RightPanel/Properties/Grid/ColorPickerButton" to="UIInput" method="_on_color_picker_button_color_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/XAmpSlider" to="UIInput" method="_on_x_amp_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/XFSlider" to="UIInput" method="_on_xf_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/YAmpSlider" to="UIInput" method="_on_y_amp_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/YFSlider" to="UIInput" method="_on_yf_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/StretchSlider" to="UIInput" method="_on_stretch_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/RotationLevel" to="UIInput" method="_on_rotation_level_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/SizeSpinBox" to="UIInput" method="_on_size_spin_box_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/ClipChildren" to="UIInput" method="_on_check_box_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/Visible" to="UIInput" method="_on_visible_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBoxContainer/CheckEye" to="UIInput" method="_on_check_eye_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBoxContainer/EyeOpen" to="UIInput" method="_on_eye_open_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBoxContainer2/CheckMouth" to="UIInput" method="_on_check_mouth_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBoxContainer2/MouthOpen" to="UIInput" method="_on_mouth_open_toggled"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/ZOrderSpinbox" to="UIInput" method="_on_z_order_spinbox_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/BlinkSpeedSlider" to="UIInput" method="_on_blink_speed_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/GridContainer/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/GridContainer/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
+[connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
+[connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
