@@ -81,7 +81,6 @@ func _on_confirmation_dialog_confirmed():
 	$Control/LeftPanel/VBox/Panel/LayersTree.clear()
 	for i in %SpritesContainer.get_children():
 		i.queue_free()
-	$Control._tree(get_tree().get_nodes_in_group("Sprites"))
 
 func _input(event):
 	if can_scroll:

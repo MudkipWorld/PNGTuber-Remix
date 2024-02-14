@@ -55,7 +55,7 @@ func _tree(sprites):
 		if i.folder:
 			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 		else:
-			new_item.set_icon(0, i.texture)
+			new_item.set_icon(0, i.get_node("Wobble/Squish/Drag/Sprite2D").texture)
 		new_item.set_icon_max_width(0, 20)
 		var dic : Dictionary = {
 			sprite_object = i,

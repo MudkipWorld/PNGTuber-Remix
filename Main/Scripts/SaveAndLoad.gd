@@ -15,10 +15,11 @@ func save_file(path):
 	var input_array : Array = []
 	
 	for sprt in sprites:
-		var img = sprt.img.save_png_to_buffer()
+		var img = Marshalls.raw_to_base64(sprt.get_node("Wobble/Squish/Drag/Sprite2D").texture.get_image().save_png_to_buffer())
 		var sprt_dict = {
 			img = img,
-			states = sprt.states
+			states = sprt.states,
+			sprite_name = sprt.sprite_name
 		}
 		sprites_array.append(sprt_dict)
 	
@@ -63,8 +64,17 @@ func load_file(path):
 	
 	for sprite in load_dict.sprites_array:
 		var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
-		sprite_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture.get_image().load_png_from_buffer(sprite.img)
+		
+		var img_data = Marshalls.base64_to_raw(sprite.img)
+		var img = Image.new()
+		img.load_png_from_buffer(img_data)
+		var img_tex = ImageTexture.new()
+		img_tex.set_image(img)
+		sprite_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_tex
 		sprite_obj.states = sprite.states
+		
+		sprite_obj.sprite_name = sprite.sprite_name
+		
 		bounce.add_child(sprite_obj)
 
 	for input in len(load_dict.input_array):
