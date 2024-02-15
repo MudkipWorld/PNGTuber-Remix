@@ -10,13 +10,11 @@ var speech_value : float :
 		if value >= GlobalAudioStreamPlayer.volume_limit:
 			if not has_spoken:
 				Global.speaking.emit()
-				print("speak")
 				has_spoken = true
 		
 		if value < GlobalAudioStreamPlayer.volume_limit:
 			if has_spoken:
 				Global.not_speaking.emit()
-				print("not speak")
 				has_spoken = false
 
 # Called when the node enters the scene tree for the first time.
@@ -94,3 +92,21 @@ func update_tree(child, parent, boolean):
 		child.set_metadata(0, dic)
 	_tree(get_tree().get_nodes_in_group("Sprites"))
 
+func add_item(sprite):
+	var root = tree.get_root()
+	var new_item
+	new_item = tree.create_item(root)
+	new_item.set_text(0, str(sprite.sprite_name))
+	if sprite.folder:
+		new_item.set_icon(0, preload("res://UI/FolderButton.png"))
+	else:
+		new_item.set_icon(0, sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture)
+	new_item.set_icon_max_width(0, 20)
+	var dic : Dictionary = {
+		sprite_object = sprite,
+		parent = new_item.get_parent()
+	}
+	new_item.set_metadata(0, dic)
+	sprite.treeitem = new_item
+	new_item.get_next()
+	check_parent()

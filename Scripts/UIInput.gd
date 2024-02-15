@@ -62,6 +62,7 @@ func held_sprite_is_null():
 	eyeop.disabled = true
 	mouthop.disabled = true
 	zord.editable = false
+	%IgnoreBounce.disabled = true
 
 func held_sprite_is_true():
 	x_amp.editable = true
@@ -89,6 +90,7 @@ func held_sprite_is_true():
 	eyeop.disabled = false
 	mouthop.disabled = false
 	zord.editable = true
+	%IgnoreBounce.disabled = false
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -163,6 +165,7 @@ func reinfo():
 	%SizeSpinBox.value = Global.held_sprite.scale.x
 	%StretchSlider.value = Global.held_sprite.stretchAmount
 	color.color = Global.held_sprite.modulate
+	%IgnoreBounce.button_pressed = Global.held_sprite.ignore_bounce
 	
 	if Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").get_clip_children_mode() == 0:
 		clip.button_pressed = false
@@ -294,7 +297,7 @@ func _on_duplicate_button_pressed():
 	obj.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
 	obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
 	obj.sprite_name = "Duplicate" + Global.held_sprite.sprite_name 
-	get_parent()._tree(get_tree().get_nodes_in_group("Sprites"))
+	get_parent().add_item(obj)
 	
 func _on_size_spin_box_value_changed(value):
 	Global.held_sprite.scale = Vector2(value, value)
@@ -317,6 +320,9 @@ func _on_folder_button_pressed():
 	sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = preload("res://Misc/SpriteObject/Folder.png")
 	sprte_obj.sprite_name = str("Folder")
 	sprte_obj.folder = true
-		
-	var sprite_nodes = get_tree().get_nodes_in_group("Sprites")
-	get_parent()._tree(sprite_nodes)
+	get_parent().add_item(sprte_obj)
+
+
+func _on_ignore_bounce_toggled(toggled_on):
+	Global.held_sprite.ignore_bounce = toggled_on
+	Global.held_sprite.save_state(Global.current_state)

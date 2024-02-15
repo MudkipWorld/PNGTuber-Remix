@@ -6,6 +6,8 @@ var dragSpeed = 0
 @onready var dragger = $Wobble/Squish/Drag
 @onready var wob = $Wobble
 @onready var sprite = $Wobble/Squish/Drag/Sprite2D
+@onready var contain = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
+@onready var img = $Wobble/Squish/Drag/Sprite2D.texture.get_image()
 #Wobble
 @export var xFrq = 0.0
 @export var xAmp = 0.0
@@ -18,8 +20,9 @@ var dragSpeed = 0
 #Stretch
 @export var stretchAmount = 0.0
 var squish = 1
-@onready var img = $Wobble/Squish/Drag/Sprite2D.texture.get_image()
 var texture 
+
+# Misc
 var treeitem : TreeItem
 var blend_mode = "Normal"
 var visb
@@ -36,6 +39,8 @@ var hframes = 1
 var folder : bool = false
 var dragging : bool = false
 var of = Vector2(0,0)
+var ignore_bounce : bool = false
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -71,8 +76,13 @@ func _process(delta):
 	
 	tick += 1
 	var glob = dragger.global_position
+	
+	
 	drag(delta)
 	wobble()
+	if not ignore_bounce:
+		glob.y -= contain.bounceChange
+	
 	var length = (glob.y - dragger.global_position.y)
 	
 	rotationalDrag(length)
@@ -170,7 +180,8 @@ func save_state(id):
 		scale = scale,
 		folder = folder,
 		global_position = global_position,
-		offset = $Wobble/Squish/Drag/Sprite2D.offset
+		offset = $Wobble/Squish/Drag/Sprite2D.offset,
+		ignore_bounce = ignore_bounce
 		
 	}
 	
@@ -204,6 +215,7 @@ func get_state(id):
 		global_position = dict.global_position
 		$Wobble/Squish/Drag/Sprite2D.offset = dict.offset 
 		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dict.offset 
+		ignore_bounce = dict.ignore_bounce
 		speaking()
 		not_speaking()
 		animation()
@@ -220,7 +232,7 @@ func _on_grab_button_down():
 	if Global.held_sprite == self:
 		of = get_global_mouse_position() - global_position
 		dragging = true
-		
+
 
 
 func _on_grab_button_up():

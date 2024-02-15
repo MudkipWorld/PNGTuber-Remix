@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=23 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_m7ltu"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/LightPanel.tres" id="2_6cxu6"]
 [ext_resource type="Script" path="res://Scripts/control.gd" id="2_a5rie"]
 [ext_resource type="Script" path="res://Scripts/UIInput.gd" id="3_1eur5"]
+[ext_resource type="Script" path="res://Scripts/OnlineLinks.gd" id="3_7fg0y"]
 [ext_resource type="Script" path="res://Scripts/TopBarInput.gd" id="3_d50ks"]
 [ext_resource type="StyleBox" uid="uid://dpeurts54fvip" path="res://Themes/SmallPanelTheme.tres" id="5_w3axc"]
 [ext_resource type="Script" path="res://Scripts/LayersTree.gd" id="5_yro7c"]
@@ -16,6 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="9_jhnap"]
 [ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="10_efci7"]
 [ext_resource type="PackedScene" uid="uid://drok2umdmycjc" path="res://UI/StateButton/state_remap_button.tscn" id="12_w6f4c"]
+[ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/LinksButtonImages/GithubLogo.png" id="17_tkc2i"]
+[ext_resource type="Texture2D" uid="uid://whhnbdvw3i1j" path="res://UI/LinksButtonImages/TumblrLogo.png" id="18_qwjx1"]
+[ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/LinksButtonImages/RedditLogo.png" id="19_wqyow"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcgtm"]
 bg_color = Color(0.227451, 0.580392, 0.431373, 1)
@@ -40,6 +44,9 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme = ExtResource("1_m7ltu")
 script = ExtResource("2_a5rie")
+
+[node name="OnlineLinks" type="Node" parent="."]
+script = ExtResource("3_7fg0y")
 
 [node name="TopBarInput" type="Node" parent="."]
 script = ExtResource("3_d50ks")
@@ -69,7 +76,7 @@ offset_bottom = 0.0139771
 mouse_filter = 2
 
 [node name="VPPanel" type="Panel" parent="LeftPanel/VBox"]
-custom_minimum_size = Vector2(176.701, 101)
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gcgtm")
 
@@ -81,18 +88,18 @@ anchor_left = 0.0622522
 anchor_top = 0.0693069
 anchor_right = 0.0622522
 anchor_bottom = 0.0693069
-offset_left = -3.00003
-offset_top = -2.0
-offset_right = 157.0
-offset_bottom = 88.0
+offset_left = 15.1059
+offset_top = -3.31683
+offset_right = 142.106
+offset_bottom = 105.683
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2"]
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(160, 93)
-size_2d_override = Vector2i(1280, 720)
+size = Vector2i(127, 109)
+size_2d_override = Vector2i(1270, 1090)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 
@@ -131,8 +138,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 min_value = 1.0
-max_value = 12.0
-step = 0.5
+max_value = 24.0
+step = 0.2
 value = 1.0
 rounded = true
 
@@ -147,9 +154,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 min_value = 0.01
-max_value = 2.0
-step = 0.01
-value = 0.11
+max_value = 24.0
+step = 0.2
+value = 0.21
 
 [node name="LayersButtons" type="HBoxContainer" parent="LeftPanel/VBox"]
 custom_minimum_size = Vector2(0, 18)
@@ -199,9 +206,10 @@ theme_override_styles/panel = ExtResource("2_6cxu6")
 metadata/_edit_use_anchors_ = true
 
 [node name="TopPanel" type="Panel" parent="LeftPanel/VBox/Panel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 0.0546697
+offset_bottom = 24.0
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
@@ -238,6 +246,7 @@ theme_override_font_sizes/font_size = 10
 theme_override_font_sizes/title_button_font_size = 8
 allow_reselect = true
 drop_mode_flags = 3
+scroll_horizontal_enabled = false
 script = ExtResource("5_yro7c")
 metadata/_edit_use_anchors_ = true
 
@@ -248,7 +257,7 @@ anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -340.0
+offset_left = -399.0
 offset_top = 25.0
 metadata/_edit_use_anchors_ = true
 
@@ -340,10 +349,9 @@ text = "X-Amp :"
 
 [node name="XAmpSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(165, 0)
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
-min_value = -20.0
-max_value = 20.0
+min_value = -100.0
 step = 0.1
 
 [node name="XFLabel" type="Label" parent="RightPanel/Properties/Grid"]
@@ -356,8 +364,7 @@ text = "X-Freq :"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
-min_value = -20.0
-max_value = 20.0
+min_value = -100.0
 step = 0.1
 
 [node name="Sp" type="HSeparator" parent="RightPanel/Properties/Grid"]
@@ -378,8 +385,7 @@ text = "Y-Amp :"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
-min_value = -20.0
-max_value = 20.0
+min_value = -100.0
 step = 0.1
 
 [node name="YFLabel" type="Label" parent="RightPanel/Properties/Grid"]
@@ -392,8 +398,7 @@ text = "Y-Freq :"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
-min_value = -20.0
-max_value = 20.0
+min_value = -100.0
 step = 0.1
 
 [node name="Sp3" type="HSeparator" parent="RightPanel/Properties/Grid"]
@@ -414,8 +419,7 @@ text = "Stretch Amount :"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
-min_value = -20.0
-max_value = 20.0
+min_value = -100.0
 step = 0.1
 
 [node name="Rlable" type="Label" parent="RightPanel/Properties/Grid"]
@@ -504,6 +508,15 @@ unique_name_in_owner = true
 layout_mode = 2
 min_value = -9999.0
 max_value = 9999.0
+
+[node name="IgnoreBounce" type="CheckBox" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Ignore Bounce"
+
+[node name="EmptySpace" type="Control" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
 
 [node name="Sp5" type="HSeparator" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -816,18 +829,6 @@ popup/item_4/id = 4
 popup/item_5/text = "Gray"
 popup/item_5/id = 5
 
-[node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "About"
-item_count = 2
-popup/item_0/text = "About"
-popup/item_0/id = 0
-popup/item_1/text = "Credits"
-popup/item_1/id = 1
-
 [node name="InputsButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
@@ -844,17 +845,31 @@ size_flags_horizontal = 4
 text = "Bounce
 "
 
+[node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "About"
+item_count = 3
+popup/item_0/text = "About"
+popup/item_0/id = 0
+popup/item_1/text = "Credits"
+popup/item_1/id = 1
+popup/item_2/text = "Mini Tutorial (Wip)"
+popup/item_2/id = 2
+
 [node name="AboutPopUp" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(395, 123)
+size = Vector2i(400, 180)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 385.0
-offset_bottom = 113.0
+offset_right = 390.0
+offset_bottom = 170.0
 
 [node name="CreditLabel" type="Label" parent="AboutPopUp/VBoxContainer"]
 layout_mode = 2
@@ -865,27 +880,89 @@ horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="AboutPopUp/VBoxContainer"]
 layout_mode = 2
-columns = 2
+columns = 3
 
-[node name="Label" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
+[node name="SourceLabel" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Source code : "
 
-[node name="TextureButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+[node name="GitHubButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("17_tkc2i")
+texture_pressed = ExtResource("17_tkc2i")
+texture_hover = ExtResource("17_tkc2i")
+texture_disabled = ExtResource("17_tkc2i")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EmptySpace" type="Control" parent="AboutPopUp/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
+[node name="SocialLabel" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Social : "
 
-[node name="TextureButton2" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+[node name="TumblrButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+texture_normal = ExtResource("18_qwjx1")
+texture_pressed = ExtResource("18_qwjx1")
+texture_hover = ExtResource("18_qwjx1")
+texture_disabled = ExtResource("18_qwjx1")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="RedditButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("19_wqyow")
+texture_pressed = ExtResource("19_wqyow")
+texture_hover = ExtResource("19_wqyow")
+texture_disabled = ExtResource("19_wqyow")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TutorialPopUp" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+initial_position = 2
+size = Vector2i(626, 382)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 616.0
+offset_bottom = 372.0
+
+[node name="TutorialLabel" type="Label" parent="TutorialPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Tutorial!
+"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="TutorialPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Held Sprite Inputs :
+- Moving Sprite : Click and drag around.
+- Move Origin : Arrow Keys.
+
+Input Remap :
+- Click the button of the state you want. 
+to remap and then add the new button.
+- Change States with input : Captures Input
+when minimized if on.
+
+Control Bounce :
+- Click on bounce top bar to change the bounce
+and gravity to your desire."
+vertical_alignment = 1
 
 [node name="CreditPopUp" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(432, 207)
+size = Vector2i(435, 207)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CreditPopUp"]
 offset_left = 10.0
@@ -1089,11 +1166,15 @@ max_value = 3000.0
 [connection signal="toggled" from="RightPanel/Properties/Grid/HBoxContainer2/CheckMouth" to="UIInput" method="_on_check_mouth_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/Grid/HBoxContainer2/MouthOpen" to="UIInput" method="_on_mouth_open_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/ZOrderSpinbox" to="UIInput" method="_on_z_order_spinbox_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/BlinkSpeedSlider" to="UIInput" method="_on_blink_speed_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/GridContainer/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/GridContainer/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
+[connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
+[connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/TumblrButton" to="OnlineLinks" method="_on_tumblr_button_pressed"]
+[connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/RedditButton" to="OnlineLinks" method="_on_reddit_button_pressed"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]

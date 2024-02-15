@@ -34,7 +34,8 @@ func save_file(path):
 		gravity = bounce.bounceGravity,
 		volume_limit = mic.volume_limit,
 		sens_limit = mic.sensitivity_limit,
-		check_input = check_input
+		check_input = check_input,
+		bounce_states = bounce.states
 	}
 	
 	
@@ -61,6 +62,7 @@ func load_file(path):
 	bounce.bounceSlider = load_dict.bounce
 	bounce.bounceGravity = load_dict.gravity
 	Global.checkinput = load_dict.check_input
+	bounce.states = load_dict.bounce_states
 	
 	for sprite in load_dict.sprites_array:
 		var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()

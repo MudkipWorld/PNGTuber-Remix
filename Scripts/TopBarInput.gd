@@ -53,7 +53,7 @@ func choosing_mode(id):
 		%LayersTree.get_selected().deselect(0)
 		%UIInput.held_sprite_is_null()
 		%LayersTree.deselect_all()
-		
+
 
 func choosing_bg_color(id):
 	is_transparent = false
@@ -78,9 +78,11 @@ func choosing_bg_color(id):
 func choosing_about(id):
 	match id:
 		0:
-			%AboutPopUp.show()
+			%AboutPopUp.popup()
 		1:
-			%CreditPopUp.show()
+			%CreditPopUp.popup()
+		2:
+			%TutorialPopUp.popup()
 
 func _notification(what):
 	if not is_editor:

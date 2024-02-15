@@ -59,7 +59,7 @@ func _on_file_dialog_file_selected(path):
 			Global.held_sprite.texture = texture
 			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture = texture
 			Global.held_sprite.save_state(current_state)
-			$Control._tree(get_tree().get_nodes_in_group("Sprites"))
+			Global.held_sprite.treeitem.set_icon(0, texture)
 
 func _on_file_dialog_files_selected(paths):
 	for path in paths:
