@@ -15,11 +15,14 @@ func save_file(path):
 	var input_array : Array = []
 	
 	for sprt in sprites:
+		sprt.save_state(Global.current_state)
 		var img = Marshalls.raw_to_base64(sprt.get_node("Wobble/Squish/Drag/Sprite2D").texture.get_image().save_png_to_buffer())
 		var sprt_dict = {
 			img = img,
 			states = sprt.states,
-			sprite_name = sprt.sprite_name
+			sprite_name = sprt.sprite_name,
+			sprite_id = sprt.sprite_id,
+			parent_id = sprt.parent_id
 		}
 		sprites_array.append(sprt_dict)
 	
@@ -74,7 +77,8 @@ func load_file(path):
 		img_tex.set_image(img)
 		sprite_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_tex
 		sprite_obj.states = sprite.states
-		
+		sprite_obj.sprite_id = sprite.sprite_id
+		sprite_obj.parent_id = sprite.parent_id
 		sprite_obj.sprite_name = sprite.sprite_name
 		
 		bounce.add_child(sprite_obj)
@@ -84,7 +88,7 @@ func load_file(path):
 		get_tree().get_nodes_in_group("StareRemapButton")[input].text = load_dict.input_array[input]
 	
 	Global.get_sprite_states(0)
-	get_tree().get_root().get_node("Main/Control")._tree(get_tree().get_nodes_in_group("Sprites"))
+	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
 	get_tree().get_root().get_node("Main/Control").sliders_revalue(mic.volume_limit, mic.sensitivity_limit, bounce.bounceSlider, bounce.bounceGravity, Global.checkinput)
 	
 	file.close()

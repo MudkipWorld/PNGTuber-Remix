@@ -64,6 +64,11 @@ func _tree(sprites):
 		new_item.get_next()
 	check_parent()
 
+func loaded_tree(sprites):
+	for i in sprites:
+		i.reparent_obj(get_tree().get_nodes_in_group("Sprites"))
+
+
 func check_parent():
 	var sprites = get_tree().get_nodes_in_group("Sprites")
 	for x in sprites:
@@ -77,7 +82,10 @@ func update_tree(child, parent, boolean):
 	var new_parent = parent.get_metadata(0)
 	if boolean:
 		if child.get_parent() != new_parent.sprite_object:
+			new_c_path.sprite_object.parent_id = new_parent.sprite_object.sprite_id
+			print(new_c_path.sprite_object.parent_id)
 			new_c_path.sprite_object.reparent(new_parent.sprite_object.get_node("Wobble/Squish/Drag/Sprite2D"))
+
 			var dic : Dictionary = {
 				sprite_object = new_c_path.sprite_object,
 				parent = child.get_parent()
@@ -85,6 +93,7 @@ func update_tree(child, parent, boolean):
 			child.set_metadata(0, dic)
 	else:
 		new_c_path.sprite_object.reparent(container)
+		new_c_path.sprite_object.parent_id = 0
 		var dic : Dictionary = {
 			sprite_object = new_c_path.sprite_object,
 			parent = child.get_parent()

@@ -70,7 +70,8 @@ func _on_file_dialog_files_selected(paths):
 		%SpritesContainer.add_child(sprte_obj)
 		sprte_obj.texture = texture
 		sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = texture
-		sprte_obj.sprite_name = str(path)
+		sprte_obj.sprite_id = sprte_obj.get_instance_id()
+		sprte_obj.sprite_name = path.get_file()
 		
 	var sprite_nodes = get_tree().get_nodes_in_group("Sprites")
 	$Control._tree(sprite_nodes)

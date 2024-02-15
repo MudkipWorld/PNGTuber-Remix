@@ -40,6 +40,8 @@ var folder : bool = false
 var dragging : bool = false
 var of = Vector2(0,0)
 var ignore_bounce : bool = false
+var sprite_id : float
+var parent_id : float = 0
 
 
 
@@ -181,7 +183,7 @@ func save_state(id):
 		folder = folder,
 		global_position = global_position,
 		offset = $Wobble/Squish/Drag/Sprite2D.offset,
-		ignore_bounce = ignore_bounce
+		ignore_bounce = ignore_bounce,
 		
 	}
 	
@@ -216,6 +218,7 @@ func get_state(id):
 		$Wobble/Squish/Drag/Sprite2D.offset = dict.offset 
 		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dict.offset 
 		ignore_bounce = dict.ignore_bounce
+		
 		speaking()
 		not_speaking()
 		animation()
@@ -234,7 +237,17 @@ func _on_grab_button_down():
 		dragging = true
 
 
-
 func _on_grab_button_up():
 	if Global.held_sprite == self:
 		dragging = false
+
+
+func reparent_obj(parent):
+	for i in parent:
+		if parent_id == 0:
+			get_tree().get_root().get_node("Main/Control")._tree(get_tree().get_nodes_in_group("Sprites"))
+			return
+		if i.sprite_id == parent_id:
+			reparent(i.get_node("Wobble/Squish/Drag/Sprite2D"))
+	get_tree().get_root().get_node("Main/Control")._tree(get_tree().get_nodes_in_group("Sprites"))
+	

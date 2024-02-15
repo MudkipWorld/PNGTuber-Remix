@@ -299,7 +299,11 @@ func _on_duplicate_button_pressed():
 	obj.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
 	obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
 	obj.sprite_name = "Duplicate" + Global.held_sprite.sprite_name 
+	if Global.held_sprite.folder:
+		obj.folder = true
+	
 	get_parent().add_item(obj)
+	obj.sprite_id = obj.get_instance_id()
 	
 func _on_size_spin_box_value_changed(value):
 	Global.held_sprite.scale = Vector2(value, value)
@@ -323,6 +327,7 @@ func _on_folder_button_pressed():
 	sprte_obj.sprite_name = str("Folder")
 	sprte_obj.folder = true
 	get_parent().add_item(sprte_obj)
+	sprte_obj.sprite_id = sprte_obj.get_instance_id()
 
 
 func _on_ignore_bounce_toggled(toggled_on):
