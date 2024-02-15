@@ -181,27 +181,27 @@ func reinfoanim():
 
 func _on_x_amp_slider_value_changed(value):
 	Global.held_sprite.xAmp = value
-	%XALabel.text = "X-Amp : " + str(value)
+	%XALabel.text = "X-Amp : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_xf_slider_value_changed(value):
 	Global.held_sprite.xFrq = value
-	%XFLabel.text = "X-Freq : " + str(value)
+	%XFLabel.text = "X-Freq : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_y_amp_slider_value_changed(value):
 	Global.held_sprite.yAmp = value
-	%YALabel.text = "Y-Amp : " + str(value)
+	%YALabel.text = "Y-Amp : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_yf_slider_value_changed(value):
 	Global.held_sprite.yFrq = value
-	%YFLabel.text = "Y-Freq : " + str(value)
+	%YFLabel.text = "Y-Freq : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_rotation_level_value_changed(value):
 	Global.held_sprite.rdragStr = value
-	%Rlable.text = "Rot-Degree:" + str(value)
+	%Rlable.text = "Rot-Degree:" + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
@@ -281,6 +281,7 @@ func _on_animation_speed_slider_value_changed(value):
 
 func _on_blink_speed_slider_value_changed(value):
 	Global.blink_speed = value
+	%BlinkSpeedLabel.text = "Blink Speed : " + str(snappedf(value, 0.1))
 
 
 func _on_delete_button_pressed():
@@ -309,7 +310,7 @@ func _on_replace_button_pressed():
 
 func _on_stretch_slider_value_changed(value):
 	Global.held_sprite.stretchAmount = value
-	%StretchLabel.text = "Stretch Amount : " + str(value)
+	%StretchLabel.text = "Stretch Amount : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 

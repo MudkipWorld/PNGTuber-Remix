@@ -246,7 +246,6 @@ theme_override_font_sizes/font_size = 10
 theme_override_font_sizes/title_button_font_size = 8
 allow_reselect = true
 drop_mode_flags = 3
-scroll_horizontal_enabled = false
 script = ExtResource("5_yro7c")
 metadata/_edit_use_anchors_ = true
 
@@ -435,7 +434,6 @@ layout_mode = 2
 min_value = -180.0
 max_value = 180.0
 step = 0.1
-rounded = true
 
 [node name="SizeLabel" type="Label" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -575,6 +573,7 @@ popup/item_2/text = "One Bounce"
 popup/item_2/id = 3
 
 [node name="BlinkSpeedLabel" type="Label" parent="RightPanel/Properties/Grid"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Blink Speed :"
