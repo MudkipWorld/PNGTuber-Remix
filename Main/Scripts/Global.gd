@@ -15,7 +15,7 @@ var checkinput : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_window().min_size = Vector2(720,720)
+	get_window().min_size = Vector2(1000,720)
 	add_child(blink_timer)
 	blinking()
 

@@ -255,9 +255,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -399.0
+anchor_bottom = 0.967
+offset_left = -436.0
 offset_top = 25.0
+offset_bottom = 23.7599
 metadata/_edit_use_anchors_ = true
 
 [node name="Properties" type="Panel" parent="RightPanel"]
@@ -348,7 +349,7 @@ text = "X-Amp :"
 
 [node name="XAmpSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(225, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -100.0
 step = 0.1
@@ -361,7 +362,7 @@ text = "X-Freq :"
 
 [node name="XFSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(165, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -100.0
 step = 0.1
@@ -382,7 +383,7 @@ text = "Y-Amp :"
 
 [node name="YAmpSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(165, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -100.0
 step = 0.1
@@ -395,7 +396,7 @@ text = "Y-Freq :"
 
 [node name="YFSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(165, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -100.0
 step = 0.1
@@ -416,7 +417,7 @@ text = "Stretch Amount :"
 
 [node name="StretchSlider" type="HSlider" parent="RightPanel/Properties/Grid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(165, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -100.0
 step = 0.1
@@ -429,7 +430,7 @@ text = "Rot-Degree :"
 
 [node name="RotationLevel" type="HSlider" parent="RightPanel/Properties/Grid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(165, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 min_value = -180.0
 max_value = 180.0

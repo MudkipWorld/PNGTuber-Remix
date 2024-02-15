@@ -214,6 +214,7 @@ func _on_check_box_toggled(toggled_on):
 
 func _on_name_text_submitted(new_text):
 	Global.held_sprite.treeitem.set_text(0, new_text)
+	Global.held_sprite.sprite_name = new_text
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_visible_toggled(toggled_on):
