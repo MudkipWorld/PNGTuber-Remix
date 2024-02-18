@@ -63,6 +63,7 @@ func held_sprite_is_null():
 	mouthop.disabled = true
 	zord.editable = false
 	%IgnoreBounce.disabled = true
+	%Physics.disabled = true
 
 func held_sprite_is_true():
 	x_amp.editable = true
@@ -91,6 +92,7 @@ func held_sprite_is_true():
 	mouthop.disabled = false
 	zord.editable = true
 	%IgnoreBounce.disabled = false
+	%Physics.disabled = false
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -166,6 +168,7 @@ func reinfo():
 	%StretchSlider.value = Global.held_sprite.stretchAmount
 	color.color = Global.held_sprite.modulate
 	%IgnoreBounce.button_pressed = Global.held_sprite.ignore_bounce
+	%Physics.button_pressed = Global.held_sprite.physics
 	
 	if Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").get_clip_children_mode() == 0:
 		clip.button_pressed = false
@@ -208,8 +211,10 @@ func _on_rotation_level_value_changed(value):
 func _on_check_box_toggled(toggled_on):
 	if toggled_on:
 		Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(2)
+		Global.held_sprite.clip = 2
 	else:
 		Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(0)
+		Global.held_sprite.clip = 0
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_name_text_submitted(new_text):
@@ -332,4 +337,9 @@ func _on_folder_button_pressed():
 
 func _on_ignore_bounce_toggled(toggled_on):
 	Global.held_sprite.ignore_bounce = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_physics_toggled(toggled_on):
+	Global.held_sprite.physics = toggled_on
 	Global.held_sprite.save_state(Global.current_state)

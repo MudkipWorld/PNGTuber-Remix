@@ -42,6 +42,10 @@ var of = Vector2(0,0)
 var ignore_bounce : bool = false
 var sprite_id : float
 var parent_id : float = 0
+var clip = 0
+var physics : bool = true
+var physics_effect = 1
+var glob
 
 
 
@@ -77,7 +81,7 @@ func _process(delta):
 	
 	
 	tick += 1
-	var glob = dragger.global_position
+	glob = dragger.global_position
 	
 	
 	drag(delta)
@@ -86,6 +90,12 @@ func _process(delta):
 		glob.y -= contain.bounceChange
 	
 	var length = (glob.y - dragger.global_position.y)
+	
+	if physics:
+		if get_parent() is Sprite2D:
+			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent()
+			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
+			length += c_parrent_length
 	
 	rotationalDrag(length)
 	stretch(length)
@@ -184,6 +194,8 @@ func save_state(id):
 		global_position = global_position,
 		offset = $Wobble/Squish/Drag/Sprite2D.offset,
 		ignore_bounce = ignore_bounce,
+		clip = clip,
+		physics = physics
 		
 	}
 	
@@ -202,6 +214,7 @@ func get_state(id):
 		stretchAmount = dict.stretchAmount
 		blend_mode = dict.blend_mode
 		visible = dict.visible
+		visb = dict.visible
 		modulate = dict.colored
 		z_index = dict.z_index
 		
@@ -218,7 +231,8 @@ func get_state(id):
 		$Wobble/Squish/Drag/Sprite2D.offset = dict.offset 
 		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dict.offset 
 		ignore_bounce = dict.ignore_bounce
-		
+		physics = dict.physics
+		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dict.clip)
 		speaking()
 		not_speaking()
 		animation()

@@ -83,7 +83,6 @@ func update_tree(child, parent, boolean):
 	if boolean:
 		if child.get_parent() != new_parent.sprite_object:
 			new_c_path.sprite_object.parent_id = new_parent.sprite_object.sprite_id
-			print(new_c_path.sprite_object.parent_id)
 			new_c_path.sprite_object.reparent(new_parent.sprite_object.get_node("Wobble/Squish/Drag/Sprite2D"))
 
 			var dic : Dictionary = {

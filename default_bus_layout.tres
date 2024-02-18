@@ -1,10 +1,13 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bbsxibik4788n"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://bbsxibik4788n"]
 
 [sub_resource type="AudioEffectRecord" id="AudioEffectRecord_tvg3x"]
 resource_name = "Record"
 
 [sub_resource type="AudioEffectFilter" id="AudioEffectFilter_5tsjl"]
 resource_name = "Filter"
+
+[sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_1ksyd"]
+resource_name = "SpectrumAnalyzer"
 
 [resource]
 bus/1/name = &"ShadowBus"
@@ -23,3 +26,5 @@ bus/2/effect/0/effect = SubResource("AudioEffectRecord_tvg3x")
 bus/2/effect/0/enabled = true
 bus/2/effect/1/effect = SubResource("AudioEffectFilter_5tsjl")
 bus/2/effect/1/enabled = true
+bus/2/effect/2/effect = SubResource("AudioEffectSpectrumAnalyzer_1ksyd")
+bus/2/effect/2/enabled = true

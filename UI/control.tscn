@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=27 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_m7ltu"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/LightPanel.tres" id="2_6cxu6"]
@@ -10,9 +10,13 @@
 [ext_resource type="Script" path="res://Scripts/LayersTree.gd" id="5_yro7c"]
 [ext_resource type="StyleBox" uid="uid://xpfmmvo6agir" path="res://Themes/Menubutton.tres" id="6_8vljj"]
 [ext_resource type="Texture2D" uid="uid://bobj6c6goa1d3" path="res://UI/FolderButton.png" id="6_hynel"]
+[ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/ZoominButton.png" id="6_t2a3p"]
+[ext_resource type="Script" path="res://Scripts/ViewportControl.gd" id="6_xt0ob"]
+[ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/ZoomResetButton.png" id="7_82n4t"]
 [ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/ReplaceButton.png" id="7_cg0wr"]
 [ext_resource type="StyleBox" uid="uid://d2jr6q8qqlihn" path="res://Themes/Menubuttondis.tres" id="7_msl4o"]
 [ext_resource type="PackedScene" uid="uid://cwtyu481ec5vq" path="res://UI/StateButton/state_button.tscn" id="8_6lifb"]
+[ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/ZoomOutButton.png" id="8_46wi4"]
 [ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/DupButton.png" id="8_r6auv"]
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="9_jhnap"]
 [ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="10_efci7"]
@@ -76,9 +80,12 @@ offset_bottom = 0.0139771
 mouse_filter = 2
 
 [node name="VPPanel" type="Panel" parent="LeftPanel/VBox"]
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 105)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gcgtm")
+
+[node name="ViewportControl" type="Node" parent="LeftPanel/VBox/VPPanel"]
+script = ExtResource("6_xt0ob")
 
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="LeftPanel/VBox/VPPanel"]
 clip_contents = true
@@ -88,20 +95,63 @@ anchor_left = 0.0622522
 anchor_top = 0.0693069
 anchor_right = 0.0622522
 anchor_bottom = 0.0693069
-offset_left = 15.1059
-offset_top = -3.31683
-offset_right = 142.106
-offset_bottom = 105.683
+offset_left = -4.89414
+offset_top = -0.316829
+offset_right = 157.106
+offset_bottom = 91.6832
 grow_horizontal = 2
 grow_vertical = 2
+stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2"]
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(127, 109)
-size_2d_override = Vector2i(1270, 1090)
+size = Vector2i(162, 92)
+size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+
+[node name="ViewportCam" type="HBoxContainer" parent="LeftPanel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="ZoomInButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture_normal = ExtResource("6_t2a3p")
+texture_pressed = ExtResource("6_t2a3p")
+texture_hover = ExtResource("6_t2a3p")
+texture_disabled = ExtResource("6_t2a3p")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ZoomResetButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture_normal = ExtResource("7_82n4t")
+texture_pressed = ExtResource("7_82n4t")
+texture_hover = ExtResource("7_82n4t")
+texture_disabled = ExtResource("7_82n4t")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ZoomOutButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture_normal = ExtResource("8_46wi4")
+texture_pressed = ExtResource("8_46wi4")
+texture_hover = ExtResource("8_46wi4")
+texture_disabled = ExtResource("8_46wi4")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="CurrentSelVbox" type="VBoxContainer" parent="LeftPanel/VBox"]
 layout_mode = 2
@@ -563,12 +613,24 @@ layout_mode = 2
 min_value = -9999.0
 max_value = 9999.0
 
-[node name="IgnoreBounce" type="CheckBox" parent="RightPanel/Properties/Grid"]
+[node name="HBoxPhysics" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+
+[node name="IgnoreBounce" type="CheckBox" parent="RightPanel/Properties/Grid/HBoxPhysics"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 12
 text = "Ignore Bounce"
+
+[node name="Physics" type="CheckBox" parent="RightPanel/Properties/Grid/HBoxPhysics"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 12
+text = "Physics"
 
 [node name="Sp5" type="HSeparator" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -742,91 +804,6 @@ text = "10"
 state = 9
 input_key = "State 10"
 
-[node name="GridContainer" type="GridContainer" parent="RightPanel/Properties"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.514483
-anchor_top = 0.672593
-anchor_right = 0.977838
-anchor_bottom = 0.834074
-columns = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="VolumeBar" type="ProgressBar" parent="RightPanel/Properties/GridContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 3
-max_value = 1.0
-fill_mode = 3
-
-[node name="VolumeSlider" type="VSlider" parent="RightPanel/Properties/GridContainer/VolumeBar"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_icons/grabber = ExtResource("10_efci7")
-theme_override_icons/grabber_highlight = ExtResource("10_efci7")
-theme_override_icons/grabber_disabled = ExtResource("10_efci7")
-theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
-max_value = 1.0
-step = 0.01
-value = 0.1
-
-[node name="SensitivityBar" type="ProgressBar" parent="RightPanel/Properties/GridContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 3
-min_value = 1.0
-max_value = 10.0
-value = 1.0
-fill_mode = 3
-
-[node name="SensitivitySlider" type="VSlider" parent="RightPanel/Properties/GridContainer/SensitivityBar"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_icons/grabber = ExtResource("10_efci7")
-theme_override_icons/grabber_highlight = ExtResource("10_efci7")
-theme_override_icons/grabber_disabled = ExtResource("10_efci7")
-theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
-min_value = 1.0
-max_value = 10.0
-step = 0.01
-value = 1.0
-
-[node name="HSplitContainer" type="HSplitContainer" parent="RightPanel/Properties"]
-layout_mode = 2
-anchor_left = 0.519175
-anchor_top = 0.84
-anchor_right = 0.969747
-anchor_bottom = 0.865185
-metadata/_edit_use_anchors_ = true
-
-[node name="VolumeLabel" type="Label" parent="RightPanel/Properties/HSplitContainer"]
-layout_mode = 2
-size_flags_vertical = 10
-theme_override_font_sizes/font_size = 12
-text = "Volume"
-horizontal_alignment = 1
-
-[node name="SensitivityLabel" type="Label" parent="RightPanel/Properties/HSplitContainer"]
-layout_mode = 2
-size_flags_vertical = 10
-theme_override_font_sizes/font_size = 12
-text = "Vol. Sensitivity"
-horizontal_alignment = 1
-
 [node name="TopBar" type="Panel" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -891,20 +868,20 @@ popup/item_4/id = 4
 popup/item_5/text = "Gray"
 popup/item_5/id = 5
 
-[node name="InputsButton" type="MenuButton" parent="TopBar/HBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Inputs
-"
-
 [node name="BounceControlButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Bounce
+"
+
+[node name="InputsButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings
 "
 
 [node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
@@ -1050,13 +1027,95 @@ from the original software and improve existing ones."
 [node name="InputsPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(277, 384)
+size = Vector2i(400, 456)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InputsPopup"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 267.0
-offset_bottom = 374.0
+offset_right = 390.0
+offset_bottom = 446.0
+
+[node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer"]
+layout_mode = 2
+columns = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VolumeLabel" type="Label" parent="InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 12
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumeBar" type="ProgressBar" parent="InputsPopup/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+max_value = 1.0
+
+[node name="VolumeSlider" type="HSlider" parent="InputsPopup/VBoxContainer/GridContainer2/VolumeBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("10_efci7")
+theme_override_icons/grabber_highlight = ExtResource("10_efci7")
+theme_override_icons/grabber_disabled = ExtResource("10_efci7")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="Sp" type="HSeparator" parent="InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Sp2" type="HSeparator" parent="InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SensitivityLabel" type="Label" parent="InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 12
+text = "Vol. Sensitivity"
+horizontal_alignment = 1
+
+[node name="SensitivityBar" type="ProgressBar" parent="InputsPopup/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="SensitivitySlider" type="HSlider" parent="InputsPopup/VBoxContainer/GridContainer2/SensitivityBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("10_efci7")
+theme_override_icons/grabber_highlight = ExtResource("10_efci7")
+theme_override_icons/grabber_disabled = ExtResource("10_efci7")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+min_value = 1.0
+max_value = 10.0
+step = 0.01
+value = 1.0
 
 [node name="InputCheckButton" type="CheckButton" parent="InputsPopup/VBoxContainer"]
 unique_name_in_owner = true
@@ -1205,6 +1264,9 @@ unique_name_in_owner = true
 layout_mode = 2
 max_value = 3000.0
 
+[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomInButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_in_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomResetButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_reset_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomOutButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_out_button_pressed"]
 [connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationFramesSlider" to="UIInput" method="_on_animation_frames_slider_value_changed"]
 [connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationSpeedSlider" to="UIInput" method="_on_animation_speed_slider_value_changed"]
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons/FolderButton" to="UIInput" method="_on_folder_button_pressed"]
@@ -1228,15 +1290,16 @@ max_value = 3000.0
 [connection signal="toggled" from="RightPanel/Properties/Grid/HBox11/HBoxContainer2/CheckMouth" to="UIInput" method="_on_check_mouth_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/Grid/HBox11/HBoxContainer2/MouthOpen" to="UIInput" method="_on_mouth_open_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox12/ZOrderSpinbox" to="UIInput" method="_on_z_order_spinbox_value_changed"]
-[connection signal="toggled" from="RightPanel/Properties/Grid/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBoxPhysics/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBoxPhysics/Physics" to="UIInput" method="_on_physics_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox15/BlinkSpeedSlider" to="UIInput" method="_on_blink_speed_slider_value_changed"]
-[connection signal="value_changed" from="RightPanel/Properties/GridContainer/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
-[connection signal="value_changed" from="RightPanel/Properties/GridContainer/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
-[connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
+[connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/TumblrButton" to="OnlineLinks" method="_on_tumblr_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/RedditButton" to="OnlineLinks" method="_on_reddit_button_pressed"]
+[connection signal="value_changed" from="InputsPopup/VBoxContainer/GridContainer2/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="InputsPopup/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
