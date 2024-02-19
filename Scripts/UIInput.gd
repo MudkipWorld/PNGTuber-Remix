@@ -106,6 +106,14 @@ func _on_blend_state_pressed(id):
 			3:
 				Global.held_sprite.blend_mode = "Multiply"
 				
+			4:
+				Global.held_sprite.blend_mode = "Burn"
+				
+			5:
+				Global.held_sprite.blend_mode = "HardMix"
+				
+			6:
+				Global.held_sprite.blend_mode = "Cursed"
 		blend.text = Global.held_sprite.blend_mode
 		Global.held_sprite.set_blend(id)
 		Global.held_sprite.save_state(Global.current_state)
@@ -274,6 +282,7 @@ func _on_color_picker_button_color_changed(newcolor):
 func _on_animation_frames_slider_value_changed(value):
 	Global.held_sprite.hframes = value
 	%AnimationFramesLabel.text = "Animation frames : " + str(value)
+	Global.held_sprite.get_node("Animation").stop()
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
 
@@ -281,6 +290,7 @@ func _on_animation_frames_slider_value_changed(value):
 func _on_animation_speed_slider_value_changed(value):
 	Global.held_sprite.animation_speed = value
 	%AnimationSpeedLabel.text = "Animation Speed : " + str(value)
+	Global.held_sprite.get_node("Animation").stop()
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
 

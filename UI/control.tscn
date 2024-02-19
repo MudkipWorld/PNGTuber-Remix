@@ -175,6 +175,7 @@ offset_right = 79.96
 offset_bottom = 79.96
 size_flags_horizontal = 6
 expand_mode = 1
+stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
 [node name="AnimationFramesLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
@@ -189,7 +190,6 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 min_value = 1.0
 max_value = 24.0
-step = 0.2
 value = 1.0
 rounded = true
 
@@ -203,10 +203,10 @@ text = "Animation Speed :"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-min_value = 0.01
+min_value = 0.1
 max_value = 24.0
-step = 0.2
-value = 0.21
+step = 0.1
+value = 0.3
 
 [node name="LayersButtons" type="HBoxContainer" parent="LeftPanel/VBox"]
 custom_minimum_size = Vector2(0, 18)
@@ -389,16 +389,22 @@ theme_override_styles/disabled = ExtResource("7_msl4o")
 text = "Normal"
 flat = false
 alignment = 0
-item_count = 4
+item_count = 7
 popup/item_0/text = "Normal"
 popup/item_0/checked = true
 popup/item_0/id = 0
 popup/item_1/text = "Add"
 popup/item_1/id = 1
 popup/item_2/text = "Subtract"
-popup/item_2/id = 3
+popup/item_2/id = 2
 popup/item_3/text = "Multiply"
 popup/item_3/id = 3
+popup/item_4/text = "Burn"
+popup/item_4/id = 4
+popup/item_5/text = "HardMix"
+popup/item_5/id = 5
+popup/item_6/text = "Cursed"
+popup/item_6/id = 6
 
 [node name="HBox3" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -966,13 +972,13 @@ stretch_mode = 0
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(626, 382)
+size = Vector2i(626, 408)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp"]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 616.0
-offset_bottom = 372.0
+offset_bottom = 398.0
 
 [node name="TutorialLabel" type="Label" parent="TutorialPopUp/VBoxContainer"]
 layout_mode = 2
@@ -985,6 +991,7 @@ layout_mode = 2
 text = "Held Sprite Inputs :
 - Moving Sprite : Click and drag around.
 - Move Origin : Arrow Keys.
+- Scroll mouse wheel on sliders for more accurate results.
 
 Input Remap :
 - Click the button of the state you want. 

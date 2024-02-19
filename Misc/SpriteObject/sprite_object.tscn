@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://du5v1xpm5fjcm"]
+[gd_scene load_steps=7 format=3 uid="uid://du5v1xpm5fjcm"]
 
 [ext_resource type="Script" path="res://Misc/SpriteObject/Script/sprite_object.gd" id="1_i7wd5"]
 [ext_resource type="Texture2D" uid="uid://bgyf0p8jif68s" path="res://icon.svg" id="2_icouw"]
+[ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_wfm0d"]
 [ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="3_xhumr"]
 
-[sub_resource type="Shader" id="Shader_tntpa"]
+[sub_resource type="Shader" id="Shader_l06p8"]
+resource_local_to_scene = true
 code = "shader_type canvas_item;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform bool enabled;
@@ -18,9 +20,9 @@ void fragment() {
 		vec4 blendColor;
 	   	vec4 output = vec4(1,1,1,1);
 	
-		bgColor = texture( SCREEN_TEXTURE, SCREEN_UV);
+		bgColor = texture( TEXTURE, UV);
 	
-		output.a = Color.a;
+		output.a = Color.a/1.99;
 	
 		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
 		output.r = blendColor.r;
@@ -30,16 +32,17 @@ void fragment() {
 		output.b = blendColor.b;
 	
 		output.rgb = mix(Color.rgb, output.rgb, Intensity);
-		COLOR = output;
+		COLOR.rgba *= output.rgba;
 	}
 	
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1moen"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tqhp"]
 resource_local_to_scene = true
-shader = SubResource("Shader_tntpa")
+shader = SubResource("Shader_l06p8")
 shader_parameter/enabled = false
 shader_parameter/Intensity = 1.0
+shader_parameter/Blend = ExtResource("2_wfm0d")
 
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
 script = ExtResource("1_i7wd5")
@@ -51,7 +54,8 @@ script = ExtResource("1_i7wd5")
 [node name="Drag" type="Node2D" parent="Wobble/Squish"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Wobble/Squish/Drag"]
-material = SubResource("ShaderMaterial_1moen")
+process_priority = 5
+material = SubResource("ShaderMaterial_1tqhp")
 texture = ExtResource("2_icouw")
 
 [node name="Origin" type="Sprite2D" parent="Wobble/Squish/Drag/Sprite2D"]

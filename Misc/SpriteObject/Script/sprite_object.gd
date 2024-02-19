@@ -58,14 +58,19 @@ func _ready():
 
 func animation():
 	$Wobble/Squish/Drag/Sprite2D.hframes = hframes
-	coord = hframes -1
-	
-	if not coord <= 0:
-		if $Wobble/Squish/Drag/Sprite2D.frame_coords.x == coord:
-			$Wobble/Squish/Drag/Sprite2D.frame_coords.x = 0
-			
-		else:
-			$Wobble/Squish/Drag/Sprite2D.frame_coords.x += 1
+	$Wobble/Squish/Drag/Sprite2D.vframes = 1
+	if hframes > 1:
+		coord = hframes -1
+		if not coord <= 0:
+			if $Wobble/Squish/Drag/Sprite2D.frame_coords.x == coord:
+				$Wobble/Squish/Drag/Sprite2D.frame_coords.x = 0
+				
+			elif hframes > 1:
+				$Wobble/Squish/Drag/Sprite2D.set_frame_coords(Vector2(clamp($Wobble/Squish/Drag/Sprite2D.frame_coords.x +1, 0,coord), 0))
+				
+	else:
+		$Wobble/Squish/Drag/Sprite2D.set_frame_coords(Vector2(0, 0))
+		
 	$Animation.wait_time = animation_speed
 	$Animation.start()
 	await $Animation.timeout
@@ -161,13 +166,22 @@ func set_blend(value):
 				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", false)
 			1:
 				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://EasyBlend/Blends/add.png"))
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
 			2:
 				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://EasyBlend/Blends/subtract.png"))
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
 			3:
 				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://EasyBlend/Blends/multiply.png"))
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
+			4:
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
+			5:
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
+			6:
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+				$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
 
 func save_state(id):
 	var dict : Dictionary = {

@@ -117,5 +117,12 @@ pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
+renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
+limits/hdr_2d=false
+limits/size/transparent=true
+limits/per_pixel_transparency/allowed=true
+limits/transparent_background=false
+viewport/per_pixel_transparency/allowed=true
+viewport/size/transparent=true
