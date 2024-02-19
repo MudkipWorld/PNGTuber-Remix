@@ -41,7 +41,7 @@ func load_sprites():
 
 func replacing_sprite():
 	if Global.held_sprite != null:
-		if not Global.held_sprite.folder:
+		if not Global.held_sprite.dictmain.folder:
 			%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
 			$FileDialog.file_mode = 0
 			current_state = State.ReplaceSprite

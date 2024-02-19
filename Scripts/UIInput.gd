@@ -85,7 +85,6 @@ func held_sprite_is_true():
 	rot.editable = true
 	blend.disabled = false
 	clip.disabled = false
-	%ClipToTexture.disabled = false
 	
 	vis.disabled = false
 	checke.disabled = false
@@ -308,7 +307,7 @@ func _on_blink_speed_slider_value_changed(value):
 func _on_delete_button_pressed():
 	if Global.held_sprite != null:
 		Global.held_sprite.treeitem.free()
-		Global.held_sprite.dictmain.queue_free()
+		Global.held_sprite.queue_free()
 		%CurrentSelected.texture = null
 		Global.held_sprite = null
 		held_sprite_is_null()
@@ -320,7 +319,7 @@ func _on_duplicate_button_pressed():
 	obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
 	obj.sprite_name = "Duplicate" + Global.held_sprite.sprite_name 
 	if Global.held_sprite.dictmain.folder:
-		obj.folder = true
+		obj.dictmain.folder = true
 	
 	get_parent().add_item(obj)
 	obj.sprite_id = obj.get_instance_id()
@@ -345,7 +344,7 @@ func _on_folder_button_pressed():
 	sprte_obj.texture = preload("res://Misc/SpriteObject/Folder.png")
 	sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = preload("res://Misc/SpriteObject/Folder.png")
 	sprte_obj.sprite_name = str("Folder")
-	sprte_obj.folder = true
+	sprte_obj.dictmain.folder = true
 	get_parent().add_item(sprte_obj)
 	sprte_obj.sprite_id = sprte_obj.get_instance_id()
 

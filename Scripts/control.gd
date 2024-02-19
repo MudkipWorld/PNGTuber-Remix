@@ -105,7 +105,7 @@ func add_item(sprite):
 	var new_item
 	new_item = tree.create_item(root)
 	new_item.set_text(0, str(sprite.sprite_name))
-	if sprite.folder:
+	if sprite.dictmain.folder:
 		new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 	else:
 		new_item.set_icon(0, sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture)
