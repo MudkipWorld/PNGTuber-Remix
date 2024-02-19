@@ -2,7 +2,6 @@ extends Node2D
 
 signal reinfoanim
 
-@export var states : Array = [{},{},{},{},{},{},{},{},{},{}]
 var mouth_closed = 0
 var mouth_open = 0
 
@@ -14,9 +13,7 @@ var bounce_amount = 50
 var wave_amount = Vector2(100,100)
 
 var yVel = 100
-var bounceGravity = 1000
 var bounceChange = 0.0
-var bounceSlider = 100
 
 var currenly_speaking : bool = false
 
@@ -34,7 +31,7 @@ func _process(delta):
 		get_parent().position.y = 0
 	bounceChange = hold - get_parent().position.y
 	
-	yVel += bounceGravity*delta
+	yVel += Global.settings_dict.bounceGravity*delta
 	
 	
 	if currenly_speaking:
@@ -51,7 +48,7 @@ func save_state(id):
 		current_mc_anim = current_mc_anim,
 		current_mo_anim = current_mo_anim
 	}
-	states[id] = dict
+	Global.settings_dict.states[id] = dict
 	
 	if get_tree().get_root().get_node("Main/Control").has_spoken:
 		speaking()
@@ -59,8 +56,8 @@ func save_state(id):
 		not_speaking()
 
 func get_state(state):
-	if not states[state].is_empty():
-		var dict = states[state]
+	if not Global.settings_dict.states[state].is_empty():
+		var dict = Global.settings_dict.states[state]
 		mouth_closed = dict.mouth_closed
 		mouth_open = dict.mouth_open
 		current_mc_anim = dict.current_mc_anim
@@ -97,19 +94,19 @@ func set_mc_idle():
 
 func set_mc_bouncy():
 	if get_parent().position.y > -16:
-		yVel = bounceSlider * -1
+		yVel = Global.settings_dict.bounceSlider * -1
 
 func set_mc_one_bounce():
 	if get_parent().position.y > -16:
-		yVel = bounceSlider * -1
+		yVel = Global.settings_dict.bounceSlider * -1
 
 func set_mo_idle():
 	pass
 
 func set_mo_bouncy():
 	if get_parent().position.y > -16:
-		yVel = bounceSlider * -1
+		yVel = Global.settings_dict.bounceSlider * -1
 
 func set_mo_one_bounce():
 	if get_parent().position.y > -16:
-		yVel = bounceSlider * -1
+		yVel = Global.settings_dict.bounceSlider * -1

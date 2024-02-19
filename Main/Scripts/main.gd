@@ -99,7 +99,7 @@ func _on_sub_viewport_container_mouse_exited():
 	can_scroll = false
 
 func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
-	if Global.checkinput:
+	if Global.settings_dict.checkinput:
 		var keyStrings = []
 		var costumeKeys = []
 		for l in get_tree().get_nodes_in_group("StateButtons"):

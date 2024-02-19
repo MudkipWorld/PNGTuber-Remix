@@ -1,15 +1,20 @@
 [gd_scene load_steps=7 format=3 uid="uid://du5v1xpm5fjcm"]
 
 [ext_resource type="Script" path="res://Misc/SpriteObject/Script/sprite_object.gd" id="1_i7wd5"]
-[ext_resource type="Texture2D" uid="uid://bgyf0p8jif68s" path="res://icon.svg" id="2_icouw"]
 [ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_wfm0d"]
 [ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="3_xhumr"]
+[ext_resource type="Texture2D" uid="uid://bgyf0p8jif68s" path="res://icon.svg" id="4_6ey4y"]
 
 [sub_resource type="Shader" id="Shader_l06p8"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform bool enabled;
+uniform bool clip;
+uniform sampler2D mask;
+
+
+
 uniform sampler2D Blend;  //Blending mode texture
 uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
 
@@ -34,6 +39,16 @@ void fragment() {
 		output.rgb = mix(Color.rgb, output.rgb, Intensity);
 		COLOR.rgba *= output.rgba;
 	}
+	if (clip){
+	vec4 mask_color = texture(mask, UV).rgba;
+	vec4 sprite_color = texture(TEXTURE, UV).rgba;
+	
+	if (mask_color.a == 0.0)
+	{
+		sprite_color.a = 0.0;
+	}
+	COLOR.a *= sprite_color.a;
+	}
 	
 }"
 
@@ -41,6 +56,7 @@ void fragment() {
 resource_local_to_scene = true
 shader = SubResource("Shader_l06p8")
 shader_parameter/enabled = false
+shader_parameter/clip = false
 shader_parameter/Intensity = 1.0
 shader_parameter/Blend = ExtResource("2_wfm0d")
 
@@ -56,7 +72,7 @@ script = ExtResource("1_i7wd5")
 [node name="Sprite2D" type="Sprite2D" parent="Wobble/Squish/Drag"]
 process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
-texture = ExtResource("2_icouw")
+texture = ExtResource("4_6ey4y")
 
 [node name="Origin" type="Sprite2D" parent="Wobble/Squish/Drag/Sprite2D"]
 visible = false

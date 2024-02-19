@@ -10,8 +10,23 @@ signal not_speaking
 var blink_timer : Timer = Timer.new()
 var held_sprite = null
 var current_state : int = 0
-var blink_speed = 1
-var checkinput : bool = true
+
+
+var settings_dict : Dictionary = {
+	sensitivity_limit = 1,
+	volume_limit = 1,
+	blink_speed = 1,
+	checkinput = true,
+	bg_color = Color.SLATE_GRAY,
+	is_transparent = false,
+	bounceGravity = 1000,
+	bounceSlider = 100,
+	states = [{},{},{},{},{},{},{},{},{},{}],
+
+}
+
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +35,7 @@ func _ready():
 	blinking()
 
 func blinking():
-	blink_timer.wait_time = randf_range(1,5) * blink_speed
+	blink_timer.wait_time = randf_range(1,5) * settings_dict.blink_speed
 	blink_timer.start()
 	await blink_timer.timeout
 	blink.emit()

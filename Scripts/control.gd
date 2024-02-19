@@ -7,12 +7,12 @@ var container
 var has_spoken : bool = true
 var speech_value : float : 
 	set(value):
-		if value >= GlobalAudioStreamPlayer.volume_limit:
+		if value >= Global.settings_dict.volume_limit:
 			if not has_spoken:
 				Global.speaking.emit()
 				has_spoken = true
 		
-		if value < GlobalAudioStreamPlayer.volume_limit:
+		if value < Global.settings_dict.volume_limit:
 			if has_spoken:
 				Global.not_speaking.emit()
 				has_spoken = false
@@ -31,16 +31,15 @@ func _ready():
 func _process(_delta):
 	var sample = AudioServer.get_bus_peak_volume_left_db(2, 0)
 	var linear_sampler = db_to_linear(sample) 
-	%VolumeBar.value = linear_sampler * GlobalAudioStreamPlayer.sensitivity_limit
+	%VolumeBar.value = linear_sampler * Global.settings_dict.sensitivity_limit
 	speech_value = %VolumeBar.value
 
-func sliders_revalue(volume, sensi, bounce, gravity, check):
-	%VolumeSlider.value = volume
-	%SensitivityBar.value = sensi
-	%SensitivitySlider.value = sensi
-	%BounceAmountSlider.value = bounce
-	%GravityAmountSlider.value = gravity
-	%InputCheckButton.button_pressed = check
+func sliders_revalue(settings_dict):
+	%BounceAmountSlider.value = settings_dict.bounceSlider
+	%GravityAmountSlider.value = settings_dict.bounceGravity
+	%BGColorPicker.color = settings_dict.bg_color
+	%InputCheckButton.button_pressed = settings_dict.checkinput
+	
 
 func _tree(sprites):
 	tree.clear()
@@ -50,7 +49,7 @@ func _tree(sprites):
 		var new_item
 		new_item = tree.create_item(root)
 		new_item.set_text(0, str(i.sprite_name))
-		if i.folder:
+		if i.dictmain.folder:
 			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 		else:
 			new_item.set_icon(0, i.get_node("Wobble/Squish/Drag/Sprite2D").texture)
@@ -98,6 +97,7 @@ func update_tree(child, parent, boolean):
 			parent = child.get_parent()
 		}
 		child.set_metadata(0, dic)
+	Global.get_sprite_states(Global.current_state)
 	_tree(get_tree().get_nodes_in_group("Sprites"))
 
 func add_item(sprite):

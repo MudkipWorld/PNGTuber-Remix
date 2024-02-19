@@ -85,6 +85,8 @@ func held_sprite_is_true():
 	rot.editable = true
 	blend.disabled = false
 	clip.disabled = false
+	%ClipToTexture.disabled = false
+	
 	vis.disabled = false
 	checke.disabled = false
 	checkm.disabled = false
@@ -98,24 +100,24 @@ func _on_blend_state_pressed(id):
 	if Global.held_sprite:
 		match id:
 			0:
-				Global.held_sprite.blend_mode = "Normal"
+				Global.held_sprite.dictmain.blend_mode = "Normal"
 			1:
-				Global.held_sprite.blend_mode = "Add"
+				Global.held_sprite.dictmain.blend_mode = "Add"
 			2:
-				Global.held_sprite.blend_mode = "Subtract"
+				Global.held_sprite.dictmain.blend_mode = "Subtract"
 			3:
-				Global.held_sprite.blend_mode = "Multiply"
+				Global.held_sprite.dictmain.blend_mode = "Multiply"
 				
 			4:
-				Global.held_sprite.blend_mode = "Burn"
+				Global.held_sprite.dictmain.blend_mode = "Burn"
 				
 			5:
-				Global.held_sprite.blend_mode = "HardMix"
+				Global.held_sprite.dictmain.blend_mode = "HardMix"
 				
 			6:
-				Global.held_sprite.blend_mode = "Cursed"
-		blend.text = Global.held_sprite.blend_mode
-		Global.held_sprite.set_blend(id)
+				Global.held_sprite.dictmain.blend_mode = "Cursed"
+		blend.text = Global.held_sprite.dictmain.blend_mode
+		Global.held_sprite.set_blend(Global.held_sprite.dictmain.blend_mode)
 		Global.held_sprite.save_state(Global.current_state)
 
 func _on_mo_anim_state_pressed(id):
@@ -153,65 +155,65 @@ func _on_mc_anim_state_pressed(id):
 
 func reinfo():
 	held_sprite_is_true()
-	x_amp.value = Global.held_sprite.xAmp
-	x_freq.value = Global.held_sprite.xFrq
+	x_amp.value = Global.held_sprite.dictmain.xAmp
+	x_freq.value = Global.held_sprite.dictmain.xFrq
 	
-	y_amp.value = Global.held_sprite.yAmp
-	y_freq.value = Global.held_sprite.yFrq
+	y_amp.value = Global.held_sprite.dictmain.yAmp
+	y_freq.value = Global.held_sprite.dictmain.yFrq
 	
-	rot.value = Global.held_sprite.rdragStr
-	vis.button_pressed = Global.held_sprite.visible
+	rot.value = Global.held_sprite.dictmain.rdragStr
+	vis.button_pressed = Global.held_sprite.dictmain.visible
 	
-	checke.button_pressed = Global.held_sprite.should_blink
-	eyeop.button_pressed = Global.held_sprite.open_eyes
+	checke.button_pressed = Global.held_sprite.dictmain.should_blink
+	eyeop.button_pressed = Global.held_sprite.dictmain.open_eyes
 	
-	checkm.button_pressed = Global.held_sprite.should_talk
-	mouthop.button_pressed = Global.held_sprite.open_mouth
+	checkm.button_pressed = Global.held_sprite.dictmain.should_talk
+	mouthop.button_pressed = Global.held_sprite.dictmain.open_mouth
 	
 	%Name.text = Global.held_sprite.treeitem.get_text(0)
 	%CurrentSelected.texture = Global.held_sprite.texture
-	%AnimationFramesSlider.value = Global.held_sprite.hframes
-	%AnimationSpeedSlider.value = Global.held_sprite.animation_speed
+	%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
+	%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
 	%SizeSpinBox.value = Global.held_sprite.scale.x
-	%StretchSlider.value = Global.held_sprite.stretchAmount
+	%StretchSlider.value = Global.held_sprite.dictmain.stretchAmount
 	color.color = Global.held_sprite.modulate
-	%IgnoreBounce.button_pressed = Global.held_sprite.ignore_bounce
-	%Physics.button_pressed = Global.held_sprite.physics
+	%IgnoreBounce.button_pressed = Global.held_sprite.dictmain.ignore_bounce
+	%Physics.button_pressed = Global.held_sprite.dictmain.physics
 	
 	if Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").get_clip_children_mode() == 0:
 		clip.button_pressed = false
 	else:
 		clip.button_pressed = true
 		
-	blend.text = Global.held_sprite.blend_mode
+	blend.text = Global.held_sprite.dictmain.blend_mode
 
 func reinfoanim():
 	mc_anim.text = contain.current_mc_anim
 	mo_anim.text = contain.current_mo_anim
-	
+
 
 func _on_x_amp_slider_value_changed(value):
-	Global.held_sprite.xAmp = value
+	Global.held_sprite.dictmain.xAmp = value
 	%XALabel.text = "X-Amp : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_xf_slider_value_changed(value):
-	Global.held_sprite.xFrq = value
+	Global.held_sprite.dictmain.xFrq = value
 	%XFLabel.text = "X-Freq : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_y_amp_slider_value_changed(value):
-	Global.held_sprite.yAmp = value
+	Global.held_sprite.dictmain.yAmp = value
 	%YALabel.text = "Y-Amp : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_yf_slider_value_changed(value):
-	Global.held_sprite.yFrq = value
+	Global.held_sprite.dictmain.yFrq = value
 	%YFLabel.text = "Y-Freq : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_rotation_level_value_changed(value):
-	Global.held_sprite.rdragStr = value
+	Global.held_sprite.dictmain.rdragStr = value
 	%Rlable.text = "Rot-Degree:" + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
@@ -219,76 +221,79 @@ func _on_rotation_level_value_changed(value):
 func _on_check_box_toggled(toggled_on):
 	if toggled_on:
 		Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(2)
-		Global.held_sprite.clip = 2
+		Global.held_sprite.dictmain.clip = 2
 	else:
 		Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(0)
-		Global.held_sprite.clip = 0
+		Global.held_sprite.dictmain.clip = 0
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_name_text_submitted(new_text):
 	Global.held_sprite.treeitem.set_text(0, new_text)
 	Global.held_sprite.sprite_name = new_text
-	Global.held_sprite.save_state(Global.current_state)
+	Global.held_sprite.dsave_state(Global.current_state)
 
 func _on_visible_toggled(toggled_on):
 	if toggled_on:
+		Global.held_sprite.dictmain.visible = true
 		Global.held_sprite.visible = true
 	else:
+		Global.held_sprite.dictmain.visible = false
 		Global.held_sprite.visible = false
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_z_order_spinbox_value_changed(value):
-	Global.held_sprite.z_index = value
+	Global.held_sprite.dictmain.z_index = value
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_check_eye_toggled(toggled_on):
-	Global.held_sprite.should_blink = toggled_on
+	Global.held_sprite.dictmain.should_blink = toggled_on
 	if not toggled_on:
 		Global.held_sprite.show()
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_eye_open_toggled(toggled_on):
-	Global.held_sprite.open_eyes = toggled_on
+	Global.held_sprite.dictmain.open_eyes = toggled_on
 	Global.held_sprite.blink()
 	
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_check_mouth_toggled(toggled_on):
-	Global.held_sprite.should_talk = toggled_on
+	Global.held_sprite.dictmain.should_talk = toggled_on
 	if not toggled_on:
 		Global.held_sprite.show()
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_mouth_open_toggled(toggled_on):
 	pass
-	Global.held_sprite.open_mouth = toggled_on
+	Global.held_sprite.dictmain.open_mouth = toggled_on
 	Global.held_sprite.check_talk()
 	
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_volume_slider_value_changed(value):
-	GlobalAudioStreamPlayer.volume_limit = value
+	Global.settings_dict.volume_limit = value
 
 func _on_sensitivity_slider_value_changed(value):
-	GlobalAudioStreamPlayer.sensitivity_limit = value
+	Global.settings_dict.sensitivity_limit = value
 	%SensitivityBar.value = value
 
 
 func _on_color_picker_button_color_changed(newcolor):
 	Global.held_sprite.modulate = newcolor
+	Global.held_sprite.dictmain.colored = newcolor
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_animation_frames_slider_value_changed(value):
-	Global.held_sprite.hframes = value
+	Global.held_sprite.dictmain.hframes = value
 	%AnimationFramesLabel.text = "Animation frames : " + str(value)
-	Global.held_sprite.get_node("Animation").stop()
-	Global.held_sprite.animation()
+	Global.held_sprite.dictmain.get_node("Animation").stop()
+	Global.held_sprite.dictmain.animation()
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_animation_speed_slider_value_changed(value):
-	Global.held_sprite.animation_speed = value
+	Global.held_sprite.dictmain.animation_speed = value
 	%AnimationSpeedLabel.text = "Animation Speed : " + str(value)
 	Global.held_sprite.get_node("Animation").stop()
 	Global.held_sprite.animation()
@@ -303,7 +308,7 @@ func _on_blink_speed_slider_value_changed(value):
 func _on_delete_button_pressed():
 	if Global.held_sprite != null:
 		Global.held_sprite.treeitem.free()
-		Global.held_sprite.queue_free()
+		Global.held_sprite.dictmain.queue_free()
 		%CurrentSelected.texture = null
 		Global.held_sprite = null
 		held_sprite_is_null()
@@ -314,12 +319,12 @@ func _on_duplicate_button_pressed():
 	obj.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
 	obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
 	obj.sprite_name = "Duplicate" + Global.held_sprite.sprite_name 
-	if Global.held_sprite.folder:
+	if Global.held_sprite.dictmain.folder:
 		obj.folder = true
 	
 	get_parent().add_item(obj)
 	obj.sprite_id = obj.get_instance_id()
-	
+
 func _on_size_spin_box_value_changed(value):
 	Global.held_sprite.scale = Vector2(value, value)
 
@@ -329,7 +334,7 @@ func _on_replace_button_pressed():
 
 
 func _on_stretch_slider_value_changed(value):
-	Global.held_sprite.stretchAmount = value
+	Global.held_sprite.dictmain.stretchAmount = value
 	%StretchLabel.text = "Stretch Amount : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
@@ -346,10 +351,18 @@ func _on_folder_button_pressed():
 
 
 func _on_ignore_bounce_toggled(toggled_on):
-	Global.held_sprite.ignore_bounce = toggled_on
+	Global.held_sprite.dictmain.ignore_bounce = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_physics_toggled(toggled_on):
-	Global.held_sprite.physics = toggled_on
+	Global.held_sprite.dictmain.physics = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_clip_to_parent_mouse_entered():
+	%Clippingwarning.show()
+
+
+func _on_clip_to_parent_mouse_exited():
+	%Clippingwarning.hide()

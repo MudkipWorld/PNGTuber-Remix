@@ -17,6 +17,7 @@ func _ready():
 	bgcolor.get_popup().connect("id_pressed",choosing_bg_color)
 	about.get_popup().connect("id_pressed",choosing_about)
 
+
 func choosing_files(id):
 	var main = get_tree().get_root().get_node("Main")
 	match id:
@@ -41,8 +42,8 @@ func choosing_mode(id):
 			is_editor = true
 				
 		1:
-			RenderingServer.set_default_clear_color(bg_color)
-			get_viewport().transparent_bg = is_transparent
+			RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
+			get_viewport().transparent_bg = Global.settings_dict.is_transparent
 			%RightPanel.hide()
 			%LeftPanel.hide()
 			is_editor = false
@@ -56,24 +57,27 @@ func choosing_mode(id):
 
 
 func choosing_bg_color(id):
-	is_transparent = false
+	Global.settings_dict.is_transparent = false
 	match id:
 		0:
-			bg_color = Color.RED
+			Global.settings_dict.bg_color = Color.RED
 		1:
-			bg_color =  Color.BLUE
+			Global.settings_dict.bg_color =  Color.BLUE
 		2:
-			bg_color = Color.GREEN
+			Global.settings_dict.bg_color = Color.GREEN
 		3:
-			bg_color = Color.MAGENTA
+			Global.settings_dict.bg_color = Color.MAGENTA
 		4:
-			bg_color = Color.DIM_GRAY
-			is_transparent  = true
+			Global.settings_dict.bg_color = Color.DIM_GRAY
+			Global.settings_dict.is_transparent  = true
 		5:
-			bg_color = Color.SLATE_GRAY
+			Global.settings_dict.bg_color = Color.SLATE_GRAY
+			
+		6:
+			%Background.popup()
 	if not is_editor:
-		RenderingServer.set_default_clear_color(bg_color)
-		get_viewport().transparent_bg = is_transparent
+		RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
+		get_viewport().transparent_bg = Global.settings_dict.is_transparent
 
 func choosing_about(id):
 	match id:
@@ -101,13 +105,22 @@ func _on_bounce_control_button_pressed():
 
 
 func _on_bounce_amount_slider_value_changed(value):
-	origin.bounceSlider = value
+	Global.settings_dict.bounceSlider = value
 	%BounceAmount.text = "Bounce Amount : " + str(value)
 
 func _on_gravity_amount_slider_value_changed(value):
-	origin.bounceGravity = value
+	Global.settings_dict.bounceGravity = value
 	%GravityAmount.text = "Bounce Gravity : " + str(value)
 
 
 func _on_input_check_button_toggled(toggled_on):
-	Global.checkinput = toggled_on
+	Global.settings_dict.checkinput = toggled_on
+
+
+func _on_color_picker_color_changed(color):
+	Global.settings_dict.bg_color = color
+
+func update_bg_color(color, transparency):
+	Global.settings_dict.bg_color = color
+	Global.settings_dict.is_transparent = transparency
+	%BGColorPicker.color = color

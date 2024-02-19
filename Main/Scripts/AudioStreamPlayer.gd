@@ -4,8 +4,6 @@ const MIN_DB: int = 80
 var record_bus_index 
 var record_effect : AudioEffectRecord
 
-var sensitivity_limit = 1
-var volume_limit = 1
 var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 
 # Called when the node enters the scene tree for the first time.

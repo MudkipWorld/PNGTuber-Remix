@@ -3,13 +3,10 @@ extends Node
 
 var save_dict : Dictionary = {}
 
+
 func save_file(path):
 	var sprites = get_tree().get_nodes_in_group("Sprites")
 	var inputs = get_tree().get_nodes_in_group("StateButtons")
-	var bounce = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
-	var blink = Global.blink_speed
-	var check_input = Global.checkinput
-	var mic = GlobalAudioStreamPlayer
 	
 	var sprites_array : Array = []
 	var input_array : Array = []
@@ -29,16 +26,11 @@ func save_file(path):
 	for input in inputs:
 		input_array.append(input.input_key)
 	
+	
 	save_dict = {
 		sprites_array = sprites_array,
-		input_array = input_array,
-		blink = blink,
-		bounce = bounce.bounceSlider,
-		gravity = bounce.bounceGravity,
-		volume_limit = mic.volume_limit,
-		sens_limit = mic.sensitivity_limit,
-		check_input = check_input,
-		bounce_states = bounce.states
+		settings_dict = Global.settings_dict,
+		input_array = input_array
 	}
 	
 	
@@ -52,20 +44,10 @@ func save_file(path):
 		file.close()
 
 func load_file(path):
-	var bounce = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
-	var blink = Global.blink_speed
-	var mic = GlobalAudioStreamPlayer
-	
 	var file = FileAccess.open(path, FileAccess.READ)
 	var load_dict = file.get_var()
 	
-	blink = load_dict.blink
-	mic.volume_limit = load_dict.volume_limit
-	mic.sensitivity_limit = load_dict.sens_limit
-	bounce.bounceSlider = load_dict.bounce
-	bounce.bounceGravity = load_dict.gravity
-	Global.checkinput = load_dict.check_input
-	bounce.states = load_dict.bounce_states
+	Global.settings_dict = load_dict.settings_dict
 	
 	for sprite in load_dict.sprites_array:
 		var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
@@ -81,7 +63,7 @@ func load_file(path):
 		sprite_obj.parent_id = sprite.parent_id
 		sprite_obj.sprite_name = sprite.sprite_name
 		
-		bounce.add_child(sprite_obj)
+		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
 
 	for input in len(load_dict.input_array):
 		get_tree().get_nodes_in_group("StateButtons")[input].input_key = load_dict.input_array[input]
@@ -89,6 +71,6 @@ func load_file(path):
 	
 	Global.get_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
-	get_tree().get_root().get_node("Main/Control").sliders_revalue(mic.volume_limit, mic.sensitivity_limit, bounce.bounceSlider, bounce.bounceGravity, Global.checkinput)
+	get_tree().get_root().get_node("Main/Control").sliders_revalue(Global.settings_dict)
 	
 	file.close()
