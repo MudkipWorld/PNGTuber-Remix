@@ -43,11 +43,17 @@ func save_file(path):
 		file.store_var(save_dict)
 		file.close()
 
+
 func load_file(path):
+	get_tree().get_root().get_node("Main").clear_sprites()
+	
+	get_tree().get_root().get_node("Main/Timer").start()
+	await get_tree().get_root().get_node("Main/Timer").timeout
+	
 	var file = FileAccess.open(path, FileAccess.READ)
 	var load_dict = file.get_var()
 	
-	Global.settings_dict = load_dict.settings_dict
+	Global.settings_dict.merge(load_dict.settings_dict, true)
 	
 	for sprite in load_dict.sprites_array:
 		var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
@@ -69,8 +75,9 @@ func load_file(path):
 		get_tree().get_nodes_in_group("StateButtons")[input].input_key = load_dict.input_array[input]
 		get_tree().get_nodes_in_group("StareRemapButton")[input].text = load_dict.input_array[input]
 	
-	Global.get_sprite_states(0)
+	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
 	get_tree().get_root().get_node("Main/Control").sliders_revalue(Global.settings_dict)
+	Global.load_sprite_states(0)
 	
 	file.close()

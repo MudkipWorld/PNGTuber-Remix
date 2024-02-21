@@ -64,8 +64,12 @@ func _tree(sprites):
 	check_parent()
 
 func loaded_tree(sprites):
+	tree.clear()
+	var root = tree.create_item()
+	root.set_text(0, "Sprites")
 	for i in sprites:
 		i.reparent_obj(get_tree().get_nodes_in_group("Sprites"))
+	_tree(get_tree().get_nodes_in_group("Sprites"))
 
 
 func check_parent():

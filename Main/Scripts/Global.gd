@@ -41,6 +41,15 @@ func blinking():
 	blink.emit()
 	blinking()
 
+func load_sprite_states(state):
+	current_state = state
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		i.get_state(current_state)
+	if held_sprite != null:
+		emit_signal("reinfo")
+		
+	animation_state.emit(current_state)
+
 func get_sprite_states(state):
 	current_state = state
 	for i in get_tree().get_nodes_in_group("Sprites"):

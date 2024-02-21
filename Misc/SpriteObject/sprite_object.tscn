@@ -27,7 +27,7 @@ void fragment() {
 	
 		bgColor = texture( TEXTURE, UV);
 	
-		output.a = Color.a/1.99;
+		output.a = Color.a;
 	
 		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
 		output.r = blendColor.r;

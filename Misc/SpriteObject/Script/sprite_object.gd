@@ -168,37 +168,55 @@ func not_speaking():
 			show()
 
 func save_state(id):
-	states[id] = dictmain
+	var dict : Dictionary = {
+	xFrq = dictmain.xFrq,
+	xAmp = dictmain.xAmp,
+	yFrq = dictmain.yFrq,
+	yAmp = dictmain.yAmp,
+	rdragStr = dictmain.rdragStr,
+	rLimitMax = dictmain.rLimitMax,
+	rLimitMin = dictmain.rLimitMin,
+	stretchAmount = dictmain.stretchAmount,
+	blend_mode = dictmain.blend_mode,
+	visible = visible,
+	colored = modulate,
+	z_index = z_index,
+	open_eyes =  dictmain.open_eyes,
+	open_mouth = dictmain.open_mouth,
+	should_blink = dictmain.should_blink,
+	should_talk =  dictmain.should_talk,
+	animation_speed = dictmain.animation_speed ,
+	hframes = dictmain.hframes,
+	scale = scale,
+	folder = dictmain.folder,
+	global_position = global_position,
+	offset = $Wobble/Squish/Drag/Sprite2D.offset,
+	ignore_bounce = dictmain.ignore_bounce,
+	clip = dictmain.clip,
+	physics = dictmain.physics
+	}
+	states[id] = dict
+	
 
 func get_state(id):
 	if not states[id].is_empty():
 		var dict = states[id]
-		dictmain = dict
+		dictmain.merge(dict, true)
 		
+		
+		z_index = dictmain.z_index
 		modulate = dictmain.colored
 		visible = dictmain.visible
+		scale = dictmain.scale
 		$Wobble/Squish/Drag/Sprite2D.offset = dictmain.offset 
 		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dictmain.offset 
 		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)
-		clip_parent()
 		
 		speaking()
 		not_speaking()
 		animation()
 		set_blend(dictmain.blend_mode)
 
-func clip_parent():
-	if get_parent() is Sprite2D:
-		if dictmain.clip_to_parent:
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("clip", true)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("mask", get_parent().texture)
-			print("test")
-		else:
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("clip", false)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("mask", "")
-	else:
-		$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("clip", false)
-		$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("mask", "")
 
 func check_talk():
 	if dictmain.should_talk:
@@ -245,9 +263,6 @@ func _on_grab_button_up():
 
 func reparent_obj(parent):
 	for i in parent:
-		if parent_id == 0:
-			get_tree().get_root().get_node("Main/Control")._tree(get_tree().get_nodes_in_group("Sprites"))
-			return
 		if i.sprite_id == parent_id:
 			reparent(i.get_node("Wobble/Squish/Drag/Sprite2D"))
-	get_tree().get_root().get_node("Main/Control")._tree(get_tree().get_nodes_in_group("Sprites"))
+

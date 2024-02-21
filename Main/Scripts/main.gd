@@ -77,11 +77,19 @@ func _on_file_dialog_files_selected(paths):
 	$Control._tree(sprite_nodes)
 
 func _on_confirmation_dialog_confirmed():
+	clear_sprites()
+
+
+func clear_sprites():
 	Global.held_sprite = null
 	$Control/UIInput.held_sprite_is_null()
 	$Control/LeftPanel/VBox/Panel/LayersTree.clear()
-	for i in %SpritesContainer.get_children():
+	for i in get_tree().get_nodes_in_group("Sprites"):
 		i.queue_free()
+	
+	$Control/LeftPanel/VBox/Panel/LayersTree.clear()
+
+
 
 func _input(event):
 	if can_scroll:

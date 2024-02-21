@@ -76,6 +76,9 @@ autoplay = true
 bus = &"Mic"
 script = ExtResource("5_swrrk")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+
 [connection signal="bg_key_pressed" from="BackgroundInputCapture" to="." method="_on_background_input_capture_bg_key_pressed"]
 [connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]

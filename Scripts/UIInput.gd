@@ -173,9 +173,9 @@ func reinfo():
 	%CurrentSelected.texture = Global.held_sprite.texture
 	%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
 	%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
-	%SizeSpinBox.value = Global.held_sprite.scale.x
+	%SizeSpinBox.value = Global.held_sprite.dictmain.scale.x
 	%StretchSlider.value = Global.held_sprite.dictmain.stretchAmount
-	color.color = Global.held_sprite.modulate
+	color.color = Global.held_sprite.dictmain.colored
 	%IgnoreBounce.button_pressed = Global.held_sprite.dictmain.ignore_bounce
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
 	
@@ -242,6 +242,7 @@ func _on_visible_toggled(toggled_on):
 
 func _on_z_order_spinbox_value_changed(value):
 	Global.held_sprite.dictmain.z_index = value
+	Global.held_sprite.z_index = value
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_check_eye_toggled(toggled_on):
@@ -279,20 +280,18 @@ func _on_sensitivity_slider_value_changed(value):
 
 func _on_color_picker_button_color_changed(newcolor):
 	Global.held_sprite.modulate = newcolor
-	Global.held_sprite.dictmain.colored = newcolor
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_animation_frames_slider_value_changed(value):
-	Global.held_sprite.dictmain.hframes = value
 	%AnimationFramesLabel.text = "Animation frames : " + str(value)
-	Global.held_sprite.dictmain.get_node("Animation").stop()
-	Global.held_sprite.dictmain.animation()
+	Global.held_sprite.get_node("Animation").stop()
+	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_animation_speed_slider_value_changed(value):
-	Global.held_sprite.dictmain.animation_speed = value
+
 	%AnimationSpeedLabel.text = "Animation Speed : " + str(value)
 	Global.held_sprite.get_node("Animation").stop()
 	Global.held_sprite.animation()
@@ -300,7 +299,7 @@ func _on_animation_speed_slider_value_changed(value):
 
 
 func _on_blink_speed_slider_value_changed(value):
-	Global.blink_speed = value
+	Global.settings_dict.blink_speed = value
 	%BlinkSpeedLabel.text = "Blink Speed : " + str(snappedf(value, 0.1))
 
 
@@ -325,7 +324,9 @@ func _on_duplicate_button_pressed():
 	obj.sprite_id = obj.get_instance_id()
 
 func _on_size_spin_box_value_changed(value):
+	Global.held_sprite.dictmain.scale = Vector2(value, value)
 	Global.held_sprite.scale = Vector2(value, value)
+	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_replace_button_pressed():
@@ -357,11 +358,3 @@ func _on_ignore_bounce_toggled(toggled_on):
 func _on_physics_toggled(toggled_on):
 	Global.held_sprite.dictmain.physics = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_clip_to_parent_mouse_entered():
-	%Clippingwarning.show()
-
-
-func _on_clip_to_parent_mouse_exited():
-	%Clippingwarning.hide()
