@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3ogn37w7ikc4"]
+
+[ext_resource type="Script" path="res://Misc/SpriteObject/Script/collab_sprite_object.gd" id="1_3pf21"]
+[ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_5xukc"]
+[ext_resource type="Texture2D" uid="uid://bgyf0p8jif68s" path="res://icon.svg" id="3_fefev"]
+
+[sub_resource type="Shader" id="Shader_l06p8"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform bool enabled;
+uniform bool clip;
+uniform sampler2D mask;
+
+
+
+uniform sampler2D Blend;  //Blending mode texture
+uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
+
+void fragment() {
+	if (enabled){
+		vec4 bgColor;
+		vec4 Color = texture(TEXTURE, UV);
+		vec4 blendColor;
+	   	vec4 output = vec4(1,1,1,1);
+	
+		bgColor = texture( TEXTURE, UV);
+	
+		output.a = Color.a;
+	
+		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
+		output.r = blendColor.r;
+		blendColor = texture( Blend, vec2(bgColor.g, Color.g) );
+		output.g = blendColor.g;
+		blendColor = texture( Blend, vec2(bgColor.b, Color.b) );
+		output.b = blendColor.b;
+	
+		output.rgb = mix(Color.rgb, output.rgb, Intensity);
+		COLOR.rgba *= output.rgba;
+	}
+	if (clip){
+	vec4 mask_color = texture(mask, UV).rgba;
+	vec4 sprite_color = texture(TEXTURE, UV).rgba;
+	
+	if (mask_color.a == 0.0)
+	{
+		sprite_color.a = 0.0;
+	}
+	COLOR.a *= sprite_color.a;
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tqhp"]
+resource_local_to_scene = true
+shader = SubResource("Shader_l06p8")
+shader_parameter/enabled = false
+shader_parameter/clip = false
+shader_parameter/Intensity = 1.0
+shader_parameter/Blend = ExtResource("2_5xukc")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_a113q"]
+properties/0/path = NodePath(".:dictmain")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("MultiplayerSynchronizer:root_path")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Wobble/Squish/Drag/Sprite2D:frame")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Wobble/Squish/Drag/Sprite2D:offset")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath(".:z_index")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:modulate")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+
+[node name="SpriteObject" type="Node2D" groups=["Sprites"]]
+script = ExtResource("1_3pf21")
+
+[node name="Wobble" type="Node2D" parent="."]
+
+[node name="Squish" type="Node2D" parent="Wobble"]
+
+[node name="Drag" type="Node2D" parent="Wobble/Squish"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Wobble/Squish/Drag"]
+process_priority = 5
+material = SubResource("ShaderMaterial_1tqhp")
+texture = ExtResource("3_fefev")
+
+[node name="Blink" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Animation" type="Timer" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_a113q")

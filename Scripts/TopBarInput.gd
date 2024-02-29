@@ -124,3 +124,7 @@ func update_bg_color(color, transparency):
 	Global.settings_dict.bg_color = color
 	Global.settings_dict.is_transparent = transparency
 	%BGColorPicker.color = color
+
+
+func _on_collab_button_pressed():
+	pass # Replace with function body.

@@ -27,10 +27,9 @@ var settings_dict : Dictionary = {
 
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_window().min_size = Vector2(1000,720)
+	get_window().min_size = Vector2(720,500)
 	add_child(blink_timer)
 	blinking()
 
@@ -49,6 +48,7 @@ func load_sprite_states(state):
 		emit_signal("reinfo")
 		
 	animation_state.emit(current_state)
+	
 
 func get_sprite_states(state):
 	current_state = state

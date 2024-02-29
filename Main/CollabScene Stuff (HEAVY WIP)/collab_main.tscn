@@ -1,0 +1,420 @@
+[gd_scene load_steps=9 format=3 uid="uid://cf35ao712mik2"]
+
+[ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_n3eiy"]
+[ext_resource type="Script" path="res://Main/CollabScene Stuff (HEAVY WIP)/CollabScripts/collab_main.gd" id="2_hqw17"]
+[ext_resource type="PackedScene" uid="uid://dhot6hrxk02na" path="res://Main/CollabScene Stuff (HEAVY WIP)/collab_origin.tscn" id="3_ski52"]
+[ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="4_v8t0q"]
+[ext_resource type="PackedScene" uid="uid://drok2umdmycjc" path="res://UI/StateButton/state_remap_button.tscn" id="5_tcu5n"]
+[ext_resource type="PackedScene" uid="uid://cwtyu481ec5vq" path="res://UI/StateButton/state_button.tscn" id="6_m7rre"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c4ggh"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d87tc"]
+
+[node name="CollabMain" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_hqw17")
+users = ExtResource("3_ski52")
+
+[node name="Spawn" type="Node2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 219.0
+grow_vertical = 2
+theme = ExtResource("1_n3eiy")
+
+[node name="SelectModel" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 141.0
+offset_right = 117.0
+offset_bottom = 168.0
+text = "select model"
+
+[node name="HostButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 54.0
+offset_right = 57.0
+offset_bottom = 85.0
+disabled = true
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 98.0
+offset_right = 48.0
+offset_bottom = 125.0
+disabled = true
+text = "Join"
+
+[node name="Settings" type="Button" parent="CanvasLayer/Panel"]
+visible = false
+layout_mode = 0
+anchor_left = 0.0456621
+anchor_top = 0.758333
+anchor_right = 0.347032
+anchor_bottom = 0.795833
+text = "Settings
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="PortLine" type="LineEdit" parent="CanvasLayer/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 14.0
+offset_top = 13.0
+offset_right = 144.0
+offset_bottom = 40.0
+max_length = 5
+virtual_keyboard_type = 2
+
+[node name="LeaveButton" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -35.0
+offset_right = 56.0
+offset_bottom = -8.0
+grow_vertical = 0
+text = "Leave"
+
+[node name="InputsPopup" type="PopupPanel" parent="CanvasLayer/Panel"]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(400, 456)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/InputsPopup"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 390.0
+offset_bottom = 446.0
+
+[node name="GridContainer2" type="GridContainer" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer"]
+layout_mode = 2
+columns = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VolumeLabel" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 12
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumeBar" type="ProgressBar" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+max_value = 1.0
+
+[node name="VolumeSlider" type="HSlider" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2/VolumeBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("4_v8t0q")
+theme_override_icons/grabber_highlight = ExtResource("4_v8t0q")
+theme_override_icons/grabber_disabled = ExtResource("4_v8t0q")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_c4ggh")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="Sp" type="HSeparator" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Sp2" type="HSeparator" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SensitivityLabel" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 12
+text = "Vol. Sensitivity"
+horizontal_alignment = 1
+
+[node name="SensitivityBar" type="ProgressBar" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="SensitivitySlider" type="HSlider" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/GridContainer2/SensitivityBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("4_v8t0q")
+theme_override_icons/grabber_highlight = ExtResource("4_v8t0q")
+theme_override_icons/grabber_disabled = ExtResource("4_v8t0q")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_c4ggh")
+min_value = 1.0
+max_value = 10.0
+step = 0.01
+value = 1.0
+
+[node name="InputCheckButton" type="CheckButton" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+button_pressed = true
+text = "Change States With Inputs : "
+
+[node name="RemapLabel" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer"]
+layout_mode = 2
+text = "Remap States Input :"
+
+[node name="Grid" type="GridContainer" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="State 1" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 1"
+
+[node name="StateRemapButton" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+action = "State 1"
+
+[node name="State 2" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 2
+"
+
+[node name="StateRemapButton2" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 2"
+
+[node name="State 3" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 3
+"
+
+[node name="StateRemapButton3" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 3"
+
+[node name="State 4" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 4
+"
+
+[node name="StateRemapButton4" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 4"
+
+[node name="State 5" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 5
+"
+
+[node name="StateRemapButton5" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 5"
+
+[node name="State 6" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 6
+"
+
+[node name="StateRemapButton6" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 6"
+
+[node name="State 7" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 7
+"
+
+[node name="StateRemapButton7" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 7"
+
+[node name="State 8" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 8
+"
+
+[node name="StateRemapButton8" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 8"
+
+[node name="State 9" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 9
+"
+
+[node name="StateRemapButton9" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 9"
+
+[node name="State 10" type="Label" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid"]
+layout_mode = 2
+text = "State 10
+"
+
+[node name="StateRemapButton10" parent="CanvasLayer/Panel/InputsPopup/VBoxContainer/Grid" instance=ExtResource("5_tcu5n")]
+layout_mode = 2
+text = "kp0"
+action = "State 10"
+
+[node name="StateButtons" type="GridContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.041
+anchor_top = 0.873
+anchor_right = 0.932
+anchor_bottom = 0.95
+offset_left = 1.021
+offset_top = -33.56
+offset_right = -0.108002
+offset_bottom = -33.0001
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+columns = 5
+
+[node name="StateButton" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+input_key = "State 1"
+
+[node name="StateButton2" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "2"
+state = 1
+input_key = "State 2"
+
+[node name="StateButton3" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "3"
+state = 2
+input_key = "State 3"
+
+[node name="StateButton4" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "4"
+state = 3
+input_key = "State 4"
+
+[node name="StateButton5" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "5"
+state = 4
+input_key = "State 5"
+
+[node name="StateButton6" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "6"
+state = 5
+input_key = "State 6"
+
+[node name="StateButton7" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7"
+state = 6
+input_key = "State 7"
+
+[node name="StateButton8" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "8"
+state = 7
+input_key = "State 8"
+
+[node name="StateButton9" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "9"
+state = 8
+input_key = "State 9"
+
+[node name="StateButton10" parent="CanvasLayer/Panel/StateButtons" instance=ExtResource("6_m7rre")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "10"
+state = 9
+input_key = "State 10"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Main/collab_origin.tscn")
+spawn_path = NodePath("../Spawn")
+spawn_limit = 5
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a File"
+initial_position = 2
+size = Vector2i(800, 500)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.pngRemix")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_d87tc")
+
+[connection signal="pressed" from="CanvasLayer/Panel/SelectModel" to="." method="_on_select_model_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Settings" to="." method="_on_settings_pressed"]
+[connection signal="text_changed" from="CanvasLayer/Panel/PortLine" to="." method="_on_line_edit_text_changed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

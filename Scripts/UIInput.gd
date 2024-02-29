@@ -130,6 +130,9 @@ func _on_mo_anim_state_pressed(id):
 			contain.current_mo_anim = "Wavy"
 		3:
 			contain.current_mo_anim = "One Bounce"
+		4:
+			contain.current_mo_anim = "Wobble"
+		
 			
 	mo_anim.text = contain.current_mo_anim
 	
@@ -147,6 +150,9 @@ func _on_mc_anim_state_pressed(id):
 			
 		3:
 			contain.current_mc_anim = "One Bounce"
+			
+		4:
+			contain.current_mc_anim = "Wobble"
 			
 	mc_anim.text = contain.current_mc_anim
 	contain.save_state(Global.current_state)
@@ -185,6 +191,7 @@ func reinfo():
 		clip.button_pressed = true
 		
 	blend.text = Global.held_sprite.dictmain.blend_mode
+	
 
 func reinfoanim():
 	mc_anim.text = contain.current_mc_anim

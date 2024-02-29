@@ -1,7 +1,6 @@
 extends Node2D
 
 signal reinfoanim
-
 var mouth_closed = 0
 var mouth_open = 0
 
@@ -16,6 +15,11 @@ var yVel = 100
 var bounceChange = 0.0
 
 var currenly_speaking : bool = false
+var tick = 0
+@export var xFrq = 0.3
+@export var xAmp = 5
+@export var yFrq = 0.4
+@export var yAmp = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,6 +28,7 @@ func _ready():
 	Global.not_speaking.connect(not_speaking)
 
 func _process(delta):
+	tick +=1
 	var hold = get_parent().position.y
 	
 	get_parent().position.y += yVel * delta
@@ -37,9 +42,15 @@ func _process(delta):
 	if currenly_speaking:
 		if current_mo_anim == "Bouncy":
 			set_mo_bouncy()
+			
+		elif current_mo_anim == "Wobble":
+			set_mo_wobble()
+			
 	elif not currenly_speaking:
 		if current_mc_anim == "Bouncy":
 			set_mc_bouncy()
+		elif current_mc_anim == "Wobble":
+			set_mc_wobble()
 
 func save_state(id):
 	var dict = {
@@ -71,13 +82,18 @@ func get_state(state):
 
 func not_speaking():
 	currenly_speaking = false
+	
 	match mouth_closed:
 		0:
 			set_mc_idle()
 		1:
+			position = pos
 			set_mc_bouncy()
 		3:
+			position = pos
 			set_mc_one_bounce()
+		4:
+			set_mc_wobble()
 
 func speaking():
 	currenly_speaking = true
@@ -85,12 +101,16 @@ func speaking():
 		0:
 			set_mo_idle()
 		1:
+			position = pos
 			set_mo_bouncy()
 		3:
+			position = pos
 			set_mo_one_bounce()
+		4:
+			set_mo_wobble()
 
 func set_mc_idle():
-	pass
+	position = pos
 
 func set_mc_bouncy():
 	if get_parent().position.y > -16:
@@ -100,8 +120,12 @@ func set_mc_one_bounce():
 	if get_parent().position.y > -16:
 		yVel = Global.settings_dict.bounceSlider * -1
 
+func set_mc_wobble():
+	position.x = sin(tick*xFrq)*xAmp
+	position.y = sin(tick*yFrq)*yAmp
+
 func set_mo_idle():
-	pass
+	position = pos
 
 func set_mo_bouncy():
 	if get_parent().position.y > -16:
@@ -110,3 +134,7 @@ func set_mo_bouncy():
 func set_mo_one_bounce():
 	if get_parent().position.y > -16:
 		yVel = Global.settings_dict.bounceSlider * -1
+
+func set_mo_wobble():
+	position.x = sin(tick*xFrq)*xAmp
+	position.y = sin(tick*yFrq)*yAmp

@@ -662,13 +662,15 @@ theme_override_styles/disabled = ExtResource("7_msl4o")
 text = "Idle"
 flat = false
 alignment = 0
-item_count = 3
+item_count = 4
 popup/item_0/text = "Idle"
 popup/item_0/id = 0
 popup/item_1/text = "Bouncy"
 popup/item_1/id = 1
 popup/item_2/text = "One Bounce"
 popup/item_2/id = 3
+popup/item_3/text = "Wobble"
+popup/item_3/id = 4
 
 [node name="HBox14" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -690,13 +692,15 @@ theme_override_styles/disabled = ExtResource("7_msl4o")
 text = "Idle"
 flat = false
 alignment = 0
-item_count = 3
+item_count = 4
 popup/item_0/text = "Idle"
 popup/item_0/id = 0
 popup/item_1/text = "Bouncy"
 popup/item_1/id = 1
 popup/item_2/text = "One Bounce"
 popup/item_2/id = 3
+popup/item_3/text = "Wobble"
+popup/item_3/id = 4
 
 [node name="HBox15" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -890,6 +894,15 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Settings
+"
+
+[node name="CollabButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Collab
 "
 
 [node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
@@ -1323,6 +1336,7 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox15/BlinkSpeedSlider" to="UIInput" method="_on_blink_speed_slider_value_changed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
+[connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/TumblrButton" to="OnlineLinks" method="_on_tumblr_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/RedditButton" to="OnlineLinks" method="_on_reddit_button_pressed"]

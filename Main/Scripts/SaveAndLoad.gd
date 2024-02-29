@@ -42,6 +42,7 @@ func save_file(path):
 		var file = FileAccess.open(path + ".pngRemix", FileAccess.WRITE)
 		file.store_var(save_dict)
 		file.close()
+		
 
 
 func load_file(path):
@@ -79,5 +80,6 @@ func load_file(path):
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
 	get_tree().get_root().get_node("Main/Control").sliders_revalue(Global.settings_dict)
 	Global.load_sprite_states(0)
+	get_tree().get_root().get_node("Main/Control/UIInput").reinfoanim()
 	
 	file.close()
