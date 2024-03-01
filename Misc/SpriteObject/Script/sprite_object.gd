@@ -196,7 +196,7 @@ func save_state(id):
 	physics = dictmain.physics
 	}
 	states[id] = dict
-	
+
 
 func get_state(id):
 	if not states[id].is_empty():
@@ -208,6 +208,7 @@ func get_state(id):
 		modulate = dictmain.colored
 		visible = dictmain.visible
 		scale = dictmain.scale
+		global_position = dictmain.global_position
 		$Wobble/Squish/Drag/Sprite2D.offset = dictmain.offset 
 		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dictmain.offset 
 		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)
