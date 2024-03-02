@@ -236,7 +236,7 @@ func _on_check_box_toggled(toggled_on):
 func _on_name_text_submitted(new_text):
 	Global.held_sprite.treeitem.set_text(0, new_text)
 	Global.held_sprite.sprite_name = new_text
-	Global.held_sprite.dsave_state(Global.current_state)
+	Global.held_sprite.save_state(Global.current_state)
 
 func _on_visible_toggled(toggled_on):
 	if toggled_on:
@@ -293,14 +293,15 @@ func _on_color_picker_button_color_changed(newcolor):
 func _on_animation_frames_slider_value_changed(value):
 	%AnimationFramesLabel.text = "Animation frames : " + str(value)
 	Global.held_sprite.get_node("Animation").stop()
+	Global.held_sprite.dictmain.hframes = value
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_animation_speed_slider_value_changed(value):
-
 	%AnimationSpeedLabel.text = "Animation Speed : " + str(value)
 	Global.held_sprite.get_node("Animation").stop()
+	Global.held_sprite.dictmain.animation_speed = value
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
 

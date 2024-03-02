@@ -6,7 +6,7 @@ var save_dict : Dictionary = {}
 
 func save_file(path):
 	var sprites = get_tree().get_nodes_in_group("Sprites")
-	var inputs = get_tree().get_nodes_in_group("StateButtons")
+	var inputs = get_tree().get_nodes_in_group("StateRemapButton")
 	
 	var sprites_array : Array = []
 	var input_array : Array = []
@@ -24,7 +24,7 @@ func save_file(path):
 		sprites_array.append(sprt_dict)
 	
 	for input in inputs:
-		input_array.append(input.input_key)
+		input_array.append(input.saved_event)
 	
 	
 	save_dict = {
@@ -36,11 +36,11 @@ func save_file(path):
 	
 	if FileAccess.file_exists(path):
 		var file = FileAccess.open(path, FileAccess.WRITE)
-		file.store_var(save_dict)
+		file.store_var(save_dict, true)
 		file.close()
 	else:
 		var file = FileAccess.open(path + ".pngRemix", FileAccess.WRITE)
-		file.store_var(save_dict)
+		file.store_var(save_dict, true)
 		file.close()
 		
 
@@ -52,7 +52,7 @@ func load_file(path):
 	await get_tree().get_root().get_node("Main/Timer").timeout
 	
 	var file = FileAccess.open(path, FileAccess.READ)
-	var load_dict = file.get_var()
+	var load_dict = file.get_var(true)
 	
 	Global.settings_dict.merge(load_dict.settings_dict, true)
 	
@@ -72,9 +72,13 @@ func load_file(path):
 		
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
 
+#	'''
 	for input in len(load_dict.input_array):
-		get_tree().get_nodes_in_group("StateButtons")[input].input_key = load_dict.input_array[input]
-		get_tree().get_nodes_in_group("StareRemapButton")[input].text = load_dict.input_array[input]
+		print(load_dict.input_array[input])
+		get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
+		
+		get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
+#	'''
 	
 	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))

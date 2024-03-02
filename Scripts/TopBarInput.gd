@@ -17,7 +17,6 @@ func _ready():
 	bgcolor.get_popup().connect("id_pressed",choosing_bg_color)
 	about.get_popup().connect("id_pressed",choosing_about)
 
-
 func choosing_files(id):
 	var main = get_tree().get_root().get_node("Main")
 	match id:
@@ -54,7 +53,6 @@ func choosing_mode(id):
 		%LayersTree.get_selected().deselect(0)
 		%UIInput.held_sprite_is_null()
 		%LayersTree.deselect_all()
-
 
 func choosing_bg_color(id):
 	Global.settings_dict.is_transparent = false
@@ -95,14 +93,11 @@ func _notification(what):
 		elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 			%TopBar.hide()
 
-
 func _on_inputs_button_pressed():
 	%InputsPopup.popup()
 
-
 func _on_bounce_control_button_pressed():
 	%BounceControlPopup.popup()
-
 
 func _on_bounce_amount_slider_value_changed(value):
 	Global.settings_dict.bounceSlider = value
@@ -112,19 +107,18 @@ func _on_gravity_amount_slider_value_changed(value):
 	Global.settings_dict.bounceGravity = value
 	%GravityAmount.text = "Bounce Gravity : " + str(value)
 
-
 func _on_input_check_button_toggled(toggled_on):
 	Global.settings_dict.checkinput = toggled_on
 
-
 func _on_color_picker_color_changed(color):
 	Global.settings_dict.bg_color = color
+	if not is_editor:
+		RenderingServer.set_default_clear_color(color)
 
 func update_bg_color(color, transparency):
 	Global.settings_dict.bg_color = color
 	Global.settings_dict.is_transparent = transparency
 	%BGColorPicker.color = color
-
 
 func _on_collab_button_pressed():
 	pass # Replace with function body.

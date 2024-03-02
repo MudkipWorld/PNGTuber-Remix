@@ -49,6 +49,7 @@ var glob
 	scale = scale,
 	folder = false,
 	global_position = global_position,
+	rotation = rotation,
 	offset = $Wobble/Squish/Drag/Sprite2D.offset,
 	ignore_bounce = false,
 	clip = 0,
@@ -62,6 +63,12 @@ func _ready():
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	animation()
+	get_node("Wobble/Squish/Drag/Sprite2D/Grab").set_anchors_preset(get_node("Wobble/Squish/Drag/Sprite2D/Grab").PRESET_FULL_RECT, false)
+	var sprite_size = Vector2(sprite.texture.get_image().get_size().x, sprite.texture.get_image().get_size().y)
+	get_node("Wobble/Squish/Drag/Sprite2D/Grab").position -= sprite_size/2
+#	print(get_node("Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
+	
+	
 
 func animation():
 	$Wobble/Squish/Drag/Sprite2D.hframes = dictmain.hframes
@@ -84,6 +91,8 @@ func animation():
 	animation()
 
 func _process(delta):
+
+	
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
 	else:
@@ -190,6 +199,7 @@ func save_state(id):
 	scale = scale,
 	folder = dictmain.folder,
 	global_position = global_position,
+	rotation = rotation,
 	offset = $Wobble/Squish/Drag/Sprite2D.offset,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
@@ -204,6 +214,7 @@ func get_state(id):
 		dictmain.merge(dict, true)
 		
 		
+		
 		z_index = dictmain.z_index
 		modulate = dictmain.colored
 		visible = dictmain.visible
@@ -212,6 +223,7 @@ func get_state(id):
 		$Wobble/Squish/Drag/Sprite2D.offset = dictmain.offset 
 		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dictmain.offset 
 		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)
+		rotation = dictmain.rotation
 		
 		speaking()
 		not_speaking()

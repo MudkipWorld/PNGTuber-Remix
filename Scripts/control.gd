@@ -63,6 +63,26 @@ func _tree(sprites):
 		new_item.get_next()
 	check_parent()
 
+func _added_tree(sprites):
+	for i in sprites:
+		var new_item
+		new_item = tree.create_item(tree.get_root())
+		new_item.set_text(0, str(i.sprite_name))
+		if i.dictmain.folder:
+			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
+		else:
+			new_item.set_icon(0, i.get_node("Wobble/Squish/Drag/Sprite2D").texture)
+		new_item.set_icon_max_width(0, 20)
+		var dic : Dictionary = {
+			sprite_object = i,
+			parent = new_item.get_parent()
+		}
+		new_item.set_metadata(0, dic)
+		i.treeitem = new_item
+		new_item.get_next()
+	check_parent()
+
+
 func loaded_tree(sprites):
 	tree.clear()
 	var root = tree.create_item()
@@ -102,7 +122,7 @@ func update_tree(child, parent, boolean):
 		}
 		child.set_metadata(0, dic)
 	Global.get_sprite_states(Global.current_state)
-	_tree(get_tree().get_nodes_in_group("Sprites"))
+#	_tree(get_tree().get_nodes_in_group("Sprites"))
 
 func add_item(sprite):
 	var root = tree.get_root()

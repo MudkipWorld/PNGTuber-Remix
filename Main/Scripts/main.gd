@@ -62,9 +62,11 @@ func _on_file_dialog_file_selected(path):
 			Global.held_sprite.treeitem.set_icon(0, texture)
 
 func _on_file_dialog_files_selected(paths):
+	var sprite_nodes = []
 	for path in paths:
 		var img = Image.load_from_file(path)
 		var texture = ImageTexture.create_from_image(img)
+		
 		
 		var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 		%SpritesContainer.add_child(sprte_obj)
@@ -72,13 +74,12 @@ func _on_file_dialog_files_selected(paths):
 		sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = texture
 		sprte_obj.sprite_id = sprte_obj.get_instance_id()
 		sprte_obj.sprite_name = path.get_file()
-		
-	var sprite_nodes = get_tree().get_nodes_in_group("Sprites")
-	$Control._tree(sprite_nodes)
+		sprite_nodes.append(sprte_obj)
+
+	$Control._added_tree(sprite_nodes)
 
 func _on_confirmation_dialog_confirmed():
 	clear_sprites()
-
 
 func clear_sprites():
 	Global.held_sprite = null
@@ -89,10 +90,8 @@ func clear_sprites():
 	
 	$Control/LeftPanel/VBox/Panel/LayersTree.clear()
 
-
-
 func _input(event):
-	if can_scroll:
+	if can_scroll && not Input.is_action_pressed("ctrl"):
 		if event.is_action_pressed("scrollup"):
 			if %Camera2D.zoom != Vector2(4,4):
 				%Camera2D.zoom += Vector2(0.1,0.1)

@@ -90,7 +90,10 @@ offset_right = -64.0
 offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 1
+stretch_mode = 0
 
 [node name="Blink" type="Timer" parent="."]
 wait_time = 0.2

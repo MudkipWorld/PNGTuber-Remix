@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_sbjr0"]
 [ext_resource type="Script" path="res://Scripts/StateRemapButton.gd" id="2_ih08l"]
 
-[node name="StateRemapButton" type="Button" groups=["StareRemapButton"]]
+[node name="StateRemapButton" type="Button" groups=["StateRemapButton"]]
 offset_right = 123.0
 offset_bottom = 30.0
 theme = ExtResource("1_sbjr0")

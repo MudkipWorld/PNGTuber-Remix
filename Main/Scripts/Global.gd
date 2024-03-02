@@ -73,7 +73,19 @@ func _input(_event):
 		elif Input.is_action_pressed("ui_right"):
 			held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").position.x += 1
 			offset()
+			
+		if Input.is_action_pressed("ctrl"):
+			if Input.is_action_pressed("scrollup"):
+				held_sprite.rotation -= 0.05
+				rot()
+			elif Input.is_action_pressed("scrolldown"):
+				held_sprite.rotation += 0.05
+				rot()
+			
 
 func offset():
 	held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").offset = -held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").position
+	held_sprite.save_state(current_state)
+
+func rot():
 	held_sprite.save_state(current_state)
