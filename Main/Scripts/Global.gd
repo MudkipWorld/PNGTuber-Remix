@@ -3,6 +3,7 @@ extends Node
 signal blink
 signal reinfo
 signal animation_state
+signal light_info
 
 signal speaking
 signal not_speaking
@@ -22,6 +23,7 @@ var settings_dict : Dictionary = {
 	bounceGravity = 1000,
 	bounceSlider = 100,
 	states = [{},{},{},{},{},{},{},{},{},{}],
+	light_states = [{},{},{},{},{},{},{},{},{},{}],
 
 }
 
@@ -29,7 +31,7 @@ var settings_dict : Dictionary = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_window().min_size = Vector2(720,500)
+	get_window().min_size = Vector2(1000,720)
 	add_child(blink_timer)
 	blinking()
 
@@ -48,6 +50,7 @@ func load_sprite_states(state):
 		emit_signal("reinfo")
 		
 	animation_state.emit(current_state)
+	light_info.emit(current_state)
 	
 
 func get_sprite_states(state):
@@ -58,6 +61,7 @@ func get_sprite_states(state):
 		emit_signal("reinfo")
 		
 	animation_state.emit(current_state)
+	light_info.emit(current_state)
 
 func _input(_event):
 	if held_sprite != null:

@@ -292,7 +292,6 @@ func _on_color_picker_button_color_changed(newcolor):
 
 func _on_animation_frames_slider_value_changed(value):
 	%AnimationFramesLabel.text = "Animation frames : " + str(value)
-	Global.held_sprite.get_node("Animation").stop()
 	Global.held_sprite.dictmain.hframes = value
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
@@ -300,7 +299,6 @@ func _on_animation_frames_slider_value_changed(value):
 
 func _on_animation_speed_slider_value_changed(value):
 	%AnimationSpeedLabel.text = "Animation Speed : " + str(value)
-	Global.held_sprite.get_node("Animation").stop()
 	Global.held_sprite.dictmain.animation_speed = value
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)

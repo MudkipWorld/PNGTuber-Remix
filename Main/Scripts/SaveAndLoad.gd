@@ -74,7 +74,6 @@ func load_file(path):
 
 #	'''
 	for input in len(load_dict.input_array):
-		print(load_dict.input_array[input])
 		get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
 		
 		get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()

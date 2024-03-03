@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw4brgrpdpurf"]
+
+[ext_resource type="Texture2D" uid="uid://oepiqx3br2c2" path="res://Misc/LightSource/LightImage.png" id="1_w2h3s"]
+[ext_resource type="Script" path="res://Misc/LightSource/light_source.gd" id="2_t4ved"]
+
+[node name="LightSource" type="PointLight2D"]
+energy = 2.0
+texture = ExtResource("1_w2h3s")
+script = ExtResource("2_t4ved")
+
+[node name="Grab" type="TextureButton" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.784314)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -450.0
+offset_top = -450.0
+offset_right = -450.0
+offset_bottom = -450.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 450)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("1_w2h3s")
+stretch_mode = 0
+
+[connection signal="button_down" from="Grab" to="." method="_on_grab_button_down"]
+[connection signal="button_up" from="Grab" to="." method="_on_grab_button_up"]

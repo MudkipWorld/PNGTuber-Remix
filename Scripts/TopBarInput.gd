@@ -9,6 +9,7 @@ var is_transparent : bool
 var is_editor : bool = true
 var last_path : String = ""
 @onready var origin = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
+@onready var light = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/LightSource")
 
 func _ready():
 	RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
@@ -46,6 +47,8 @@ func choosing_mode(id):
 			%RightPanel.hide()
 			%LeftPanel.hide()
 			is_editor = false
+			light.get_node("Grab").hide()
+			%LSShapeVis.button_pressed = false
 			
 	if Global.held_sprite != null:
 		Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()

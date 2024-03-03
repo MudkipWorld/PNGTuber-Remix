@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=28 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_m7ltu"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/LightPanel.tres" id="2_6cxu6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/TopBarInput.gd" id="3_d50ks"]
 [ext_resource type="StyleBox" uid="uid://dpeurts54fvip" path="res://Themes/SmallPanelTheme.tres" id="5_w3axc"]
 [ext_resource type="Script" path="res://Scripts/LayersTree.gd" id="5_yro7c"]
+[ext_resource type="Script" path="res://Scripts/LightControl.gd" id="6_5v3ft"]
 [ext_resource type="StyleBox" uid="uid://xpfmmvo6agir" path="res://Themes/Menubutton.tres" id="6_8vljj"]
 [ext_resource type="Texture2D" uid="uid://bobj6c6goa1d3" path="res://UI/FolderButton.png" id="6_hynel"]
 [ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/ZoominButton.png" id="6_t2a3p"]
@@ -58,6 +59,9 @@ script = ExtResource("3_d50ks")
 [node name="UIInput" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_1eur5")
+
+[node name="LightControl" type="Node" parent="."]
+script = ExtResource("6_5v3ft")
 
 [node name="LeftPanel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -189,7 +193,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 min_value = 1.0
-max_value = 24.0
+max_value = 64.0
 value = 1.0
 rounded = true
 
@@ -340,16 +344,15 @@ metadata/_edit_use_anchors_ = true
 [node name="Grid" type="GridContainer" parent="RightPanel/Properties"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.019
-anchor_top = 0.0629027
-anchor_right = 0.973
-anchor_bottom = 0.646
-offset_left = 0.0542293
-offset_top = -4.4593
-offset_right = 2.51395
-offset_bottom = 22.9501
+anchor_left = 0.02
+anchor_right = 0.98
+anchor_bottom = 0.780741
+offset_left = -0.019989
+offset_top = 41.0
+offset_right = 0.0337219
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Hbox" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -718,6 +721,87 @@ layout_mode = 2
 min_value = 1.0
 max_value = 12.0
 step = 0.5
+value = 1.0
+
+[node name="Sp6" type="HSeparator" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBox16" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+
+[node name="LightSourceVis" type="CheckBox" parent="RightPanel/Properties/Grid/HBox16"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Light Visible"
+
+[node name="LSShapeVis" type="CheckBox" parent="RightPanel/Properties/Grid/HBox16"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 12
+text = "Light Shape Visible"
+
+[node name="LSShapeVisLabel" type="Label" parent="RightPanel/Properties/Grid/HBox16/LSShapeVis"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_top = 21.0
+offset_right = 150.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 12
+text = "For testing only"
+horizontal_alignment = 1
+
+[node name="HBox17" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+
+[node name="LightColorLabel" type="Label" parent="RightPanel/Properties/Grid/HBox17"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Light Color :"
+
+[node name="LightColor" type="ColorPickerButton" parent="RightPanel/Properties/Grid/HBox17"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+
+[node name="HBox18" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+
+[node name="LightEnergyLabel" type="Label" parent="RightPanel/Properties/Grid/HBox18"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Light Energy :"
+
+[node name="LightEnergySlider" type="HSlider" parent="RightPanel/Properties/Grid/HBox18"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+max_value = 16.0
+step = 0.1
+value = 2.0
+
+[node name="HBox19" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+
+[node name="LightSizeLabel" type="Label" parent="RightPanel/Properties/Grid/HBox19"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Light Size :"
+
+[node name="LightSizeSlider" type="HSlider" parent="RightPanel/Properties/Grid/HBox19"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+min_value = 0.1
+max_value = 16.0
+step = 0.1
 value = 1.0
 
 [node name="StateButtons" type="GridContainer" parent="RightPanel/Properties"]
@@ -1334,6 +1418,11 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/Grid/HBoxPhysics/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/Grid/HBoxPhysics/Physics" to="UIInput" method="_on_physics_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox15/BlinkSpeedSlider" to="UIInput" method="_on_blink_speed_slider_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBox16/LightSourceVis" to="LightControl" method="_on_light_source_vis_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBox16/LSShapeVis" to="LightControl" method="_on_ls_shape_vis_toggled"]
+[connection signal="color_changed" from="RightPanel/Properties/Grid/HBox17/LightColor" to="LightControl" method="_on_light_color_color_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/HBox18/LightEnergySlider" to="LightControl" method="_on_light_energy_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/HBox19/LightSizeSlider" to="LightControl" method="_on_light_size_slider_value_changed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]

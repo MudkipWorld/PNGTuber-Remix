@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b28gjkefgi5bs"]
+[gd_scene load_steps=8 format=3 uid="uid://b28gjkefgi5bs"]
 
 [ext_resource type="Script" path="res://Main/Scripts/main.gd" id="1_6pthk"]
 [ext_resource type="Script" path="res://Main/Scripts/SpritesContainer.gd" id="2_lv028"]
 [ext_resource type="PackedScene" uid="uid://ngta1o5yiqxs" path="res://UI/control.tscn" id="2_micm1"]
+[ext_resource type="PackedScene" uid="uid://dw4brgrpdpurf" path="res://Misc/LightSource/light_source.tscn" id="3_eo07p"]
 [ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="3_sn3kp"]
 [ext_resource type="Script" path="res://Main/Scripts/AudioStreamPlayer.gd" id="5_swrrk"]
 
@@ -47,6 +48,9 @@ unique_name_in_owner = true
 [node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin"]
 unique_name_in_owner = true
 script = ExtResource("2_lv028")
+
+[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" instance=ExtResource("3_eo07p")]
+visible = false
 
 [node name="Control" parent="." instance=ExtResource("2_micm1")]
 layout_mode = 1

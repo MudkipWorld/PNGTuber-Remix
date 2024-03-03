@@ -55,6 +55,9 @@ var glob
 	clip = 0,
 	physics = true
 	}
+var smooth_rot = 0.0
+var smooth_glob = Vector2(0.0,0.0)
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -91,14 +94,13 @@ func animation():
 	animation()
 
 func _process(delta):
-
-	
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
 	else:
 		%Grab.mouse_filter = 2
 	if dragging:
 		global_position = get_global_mouse_position() - of
+		smooth_glob = get_global_mouse_position() - of
 	
 	
 	tick += 1
@@ -120,6 +122,8 @@ func _process(delta):
 	
 	rotationalDrag(length)
 	stretch(length)
+	
+
 
 func drag(delta):
 	if dragSpeed == 0:
@@ -225,6 +229,7 @@ func get_state(id):
 		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
 		
+		
 		speaking()
 		not_speaking()
 		animation()
@@ -272,6 +277,7 @@ func _on_grab_button_down():
 func _on_grab_button_up():
 	if Global.held_sprite == self:
 		dragging = false
+		save_state(Global.current_state)
 
 
 func reparent_obj(parent):
