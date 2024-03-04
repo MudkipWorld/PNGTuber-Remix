@@ -101,6 +101,7 @@ func _process(delta):
 	if dragging:
 		global_position = get_global_mouse_position() - of
 		smooth_glob = get_global_mouse_position() - of
+		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 	
 	
 	tick += 1
@@ -122,7 +123,6 @@ func _process(delta):
 	
 	rotationalDrag(length)
 	stretch(length)
-	
 
 
 func drag(delta):

@@ -56,6 +56,10 @@ func held_sprite_is_null():
 	%ReplaceButton.disabled = true
 	%DuplicateButton.disabled = true
 	%DeleteButton.disabled = true
+	%PosXSpinBox.editable = false
+	%PosYSpinBox.editable = false
+	%RotSpinBox.editable = false
+	
 	
 	%Name.editable = false
 	color.disabled = true
@@ -70,6 +74,8 @@ func held_sprite_is_null():
 	zord.editable = false
 	%IgnoreBounce.disabled = true
 	%Physics.disabled = true
+	
+	
 
 func held_sprite_is_true():
 	x_amp.editable = true
@@ -91,6 +97,10 @@ func held_sprite_is_true():
 	rot.editable = true
 	blend.disabled = false
 	clip.disabled = false
+	
+	%PosXSpinBox.editable = true
+	%PosYSpinBox.editable = true
+	%RotSpinBox.editable = true
 	
 	vis.disabled = false
 	checke.disabled = false
@@ -191,6 +201,8 @@ func reinfo():
 	%IgnoreBounce.button_pressed = Global.held_sprite.dictmain.ignore_bounce
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
 	
+	update_pos_spins()
+	
 	if Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").get_clip_children_mode() == 0:
 		clip.button_pressed = false
 	else:
@@ -198,6 +210,12 @@ func reinfo():
 		
 	blend.text = Global.held_sprite.dictmain.blend_mode
 	
+
+func update_pos_spins():
+	%PosXSpinBox.value = Global.held_sprite.global_position.x
+	%PosYSpinBox.value = Global.held_sprite.global_position.y
+	%RotSpinBox.value = Global.held_sprite.rotation
+
 
 func reinfoanim():
 	mc_anim.text = contain.current_mc_anim
@@ -370,3 +388,16 @@ func _on_ignore_bounce_toggled(toggled_on):
 func _on_physics_toggled(toggled_on):
 	Global.held_sprite.dictmain.physics = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
+
+
+
+func _on_pos_x_spin_box_value_changed(value):
+	Global.held_sprite.global_position.x = value
+
+
+func _on_pos_y_spin_box_value_changed(value):
+	Global.held_sprite.global_position.y = value
+
+
+func _on_rot_spin_box_value_changed(value):
+	Global.held_sprite.rotation = value

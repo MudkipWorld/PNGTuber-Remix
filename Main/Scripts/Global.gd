@@ -14,7 +14,7 @@ var current_state : int = 0
 
 var settings_dict : Dictionary = {
 	sensitivity_limit = 1,
-	volume_limit = 1,
+	volume_limit = 0.1,
 	blink_speed = 1,
 	checkinput = true,
 	bg_color = Color.SLATE_GRAY,
@@ -90,3 +90,4 @@ func offset():
 
 func rot():
 	held_sprite.save_state(current_state)
+	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()

@@ -31,6 +31,8 @@ func choosing_files(id):
 			main.save_as_file()
 		4:
 			main.load_sprites()
+		5:
+			SaveAndLoad.load_file("res://Template Model(s)/PickleModel.pngRemix")
 
 func choosing_mode(id):
 	match id:

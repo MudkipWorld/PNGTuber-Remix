@@ -344,14 +344,16 @@ metadata/_edit_use_anchors_ = true
 [node name="Grid" type="GridContainer" parent="RightPanel/Properties"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.02
-anchor_right = 0.98
-anchor_bottom = 0.780741
-offset_left = -0.019989
-offset_top = 41.0
-offset_right = 0.0337219
+anchor_left = 0.0150249
+anchor_right = 0.984
+anchor_bottom = 0.802
+offset_left = -0.0249968
+offset_top = 39.0
+offset_right = 46.4161
+offset_bottom = 60.6502
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.892863, 0.892863)
 metadata/_edit_use_anchors_ = true
 
 [node name="Hbox" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
@@ -408,6 +410,47 @@ popup/item_5/text = "HardMix"
 popup/item_5/id = 5
 popup/item_6/text = "Cursed"
 popup/item_6/id = 6
+
+[node name="HBox21" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="PosXLabel" type="Label" parent="RightPanel/Properties/Grid/HBox21"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Pos-X : "
+
+[node name="PosXSpinBox" type="SpinBox" parent="RightPanel/Properties/Grid/HBox21"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -9999.0
+max_value = 9999.0
+step = 0.1
+
+[node name="PosYLabel" type="Label" parent="RightPanel/Properties/Grid/HBox21"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Pos-Y : "
+
+[node name="PosYSpinBox" type="SpinBox" parent="RightPanel/Properties/Grid/HBox21"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+min_value = -9999.0
+max_value = 9999.0
+step = 0.1
+
+[node name="RotLabel" type="Label" parent="RightPanel/Properties/Grid/HBox21"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Rotation : "
+
+[node name="RotSpinBox" type="SpinBox" parent="RightPanel/Properties/Grid/HBox21"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = -100.0
+step = 0.05
 
 [node name="HBox3" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
 layout_mode = 2
@@ -930,7 +973,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Files"
-item_count = 4
+item_count = 5
 popup/item_0/text = "New"
 popup/item_0/id = 0
 popup/item_1/text = "Open"
@@ -939,6 +982,8 @@ popup/item_2/text = "Save As"
 popup/item_2/id = 3
 popup/item_3/text = "Add Images"
 popup/item_3/id = 4
+popup/item_4/text = "Template Model"
+popup/item_4/id = 5
 
 [node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
@@ -1411,6 +1456,9 @@ presets_visible = false
 [connection signal="item_selected" from="LeftPanel/VBox/Panel/LayersTree" to="LeftPanel/VBox/Panel/LayersTree" method="_on_item_selected"]
 [connection signal="text_submitted" from="RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
 [connection signal="color_changed" from="RightPanel/Properties/Grid/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_color_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/HBox21/PosXSpinBox" to="UIInput" method="_on_pos_x_spin_box_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/HBox21/PosYSpinBox" to="UIInput" method="_on_pos_y_spin_box_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/Grid/HBox21/RotSpinBox" to="UIInput" method="_on_rot_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox3/XAmpSlider" to="UIInput" method="_on_x_amp_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox4/XFSlider" to="UIInput" method="_on_xf_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox5/YAmpSlider" to="UIInput" method="_on_y_amp_slider_value_changed"]

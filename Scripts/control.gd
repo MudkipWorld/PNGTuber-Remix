@@ -39,6 +39,8 @@ func sliders_revalue(settings_dict):
 	%GravityAmountSlider.value = settings_dict.bounceGravity
 	%BGColorPicker.color = settings_dict.bg_color
 	%InputCheckButton.button_pressed = settings_dict.checkinput
+	%VolumeSlider.value = settings_dict.volume_limit
+	%SensitivitySlider.value = settings_dict.sensitivity_limit
 	
 
 func _tree(sprites):
