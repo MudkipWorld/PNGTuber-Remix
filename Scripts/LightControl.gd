@@ -1,6 +1,7 @@
 extends Node
 
 @onready var light = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/LightSource")
+#@onready var contain = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
 
 func _ready():
 	Global.light_info.connect(get_info)
@@ -38,3 +39,9 @@ func get_info(state):
 		%LightColor.color = dict.color
 		%LightEnergySlider.value = dict.energy
 		%LightSizeSlider.value = dict.scale.x
+	%DarkenCheck.button_pressed = Global.settings_dict.darken
+
+
+
+func _on_darken_check_toggled(toggled_on):
+	Global.settings_dict.darken = toggled_on

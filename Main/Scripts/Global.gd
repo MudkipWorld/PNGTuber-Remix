@@ -4,14 +4,13 @@ signal blink
 signal reinfo
 signal animation_state
 signal light_info
-
 signal speaking
 signal not_speaking
+signal reinfoanim
 
 var blink_timer : Timer = Timer.new()
 var held_sprite = null
 var current_state : int = 0
-
 
 var settings_dict : Dictionary = {
 	sensitivity_limit = 1,
@@ -24,10 +23,8 @@ var settings_dict : Dictionary = {
 	bounceSlider = 100,
 	states = [{},{},{},{},{},{},{},{},{},{}],
 	light_states = [{},{},{},{},{},{},{},{},{},{}],
-
+	darken = false
 }
-
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,7 +48,7 @@ func load_sprite_states(state):
 		
 	animation_state.emit(current_state)
 	light_info.emit(current_state)
-	
+	reinfoanim.emit()
 
 func get_sprite_states(state):
 	current_state = state
@@ -62,6 +59,7 @@ func get_sprite_states(state):
 		
 	animation_state.emit(current_state)
 	light_info.emit(current_state)
+	reinfoanim.emit()
 
 func _input(_event):
 	if held_sprite != null:
@@ -85,7 +83,6 @@ func _input(_event):
 			elif Input.is_action_pressed("scrolldown"):
 				held_sprite.rotation += 0.05
 				rot()
-			
 
 func offset():
 	held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").offset = -held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").position

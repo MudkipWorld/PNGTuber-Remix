@@ -804,6 +804,16 @@ max_value = 16.0
 step = 0.1
 value = 1.0
 
+[node name="HBox20" type="HBoxContainer" parent="RightPanel/Properties/Grid"]
+layout_mode = 2
+
+[node name="DarkenCheck" type="CheckBox" parent="RightPanel/Properties/Grid/HBox20"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Darken When Not Speaking"
+
 [node name="StateButtons" type="GridContainer" parent="RightPanel/Properties"]
 layout_mode = 1
 anchors_preset = -1
@@ -1423,6 +1433,7 @@ presets_visible = false
 [connection signal="color_changed" from="RightPanel/Properties/Grid/HBox17/LightColor" to="LightControl" method="_on_light_color_color_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox18/LightEnergySlider" to="LightControl" method="_on_light_energy_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/Grid/HBox19/LightSizeSlider" to="LightControl" method="_on_light_size_slider_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/Grid/HBox20/DarkenCheck" to="LightControl" method="_on_darken_check_toggled"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]

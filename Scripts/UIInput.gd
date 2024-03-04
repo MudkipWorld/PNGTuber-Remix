@@ -27,10 +27,16 @@ func _ready():
 	color.get_picker().sampler_visible = false
 	color.get_picker().color_modes_visible = false
 	
+	%LightColor.get_picker().picker_shape = 1
+	%LightColor.get_picker().presets_visible = false
+	%LightColor.get_picker().sampler_visible = false
+	%LightColor.get_picker().color_modes_visible = false
+	
 	
 	held_sprite_is_null()
 	%LayersTree.connect("sprite_info", reinfo)
 	Global.connect("reinfo", reinfo)
+	Global.connect("reinfoanim", reinfoanim)
 	blend.get_popup().connect("id_pressed",_on_blend_state_pressed)
 	mo_anim.get_popup().connect("id_pressed",_on_mo_anim_state_pressed)
 	mc_anim.get_popup().connect("id_pressed",_on_mc_anim_state_pressed)

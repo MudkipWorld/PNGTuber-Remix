@@ -47,6 +47,11 @@ func _process(delta):
 			set_mo_wobble()
 			
 	elif not currenly_speaking:
+		if Global.settings_dict.darken:
+			modulate = lerp(modulate, Color.DIM_GRAY, 0.08)
+		else:
+			modulate = Color.WHITE
+		
 		if current_mc_anim == "Bouncy":
 			set_mc_bouncy()
 		elif current_mc_anim == "Wobble":
@@ -96,6 +101,7 @@ func not_speaking():
 			set_mc_wobble()
 
 func speaking():
+	modulate = Color.WHITE
 	currenly_speaking = true
 	match mouth_open:
 		0:

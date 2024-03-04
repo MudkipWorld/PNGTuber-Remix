@@ -7,7 +7,7 @@ func _ready():
 	Global.light_info.connect(get_state)
 
 
-func _process(delta):
+func _process(_delta):
 	if dragging && $Grab.visible:
 		global_position = get_global_mouse_position() - of
 
@@ -30,6 +30,7 @@ func get_state(state):
 		scale = dict.scale
 		visible = dict.visible
 		$Grab.modulate = color
+		
 		
 
 func _on_grab_button_down():
