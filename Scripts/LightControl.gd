@@ -14,7 +14,6 @@ func _on_light_energy_slider_value_changed(value):
 
 func _on_light_color_color_changed(color):
 	light.color = color
-	light.get_node("Grab").modulate = color
 	light.save_state(Global.current_state)
 
 

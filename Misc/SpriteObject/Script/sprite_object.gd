@@ -66,9 +66,6 @@ func _ready():
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	animation()
-	get_node("Wobble/Squish/Drag/Sprite2D/Grab").set_anchors_preset(get_node("Wobble/Squish/Drag/Sprite2D/Grab").PRESET_FULL_RECT, false)
-	var sprite_size = Vector2(sprite.texture.get_image().get_size().x, sprite.texture.get_image().get_size().y)
-	get_node("Wobble/Squish/Drag/Sprite2D/Grab").position -= sprite_size/2
 #	print(get_node("Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
 	
 	

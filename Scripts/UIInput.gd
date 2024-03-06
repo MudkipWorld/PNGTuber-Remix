@@ -190,9 +190,15 @@ func reinfo():
 	
 	checkm.button_pressed = Global.held_sprite.dictmain.should_talk
 	mouthop.button_pressed = Global.held_sprite.dictmain.open_mouth
+	if not Global.held_sprite.dictmain.folder:
+		%CurrentSelectedNormal.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture
+		%CurrentSelected.texture = Global.held_sprite.texture
+	else:
+		%CurrentSelected.texture = null
+		%CurrentSelectedNormal.texture = null
 	
 	%Name.text = Global.held_sprite.treeitem.get_text(0)
-	%CurrentSelected.texture = Global.held_sprite.texture
+	
 	%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
 	%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
 	%SizeSpinBox.value = Global.held_sprite.dictmain.scale.x
@@ -358,16 +364,13 @@ func _on_size_spin_box_value_changed(value):
 	Global.held_sprite.scale = Vector2(value, value)
 	Global.held_sprite.save_state(Global.current_state)
 
-
 func _on_replace_button_pressed():
 	get_tree().get_root().get_node("Main").replacing_sprite()
-
 
 func _on_stretch_slider_value_changed(value):
 	Global.held_sprite.dictmain.stretchAmount = value
 	%StretchLabel.text = "Stretch Amount : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
-
 
 func _on_folder_button_pressed():
 	var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
@@ -379,25 +382,27 @@ func _on_folder_button_pressed():
 	get_parent().add_item(sprte_obj)
 	sprte_obj.sprite_id = sprte_obj.get_instance_id()
 
-
 func _on_ignore_bounce_toggled(toggled_on):
 	Global.held_sprite.dictmain.ignore_bounce = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
-
 
 func _on_physics_toggled(toggled_on):
 	Global.held_sprite.dictmain.physics = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
 
-
-
 func _on_pos_x_spin_box_value_changed(value):
 	Global.held_sprite.global_position.x = value
-
 
 func _on_pos_y_spin_box_value_changed(value):
 	Global.held_sprite.global_position.y = value
 
-
 func _on_rot_spin_box_value_changed(value):
 	Global.held_sprite.rotation = value
+
+func _on_add_normal_button_pressed():
+	get_tree().get_root().get_node("Main").add_normal_sprite()
+
+func _on_del_normal_button_pressed():
+	if Global.held_sprite != null:
+		if not Global.held_sprite.dictmain.folder:
+			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture = null

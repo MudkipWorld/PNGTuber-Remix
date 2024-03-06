@@ -13,9 +13,15 @@ func save_file(path):
 	
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
-		var img = Marshalls.raw_to_base64(sprt.get_node("Wobble/Squish/Drag/Sprite2D").texture.get_image().save_png_to_buffer())
+		var img = Marshalls.raw_to_base64(sprt.get_node("Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
+		var normal_img
+		if sprt.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture:
+			normal_img = Marshalls.raw_to_base64(sprt.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
+		else:
+			normal_img = null
 		var sprt_dict = {
 			img = img,
+			normal = normal_img,
 			states = sprt.states,
 			sprite_name = sprt.sprite_name,
 			sprite_id = sprt.sprite_id,
@@ -42,7 +48,6 @@ func save_file(path):
 		var file = FileAccess.open(path + ".pngRemix", FileAccess.WRITE)
 		file.store_var(save_dict, true)
 		file.close()
-		
 
 
 func load_file(path):
@@ -64,7 +69,14 @@ func load_file(path):
 		img.load_png_from_buffer(img_data)
 		var img_tex = ImageTexture.new()
 		img_tex.set_image(img)
-		sprite_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_tex
+		var img_can = CanvasTexture.new()
+		img_can.diffuse_texture = img_tex
+		if sprite.has("normal"):
+			if sprite.normal != null:
+				var img_normal = Marshalls.base64_to_raw(sprite.normal)
+				img_can.normal_texture = img_normal
+		sprite_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
+#		sprite_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture = img_tex
 		sprite_obj.states = sprite.states
 		sprite_obj.sprite_id = sprite.sprite_id
 		sprite_obj.parent_id = sprite.parent_id

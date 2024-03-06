@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=30 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_m7ltu"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/LightPanel.tres" id="2_6cxu6"]
@@ -22,6 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="9_jhnap"]
 [ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="10_efci7"]
 [ext_resource type="PackedScene" uid="uid://drok2umdmycjc" path="res://UI/StateButton/state_remap_button.tscn" id="12_w6f4c"]
+[ext_resource type="Texture2D" uid="uid://diyx30a4yqalc" path="res://UI/NormalMapButton.png" id="16_l1e6k"]
+[ext_resource type="Texture2D" uid="uid://cxpsf8uoktwrd" path="res://UI/NormalMapDelButton.png" id="17_ex20s"]
 [ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/LinksButtonImages/GithubLogo.png" id="17_tkc2i"]
 [ext_resource type="Texture2D" uid="uid://whhnbdvw3i1j" path="res://UI/LinksButtonImages/TumblrLogo.png" id="18_qwjx1"]
 [ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/LinksButtonImages/RedditLogo.png" id="19_wqyow"]
@@ -95,14 +97,14 @@ script = ExtResource("6_xt0ob")
 clip_contents = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0622522
+anchor_left = 0.045
 anchor_top = 0.0693069
-anchor_right = 0.0622522
+anchor_right = 0.045
 anchor_bottom = 0.0693069
-offset_left = -4.89414
-offset_top = -0.316829
-offset_right = 157.106
-offset_bottom = 91.6832
+offset_left = -0.0100007
+offset_top = -0.277225
+offset_right = 161.99
+offset_bottom = 91.7228
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
@@ -160,14 +162,17 @@ stretch_mode = 4
 [node name="CurrentSelVbox" type="VBoxContainer" parent="LeftPanel/VBox"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox"]
-custom_minimum_size = Vector2(90, 90)
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+custom_minimum_size = Vector2(87, 87)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("5_w3axc")
 
-[node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/Panel"]
+[node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -177,6 +182,26 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 79.96
 offset_bottom = 79.96
+size_flags_horizontal = 6
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel2" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+custom_minimum_size = Vector2(87, 87)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("5_w3axc")
+
+[node name="CurrentSelectedNormal" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panel2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 84.0
+offset_bottom = 84.0
 size_flags_horizontal = 6
 expand_mode = 1
 stretch_mode = 5
@@ -218,39 +243,69 @@ layout_mode = 2
 
 [node name="FolderButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 0)
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 texture_normal = ExtResource("6_hynel")
 texture_pressed = ExtResource("6_hynel")
 texture_hover = ExtResource("6_hynel")
 texture_disabled = ExtResource("6_hynel")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="ReplaceButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 0)
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 texture_normal = ExtResource("7_cg0wr")
 texture_pressed = ExtResource("7_cg0wr")
 texture_hover = ExtResource("7_cg0wr")
 texture_disabled = ExtResource("7_cg0wr")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="DuplicateButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 0)
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 texture_normal = ExtResource("8_r6auv")
 texture_pressed = ExtResource("8_r6auv")
 texture_hover = ExtResource("8_r6auv")
 texture_disabled = ExtResource("8_r6auv")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="DeleteButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(18, 0)
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 texture_normal = ExtResource("9_jhnap")
 texture_pressed = ExtResource("9_jhnap")
 texture_hover = ExtResource("9_jhnap")
 texture_disabled = ExtResource("9_jhnap")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="AddNormalButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture_normal = ExtResource("16_l1e6k")
+texture_pressed = ExtResource("16_l1e6k")
+texture_hover = ExtResource("16_l1e6k")
+texture_disabled = ExtResource("16_l1e6k")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="DelNormalButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture_normal = ExtResource("17_ex20s")
+texture_pressed = ExtResource("17_ex20s")
+texture_hover = ExtResource("17_ex20s")
+texture_disabled = ExtResource("17_ex20s")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="Panel" type="Panel" parent="LeftPanel/VBox"]
 layout_mode = 2
@@ -284,10 +339,9 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.063
 anchor_bottom = 1.0
 offset_left = 5.0
-offset_top = 0.00499916
+offset_top = 27.0
 offset_right = 168.0
 offset_bottom = -6.0
 grow_horizontal = 0
@@ -1453,6 +1507,8 @@ presets_visible = false
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons/ReplaceButton" to="UIInput" method="_on_replace_button_pressed"]
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DuplicateButton" to="UIInput" method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DeleteButton" to="UIInput" method="_on_delete_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/AddNormalButton" to="UIInput" method="_on_add_normal_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
 [connection signal="item_selected" from="LeftPanel/VBox/Panel/LayersTree" to="LeftPanel/VBox/Panel/LayersTree" method="_on_item_selected"]
 [connection signal="text_submitted" from="RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
 [connection signal="color_changed" from="RightPanel/Properties/Grid/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_color_changed"]

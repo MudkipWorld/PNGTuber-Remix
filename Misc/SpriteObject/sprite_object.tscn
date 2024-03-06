@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://du5v1xpm5fjcm"]
+[gd_scene load_steps=8 format=3 uid="uid://du5v1xpm5fjcm"]
 
 [ext_resource type="Script" path="res://Misc/SpriteObject/Script/sprite_object.gd" id="1_i7wd5"]
 [ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_wfm0d"]
@@ -60,6 +60,9 @@ shader_parameter/clip = false
 shader_parameter/Intensity = 1.0
 shader_parameter/Blend = ExtResource("2_wfm0d")
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_n3p6n"]
+diffuse_texture = ExtResource("4_6ey4y")
+
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
 script = ExtResource("1_i7wd5")
 
@@ -72,7 +75,7 @@ script = ExtResource("1_i7wd5")
 [node name="Sprite2D" type="Sprite2D" parent="Wobble/Squish/Drag"]
 process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
-texture = ExtResource("4_6ey4y")
+texture = SubResource("CanvasTexture_n3p6n")
 
 [node name="Origin" type="Sprite2D" parent="Wobble/Squish/Drag/Sprite2D"]
 visible = false

@@ -30,14 +30,11 @@ func get_state(state):
 		scale = dict.scale
 		visible = dict.visible
 		$Grab.modulate = color
-		
-		
 
 func _on_grab_button_down():
 	if $Grab.visible:
 		of = get_global_mouse_position() - global_position
 		dragging = true
-
 
 func _on_grab_button_up():
 	dragging = false

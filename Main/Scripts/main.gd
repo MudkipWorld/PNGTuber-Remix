@@ -8,7 +8,8 @@ enum State {
 	SaveFile,
 	SaveFileAs,
 	LoadSprites,
-	ReplaceSprite
+	ReplaceSprite,
+	AddNormal
 }
 var current_state : State
 var can_scroll : bool = false
@@ -47,7 +48,16 @@ func replacing_sprite():
 			current_state = State.ReplaceSprite
 			%FileDialog.show()
 
-func _on_file_dialog_file_selected(path):
+func add_normal_sprite():
+	if Global.held_sprite != null:
+		if not Global.held_sprite.dictmain.folder:
+			%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+			$FileDialog.file_mode = 0
+			current_state = State.AddNormal
+			%FileDialog.show()
+
+
+func _on_file_dialog_file_selected(path): 
 	match current_state:
 		State.LoadFile:
 			SaveAndLoad.load_file(path)
@@ -56,22 +66,32 @@ func _on_file_dialog_file_selected(path):
 		State.ReplaceSprite:
 			var img = Image.load_from_file(path)
 			var texture = ImageTexture.create_from_image(img)
-			Global.held_sprite.texture = texture
+			var img_can = CanvasTexture.new()
+			img_can.diffuse_texture = texture
+			Global.held_sprite.texture = img_can
 			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture = texture
 			Global.held_sprite.save_state(current_state)
 			Global.held_sprite.treeitem.set_icon(0, texture)
+			Global.get_sprite_states(Global.current_state)
+			
+		State.AddNormal:
+			var img = Image.load_from_file(path)
+			var texture = ImageTexture.create_from_image(img)
+			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture = texture
+			Global.get_sprite_states(Global.current_state)
 
 func _on_file_dialog_files_selected(paths):
 	var sprite_nodes = []
 	for path in paths:
 		var img = Image.load_from_file(path)
 		var texture = ImageTexture.create_from_image(img)
-		
+		var img_can = CanvasTexture.new()
+		img_can.diffuse_texture = texture
 		
 		var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 		%SpritesContainer.add_child(sprte_obj)
-		sprte_obj.texture = texture
-		sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = texture
+		sprte_obj.texture = img_can
+		sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
 		sprte_obj.sprite_id = sprte_obj.get_instance_id()
 		sprte_obj.sprite_name = path.get_file()
 		sprite_nodes.append(sprte_obj)
