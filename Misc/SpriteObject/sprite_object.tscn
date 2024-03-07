@@ -21,6 +21,7 @@ uniform float rotation = 0.0;
 uniform vec2 rotation_offset = vec2(0.5, 0.5);
 
 varying vec4 modulate;
+varying vec2 rot_uv;
 
 void vertex(){
 	modulate = COLOR;
@@ -37,6 +38,7 @@ void fragment() {
 		rotated_uv = rotated_uv + rotation_offset;
 		
 		COLOR = texture(TEXTURE, rotated_uv)*modulate;
+		rot_uv = rotated_uv;
 	}
 	
 	if (enabled){
@@ -56,8 +58,17 @@ void fragment() {
 		blendColor = texture( Blend, vec2(bgColor.b, Color.b) );
 		output.b = blendColor.b;
 	
-		output.rgb = mix(Color.rgb, output.rgb, Intensity);
-		COLOR.rgba *= output.rgba;
+		output = mix(Color, output, Intensity)* modulate;
+		
+		// needs fix, uauauau
+		if(wiggle){
+			COLOR = output *texture(TEXTURE, rot_uv);
+
+		}
+		else{
+			COLOR = output;
+		}
+		
 	}
 	
 }"
@@ -67,7 +78,7 @@ resource_local_to_scene = true
 shader = SubResource("Shader_l06p8")
 shader_parameter/enabled = false
 shader_parameter/Intensity = 1.0
-shader_parameter/wiggle = true
+shader_parameter/wiggle = false
 shader_parameter/rotation = 0.0
 shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 shader_parameter/Blend = ExtResource("2_wfm0d")

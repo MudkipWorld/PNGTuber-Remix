@@ -347,6 +347,7 @@ offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 2
 localize_numeral_system = false
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
 theme_override_constants/item_margin = 8
@@ -1305,13 +1306,13 @@ from the original software and improve existing ones."
 [node name="InputsPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(400, 456)
+size = Vector2i(400, 468)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InputsPopup"]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 390.0
-offset_bottom = 446.0
+offset_bottom = 458.0
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer"]
 layout_mode = 2
@@ -1402,6 +1403,14 @@ size_flags_horizontal = 0
 size_flags_vertical = 6
 button_pressed = true
 text = "Change States With Inputs : "
+
+[node name="AntiAlCheck" type="CheckButton" parent="InputsPopup/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+button_pressed = true
+text = "Anti-Aliasing : "
 
 [node name="RemapLabel" type="Label" parent="InputsPopup/VBoxContainer"]
 layout_mode = 2
@@ -1614,6 +1623,7 @@ presets_visible = false
 [connection signal="value_changed" from="InputsPopup/VBoxContainer/GridContainer2/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer/AntiAlCheck" to="TopBarInput" method="_on_anti_al_check_toggled"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
 [connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]

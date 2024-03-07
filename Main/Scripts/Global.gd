@@ -23,7 +23,8 @@ var settings_dict : Dictionary = {
 	bounceSlider = 100,
 	states = [{},{},{},{},{},{},{},{},{},{}],
 	light_states = [{},{},{},{},{},{},{},{},{},{}],
-	darken = false
+	darken = false,
+	anti_alias = true
 }
 
 # Called when the node enters the scene tree for the first time.

@@ -127,3 +127,17 @@ func update_bg_color(color, transparency):
 
 func _on_collab_button_pressed():
 	pass # Replace with function body.
+
+
+func _on_anti_al_check_toggled(toggled_on):
+	Global.settings_dict.anti_alias = toggled_on
+	if toggled_on:
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	else:
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
+func origin_alias():
+	if %AntiAlCheck.button_pressed:
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	else:
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST

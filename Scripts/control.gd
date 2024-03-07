@@ -41,6 +41,8 @@ func sliders_revalue(settings_dict):
 	%InputCheckButton.button_pressed = settings_dict.checkinput
 	%VolumeSlider.value = settings_dict.volume_limit
 	%SensitivitySlider.value = settings_dict.sensitivity_limit
+	%AntiAlCheck.button_pressed = settings_dict.anti_alias
+	$TopBarInput.origin_alias()
 	
 
 func _tree(sprites):
