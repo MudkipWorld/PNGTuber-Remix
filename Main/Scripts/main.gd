@@ -69,7 +69,7 @@ func _on_file_dialog_file_selected(path):
 			var img_can = CanvasTexture.new()
 			img_can.diffuse_texture = texture
 			Global.held_sprite.texture = img_can
-			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture = texture
+			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
 			Global.held_sprite.save_state(current_state)
 			Global.held_sprite.treeitem.set_icon(0, texture)
 			Global.get_sprite_states(Global.current_state)

@@ -75,7 +75,11 @@ func held_sprite_is_null():
 	%IgnoreBounce.disabled = true
 	%Physics.disabled = true
 	
-	
+	%WiggleCheck.disabled = true
+	%WigglePhysicsCheck.disabled = true
+	%WiggleAmpSlider.editable = false
+	%WiggleFreqSlider.editable = false
+
 
 func held_sprite_is_true():
 	x_amp.editable = true
@@ -110,6 +114,11 @@ func held_sprite_is_true():
 	zord.editable = true
 	%IgnoreBounce.disabled = false
 	%Physics.disabled = false
+	
+	%WiggleCheck.disabled = false
+	%WigglePhysicsCheck.disabled = false
+	%WiggleAmpSlider.editable = true
+	%WiggleFreqSlider.editable = true
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -206,6 +215,11 @@ func reinfo():
 	color.color = Global.held_sprite.dictmain.colored
 	%IgnoreBounce.button_pressed = Global.held_sprite.dictmain.ignore_bounce
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
+	
+	%WiggleCheck.button_pressed = Global.held_sprite.dictmain.wiggle
+	%WigglePhysicsCheck.button_pressed = Global.held_sprite.dictmain.wiggle_physics
+	%WiggleAmpSlider.value = Global.held_sprite.dictmain.wiggle_amp
+	%WiggleFreqSlider.value = Global.held_sprite.dictmain.wiggle_freq
 	
 	update_pos_spins()
 	
@@ -376,7 +390,7 @@ func _on_folder_button_pressed():
 	var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 	contain.add_child(sprte_obj)
 	sprte_obj.texture = preload("res://Misc/SpriteObject/Folder.png")
-	sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = preload("res://Misc/SpriteObject/Folder.png")
+	sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
 	sprte_obj.sprite_name = str("Folder")
 	sprte_obj.dictmain.folder = true
 	get_parent().add_item(sprte_obj)
@@ -392,12 +406,15 @@ func _on_physics_toggled(toggled_on):
 
 func _on_pos_x_spin_box_value_changed(value):
 	Global.held_sprite.global_position.x = value
+	Global.held_sprite.save_state(Global.current_state)
 
 func _on_pos_y_spin_box_value_changed(value):
 	Global.held_sprite.global_position.y = value
+	Global.held_sprite.save_state(Global.current_state)
 
 func _on_rot_spin_box_value_changed(value):
 	Global.held_sprite.rotation = value
+	Global.held_sprite.save_state(Global.current_state)
 
 func _on_add_normal_button_pressed():
 	get_tree().get_root().get_node("Main").add_normal_sprite()
@@ -406,3 +423,26 @@ func _on_del_normal_button_pressed():
 	if Global.held_sprite != null:
 		if not Global.held_sprite.dictmain.folder:
 			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture = null
+
+
+func _on_wiggle_amp_slider_value_changed(value):
+	%WiggleAmpLabel.text = "Wiggle-Amp : " + str(snappedf(value, 0.05))
+	Global.held_sprite.dictmain.wiggle_amp = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_wiggle_freq_slider_value_changed(value):
+	%WiggleFreqLabel.text = "Wiggle-Freq : " + str(snappedf(value, 0.05))
+	Global.held_sprite.dictmain.wiggle_freq = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_wiggle_check_toggled(toggled_on):
+	Global.held_sprite.dictmain.wiggle = toggled_on
+	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").material.set_shader_parameter("wiggle", toggled_on)
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_wiggle_physics_check_toggled(toggled_on):
+	Global.held_sprite.dictmain.wiggle_physics = toggled_on
+	Global.held_sprite.save_state(Global.current_state)

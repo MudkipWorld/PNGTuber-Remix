@@ -10,15 +10,35 @@ resource_local_to_scene = true
 code = "shader_type canvas_item;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform bool enabled;
-uniform bool clip;
-uniform sampler2D mask;
 
 
 
 uniform sampler2D Blend;  //Blending mode texture
 uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
 
+uniform bool wiggle;
+uniform float rotation = 0.0;
+uniform vec2 rotation_offset = vec2(0.5, 0.5);
+
+varying vec4 modulate;
+
+void vertex(){
+	modulate = COLOR;
+	
+}
+
 void fragment() {
+	if (wiggle){
+		float rotation_anchored = rotation * (1.0 - UV.y);
+		mat2 rotation_mat = mat2(vec2(cos(rotation_anchored), sin(rotation_anchored)),
+		vec2(-sin(rotation_anchored), cos(rotation_anchored)));
+		vec2 centered_uv = UV - rotation_offset;
+		vec2 rotated_uv = centered_uv * rotation_mat;
+		rotated_uv = rotated_uv + rotation_offset;
+		
+		COLOR = texture(TEXTURE, rotated_uv)*modulate;
+	}
+	
 	if (enabled){
 		vec4 bgColor;
 		vec4 Color = texture(TEXTURE, UV);
@@ -39,16 +59,6 @@ void fragment() {
 		output.rgb = mix(Color.rgb, output.rgb, Intensity);
 		COLOR.rgba *= output.rgba;
 	}
-	if (clip){
-	vec4 mask_color = texture(mask, UV).rgba;
-	vec4 sprite_color = texture(TEXTURE, UV).rgba;
-	
-	if (mask_color.a == 0.0)
-	{
-		sprite_color.a = 0.0;
-	}
-	COLOR.a *= sprite_color.a;
-	}
 	
 }"
 
@@ -56,11 +66,13 @@ void fragment() {
 resource_local_to_scene = true
 shader = SubResource("Shader_l06p8")
 shader_parameter/enabled = false
-shader_parameter/clip = false
 shader_parameter/Intensity = 1.0
+shader_parameter/wiggle = true
+shader_parameter/rotation = 0.0
+shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 shader_parameter/Blend = ExtResource("2_wfm0d")
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_n3p6n"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
 diffuse_texture = ExtResource("4_6ey4y")
 
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
@@ -75,7 +87,7 @@ script = ExtResource("1_i7wd5")
 [node name="Sprite2D" type="Sprite2D" parent="Wobble/Squish/Drag"]
 process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
-texture = SubResource("CanvasTexture_n3p6n")
+texture = SubResource("CanvasTexture_aq8i0")
 
 [node name="Origin" type="Sprite2D" parent="Wobble/Squish/Drag/Sprite2D"]
 visible = false

@@ -53,7 +53,12 @@ var glob
 	offset = $Wobble/Squish/Drag/Sprite2D.offset,
 	ignore_bounce = false,
 	clip = 0,
-	physics = true
+	physics = true,
+	
+	wiggle = false,
+	wiggle_amp = 0,
+	wiggle_freq = 0,
+	wiggle_physics = false
 	}
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
@@ -120,7 +125,20 @@ func _process(delta):
 	
 	rotationalDrag(length)
 	stretch(length)
+	
+	if dictmain.wiggle:
+		wiggle_sprite()
 
+func wiggle_sprite():
+	var wiggle_val = sin(tick*dictmain.wiggle_freq)*dictmain.wiggle_amp
+	if dictmain.wiggle_physics:
+		if get_parent() is Sprite2D:
+			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent()
+			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
+			wiggle_val = wiggle_val + (c_parrent_length/10)
+		
+		
+	$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 
 func drag(delta):
 	if dragSpeed == 0:
@@ -225,6 +243,7 @@ func get_state(id):
 		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dictmain.offset 
 		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
+		$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
 		
 		
 		speaking()
