@@ -55,8 +55,10 @@ func _drop_data(at_position, _data):
 func _on_item_selected():
 	if get_selected() != get_root():
 		if Global.held_sprite != null:
-			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
+			if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
+				Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
 		Global.held_sprite = get_selected().get_metadata(0).sprite_object
-		Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").show()
+		if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
+			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").show()
 		emit_signal("sprite_info")
 		

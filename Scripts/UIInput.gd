@@ -24,12 +24,10 @@ extends Node
 func _ready():
 	color.get_picker().picker_shape = 1
 	color.get_picker().presets_visible = false
-	color.get_picker().sampler_visible = false
 	color.get_picker().color_modes_visible = false
 	
 	%LightColor.get_picker().picker_shape = 1
 	%LightColor.get_picker().presets_visible = false
-	%LightColor.get_picker().sampler_visible = false
 	%LightColor.get_picker().color_modes_visible = false
 	
 	
@@ -53,6 +51,7 @@ func held_sprite_is_null():
 	%AnimationFramesSlider.editable = false
 	%AnimationSpeedSlider.editable = false
 	%SizeSpinBox.editable = false
+	%SizeSpinYBox.editable = false
 	%ReplaceButton.disabled = true
 	%DuplicateButton.disabled = true
 	%DeleteButton.disabled = true
@@ -79,6 +78,10 @@ func held_sprite_is_null():
 	%WigglePhysicsCheck.disabled = true
 	%WiggleAmpSlider.editable = false
 	%WiggleFreqSlider.editable = false
+	
+	%WiggleAppSegmSlider.editable = false
+	%WiggleAppsCurveSlider.editable = false
+	%WiggleAppsStiffSlider.editable = false
 
 
 func held_sprite_is_true():
@@ -89,9 +92,14 @@ func held_sprite_is_true():
 	y_freq.editable = true
 	%StretchSlider.editable = true
 	
-	%AnimationFramesSlider.editable = true
-	%AnimationSpeedSlider.editable = true
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		%AnimationFramesSlider.editable = true
+		%AnimationSpeedSlider.editable = true
+	else:
+		%AnimationFramesSlider.editable = false
+		%AnimationSpeedSlider.editable = false
 	%SizeSpinBox.editable = true
+	%SizeSpinYBox.editable = true
 	%ReplaceButton.disabled = false
 	%DuplicateButton.disabled = false
 	%DeleteButton.disabled = false
@@ -119,6 +127,10 @@ func held_sprite_is_true():
 	%WigglePhysicsCheck.disabled = false
 	%WiggleAmpSlider.editable = true
 	%WiggleFreqSlider.editable = true
+	
+	%WiggleAppSegmSlider.editable = true
+	%WiggleAppsCurveSlider.editable = true
+	%WiggleAppsStiffSlider.editable = true
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -208,18 +220,45 @@ func reinfo():
 	
 	%Name.text = Global.held_sprite.treeitem.get_text(0)
 	
-	%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
-	%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
+		%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
+		
 	%SizeSpinBox.value = Global.held_sprite.dictmain.scale.x
+	%SizeSpinYBox.value = Global.held_sprite.dictmain.scale.y
+	
 	%StretchSlider.value = Global.held_sprite.dictmain.stretchAmount
 	color.color = Global.held_sprite.dictmain.colored
 	%IgnoreBounce.button_pressed = Global.held_sprite.dictmain.ignore_bounce
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
 	
-	%WiggleCheck.button_pressed = Global.held_sprite.dictmain.wiggle
-	%WigglePhysicsCheck.button_pressed = Global.held_sprite.dictmain.wiggle_physics
-	%WiggleAmpSlider.value = Global.held_sprite.dictmain.wiggle_amp
-	%WiggleFreqSlider.value = Global.held_sprite.dictmain.wiggle_freq
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		%HBox22.show()
+		%HBox23.show()
+		%HBox24.show()
+		
+		%HBox25.hide()
+		%HBox26.hide()
+		%HBox27.hide()
+		
+		%WiggleCheck.button_pressed = Global.held_sprite.dictmain.wiggle
+		%WigglePhysicsCheck.button_pressed = Global.held_sprite.dictmain.wiggle_physics
+		%WiggleAmpSlider.value = Global.held_sprite.dictmain.wiggle_amp
+		%WiggleFreqSlider.value = Global.held_sprite.dictmain.wiggle_freq
+	
+	elif Global.held_sprite.sprite_type == "WiggleApp":
+		%HBox25.show()
+		%HBox26.show()
+		%HBox27.show()
+		
+		%HBox22.hide()
+		%HBox23.hide()
+		%HBox24.hide()
+		
+		
+		%WiggleAppSegmSlider.value = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").segment_count
+		%WiggleAppsCurveSlider.value = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").curvature
+		%WiggleAppsStiffSlider.value = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").stiffness
 	
 	update_pos_spins()
 	
@@ -374,8 +413,8 @@ func _on_duplicate_button_pressed():
 	obj.sprite_id = obj.get_instance_id()
 
 func _on_size_spin_box_value_changed(value):
-	Global.held_sprite.dictmain.scale = Vector2(value, value)
-	Global.held_sprite.scale = Vector2(value, value)
+	Global.held_sprite.dictmain.scale.x = value
+	Global.held_sprite.scale.x = value
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_replace_button_pressed():
@@ -445,4 +484,26 @@ func _on_wiggle_check_toggled(toggled_on):
 
 func _on_wiggle_physics_check_toggled(toggled_on):
 	Global.held_sprite.dictmain.wiggle_physics = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_size_spin_y_box_value_changed(value):
+	Global.held_sprite.dictmain.scale.y = value
+	Global.held_sprite.scale.y = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+
+
+func _on_wiggle_app_segm_slider_value_changed(value):
+	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").segment_count = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_wiggle_apps_curve_slider_value_changed(value):
+	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").curvature = value
+	Global.held_sprite.save_state(Global.current_state)
+
+func _on_wiggle_apps_stiff_slider_value_changed(value):
+	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").stiffness = value
 	Global.held_sprite.save_state(Global.current_state)

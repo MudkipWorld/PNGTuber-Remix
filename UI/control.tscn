@@ -403,7 +403,7 @@ anchor_bottom = 0.843
 offset_left = 7.0
 offset_top = 38.0
 offset_right = 455.0
-offset_bottom = 70.9752
+offset_bottom = 76.9752
 scale = Vector2(0.871866, 0.871866)
 focus_mode = 1
 mouse_filter = 2
@@ -644,13 +644,26 @@ layout_mode = 2
 [node name="SizeLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox9"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Size :"
+text = "Size-X : "
 
 [node name="SizeSpinBox" type="SpinBox" parent="RightPanel/Properties/ScrollContainer/Grid/HBox9"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 0.1
-max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="SizeYLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox9"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Size-Y : "
+
+[node name="SizeSpinYBox" type="SpinBox" parent="RightPanel/Properties/ScrollContainer/Grid/HBox9"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 0.1
 step = 0.1
 value = 1.0
 
@@ -920,6 +933,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="HBox22" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="WiggleCheck" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Grid/HBox22"]
@@ -938,6 +952,7 @@ theme_override_font_sizes/font_size = 12
 text = "Wiggle Physics"
 
 [node name="HBox23" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="WiggleAmpLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox23"]
@@ -957,6 +972,7 @@ max_value = 50.0
 step = 0.05
 
 [node name="HBox24" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="WiggleFreqLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox24"]
@@ -974,6 +990,64 @@ size_flags_horizontal = 3
 min_value = -50.0
 max_value = 50.0
 step = 0.05
+
+[node name="HBox25" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="WiggleAppsSegmLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox25"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wiggle-App Segments : "
+
+[node name="WiggleAppSegmSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox25"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 3.0
+max_value = 15.0
+value = 5.0
+
+[node name="HBox26" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="WiggleAppsCurveLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox26"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wiggle-App Curvature : "
+
+[node name="WiggleAppsCurveSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox26"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.57
+max_value = 1.57
+step = 0.01
+
+[node name="HBox27" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="WiggleAppsStiffLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox27"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wiggle-App Stiffness : "
+
+[node name="WiggleAppsStiffSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox27"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 50.0
 
 [node name="StateButtons" type="GridContainer" parent="RightPanel/Properties"]
 layout_mode = 1
@@ -1091,7 +1165,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Files"
-item_count = 5
+item_count = 6
 popup/item_0/text = "New"
 popup/item_0/id = 0
 popup/item_1/text = "Open"
@@ -1100,8 +1174,10 @@ popup/item_2/text = "Save As"
 popup/item_2/id = 3
 popup/item_3/text = "Add Images"
 popup/item_3/id = 4
-popup/item_4/text = "Template Model"
-popup/item_4/id = 5
+popup/item_4/text = "Add Appendage Based Image"
+popup/item_4/id = 6
+popup/item_5/text = "Template Model"
+popup/item_5/id = 5
 
 [node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
@@ -1594,6 +1670,7 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox7/StretchSlider" to="UIInput" method="_on_stretch_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox8/RotationLevel" to="UIInput" method="_on_rotation_level_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox9/SizeSpinBox" to="UIInput" method="_on_size_spin_box_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox9/SizeSpinYBox" to="UIInput" method="_on_size_spin_y_box_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox10/ClipChildren" to="UIInput" method="_on_check_box_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox10/Visible" to="UIInput" method="_on_visible_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox11/HBoxContainer/CheckEye" to="UIInput" method="_on_check_eye_toggled"]
@@ -1614,6 +1691,9 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox22/WigglePhysicsCheck" to="UIInput" method="_on_wiggle_physics_check_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox23/WiggleAmpSlider" to="UIInput" method="_on_wiggle_amp_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox24/WiggleFreqSlider" to="UIInput" method="_on_wiggle_freq_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox25/WiggleAppSegmSlider" to="UIInput" method="_on_wiggle_app_segm_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox26/WiggleAppsCurveSlider" to="UIInput" method="_on_wiggle_apps_curve_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox27/WiggleAppsStiffSlider" to="UIInput" method="_on_wiggle_apps_stiff_slider_value_changed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]

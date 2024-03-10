@@ -9,7 +9,8 @@ enum State {
 	SaveFileAs,
 	LoadSprites,
 	ReplaceSprite,
-	AddNormal
+	AddNormal,
+	AddAppend
 }
 var current_state : State
 var can_scroll : bool = false
@@ -39,6 +40,14 @@ func load_sprites():
 	$FileDialog.file_mode = 1
 	current_state = State.LoadSprites
 	%FileDialog.show()
+
+
+func load_append_sprites():
+	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+	$FileDialog.file_mode = 1
+	current_state = State.AddAppend
+	%FileDialog.show()
+
 
 func replacing_sprite():
 	if Global.held_sprite != null:
@@ -87,8 +96,11 @@ func _on_file_dialog_files_selected(paths):
 		var texture = ImageTexture.create_from_image(img)
 		var img_can = CanvasTexture.new()
 		img_can.diffuse_texture = texture
-		
-		var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+		var sprte_obj
+		if current_state == State.LoadSprites:
+			sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+		elif current_state == State.AddAppend:
+			sprte_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
 		%SpritesContainer.add_child(sprte_obj)
 		sprte_obj.texture = img_can
 		sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
@@ -109,6 +121,7 @@ func clear_sprites():
 		i.queue_free()
 	
 	$Control/LeftPanel/VBox/Panel/LayersTree.clear()
+	$Control.new_tree()
 
 func _input(event):
 	if can_scroll && not Input.is_action_pressed("ctrl"):

@@ -86,6 +86,9 @@ func _added_tree(sprites):
 		new_item.get_next()
 	check_parent()
 
+func new_tree():
+	var root = tree.create_item()
+	root.set_text(0, "Sprites")
 
 func loaded_tree(sprites):
 	tree.clear()
@@ -103,6 +106,11 @@ func check_parent():
 			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 			x.treeitem.get_parent().remove_child(x.treeitem)
 			parent.add_child(x.treeitem)
+		elif x.get_parent() is WigglyAppendage2D:
+			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
+			x.treeitem.get_parent().remove_child(x.treeitem)
+			parent.add_child(x.treeitem)
+
 
 func update_tree(child, parent, boolean):
 	var new_c_path = child.get_metadata(0)

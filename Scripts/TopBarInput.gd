@@ -33,6 +33,8 @@ func choosing_files(id):
 			main.load_sprites()
 		5:
 			SaveAndLoad.load_file("res://Template Model(s)/PickleModel.pngRemix")
+		6:
+			main.load_append_sprites()
 
 func choosing_mode(id):
 	match id:

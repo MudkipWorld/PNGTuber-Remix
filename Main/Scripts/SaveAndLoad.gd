@@ -25,7 +25,8 @@ func save_file(path):
 			states = sprt.states,
 			sprite_name = sprt.sprite_name,
 			sprite_id = sprt.sprite_id,
-			parent_id = sprt.parent_id
+			parent_id = sprt.parent_id,
+			sprite_type = sprt.sprite_type
 		}
 		sprites_array.append(sprt_dict)
 	
@@ -62,7 +63,14 @@ func load_file(path):
 	Global.settings_dict.merge(load_dict.settings_dict, true)
 	
 	for sprite in load_dict.sprites_array:
-		var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+		var sprite_obj
+		if sprite.has("sprite_type"):
+			if sprite.sprite_type == "Sprite2D":
+				sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+			elif sprite.sprite_type == "WiggleApp":
+				sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
+		else:
+			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 		
 		var img_data = Marshalls.base64_to_raw(sprite.img)
 		var img = Image.new()
@@ -81,6 +89,7 @@ func load_file(path):
 		sprite_obj.sprite_id = sprite.sprite_id
 		sprite_obj.parent_id = sprite.parent_id
 		sprite_obj.sprite_name = sprite.sprite_name
+
 		
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
 

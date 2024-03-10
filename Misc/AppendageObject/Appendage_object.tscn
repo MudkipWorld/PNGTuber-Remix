@@ -1,0 +1,136 @@
+[gd_scene load_steps=9 format=3 uid="uid://cb6sos2p8qbrr"]
+
+[ext_resource type="Script" path="res://Misc/AppendageObject/Script/append_object.gd" id="1_yuqos"]
+[ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_2g5n2"]
+[ext_resource type="Texture2D" uid="uid://dajiyes440dqd" path="res://Misc/AppendageObject/tail - Copy.png" id="3_x2iay"]
+[ext_resource type="Script" path="res://addons/wiggly_appendage_2d/wiggly_appendage_2d.gd" id="4_e6x1l"]
+[ext_resource type="Texture2D" uid="uid://boqyue1ceoy4b" path="res://Misc/AppendageObject/Folder.png" id="5_n8i6v"]
+
+[sub_resource type="Shader" id="Shader_l06p8"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform bool enabled;
+
+
+
+uniform sampler2D Blend;  //Blending mode texture
+uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
+
+uniform bool wiggle;
+uniform float rotation = 0.0;
+uniform vec2 rotation_offset = vec2(0.5, 0.5);
+
+varying vec4 modulate;
+varying vec2 rot_uv;
+
+void vertex(){
+	modulate = COLOR;
+	
+}
+
+void fragment() {
+	if (wiggle){
+		float rotation_anchored = rotation * (1.0 - UV.y);
+		mat2 rotation_mat = mat2(vec2(cos(rotation_anchored), sin(rotation_anchored)),
+		vec2(-sin(rotation_anchored), cos(rotation_anchored)));
+		vec2 centered_uv = UV - rotation_offset;
+		vec2 rotated_uv = centered_uv * rotation_mat;
+		rotated_uv = rotated_uv + rotation_offset;
+		
+		COLOR = texture(TEXTURE, rotated_uv)*modulate;
+		rot_uv = rotated_uv;
+	}
+	
+	if (enabled){
+		vec4 bgColor;
+		vec4 Color = texture(TEXTURE, UV);
+		vec4 blendColor;
+	   	vec4 output = vec4(1,1,1,1);
+	
+		bgColor = texture( TEXTURE, UV);
+	
+		output.a = Color.a;
+	
+		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
+		output.r = blendColor.r;
+		blendColor = texture( Blend, vec2(bgColor.g, Color.g) );
+		output.g = blendColor.g;
+		blendColor = texture( Blend, vec2(bgColor.b, Color.b) );
+		output.b = blendColor.b;
+	
+		output = mix(Color, output, Intensity)* modulate;
+		
+		// needs fix, uauauau
+		if(wiggle){
+			COLOR = output *texture(TEXTURE, rot_uv);
+
+		}
+		else{
+			COLOR = output;
+		}
+		
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tqhp"]
+resource_local_to_scene = true
+shader = SubResource("Shader_l06p8")
+shader_parameter/enabled = false
+shader_parameter/Intensity = 1.0
+shader_parameter/wiggle = true
+shader_parameter/rotation = 0.0
+shader_parameter/rotation_offset = Vector2(0.5, 0.5)
+shader_parameter/Blend = ExtResource("2_2g5n2")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
+diffuse_texture = ExtResource("3_x2iay")
+
+[node name="SpriteObject" type="Node2D" groups=["Sprites"]]
+script = ExtResource("1_yuqos")
+
+[node name="Wobble" type="Node2D" parent="."]
+
+[node name="Squish" type="Node2D" parent="Wobble"]
+
+[node name="Drag" type="Node2D" parent="Wobble/Squish"]
+
+[node name="Sprite2D" type="Line2D" parent="Wobble/Squish/Drag"]
+process_priority = 5
+texture_repeat = 2
+material = SubResource("ShaderMaterial_1tqhp")
+scale = Vector2(1, 5.48)
+points = PackedVector2Array(0, 0, 15, -1.57487e-05, 45, -0.000181399, 75, -0.000499755, 105, 0.000938315, 135, -0.000813066)
+texture = SubResource("CanvasTexture_aq8i0")
+texture_mode = 2
+script = ExtResource("4_e6x1l")
+curvature_exponent = -1.143
+max_angle = 0.523599
+comeback_speed = 0.419
+max_angular_momentum = 15.0
+subdivision = 1
+additional_start_segment = true
+additional_start_segment_length = 0.0
+
+[node name="Grab" type="TextureButton" parent="Wobble/Squish/Drag/Sprite2D"]
+unique_name_in_owner = true
+z_index = 4096
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+texture_normal = ExtResource("5_n8i6v")
+stretch_mode = 5
+
+[node name="Blink" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Animation" type="Timer" parent="."]
+
+[connection signal="button_down" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_down"]
+[connection signal="button_up" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_up"]

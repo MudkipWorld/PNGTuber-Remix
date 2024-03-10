@@ -26,6 +26,7 @@ var sprite_id : float
 var parent_id : float = 0
 var physics_effect = 1
 var glob
+var sprite_type : String = "Sprite2D"
 
 @onready var dictmain : Dictionary = {
 	xFrq = 0,
@@ -132,7 +133,7 @@ func _process(delta):
 func wiggle_sprite():
 	var wiggle_val = sin(tick*dictmain.wiggle_freq)*dictmain.wiggle_amp
 	if dictmain.wiggle_physics:
-		if get_parent() is Sprite2D:
+		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D:
 			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent()
 			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
 			wiggle_val = wiggle_val + (c_parrent_length/10)
@@ -222,7 +223,12 @@ func save_state(id):
 	offset = $Wobble/Squish/Drag/Sprite2D.offset,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
-	physics = dictmain.physics
+	physics = dictmain.physics,
+	wiggle = dictmain.wiggle,
+	wiggle_amp = dictmain.wiggle_amp,
+	wiggle_freq = dictmain.wiggle_freq,
+	wiggle_physics = dictmain.wiggle_physics
+	
 	}
 	states[id] = dict
 
