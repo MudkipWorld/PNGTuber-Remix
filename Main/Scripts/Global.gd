@@ -52,6 +52,9 @@ func load_sprite_states(state):
 	reinfoanim.emit()
 
 func get_sprite_states(state):
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		i.save_state(current_state)
+	
 	current_state = state
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		i.get_state(current_state)

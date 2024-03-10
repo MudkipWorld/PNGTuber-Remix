@@ -43,7 +43,12 @@ func choosing_mode(id):
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 			%RightPanel.show()
 			%LeftPanel.show()
+			%ViewportCam.show()
+			%CurrentSelVbox.show()
+			%LayersButtons.show()
+			%Panel.show()
 			is_editor = true
+			
 				
 		1:
 			RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
@@ -53,9 +58,19 @@ func choosing_mode(id):
 			is_editor = false
 			light.get_node("Grab").hide()
 			%LSShapeVis.button_pressed = false
-			
+		
+			'''
+		2:
+			%ViewportCam.hide()
+			%CurrentSelVbox.hide()
+			%LayersButtons.hide()
+			%Panel.hide()
+			%RightPanel.hide()
+			'''
+		
 	if Global.held_sprite != null:
-		Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
+		if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
+			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
 		Global.held_sprite = null
 		%LayersTree.get_selected().deselect(0)
 		%UIInput.held_sprite_is_null()

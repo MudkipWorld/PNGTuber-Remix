@@ -82,6 +82,8 @@ func held_sprite_is_null():
 	%WiggleAppSegmSlider.editable = false
 	%WiggleAppsCurveSlider.editable = false
 	%WiggleAppsStiffSlider.editable = false
+	%WiggleAppsMaxAngleSlider.editable = false
+	%WiggleAppsPhysStiffSlider.editable = false
 
 
 func held_sprite_is_true():
@@ -98,6 +100,7 @@ func held_sprite_is_true():
 	else:
 		%AnimationFramesSlider.editable = false
 		%AnimationSpeedSlider.editable = false
+		
 	%SizeSpinBox.editable = true
 	%SizeSpinYBox.editable = true
 	%ReplaceButton.disabled = false
@@ -128,9 +131,19 @@ func held_sprite_is_true():
 	%WiggleAmpSlider.editable = true
 	%WiggleFreqSlider.editable = true
 	
-	%WiggleAppSegmSlider.editable = true
-	%WiggleAppsCurveSlider.editable = true
-	%WiggleAppsStiffSlider.editable = true
+	
+	if Global.held_sprite.sprite_type == "WiggleApp":
+		%WiggleAppSegmSlider.editable = true
+		%WiggleAppsCurveSlider.editable = true
+		%WiggleAppsStiffSlider.editable = true
+		%WiggleAppsMaxAngleSlider.editable = true
+		%WiggleAppsPhysStiffSlider.editable = true
+	else:
+		%WiggleAppSegmSlider.editable = false
+		%WiggleAppsCurveSlider.editable = false
+		%WiggleAppsStiffSlider.editable = false
+		%WiggleAppsMaxAngleSlider.editable = false
+		%WiggleAppsPhysStiffSlider.editable = false
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -213,7 +226,7 @@ func reinfo():
 	mouthop.button_pressed = Global.held_sprite.dictmain.open_mouth
 	if not Global.held_sprite.dictmain.folder:
 		%CurrentSelectedNormal.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture
-		%CurrentSelected.texture = Global.held_sprite.texture
+		%CurrentSelected.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture
 	else:
 		%CurrentSelected.texture = null
 		%CurrentSelectedNormal.texture = null
@@ -232,14 +245,12 @@ func reinfo():
 	%IgnoreBounce.button_pressed = Global.held_sprite.dictmain.ignore_bounce
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
 	
+	
+	
+	
 	if Global.held_sprite.sprite_type == "Sprite2D":
-		%HBox22.show()
-		%HBox23.show()
-		%HBox24.show()
-		
-		%HBox25.hide()
-		%HBox26.hide()
-		%HBox27.hide()
+		%WiggleStuff.show()
+		%WiggleAppStuff.hide()
 		
 		%WiggleCheck.button_pressed = Global.held_sprite.dictmain.wiggle
 		%WigglePhysicsCheck.button_pressed = Global.held_sprite.dictmain.wiggle_physics
@@ -247,18 +258,15 @@ func reinfo():
 		%WiggleFreqSlider.value = Global.held_sprite.dictmain.wiggle_freq
 	
 	elif Global.held_sprite.sprite_type == "WiggleApp":
-		%HBox25.show()
-		%HBox26.show()
-		%HBox27.show()
-		
-		%HBox22.hide()
-		%HBox23.hide()
-		%HBox24.hide()
-		
+		%WiggleStuff.hide()
+		%WiggleAppStuff.show()
 		
 		%WiggleAppSegmSlider.value = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").segment_count
 		%WiggleAppsCurveSlider.value = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").curvature
 		%WiggleAppsStiffSlider.value = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").stiffness
+		%WiggleAppsMaxAngleSlider.value = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").max_angle
+		%WiggleAppsPhysStiffSlider.value = Global.held_sprite.dictmain.wiggle_physics_stiffness
+		
 	
 	update_pos_spins()
 	
@@ -494,16 +502,30 @@ func _on_size_spin_y_box_value_changed(value):
 
 
 
-
 func _on_wiggle_app_segm_slider_value_changed(value):
 	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").segment_count = value
+	%WiggleAppsSegmLabel.text = "Wiggle-App Segments : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_wiggle_apps_curve_slider_value_changed(value):
 	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").curvature = value
+	%WiggleAppsCurveLabel.text = "Wiggle-App Curvature : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_wiggle_apps_stiff_slider_value_changed(value):
 	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").stiffness = value
+	%WiggleAppsStiffLabel.text = "Wiggle-App Stiffness : " + str(snappedf(value, 1))
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_wiggle_apps_max_angle_slider_value_changed(value):
+	Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").max_angle = value
+	%WiggleAppsMaxAngleLabel.text = "Wiggle-App Max Angle : " + str(snappedf(value, 0.1))
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_wiggle_apps_phys_stiff_slider_value_changed(value):
+	Global.held_sprite.dictmain.wiggle_physics_stiffness = value
+	%WiggleAppsPhysStiffLabel.text = "Wiggle-App Physics Stiffness : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)

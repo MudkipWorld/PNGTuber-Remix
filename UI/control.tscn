@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=31 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_m7ltu"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/LightPanel.tres" id="2_6cxu6"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/ViewportControl.gd" id="6_xt0ob"]
 [ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/ZoomResetButton.png" id="7_82n4t"]
 [ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/ReplaceButton.png" id="7_cg0wr"]
+[ext_resource type="Script" path="res://Scripts/BackgroundEdit.gd" id="7_l6sf2"]
 [ext_resource type="StyleBox" uid="uid://d2jr6q8qqlihn" path="res://Themes/Menubuttondis.tres" id="7_msl4o"]
 [ext_resource type="PackedScene" uid="uid://cwtyu481ec5vq" path="res://UI/StateButton/state_button.tscn" id="8_6lifb"]
 [ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/ZoomOutButton.png" id="8_46wi4"]
@@ -64,6 +65,9 @@ script = ExtResource("3_1eur5")
 
 [node name="LightControl" type="Node" parent="."]
 script = ExtResource("6_5v3ft")
+
+[node name="BackgroundEdit" type="Node" parent="."]
+script = ExtResource("7_l6sf2")
 
 [node name="LeftPanel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -122,6 +126,7 @@ unique_name_in_owner = true
 position = Vector2(640, 360)
 
 [node name="ViewportCam" type="HBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
@@ -160,6 +165,7 @@ ignore_texture_size = true
 stretch_mode = 4
 
 [node name="CurrentSelVbox" type="VBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
@@ -174,14 +180,12 @@ theme_override_styles/panel = ExtResource("5_w3axc")
 
 [node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panel"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
-anchor_right = 0.056
-anchor_bottom = 0.056
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 79.96
-offset_bottom = 79.96
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 83.0
+offset_bottom = 83.0
 size_flags_horizontal = 6
 expand_mode = 1
 stretch_mode = 5
@@ -196,8 +200,12 @@ theme_override_styles/panel = ExtResource("5_w3axc")
 
 [node name="CurrentSelectedNormal" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panel2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
+anchor_left = -0.0114943
+anchor_top = -0.0114943
+anchor_right = -0.0114943
+anchor_bottom = -0.0114943
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 84.0
@@ -238,6 +246,7 @@ step = 0.1
 value = 0.3
 
 [node name="LayersButtons" type="HBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 
@@ -308,6 +317,7 @@ ignore_texture_size = true
 stretch_mode = 4
 
 [node name="Panel" type="Panel" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
@@ -397,13 +407,14 @@ alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="RightPanel/Properties"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 0.843
 offset_left = 7.0
 offset_top = 38.0
 offset_right = 455.0
-offset_bottom = 76.9752
+offset_bottom = 67.9752
 scale = Vector2(0.871866, 0.871866)
 focus_mode = 1
 mouse_filter = 2
@@ -932,18 +943,22 @@ text = "Darken When Not Speaking"
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="HBox22" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+[node name="WiggleStuff" type="VBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="WiggleCheck" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Grid/HBox22"]
+[node name="HBox22" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WiggleCheck" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox22"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle Sprite"
 
-[node name="WigglePhysicsCheck" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Grid/HBox22"]
+[node name="WigglePhysicsCheck" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox22"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
@@ -951,18 +966,18 @@ size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 12
 text = "Wiggle Physics"
 
-[node name="HBox23" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+[node name="HBox23" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="WiggleAmpLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox23"]
+[node name="WiggleAmpLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox23"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-Amp : "
 
-[node name="WiggleAmpSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox23"]
+[node name="WiggleAmpSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox23"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
@@ -971,18 +986,18 @@ min_value = -50.0
 max_value = 50.0
 step = 0.05
 
-[node name="HBox24" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+[node name="HBox24" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="WiggleFreqLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox24"]
+[node name="WiggleFreqLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox24"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-Freq : "
 
-[node name="WiggleFreqSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox24"]
+[node name="WiggleFreqSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox24"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
@@ -991,18 +1006,23 @@ min_value = -50.0
 max_value = 50.0
 step = 0.05
 
-[node name="HBox25" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+[node name="WiggleAppStuff" type="VBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="WiggleAppsSegmLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox25"]
+[node name="HBox25" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WiggleAppsSegmLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox25"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Segments : "
 
-[node name="WiggleAppSegmSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox25"]
+[node name="WiggleAppSegmSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox25"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
@@ -1011,18 +1031,18 @@ min_value = 3.0
 max_value = 15.0
 value = 5.0
 
-[node name="HBox26" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+[node name="HBox26" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
-[node name="WiggleAppsCurveLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox26"]
+[node name="WiggleAppsCurveLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox26"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Curvature : "
 
-[node name="WiggleAppsCurveSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox26"]
+[node name="WiggleAppsCurveSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox26"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
@@ -1030,24 +1050,65 @@ size_flags_horizontal = 3
 min_value = -1.57
 max_value = 1.57
 step = 0.01
+value = 0.43
 
-[node name="HBox27" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+[node name="HBox27" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
-[node name="WiggleAppsStiffLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox27"]
+[node name="WiggleAppsStiffLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox27"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Stiffness : "
 
-[node name="WiggleAppsStiffSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox27"]
+[node name="WiggleAppsStiffSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox27"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 50.0
+
+[node name="HBox28" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WiggleAppsMaxAngleLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox28"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wiggle-App Max Angle : "
+
+[node name="WiggleAppsMaxAngleSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox28"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 180.0
+step = 0.1
+
+[node name="HBox29" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WiggleAppsPhysStiffLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox29"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wiggle-App Physics Stiffness : "
+
+[node name="WiggleAppsPhysStiffSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox29"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.5
+max_value = 10.0
+step = 0.1
+value = 2.5
 
 [node name="StateButtons" type="GridContainer" parent="RightPanel/Properties"]
 layout_mode = 1
@@ -1185,11 +1246,14 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Mode"
-item_count = 2
+item_count = 3
 popup/item_0/text = "Editor"
 popup/item_0/id = 0
-popup/item_1/text = "PNGTube"
-popup/item_1/id = 1
+popup/item_1/text = "Layout"
+popup/item_1/id = 2
+popup/item_1/disabled = true
+popup/item_2/text = "PNGTube"
+popup/item_2/id = 1
 
 [node name="BGButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
@@ -1687,13 +1751,15 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox18/LightEnergySlider" to="LightControl" method="_on_light_energy_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox19/LightSizeSlider" to="LightControl" method="_on_light_size_slider_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox20/DarkenCheck" to="LightControl" method="_on_darken_check_toggled"]
-[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]
-[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox22/WigglePhysicsCheck" to="UIInput" method="_on_wiggle_physics_check_toggled"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox23/WiggleAmpSlider" to="UIInput" method="_on_wiggle_amp_slider_value_changed"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox24/WiggleFreqSlider" to="UIInput" method="_on_wiggle_freq_slider_value_changed"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox25/WiggleAppSegmSlider" to="UIInput" method="_on_wiggle_app_segm_slider_value_changed"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox26/WiggleAppsCurveSlider" to="UIInput" method="_on_wiggle_apps_curve_slider_value_changed"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox27/WiggleAppsStiffSlider" to="UIInput" method="_on_wiggle_apps_stiff_slider_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox22/WigglePhysicsCheck" to="UIInput" method="_on_wiggle_physics_check_toggled"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox23/WiggleAmpSlider" to="UIInput" method="_on_wiggle_amp_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleStuff/HBox24/WiggleFreqSlider" to="UIInput" method="_on_wiggle_freq_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox25/WiggleAppSegmSlider" to="UIInput" method="_on_wiggle_app_segm_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox26/WiggleAppsCurveSlider" to="UIInput" method="_on_wiggle_apps_curve_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox27/WiggleAppsStiffSlider" to="UIInput" method="_on_wiggle_apps_stiff_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox28/WiggleAppsMaxAngleSlider" to="UIInput" method="_on_wiggle_apps_max_angle_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox29/WiggleAppsPhysStiffSlider" to="UIInput" method="_on_wiggle_apps_phys_stiff_slider_value_changed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]

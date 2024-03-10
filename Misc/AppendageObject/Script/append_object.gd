@@ -63,7 +63,9 @@ var sprite_type : String = "WiggleApp"
 #	wiggle_physics = false
 	wiggle_segm = 5,
 	wiggle_curve = 0,
-	wiggle_stiff = 20
+	wiggle_stiff = 20,
+	wiggle_max_angle = 30,
+	wiggle_physics_stiffness = 2.5,
 
 	}
 var smooth_rot = 0.0
@@ -76,31 +78,7 @@ func _ready():
 	Global.blink.connect(blink)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
-#	animation()
-#	print(get_node("Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
-	
-	
-'''
-func animation():
-	$Wobble/Squish/Drag/Sprite2D.hframes = dictmain.hframes
-	$Wobble/Squish/Drag/Sprite2D.vframes = 1
-	if dictmain.hframes > 1:
-		coord = dictmain.hframes -1
-		if not coord <= 0:
-			if $Wobble/Squish/Drag/Sprite2D.frame_coords.x == coord:
-				$Wobble/Squish/Drag/Sprite2D.frame_coords.x = 0
-				
-			elif dictmain.hframes > 1:
-				$Wobble/Squish/Drag/Sprite2D.set_frame_coords(Vector2(clamp($Wobble/Squish/Drag/Sprite2D.frame_coords.x +1, 0,coord), 0))
-				
-	else:
-		$Wobble/Squish/Drag/Sprite2D.set_frame_coords(Vector2(0, 0))
-		
-	$Animation.wait_time = dictmain.animation_speed
-	$Animation.start()
-	await $Animation.timeout
-	animation()
-'''
+
 
 func _process(delta):
 	if Global.held_sprite == self:
@@ -124,13 +102,13 @@ func _process(delta):
 	if not dictmain.ignore_bounce:
 		glob.y -= contain.bounceChange
 	
-	var length = (glob.y - dragger.global_position.y)
+	var length = (glob.y - dragger.global_position.y)/dictmain.wiggle_physics_stiffness
 	
 	if dictmain.physics:
 		if get_parent() is Sprite2D:
 			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent()
 			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
-			length += (c_parrent_length/2.5)
+			length += (c_parrent_length/dictmain.wiggle_physics_stiffness)
 	
 	rotationalDrag(length)
 	stretch(length)
@@ -235,6 +213,8 @@ func save_state(id):
 	wiggle_segm = get_node("Wobble/Squish/Drag/Sprite2D").segment_count,
 	wiggle_curve = get_node("Wobble/Squish/Drag/Sprite2D").curvature,
 	wiggle_stiff = get_node("Wobble/Squish/Drag/Sprite2D").stiffness,
+	wiggle_max_angle = get_node("Wobble/Squish/Drag/Sprite2D").max_angle,
+	wiggle_physics_stiffness = dictmain.wiggle_physics_stiffness,
 	
 	}
 	states[id] = dict
@@ -256,6 +236,9 @@ func get_state(id):
 		get_node("Wobble/Squish/Drag/Sprite2D").segment_count = dictmain.wiggle_segm
 		get_node("Wobble/Squish/Drag/Sprite2D").curvature = dictmain.wiggle_curve
 		get_node("Wobble/Squish/Drag/Sprite2D").stiffness = dictmain.wiggle_stiff
+		get_node("Wobble/Squish/Drag/Sprite2D").max_angle = dictmain.wiggle_max_angle
+		
+		
 #		$Wobble/Squish/Drag/Sprite2D.offset = dictmain.offset 
 #		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dictmain.offset 
 		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)

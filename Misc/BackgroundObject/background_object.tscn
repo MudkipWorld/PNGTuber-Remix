@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=3 uid="uid://bva2bmydal7pw"]
+
+[ext_resource type="Script" path="res://Misc/BackgroundObject/Script/background_object.gd" id="1_3q3ui"]
+[ext_resource type="Texture2D" uid="uid://bgyf0p8jif68s" path="res://icon.svg" id="3_puquy"]
+[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="4_h1ul4"]
+
+[sub_resource type="Shader" id="Shader_l06p8"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform bool enabled;
+
+
+
+uniform sampler2D Blend;  //Blending mode texture
+uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
+
+varying vec4 modulate;
+
+void vertex(){
+	modulate = COLOR;
+	
+}
+
+void fragment() {
+	
+	if (enabled){
+		vec4 bgColor;
+		vec4 Color = texture(TEXTURE, UV);
+		vec4 blendColor;
+	   	vec4 output = vec4(1,1,1,1);
+	
+		bgColor = texture( TEXTURE, UV);
+	
+		output.a = Color.a;
+	
+		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
+		output.r = blendColor.r;
+		blendColor = texture( Blend, vec2(bgColor.g, Color.g) );
+		output.g = blendColor.g;
+		blendColor = texture( Blend, vec2(bgColor.b, Color.b) );
+		output.b = blendColor.b;
+	
+		output = mix(Color, output, Intensity)* modulate;
+		
+		// needs fix, uauauau
+		COLOR = output *texture(TEXTURE, rot_uv);
+
+		
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tqhp"]
+resource_local_to_scene = true
+shader = SubResource("Shader_l06p8")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
+diffuse_texture = ExtResource("3_puquy")
+
+[node name="SpriteObject" type="Node2D" groups=["BackgroundStuff"]]
+script = ExtResource("1_3q3ui")
+
+[node name="Wobble" type="Node2D" parent="."]
+
+[node name="Squish" type="Node2D" parent="Wobble"]
+
+[node name="Drag" type="Node2D" parent="Wobble/Squish"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Wobble/Squish/Drag"]
+process_priority = 5
+material = SubResource("ShaderMaterial_1tqhp")
+texture = SubResource("CanvasTexture_aq8i0")
+
+[node name="Origin" type="Sprite2D" parent="Wobble/Squish/Drag/Sprite2D"]
+visible = false
+z_index = 4096
+texture = ExtResource("4_h1ul4")
+
+[node name="Grab" type="TextureButton" parent="Wobble/Squish/Drag/Sprite2D"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+stretch_mode = 0
+
+[node name="Blink" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Animation" type="Timer" parent="."]
+
+[connection signal="button_down" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_down"]
+[connection signal="button_up" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_up"]

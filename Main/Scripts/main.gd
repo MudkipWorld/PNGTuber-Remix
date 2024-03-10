@@ -104,6 +104,12 @@ func _on_file_dialog_files_selected(paths):
 		%SpritesContainer.add_child(sprte_obj)
 		sprte_obj.texture = img_can
 		sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
+		if current_state == State.AddAppend:
+			var size_ratio = sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().get_size()/100
+		#	print(size_ratio)
+			sprte_obj.scale = Vector2(size_ratio.x, size_ratio.y *8)
+			sprte_obj.dictmain.scale = Vector2(size_ratio.x, size_ratio.y *8)
+		
 		sprte_obj.sprite_id = sprte_obj.get_instance_id()
 		sprte_obj.sprite_name = path.get_file()
 		sprite_nodes.append(sprte_obj)
@@ -120,7 +126,6 @@ func clear_sprites():
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		i.queue_free()
 	
-	$Control/LeftPanel/VBox/Panel/LayersTree.clear()
 	$Control.new_tree()
 
 func _input(event):
