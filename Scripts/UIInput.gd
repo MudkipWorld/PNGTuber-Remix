@@ -409,16 +409,18 @@ func _on_delete_button_pressed():
 		held_sprite_is_null()
 
 func _on_duplicate_button_pressed():
-	var obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
-	contain.add_child(obj)
-	obj.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
-	obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
-	obj.sprite_name = "Duplicate" + Global.held_sprite.sprite_name 
-	if Global.held_sprite.dictmain.folder:
-		obj.dictmain.folder = true
-	
-	get_parent().add_item(obj)
-	obj.sprite_id = obj.get_instance_id()
+	if Global.held_sprite != null:
+		var obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+		contain.add_child(obj)
+		obj.texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
+		obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
+		obj.sprite_name = "Duplicate" + Global.held_sprite.sprite_name 
+		if Global.held_sprite.dictmain.folder:
+			obj.dictmain.folder = true
+		
+		get_parent().add_item(obj)
+		obj.sprite_id = obj.get_instance_id()
+
 
 func _on_size_spin_box_value_changed(value):
 	Global.held_sprite.dictmain.scale.x = value

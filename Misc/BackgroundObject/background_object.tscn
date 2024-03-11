@@ -44,7 +44,7 @@ void fragment() {
 		output = mix(Color, output, Intensity)* modulate;
 		
 		// needs fix, uauauau
-		COLOR = output *texture(TEXTURE, rot_uv);
+		COLOR = output *texture(TEXTURE, UV);
 
 		
 	}
@@ -54,6 +54,8 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1tqhp"]
 resource_local_to_scene = true
 shader = SubResource("Shader_l06p8")
+shader_parameter/enabled = null
+shader_parameter/Intensity = 1.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
 diffuse_texture = ExtResource("3_puquy")
@@ -71,6 +73,7 @@ script = ExtResource("1_3q3ui")
 process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
 texture = SubResource("CanvasTexture_aq8i0")
+centered = false
 
 [node name="Origin" type="Sprite2D" parent="Wobble/Squish/Drag/Sprite2D"]
 visible = false
@@ -82,10 +85,6 @@ unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -64.0
-offset_right = -64.0
-offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3

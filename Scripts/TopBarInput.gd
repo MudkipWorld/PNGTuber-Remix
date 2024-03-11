@@ -9,6 +9,7 @@ var is_transparent : bool
 var is_editor : bool = true
 var last_path : String = ""
 @onready var origin = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
+@onready var bg = get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer")
 @onready var light = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/LightSource")
 
 func _ready():
@@ -32,13 +33,16 @@ func choosing_files(id):
 		4:
 			main.load_sprites()
 		5:
-			SaveAndLoad.load_file("res://Template Model(s)/PickleModel.pngRemix")
+			%TempPopUp.popup()
 		6:
 			main.load_append_sprites()
+		7:
+			main.load_bg_sprites()
 
 func choosing_mode(id):
 	match id:
 		0:
+			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
 			get_viewport().transparent_bg = false
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 			%RightPanel.show()
@@ -47,10 +51,20 @@ func choosing_mode(id):
 			%CurrentSelVbox.show()
 			%LayersButtons.show()
 			%Panel.show()
+			%Panel2.hide()
+			%LayersButtons2.hide()
+			%HideUIButton.show()
+			
+			%ScrollContainer.show()
+			%ScrollContainer2.hide()
+			%HideUIButton.button_pressed = true
+			
 			is_editor = true
+			
 			
 				
 		1:
+			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
 			RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
 			get_viewport().transparent_bg = Global.settings_dict.is_transparent
 			%RightPanel.hide()
@@ -58,23 +72,40 @@ func choosing_mode(id):
 			is_editor = false
 			light.get_node("Grab").hide()
 			%LSShapeVis.button_pressed = false
+			%HideUIButton.hide()
+			%HideUIButton.button_pressed = false
 		
-			'''
+		#	'''
 		2:
-			%ViewportCam.hide()
+			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 2
+			%LeftPanel.show()
 			%CurrentSelVbox.hide()
 			%LayersButtons.hide()
 			%Panel.hide()
-			%RightPanel.hide()
-			'''
+			%RightPanel.show()
+			%ScrollContainer.hide()
+			%ScrollContainer2.show()
+			%Panel2.show()
+			%LayersButtons2.show()
+			%HideUIButton.show()
+			%HideUIButton.button_pressed = true
+		#	'''
 		
 	if Global.held_sprite != null:
 		if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
 			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
+			%LayersTree.get_selected().deselect(0)
+	if Global.held_bg_sprite != null:
+		if Global.held_bg_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
+			Global.held_bg_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
+			
 		Global.held_sprite = null
-		%LayersTree.get_selected().deselect(0)
+		Global.held_bg_sprite = null
+#		%LayersTree.get_selected().deselect(0)
 		%UIInput.held_sprite_is_null()
 		%LayersTree.deselect_all()
+		%BackgroundEdit.held_sprite_is_null()
+		%BackgroundTree.deselect_all()
 
 func choosing_bg_color(id):
 	Global.settings_dict.is_transparent = false
@@ -142,9 +173,11 @@ func update_bg_color(color, transparency):
 	Global.settings_dict.is_transparent = transparency
 	%BGColorPicker.color = color
 
+
+'''
 func _on_collab_button_pressed():
 	pass # Replace with function body.
-
+'''
 
 func _on_anti_al_check_toggled(toggled_on):
 	Global.settings_dict.anti_alias = toggled_on
@@ -156,5 +189,28 @@ func _on_anti_al_check_toggled(toggled_on):
 func origin_alias():
 	if %AntiAlCheck.button_pressed:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		bg.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	else:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		
+
+
+func _on_hide_ui_button_toggled(toggled_on):
+	%LeftPanel.visible = toggled_on
+	%RightPanel.visible = toggled_on
+
+
+func _on_basic_temp_button_pressed():
+	SaveAndLoad.load_file("res://Template Model(s)/PickleModel.pngRemix")
+	%TempPopUp.hide()
+
+
+func _on_bg_temp_button_pressed():
+	SaveAndLoad.load_file("res://Template Model(s)/PickleModelWithBackground.pngRemix")
+	%TempPopUp.hide()
+
+
+func _on_normalm_temp_button_pressed():
+	SaveAndLoad.load_file("res://Template Model(s)/PickleModelWithNormalMap.pngRemix")
+	%TempPopUp.hide()

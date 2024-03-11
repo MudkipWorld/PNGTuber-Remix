@@ -18,8 +18,6 @@ func _input(event):
 		_drop_data(get_local_mouse_position(), item)
 		dragging = false
 
-
-
 func _drop_data(at_position, _data):
 	# The item it was dropped on
 	var other_item = get_item_at_position(at_position)
@@ -51,7 +49,7 @@ func _drop_data(at_position, _data):
 		
 			var parent = item.get_parent()
 			update_tree.emit(item, parent, boolean)
-			
+
 func _on_item_selected():
 	if get_selected() != get_root():
 		if Global.held_sprite != null:
@@ -61,4 +59,3 @@ func _on_item_selected():
 		if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
 			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").show()
 		emit_signal("sprite_info")
-		

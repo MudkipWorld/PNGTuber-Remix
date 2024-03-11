@@ -10,6 +10,8 @@ signal reinfoanim
 
 var blink_timer : Timer = Timer.new()
 var held_sprite = null
+var held_bg_sprite = null
+
 var current_state : int = 0
 
 var settings_dict : Dictionary = {
@@ -88,6 +90,15 @@ func _input(_event):
 			elif Input.is_action_pressed("scrolldown"):
 				held_sprite.rotation += 0.05
 				rot()
+				
+	if held_bg_sprite != null:
+		if Input.is_action_pressed("ctrl"):
+			if Input.is_action_pressed("scrollup"):
+				held_bg_sprite.rotation -= 0.05
+				bg_rot()
+			elif Input.is_action_pressed("scrolldown"):
+				held_bg_sprite.rotation += 0.05
+				bg_rot()
 
 func offset():
 	held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").offset = -held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").position
@@ -96,3 +107,7 @@ func offset():
 func rot():
 	held_sprite.save_state(current_state)
 	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+
+func bg_rot():
+	held_bg_sprite.save_state(current_state)
+	get_tree().get_root().get_node("Main/Control/BackgroundEdit").update_pos_spins()

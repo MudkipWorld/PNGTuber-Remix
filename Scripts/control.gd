@@ -3,6 +3,7 @@ extends Control
 @onready var view1 
 @onready var view2 = $LeftPanel/VBox/VPPanel/SubViewportContainer2/SubViewport
 @onready var tree = %LayersTree
+
 var container
 var has_spoken : bool = true
 var speech_value : float : 
