@@ -35,10 +35,18 @@ func _unhandled_input(event):
 	
 
 func update_key_text():
-	text = "%s" % InputMap.action_get_events(action)[0].as_text()
+	if InputMap.action_get_events(action).size() != 0:
+		text = "%s" % InputMap.action_get_events(action)[0].as_text()
+	else:
+		text = "Null"
 
 func update_stuff():
 	if saved_event != null:
 		InputMap.action_erase_events(action)
 		InputMap.action_add_event(action, saved_event)
 		update_key_text()
+
+func _on_remove_pressed():
+	if InputMap.action_get_events(action).size() != 0:
+		InputMap.action_erase_events(action)
+		update_stuff()

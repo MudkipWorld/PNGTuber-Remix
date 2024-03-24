@@ -5,6 +5,7 @@ resource_name = "Record"
 
 [sub_resource type="AudioEffectFilter" id="AudioEffectFilter_5tsjl"]
 resource_name = "Filter"
+cutoff_hz = 5000.0
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_1ksyd"]
 resource_name = "SpectrumAnalyzer"

@@ -119,7 +119,7 @@ func set_mc_idle():
 	position = pos
 
 func set_mc_bouncy():
-	if get_parent().position.y > -16:
+	if get_parent().position.y > -1:
 		yVel = Global.settings_dict.bounceSlider * -1
 
 func set_mc_one_bounce():
@@ -134,7 +134,7 @@ func set_mo_idle():
 	position = pos
 
 func set_mo_bouncy():
-	if get_parent().position.y > -16:
+	if get_parent().position.y > -1:
 		yVel = Global.settings_dict.bounceSlider * -1
 
 func set_mo_one_bounce():

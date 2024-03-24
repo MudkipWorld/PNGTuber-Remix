@@ -5,6 +5,8 @@ signal sprite_info
 
 var dragging : bool = false
 var item
+@onready var cont = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
+
 
 func _ready():
 	set_drop_mode_flags(3)
@@ -31,10 +33,24 @@ func _drop_data(at_position, _data):
 		
 		var boolean
 		if drop_offset == -1:
+			if other_item != item.get_parent():
+				if other_item == get_root():
+					item.get_metadata(0).sprite_object.reparent(cont)
+				else:
+					item.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Sprite2D"))
 			item.move_before(other_item)
 			
+		
 		elif drop_offset == 1:
-			item.move_after(other_item)
+			if other_item != item.get_parent():
+				if other_item == get_root():
+					item.get_metadata(0).sprite_object.reparent(cont)
+				else:
+					item.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Sprite2D"))
+				item.move_after(other_item)
+				
+			
+			
 		
 		else:
 			var par = item.get_parent()
@@ -49,13 +65,18 @@ func _drop_data(at_position, _data):
 		
 			var parent = item.get_parent()
 			update_tree.emit(item, parent, boolean)
+			
+			
+
+
+
 
 func _on_item_selected():
 	if get_selected() != get_root():
 		if Global.held_sprite != null:
-			if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
-				Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
+			if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
+				Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
 		Global.held_sprite = get_selected().get_metadata(0).sprite_object
-		if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
-			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").show()
+		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
+			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").show()
 		emit_signal("sprite_info")

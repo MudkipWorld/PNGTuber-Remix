@@ -90,30 +90,34 @@ diffuse_texture = ExtResource("3_x2iay")
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
 script = ExtResource("1_yuqos")
 
-[node name="Wobble" type="Node2D" parent="."]
+[node name="Pos" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="Squish" type="Node2D" parent="Wobble"]
+[node name="Wobble" type="Node2D" parent="Pos"]
 
-[node name="Drag" type="Node2D" parent="Wobble/Squish"]
+[node name="Squish" type="Node2D" parent="Pos/Wobble"]
 
-[node name="Sprite2D" type="Line2D" parent="Wobble/Squish/Drag"]
+[node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
+
+[node name="Sprite2D" type="Line2D" parent="Pos/Wobble/Squish/Drag"]
 process_priority = 5
 texture_repeat = 2
 material = SubResource("ShaderMaterial_1tqhp")
 scale = Vector2(1, 5.48)
-points = PackedVector2Array(0, 0, 15, 0, 45, 0, 75, 0, 105, 0, 135, 0)
+points = PackedVector2Array(-1, 0, -0.04, 0, 2.04, 0, 5.24, 0, 9.56, 0, 15, 0, 21, 0, 27, 0, 33, 0, 39, 0, 45, 0, 51, 0, 57, 0, 63, 0, 69, 0, 75, 0, 81, 0, 87, 0, 93, 0, 99, 0, 105, 0, 111, 0, 117, 0, 123, 0, 129, 0, 135, 0, 141, 0, 147, 0)
 texture = SubResource("CanvasTexture_aq8i0")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
 curvature_exponent = -1.143
 max_angle = 0.523599
 comeback_speed = 0.419
+stiffness_decay_exponent = 10.0
 max_angular_momentum = 15.0
-subdivision = 1
+subdivision = 5
 additional_start_segment = true
-additional_start_segment_length = 0.0
+additional_start_segment_length = 1.0
 
-[node name="Grab" type="TextureButton" parent="Wobble/Squish/Drag/Sprite2D"]
+[node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Sprite2D"]
 unique_name_in_owner = true
 z_index = 4096
 anchors_preset = 15
@@ -132,5 +136,5 @@ wait_time = 0.2
 
 [node name="Animation" type="Timer" parent="."]
 
-[connection signal="button_down" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_down"]
-[connection signal="button_up" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_up"]
+[connection signal="button_down" from="Pos/Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_down"]
+[connection signal="button_up" from="Pos/Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_up"]

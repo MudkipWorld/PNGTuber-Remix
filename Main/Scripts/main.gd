@@ -84,7 +84,7 @@ func _on_file_dialog_file_selected(path):
 			var img_can = CanvasTexture.new()
 			img_can.diffuse_texture = texture
 			Global.held_sprite.texture = img_can
-			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
+			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
 			Global.held_sprite.save_state(current_state)
 			Global.held_sprite.treeitem.set_icon(0, texture)
 			Global.get_sprite_states(Global.current_state)
@@ -92,7 +92,7 @@ func _on_file_dialog_file_selected(path):
 		State.AddNormal:
 			var img = Image.load_from_file(path)
 			var texture = ImageTexture.create_from_image(img)
-			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture.normal_texture = texture
+			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture = texture
 			Global.get_sprite_states(Global.current_state)
 
 func _on_file_dialog_files_selected(paths):
@@ -110,16 +110,17 @@ func _on_file_dialog_files_selected(paths):
 				sprte_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
 			%SpritesContainer.add_child(sprte_obj)
 			sprte_obj.texture = img_can
-			sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
+			sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
 			if current_state == State.AddAppend:
-				var size_ratio = sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().get_size()/100
+				var size_ratio = sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().get_size()/100
 			#	print(size_ratio)
-				sprte_obj.scale = Vector2(size_ratio.x, size_ratio.y *8)
-				sprte_obj.dictmain.scale = Vector2(size_ratio.x, size_ratio.y *8)
+				sprte_obj.scale = Vector2(size_ratio.x, size_ratio.y *12)
+				sprte_obj.dictmain.scale = Vector2(size_ratio.x, size_ratio.y *12)
 			
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
 			sprte_obj.sprite_name = path.get_file()
 			sprite_nodes.append(sprte_obj)
+			
 
 		$Control._added_tree(sprite_nodes)
 	if current_state == State.AddBgSprite:
@@ -132,9 +133,11 @@ func _on_file_dialog_files_selected(paths):
 			var bg_sprte_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
 			%BGContainer.add_child(bg_sprte_obj)
 			bg_sprte_obj.texture = img_can
-			bg_sprte_obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = img_can
+			bg_sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
 			bg_sprte_obj.sprite_name = path.get_file()
+		
 			bg_sprite_nodes.append(bg_sprte_obj)
+			
 		#	bg_sprte_obj.global_position = Vector2(640, 360)
 		$Control/BackgroundEdit._added_tree(bg_sprite_nodes)
 
@@ -175,7 +178,8 @@ func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
 		var keyStrings = []
 		var costumeKeys = []
 		for l in get_tree().get_nodes_in_group("StateButtons"):
-			costumeKeys.append(InputMap.action_get_events(l.input_key)[0].as_text())
+			if InputMap.action_get_events(l.input_key).size() != 0:
+				costumeKeys.append(InputMap.action_get_events(l.input_key)[0].as_text())
 		
 		
 		for i in keys_pressed:

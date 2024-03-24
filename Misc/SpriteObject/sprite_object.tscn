@@ -89,23 +89,27 @@ diffuse_texture = ExtResource("4_6ey4y")
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
 script = ExtResource("1_i7wd5")
 
-[node name="Wobble" type="Node2D" parent="."]
+[node name="Pos" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="Squish" type="Node2D" parent="Wobble"]
+[node name="Wobble" type="Node2D" parent="Pos"]
 
-[node name="Drag" type="Node2D" parent="Wobble/Squish"]
+[node name="Squish" type="Node2D" parent="Pos/Wobble"]
 
-[node name="Sprite2D" type="Sprite2D" parent="Wobble/Squish/Drag"]
+[node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag"]
+unique_name_in_owner = true
 process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
 texture = SubResource("CanvasTexture_aq8i0")
 
-[node name="Origin" type="Sprite2D" parent="Wobble/Squish/Drag/Sprite2D"]
+[node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Sprite2D"]
 visible = false
 z_index = 4096
 texture = ExtResource("3_xhumr")
 
-[node name="Grab" type="TextureButton" parent="Wobble/Squish/Drag/Sprite2D"]
+[node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Sprite2D"]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,5 +130,8 @@ wait_time = 0.2
 
 [node name="Animation" type="Timer" parent="."]
 
-[connection signal="button_down" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_down"]
-[connection signal="button_up" from="Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_up"]
+[node name="Talk" type="Timer" parent="."]
+wait_time = 0.12
+
+[connection signal="button_down" from="Pos/Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_down"]
+[connection signal="button_up" from="Pos/Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_up"]

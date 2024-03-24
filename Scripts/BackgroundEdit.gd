@@ -16,7 +16,7 @@ func _tree(sprites):
 		var new_item
 		new_item = tree.create_item(root)
 		new_item.set_text(0, str(i.sprite_name))
-		new_item.set_icon(0, i.get_node("Wobble/Squish/Drag/Sprite2D").texture)
+		new_item.set_icon(0, i.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture)
 		new_item.set_icon_max_width(0, 20)
 		var dic : Dictionary = {
 			sprite_object = i,
@@ -31,7 +31,7 @@ func _added_tree(sprites):
 		var new_item
 		new_item = tree.create_item(tree.get_root())
 		new_item.set_text(0, str(i.sprite_name))
-		new_item.set_icon(0, i.get_node("Wobble/Squish/Drag/Sprite2D").texture)
+		new_item.set_icon(0, i.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture)
 		new_item.set_icon_max_width(0, 20)
 		var dic : Dictionary = {
 			sprite_object = i,
@@ -56,7 +56,7 @@ func add_item(sprite):
 	var new_item
 	new_item = tree.create_item(root)
 	new_item.set_text(0, str(sprite.sprite_name))
-	new_item.set_icon(0, sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture)
+	new_item.set_icon(0, sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture)
 	new_item.set_icon_max_width(0, 20)
 	var dic : Dictionary = {
 		sprite_object = sprite,
@@ -69,8 +69,8 @@ func add_item(sprite):
 func _on_bg_duplicate_button_pressed():
 	var obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
 	get_parent().get_parent().get_node("BackgroundStuff/BGContainer").add_child(obj)
-	obj.texture = Global.held_bg_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
-	obj.get_node("Wobble/Squish/Drag/Sprite2D").texture = Global.held_bg_sprite.get_node("Wobble/Squish/Drag/Sprite2D").texture
+	obj.texture = Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture
+	obj.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture = Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture
 	obj.sprite_name = "Duplicate" + Global.held_bg_sprite.sprite_name 
 	add_item(obj)
 
@@ -93,6 +93,7 @@ func held_sprite_is_null():
 	%BGSizeSpinYBox.editable = false
 	%BGVisible.disabled = true
 	%BGZOrderSpinbox.editable = false
+	%BGReacttoLight.disabled = true
 
 func held_sprite_is_true():
 	%BGColorPickerButton.disabled = false
@@ -103,6 +104,7 @@ func held_sprite_is_true():
 	%BGSizeSpinYBox.editable = true
 	%BGVisible.disabled = false
 	%BGZOrderSpinbox.editable = true
+	%BGReacttoLight.disabled = false
 
 func reinfo():
 	
@@ -114,6 +116,11 @@ func reinfo():
 	%BGSizeSpinYBox.value = Global.held_bg_sprite.scale.y
 	%BGVisible.button_pressed = Global.held_bg_sprite.visible
 	%BGZOrderSpinbox.value = Global.held_bg_sprite.z_index
+	if Global.held_bg_sprite.light_mask == 1:
+		%BGReacttoLight.button_pressed = true
+	else:
+		%BGReacttoLight.button_pressed = false
+	
 	held_sprite_is_true()
 
 func update_pos_spins():
@@ -153,4 +160,13 @@ func _on_bg_visible_toggled(toggled_on):
 
 func _on_bgz_order_spinbox_value_changed(value):
 	Global.held_bg_sprite.z_index = value
+	Global.held_bg_sprite.save_state(Global.current_state)
+
+
+func _on_bg_reactto_light_toggled(toggled_on):
+	if toggled_on:
+		Global.held_bg_sprite.light_mask = 1
+	else:
+		Global.held_bg_sprite.light_mask = 2
+	
 	Global.held_bg_sprite.save_state(Global.current_state)

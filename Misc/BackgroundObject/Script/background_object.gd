@@ -3,11 +3,11 @@ extends Node2D
 #Movement
 var heldTicks = 0
 var dragSpeed = 0
-@onready var dragger = $Wobble/Squish/Drag
-@onready var wob = $Wobble
-@onready var sprite = $Wobble/Squish/Drag/Sprite2D
+@onready var dragger = $Pos/Wobble/Squish/Drag
+@onready var wob = $Pos/Wobble
+@onready var sprite = $Pos/Wobble/Squish/Drag/Sprite2D
 @onready var contain = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
-@onready var img = $Wobble/Squish/Drag/Sprite2D.texture.get_image()
+@onready var img = $Pos/Wobble/Squish/Drag/Sprite2D.texture.get_image()
 #Wobble
 var squish = 1
 var texture 
@@ -38,7 +38,7 @@ var sprite_type : String = "Sprite2D"
 	scale = scale,
 	global_position = global_position,
 	rotation = rotation,
-	offset = $Wobble/Squish/Drag/Sprite2D.offset,
+	offset = $Pos/Wobble/Squish/Drag/Sprite2D.offset,
 	clip = 0,
 	}
 var smooth_rot = 0.0
@@ -49,7 +49,7 @@ var smooth_glob = Vector2(0.0,0.0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-#	print(get_node("Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
+#	print(get_node("Pos/Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
 	
 	
 
@@ -79,7 +79,7 @@ func save_state(id):
 	scale = scale,
 	global_position = global_position,
 	rotation = rotation,
-	offset = $Wobble/Squish/Drag/Sprite2D.offset,
+	offset = $Pos/Wobble/Squish/Drag/Sprite2D.offset,
 	clip = dictmain.clip,
 	}
 	states[id] = dict
@@ -94,9 +94,9 @@ func get_state(id):
 		visible = dictmain.visible
 		scale = dictmain.scale
 		global_position = dictmain.global_position
-		$Wobble/Squish/Drag/Sprite2D.offset = dictmain.offset 
-		$Wobble/Squish/Drag/Sprite2D/Origin.position = - dictmain.offset 
-		get_node("Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)
+		$Pos/Wobble/Squish/Drag/Sprite2D.offset = dictmain.offset 
+		$Pos/Wobble/Squish/Drag/Sprite2D/Origin.position = - dictmain.offset 
+		get_node("Pos/Wobble/Squish/Drag/Sprite2D").set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
 		
 		set_blend(dictmain.blend_mode)
@@ -105,25 +105,25 @@ func get_state(id):
 func set_blend(blend):
 	match  blend:
 		"Normal":
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", false)
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", false)
 		"Add":
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
 		"Subtract":
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
 		"Multiply":
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
 		"Burn":
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
 		"HardMix":
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
 		"Cursed":
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("enabled", true)
+			$Pos/Wobble/Squish/Drag/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
 
 
 func _on_grab_button_down():

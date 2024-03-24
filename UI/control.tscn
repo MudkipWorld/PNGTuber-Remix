@@ -1,21 +1,20 @@
-[gd_scene load_steps=32 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=35 format=3 uid="uid://ngta1o5yiqxs"]
 
-[ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_m7ltu"]
-[ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/LightPanel.tres" id="2_6cxu6"]
+[ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
+[ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
 [ext_resource type="Script" path="res://Scripts/control.gd" id="2_a5rie"]
 [ext_resource type="Script" path="res://Scripts/UIInput.gd" id="3_1eur5"]
 [ext_resource type="Script" path="res://Scripts/OnlineLinks.gd" id="3_7fg0y"]
 [ext_resource type="Script" path="res://Scripts/TopBarInput.gd" id="3_d50ks"]
-[ext_resource type="StyleBox" uid="uid://dpeurts54fvip" path="res://Themes/SmallPanelTheme.tres" id="5_w3axc"]
+[ext_resource type="Script" path="res://Scripts/_Themes_.gd" id="3_vp3qw"]
+[ext_resource type="StyleBox" uid="uid://dpeurts54fvip" path="res://Themes/PurpleTheme/SmallPanelTheme.tres" id="5_w3axc"]
 [ext_resource type="Script" path="res://Scripts/LightControl.gd" id="6_5v3ft"]
-[ext_resource type="StyleBox" uid="uid://xpfmmvo6agir" path="res://Themes/Menubutton.tres" id="6_8vljj"]
 [ext_resource type="Texture2D" uid="uid://bobj6c6goa1d3" path="res://UI/FolderButton.png" id="6_hynel"]
 [ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/ZoominButton.png" id="6_t2a3p"]
 [ext_resource type="Script" path="res://Scripts/ViewportControl.gd" id="6_xt0ob"]
 [ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/ZoomResetButton.png" id="7_82n4t"]
 [ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/ReplaceButton.png" id="7_cg0wr"]
 [ext_resource type="Script" path="res://Scripts/BackgroundEdit.gd" id="7_l6sf2"]
-[ext_resource type="StyleBox" uid="uid://d2jr6q8qqlihn" path="res://Themes/Menubuttondis.tres" id="7_msl4o"]
 [ext_resource type="PackedScene" uid="uid://cwtyu481ec5vq" path="res://UI/StateButton/state_button.tscn" id="8_6lifb"]
 [ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/ZoomOutButton.png" id="8_46wi4"]
 [ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/DupButton.png" id="8_r6auv"]
@@ -29,6 +28,10 @@
 [ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/LinksButtonImages/RedditLogo.png" id="19_wqyow"]
 [ext_resource type="Script" path="res://Scripts/BackgroundTree.gd" id="20_c74i2"]
 [ext_resource type="Script" path="res://Scripts/LayersTree.gd" id="20_x2k62"]
+[ext_resource type="Texture2D" uid="uid://dt530lalergk0" path="res://Template Model(s)/Icons/BasicIcon.png" id="28_fyin0"]
+[ext_resource type="Texture2D" uid="uid://bhidrbb01hfmq" path="res://Template Model(s)/Icons/BGIcon.png" id="29_rak5y"]
+[ext_resource type="Texture2D" uid="uid://fmhwpxa4hlo7" path="res://Template Model(s)/Icons/NormalIcon.png" id="30_c52oo"]
+[ext_resource type="Texture2D" uid="uid://bjxmdyue5pp2x" path="res://Template Model(s)/Icons/FollowMouseIcon.png" id="31_4m8rg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcgtm"]
 bg_color = Color(0.227451, 0.580392, 0.431373, 1)
@@ -51,8 +54,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-theme = ExtResource("1_m7ltu")
+theme = ExtResource("1_oukb3")
 script = ExtResource("2_a5rie")
+
+[node name="_Themes_" type="Node" parent="."]
+script = ExtResource("3_vp3qw")
 
 [node name="OnlineLinks" type="Node" parent="."]
 script = ExtResource("3_7fg0y")
@@ -92,6 +98,7 @@ offset_bottom = 0.0139771
 mouse_filter = 2
 
 [node name="VPPanel" type="Panel" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 105)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gcgtm")
@@ -173,14 +180,15 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+[node name="Panelt" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(87, 87)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("5_w3axc")
 
-[node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panel"]
+[node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panelt"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
@@ -193,14 +201,15 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel2" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+[node name="Paneln" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(87, 87)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("5_w3axc")
 
-[node name="CurrentSelectedNormal" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panel2"]
+[node name="CurrentSelectedNormal" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Paneln"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
@@ -352,7 +361,8 @@ mouse_filter = 1
 theme_override_styles/panel = ExtResource("2_6cxu6")
 metadata/_edit_use_anchors_ = true
 
-[node name="TopPanel" type="Panel" parent="LeftPanel/VBox/Panel"]
+[node name="TopPanel2" type="Panel" parent="LeftPanel/VBox/Panel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -360,7 +370,7 @@ offset_bottom = 24.0
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="LeftPanel/VBox/Panel/TopPanel"]
+[node name="Label" type="Label" parent="LeftPanel/VBox/Panel/TopPanel2"]
 layout_mode = 0
 anchor_left = 0.013986
 anchor_top = 0.0833333
@@ -406,6 +416,7 @@ theme_override_styles/panel = ExtResource("2_6cxu6")
 metadata/_edit_use_anchors_ = true
 
 [node name="TopPanel" type="Panel" parent="LeftPanel/VBox/Panel2"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -461,6 +472,7 @@ offset_top = 25.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Properties" type="Panel" parent="RightPanel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0260663
@@ -495,7 +507,7 @@ anchor_bottom = 0.843
 offset_left = 7.0
 offset_top = 38.0
 offset_right = 455.0
-offset_bottom = 67.9752
+offset_bottom = 33.9752
 scale = Vector2(0.871866, 0.871866)
 focus_mode = 1
 mouse_filter = 2
@@ -537,10 +549,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = ExtResource("6_8vljj")
-theme_override_styles/pressed = ExtResource("6_8vljj")
-theme_override_styles/hover = ExtResource("6_8vljj")
-theme_override_styles/disabled = ExtResource("7_msl4o")
 text = "Normal"
 flat = false
 alignment = 0
@@ -864,10 +872,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = ExtResource("6_8vljj")
-theme_override_styles/pressed = ExtResource("6_8vljj")
-theme_override_styles/hover = ExtResource("6_8vljj")
-theme_override_styles/disabled = ExtResource("7_msl4o")
 text = "Idle"
 flat = false
 alignment = 0
@@ -894,10 +898,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = ExtResource("6_8vljj")
-theme_override_styles/pressed = ExtResource("6_8vljj")
-theme_override_styles/hover = ExtResource("6_8vljj")
-theme_override_styles/disabled = ExtResource("7_msl4o")
 text = "Idle"
 flat = false
 alignment = 0
@@ -1191,6 +1191,79 @@ max_value = 10.0
 step = 0.1
 value = 2.5
 
+[node name="Sp8" type="HSeparator" parent="RightPanel/Properties/ScrollContainer/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Experimental"
+
+[node name="HBox22" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+layout_mode = 2
+
+[node name="AdvancedLipSync" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Grid/HBox22"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 12
+text = "Advanced Lipsync"
+
+[node name="AdvancedLipSyncLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox22/AdvancedLipSync"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 130.754
+offset_top = -2.81759
+offset_right = 444.754
+offset_bottom = 28.1824
+theme_override_font_sizes/font_size = 10
+text = "Only works if your mouth shapes are in a sprite-sheet.
+6 frames"
+horizontal_alignment = 1
+
+[node name="HBox23" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+layout_mode = 2
+
+[node name="FMxLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox23"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Follow Mouse Range X  : "
+
+[node name="FMxSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox23"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -200.0
+max_value = 200.0
+step = 0.1
+
+[node name="HBox24" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
+layout_mode = 2
+
+[node name="FMYLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Grid/HBox24"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Follow Mouse Range  Y : "
+
+[node name="FMYSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Grid/HBox24"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -200.0
+max_value = 200.0
+step = 0.1
+
 [node name="ScrollContainer2" type="ScrollContainer" parent="RightPanel/Properties"]
 unique_name_in_owner = true
 visible = false
@@ -1333,6 +1406,21 @@ layout_mode = 2
 min_value = -9999.0
 max_value = 9999.0
 
+[node name="Sp4" type="HSeparator" parent="RightPanel/Properties/ScrollContainer2/Grid"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBox11" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer2/Grid"]
+visible = false
+layout_mode = 2
+
+[node name="BGReacttoLight" type="CheckBox" parent="RightPanel/Properties/ScrollContainer2/Grid/HBox11"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "React To Light       "
+
 [node name="StateButtons" type="GridContainer" parent="RightPanel/Properties"]
 layout_mode = 1
 anchors_preset = -1
@@ -1353,12 +1441,14 @@ columns = 5
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 input_key = "State 1"
 
 [node name="StateButton2" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "2"
 state = 1
 input_key = "State 2"
@@ -1367,6 +1457,7 @@ input_key = "State 2"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "3"
 state = 2
 input_key = "State 3"
@@ -1375,6 +1466,7 @@ input_key = "State 3"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "4"
 state = 3
 input_key = "State 4"
@@ -1383,6 +1475,7 @@ input_key = "State 4"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "5"
 state = 4
 input_key = "State 5"
@@ -1391,6 +1484,7 @@ input_key = "State 5"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "6"
 state = 5
 input_key = "State 6"
@@ -1399,6 +1493,7 @@ input_key = "State 6"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "7"
 state = 6
 input_key = "State 7"
@@ -1407,6 +1502,7 @@ input_key = "State 7"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "8"
 state = 7
 input_key = "State 8"
@@ -1415,6 +1511,7 @@ input_key = "State 8"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "9"
 state = 8
 input_key = "State 9"
@@ -1423,6 +1520,7 @@ input_key = "State 9"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = null
 text = "10"
 state = 9
 input_key = "State 10"
@@ -1552,18 +1650,19 @@ flat = true
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(400, 180)
+size = Vector2i(400, 203)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp"]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 390.0
-offset_bottom = 170.0
+offset_bottom = 193.0
 
 [node name="CreditLabel" type="Label" parent="AboutPopUp/VBoxContainer"]
 layout_mode = 2
 text = "PNGTuber Remix by TheMime (MudkipWorld)
 Original PNGTuber+ Code by kaiakairos
+V1.2.1
 "
 horizontal_alignment = 1
 
@@ -1616,13 +1715,13 @@ stretch_mode = 0
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(487, 180)
+size = Vector2i(564, 151)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TempPopUp"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 477.0
-offset_bottom = 170.0
+offset_right = 554.0
+offset_bottom = 141.0
 
 [node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer"]
 layout_mode = 2
@@ -1634,19 +1733,32 @@ layout_mode = 2
 columns = 2
 
 [node name="BasicTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 text = "Basic Template"
+icon = ExtResource("28_fyin0")
+expand_icon = true
 
 [node name="BGTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(289, 0)
+custom_minimum_size = Vector2(320, 50)
 layout_mode = 2
 text = "Model With Background Template"
+icon = ExtResource("29_rak5y")
+expand_icon = true
 
 [node name="NormalmTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 text = "NormalMap Template"
+icon = ExtResource("30_c52oo")
+expand_icon = true
+
+[node name="FollowMouseTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+text = "Follow Mouse Template"
+icon = ExtResource("31_4m8rg")
+expand_icon = true
 
 [node name="TutorialPopUp" type="PopupPanel" parent="."]
 unique_name_in_owner = true
@@ -1714,27 +1826,31 @@ from the original software and improve existing ones."
 [node name="InputsPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(400, 468)
+size = Vector2i(497, 534)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InputsPopup"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 390.0
-offset_bottom = 458.0
+offset_right = 487.0
+offset_bottom = 524.0
 
-[node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InputsPopup/HBoxContainer"]
 layout_mode = 2
+
+[node name="GridContainer2" type="GridContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
 columns = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VolumeLabel" type="Label" parent="InputsPopup/VBoxContainer/GridContainer2"]
+[node name="VolumeLabel" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 12
 text = "Volume"
 horizontal_alignment = 1
 
-[node name="VolumeBar" type="ProgressBar" parent="InputsPopup/VBoxContainer/GridContainer2"]
+[node name="VolumeBar" type="ProgressBar" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
@@ -1743,7 +1859,7 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 10
 max_value = 1.0
 
-[node name="VolumeSlider" type="HSlider" parent="InputsPopup/VBoxContainer/GridContainer2/VolumeBar"]
+[node name="VolumeSlider" type="HSlider" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2/VolumeBar"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
@@ -1760,22 +1876,22 @@ max_value = 1.0
 step = 0.01
 value = 0.1
 
-[node name="Sp" type="HSeparator" parent="InputsPopup/VBoxContainer/GridContainer2"]
+[node name="Sp" type="HSeparator" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Sp2" type="HSeparator" parent="InputsPopup/VBoxContainer/GridContainer2"]
+[node name="Sp2" type="HSeparator" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="SensitivityLabel" type="Label" parent="InputsPopup/VBoxContainer/GridContainer2"]
+[node name="SensitivityLabel" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 12
 text = "Vol. Sensitivity"
 horizontal_alignment = 1
 
-[node name="SensitivityBar" type="ProgressBar" parent="InputsPopup/VBoxContainer/GridContainer2"]
+[node name="SensitivityBar" type="ProgressBar" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
@@ -1786,7 +1902,7 @@ min_value = 1.0
 max_value = 10.0
 value = 1.0
 
-[node name="SensitivitySlider" type="HSlider" parent="InputsPopup/VBoxContainer/GridContainer2/SensitivityBar"]
+[node name="SensitivitySlider" type="HSlider" parent="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2/SensitivityBar"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
@@ -1804,7 +1920,7 @@ max_value = 10.0
 step = 0.01
 value = 1.0
 
-[node name="InputCheckButton" type="CheckButton" parent="InputsPopup/VBoxContainer"]
+[node name="InputCheckButton" type="CheckButton" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -1812,7 +1928,7 @@ size_flags_vertical = 6
 button_pressed = true
 text = "Change States With Inputs : "
 
-[node name="AntiAlCheck" type="CheckButton" parent="InputsPopup/VBoxContainer"]
+[node name="AntiAlCheck" type="CheckButton" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -1820,111 +1936,165 @@ size_flags_horizontal = 0
 button_pressed = true
 text = "Anti-Aliasing : "
 
-[node name="RemapLabel" type="Label" parent="InputsPopup/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MicLabel" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Used Microphone : "
+
+[node name="MicroPhoneMenu" type="MenuButton" parent="InputsPopup/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Default"
+flat = false
+text_overrun_behavior = 3
+
+[node name="RemapLabel" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Remap States Input :"
 
-[node name="Grid" type="GridContainer" parent="InputsPopup/VBoxContainer"]
+[node name="Grid" type="GridContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 2
 columns = 2
 
-[node name="State 1" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 1" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 1"
 
-[node name="StateRemapButton" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 action = "State 1"
 
-[node name="State 2" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 2" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 2
 "
 
-[node name="StateRemapButton2" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton2" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 2"
 
-[node name="State 3" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 3" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 3
 "
 
-[node name="StateRemapButton3" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton3" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 3"
 
-[node name="State 4" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 4" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 4
 "
 
-[node name="StateRemapButton4" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton4" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 4"
 
-[node name="State 5" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 5" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 5
 "
 
-[node name="StateRemapButton5" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton5" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 5"
 
-[node name="State 6" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 6" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 6
 "
 
-[node name="StateRemapButton6" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton6" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 6"
 
-[node name="State 7" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 7" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 7
 "
 
-[node name="StateRemapButton7" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton7" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 7"
 
-[node name="State 8" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 8" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 8
 "
 
-[node name="StateRemapButton8" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton8" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 8"
 
-[node name="State 9" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 9" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 9
 "
 
-[node name="StateRemapButton9" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton9" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 9"
 
-[node name="State 10" type="Label" parent="InputsPopup/VBoxContainer/Grid"]
+[node name="State 10" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
 layout_mode = 2
 text = "State 10
 "
 
-[node name="StateRemapButton10" parent="InputsPopup/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
+[node name="StateRemapButton10" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
 layout_mode = 2
+theme = null
 text = "kp0"
 action = "State 10"
+
+[node name="Grid2" type="GridContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 2
+
+[node name="ThemeLabel" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid2"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "UI Theme : "
+
+[node name="UIThemeButton" type="MenuButton" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Purple"
+flat = false
+item_count = 4
+popup/item_0/text = "Purple"
+popup/item_0/id = 0
+popup/item_1/text = "Blue"
+popup/item_1/id = 1
+popup/item_2/text = "Orange"
+popup/item_2/id = 2
+popup/item_3/text = "White"
+popup/item_3/id = 3
 
 [node name="BounceControlPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
@@ -2031,6 +2201,11 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox27/WiggleAppsStiffSlider" to="UIInput" method="_on_wiggle_apps_stiff_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox28/WiggleAppsMaxAngleSlider" to="UIInput" method="_on_wiggle_apps_max_angle_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox29/WiggleAppsPhysStiffSlider" to="UIInput" method="_on_wiggle_apps_phys_stiff_slider_value_changed"]
+[connection signal="mouse_entered" from="RightPanel/Properties/ScrollContainer/Grid/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_entered"]
+[connection signal="mouse_exited" from="RightPanel/Properties/ScrollContainer/Grid/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Grid/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_toggled"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox23/FMxSlider" to="UIInput" method="_on_f_mx_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Grid/HBox24/FMYSlider" to="UIInput" method="_on_fmy_slider_value_changed"]
 [connection signal="color_changed" from="RightPanel/Properties/ScrollContainer2/Grid/Hbox/BGColorPickerButton" to="BackgroundEdit" method="_on_bg_color_picker_button_color_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer2/Grid/HBox21/BGPosXSpinBox" to="BackgroundEdit" method="_on_bg_pos_x_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer2/Grid/HBox21/BGPosYSpinBox" to="BackgroundEdit" method="_on_bg_pos_y_spin_box_value_changed"]
@@ -2039,6 +2214,7 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer2/Grid/HBox9/BGSizeSpinYBox" to="BackgroundEdit" method="_on_bg_size_spin_y_box_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer2/Grid/HBox10/BGVisible" to="BackgroundEdit" method="_on_bg_visible_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer2/Grid/HBox12/BGZOrderSpinbox" to="BackgroundEdit" method="_on_bgz_order_spinbox_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer2/Grid/HBox11/BGReacttoLight" to="BackgroundEdit" method="_on_bg_reactto_light_toggled"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]
@@ -2049,10 +2225,11 @@ presets_visible = false
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BasicTempButton" to="TopBarInput" method="_on_basic_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BGTempButton" to="TopBarInput" method="_on_bg_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/NormalmTempButton" to="TopBarInput" method="_on_normalm_temp_button_pressed"]
-[connection signal="value_changed" from="InputsPopup/VBoxContainer/GridContainer2/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
-[connection signal="value_changed" from="InputsPopup/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
-[connection signal="toggled" from="InputsPopup/VBoxContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
-[connection signal="toggled" from="InputsPopup/VBoxContainer/AntiAlCheck" to="TopBarInput" method="_on_anti_al_check_toggled"]
+[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/FollowMouseTempButton" to="TopBarInput" method="_on_follow_mouse_temp_button_pressed"]
+[connection signal="value_changed" from="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
+[connection signal="toggled" from="InputsPopup/HBoxContainer/VBoxContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
+[connection signal="toggled" from="InputsPopup/HBoxContainer/VBoxContainer/AntiAlCheck" to="TopBarInput" method="_on_anti_al_check_toggled"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
 [connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwtyu481ec5vq"]
 
-[ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/GUITheme.tres" id="1_16h80"]
+[ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/PurpleTheme/GUITheme.tres" id="1_16h80"]
 [ext_resource type="Script" path="res://Scripts/StateButton.gd" id="2_2ybu4"]
 
 [node name="StateButton" type="Button" groups=["StateButtons"]]

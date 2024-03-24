@@ -11,6 +11,7 @@ var last_path : String = ""
 @onready var origin = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
 @onready var bg = get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer")
 @onready var light = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/LightSource")
+var devices : Array = []
 
 func _ready():
 	RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
@@ -18,6 +19,19 @@ func _ready():
 	mode.get_popup().connect("id_pressed",choosing_mode)
 	bgcolor.get_popup().connect("id_pressed",choosing_bg_color)
 	about.get_popup().connect("id_pressed",choosing_about)
+	
+	devices = AudioServer.get_input_device_list()
+	for i in devices:
+		%MicroPhoneMenu.get_popup().add_item(i)
+		
+	%MicroPhoneMenu.text = str(AudioServer.input_device)
+	%MicroPhoneMenu.get_popup().connect("id_pressed",choosing_device)
+	
+
+func choosing_device(id):
+	AudioServer.input_device = devices[id]
+	%MicroPhoneMenu.text = str(devices[id])
+
 
 func choosing_files(id):
 	var main = get_tree().get_root().get_node("Main")
@@ -92,12 +106,12 @@ func choosing_mode(id):
 		#	'''
 		
 	if Global.held_sprite != null:
-		if Global.held_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
-			Global.held_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
-			%LayersTree.get_selected().deselect(0)
+		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
+			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
+		#	%LayersTree.get_selected().deselect(0)
 	if Global.held_bg_sprite != null:
-		if Global.held_bg_sprite.has_node("Wobble/Squish/Drag/Sprite2D/Origin"):
-			Global.held_bg_sprite.get_node("Wobble/Squish/Drag/Sprite2D/Origin").hide()
+		if Global.held_bg_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
+			Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
 			
 		Global.held_sprite = null
 		Global.held_bg_sprite = null
@@ -213,4 +227,9 @@ func _on_bg_temp_button_pressed():
 
 func _on_normalm_temp_button_pressed():
 	SaveAndLoad.load_file("res://Template Model(s)/PickleModelWithNormalMap.pngRemix")
+	%TempPopUp.hide()
+
+
+func _on_follow_mouse_temp_button_pressed():
+	SaveAndLoad.load_file("res://Template Model(s)/PickleModelFollowMouse.pngRemix")
 	%TempPopUp.hide()

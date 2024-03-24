@@ -6,6 +6,12 @@ var record_effect : AudioEffectRecord
 
 var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 
+const VU_COUNT = 4
+const HEIGHT = 60
+const  MAX_FREQ = 11050.0
+var bar_stuff = []
+var used_bar = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	record_bus_index = AudioServer.get_bus_index("Mic")
@@ -13,14 +19,18 @@ func _ready():
 	spectrum_analyzer = AudioServer.get_bus_effect_instance(record_bus_index, 2)
 
 
-'''
 func _process(_delta):
-	# Get the strength of the 0 - 200hz range of audio
-	var magnitude = spectrum_analyzer.get_magnitude_for_frequency_range(
-		0,
-		200
-	).length()
-
-	# Boost the signal and normalize it
-	var energy = clamp((MIN_DB + linear_to_db(magnitude))/MIN_DB, 0, 1)
-'''
+	var prev_hz = 0
+	bar_stuff = []
+	for i in range(1, VU_COUNT + 1):
+		var hz = i * MAX_FREQ/ VU_COUNT
+		var magnitude = spectrum_analyzer.get_magnitude_for_frequency_range(prev_hz,hz)
+		var energy = linear_to_db(magnitude.length())
+		var height = clamp(energy + HEIGHT, 0, 1000)
+		
+		prev_hz = hz
+		
+		bar_stuff.append(height)
+	used_bar = bar_stuff
+#	print(bar_stuff)
+	
