@@ -20,6 +20,8 @@ func _input(event):
 		_drop_data(get_local_mouse_position(), item)
 		dragging = false
 
+
+
 func _drop_data(at_position, _data):
 	# The item it was dropped on
 	var other_item = get_item_at_position(at_position)

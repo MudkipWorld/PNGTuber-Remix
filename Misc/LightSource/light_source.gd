@@ -30,6 +30,13 @@ func get_state(state):
 		scale = dict.scale
 		visible = dict.visible
 		$Grab.modulate = color
+	else:
+		energy = 2
+		color = Color.WHITE
+		global_position = Vector2(0,0)
+		scale = Vector2(1,1)
+		visible = false
+		$Grab.modulate = color
 
 func _on_grab_button_down():
 	if $Grab.visible:

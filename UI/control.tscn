@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=34 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/UIInput.gd" id="3_1eur5"]
 [ext_resource type="Script" path="res://Scripts/OnlineLinks.gd" id="3_7fg0y"]
 [ext_resource type="Script" path="res://Scripts/TopBarInput.gd" id="3_d50ks"]
+[ext_resource type="Script" path="res://Scripts/StatesStuff.gd" id="3_pa6sx"]
 [ext_resource type="Script" path="res://Scripts/_Themes_.gd" id="3_vp3qw"]
 [ext_resource type="StyleBox" uid="uid://dpeurts54fvip" path="res://Themes/PurpleTheme/SmallPanelTheme.tres" id="5_w3axc"]
 [ext_resource type="Script" path="res://Scripts/LightControl.gd" id="6_5v3ft"]
@@ -15,12 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/ZoomResetButton.png" id="7_82n4t"]
 [ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/ReplaceButton.png" id="7_cg0wr"]
 [ext_resource type="Script" path="res://Scripts/BackgroundEdit.gd" id="7_l6sf2"]
-[ext_resource type="PackedScene" uid="uid://cwtyu481ec5vq" path="res://UI/StateButton/state_button.tscn" id="8_6lifb"]
 [ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/ZoomOutButton.png" id="8_46wi4"]
 [ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/DupButton.png" id="8_r6auv"]
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="9_jhnap"]
 [ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="10_efci7"]
-[ext_resource type="PackedScene" uid="uid://drok2umdmycjc" path="res://UI/StateButton/state_remap_button.tscn" id="12_w6f4c"]
 [ext_resource type="Texture2D" uid="uid://diyx30a4yqalc" path="res://UI/NormalMapButton.png" id="16_l1e6k"]
 [ext_resource type="Texture2D" uid="uid://cxpsf8uoktwrd" path="res://UI/NormalMapDelButton.png" id="17_ex20s"]
 [ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/LinksButtonImages/GithubLogo.png" id="17_tkc2i"]
@@ -56,6 +55,9 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme = ExtResource("1_oukb3")
 script = ExtResource("2_a5rie")
+
+[node name="StatesStuff" type="Node" parent="."]
+script = ExtResource("3_pa6sx")
 
 [node name="_Themes_" type="Node" parent="."]
 script = ExtResource("3_vp3qw")
@@ -395,7 +397,9 @@ offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 2
 localize_numeral_system = false
+focus_mode = 1
 mouse_filter = 1
+mouse_force_pass_scroll_events = false
 mouse_default_cursor_shape = 2
 theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
 theme_override_constants/item_margin = 8
@@ -1421,109 +1425,50 @@ size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 10
 text = "React To Light       "
 
-[node name="StateButtons" type="GridContainer" parent="RightPanel/Properties"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RightPanel/Properties"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.041
-anchor_top = 0.873
-anchor_right = 0.951
-anchor_bottom = 0.987
-offset_left = 0.131939
-offset_top = -0.275024
-offset_right = -0.0859985
-offset_bottom = -0.225037
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = 0.027
+anchor_top = 0.985
+anchor_right = 0.975063
+anchor_bottom = 1.0
+offset_left = 0.173003
+offset_top = -109.875
+offset_bottom = -9.99976
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightPanel/Properties/VBoxContainer"]
+layout_mode = 2
+
+[node name="AddState" type="Button" parent="RightPanel/Properties/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Add State"
+
+[node name="DeleteState" type="Button" parent="RightPanel/Properties/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Delete State"
+metadata/_edit_use_anchors_ = true
+
+[node name="HSeparator" type="HSeparator" parent="RightPanel/Properties/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RightPanel/Properties/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="StateButtons" type="GridContainer" parent="RightPanel/Properties/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/h_separation = 10
-columns = 5
-
-[node name="StateButton" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-input_key = "State 1"
-
-[node name="StateButton2" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "2"
-state = 1
-input_key = "State 2"
-
-[node name="StateButton3" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "3"
-state = 2
-input_key = "State 3"
-
-[node name="StateButton4" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "4"
-state = 3
-input_key = "State 4"
-
-[node name="StateButton5" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "5"
-state = 4
-input_key = "State 5"
-
-[node name="StateButton6" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "6"
-state = 5
-input_key = "State 6"
-
-[node name="StateButton7" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "7"
-state = 6
-input_key = "State 7"
-
-[node name="StateButton8" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "8"
-state = 7
-input_key = "State 8"
-
-[node name="StateButton9" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "9"
-state = 8
-input_key = "State 9"
-
-[node name="StateButton10" parent="RightPanel/Properties/StateButtons" instance=ExtResource("8_6lifb")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = null
-text = "10"
-state = 9
-input_key = "State 10"
+theme_override_constants/v_separation = 5
+columns = 10
 
 [node name="TopBar" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -1826,16 +1771,17 @@ from the original software and improve existing ones."
 [node name="InputsPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(497, 534)
+size = Vector2i(497, 588)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup"]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 487.0
-offset_bottom = 524.0
+offset_bottom = 578.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InputsPopup/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1920,11 +1866,15 @@ max_value = 10.0
 step = 0.01
 value = 1.0
 
+[node name="Sp2" type="HSeparator" parent="InputsPopup/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
 [node name="InputCheckButton" type="CheckButton" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 6
+size_flags_vertical = 2
 button_pressed = true
 text = "Change States With Inputs : "
 
@@ -1933,11 +1883,18 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 2
 button_pressed = true
 text = "Anti-Aliasing : "
 
+[node name="Sp3" type="HSeparator" parent="InputsPopup/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
 [node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
 
 [node name="MicLabel" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -1952,122 +1909,27 @@ text = "Default"
 flat = false
 text_overrun_behavior = 3
 
+[node name="ResetMicButton" type="TextureButton" parent="InputsPopup/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+texture_normal = ExtResource("7_82n4t")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="RemapLabel" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Remap States Input :"
 
-[node name="Grid" type="GridContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
-size_flags_horizontal = 2
-columns = 2
 
-[node name="State 1" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
+[node name="Grid" type="VBoxContainer" parent="InputsPopup/HBoxContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "State 1"
-
-[node name="StateRemapButton" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-action = "State 1"
-
-[node name="State 2" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 2
-"
-
-[node name="StateRemapButton2" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 2"
-
-[node name="State 3" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 3
-"
-
-[node name="StateRemapButton3" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 3"
-
-[node name="State 4" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 4
-"
-
-[node name="StateRemapButton4" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 4"
-
-[node name="State 5" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 5
-"
-
-[node name="StateRemapButton5" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 5"
-
-[node name="State 6" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 6
-"
-
-[node name="StateRemapButton6" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 6"
-
-[node name="State 7" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 7
-"
-
-[node name="StateRemapButton7" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 7"
-
-[node name="State 8" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 8
-"
-
-[node name="StateRemapButton8" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 8"
-
-[node name="State 9" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 9
-"
-
-[node name="StateRemapButton9" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 9"
-
-[node name="State 10" type="Label" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid"]
-layout_mode = 2
-text = "State 10
-"
-
-[node name="StateRemapButton10" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid" instance=ExtResource("12_w6f4c")]
-layout_mode = 2
-theme = null
-text = "kp0"
-action = "State 10"
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Grid2" type="GridContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -2079,22 +1941,9 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "UI Theme : "
 
-[node name="UIThemeButton" type="MenuButton" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid2"]
+[node name="UIThemeButton" type="OptionButton" parent="InputsPopup/HBoxContainer/VBoxContainer/Grid2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-text = "Purple"
-flat = false
-item_count = 4
-popup/item_0/text = "Purple"
-popup/item_0/id = 0
-popup/item_1/text = "Blue"
-popup/item_1/id = 1
-popup/item_2/text = "Orange"
-popup/item_2/id = 2
-popup/item_3/text = "White"
-popup/item_3/id = 3
 
 [node name="BounceControlPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
@@ -2215,6 +2064,8 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer2/Grid/HBox10/BGVisible" to="BackgroundEdit" method="_on_bg_visible_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer2/Grid/HBox12/BGZOrderSpinbox" to="BackgroundEdit" method="_on_bgz_order_spinbox_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer2/Grid/HBox11/BGReacttoLight" to="BackgroundEdit" method="_on_bg_reactto_light_toggled"]
+[connection signal="pressed" from="RightPanel/Properties/VBoxContainer/HBoxContainer/AddState" to="StatesStuff" method="_on_add_state_pressed"]
+[connection signal="pressed" from="RightPanel/Properties/VBoxContainer/HBoxContainer/DeleteState" to="StatesStuff" method="_on_delete_state_pressed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]
@@ -2230,6 +2081,8 @@ presets_visible = false
 [connection signal="value_changed" from="InputsPopup/HBoxContainer/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
 [connection signal="toggled" from="InputsPopup/HBoxContainer/VBoxContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
 [connection signal="toggled" from="InputsPopup/HBoxContainer/VBoxContainer/AntiAlCheck" to="TopBarInput" method="_on_anti_al_check_toggled"]
+[connection signal="pressed" from="InputsPopup/HBoxContainer/VBoxContainer/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
+[connection signal="item_selected" from="InputsPopup/HBoxContainer/VBoxContainer/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
 [connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]

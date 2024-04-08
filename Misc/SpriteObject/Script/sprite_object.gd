@@ -17,7 +17,7 @@ var treeitem : TreeItem
 var visb
 var tick = 0
 var sprite_name : String = ""
-@export var states : Array = [{},{},{},{},{},{},{},{},{},{}]
+@export var states : Array = [{}]
 var coord
 var dragging : bool = false
 var of = Vector2(0,0)

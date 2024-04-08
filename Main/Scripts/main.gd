@@ -119,6 +119,9 @@ func _on_file_dialog_files_selected(paths):
 			
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
 			sprte_obj.sprite_name = path.get_file()
+			sprte_obj.states = []
+			for i in Global.settings_dict.states.size():
+				sprte_obj.states.append({})
 			sprite_nodes.append(sprte_obj)
 			
 
@@ -157,6 +160,8 @@ func clear_sprites():
 	
 	$Control.new_tree()
 	$Control/BackgroundEdit.new_tree()
+	$Control/StatesStuff.delete_all_states()
+	$Control/StatesStuff.initial_state()
 
 func _input(event):
 	if can_scroll && not Input.is_action_pressed("ctrl"):

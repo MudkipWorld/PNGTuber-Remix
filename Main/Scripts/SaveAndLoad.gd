@@ -72,15 +72,22 @@ func save_file(path):
 
 
 func load_file(path):
+	get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
 	get_tree().get_root().get_node("Main").clear_sprites()
 	
 	get_tree().get_root().get_node("Main/Timer").start()
+	get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
 	await get_tree().get_root().get_node("Main/Timer").timeout
 	
 	var file = FileAccess.open(path, FileAccess.READ)
 	var load_dict = file.get_var(true)
 	
+	
 	Global.settings_dict.merge(load_dict.settings_dict, true)
+	
+	get_tree().get_root().get_node("Main/Control/StatesStuff").update_states(load_dict.settings_dict.states)
+	
+	
 	if load_dict.has("bg_sprites_array"):
 		for sprite in load_dict.bg_sprites_array:
 			var sprite_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
@@ -97,6 +104,9 @@ func load_file(path):
 			
 			get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer").add_child(sprite_obj)
 			sprite_obj.get_state(0)
+			
+	
+	
 	
 	for sprite in load_dict.sprites_array:
 		var sprite_obj
@@ -135,11 +145,15 @@ func load_file(path):
 		
 
 #	'''
+	
 	for input in len(load_dict.input_array):
 		get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
 		
 		get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
+		
 #	'''
+	
+	
 	
 	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))

@@ -11,6 +11,13 @@ func save():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	%UIThemeButton.add_item("Purple", 0)
+	%UIThemeButton.add_item("Blue", 1)
+	%UIThemeButton.add_item("Orange", 2)
+	%UIThemeButton.add_item("White", 3)
+	%UIThemeButton.add_item("Dark (Wip)", 4)
+	%UIThemeButton.add_item("Green", 5)
+	
 	print(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat")
 	var file = FileAccess
 	if file.file_exists(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat"):
@@ -26,8 +33,7 @@ func _ready():
 		create_file.store_var(theme_id)
 		create_file.close()
 		purple_theme()
-		
-	%UIThemeButton.get_popup().connect("id_pressed",choosing_UI)
+
 
 func loaded_UI(id):
 	match id:
@@ -43,25 +49,34 @@ func loaded_UI(id):
 		3:
 			%UIThemeButton.text = "White"
 			white_theme()
+		4:
+			%UIThemeButton.text = "Dark (Wip)"
+			dark_theme()
+		5:
+			%UIThemeButton.text = "Dark (Wip)"
+			green_theme()
 
-func choosing_UI(id):
-	match id:
+func _on_ui_theme_button_item_selected(index):
+	match index:
 		0:
 			%UIThemeButton.text = "Purple"
-			theme_id = 0 
 			purple_theme()
 		1:
-			theme_id = 1
 			%UIThemeButton.text = "Blue"
 			blue_theme()
 		2:
-			theme_id = 2
 			%UIThemeButton.text = "Orange"
 			orange_theme()
 		3:
-			theme_id = 3
 			%UIThemeButton.text = "White"
 			white_theme()
+		4:
+			%UIThemeButton.text = "Dark (Wip)"
+			dark_theme()
+		5:
+			%UIThemeButton.text = "Green"
+			green_theme()
+	theme_id = index
 	save()
 
 func blue_theme():
@@ -73,6 +88,10 @@ func blue_theme():
 	%LayersButtons.modulate = Color.AQUA
 	%LayersButtons2.modulate = Color.AQUA
 	%ViewportCam.modulate = Color.AQUA
+	%ResetMicButton.modulate = Color.AQUA
+	%LeftPanel.self_modulate = Color.WHITE
+	%RightPanel.self_modulate = Color.WHITE
+	%TopBar.self_modulate = Color.WHITE
 
 func purple_theme():
 	get_parent().theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
@@ -83,6 +102,10 @@ func purple_theme():
 	%LayersButtons.modulate = Color(0.898, 0.796, 0.996, 1 )
 	%LayersButtons2.modulate = Color(0.898, 0.796, 0.996, 1 )
 	%ViewportCam.modulate = Color(0.898, 0.796, 0.996, 1 )
+	%ResetMicButton.modulate = Color(0.898, 0.796, 0.996, 1 )
+	%LeftPanel.self_modulate = Color.WHITE
+	%RightPanel.self_modulate = Color.WHITE
+	%TopBar.self_modulate = Color.WHITE
 
 func orange_theme():
 	get_parent().theme = preload("res://Themes/OrangeTheme/OrangeTheme.tres")
@@ -93,6 +116,11 @@ func orange_theme():
 	%LayersButtons.modulate = Color.ORANGE
 	%LayersButtons2.modulate = Color.ORANGE
 	%ViewportCam.modulate = Color.ORANGE
+	%ResetMicButton.modulate = Color.ORANGE
+	
+	%LeftPanel.self_modulate = Color.WHITE
+	%RightPanel.self_modulate = Color.WHITE
+	%TopBar.self_modulate = Color.WHITE
 
 func white_theme():
 	get_parent().theme = preload("res://Themes/WhiteTheme/WhiteTheme.tres")
@@ -103,3 +131,37 @@ func white_theme():
 	%LayersButtons.modulate = Color.WHITE
 	%LayersButtons2.modulate = Color.WHITE
 	%ViewportCam.modulate = Color.WHITE
+	%ResetMicButton.modulate = Color.WHITE
+	
+	%LeftPanel.self_modulate = Color.WHITE
+	%RightPanel.self_modulate = Color.WHITE
+	%TopBar.self_modulate = Color.WHITE
+
+func dark_theme():
+	get_parent().theme = preload("res://Themes/WhiteTheme/WhiteTheme.tres")
+	%Panelt.self_modulate = Color.WEB_GRAY
+	%Paneln.self_modulate = Color.WEB_GRAY
+	%Panel.self_modulate = Color.WEB_GRAY
+	%Properties.self_modulate = Color.WEB_GRAY
+	%LayersButtons.modulate = Color.DIM_GRAY
+	%LayersButtons2.modulate = Color.DIM_GRAY
+	%ViewportCam.modulate = Color.DIM_GRAY
+	%ResetMicButton.modulate = Color.DIM_GRAY
+	%LeftPanel.self_modulate = Color.WEB_GRAY
+	%RightPanel.self_modulate = Color.WEB_GRAY
+	%TopBar.self_modulate = Color.WEB_GRAY
+
+func green_theme():
+	get_parent().theme = preload("res://Themes/GreenTheme/Green_theme.tres")
+	%Panelt.self_modulate = Color.LIGHT_GREEN
+	%Paneln.self_modulate = Color.LIGHT_GREEN
+	%Panel.self_modulate = Color.LIGHT_GREEN
+	%Properties.self_modulate = Color.LIGHT_GREEN
+	%LayersButtons.modulate = Color.LIGHT_GREEN
+	%LayersButtons2.modulate = Color.LIGHT_GREEN
+	%ViewportCam.modulate = Color.LIGHT_GREEN
+	%ResetMicButton.modulate = Color.LIGHT_GREEN
+	
+	%LeftPanel.self_modulate = Color.WHITE
+	%RightPanel.self_modulate = Color.WHITE
+	%TopBar.self_modulate = Color.WHITE

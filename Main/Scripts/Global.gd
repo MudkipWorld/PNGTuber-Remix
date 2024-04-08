@@ -23,8 +23,8 @@ var settings_dict : Dictionary = {
 	is_transparent = false,
 	bounceGravity = 1000,
 	bounceSlider = 100,
-	states = [{},{},{},{},{},{},{},{},{},{}],
-	light_states = [{},{},{},{},{},{},{},{},{},{}],
+	states = [{}],
+	light_states = [{}],
 	darken = false,
 	anti_alias = true
 }

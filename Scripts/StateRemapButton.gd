@@ -44,6 +44,7 @@ func update_stuff():
 	if saved_event != null:
 		InputMap.action_erase_events(action)
 		InputMap.action_add_event(action, saved_event)
+		
 		update_key_text()
 
 func _on_remove_pressed():

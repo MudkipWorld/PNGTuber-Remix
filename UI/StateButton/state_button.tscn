@@ -1,13 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwtyu481ec5vq"]
+[gd_scene load_steps=2 format=3 uid="uid://cwtyu481ec5vq"]
 
-[ext_resource type="Theme" uid="uid://82j1nkdbnloq" path="res://Themes/PurpleTheme/GUITheme.tres" id="1_16h80"]
 [ext_resource type="Script" path="res://Scripts/StateButton.gd" id="2_2ybu4"]
 
 [node name="StateButton" type="Button" groups=["StateButtons"]]
 custom_minimum_size = Vector2(25, 25)
 offset_right = 8.0
 offset_bottom = 8.0
-theme = ExtResource("1_16h80")
 theme_override_font_sizes/font_size = 15
 text = "1"
 script = ExtResource("2_2ybu4")

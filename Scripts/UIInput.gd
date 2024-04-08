@@ -592,3 +592,5 @@ func _on_fmy_slider_value_changed(value):
 	%FMYLabel.text = "Follow Mouse Range Y : " + str(snappedf(value, 0.1))
 	Global.held_sprite.dictmain.look_at_mouse_pos_y = value
 	Global.held_sprite.save_state(Global.current_state)
+
+

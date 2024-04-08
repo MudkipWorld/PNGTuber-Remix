@@ -29,8 +29,11 @@ func _ready():
 	
 
 func choosing_device(id):
-	AudioServer.input_device = devices[id]
-	%MicroPhoneMenu.text = str(devices[id])
+	if id != null:
+		AudioServer.input_device = devices[id]
+		%MicroPhoneMenu.text = str(devices[id])
+	else:
+		reset_mic_list()
 
 
 func choosing_files(id):
@@ -233,3 +236,13 @@ func _on_normalm_temp_button_pressed():
 func _on_follow_mouse_temp_button_pressed():
 	SaveAndLoad.load_file("res://Template Model(s)/PickleModelFollowMouse.pngRemix")
 	%TempPopUp.hide()
+
+
+func _on_reset_mic_button_pressed():
+	reset_mic_list()
+
+func reset_mic_list():
+	%MicroPhoneMenu.get_popup().clear()
+	devices = AudioServer.get_input_device_list()
+	for i in devices:
+		%MicroPhoneMenu.get_popup().add_item(i)

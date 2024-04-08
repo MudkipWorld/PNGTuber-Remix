@@ -1,0 +1,102 @@
+extends Node
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	delete_all_states()
+	initial_state()
+
+func initial_state():
+		
+	add_state()
+
+
+func _on_delete_state_pressed():
+	if Global.current_state != 0:
+		
+		var state_remap = get_tree().get_nodes_in_group("StateRemapButton")
+		var state_btn  = get_tree().get_nodes_in_group("StateButtons")
+		
+		InputMap.erase_action(state_remap[Global.current_state].action)
+		state_remap[Global.current_state].get_parent().queue_free()
+		
+		
+		state_btn[Global.current_state].queue_free()
+		
+		Global.settings_dict.states.remove_at(Global.current_state)
+		Global.settings_dict.light_states.remove_at(Global.current_state)
+		
+		
+		
+		var sprites = get_tree().get_nodes_in_group("Sprites")
+		for i in sprites:
+			i.states.remove_at(Global.current_state)
+		
+		Global.current_state = 0
+		Global.load_sprite_states(Global.current_state)
+		
+		var id = 0
+		for i in get_tree().get_nodes_in_group("StateButtons"):
+			i.text = str(id + 1)
+			i.state = id
+			id += 1
+		
+		id = 0
+		for i in get_tree().get_nodes_in_group("StateRemapButton"):
+			i.get_parent().get_node("State").text = "State " + str(id + 1)
+			id += 1
+
+func _on_add_state_pressed():
+	add_state()
+
+func delete_all_states():
+	var state_remap = get_tree().get_nodes_in_group("StateRemapButton")
+	var state_btn  = get_tree().get_nodes_in_group("StateButtons")
+		
+	for i in state_remap:
+		if InputMap.has_action(i.action):
+			InputMap.erase_action(i.action)
+		i.get_parent().queue_free()
+		
+	for i in state_btn:
+		i.queue_free()
+		
+	Global.settings_dict.states.clear()
+	Global.settings_dict.light_states.clear()
+
+func add_state():
+	var button = preload("res://UI/StateButton/state_button.tscn").instantiate()
+	var state_count = Global.settings_dict.states.size()
+	button.state = clamp(state_count, 0, 100)
+	button.input_key = "State " + str(button.state)
+	button.text = str(clamp(state_count + 1, 0, 100))
+	%StateButtons.add_child(button)
+	
+	
+	var remap_btn = preload("res://UI/StateButton/state_remap_button.tscn").instantiate()
+	remap_btn.get_node("State").text = "State " + button.text
+	remap_btn.get_node("StateRemapButton").action = "State " + str(button.state)
+	%Grid.add_child(remap_btn)
+	InputMap.add_action(remap_btn.get_node("StateRemapButton").action)
+#	print(InputMap.get_actions())
+	
+	Global.settings_dict.states.append({})
+	Global.settings_dict.light_states.append({})
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		i.states.append({})
+
+func update_states(states):
+	var states_size = states.size()
+	for l in states_size:
+		var button = preload("res://UI/StateButton/state_button.tscn").instantiate()
+		button.state = l 
+		button.input_key = "State " + str(button.state)
+		button.text = str(l + 1)
+		%StateButtons.add_child(button)
+		
+		
+		var remap_btn = preload("res://UI/StateButton/state_remap_button.tscn").instantiate()
+		remap_btn.get_node("State").text = "State " + button.text
+		remap_btn.get_node("StateRemapButton").action = "State " + str(button.state)
+		InputMap.add_action("State " + str(button.state), 0.5)
+		
+		%Grid.add_child(remap_btn)
