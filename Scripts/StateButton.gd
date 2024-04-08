@@ -11,7 +11,7 @@ func _ready():
 
 func _on_pressed():
 	Global.get_sprite_states(state)
-	print(state)
+#	print(state)
 
 
 func _input(event):

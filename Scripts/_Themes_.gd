@@ -53,7 +53,7 @@ func loaded_UI(id):
 			%UIThemeButton.text = "Dark (Wip)"
 			dark_theme()
 		5:
-			%UIThemeButton.text = "Dark (Wip)"
+			%UIThemeButton.text = "Green"
 			green_theme()
 
 func _on_ui_theme_button_item_selected(index):

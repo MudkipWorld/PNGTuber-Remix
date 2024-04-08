@@ -9,14 +9,18 @@ func initial_state():
 		
 	add_state()
 
-
 func _on_delete_state_pressed():
 	if Global.current_state != 0:
 		
 		var state_remap = get_tree().get_nodes_in_group("StateRemapButton")
 		var state_btn  = get_tree().get_nodes_in_group("StateButtons")
 		
-		InputMap.erase_action(state_remap[Global.current_state].action)
+		for i in state_remap:
+			InputMap.erase_action(i.action)
+		
+		for i in state_btn:
+			i.input_key = "Null"
+		
 		state_remap[Global.current_state].get_parent().queue_free()
 		
 		
@@ -34,15 +38,29 @@ func _on_delete_state_pressed():
 		Global.current_state = 0
 		Global.load_sprite_states(Global.current_state)
 		
-		var id = 0
-		for i in get_tree().get_nodes_in_group("StateButtons"):
-			i.text = str(id + 1)
-			i.state = id
-			id += 1
+	update_state_numbering()
+
+func update_state_numbering():
+	
+	await get_tree().create_timer(0.08).timeout
+	
+	var id = 0
 		
-		id = 0
-		for i in get_tree().get_nodes_in_group("StateRemapButton"):
+	for i in get_tree().get_nodes_in_group("StateButtons"):
+		if is_instance_valid(i):
+			i.text = str(i.get_index() + 1)
+			i.state = i.get_index()
+			print(i.get_index())
+		
+		
+	id = 0
+	for i in get_tree().get_nodes_in_group("StateRemapButton"):
+		if is_instance_valid(i):
 			i.get_parent().get_node("State").text = "State " + str(id + 1)
+			i.action = "State " + str(id)
+			InputMap.add_action(i.action)
+			get_tree().get_nodes_in_group("StateButtons")[i.get_index()].input_key = i.action
+			i.update_stuff()
 			id += 1
 
 func _on_add_state_pressed():
