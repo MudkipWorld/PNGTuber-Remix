@@ -45,23 +45,24 @@ func update_state_numbering():
 	await get_tree().create_timer(0.08).timeout
 	
 	var id = 0
-		
-	for i in get_tree().get_nodes_in_group("StateButtons"):
-		if is_instance_valid(i):
-			i.text = str(i.get_index() + 1)
-			i.state = i.get_index()
-			print(i.get_index())
-		
-		
+
 	id = 0
 	for i in get_tree().get_nodes_in_group("StateRemapButton"):
 		if is_instance_valid(i):
 			i.get_parent().get_node("State").text = "State " + str(id + 1)
 			i.action = "State " + str(id)
 			InputMap.add_action(i.action)
-			get_tree().get_nodes_in_group("StateButtons")[i.get_index()].input_key = i.action
+			print(i.action)
 			i.update_stuff()
 			id += 1
+			
+			
+	for i in get_tree().get_nodes_in_group("StateButtons"):
+		if is_instance_valid(i):
+			i.text = str(i.get_index() + 1)
+			i.state = i.get_index()
+			i.input_key = get_tree().get_nodes_in_group("StateRemapButton")[i.get_index()].action
+			print(i.get_index())
 
 func _on_add_state_pressed():
 	add_state()
