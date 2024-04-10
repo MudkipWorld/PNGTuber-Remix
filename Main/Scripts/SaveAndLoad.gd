@@ -15,10 +15,10 @@ func save_file(path):
 	
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
-		var img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
+		var img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
 		var normal_img
-		if sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture:
-			normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
+		if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
+			normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
 		else:
 			normal_img = null
 		var sprt_dict = {
@@ -133,8 +133,8 @@ func load_file(path):
 				var nimg_tex = ImageTexture.new()
 				nimg_tex.set_image(nimg)
 				img_can.normal_texture = nimg_tex
-		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
-#		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture = img_tex
+		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+#		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = img_tex
 		sprite_obj.states = sprite.states
 		sprite_obj.sprite_id = sprite.sprite_id
 		sprite_obj.parent_id = sprite.parent_id

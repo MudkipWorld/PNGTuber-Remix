@@ -40,6 +40,7 @@ var sprite_type : String = "Sprite2D"
 	rotation = rotation,
 	offset = $Pos/Wobble/Squish/Drag/Sprite2D.offset,
 	clip = 0,
+	
 	}
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)

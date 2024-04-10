@@ -38,9 +38,30 @@ func get_info(state):
 		%LightColor.color = dict.color
 		%LightEnergySlider.value = dict.energy
 		%LightSizeSlider.value = dict.scale.x
+		%LightPosXSpinBox.value = light.global_position.x
+		%LightPosYSpinBox.value = light.global_position.y
 	%DarkenCheck.button_pressed = Global.settings_dict.darken
 
+
+func reset_info(light_source):
+		%LightSourceVis.button_pressed = light_source.visible
+		%LSShapeVis.button_pressed = false
+		%LightColor.color = light_source.color
+		%LightEnergySlider.value = light_source.energy
+		%LightSizeSlider.value = light_source.scale.x
+		%LightPosXSpinBox.value = light_source.global_position.x
+		%LightPosYSpinBox.value = light_source.global_position.y
 
 
 func _on_darken_check_toggled(toggled_on):
 	Global.settings_dict.darken = toggled_on
+
+
+func _on_light_pos_x_spin_box_value_changed(value):
+	light.global_position.x = value
+	light.save_state(Global.current_state)
+
+
+func _on_light_pos_y_spin_box_value_changed(value):
+	light.global_position.y = value
+	light.save_state(Global.current_state)

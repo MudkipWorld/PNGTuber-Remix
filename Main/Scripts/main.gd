@@ -84,7 +84,7 @@ func _on_file_dialog_file_selected(path):
 			var img_can = CanvasTexture.new()
 			img_can.diffuse_texture = texture
 			Global.held_sprite.texture = img_can
-			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
+			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 			Global.held_sprite.save_state(current_state)
 			Global.held_sprite.treeitem.set_icon(0, texture)
 			Global.get_sprite_states(Global.current_state)
@@ -92,7 +92,7 @@ func _on_file_dialog_file_selected(path):
 		State.AddNormal:
 			var img = Image.load_from_file(path)
 			var texture = ImageTexture.create_from_image(img)
-			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture = texture
+			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = texture
 			Global.get_sprite_states(Global.current_state)
 
 func _on_file_dialog_files_selected(paths):
@@ -110,12 +110,10 @@ func _on_file_dialog_files_selected(paths):
 				sprte_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
 			%SpritesContainer.add_child(sprte_obj)
 			sprte_obj.texture = img_can
-			sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
+			sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 			if current_state == State.AddAppend:
-				var size_ratio = sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().get_size()/100
+				var size_ratio = sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().get_size()/100
 			#	print(size_ratio)
-				sprte_obj.scale = Vector2(size_ratio.x, size_ratio.y *12)
-				sprte_obj.dictmain.scale = Vector2(size_ratio.x, size_ratio.y *12)
 			
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
 			sprte_obj.sprite_name = path.get_file()

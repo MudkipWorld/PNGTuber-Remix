@@ -12,11 +12,11 @@ func _ready():
 	set_drop_mode_flags(3)
 
 func _input(event):
-	if event.is_action_pressed("lmb"):
+	if Input.is_action_just_pressed("lmb"):
 		dragging = true
 		item = get_item_at_position(get_local_mouse_position())
 		
-	if event.is_action_released("lmb") && dragging:
+	if Input.is_action_just_released("lmb") && dragging:
 		_drop_data(get_local_mouse_position(), item)
 		dragging = false
 
@@ -39,7 +39,7 @@ func _drop_data(at_position, _data):
 				if other_item == get_root():
 					item.get_metadata(0).sprite_object.reparent(cont)
 				else:
-					item.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Sprite2D"))
+					item.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
 			item.move_before(other_item)
 			
 		
@@ -48,7 +48,7 @@ func _drop_data(at_position, _data):
 				if other_item == get_root():
 					item.get_metadata(0).sprite_object.reparent(cont)
 				else:
-					item.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Sprite2D"))
+					item.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
 				item.move_after(other_item)
 				
 			
@@ -76,9 +76,9 @@ func _drop_data(at_position, _data):
 func _on_item_selected():
 	if get_selected() != get_root():
 		if Global.held_sprite != null:
-			if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
-				Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
+			if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin"):
+				Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").hide()
 		Global.held_sprite = get_selected().get_metadata(0).sprite_object
-		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
-			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").show()
+		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin"):
+			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").show()
 		emit_signal("sprite_info")

@@ -57,7 +57,7 @@ func _tree(sprites):
 		if i.dictmain.folder:
 			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 		else:
-			new_item.set_icon(0, i.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture)
+			new_item.set_icon(0, i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture)
 		new_item.set_icon_max_width(0, 20)
 		var dic : Dictionary = {
 			sprite_object = i,
@@ -76,7 +76,7 @@ func _added_tree(sprites):
 		if i.dictmain.folder:
 			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 		else:
-			new_item.set_icon(0, i.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture)
+			new_item.set_icon(0, i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture)
 		new_item.set_icon_max_width(0, 20)
 		var dic : Dictionary = {
 			sprite_object = i,
@@ -104,11 +104,11 @@ func check_parent():
 	var sprites = get_tree().get_nodes_in_group("Sprites")
 	for x in sprites:
 		if x.get_parent() is Sprite2D:
-			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
+			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 			x.treeitem.get_parent().remove_child(x.treeitem)
 			parent.add_child(x.treeitem)
 		elif x.get_parent() is WigglyAppendage2D:
-			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
+			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 			x.treeitem.get_parent().remove_child(x.treeitem)
 			parent.add_child(x.treeitem)
 
@@ -119,7 +119,7 @@ func update_tree(child, parent, boolean):
 	if boolean:
 		if child.get_parent() != new_parent.sprite_object:
 			new_c_path.sprite_object.parent_id = new_parent.sprite_object.sprite_id
-			new_c_path.sprite_object.reparent(new_parent.sprite_object.get_node("Pos/Wobble/Squish/Drag/Sprite2D"))
+			new_c_path.sprite_object.reparent(new_parent.sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
 
 			var dic : Dictionary = {
 				sprite_object = new_c_path.sprite_object,
@@ -145,7 +145,7 @@ func add_item(sprite):
 	if sprite.dictmain.folder:
 		new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 	else:
-		new_item.set_icon(0, sprite.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture)
+		new_item.set_icon(0, sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture)
 	new_item.set_icon_max_width(0, 20)
 	var dic : Dictionary = {
 		sprite_object = sprite,

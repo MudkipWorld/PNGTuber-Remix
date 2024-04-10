@@ -84,6 +84,7 @@ func blue_theme():
 	%Panelt.self_modulate = Color.LIGHT_BLUE
 	%Paneln.self_modulate = Color.LIGHT_BLUE
 	%Panel.self_modulate = Color.LIGHT_BLUE
+	%Panel2.self_modulate = Color.LIGHT_BLUE
 	%Properties.self_modulate = Color.LIGHT_BLUE
 	%LayersButtons.modulate = Color.AQUA
 	%LayersButtons2.modulate = Color.AQUA
@@ -98,6 +99,7 @@ func purple_theme():
 	%Panelt.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%Paneln.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%Panel.self_modulate = Color(0.898, 0.796, 0.996, 1 )
+	%Panel2.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%Properties.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%LayersButtons.modulate = Color(0.898, 0.796, 0.996, 1 )
 	%LayersButtons2.modulate = Color(0.898, 0.796, 0.996, 1 )
@@ -112,6 +114,7 @@ func orange_theme():
 	%Panelt.self_modulate = Color.ORANGE
 	%Paneln.self_modulate = Color.ORANGE
 	%Panel.self_modulate = Color.ORANGE
+	%Panel2.self_modulate = Color.ORANGE
 	%Properties.self_modulate = Color.ORANGE
 	%LayersButtons.modulate = Color.ORANGE
 	%LayersButtons2.modulate = Color.ORANGE
@@ -127,6 +130,7 @@ func white_theme():
 	%Panelt.self_modulate = Color.WHITE
 	%Paneln.self_modulate = Color.WHITE
 	%Panel.self_modulate = Color.WHITE
+	%Panel2.self_modulate = Color.WHITE
 	%Properties.self_modulate = Color.WHITE
 	%LayersButtons.modulate = Color.WHITE
 	%LayersButtons2.modulate = Color.WHITE
@@ -142,6 +146,7 @@ func dark_theme():
 	%Panelt.self_modulate = Color.WEB_GRAY
 	%Paneln.self_modulate = Color.WEB_GRAY
 	%Panel.self_modulate = Color.WEB_GRAY
+	%Panel2.self_modulate = Color.WEB_GRAY
 	%Properties.self_modulate = Color.WEB_GRAY
 	%LayersButtons.modulate = Color.DIM_GRAY
 	%LayersButtons2.modulate = Color.DIM_GRAY
@@ -156,6 +161,7 @@ func green_theme():
 	%Panelt.self_modulate = Color.LIGHT_GREEN
 	%Paneln.self_modulate = Color.LIGHT_GREEN
 	%Panel.self_modulate = Color.LIGHT_GREEN
+	%Panel2.self_modulate = Color.LIGHT_GREEN
 	%Properties.self_modulate = Color.LIGHT_GREEN
 	%LayersButtons.modulate = Color.LIGHT_GREEN
 	%LayersButtons2.modulate = Color.LIGHT_GREEN

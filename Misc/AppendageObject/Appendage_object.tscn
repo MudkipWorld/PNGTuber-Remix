@@ -92,6 +92,7 @@ script = ExtResource("1_yuqos")
 
 [node name="Pos" type="Node2D" parent="."]
 unique_name_in_owner = true
+texture_repeat = 1
 
 [node name="Wobble" type="Node2D" parent="Pos"]
 
@@ -99,14 +100,16 @@ unique_name_in_owner = true
 
 [node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
 
-[node name="Sprite2D" type="Line2D" parent="Pos/Wobble/Squish/Drag"]
-process_priority = 5
-texture_repeat = 2
+[node name="Rotation" type="Node2D" parent="Pos/Wobble/Squish/Drag"]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Line2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 material = SubResource("ShaderMaterial_1tqhp")
-scale = Vector2(1, 5.48)
-points = PackedVector2Array(-1, 0, -0.04, 0, 2.04, 0, 5.24, 0, 9.56, 0, 15, 0, 21, 0, 27, 0, 33, 0, 39, 0, 45, 0, 51, 0, 57, 0, 63, 0, 69, 0, 75, 0, 81, 0, 87, 0, 93, 0, 99, 0, 105, 0, 111, 0, 117, 0, 123, 0, 129, 0, 135, 0, 141, 0, 147, 0)
+points = PackedVector2Array(-10, 0, -5.8, -1.27701e-05, -1.2, -5.10803e-05, 3.8, -0.000114931, 9.2, -0.000204321, 15, -0.000319252, 21, -0.000481946, 27, -0.000714628, 33, -0.0010173, 39, -0.00138996, 45, -0.0018326, 51, -0.00235187, 57, -0.0029544, 63, -0.00364019, 69, -0.00440925, 75, -0.00526157, 81, -0.00630498, 87, -0.00764731, 93, -0.00928856, 99, -0.0112287, 105, -0.0134678, 111, -0.0154921, 117, -0.0167877, 123, -0.0173547, 129, -0.017193, 135, -0.0163028, 141, -0.0146839, 147, -0.0123363)
+width = 80.0
 texture = SubResource("CanvasTexture_aq8i0")
 texture_mode = 2
+joint_mode = 2
 script = ExtResource("4_e6x1l")
 curvature_exponent = -1.143
 max_angle = 0.523599
@@ -115,9 +118,8 @@ stiffness_decay_exponent = 10.0
 max_angular_momentum = 15.0
 subdivision = 5
 additional_start_segment = true
-additional_start_segment_length = 1.0
 
-[node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Sprite2D"]
+[node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
 unique_name_in_owner = true
 z_index = 4096
 anchors_preset = 15
@@ -136,5 +138,5 @@ wait_time = 0.2
 
 [node name="Animation" type="Timer" parent="."]
 
-[connection signal="button_down" from="Pos/Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_down"]
-[connection signal="button_up" from="Pos/Wobble/Squish/Drag/Sprite2D/Grab" to="." method="_on_grab_button_up"]
+[connection signal="button_down" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_down"]
+[connection signal="button_up" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_up"]

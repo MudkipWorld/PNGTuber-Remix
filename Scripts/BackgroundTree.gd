@@ -10,11 +10,11 @@ func _ready():
 	pass
 
 func _input(event):
-	if event.is_action_pressed("lmb"):
+	if Input.is_action_just_pressed("lmb"):
 		dragging = true
 		item = get_item_at_position(get_local_mouse_position())
 		
-	if event.is_action_released("lmb") && dragging:
+	if Input.is_action_just_released("lmb") && dragging:
 		_drop_data(get_local_mouse_position(), item)
 		dragging = false
 
