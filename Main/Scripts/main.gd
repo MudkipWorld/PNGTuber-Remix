@@ -97,11 +97,6 @@ func _on_file_dialog_file_selected(path):
 				Global.held_sprite.save_state(Global.current_state)
 				Global.held_sprite.treeitem.set_icon(0, gif_tex)
 				var g_sp = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture
-				g_sp.diffuse_texture.pause = true
-				g_sp.normal_texture.pause = true
-				g_sp.normal_texture.current_frame = g_sp.diffuse_texture.current_frame
-				g_sp.diffuse_texture.pause = false
-				g_sp.normal_texture.pause = false
 				
 
 			else:

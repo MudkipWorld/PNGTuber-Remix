@@ -56,16 +56,16 @@ func load_sprite_states(state):
 
 func get_sprite_states(state):
 	for i in get_tree().get_nodes_in_group("Sprites"):
-		i.save_state(state)
+		i.save_state(current_state)
 	
 	current_state = state
 	for i in get_tree().get_nodes_in_group("Sprites"):
-		i.get_state(state)
+		i.get_state(current_state)
 	if held_sprite != null:
 		emit_signal("reinfo")
 		
 	animation_state.emit(current_state)
-	light_info.emit(state)
+	light_info.emit(current_state)
 	reinfoanim.emit()
 
 func _input(_event):

@@ -126,6 +126,8 @@ func load_file(path):
 				sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+
+		sprite_obj.states = sprite.states
 		
 		if sprite.has("img_animated"):
 			if sprite.img_animated:
@@ -174,7 +176,7 @@ func load_file(path):
 					nimg_tex.set_image(nimg)
 					img_can.normal_texture = nimg_tex
 			sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-		sprite_obj.states = sprite.states
+		
 		if sprite.has("img_animated"):
 			sprite_obj.img_animated = sprite.img_animated
 		sprite_obj.sprite_id = sprite.sprite_id
