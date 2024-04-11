@@ -34,6 +34,7 @@ func _ready():
 	get_window().min_size = Vector2(1000,720)
 	add_child(blink_timer)
 	blinking()
+	current_state = 0
 
 func blinking():
 	blink_timer.wait_time = randf_range(1,5) * settings_dict.blink_speed
@@ -55,16 +56,16 @@ func load_sprite_states(state):
 
 func get_sprite_states(state):
 	for i in get_tree().get_nodes_in_group("Sprites"):
-		i.save_state(current_state)
+		i.save_state(state)
 	
 	current_state = state
 	for i in get_tree().get_nodes_in_group("Sprites"):
-		i.get_state(current_state)
+		i.get_state(state)
 	if held_sprite != null:
 		emit_signal("reinfo")
 		
 	animation_state.emit(current_state)
-	light_info.emit(current_state)
+	light_info.emit(state)
 	reinfoanim.emit()
 
 func _input(_event):

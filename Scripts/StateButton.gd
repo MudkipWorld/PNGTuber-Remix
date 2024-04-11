@@ -22,3 +22,5 @@ func _input(event):
 func bg_key_pressed(key):
 	if key == state:
 		Global.get_sprite_states(state)
+
+

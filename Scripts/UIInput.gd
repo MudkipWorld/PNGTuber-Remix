@@ -94,8 +94,12 @@ func held_sprite_is_null():
 	%ShouldRotCheck.disabled = true
 	%RotationSpeed.editable = false
 
+	%CurrentSelectedNormal.texture = null
+	%CurrentSelected.texture = null
+
 
 func held_sprite_is_true():
+	%DeselectButton.show()
 	x_amp.editable = true
 	x_freq.editable = true
 	
@@ -104,7 +108,7 @@ func held_sprite_is_true():
 	%StretchSlider.editable = true
 	
 	if not Global.held_sprite.dictmain.advanced_lipsync:
-		if Global.held_sprite.sprite_type == "Sprite2D":
+		if Global.held_sprite.sprite_type == "Sprite2D" && not Global.held_sprite.img_animated:
 			%AnimationFramesSlider.editable = true
 			%AnimationSpeedSlider.editable = true
 	else:
@@ -324,32 +328,32 @@ func reinfoanim():
 #region Movement Sliders
 func _on_x_amp_slider_value_changed(value):
 	Global.held_sprite.dictmain.xAmp = value
-	%XALabel.text = "X-Amp : " + str(snappedf(value, 0.1))
+	%XALabel.text = "X-Amp : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_xf_slider_value_changed(value):
 	Global.held_sprite.dictmain.xFrq = value
-	%XFLabel.text = "X-Freq : " + str(snappedf(value, 0.1))
+	%XFLabel.text = "X-Freq : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_y_amp_slider_value_changed(value):
 	Global.held_sprite.dictmain.yAmp = value
-	%YALabel.text = "Y-Amp : " + str(snappedf(value, 0.1))
+	%YALabel.text = "Y-Amp : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_yf_slider_value_changed(value):
 	Global.held_sprite.dictmain.yFrq = value
-	%YFLabel.text = "Y-Freq : " + str(snappedf(value, 0.1))
+	%YFLabel.text = "Y-Freq : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_rotation_level_value_changed(value):
 	Global.held_sprite.dictmain.rdragStr = value
-	%Rlable.text = "Rot-Degree:" + str(snappedf(value, 0.1))
+	%Rlable.text = "Rot-Degree:" + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_stretch_slider_value_changed(value):
 	Global.held_sprite.dictmain.stretchAmount = value
-	%StretchLabel.text = "Stretch Amount : " + str(snappedf(value, 0.1))
+	%StretchLabel.text = "Stretch Amount : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 #endregion
 
@@ -463,6 +467,11 @@ func _on_duplicate_button_pressed():
 
 		if Global.held_sprite.dictmain.folder:
 			obj.dictmain.folder = true
+		
+		if Global.held_sprite.img_animated:
+			obj.img_animated = true
+			obj.anim_texture = Global.held_sprite.anim_texture
+			obj.anim_texture_normal = Global.held_sprite.anim_texture_normal 
 		
 		get_parent().add_item(obj)
 		obj.sprite_id = obj.get_instance_id()

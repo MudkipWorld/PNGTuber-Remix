@@ -15,16 +15,25 @@ func save_file(path):
 	
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
-		var img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
+		var img
+		if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture is AnimatedTexture:
+			img = sprt.anim_texture
+		else:
+			img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
 		var normal_img
+		
 		if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
-			normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
+			if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture is AnimatedTexture:
+				normal_img = sprt.anim_texture_normal
+			else:
+				normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
 		else:
 			normal_img = null
 		var sprt_dict = {
 			img = img,
 			normal = normal_img,
 			states = sprt.states,
+			img_animated = sprt.img_animated,
 			sprite_name = sprt.sprite_name,
 			sprite_id = sprt.sprite_id,
 			parent_id = sprt.parent_id,
@@ -35,7 +44,7 @@ func save_file(path):
 	for sprt in bg_sprites:
 		sprt.save_state(Global.current_state)
 		var img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
-		var normal_img
+		var normal_img 
 		if sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture:
 			normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
 		else:
@@ -118,24 +127,56 @@ func load_file(path):
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 		
-		var img_data = Marshalls.base64_to_raw(sprite.img)
-		var img = Image.new()
-		img.load_png_from_buffer(img_data)
-		var img_tex = ImageTexture.new()
-		img_tex.set_image(img)
-		var img_can = CanvasTexture.new()
-		img_can.diffuse_texture = img_tex
-		if sprite.has("normal"):
-			if sprite.normal != null:
-				var img_normal = Marshalls.base64_to_raw(sprite.normal)
-				var nimg = Image.new()
-				nimg.load_png_from_buffer(img_normal)
-				var nimg_tex = ImageTexture.new()
-				nimg_tex.set_image(nimg)
-				img_can.normal_texture = nimg_tex
-		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-#		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = img_tex
+		if sprite.has("img_animated"):
+			if sprite.img_animated:
+				var gif_texture = GifManager.animated_texture_from_buffer(sprite.img)
+				var img_can = CanvasTexture.new()
+				img_can.diffuse_texture = gif_texture
+				
+				if sprite.has("normal"):
+					if sprite.normal != null:
+						var gif_normal = GifManager.animated_texture_from_buffer(sprite.normal)
+						img_can.normal_texture = gif_normal
+				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				
+			else:
+				var img_data = Marshalls.base64_to_raw(sprite.img)
+				var img = Image.new()
+				img.load_png_from_buffer(img_data)
+				var img_tex = ImageTexture.new()
+				img_tex.set_image(img)
+				var img_can = CanvasTexture.new()
+				img_can.diffuse_texture = img_tex
+				if sprite.has("normal"):
+					if sprite.normal != null:
+						var img_normal = Marshalls.base64_to_raw(sprite.normal)
+						var nimg = Image.new()
+						nimg.load_png_from_buffer(img_normal)
+						var nimg_tex = ImageTexture.new()
+						nimg_tex.set_image(nimg)
+						img_can.normal_texture = nimg_tex
+				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				
+		else:
+			var img_data = Marshalls.base64_to_raw(sprite.img)
+			var img = Image.new()
+			img.load_png_from_buffer(img_data)
+			var img_tex = ImageTexture.new()
+			img_tex.set_image(img)
+			var img_can = CanvasTexture.new()
+			img_can.diffuse_texture = img_tex
+			if sprite.has("normal"):
+				if sprite.normal != null:
+					var img_normal = Marshalls.base64_to_raw(sprite.normal)
+					var nimg = Image.new()
+					nimg.load_png_from_buffer(img_normal)
+					var nimg_tex = ImageTexture.new()
+					nimg_tex.set_image(nimg)
+					img_can.normal_texture = nimg_tex
+			sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 		sprite_obj.states = sprite.states
+		if sprite.has("img_animated"):
+			sprite_obj.img_animated = sprite.img_animated
 		sprite_obj.sprite_id = sprite.sprite_id
 		sprite_obj.parent_id = sprite.parent_id
 		sprite_obj.sprite_name = sprite.sprite_name

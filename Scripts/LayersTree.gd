@@ -11,7 +11,7 @@ var item
 func _ready():
 	set_drop_mode_flags(3)
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("lmb"):
 		dragging = true
 		item = get_item_at_position(get_local_mouse_position())

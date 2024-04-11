@@ -73,7 +73,9 @@ var currently_speaking : bool = false
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
 
-
+var anim_texture 
+var anim_texture_normal 
+var img_animated : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -331,6 +333,9 @@ func save_state(id):
 	
 	look_at_mouse_pos = dictmain.look_at_mouse_pos,
 	look_at_mouse_pos_y = dictmain.look_at_mouse_pos_y,
+	
+	should_rotate = false,
+	should_rot_speed = 0.01,
 	
 	}
 	states[id] = dict

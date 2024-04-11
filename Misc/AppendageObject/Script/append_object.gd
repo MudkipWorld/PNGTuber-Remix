@@ -29,6 +29,10 @@ var glob
 
 var sprite_type : String = "WiggleApp"
 
+var anim_texture 
+var anim_texture_normal 
+var img_animated : bool = false
+
 @onready var dictmain : Dictionary = {
 	xFrq = 0,
 	xAmp = 0,

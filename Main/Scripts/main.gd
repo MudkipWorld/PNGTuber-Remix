@@ -37,14 +37,14 @@ func save_as_file():
 	%FileDialog.show()
 
 func load_sprites():
-	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
 	$FileDialog.file_mode = 1
 	current_state = State.LoadSprites
 	%FileDialog.show()
 
 
 func load_append_sprites():
-	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
 	$FileDialog.file_mode = 1
 	current_state = State.AddAppend
 	%FileDialog.show()
@@ -53,7 +53,7 @@ func load_append_sprites():
 func replacing_sprite():
 	if Global.held_sprite != null:
 		if not Global.held_sprite.dictmain.folder:
-			%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+			%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
 			$FileDialog.file_mode = 0
 			current_state = State.ReplaceSprite
 			%FileDialog.show()
@@ -61,7 +61,10 @@ func replacing_sprite():
 func add_normal_sprite():
 	if Global.held_sprite != null:
 		if not Global.held_sprite.dictmain.folder:
-			%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+			if Global.held_sprite.img_animated:
+				%FileDialog.filters = ["*.gif"]
+			else:
+				%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
 			$FileDialog.file_mode = 0
 			current_state = State.AddNormal
 			%FileDialog.show()
@@ -78,43 +81,88 @@ func _on_file_dialog_file_selected(path):
 			SaveAndLoad.load_file(path)
 		State.SaveFileAs:
 			SaveAndLoad.save_file(path)
+			
 		State.ReplaceSprite:
-			var img = Image.load_from_file(path)
-			var texture = ImageTexture.create_from_image(img)
-			var img_can = CanvasTexture.new()
-			img_can.diffuse_texture = texture
-			Global.held_sprite.texture = img_can
-			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-			Global.held_sprite.save_state(current_state)
-			Global.held_sprite.treeitem.set_icon(0, texture)
+			
+			if path.get_extension() == "gif":
+				var g_file = FileAccess.get_file_as_bytes(path)
+				var gif_tex = GifManager.animated_texture_from_buffer(g_file)
+				var img_can = CanvasTexture.new()
+				img_can.diffuse_texture = gif_tex
+				Global.held_sprite.anim_texture = g_file
+				Global.held_sprite.anim_texture_normal = null
+				Global.held_sprite.texture = img_can
+				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				Global.held_sprite.img_animated = true
+				Global.held_sprite.save_state(Global.current_state)
+				Global.held_sprite.treeitem.set_icon(0, gif_tex)
+				var g_sp = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture
+				g_sp.diffuse_texture.pause = true
+				g_sp.normal_texture.pause = true
+				g_sp.normal_texture.current_frame = g_sp.diffuse_texture.current_frame
+				g_sp.diffuse_texture.pause = false
+				g_sp.normal_texture.pause = false
+				
+
+			else:
+				var img = Image.load_from_file(path)
+				var texture = ImageTexture.create_from_image(img)
+				var img_can = CanvasTexture.new()
+				Global.held_sprite.img_animated = false
+				img_can.diffuse_texture = texture
+				Global.held_sprite.texture = img_can
+				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				Global.held_sprite.save_state(Global.current_state)
+				Global.held_sprite.treeitem.set_icon(0, texture)
 			Global.get_sprite_states(Global.current_state)
 			
+			
 		State.AddNormal:
-			var img = Image.load_from_file(path)
-			var texture = ImageTexture.create_from_image(img)
-			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = texture
+			
+			if path.get_extension() == "gif":
+				var g_file = FileAccess.get_file_as_bytes(path)
+				var gif_tex = GifManager.animated_texture_from_buffer(g_file)
+				Global.held_sprite.anim_texture_normal = g_file
+				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = gif_tex
+			else:
+				var img = Image.load_from_file(path)
+				var texture = ImageTexture.create_from_image(img)
+				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = texture
 			Global.get_sprite_states(Global.current_state)
 
 func _on_file_dialog_files_selected(paths):
 	if current_state == State.LoadSprites or current_state == State.AddAppend:
 		var sprite_nodes = []
 		for path in paths:
-			var img = Image.load_from_file(path)
-			var texture = ImageTexture.create_from_image(img)
-			var img_can = CanvasTexture.new()
-			img_can.diffuse_texture = texture
+			
 			var sprte_obj
+
 			if current_state == State.LoadSprites:
 				sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 			elif current_state == State.AddAppend:
 				sprte_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
 			%SpritesContainer.add_child(sprte_obj)
-			sprte_obj.texture = img_can
-			sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-			if current_state == State.AddAppend:
-				var size_ratio = sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().get_size()/100
-			#	print(size_ratio)
+
+			if path.get_extension() == "gif":
+				var g_file = FileAccess.get_file_as_bytes(path)
+				var gif_tex = GifManager.animated_texture_from_buffer(g_file)
+				var img_can = CanvasTexture.new()
+				img_can.diffuse_texture = gif_tex
+				sprte_obj.anim_texture = g_file
+				sprte_obj.img_animated = true
+				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 			
+			
+			else:
+				var img = Image.load_from_file(path)
+				var texture = ImageTexture.create_from_image(img)
+				var img_can = CanvasTexture.new()
+				img_can.diffuse_texture = texture
+				sprte_obj.texture = img_can
+				sprte_obj.img_animated = false
+				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+
+
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
 			sprte_obj.sprite_name = path.get_file()
 			sprte_obj.states = []

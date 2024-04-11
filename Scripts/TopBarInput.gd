@@ -91,6 +91,9 @@ func choosing_mode(id):
 			%LSShapeVis.button_pressed = false
 			%HideUIButton.hide()
 			%HideUIButton.button_pressed = false
+			Global.held_sprite = null
+			Global.held_bg_sprite = null
+			%UIInput.held_sprite_is_null()
 		
 		#	'''
 		2:
@@ -246,3 +249,13 @@ func reset_mic_list():
 	devices = AudioServer.get_input_device_list()
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
+
+
+func _on_deselect_button_pressed():
+	Global.held_sprite = null
+	Global.held_bg_sprite = null
+	%UIInput.held_sprite_is_null()
+	%LayersTree.deselect_all()
+	%BackgroundEdit.held_sprite_is_null()
+	%BackgroundTree.deselect_all()
+	%DeselectButton.hide()

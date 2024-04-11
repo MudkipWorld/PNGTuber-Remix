@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=35 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -39,6 +39,8 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.196078, 0.415686, 0.345098, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ld7bc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iakd"]
 
@@ -631,9 +633,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -50.0
-max_value = 50.0
-step = 0.1
+min_value = -100.0
+step = 0.01
 
 [node name="HBox4" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
 layout_mode = 2
@@ -651,9 +652,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -50.0
-max_value = 50.0
-step = 0.1
+min_value = -100.0
+step = 0.01
 
 [node name="Sp" type="HSeparator" parent="RightPanel/Properties/ScrollContainer/Grid"]
 layout_mode = 2
@@ -675,9 +675,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -50.0
-max_value = 50.0
-step = 0.1
+min_value = -100.0
+step = 0.01
 
 [node name="HBox6" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
 layout_mode = 2
@@ -695,9 +694,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -50.0
-max_value = 50.0
-step = 0.1
+min_value = -100.0
+step = 0.01
 
 [node name="Sp3" type="HSeparator" parent="RightPanel/Properties/ScrollContainer/Grid"]
 layout_mode = 2
@@ -719,9 +717,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -40.0
-max_value = 40.0
-step = 0.1
+min_value = -100.0
+step = 0.01
 
 [node name="HBox8" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
 layout_mode = 2
@@ -741,7 +738,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = -180.0
 max_value = 180.0
-step = 0.1
+step = 0.01
 
 [node name="HBox26" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid"]
 layout_mode = 2
@@ -1267,6 +1264,7 @@ text = "Wiggle-App Width : "
 [node name="WiggleWidthSpin" type="SpinBox" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox30"]
 unique_name_in_owner = true
 layout_mode = 2
+max_value = 10000.0
 
 [node name="HBox31" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff"]
 unique_name_in_owner = true
@@ -1282,6 +1280,7 @@ text = "Wiggle-App Length : "
 [node name="WiggleLengthSpin" type="SpinBox" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff/HBox31"]
 unique_name_in_owner = true
 layout_mode = 2
+max_value = 10000.0
 
 [node name="HBox32" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Grid/WiggleAppStuff"]
 unique_name_in_owner = true
@@ -1694,6 +1693,16 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 button_pressed = true
 text = "Hide UI"
+flat = true
+
+[node name="DeselectButton" type="Button" parent="TopBar/HBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.266667, 0.0313726, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ld7bc")
+text = "Deselect"
 flat = true
 
 [node name="AboutPopUp" type="PopupPanel" parent="."]
@@ -2182,6 +2191,7 @@ presets_visible = false
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]
 [connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
+[connection signal="pressed" from="TopBar/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/TumblrButton" to="OnlineLinks" method="_on_tumblr_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/RedditButton" to="OnlineLinks" method="_on_reddit_button_pressed"]

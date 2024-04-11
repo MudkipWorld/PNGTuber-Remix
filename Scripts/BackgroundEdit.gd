@@ -96,6 +96,7 @@ func held_sprite_is_null():
 	%BGReacttoLight.disabled = true
 
 func held_sprite_is_true():
+	%DeselectButton.show()
 	%BGColorPickerButton.disabled = false
 	%BGPosXSpinBox.editable = true
 	%BGPosYSpinBox.editable = true
