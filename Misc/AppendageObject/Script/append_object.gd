@@ -260,6 +260,10 @@ func save_state(id):
 	segm_length = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_length,
 	subdivision = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").subdivision,
 	
+	
+	should_rotate = dictmain.should_rotate,
+	should_rot_speed = dictmain.should_rot_speed,
+	
 	}
 	states[id] = dict
 

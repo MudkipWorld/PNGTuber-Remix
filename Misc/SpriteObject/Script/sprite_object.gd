@@ -334,8 +334,8 @@ func save_state(id):
 	look_at_mouse_pos = dictmain.look_at_mouse_pos,
 	look_at_mouse_pos_y = dictmain.look_at_mouse_pos_y,
 	
-	should_rotate = false,
-	should_rot_speed = 0.01,
+	should_rotate = dictmain.should_rotate,
+	should_rot_speed = dictmain.should_rot_speed,
 	
 	}
 	states[id] = dict
