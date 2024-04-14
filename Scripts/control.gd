@@ -111,6 +111,8 @@ func check_parent():
 			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 			x.treeitem.get_parent().remove_child(x.treeitem)
 			parent.add_child(x.treeitem)
+	
+	
 
 
 func update_tree(child, parent, boolean):

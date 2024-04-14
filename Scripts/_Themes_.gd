@@ -1,11 +1,18 @@
 extends Node
 
-var theme_id : int 
+
+var theme_settings : Dictionary = {
+	theme_id = 0,
+	auto_load = false,
+	path = "",
+	
+	
+}
 
 func save():
 	var file = FileAccess
 	var save_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
-	save_file.store_var(theme_id)
+	save_file.store_var(theme_settings)
 	save_file.close()
 	print("saved")
 
@@ -23,15 +30,25 @@ func _ready():
 	var file = FileAccess
 	if file.file_exists(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat"):
 		var load_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.READ)
-		theme_id = load_file.get_var()
-		loaded_UI(theme_id)
-		print(theme_id)
+		var info = load_file.get_var()
+		if info is Dictionary:
+			theme_settings.merge(info, true)
+			print(theme_settings)
+			theme_settings.theme_id = info.theme_id
+			loaded_UI(theme_settings.theme_id)
+			
+			%AutoLoadCheck.button_pressed = theme_settings.auto_load
+			if theme_settings.auto_load:
+				if FileAccess.file_exists(theme_settings.path):
+					await get_tree().create_timer(0.02).timeout
+					SaveAndLoad.load_file(theme_settings.path)
+			
 		load_file.close()
 		
 	else:
 		var create_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
-		theme_id = 0
-		create_file.store_var(theme_id)
+		theme_settings.theme_id = 0
+		create_file.store_var(theme_settings)
 		create_file.close()
 		purple_theme()
 
@@ -83,7 +100,7 @@ func _on_ui_theme_button_item_selected(index):
 		6:
 			%UIThemeButton.text = "Funky"
 			funky_theme()
-	theme_id = index
+	theme_settings.theme_id = index
 	save()
 
 func blue_theme():
@@ -195,3 +212,8 @@ func funky_theme():
 	%LeftPanel.self_modulate = Color.WHITE
 	%RightPanel.self_modulate = Color.WHITE
 	%TopBar.self_modulate = Color.WHITE
+
+
+func _on_auto_load_check_toggled(toggled_on):
+	theme_settings.auto_load = toggled_on
+	save()

@@ -79,12 +79,12 @@ var img_animated : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 	Global.blink.connect(blink)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	animation()
 #	print(get_node("Pos/Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
-	
 	
 
 func animation():
@@ -109,7 +109,6 @@ func animation():
 	animation()
 
 func _process(delta):
-	follow_mouse()
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
 	else:
@@ -133,7 +132,7 @@ func _process(delta):
 	var length = (glob.y - dragger.global_position.y)
 	
 	if dictmain.physics:
-		if get_parent() is Sprite2D:
+		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D:
 			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 			
 			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
@@ -149,12 +148,10 @@ func _process(delta):
 	if dictmain.should_rotate:
 		auto_rotate()
 
+	follow_mouse()
+
+
 func follow_mouse():
-	if dictmain.look_at_mouse_pos == 0:
-		%Pos.position.x = 0
-	if dictmain.look_at_mouse_pos_y == 0:
-		%Pos.position.y = 0
-	
 	var mouse = get_local_mouse_position()
 	var dir = Vector2.ZERO.direction_to(mouse)
 	var dist = mouse.length() 
@@ -224,7 +221,7 @@ func speaking():
 			show()
 			coord = 0
 			animation()
-			
+				
 		else:
 			hide()
 	currently_speaking = true
@@ -232,6 +229,7 @@ func speaking():
 
 func advanced_lipsyc():
 	if dictmain.advanced_lipsync:
+		
 		if $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes != 6:
 			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes = 6
 		$Talk.start()
@@ -308,7 +306,7 @@ func save_state(id):
 	rLimitMin = dictmain.rLimitMin,
 	stretchAmount = dictmain.stretchAmount,
 	blend_mode = dictmain.blend_mode,
-	visible = visible,
+	visible = dictmain.visible,
 	colored = modulate,
 	z_index = z_index,
 	open_eyes =  dictmain.open_eyes,
@@ -350,7 +348,6 @@ func get_state(id):
 		
 		z_index = dictmain.z_index
 		modulate = dictmain.colored
-		visible = dictmain.visible
 		scale = dictmain.scale
 		global_position = dictmain.global_position
 		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset = dictmain.offset 
@@ -362,11 +359,14 @@ func get_state(id):
 		if dictmain.advanced_lipsync:
 			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes = 6
 		
+		visible = dictmain.visible
 		speaking()
 		not_speaking()
 		animation()
 		set_blend(dictmain.blend_mode)
 		advanced_lipsyc()
+
+			
 
 
 func check_talk():

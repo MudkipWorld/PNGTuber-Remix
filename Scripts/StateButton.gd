@@ -13,10 +13,12 @@ func _on_pressed():
 	Global.get_sprite_states(state)
 #	print(state)
 
+func initial_update():
+	Global.get_sprite_states(state)
 
-func _input(event):
+func _input(_event):
 	if input_key != "Null":
-		if event.is_action_pressed(input_key):
+		if Input.is_action_just_pressed(input_key):
 			Global.get_sprite_states(state)
 
 func bg_key_pressed(key):

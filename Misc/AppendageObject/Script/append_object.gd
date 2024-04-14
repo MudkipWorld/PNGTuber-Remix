@@ -256,9 +256,9 @@ func save_state(id):
 	
 	look_at_mouse_pos = dictmain.look_at_mouse_pos,
 	look_at_mouse_pos_y = dictmain.look_at_mouse_pos_y,
-	width = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").width,
-	segm_length = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_length,
-	subdivision = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").subdivision,
+	width = dictmain.width,
+	segm_length = dictmain.segm_length,
+	subdivision = dictmain.subdivision,
 	
 	
 	should_rotate = dictmain.should_rotate,

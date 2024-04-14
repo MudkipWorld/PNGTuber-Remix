@@ -59,6 +59,7 @@ func held_sprite_is_null():
 	
 	
 	%Name.editable = false
+	%Name.text = ""
 	color.disabled = true
 	rot.editable = false
 	blend.disabled = true
@@ -449,6 +450,7 @@ func _on_delete_button_pressed():
 		%CurrentSelected.texture = null
 		Global.held_sprite = null
 		held_sprite_is_null()
+		%DeselectButton.hide()
 
 func _on_duplicate_button_pressed():
 	if Global.held_sprite != null:
@@ -600,6 +602,7 @@ func _on_advanced_lip_sync_toggled(toggled_on):
 		else:
 			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").hframes = 1
 		Global.held_sprite.advanced_lipsyc()
+		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 		Global.held_sprite.save_state(Global.current_state)
 	%AnimationFramesSlider.editable = !toggled_on
 	%AnimationSpeedSlider.editable = !toggled_on
@@ -638,18 +641,21 @@ func _on_should_rot_check_toggled(toggled_on):
 
 
 func _on_wiggle_width_spin_value_changed(value):
+	Global.held_sprite.dictmain.width = value
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").width = value
 	%WiggleWidthLabel.text = "Wiggle-App Width : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_wiggle_length_spin_value_changed(value):
+	Global.held_sprite.dictmain.segm_length = value
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_length = value
 	%WiggleLengthLabel.text = "Wiggle-App length : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_wiggle_sub_d_spin_value_changed(value):
+	Global.held_sprite.dictmain.subdivision = value
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").subdivision = value
 	%WiggleSubDLabel.text = "Wiggle-App Subdivision : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)

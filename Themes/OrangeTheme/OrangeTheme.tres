@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://q6qgkkkq85wv"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://q6qgkkkq85wv"]
 
 [ext_resource type="StyleBox" uid="uid://2heiibuale7i" path="res://Themes/OrangeTheme/ButtonPressed.tres" id="1_xvjsm"]
 [ext_resource type="StyleBox" uid="uid://bw3ktrq5jd70u" path="res://Themes/OrangeTheme/Buttonbase.tres" id="2_roxmy"]
@@ -56,6 +56,31 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vigwd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6cv6"]
+bg_color = Color(0.533333, 0.337255, 0.160784, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.270588, 0.156863, 0.0235294, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5lvh"]
+bg_color = Color(0.756863, 0.505882, 0.262745, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.270588, 0.156863, 0.0235294, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d8s0b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7cuko"]
@@ -80,6 +105,12 @@ Panel/styles/panel = SubResource("StyleBoxFlat_ri8kk")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_5movk")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_ictqx")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_gf5jn")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_vigwd")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_m6cv6")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_q5lvh")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_q5lvh")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_q5lvh")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_m6cv6")
 Tree/colors/font_color = Color(0.937255, 0.796078, 0.690196, 1)
 Tree/styles/focus = SubResource("StyleBoxEmpty_d8s0b")
 Tree/styles/panel = SubResource("StyleBoxEmpty_7cuko")

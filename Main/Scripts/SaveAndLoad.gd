@@ -16,14 +16,14 @@ func save_file(path):
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
 		var img
-		if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture is AnimatedTexture:
+		if sprt.img_animated:
 			img = sprt.anim_texture
 		else:
 			img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
 		var normal_img
 		
 		if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
-			if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture is AnimatedTexture:
+			if sprt.img_animated:
 				normal_img = sprt.anim_texture_normal
 			else:
 				normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
@@ -81,6 +81,8 @@ func save_file(path):
 
 
 func load_file(path):
+	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
+	
 	get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
 	get_tree().get_root().get_node("Main").clear_sprites()
 	
@@ -132,13 +134,16 @@ func load_file(path):
 		if sprite.has("img_animated"):
 			if sprite.img_animated:
 				var gif_texture = GifManager.animated_texture_from_buffer(sprite.img)
+				sprite_obj.anim_texture = sprite.img
 				var img_can = CanvasTexture.new()
 				img_can.diffuse_texture = gif_texture
+				
 				
 				if sprite.has("normal"):
 					if sprite.normal != null:
 						var gif_normal = GifManager.animated_texture_from_buffer(sprite.normal)
 						img_can.normal_texture = gif_normal
+						sprite_obj.anim_texture_normal = sprite.normal
 				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 				
 			else:
@@ -159,6 +164,7 @@ func load_file(path):
 						img_can.normal_texture = nimg_tex
 				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 				
+				
 		else:
 			var img_data = Marshalls.base64_to_raw(sprite.img)
 			var img = Image.new()
@@ -176,6 +182,9 @@ func load_file(path):
 					nimg_tex.set_image(nimg)
 					img_can.normal_texture = nimg_tex
 			sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+			
+				
+			
 		
 		if sprite.has("img_animated"):
 			sprite_obj.img_animated = sprite.img_animated
@@ -183,9 +192,11 @@ func load_file(path):
 		sprite_obj.parent_id = sprite.parent_id
 		sprite_obj.sprite_name = sprite.sprite_name
 
+
+
 		
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
-		
+		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 #	'''
 	

@@ -55,8 +55,9 @@ func load_sprite_states(state):
 	reinfoanim.emit()
 
 func get_sprite_states(state):
-	for i in get_tree().get_nodes_in_group("Sprites"):
-		i.save_state(current_state)
+	if state != current_state:
+		for i in get_tree().get_nodes_in_group("Sprites"):
+			i.save_state(current_state)
 	
 	current_state = state
 	for i in get_tree().get_nodes_in_group("Sprites"):
@@ -72,16 +73,24 @@ func _input(_event):
 	if held_sprite != null:
 		if held_sprite.sprite_type == "Sprite2D":
 			if Input.is_action_pressed("ui_up"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").position.y -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.y -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.y -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.y += 1
 				offset()
 			elif Input.is_action_pressed("ui_down"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").position.y += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.y += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.y += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.y -= 1
 				offset()
 			if Input.is_action_pressed("ui_left"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").position.x -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.x -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.x -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.x += 1
 				offset()
 			elif Input.is_action_pressed("ui_right"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").position.x += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.x += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.x += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.x -= 1
 				offset()
 			
 		if Input.is_action_pressed("ctrl"):
@@ -102,7 +111,7 @@ func _input(_event):
 				bg_rot()
 
 func offset():
-	held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").offset = -held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").position
+	held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 	held_sprite.save_state(current_state)
 
 func rot():

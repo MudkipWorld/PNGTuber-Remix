@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://c5v4ocnimqa4i"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://c5v4ocnimqa4i"]
 
 [ext_resource type="StyleBox" uid="uid://dt6ohhswi3vpx" path="res://Themes/WhiteTheme/ButtonPressed.tres" id="1_eajkr"]
 [ext_resource type="StyleBox" uid="uid://musbk38v1ou4" path="res://Themes/WhiteTheme/Buttonbase.tres" id="2_3ggix"]
@@ -56,6 +56,48 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5yfyf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvdmq"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ma4sb"]
+bg_color = Color(0.678431, 0.678431, 0.678431, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.309804, 0.309804, 0.309804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghwgg"]
+bg_color = Color(0.584314, 0.584314, 0.584314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.309804, 0.309804, 0.309804, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhfhd"]
+bg_color = Color(0.396078, 0.396078, 0.396078, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.239216, 0.239216, 0.239216, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mgdks"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jnojd"]
@@ -81,6 +123,12 @@ Panel/styles/panel = SubResource("StyleBoxFlat_jvksv")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_oq7mi")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_0jjqf")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_g3ehf")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_5yfyf")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_xvdmq")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_ma4sb")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_ma4sb")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_ghwgg")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_dhfhd")
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
 Tree/styles/focus = SubResource("StyleBoxEmpty_mgdks")
 Tree/styles/panel = SubResource("StyleBoxEmpty_jnojd")

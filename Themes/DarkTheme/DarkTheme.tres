@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://b3mqud7u0mbij"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://b3mqud7u0mbij"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8m0v"]
 bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
@@ -82,6 +82,44 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i0sjp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rm1ae"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbt80"]
+bg_color = Color(0.254902, 0.254902, 0.254902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqhoq"]
+bg_color = Color(0.333333, 0.333333, 0.333333, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r4ik5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ue2i"]
@@ -107,6 +145,12 @@ Panel/styles/panel = SubResource("StyleBoxFlat_jbh7f")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_yevro")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_yevro")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_alyix")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_i0sjp")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_rm1ae")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_nbt80")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_cqhoq")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_nbt80")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_rm1ae")
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
 Tree/styles/focus = SubResource("StyleBoxEmpty_r4ik5")
 Tree/styles/panel = SubResource("StyleBoxEmpty_3ue2i")

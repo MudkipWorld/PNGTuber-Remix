@@ -2,6 +2,7 @@ extends Control
 
 signal key_pressed
 
+
 var filepath : Array = []
 enum State {
 	LoadFile,
@@ -15,6 +16,8 @@ enum State {
 }
 var current_state : State
 var can_scroll : bool = false
+
+var rec_inp : bool = false
 
 @onready var origin = %SpritesContainer
 
@@ -37,14 +40,14 @@ func save_as_file():
 	%FileDialog.show()
 
 func load_sprites():
-	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
+	%FileDialog.filters = ["*.png, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
 	$FileDialog.file_mode = 1
 	current_state = State.LoadSprites
 	%FileDialog.show()
 
 
 func load_append_sprites():
-	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
+	%FileDialog.filters = ["*.png, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
 	$FileDialog.file_mode = 1
 	current_state = State.AddAppend
 	%FileDialog.show()
@@ -96,7 +99,7 @@ func _on_file_dialog_file_selected(path):
 				Global.held_sprite.img_animated = true
 				Global.held_sprite.save_state(Global.current_state)
 				Global.held_sprite.treeitem.set_icon(0, gif_tex)
-				var g_sp = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture
+				
 				
 
 			else:
@@ -146,6 +149,8 @@ func _on_file_dialog_files_selected(paths):
 				sprte_obj.anim_texture = g_file
 				sprte_obj.img_animated = true
 				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+
+
 			
 			
 			else:
@@ -156,6 +161,10 @@ func _on_file_dialog_files_selected(paths):
 				sprte_obj.texture = img_can
 				sprte_obj.img_animated = false
 				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				
+				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+
+			sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
@@ -219,26 +228,36 @@ func _on_sub_viewport_container_mouse_entered():
 func _on_sub_viewport_container_mouse_exited():
 	can_scroll = false
 
+
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN:
+		rec_inp = false
+	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
+		rec_inp = true
+
+
 func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
-	if Global.settings_dict.checkinput:
-		var keyStrings = []
-		var costumeKeys = []
-		for l in get_tree().get_nodes_in_group("StateButtons"):
-			if InputMap.action_get_events(l.input_key).size() != 0:
-				costumeKeys.append(InputMap.action_get_events(l.input_key)[0].as_text())
-		
-		
-		for i in keys_pressed:
-			if keys_pressed[i]:
-				
-				keyStrings.append(OS.get_keycode_string(i))
-		
-		if %FileDialog.visible:
-			return
+	if rec_inp:
+		if Global.settings_dict.checkinput:
+			var keyStrings = []
+			var costumeKeys = []
+			for l in get_tree().get_nodes_in_group("StateButtons"):
+				if InputMap.action_get_events(l.input_key).size() != 0:
+					costumeKeys.append(InputMap.action_get_events(l.input_key)[0].as_text())
 			
-		
-		for key in keyStrings:
-			var i = costumeKeys.find(key)
-			if i >= 0:
-				print(i)
-				key_pressed.emit(i)
+			
+			for i in keys_pressed:
+				if keys_pressed[i]:
+					
+					keyStrings.append(OS.get_keycode_string(i))
+			
+			if %FileDialog.visible:
+				return
+				
+			
+			for key in keyStrings:
+				var i = costumeKeys.find(key)
+				if i >= 0:
+					print(i)
+					key_pressed.emit(i)

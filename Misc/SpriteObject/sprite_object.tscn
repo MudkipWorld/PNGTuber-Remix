@@ -114,6 +114,7 @@ texture = ExtResource("3_xhumr")
 
 [node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
 unique_name_in_owner = true
+layout_direction = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -83,25 +83,26 @@ func delete_all_states():
 	Global.settings_dict.light_states.clear()
 
 func add_state():
-	var button = preload("res://UI/StateButton/state_button.tscn").instantiate()
-	var state_count = Global.settings_dict.states.size()
-	button.state = clamp(state_count, 0, 100)
-	button.input_key = "State " + str(button.state)
-	button.text = str(clamp(state_count + 1, 0, 100))
-	%StateButtons.add_child(button)
-	
-	
-	var remap_btn = preload("res://UI/StateButton/state_remap_button.tscn").instantiate()
-	remap_btn.get_node("State").text = "State " + button.text
-	remap_btn.get_node("StateRemapButton").action = "State " + str(button.state)
-	%Grid.add_child(remap_btn)
-	InputMap.add_action(remap_btn.get_node("StateRemapButton").action)
-#	print(InputMap.get_actions())
-	
-	Global.settings_dict.states.append({})
-	Global.settings_dict.light_states.append({})
-	for i in get_tree().get_nodes_in_group("Sprites"):
-		i.states.append({})
+	if get_tree().get_nodes_in_group("StateButtons").size() < 100:
+		var button = preload("res://UI/StateButton/state_button.tscn").instantiate()
+		var state_count = Global.settings_dict.states.size()
+		button.state = clamp(state_count, 0, 100)
+		button.input_key = "State " + str(button.state)
+		button.text = str(clamp(state_count + 1, 0, 100))
+		%StateButtons.add_child(button)
+		
+		
+		var remap_btn = preload("res://UI/StateButton/state_remap_button.tscn").instantiate()
+		remap_btn.get_node("State").text = "State " + button.text
+		remap_btn.get_node("StateRemapButton").action = "State " + str(button.state)
+		%Grid.add_child(remap_btn)
+		InputMap.add_action(remap_btn.get_node("StateRemapButton").action)
+	#	print(InputMap.get_actions())
+		
+		Global.settings_dict.states.append({})
+		Global.settings_dict.light_states.append({})
+		for i in get_tree().get_nodes_in_group("Sprites"):
+			i.states.append({})
 
 func update_states(states):
 	var states_size = states.size()
@@ -119,3 +120,4 @@ func update_states(states):
 		InputMap.add_action("State " + str(button.state), 0.5)
 		
 		%Grid.add_child(remap_btn)
+

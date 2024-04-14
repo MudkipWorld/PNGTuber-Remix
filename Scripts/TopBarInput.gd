@@ -91,8 +91,6 @@ func choosing_mode(id):
 			%LSShapeVis.button_pressed = false
 			%HideUIButton.hide()
 			%HideUIButton.button_pressed = false
-			Global.held_sprite = null
-			Global.held_bg_sprite = null
 			%UIInput.held_sprite_is_null()
 		
 		#	'''
@@ -111,21 +109,7 @@ func choosing_mode(id):
 			%HideUIButton.button_pressed = true
 		#	'''
 		
-	if Global.held_sprite != null:
-		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
-			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
-		#	%LayersTree.get_selected().deselect(0)
-	if Global.held_bg_sprite != null:
-		if Global.held_bg_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
-			Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
-			
-		Global.held_sprite = null
-		Global.held_bg_sprite = null
-#		%LayersTree.get_selected().deselect(0)
-		%UIInput.held_sprite_is_null()
-		%LayersTree.deselect_all()
-		%BackgroundEdit.held_sprite_is_null()
-		%BackgroundTree.deselect_all()
+	desel_everything()
 
 func choosing_bg_color(id):
 	Global.settings_dict.is_transparent = false
@@ -252,6 +236,17 @@ func reset_mic_list():
 
 
 func _on_deselect_button_pressed():
+	desel_everything()
+
+
+func desel_everything():
+	if Global.held_sprite != null:
+		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin"):
+			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").hide()
+		#	%LayersTree.get_selected().deselect(0)
+	if Global.held_bg_sprite != null:
+		if Global.held_bg_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
+			Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
 	Global.held_sprite = null
 	Global.held_bg_sprite = null
 	%UIInput.held_sprite_is_null()
