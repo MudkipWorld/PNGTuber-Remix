@@ -761,6 +761,55 @@ size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 10
 text = "Clip Children"
 
+[node name="AnimationReset" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Reset Animation On State Change      "
+
+[node name="HBoxPhysics2" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Rainbow" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 12
+text = "Rainbow"
+
+[node name="Self-Rainbow Only" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 12
+text = "Self-Rainbow Only   "
+
+[node name="HBox3" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
+layout_mode = 2
+
+[node name="RSLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Rainbow Speed : "
+
+[node name="RSSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.001
+value = 0.001
+
 [node name="Movement" type="Control" parent="RightPanel/Properties/ScrollContainer"]
 visible = false
 layout_mode = 2
@@ -2242,6 +2291,10 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics/Physics" to="UIInput" method="_on_physics_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ClipChildren" to="UIInput" method="_on_check_box_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/AnimationReset" to="UIInput" method="_on_animation_reset_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2/Rainbow" to="UIInput" method="_on_rainbow_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2/Self-Rainbow Only" to="UIInput" method="_on_self_rainbow_only_toggled"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox3/RSSlider" to="UIInput" method="_on_rs_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox3/XAmpSlider" to="UIInput" method="_on_x_amp_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox4/XFSlider" to="UIInput" method="_on_xf_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox5/YAmpSlider" to="UIInput" method="_on_y_amp_slider_value_changed"]

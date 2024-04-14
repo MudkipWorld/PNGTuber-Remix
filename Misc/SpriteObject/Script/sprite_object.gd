@@ -69,6 +69,11 @@ var currently_speaking : bool = false
 	
 	should_rotate = false,
 	should_rot_speed = 0.01,
+	
+	should_reset = false,
+	rainbow = false,
+	rainbow_self = false,
+	rainbow_speed = 0.01,
 	}
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
@@ -149,6 +154,22 @@ func _process(delta):
 		auto_rotate()
 
 	follow_mouse()
+	rainbow()
+	
+
+func rainbow():
+	if dictmain.rainbow:
+		if not dictmain.rainbow_self:
+			%Sprite2D.self_modulate.s = 0
+			modulate.s = 1
+			modulate.h = wrap(modulate.h + dictmain.rainbow_speed, 0, 1)
+		else:
+			modulate.s = 0
+			%Sprite2D.self_modulate.s = 1
+			%Sprite2D.self_modulate.h = wrap(%Sprite2D.self_modulate.h + dictmain.rainbow_speed, 0, 1)
+	else:
+		%Sprite2D.self_modulate.s = 0
+		modulate.s = 0
 
 
 func follow_mouse():
@@ -335,6 +356,10 @@ func save_state(id):
 	should_rotate = dictmain.should_rotate,
 	should_rot_speed = dictmain.should_rot_speed,
 	
+	should_reset = dictmain.should_reset,
+	rainbow = dictmain.rainbow,
+	rainbow_self = dictmain.rainbow_self,
+	rainbow_speed = dictmain.rainbow_speed,
 	}
 	states[id] = dict
 
@@ -344,6 +369,14 @@ func get_state(id):
 		var dict = states[id]
 		dictmain.merge(dict, true)
 		
+		if dictmain.should_reset:
+			if img_animated:
+				%Sprite2D.texture.diffuse_texture.current_frame = 0
+				if %Sprite2D.texture.normal_texture != null:
+					%Sprite2D.texture.normal_texture.current_frame = 0
+			elif dictmain.hframes > 1:
+				%Sprite2D.frame_coords.x = 0
+				print(%Sprite2D.frame)
 		
 		
 		z_index = dictmain.z_index

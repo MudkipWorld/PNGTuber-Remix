@@ -97,6 +97,12 @@ func held_sprite_is_null():
 
 	%CurrentSelectedNormal.texture = null
 	%CurrentSelected.texture = null
+	
+	%AnimationReset.disabled = true
+	
+	%Rainbow.disabled = true
+	%"Self-Rainbow Only".disabled = true
+	%RSSlider.editable = false
 
 
 func held_sprite_is_true():
@@ -170,6 +176,12 @@ func held_sprite_is_true():
 	
 	%FMxSlider.editable = true
 	%FMYSlider.editable = true
+	
+	%AnimationReset.disabled = false
+	
+	%Rainbow.disabled = false
+	%"Self-Rainbow Only".disabled = false
+	%RSSlider.editable = true
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -313,6 +325,11 @@ func reinfo():
 	
 	%FMxSlider.value = Global.held_sprite.dictmain.look_at_mouse_pos
 	%FMYSlider.value = Global.held_sprite.dictmain.look_at_mouse_pos_y
+	%AnimationReset.button_pressed = Global.held_sprite.dictmain.should_reset
+	
+	%Rainbow.button_pressed = Global.held_sprite.dictmain.rainbow
+	%"Self-Rainbow Only".button_pressed = Global.held_sprite.dictmain.rainbow_self
+	%RSSlider.value = Global.held_sprite.dictmain.rainbow_speed
 
 func update_pos_spins():
 	%PosXSpinBox.value = Global.held_sprite.global_position.x
@@ -658,4 +675,25 @@ func _on_wiggle_sub_d_spin_value_changed(value):
 	Global.held_sprite.dictmain.subdivision = value
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").subdivision = value
 	%WiggleSubDLabel.text = "Wiggle-App Subdivision : " + str(snappedf(value, 1))
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_animation_reset_toggled(toggled_on):
+	Global.held_sprite.dictmain.should_reset = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_rainbow_toggled(toggled_on):
+	Global.held_sprite.dictmain.rainbow = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_self_rainbow_only_toggled(toggled_on):
+	Global.held_sprite.dictmain.rainbow_self = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_rs_slider_value_changed(value):
+	Global.held_sprite.dictmain.rainbow_speed = value
+	%RSLabel.text = "Rainbow Speed :  " + str(snappedf(value, 0.001))
 	Global.held_sprite.save_state(Global.current_state)
