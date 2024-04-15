@@ -78,12 +78,16 @@ func get_state(state):
 		mouth_open = dict.mouth_open
 		current_mc_anim = dict.current_mc_anim
 		current_mo_anim = dict.current_mo_anim
+		if Global.settings_dict.bounce_state:
+			set_mc_one_bounce()
+			
 		if get_tree().get_root().get_node("Main/Control").has_spoken:
 			speaking()
 		else:
 			not_speaking()
 			
 	reinfoanim.emit()
+	
 
 func not_speaking():
 	currenly_speaking = false

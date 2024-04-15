@@ -9,6 +9,7 @@ func _ready():
 
 func _on_light_energy_slider_value_changed(value):
 	light.energy = value
+	%LightEnergyLabel.text = str(snappedf(value, 0.1))
 	light.save_state(Global.current_state)
 
 
@@ -28,6 +29,7 @@ func _on_ls_shape_vis_toggled(toggled_on):
 
 func _on_light_size_slider_value_changed(value):
 	light.scale = Vector2(value,value)
+	%LightSizeLabel.text = str(snappedf(value, 0.1))
 	light.save_state(Global.current_state)
 
 

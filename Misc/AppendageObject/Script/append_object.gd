@@ -89,8 +89,9 @@ var img_animated : bool = false
 	rainbow_self = false,
 	rainbow_speed = 0.01,
 	
+	follow_wa_tip = false,
 	}
-	
+
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
 
@@ -142,20 +143,33 @@ func _process(delta):
 		auto_rotate()
 		
 	rainbow()
+	follow_wiggle()
+
+
+func follow_wiggle():
+	if dictmain.follow_wa_tip:
+		if get_parent() is WigglyAppendage2D:
+			position = get_parent().points[get_parent().points.size() -1]
+			%Pos.rotation = (get_parent().points[get_parent().points.size() -1].y/100)
+		else:
+			%Pos.rotation = 0
+		
+	else:
+		%Pos.rotation = 0
 
 func rainbow():
 	if dictmain.rainbow:
 		if not dictmain.rainbow_self:
 			%Sprite2D.self_modulate.s = 0
-			modulate.s = 1
-			modulate.h = wrap(modulate.h + dictmain.rainbow_speed, 0, 1)
+			%Pos.modulate.s = 1
+			%Pos.modulate.h = wrap(%Pos.modulate.h + dictmain.rainbow_speed, 0, 1)
 		else:
-			modulate.s = 0
+			%Pos.modulate.s = 0
 			%Sprite2D.self_modulate.s = 1
 			%Sprite2D.self_modulate.h = wrap(%Sprite2D.self_modulate.h + dictmain.rainbow_speed, 0, 1)
 	else:
 		%Sprite2D.self_modulate.s = 0
-		modulate.s = 0
+		%Pos.modulate.s = 0
 
 
 func follow_mouse():
@@ -290,6 +304,7 @@ func save_state(id):
 	rainbow_self = dictmain.rainbow_self,
 	rainbow_speed = dictmain.rainbow_speed,
 	
+	follow_wa_tip = dictmain.follow_wa_tip,
 	}
 	states[id] = dict
 

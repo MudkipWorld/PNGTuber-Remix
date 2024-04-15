@@ -91,15 +91,20 @@ script = ExtResource("1_i7wd5")
 
 [node name="Pos" type="Node2D" parent="."]
 unique_name_in_owner = true
+use_parent_material = true
 
 [node name="Wobble" type="Node2D" parent="Pos"]
+use_parent_material = true
 
 [node name="Squish" type="Node2D" parent="Pos/Wobble"]
+use_parent_material = true
 
 [node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
+use_parent_material = true
 
 [node name="Rotation" type="Node2D" parent="Pos/Wobble/Squish/Drag"]
 unique_name_in_owner = true
+use_parent_material = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true

@@ -230,6 +230,23 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
+layout_mode = 2
+
+[node name="Imgprev" type="Label" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Image"
+horizontal_alignment = 1
+
+[node name="NormalMapPrev" type="Label" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "NormalMap"
+horizontal_alignment = 1
+
 [node name="AnimationFramesLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -836,7 +853,7 @@ layout_mode = 2
 
 [node name="XALabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox3"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
@@ -855,7 +872,7 @@ layout_mode = 2
 
 [node name="XFLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox4"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
@@ -878,7 +895,7 @@ layout_mode = 2
 
 [node name="YALabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox5"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
@@ -897,7 +914,7 @@ layout_mode = 2
 
 [node name="YFLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox6"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
@@ -916,11 +933,11 @@ layout_mode = 2
 
 [node name="StretchLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox7"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(130, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
-text = "Stretch Amount :"
+text = "Stretch  :"
 
 [node name="StretchSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox7"]
 unique_name_in_owner = true
@@ -935,7 +952,7 @@ layout_mode = 2
 
 [node name="Rlable" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox8"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
@@ -963,7 +980,7 @@ size_flags_horizontal = 3
 
 [node name="RSLable" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox26"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
@@ -999,6 +1016,13 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
+[node name="FollowWiggleAppTip" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Follow Wiggle App Tip       "
+
 [node name="WiggleStuff" type="VBoxContainer" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -1021,6 +1045,13 @@ layout_mode = 2
 size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 12
 text = "Wiggle Physics"
+
+[node name="FollowParentEffect" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Follow Parent's effect     "
 
 [node name="HBox23" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff"]
 unique_name_in_owner = true
@@ -1391,14 +1422,17 @@ step = 0.1
 layout_mode = 2
 
 [node name="LightEnergyLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox18"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Light Energy :"
 
 [node name="LightEnergySlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox18"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(230, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 max_value = 16.0
 step = 0.1
 value = 2.0
@@ -1407,14 +1441,17 @@ value = 2.0
 layout_mode = 2
 
 [node name="LightSizeLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox19"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Light Size :"
 
 [node name="LightSizeSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox19"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(230, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 min_value = 0.1
 max_value = 16.0
 step = 0.1
@@ -2211,14 +2248,14 @@ layout_mode = 2
 [node name="BounceControlPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(320, 110)
+size = Vector2i(320, 141)
 
 [node name="GridContainer" type="GridContainer" parent="BounceControlPopup"]
 custom_minimum_size = Vector2(300, 0)
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 310.0
-offset_bottom = 100.0
+offset_bottom = 131.0
 
 [node name="BounceAmount" type="Label" parent="BounceControlPopup/GridContainer"]
 unique_name_in_owner = true
@@ -2240,6 +2277,12 @@ text = "Bounce Gravity : "
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 3000.0
+
+[node name="BounceStateCheck" type="CheckBox" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Bounce when changing states    "
 
 [node name="Background" type="PopupPanel" parent="."]
 unique_name_in_owner = true
@@ -2303,8 +2346,10 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox8/RotationLevel" to="UIInput" method="_on_rotation_level_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/ShouldRotCheck" to="UIInput" method="_on_should_rot_check_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox26/RotationSpeed" to="UIInput" method="_on_rotation_speed_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/FollowWiggleAppTip" to="UIInput" method="_on_follow_wiggle_app_tip_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WigglePhysicsCheck" to="UIInput" method="_on_wiggle_physics_check_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/FollowParentEffect" to="UIInput" method="_on_follow_parent_effect_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox23/WiggleAmpSlider" to="UIInput" method="_on_wiggle_amp_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox24/WiggleFreqSlider" to="UIInput" method="_on_wiggle_freq_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox25/WiggleAppSegmSlider" to="UIInput" method="_on_wiggle_app_segm_slider_value_changed"]
@@ -2361,4 +2406,5 @@ presets_visible = false
 [connection signal="item_selected" from="InputsPopup/HBoxContainer/VBoxContainer/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
+[connection signal="toggled" from="BounceControlPopup/GridContainer/BounceStateCheck" to="TopBarInput" method="_on_bounce_state_check_toggled"]
 [connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]

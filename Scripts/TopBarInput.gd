@@ -254,3 +254,7 @@ func desel_everything():
 	%BackgroundEdit.held_sprite_is_null()
 	%BackgroundTree.deselect_all()
 	%DeselectButton.hide()
+
+
+func _on_bounce_state_check_toggled(toggled_on):
+	Global.settings_dict.bounce_state = toggled_on

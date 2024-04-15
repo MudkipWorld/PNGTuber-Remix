@@ -26,7 +26,8 @@ var settings_dict : Dictionary = {
 	states = [{}],
 	light_states = [{}],
 	darken = false,
-	anti_alias = true
+	anti_alias = true,
+	bounce_state = false,
 }
 
 # Called when the node enters the scene tree for the first time.

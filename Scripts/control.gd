@@ -44,6 +44,7 @@ func sliders_revalue(settings_dict):
 	%SensitivitySlider.value = settings_dict.sensitivity_limit
 	%AntiAlCheck.button_pressed = settings_dict.anti_alias
 	$TopBarInput.origin_alias()
+	%BounceStateCheck.button_pressed = settings_dict.bounce_state
 	
 
 func _tree(sprites):

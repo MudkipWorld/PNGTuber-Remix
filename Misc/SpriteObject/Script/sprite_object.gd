@@ -74,6 +74,9 @@ var currently_speaking : bool = false
 	rainbow = false,
 	rainbow_self = false,
 	rainbow_speed = 0.01,
+	
+	follow_parent_effects = false,
+	follow_wa_tip = false,
 	}
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
@@ -153,31 +156,47 @@ func _process(delta):
 	if dictmain.should_rotate:
 		auto_rotate()
 
-	follow_mouse()
-	rainbow()
 	
+	rainbow()
+	follow_wiggle()
+	follow_mouse()
+
+
+func follow_wiggle():
+	if dictmain.follow_wa_tip:
+		if get_parent() is WigglyAppendage2D:
+			position = get_parent().points[get_parent().points.size() -1]
+			%Pos.rotation = (get_parent().points[get_parent().points.size() -1].y/100)
+		else:
+			%Pos.rotation = 0
+		
+	else:
+		%Pos.rotation = 0
+		
+
+
 
 func rainbow():
 	if dictmain.rainbow:
 		if not dictmain.rainbow_self:
 			%Sprite2D.self_modulate.s = 0
-			modulate.s = 1
-			modulate.h = wrap(modulate.h + dictmain.rainbow_speed, 0, 1)
+			%Pos.modulate.s = 1
+			%Pos.modulate.h = wrap(%Pos.modulate.h + dictmain.rainbow_speed, 0, 1)
 		else:
-			modulate.s = 0
+			%Pos.modulate.s = 0
 			%Sprite2D.self_modulate.s = 1
 			%Sprite2D.self_modulate.h = wrap(%Sprite2D.self_modulate.h + dictmain.rainbow_speed, 0, 1)
 	else:
 		%Sprite2D.self_modulate.s = 0
-		modulate.s = 0
+		%Pos.modulate.s = 0
 
 
 func follow_mouse():
+	
 	var mouse = get_local_mouse_position()
 	var dir = Vector2.ZERO.direction_to(mouse)
-	var dist = mouse.length() 
-	%Pos.position.x = dir.x * mini(dist, dictmain.look_at_mouse_pos)
-	%Pos.position.y = dir.y * mini(dist, dictmain.look_at_mouse_pos_y)
+	%Pos.position.x = dir.x * dictmain.look_at_mouse_pos
+	%Pos.position.y = dir.y * dictmain.look_at_mouse_pos_y
 
 
 func auto_rotate():
@@ -188,7 +207,7 @@ func wiggle_sprite():
 	var wiggle_val = sin(tick*dictmain.wiggle_freq)*dictmain.wiggle_amp
 	if dictmain.wiggle_physics:
 		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D:
-			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
 			wiggle_val = wiggle_val + (c_parrent_length/10)
 		
@@ -360,6 +379,9 @@ func save_state(id):
 	rainbow = dictmain.rainbow,
 	rainbow_self = dictmain.rainbow_self,
 	rainbow_speed = dictmain.rainbow_speed,
+	
+	follow_parent_wiggle = dictmain.follow_parent_effects,
+	follow_wa_tip = dictmain.follow_wa_tip,
 	}
 	states[id] = dict
 
@@ -398,8 +420,20 @@ func get_state(id):
 		animation()
 		set_blend(dictmain.blend_mode)
 		advanced_lipsyc()
+		
+		
+		follow_p_wiggle()
+		
+		%Pos.position = Vector2(0,0)
 
-			
+
+func follow_p_wiggle():
+	if dictmain.follow_parent_effects:
+		use_parent_material = true
+		%Sprite2D.use_parent_material = true
+	else:
+		use_parent_material = false
+		%Sprite2D.use_parent_material = false
 
 
 func check_talk():

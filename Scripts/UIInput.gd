@@ -103,6 +103,8 @@ func held_sprite_is_null():
 	%Rainbow.disabled = true
 	%"Self-Rainbow Only".disabled = true
 	%RSSlider.editable = false
+	%FollowParentEffect.disabled = true
+	%FollowWiggleAppTip.disabled = true
 
 
 func held_sprite_is_true():
@@ -151,6 +153,7 @@ func held_sprite_is_true():
 	%WigglePhysicsCheck.disabled = false
 	%WiggleAmpSlider.editable = true
 	%WiggleFreqSlider.editable = true
+	%FollowParentEffect.disabled = false
 	
 	%AdvancedLipSync.disabled = false
 	
@@ -173,6 +176,7 @@ func held_sprite_is_true():
 		%WiggleAppsStiffSlider.editable = false
 		%WiggleAppsMaxAngleSlider.editable = false
 		%WiggleAppsPhysStiffSlider.editable = false
+		
 	
 	%FMxSlider.editable = true
 	%FMYSlider.editable = true
@@ -182,6 +186,8 @@ func held_sprite_is_true():
 	%Rainbow.disabled = false
 	%"Self-Rainbow Only".disabled = false
 	%RSSlider.editable = true
+	
+	%FollowWiggleAppTip.disabled = false
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -299,6 +305,8 @@ func reinfo():
 		%WigglePhysicsCheck.button_pressed = Global.held_sprite.dictmain.wiggle_physics
 		%WiggleAmpSlider.value = Global.held_sprite.dictmain.wiggle_amp
 		%WiggleFreqSlider.value = Global.held_sprite.dictmain.wiggle_freq
+		%FollowParentEffect.button_pressed = Global.held_sprite.dictmain.follow_parent_effects
+		
 	
 	elif Global.held_sprite.sprite_type == "WiggleApp":
 		%WiggleStuff.hide()
@@ -330,6 +338,8 @@ func reinfo():
 	%Rainbow.button_pressed = Global.held_sprite.dictmain.rainbow
 	%"Self-Rainbow Only".button_pressed = Global.held_sprite.dictmain.rainbow_self
 	%RSSlider.value = Global.held_sprite.dictmain.rainbow_speed
+	
+	%FollowWiggleAppTip.button_pressed = Global.held_sprite.dictmain.follow_wa_tip
 
 func update_pos_spins():
 	%PosXSpinBox.value = Global.held_sprite.global_position.x
@@ -371,7 +381,7 @@ func _on_rotation_level_value_changed(value):
 
 func _on_stretch_slider_value_changed(value):
 	Global.held_sprite.dictmain.stretchAmount = value
-	%StretchLabel.text = "Stretch Amount : " + str(snappedf(value, 0.01))
+	%StretchLabel.text = "Stretch : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 #endregion
 
@@ -697,3 +707,16 @@ func _on_rs_slider_value_changed(value):
 	Global.held_sprite.dictmain.rainbow_speed = value
 	%RSLabel.text = "Rainbow Speed :  " + str(snappedf(value, 0.001))
 	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_follow_parent_effect_toggled(toggled_on):
+	Global.held_sprite.dictmain.follow_parent_effects = toggled_on
+	Global.held_sprite.follow_p_wiggle()
+	Global.held_sprite.save_state(Global.current_state)
+	
+
+
+func _on_follow_wiggle_app_tip_toggled(toggled_on):
+	Global.held_sprite.dictmain.follow_wa_tip = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+	
