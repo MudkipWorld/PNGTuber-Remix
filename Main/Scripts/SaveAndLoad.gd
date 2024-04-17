@@ -5,6 +5,7 @@ var save_dict : Dictionary = {}
 
 
 func save_file(path):
+	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
 	var sprites = get_tree().get_nodes_in_group("Sprites")
 	var bg_sprites = get_tree().get_nodes_in_group("BackgroundStuff")
 	var inputs = get_tree().get_nodes_in_group("StateRemapButton")

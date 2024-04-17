@@ -417,6 +417,45 @@ func _on_z_order_spinbox_value_changed(value):
 func _on_color_picker_button_color_changed(newcolor):
 	Global.held_sprite.modulate = newcolor
 	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_rotation_speed_value_changed(value):
+	%RSLable.text = "Rot-Speed : " + str(snappedf(value, 0.001))
+	Global.held_sprite.dictmain.should_rot_speed = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_should_rot_check_toggled(toggled_on):
+	Global.held_sprite.dictmain.should_rotate = toggled_on
+	if not toggled_on:
+		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation").rotation = 0
+	
+	Global.held_sprite.save_state(Global.current_state)
+
+
+
+func _on_animation_reset_toggled(toggled_on):
+	Global.held_sprite.dictmain.should_reset = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_rainbow_toggled(toggled_on):
+	Global.held_sprite.dictmain.rainbow = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_self_rainbow_only_toggled(toggled_on):
+	Global.held_sprite.dictmain.rainbow_self = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_rs_slider_value_changed(value):
+	Global.held_sprite.dictmain.rainbow_speed = value
+	%RSLabel.text = "Rainbow Speed :  " + str(snappedf(value, 0.001))
+	Global.held_sprite.save_state(Global.current_state)
+
+
+
 #endregion
 
 #region Eye and Mouth stuff
@@ -439,7 +478,6 @@ func _on_check_mouth_toggled(toggled_on):
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_mouth_open_toggled(toggled_on):
-	pass
 	Global.held_sprite.dictmain.open_mouth = toggled_on
 	Global.held_sprite.check_talk()
 	
@@ -617,55 +655,13 @@ func _on_wiggle_apps_phys_stiff_slider_value_changed(value):
 	Global.held_sprite.dictmain.wiggle_physics_stiffness = value
 	%WiggleAppsPhysStiffLabel.text = "Wiggle-App Physics Stiffness : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
-#endregion
 
-
-func _on_advanced_lip_sync_toggled(toggled_on):
-	Global.held_sprite.dictmain.advanced_lipsync = toggled_on
-	if Global.held_sprite.sprite_type == "Sprite2D":
-		Global.held_sprite.dictmain.animation_speed = 1
-		if toggled_on:
-			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").hframes = 6
-		else:
-			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").hframes = 1
-		Global.held_sprite.advanced_lipsyc()
-		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
-		Global.held_sprite.save_state(Global.current_state)
-	%AnimationFramesSlider.editable = !toggled_on
-	%AnimationSpeedSlider.editable = !toggled_on
-	
-
-func _on_advanced_lip_sync_mouse_entered():
-	%AdvancedLipSyncLabel.show()
-
-func _on_advanced_lip_sync_mouse_exited():
-	%AdvancedLipSyncLabel.hide()
-
-func _on_f_mx_slider_value_changed(value):
-	%FMxLabel.text = "Follow Mouse Range X : " + str(snappedf(value, 0.1))
-	Global.held_sprite.dictmain.look_at_mouse_pos = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_fmy_slider_value_changed(value):
-	%FMYLabel.text = "Follow Mouse Range Y : " + str(snappedf(value, 0.1))
-	Global.held_sprite.dictmain.look_at_mouse_pos_y = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_rotation_speed_value_changed(value):
-	%RSLable.text = "Rot-Speed : " + str(snappedf(value, 0.001))
-	Global.held_sprite.dictmain.should_rot_speed = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_should_rot_check_toggled(toggled_on):
-	Global.held_sprite.dictmain.should_rotate = toggled_on
+func _on_follow_wiggle_app_tip_toggled(toggled_on):
+	Global.held_sprite.dictmain.follow_wa_tip = toggled_on
 	if not toggled_on:
-		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation").rotation = 0
-	
+		Global.held_sprite.get_node("Pos").position = Vector2(0,0)
 	Global.held_sprite.save_state(Global.current_state)
-
+	
 
 func _on_wiggle_width_spin_value_changed(value):
 	Global.held_sprite.dictmain.width = value
@@ -687,28 +683,6 @@ func _on_wiggle_sub_d_spin_value_changed(value):
 	%WiggleSubDLabel.text = "Wiggle-App Subdivision : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
-
-func _on_animation_reset_toggled(toggled_on):
-	Global.held_sprite.dictmain.should_reset = toggled_on
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_rainbow_toggled(toggled_on):
-	Global.held_sprite.dictmain.rainbow = toggled_on
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_self_rainbow_only_toggled(toggled_on):
-	Global.held_sprite.dictmain.rainbow_self = toggled_on
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_rs_slider_value_changed(value):
-	Global.held_sprite.dictmain.rainbow_speed = value
-	%RSLabel.text = "Rainbow Speed :  " + str(snappedf(value, 0.001))
-	Global.held_sprite.save_state(Global.current_state)
-
-
 func _on_follow_parent_effect_toggled(toggled_on):
 	Global.held_sprite.dictmain.follow_parent_effects = toggled_on
 	Global.held_sprite.follow_p_wiggle()
@@ -716,7 +690,43 @@ func _on_follow_parent_effect_toggled(toggled_on):
 	
 
 
-func _on_follow_wiggle_app_tip_toggled(toggled_on):
-	Global.held_sprite.dictmain.follow_wa_tip = toggled_on
-	Global.held_sprite.save_state(Global.current_state)
+#endregion
+
+#region Advanced-LipSync
+func _on_advanced_lip_sync_toggled(toggled_on):
+	Global.held_sprite.dictmain.advanced_lipsync = toggled_on
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		Global.held_sprite.dictmain.animation_speed = 1
+		if toggled_on:
+			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").hframes = 6
+		else:
+			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").hframes = 1
+		Global.held_sprite.advanced_lipsyc()
+		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+		Global.held_sprite.save_state(Global.current_state)
+	%AnimationFramesSlider.editable = !toggled_on
+	%AnimationSpeedSlider.editable = !toggled_on
 	
+
+func _on_advanced_lip_sync_mouse_entered():
+	%AdvancedLipSyncLabel.show()
+
+func _on_advanced_lip_sync_mouse_exited():
+	%AdvancedLipSyncLabel.hide()
+
+#endregion
+
+#region Follow Mouse
+func _on_f_mx_slider_value_changed(value):
+	%FMxLabel.text = "Follow Mouse Range X : " + str(snappedf(value, 0.1))
+	Global.held_sprite.dictmain.look_at_mouse_pos = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_fmy_slider_value_changed(value):
+	%FMYLabel.text = "Follow Mouse Range Y : " + str(snappedf(value, 0.1))
+	Global.held_sprite.dictmain.look_at_mouse_pos_y = value
+	Global.held_sprite.save_state(Global.current_state)
+
+#endregion
+

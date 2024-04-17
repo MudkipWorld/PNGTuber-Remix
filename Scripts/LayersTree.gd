@@ -29,23 +29,30 @@ func _drop_data(at_position, data):
 			drop_offset = 0
 		
 		var boolean
+		
 		if drop_offset == -1:
-			if other_item != data.get_parent():
-				if other_item == get_root():
-					data.get_metadata(0).sprite_object.reparent(cont)
-				else:
-					data.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
-			data.move_before(other_item)
+			if other_item is TreeItem:
+				if other_item != data.get_parent():
+					if other_item == get_root():
+						data.get_metadata(0).sprite_object.reparent(cont)
+					else:
+						data.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+					
+					data.move_before(other_item)
+			else:
+				return
 			
 		
 		elif drop_offset == 1:
-			if other_item != data.get_parent():
-				if other_item == get_root():
-					data.get_metadata(0).sprite_object.reparent(cont)
-				else:
-					data.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
-				data.move_after(other_item)
-				
+			if other_item is TreeItem:
+				if other_item != data.get_parent():
+					if other_item == get_root():
+						data.get_metadata(0).sprite_object.reparent(cont)
+					else:
+						data.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+					data.move_after(other_item)
+			else:
+				return
 			
 			
 		

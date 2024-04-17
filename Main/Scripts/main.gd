@@ -172,6 +172,7 @@ func _on_file_dialog_files_selected(paths):
 			sprte_obj.states = []
 			for i in Global.settings_dict.states.size():
 				sprte_obj.states.append({})
+				
 			sprite_nodes.append(sprte_obj)
 			
 

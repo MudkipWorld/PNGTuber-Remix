@@ -417,7 +417,6 @@ grow_horizontal = 0
 grow_vertical = 2
 localize_numeral_system = false
 focus_mode = 0
-mouse_filter = 1
 mouse_force_pass_scroll_events = false
 mouse_default_cursor_shape = 2
 theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
@@ -533,9 +532,11 @@ anchor_right = 0.982544
 anchor_bottom = 0.797037
 theme_override_font_sizes/font_size = 11
 tab_alignment = 1
+current_tab = 4
 metadata/_edit_use_anchors_ = true
 
 [node name="Properties" type="Control" parent="RightPanel/Properties/ScrollContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer1" type="ScrollContainer" parent="RightPanel/Properties/ScrollContainer/Properties"]
@@ -778,55 +779,6 @@ size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 10
 text = "Clip Children"
 
-[node name="AnimationReset" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_font_sizes/font_size = 10
-text = "Reset Animation On State Change      "
-
-[node name="HBoxPhysics2" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Rainbow" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_font_sizes/font_size = 12
-text = "Rainbow"
-
-[node name="Self-Rainbow Only" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_font_sizes/font_size = 12
-text = "Self-Rainbow Only   "
-
-[node name="HBox3" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
-layout_mode = 2
-
-[node name="RSLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox3"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(140, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 12
-text = "Rainbow Speed : "
-
-[node name="RSSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox3"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1.0
-max_value = 1.0
-step = 0.001
-value = 0.001
-
 [node name="Movement" type="Control" parent="RightPanel/Properties/ScrollContainer"]
 visible = false
 layout_mode = 2
@@ -994,6 +946,50 @@ size_flags_horizontal = 3
 min_value = -2.0
 max_value = 2.0
 step = 0.001
+
+[node name="Sp2" type="HSeparator" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBox23" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="FMxLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox23"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Follow Mouse Range X  : "
+
+[node name="FMxSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox23"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -500.0
+max_value = 500.0
+step = 0.1
+
+[node name="HBox24" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="FMYLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox24"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Follow Mouse Range  Y : "
+
+[node name="FMYSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox24"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -500.0
+max_value = 500.0
+step = 0.1
 
 [node name="Wiggle Settings" type="Control" parent="RightPanel/Properties/ScrollContainer"]
 visible = false
@@ -1468,7 +1464,6 @@ theme_override_font_sizes/font_size = 12
 text = "Darken When Not Speaking"
 
 [node name="Experimental" type="Control" parent="RightPanel/Properties/ScrollContainer"]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer6" type="ScrollContainer" parent="RightPanel/Properties/ScrollContainer/Experimental"]
@@ -1506,49 +1501,54 @@ theme_override_font_sizes/font_size = 10
 text = "Only works if your mouth shapes are in a sprite-sheet.
 6 frames"
 
-[node name="Sp" type="HSeparator" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="HBox23" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
-layout_mode = 2
-
-[node name="FMxLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox23"]
+[node name="AnimationReset" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Reset Animation On State Change      "
+
+[node name="HBoxPhysics2" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Rainbow" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBoxPhysics2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 12
+text = "Rainbow"
+
+[node name="Self-Rainbow Only" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBoxPhysics2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 12
+text = "Self-Rainbow Only   "
+
+[node name="HBox3" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
+layout_mode = 2
+
+[node name="RSLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 12
-text = "Follow Mouse Range X  : "
+text = "Rainbow Speed : "
 
-[node name="FMxSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox23"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -500.0
-max_value = 500.0
-step = 0.1
-
-[node name="HBox24" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
-layout_mode = 2
-
-[node name="FMYLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox24"]
+[node name="RSSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 12
-text = "Follow Mouse Range  Y : "
-
-[node name="FMYSlider" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox24"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 size_flags_horizontal = 3
-min_value = -500.0
-max_value = 500.0
-step = 0.1
+min_value = -1.0
+max_value = 1.0
+step = 0.001
+value = 0.001
 
 [node name="ScrollContainer2" type="ScrollContainer" parent="RightPanel/Properties"]
 unique_name_in_owner = true
@@ -2334,10 +2334,6 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics/Physics" to="UIInput" method="_on_physics_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ClipChildren" to="UIInput" method="_on_check_box_toggled"]
-[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/AnimationReset" to="UIInput" method="_on_animation_reset_toggled"]
-[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2/Rainbow" to="UIInput" method="_on_rainbow_toggled"]
-[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics2/Self-Rainbow Only" to="UIInput" method="_on_self_rainbow_only_toggled"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox3/RSSlider" to="UIInput" method="_on_rs_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox3/XAmpSlider" to="UIInput" method="_on_x_amp_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox4/XFSlider" to="UIInput" method="_on_xf_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox5/YAmpSlider" to="UIInput" method="_on_y_amp_slider_value_changed"]
@@ -2346,6 +2342,8 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox8/RotationLevel" to="UIInput" method="_on_rotation_level_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/ShouldRotCheck" to="UIInput" method="_on_should_rot_check_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox26/RotationSpeed" to="UIInput" method="_on_rotation_speed_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox23/FMxSlider" to="UIInput" method="_on_f_mx_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox24/FMYSlider" to="UIInput" method="_on_fmy_slider_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/FollowWiggleAppTip" to="UIInput" method="_on_follow_wiggle_app_tip_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WigglePhysicsCheck" to="UIInput" method="_on_wiggle_physics_check_toggled"]
@@ -2372,8 +2370,10 @@ presets_visible = false
 [connection signal="mouse_entered" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_entered"]
 [connection signal="mouse_exited" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_toggled"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox23/FMxSlider" to="UIInput" method="_on_f_mx_slider_value_changed"]
-[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox24/FMYSlider" to="UIInput" method="_on_fmy_slider_value_changed"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/AnimationReset" to="UIInput" method="_on_animation_reset_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBoxPhysics2/Rainbow" to="UIInput" method="_on_rainbow_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBoxPhysics2/Self-Rainbow Only" to="UIInput" method="_on_self_rainbow_only_toggled"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox3/RSSlider" to="UIInput" method="_on_rs_slider_value_changed"]
 [connection signal="color_changed" from="RightPanel/Properties/ScrollContainer2/Grid/Hbox/BGColorPickerButton" to="BackgroundEdit" method="_on_bg_color_picker_button_color_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer2/Grid/HBox21/BGPosXSpinBox" to="BackgroundEdit" method="_on_bg_pos_x_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer2/Grid/HBox21/BGPosYSpinBox" to="BackgroundEdit" method="_on_bg_pos_y_spin_box_value_changed"]
