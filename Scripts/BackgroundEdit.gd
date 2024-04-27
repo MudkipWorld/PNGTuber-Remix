@@ -67,12 +67,13 @@ func add_item(sprite):
 	new_item.get_next()
 
 func _on_bg_duplicate_button_pressed():
-	var obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
-	get_parent().get_parent().get_node("BackgroundStuff/BGContainer").add_child(obj)
-	obj.texture = Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture
-	obj.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture = Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture
-	obj.sprite_name = "Duplicate" + Global.held_bg_sprite.sprite_name 
-	add_item(obj)
+	if  Global.held_bg_sprite != null:
+		var obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
+		get_parent().get_parent().get_node("SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer").add_child(obj)
+		obj.texture = Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture
+		obj.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture = Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture
+		obj.sprite_name = "Duplicate" + Global.held_bg_sprite.sprite_name 
+		add_item(obj)
 
 func _on_bg_delete_button_pressed():
 	if Global.held_bg_sprite != null:
