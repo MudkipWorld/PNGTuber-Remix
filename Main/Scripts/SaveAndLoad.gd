@@ -6,6 +6,7 @@ var save_dict : Dictionary = {}
 
 func save_file(path):
 	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
+	get_tree().get_root().get_node("Main/Control/TopBarInput").path = path
 	var sprites = get_tree().get_nodes_in_group("Sprites")
 	var bg_sprites = get_tree().get_nodes_in_group("BackgroundStuff")
 	var inputs = get_tree().get_nodes_in_group("StateRemapButton")
@@ -83,6 +84,7 @@ func save_file(path):
 
 func load_file(path):
 	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
+	get_tree().get_root().get_node("Main/Control/TopBarInput").path = path
 	
 	get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
 	get_tree().get_root().get_node("Main").clear_sprites()

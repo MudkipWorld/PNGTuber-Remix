@@ -485,13 +485,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RightPanel" type="Panel" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -365.0
-offset_top = 25.0
+offset_left = -380.0
+offset_top = 26.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Properties" type="Panel" parent="RightPanel"]
@@ -1774,21 +1774,23 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Files"
-item_count = 7
+item_count = 8
 popup/item_0/text = "New"
 popup/item_0/id = 0
 popup/item_1/text = "Open"
 popup/item_1/id = 1
-popup/item_2/text = "Save As"
-popup/item_2/id = 3
-popup/item_3/text = "Add Images"
-popup/item_3/id = 4
-popup/item_4/text = "Add Appendage Based Image"
-popup/item_4/id = 6
-popup/item_5/text = "Add Background Item"
-popup/item_5/id = 7
-popup/item_6/text = "Template Model"
-popup/item_6/id = 5
+popup/item_2/text = "Save"
+popup/item_2/id = 8
+popup/item_3/text = "Save As"
+popup/item_3/id = 3
+popup/item_4/text = "Add Images"
+popup/item_4/id = 4
+popup/item_5/text = "Add Appendage Based Image"
+popup/item_5/id = 6
+popup/item_6/text = "Add Background Item"
+popup/item_6/id = 7
+popup/item_7/text = "Template Model"
+popup/item_7/id = 5
 
 [node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true

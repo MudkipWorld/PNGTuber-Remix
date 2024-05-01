@@ -12,6 +12,7 @@ var last_path : String = ""
 @onready var bg = get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer")
 @onready var light = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/LightSource")
 var devices : Array = []
+var path = null
 
 func _ready():
 	RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
@@ -55,6 +56,10 @@ func choosing_files(id):
 			main.load_append_sprites()
 		7:
 			main.load_bg_sprites()
+		8:
+			if path != null:
+				SaveAndLoad.save_file(path)
+			
 
 func choosing_mode(id):
 	match id:

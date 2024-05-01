@@ -242,18 +242,19 @@ func stretch(length):
 func blink():
 	if dictmain.should_blink:
 		if not dictmain.open_eyes:
-			show()
+			
+			%Pos.show()
 		else:
-			hide()
+			%Pos.hide()
 	
 	$Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
 	$Blink.start()
 	await  $Blink.timeout
 	if dictmain.should_blink:
 		if not dictmain.open_eyes:
-			hide()
+			%Pos.hide()
 		else:
-			show()
+			%Pos.show()
 
 func speaking():
 	if dictmain.should_talk:
