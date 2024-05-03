@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlewxqv6urfu2"]
+
+[ext_resource type="Script" path="res://Misc/FolderObject/Script/Folder_object.gd" id="1_hncgl"]
+[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="4_tgpoe"]
+
+[node name="FolderObject" type="Node2D" groups=["Sprites"]]
+script = ExtResource("1_hncgl")
+
+[node name="Pos" type="Node2D" parent="."]
+unique_name_in_owner = true
+use_parent_material = true
+
+[node name="Wobble" type="Node2D" parent="Pos"]
+use_parent_material = true
+
+[node name="Squish" type="Node2D" parent="Pos/Wobble"]
+use_parent_material = true
+
+[node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
+use_parent_material = true
+
+[node name="Rotation" type="Node2D" parent="Pos/Wobble/Squish/Drag"]
+unique_name_in_owner = true
+use_parent_material = true
+
+[node name="Sprite2D" type="CanvasGroup" parent="Pos/Wobble/Squish/Drag/Rotation"]
+unique_name_in_owner = true
+process_priority = 765
+use_mipmaps = true
+
+[node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
+z_index = 4096
+texture = ExtResource("4_tgpoe")
+
+[node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
+unique_name_in_owner = true
+layout_direction = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+stretch_mode = 0
+
+[node name="Blink" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Animation" type="Timer" parent="."]
+
+[node name="Talk" type="Timer" parent="."]
+wait_time = 0.12
+
+[connection signal="button_down" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_down"]
+[connection signal="button_up" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_up"]

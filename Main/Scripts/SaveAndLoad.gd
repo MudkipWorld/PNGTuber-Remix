@@ -21,16 +21,18 @@ func save_file(path):
 		if sprt.img_animated:
 			img = sprt.anim_texture
 		else:
-			img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
+			if sprt.sprite_type != "Folder":
+				img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
 		var normal_img
 		
-		if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
-			if sprt.img_animated:
-				normal_img = sprt.anim_texture_normal
+		if sprt.sprite_type != "Folder":
+			if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
+				if sprt.img_animated:
+					normal_img = sprt.anim_texture_normal
+				else:
+					normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
 			else:
-				normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
-		else:
-			normal_img = null
+				normal_img = null
 		var sprt_dict = {
 			img = img,
 			normal = normal_img,
@@ -129,6 +131,9 @@ func load_file(path):
 				sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 			elif sprite.sprite_type == "WiggleApp":
 				sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
+			elif sprite.sprite_type == "Folder":
+				sprite_obj = preload("res://Misc/FolderObject/Folder_object.tscn").instantiate()
+				
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 
@@ -150,6 +155,27 @@ func load_file(path):
 				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 				
 			else:
+				if sprite.sprite_type != "Folder":
+					var img_data = Marshalls.base64_to_raw(sprite.img)
+					var img = Image.new()
+					img.load_png_from_buffer(img_data)
+					var img_tex = ImageTexture.new()
+					img_tex.set_image(img)
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = img_tex
+					if sprite.has("normal"):
+						if sprite.normal != null:
+							var img_normal = Marshalls.base64_to_raw(sprite.normal)
+							var nimg = Image.new()
+							nimg.load_png_from_buffer(img_normal)
+							var nimg_tex = ImageTexture.new()
+							nimg_tex.set_image(nimg)
+							img_can.normal_texture = nimg_tex
+					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				
+				
+		else:
+			if sprite.sprite_type != "Folder":
 				var img_data = Marshalls.base64_to_raw(sprite.img)
 				var img = Image.new()
 				img.load_png_from_buffer(img_data)
@@ -166,25 +192,6 @@ func load_file(path):
 						nimg_tex.set_image(nimg)
 						img_can.normal_texture = nimg_tex
 				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-				
-				
-		else:
-			var img_data = Marshalls.base64_to_raw(sprite.img)
-			var img = Image.new()
-			img.load_png_from_buffer(img_data)
-			var img_tex = ImageTexture.new()
-			img_tex.set_image(img)
-			var img_can = CanvasTexture.new()
-			img_can.diffuse_texture = img_tex
-			if sprite.has("normal"):
-				if sprite.normal != null:
-					var img_normal = Marshalls.base64_to_raw(sprite.normal)
-					var nimg = Image.new()
-					nimg.load_png_from_buffer(img_normal)
-					var nimg_tex = ImageTexture.new()
-					nimg_tex.set_image(nimg)
-					img_can.normal_texture = nimg_tex
-			sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 			
 				
 			
@@ -209,8 +216,11 @@ func load_file(path):
 		get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
 		
 #	'''
-	
-	
+	var state_count = get_tree().get_nodes_in_group("StateRemapButton").size()
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		if i.states.size() != state_count:
+			for l in abs(i.states.size() - state_count):
+				i.states.append({})
 	
 	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))

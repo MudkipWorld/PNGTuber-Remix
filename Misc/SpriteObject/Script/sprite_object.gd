@@ -61,6 +61,9 @@ var currently_speaking : bool = false
 	wiggle_amp = 0,
 	wiggle_freq = 0,
 	wiggle_physics = false,
+	wiggle_rot_offset = Vector2(0.5, 0.5),
+	
+	
 	
 	advanced_lipsync = false,
 	
@@ -71,12 +74,15 @@ var currently_speaking : bool = false
 	should_rot_speed = 0.01,
 	
 	should_reset = false,
+	one_shot = false,
+	
 	rainbow = false,
 	rainbow_self = false,
 	rainbow_speed = 0.01,
 	
 	follow_parent_effects = false,
 	follow_wa_tip = false,
+	
 	}
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
@@ -140,7 +146,7 @@ func _process(delta):
 	var length = (glob.y - dragger.global_position.y)
 	
 	if dictmain.physics:
-		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D:
+		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
 			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 			
 			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
@@ -348,7 +354,7 @@ func save_state(id):
 	stretchAmount = dictmain.stretchAmount,
 	blend_mode = dictmain.blend_mode,
 	visible = dictmain.visible,
-	colored = modulate,
+	colored = dictmain.colored,
 	z_index = z_index,
 	open_eyes =  dictmain.open_eyes,
 	open_mouth = dictmain.open_mouth,
@@ -368,6 +374,8 @@ func save_state(id):
 	wiggle_amp = dictmain.wiggle_amp,
 	wiggle_freq = dictmain.wiggle_freq,
 	wiggle_physics = dictmain.wiggle_physics,
+	wiggle_rot_offset = dictmain.wiggle_rot_offset,
+	
 	advanced_lipsync = dictmain.advanced_lipsync,
 	
 	look_at_mouse_pos = dictmain.look_at_mouse_pos,
@@ -377,6 +385,8 @@ func save_state(id):
 	should_rot_speed = dictmain.should_rot_speed,
 	
 	should_reset = dictmain.should_reset,
+	one_shot = dictmain.one_shot,
+	
 	rainbow = dictmain.rainbow,
 	rainbow_self = dictmain.rainbow_self,
 	rainbow_speed = dictmain.rainbow_speed,
@@ -400,6 +410,12 @@ func get_state(id):
 			elif dictmain.hframes > 1:
 				%Sprite2D.frame_coords.x = 0
 				print(%Sprite2D.frame)
+				
+			if img_animated:
+				%Sprite2D.texture.diffuse_texture.one_shot = dictmain.one_shot
+				if %Sprite2D.texture.normal_texture != null:
+					%Sprite2D.texture.normal_texture.one_shot = dictmain.one_shot
+			
 		
 		
 		z_index = dictmain.z_index
@@ -411,6 +427,8 @@ func get_state(id):
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
 		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
+		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("rotation_offset", dictmain.wiggle_rot_offset)
+		
 		
 		if dictmain.advanced_lipsync:
 			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes = 6

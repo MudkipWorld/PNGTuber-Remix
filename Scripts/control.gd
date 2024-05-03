@@ -28,6 +28,10 @@ func _ready():
 	var sprite_nodes = get_tree().get_nodes_in_group("Sprites")
 	container = get_parent().get_node("SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
 	_tree(sprite_nodes)
+	
+	Global.reinfo.connect(update_visib_buttons)
+	
+	
 
 func _process(_delta):
 	var sample = AudioServer.get_bus_peak_volume_left_db(2, 0)
@@ -45,7 +49,7 @@ func sliders_revalue(settings_dict):
 	%AntiAlCheck.button_pressed = settings_dict.anti_alias
 	$TopBarInput.origin_alias()
 	%BounceStateCheck.button_pressed = settings_dict.bounce_state
-	
+
 
 func _tree(sprites):
 	tree.clear()
@@ -59,7 +63,9 @@ func _tree(sprites):
 			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 		else:
 			new_item.set_icon(0, i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture)
+		
 		new_item.set_icon_max_width(0, 20)
+		new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
 		var dic : Dictionary = {
 			sprite_object = i,
 			parent = new_item.get_parent()
@@ -68,12 +74,14 @@ func _tree(sprites):
 		i.treeitem = new_item
 		new_item.get_next()
 	check_parent()
+	update_visib_buttons()
 
 func _added_tree(sprites):
 	for i in sprites:
 		var new_item
 		new_item = tree.create_item(tree.get_root())
 		new_item.set_text(0, str(i.sprite_name))
+		new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
 		if i.dictmain.folder:
 			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 		else:
@@ -100,7 +108,6 @@ func loaded_tree(sprites):
 		i.reparent_obj(get_tree().get_nodes_in_group("Sprites"))
 	_tree(get_tree().get_nodes_in_group("Sprites"))
 
-
 func check_parent():
 	var sprites = get_tree().get_nodes_in_group("Sprites")
 	for x in sprites:
@@ -112,9 +119,6 @@ func check_parent():
 			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 			x.treeitem.get_parent().remove_child(x.treeitem)
 			parent.add_child(x.treeitem)
-	
-	
-
 
 func update_tree(child, parent, boolean):
 	var new_c_path = child.get_metadata(0)
@@ -145,6 +149,7 @@ func add_item(sprite):
 	var new_item
 	new_item = tree.create_item(root)
 	new_item.set_text(0, str(sprite.sprite_name))
+	new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
 	if sprite.dictmain.folder:
 		new_item.set_icon(0, preload("res://UI/FolderButton.png"))
 	else:
@@ -158,3 +163,22 @@ func add_item(sprite):
 	sprite.treeitem = new_item
 	new_item.get_next()
 	check_parent()
+
+func _on_layers_tree_button_clicked(item, column, id, _mouse_button_index):
+	item.get_metadata(0).sprite_object.dictmain.visible =! item.get_metadata(0).sprite_object.dictmain.visible 
+	item.get_metadata(0).sprite_object.visible = item.get_metadata(0).sprite_object.dictmain.visible 
+	item.get_metadata(0).sprite_object.save_state(Global.current_state)
+	print(column)
+	print(id)
+	if item.get_metadata(0).sprite_object.visible:
+		item.set_button(column, id, preload("res://UI/EyeButton.png"))
+	elif not item.get_metadata(0).sprite_object.visible:
+		item.set_button(column, id, preload("res://UI/EyeButton2.png"))
+
+func update_visib_buttons():
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		if i.dictmain.visible:
+			i.treeitem.set_button(0, 0, preload("res://UI/EyeButton.png"))
+		elif not i.dictmain.visible:
+			i.treeitem.set_button(0, 0, preload("res://UI/EyeButton2.png"))
+

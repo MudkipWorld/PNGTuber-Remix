@@ -532,11 +532,9 @@ anchor_right = 0.982544
 anchor_bottom = 0.797037
 theme_override_font_sizes/font_size = 11
 tab_alignment = 1
-current_tab = 4
 metadata/_edit_use_anchors_ = true
 
 [node name="Properties" type="Control" parent="RightPanel/Properties/ScrollContainer"]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer1" type="ScrollContainer" parent="RightPanel/Properties/ScrollContainer/Properties"]
@@ -1067,7 +1065,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = -50.0
 max_value = 50.0
-step = 0.05
+step = 0.01
 
 [node name="HBox24" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff"]
 unique_name_in_owner = true
@@ -1088,6 +1086,38 @@ size_flags_horizontal = 3
 min_value = -50.0
 max_value = 50.0
 step = 0.05
+
+[node name="HBox" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="XoffsetLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "X offset : "
+
+[node name="XoffsetSpinBox" type="SpinBox" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+min_value = -999999.0
+max_value = 999999.0
+step = 0.1
+
+[node name="YoffsetLabel" type="Label" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "X offset : "
+
+[node name="YoffsetSpinBox" type="SpinBox" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+min_value = -999999.0
+max_value = 999999.0
+step = 0.1
 
 [node name="WiggleAppStuff" type="VBoxContainer" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
@@ -1464,6 +1494,7 @@ theme_override_font_sizes/font_size = 12
 text = "Darken When Not Speaking"
 
 [node name="Experimental" type="Control" parent="RightPanel/Properties/ScrollContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer6" type="ScrollContainer" parent="RightPanel/Properties/ScrollContainer/Experimental"]
@@ -1502,6 +1533,14 @@ text = "Only works if your mouth shapes are in a sprite-sheet.
 6 frames"
 
 [node name="AnimationReset" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Reset Animation On State Change      "
+
+[node name="AnimationOneShot" type="CheckBox" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -2318,6 +2357,7 @@ presets_visible = false
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons2/BGDuplicateButton" to="BackgroundEdit" method="_on_bg_duplicate_button_pressed"]
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons2/BGDeleteButton" to="BackgroundEdit" method="_on_bg_delete_button_pressed"]
+[connection signal="button_clicked" from="LeftPanel/VBox/Panel/LayersTree" to="." method="_on_layers_tree_button_clicked"]
 [connection signal="item_selected" from="LeftPanel/VBox/Panel/LayersTree" to="LeftPanel/VBox/Panel/LayersTree" method="_on_item_selected"]
 [connection signal="item_selected" from="LeftPanel/VBox/Panel2/BackgroundTree" to="LeftPanel/VBox/Panel2/BackgroundTree" method="_on_item_selected"]
 [connection signal="text_submitted" from="RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
@@ -2352,6 +2392,8 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/FollowParentEffect" to="UIInput" method="_on_follow_parent_effect_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox23/WiggleAmpSlider" to="UIInput" method="_on_wiggle_amp_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox24/WiggleFreqSlider" to="UIInput" method="_on_wiggle_freq_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox/XoffsetSpinBox" to="UIInput" method="_on_xoffset_spin_box_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox/YoffsetSpinBox" to="UIInput" method="_on_yoffset_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox25/WiggleAppSegmSlider" to="UIInput" method="_on_wiggle_app_segm_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox26/WiggleAppsCurveSlider" to="UIInput" method="_on_wiggle_apps_curve_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox27/WiggleAppsStiffSlider" to="UIInput" method="_on_wiggle_apps_stiff_slider_value_changed"]
@@ -2373,6 +2415,7 @@ presets_visible = false
 [connection signal="mouse_exited" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/AnimationReset" to="UIInput" method="_on_animation_reset_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/AnimationOneShot" to="UIInput" method="_on_animation_one_shot_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBoxPhysics2/Rainbow" to="UIInput" method="_on_rainbow_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBoxPhysics2/Self-Rainbow Only" to="UIInput" method="_on_self_rainbow_only_toggled"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox3/RSSlider" to="UIInput" method="_on_rs_slider_value_changed"]

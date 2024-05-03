@@ -85,6 +85,8 @@ var img_animated : bool = false
 	subdivision = 5,
 	
 	should_reset = false,
+	one_shot = false,
+	
 	rainbow = false,
 	rainbow_self = false,
 	rainbow_speed = 0.01,
@@ -129,7 +131,7 @@ func _process(delta):
 	var length = (glob.y - dragger.global_position.y)/dictmain.wiggle_physics_stiffness
 	
 	if dictmain.physics:
-		if get_parent() is Sprite2D:
+		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
 			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
 			length += (c_parrent_length/dictmain.wiggle_physics_stiffness)
@@ -267,7 +269,7 @@ func save_state(id):
 	stretchAmount = dictmain.stretchAmount,
 	blend_mode = dictmain.blend_mode,
 	visible = visible,
-	colored = modulate,
+	colored = dictmain.colored,
 	z_index = z_index,
 	open_eyes =  dictmain.open_eyes,
 	open_mouth = dictmain.open_mouth,
@@ -300,6 +302,8 @@ func save_state(id):
 	should_rotate = dictmain.should_rotate,
 	should_rot_speed = dictmain.should_rot_speed,
 	should_reset = dictmain.should_reset,
+	one_shot = dictmain.one_shot,
+	
 	rainbow = dictmain.rainbow,
 	rainbow_self = dictmain.rainbow_self,
 	rainbow_speed = dictmain.rainbow_speed,
@@ -318,6 +322,11 @@ func get_state(id):
 			%Sprite2D.texture.diffuse_texture.current_frame = 0
 			if %Sprite2D.texture.normal_texture != null:
 				%Sprite2D.texture.normal_texture.current_frame = 0
+				
+			if img_animated:
+				%Sprite2D.texture.diffuse_texture.one_shot = dictmain.one_shot
+				if %Sprite2D.texture.normal_texture != null:
+					%Sprite2D.texture.normal_texture.one_shot = dictmain.one_shot
 		
 		z_index = dictmain.z_index
 		modulate = dictmain.colored

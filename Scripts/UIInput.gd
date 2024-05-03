@@ -77,6 +77,9 @@ func held_sprite_is_null():
 	%WigglePhysicsCheck.disabled = true
 	%WiggleAmpSlider.editable = false
 	%WiggleFreqSlider.editable = false
+	%XoffsetSpinBox.editable = false
+	%YoffsetSpinBox.editable = false
+	
 	
 	%WiggleAppSegmSlider.editable = false
 	%WiggleAppsCurveSlider.editable = false
@@ -99,6 +102,7 @@ func held_sprite_is_null():
 	%CurrentSelected.texture = null
 	
 	%AnimationReset.disabled = true
+	%AnimationOneShot.disabled = true
 	
 	%Rainbow.disabled = true
 	%"Self-Rainbow Only".disabled = true
@@ -154,6 +158,8 @@ func held_sprite_is_true():
 	%WiggleAmpSlider.editable = true
 	%WiggleFreqSlider.editable = true
 	%FollowParentEffect.disabled = false
+	%XoffsetSpinBox.editable = true
+	%YoffsetSpinBox.editable = true
 	
 	%AdvancedLipSync.disabled = false
 	
@@ -181,7 +187,9 @@ func held_sprite_is_true():
 	%FMxSlider.editable = true
 	%FMYSlider.editable = true
 	
-	%AnimationReset.disabled = false
+	if Global.held_sprite.img_animated:
+		%AnimationReset.disabled = false
+		%AnimationOneShot.disabled = false
 	
 	%Rainbow.disabled = false
 	%"Self-Rainbow Only".disabled = false
@@ -271,6 +279,7 @@ func reinfo():
 	mouthop.button_pressed = Global.held_sprite.dictmain.open_mouth
 	%ShouldRotCheck.button_pressed = Global.held_sprite.dictmain.should_rotate
 	%RotationSpeed.value = Global.held_sprite.dictmain.should_rot_speed
+	%ZOrderSpinbox.value = Global.held_sprite.dictmain.z_index
 	
 	
 	if not Global.held_sprite.dictmain.folder:
@@ -306,6 +315,8 @@ func reinfo():
 		%WiggleAmpSlider.value = Global.held_sprite.dictmain.wiggle_amp
 		%WiggleFreqSlider.value = Global.held_sprite.dictmain.wiggle_freq
 		%FollowParentEffect.button_pressed = Global.held_sprite.dictmain.follow_parent_effects
+		%XoffsetSpinBox.value = Global.held_sprite.dictmain.wiggle_rot_offset.x
+		%YoffsetSpinBox.value = Global.held_sprite.dictmain.wiggle_rot_offset.y
 		
 	
 	elif Global.held_sprite.sprite_type == "WiggleApp":
@@ -333,7 +344,9 @@ func reinfo():
 	
 	%FMxSlider.value = Global.held_sprite.dictmain.look_at_mouse_pos
 	%FMYSlider.value = Global.held_sprite.dictmain.look_at_mouse_pos_y
+	
 	%AnimationReset.button_pressed = Global.held_sprite.dictmain.should_reset
+	%AnimationOneShot.button_pressed = Global.held_sprite.dictmain.one_shot
 	
 	%Rainbow.button_pressed = Global.held_sprite.dictmain.rainbow
 	%"Self-Rainbow Only".button_pressed = Global.held_sprite.dictmain.rainbow_self
@@ -415,7 +428,15 @@ func _on_z_order_spinbox_value_changed(value):
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_color_picker_button_color_changed(newcolor):
-	Global.held_sprite.modulate = newcolor
+	if Global.held_sprite.sprite_type == "Folder":
+		Global.held_sprite.modulate.r = newcolor.r
+		Global.held_sprite.modulate.g = newcolor.g
+		Global.held_sprite.modulate.b = newcolor.b
+		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").self_modulate.a = newcolor.a
+	else:
+		Global.held_sprite.modulate = newcolor
+	
+	Global.held_sprite.dictmain.colored = newcolor
 	Global.held_sprite.save_state(Global.current_state)
 
 
@@ -522,14 +543,18 @@ func _on_duplicate_button_pressed():
 		var obj
 		if Global.held_sprite.sprite_type == "WiggleApp":
 			obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
+			
+		elif Global.held_sprite.sprite_type == "Folder":
+			obj = preload("res://Misc/FolderObject/Folder_object.tscn").instantiate()
 		else:
 			obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 		
 		obj.scale = Global.held_sprite.scale
 		obj.dictmain.scale = Global.held_sprite.scale
 		contain.add_child(obj)
-		obj.texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture
-		obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture
+		if obj.sprite_type != "Folder":
+			obj.texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture
+			obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture
 		obj.sprite_name = "Duplicate" + Global.held_sprite.sprite_name 
 
 		if Global.held_sprite.dictmain.folder:
@@ -540,6 +565,9 @@ func _on_duplicate_button_pressed():
 			obj.anim_texture = Global.held_sprite.anim_texture
 			obj.anim_texture_normal = Global.held_sprite.anim_texture_normal 
 		
+		var states = get_tree().get_nodes_in_group("StateButtons").size()
+		for i in states:
+			obj.states.append({})
 		get_parent().add_item(obj)
 		obj.sprite_id = obj.get_instance_id()
 
@@ -554,6 +582,9 @@ func _on_folder_button_pressed():
 	sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
 	sprte_obj.sprite_name = str("Folder")
 	sprte_obj.dictmain.folder = true
+	var states = get_tree().get_nodes_in_group("StateButtons").size()
+	for i in states:
+		sprte_obj.states.append({})
 	get_parent().add_item(sprte_obj)
 	sprte_obj.sprite_id = sprte_obj.get_instance_id()
 #endregion
@@ -609,7 +640,7 @@ func _on_size_spin_box_value_changed(value):
 
 #region Wiggle stuff
 func _on_wiggle_amp_slider_value_changed(value):
-	%WiggleAmpLabel.text = "Wiggle-Amp : " + str(snappedf(value, 0.05))
+	%WiggleAmpLabel.text = "Wiggle-Amp : " + str(snappedf(value, 0.01))
 	Global.held_sprite.dictmain.wiggle_amp = value
 	Global.held_sprite.save_state(Global.current_state)
 
@@ -628,6 +659,19 @@ func _on_wiggle_check_toggled(toggled_on):
 func _on_wiggle_physics_check_toggled(toggled_on):
 	Global.held_sprite.dictmain.wiggle_physics = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
+
+func _on_xoffset_spin_box_value_changed(value):
+	Global.held_sprite.dictmain.wiggle_rot_offset.x = value
+	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").material.set_shader_parameter("wiggle_rot_offset:x", value)
+	Global.held_sprite.save_state(Global.current_state)
+
+func _on_yoffset_spin_box_value_changed(value):
+	Global.held_sprite.dictmain.wiggle_rot_offset.y = value
+	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").material.set_shader_parameter("wiggle_rot_offset:y", value)
+	Global.held_sprite.save_state(Global.current_state)
+
+# -------------------------------------------------
+
 
 func _on_wiggle_app_segm_slider_value_changed(value):
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count = value
@@ -729,4 +773,12 @@ func _on_fmy_slider_value_changed(value):
 	Global.held_sprite.save_state(Global.current_state)
 
 #endregion
+
+
+func _on_animation_one_shot_toggled(toggled_on):
+	Global.held_sprite.dictmain.one_shot = toggled_on
+	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.one_shot = toggled_on
+	if Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture != null:
+		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.one_shot = toggled_on
+	Global.held_sprite.save_state(Global.current_state)
 

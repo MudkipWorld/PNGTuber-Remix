@@ -101,8 +101,12 @@ func add_state():
 		
 		Global.settings_dict.states.append({})
 		Global.settings_dict.light_states.append({})
+		
+		state_count = get_tree().get_nodes_in_group("StateButtons").size()
 		for i in get_tree().get_nodes_in_group("Sprites"):
-			i.states.append({})
+			if i.states.size() != state_count:
+				for l in abs(i.states.size() - state_count):
+					i.states.append({})
 
 func update_states(states):
 	var states_size = states.size()
@@ -120,4 +124,9 @@ func update_states(states):
 		InputMap.add_action("State " + str(button.state), 0.5)
 		
 		%Grid.add_child(remap_btn)
+		var state_count = get_tree().get_nodes_in_group("StateButtons").size()
+		for i in get_tree().get_nodes_in_group("Sprites"):
+			if i.states.size() != state_count:
+				for h in abs(i.states.size() - state_count):
+					i.states.append({})
 
