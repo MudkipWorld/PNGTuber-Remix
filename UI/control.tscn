@@ -87,7 +87,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
 offset_top = 26.0
-offset_right = 194.0
+offset_right = 212.0
 mouse_filter = 2
 
 [node name="VBox" type="VBoxContainer" parent="LeftPanel"]
@@ -118,9 +118,9 @@ anchor_left = 0.045
 anchor_top = 0.0693069
 anchor_right = 0.045
 anchor_bottom = 0.0693069
-offset_left = -0.0100007
+offset_left = 5.99
 offset_top = -0.277225
-offset_right = 161.99
+offset_right = 167.99
 offset_bottom = 91.7228
 grow_horizontal = 2
 grow_vertical = 2
@@ -183,6 +183,8 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Panelt" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
 unique_name_in_owner = true
@@ -232,6 +234,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Imgprev" type="Label" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
 custom_minimum_size = Vector2(87, 0)
@@ -411,7 +414,7 @@ anchors_preset = -1
 anchor_bottom = 1.0
 offset_left = 5.0
 offset_top = 27.0
-offset_right = 168.0
+offset_right = 188.0
 offset_bottom = -6.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -1546,7 +1549,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 10
-text = "Reset Animation On State Change      "
+text = "One Shot (Gif only)   "
 
 [node name="HBoxPhysics2" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
 layout_mode = 2
@@ -2359,6 +2362,7 @@ presets_visible = false
 [connection signal="pressed" from="LeftPanel/VBox/LayersButtons2/BGDeleteButton" to="BackgroundEdit" method="_on_bg_delete_button_pressed"]
 [connection signal="button_clicked" from="LeftPanel/VBox/Panel/LayersTree" to="." method="_on_layers_tree_button_clicked"]
 [connection signal="item_selected" from="LeftPanel/VBox/Panel/LayersTree" to="LeftPanel/VBox/Panel/LayersTree" method="_on_item_selected"]
+[connection signal="button_clicked" from="LeftPanel/VBox/Panel2/BackgroundTree" to="BackgroundEdit" method="_on_background_tree_button_clicked"]
 [connection signal="item_selected" from="LeftPanel/VBox/Panel2/BackgroundTree" to="LeftPanel/VBox/Panel2/BackgroundTree" method="_on_item_selected"]
 [connection signal="text_submitted" from="RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
 [connection signal="color_changed" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_color_changed"]

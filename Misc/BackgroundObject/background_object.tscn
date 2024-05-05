@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bva2bmydal7pw"]
 
 [ext_resource type="Script" path="res://Misc/BackgroundObject/Script/background_object.gd" id="1_3q3ui"]
-[ext_resource type="Texture2D" uid="uid://bgyf0p8jif68s" path="res://icon.svg" id="3_puquy"]
+[ext_resource type="Texture2D" uid="uid://c7poyj5s0pd1v" path="res://PicklesIdle.png" id="2_qbq4c"]
 [ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="4_h1ul4"]
 
 [sub_resource type="Shader" id="Shader_l06p8"]
@@ -57,8 +57,8 @@ shader = SubResource("Shader_l06p8")
 shader_parameter/enabled = null
 shader_parameter/Intensity = 1.0
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
-diffuse_texture = ExtResource("3_puquy")
+[sub_resource type="CanvasTexture" id="CanvasTexture_cf0ik"]
+diffuse_texture = ExtResource("2_qbq4c")
 
 [node name="SpriteObject" type="Node2D" groups=["BackgroundStuff"]]
 script = ExtResource("1_3q3ui")
@@ -74,8 +74,7 @@ script = ExtResource("1_3q3ui")
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag"]
 process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
-texture = SubResource("CanvasTexture_aq8i0")
-centered = false
+texture = SubResource("CanvasTexture_cf0ik")
 
 [node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Sprite2D"]
 visible = false
@@ -87,6 +86,10 @@ unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -250.0
+offset_right = -250.0
+offset_bottom = -250.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3

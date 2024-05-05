@@ -14,7 +14,7 @@ func _get_drag_data(at_position):
 	return get_item_at_position(at_position)
 
 func _can_drop_data(_at_position, data):
-	return data is TreeItem && is_instance_valid(data)
+	return data is TreeItem && is_instance_valid(data) && _at_position
 
 
 func _drop_data(at_position, data):
@@ -57,6 +57,12 @@ func _drop_data(at_position, data):
 			
 		
 		else:
+			
+			for i in get_all_treeitems(data, true):
+				if i == other_item:
+					return
+			
+			
 			var par = data.get_parent()
 			par.remove_child(data)
 			other_item.add_child(data)
@@ -72,6 +78,15 @@ func _drop_data(at_position, data):
 			
 			
 
+static func get_all_treeitems(treeitem, recursive) -> Array:
+	var children := []
+	for child in treeitem.get_children():
+		children.append(child)
+		
+		if recursive and child.get_child_count():
+			children.append_array(get_all_treeitems(child, true))
+		
+	return children
 
 
 

@@ -18,6 +18,7 @@ func _tree(sprites):
 		new_item.set_text(0, str(i.sprite_name))
 		new_item.set_icon(0, i.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture)
 		new_item.set_icon_max_width(0, 20)
+		new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
 		var dic : Dictionary = {
 			sprite_object = i,
 		#	parent = new_item.get_parent()
@@ -25,6 +26,7 @@ func _tree(sprites):
 		new_item.set_metadata(0, dic)
 		i.treeitem = new_item
 		new_item.get_next()
+	tree.update_visib_buttons()
 
 func _added_tree(sprites):
 	for i in sprites:
@@ -33,6 +35,7 @@ func _added_tree(sprites):
 		new_item.set_text(0, str(i.sprite_name))
 		new_item.set_icon(0, i.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture)
 		new_item.set_icon_max_width(0, 20)
+		new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
 		var dic : Dictionary = {
 			sprite_object = i,
 		#	parent = new_item.get_parent()
@@ -58,6 +61,7 @@ func add_item(sprite):
 	new_item.set_text(0, str(sprite.sprite_name))
 	new_item.set_icon(0, sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D").texture)
 	new_item.set_icon_max_width(0, 20)
+	new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
 	var dic : Dictionary = {
 		sprite_object = sprite,
 #		parent = new_item.get_parent()
@@ -80,7 +84,6 @@ func _on_bg_delete_button_pressed():
 		Global.held_bg_sprite.treeitem.free()
 		Global.held_bg_sprite.queue_free()
 		Global.held_bg_sprite = null
-
 
 
 # Buttons Stuff
@@ -172,3 +175,15 @@ func _on_bg_reactto_light_toggled(toggled_on):
 		Global.held_bg_sprite.light_mask = 2
 	
 	Global.held_bg_sprite.save_state(Global.current_state)
+
+
+func _on_background_tree_button_clicked(item, column, id, _mouse_button_index):
+	item.get_metadata(0).sprite_object.dictmain.visible =! item.get_metadata(0).sprite_object.dictmain.visible 
+	item.get_metadata(0).sprite_object.visible = item.get_metadata(0).sprite_object.dictmain.visible 
+	item.get_metadata(0).sprite_object.save_state(Global.current_state)
+#	print(column)
+#	print(id)
+	if item.get_metadata(0).sprite_object.visible:
+		item.set_button(column, id, preload("res://UI/EyeButton.png"))
+	elif not item.get_metadata(0).sprite_object.visible:
+		item.set_button(column, id, preload("res://UI/EyeButton2.png"))

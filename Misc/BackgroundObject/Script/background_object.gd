@@ -67,7 +67,7 @@ func _process(_delta):
 		save_state(Global.current_state)
 		
 	
-	
+	%Grab.anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 func save_state(id):
 	var dict : Dictionary = {

@@ -76,6 +76,7 @@ func loaded_UI(id):
 		6:
 			%UIThemeButton.text = "Funky"
 			funky_theme()
+	%UIThemeButton.select(id)
 
 func _on_ui_theme_button_item_selected(index):
 	match index:
@@ -101,6 +102,7 @@ func _on_ui_theme_button_item_selected(index):
 			%UIThemeButton.text = "Funky"
 			funky_theme()
 	theme_settings.theme_id = index
+	%UIThemeButton.select(index)
 	save()
 
 func blue_theme():

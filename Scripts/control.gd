@@ -30,8 +30,6 @@ func _ready():
 	_tree(sprite_nodes)
 	
 	Global.reinfo.connect(update_visib_buttons)
-	
-	
 
 func _process(_delta):
 	var sample = AudioServer.get_bus_peak_volume_left_db(2, 0)
@@ -49,7 +47,6 @@ func sliders_revalue(settings_dict):
 	%AntiAlCheck.button_pressed = settings_dict.anti_alias
 	$TopBarInput.origin_alias()
 	%BounceStateCheck.button_pressed = settings_dict.bounce_state
-
 
 func _tree(sprites):
 	tree.clear()
@@ -168,8 +165,8 @@ func _on_layers_tree_button_clicked(item, column, id, _mouse_button_index):
 	item.get_metadata(0).sprite_object.dictmain.visible =! item.get_metadata(0).sprite_object.dictmain.visible 
 	item.get_metadata(0).sprite_object.visible = item.get_metadata(0).sprite_object.dictmain.visible 
 	item.get_metadata(0).sprite_object.save_state(Global.current_state)
-	print(column)
-	print(id)
+#	print(column)
+#	print(id)
 	if item.get_metadata(0).sprite_object.visible:
 		item.set_button(column, id, preload("res://UI/EyeButton.png"))
 	elif not item.get_metadata(0).sprite_object.visible:

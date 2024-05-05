@@ -186,10 +186,10 @@ func _on_file_dialog_files_selected(paths):
 			var img_can = CanvasTexture.new()
 			img_can.diffuse_texture = texture
 			var bg_sprte_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
-			%BGContainer.add_child(bg_sprte_obj)
 			bg_sprte_obj.texture = img_can
 			bg_sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
 			bg_sprte_obj.sprite_name = path.get_file()
+			%BGContainer.add_child(bg_sprte_obj)
 		
 			bg_sprite_nodes.append(bg_sprte_obj)
 			
