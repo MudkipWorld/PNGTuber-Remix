@@ -106,16 +106,16 @@ use_parent_material = true
 unique_name_in_owner = true
 use_parent_material = true
 
+[node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
+visible = false
+z_index = 4096
+texture = ExtResource("3_xhumr")
+
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
 process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
 texture = SubResource("CanvasTexture_aq8i0")
-
-[node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
-visible = false
-z_index = 4096
-texture = ExtResource("3_xhumr")
 
 [node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
 unique_name_in_owner = true

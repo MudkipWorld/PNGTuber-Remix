@@ -74,19 +74,19 @@ func _input(_event):
 	if held_sprite != null:
 		if held_sprite.sprite_type == "Sprite2D":
 			if Input.is_action_pressed("ui_up"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.y -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.y -= 1
 				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.y += 1
 				offset()
 			elif Input.is_action_pressed("ui_down"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.y += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.y += 1
 				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.y -= 1
 				offset()
 			if Input.is_action_pressed("ui_left"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.x -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.x -= 1
 				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.x += 1
 				offset()
 			elif Input.is_action_pressed("ui_right"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").position.x += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.x += 1
 				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.x -= 1
 				offset()
 			

@@ -55,6 +55,7 @@ var img_animated : bool = false
 	scale = scale,
 	folder = false,
 	global_position = global_position,
+	position = position,
 	rotation = rotation,
 #	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
 	ignore_bounce = false,
@@ -146,6 +147,8 @@ func _process(delta):
 		
 	rainbow()
 	follow_wiggle()
+	
+	%Grab.anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 
 func follow_wiggle():
@@ -230,32 +233,32 @@ func stretch(length):
 func blink():
 	if dictmain.should_blink:
 		if not dictmain.open_eyes:
-			show()
+			%Pos.show()
 		else:
-			hide()
+			%Pos.hide()
 	
 	$Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
 	$Blink.start()
 	await  $Blink.timeout
 	if dictmain.should_blink:
 		if not dictmain.open_eyes:
-			hide()
+			%Pos.hide()
 		else:
-			show()
+			%Pos.show()
 
 func speaking():
 	if dictmain.should_talk:
 		if dictmain.open_mouth:
-			show()
+			%Rotation.show()
 		else:
-			hide()
+			%Rotation.hide()
 
 func not_speaking():
 	if dictmain.should_talk:
 		if dictmain.open_mouth:
-			hide()
+			%Rotation.hide()
 		else:
-			show()
+			%Rotation.show()
 
 func save_state(id):
 	var dict : Dictionary = {
@@ -280,6 +283,7 @@ func save_state(id):
 	scale = scale,
 	folder = dictmain.folder,
 	global_position = dictmain.global_position,
+	position = dictmain.position,
 	rotation = rotation,
 #	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
 	ignore_bounce = dictmain.ignore_bounce,
@@ -333,6 +337,7 @@ func get_state(id):
 		visible = dictmain.visible
 		scale = dictmain.scale
 		global_position = dictmain.global_position
+		position = dictmain.position
 		
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count = dictmain.wiggle_segm
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").curvature = dictmain.wiggle_curve
@@ -359,9 +364,9 @@ func get_state(id):
 func check_talk():
 	if dictmain.should_talk:
 		if dictmain.open_mouth:
-			hide()
+			%Rotation.hide()
 		else:
-			show()
+			%Rotation.show()
 
 
 func set_blend(blend):

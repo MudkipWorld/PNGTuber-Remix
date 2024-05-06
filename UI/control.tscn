@@ -1088,7 +1088,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = -50.0
 max_value = 50.0
-step = 0.05
+step = 0.01
 
 [node name="HBox" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff"]
 unique_name_in_owner = true
@@ -1943,7 +1943,7 @@ offset_bottom = 193.0
 layout_mode = 2
 text = "PNGTuber Remix by TheMime (MudkipWorld)
 Original PNGTuber+ Code by kaiakairos
-V1.2.1
+V1.4
 "
 horizontal_alignment = 1
 

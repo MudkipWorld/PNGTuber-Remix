@@ -161,6 +161,7 @@ func _on_bg_size_spin_y_box_value_changed(value):
 
 func _on_bg_visible_toggled(toggled_on):
 	Global.held_bg_sprite.visible = toggled_on
+	tree.update_visib_buttons()
 	Global.held_bg_sprite.save_state(Global.current_state)
 
 func _on_bgz_order_spinbox_value_changed(value):

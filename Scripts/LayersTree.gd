@@ -93,9 +93,9 @@ static func get_all_treeitems(treeitem, recursive) -> Array:
 func _on_item_selected():
 	if get_selected() != get_root():
 		if Global.held_sprite != null:
-			if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin"):
-				Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").hide()
+			if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Origin"):
+				Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Origin").hide()
 		Global.held_sprite = get_selected().get_metadata(0).sprite_object
-		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin"):
-			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").show()
+		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Origin"):
+			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Origin").show()
 		emit_signal("sprite_info")

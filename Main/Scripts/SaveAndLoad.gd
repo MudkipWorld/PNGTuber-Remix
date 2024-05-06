@@ -201,9 +201,7 @@ func load_file(path):
 		sprite_obj.sprite_id = sprite.sprite_id
 		sprite_obj.parent_id = sprite.parent_id
 		sprite_obj.sprite_name = sprite.sprite_name
-
-
-
+		
 		
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
 		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT

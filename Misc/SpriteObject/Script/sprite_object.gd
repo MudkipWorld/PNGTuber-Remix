@@ -51,6 +51,7 @@ var currently_speaking : bool = false
 	scale = scale,
 	folder = false,
 	global_position = global_position,
+	position = position,
 	rotation = rotation,
 	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
 	ignore_bounce = false,
@@ -129,6 +130,7 @@ func _process(delta):
 		%Grab.mouse_filter = 2
 	if dragging:
 		global_position = get_global_mouse_position() - of
+		dictmain.position = position
 		dictmain.global_position = get_global_mouse_position() - of
 		smooth_glob = get_global_mouse_position() - of
 		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
@@ -261,16 +263,20 @@ func blink():
 			%Pos.hide()
 		else:
 			%Pos.show()
+	else:
+		%Pos.show()
 
 func speaking():
 	if dictmain.should_talk:
 		if dictmain.open_mouth:
-			show()
+			%Rotation.show()
 			coord = 0
 			animation()
 				
 		else:
-			hide()
+			%Rotation.hide()
+	else:
+		%Rotation.show()
 	currently_speaking = true
 	
 
@@ -334,11 +340,13 @@ func advanced_lipsyc():
 func not_speaking():
 	if dictmain.should_talk:
 		if dictmain.open_mouth:
-			hide()
+			%Rotation.hide()
 		else:
-			show()
+			%Rotation.show()
 			coord = 0
 			animation()
+	else:
+		%Rotation.show()
 	currently_speaking = false
 
 
@@ -365,8 +373,9 @@ func save_state(id):
 	scale = scale,
 	folder = dictmain.folder,
 	global_position = dictmain.global_position,
+	position = dictmain.position,
 	rotation = rotation,
-	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
+	offset = $Pos/Wobble/Squish/Drag/Rotation.position,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
 	physics = dictmain.physics,
@@ -417,13 +426,16 @@ func get_state(id):
 					%Sprite2D.texture.normal_texture.one_shot = dictmain.one_shot
 			
 		
+		$Pos/Wobble/Squish/Drag/Rotation.position = dictmain.offset 
+		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset = -dictmain.offset 
 		
 		z_index = dictmain.z_index
 		modulate = dictmain.colored
 		scale = dictmain.scale
 		global_position = dictmain.global_position
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset = dictmain.offset 
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Origin.position = - dictmain.offset 
+		position = dictmain.position
+
+#		$Pos/Wobble/Squish/Drag/Rotation/Origin.position = - dictmain.offset 
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
 		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
@@ -458,9 +470,11 @@ func follow_p_wiggle():
 func check_talk():
 	if dictmain.should_talk:
 		if dictmain.open_mouth:
-			hide()
+			%Rotation.hide()
 		else:
-			show()
+			%Rotation.show()
+	else:
+		%Rotation.show()
 
 
 func set_blend(blend):
