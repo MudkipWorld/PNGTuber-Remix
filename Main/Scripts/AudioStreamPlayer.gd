@@ -34,3 +34,9 @@ func _process(_delta):
 	used_bar = bar_stuff
 #	print(bar_stuff)
 	
+
+func _on_mic_timer_timeout():
+	playing = false
+	await get_tree().create_timer(0.05).timeout
+	playing = true
+	$MicTimer.start()

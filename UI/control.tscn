@@ -81,411 +81,6 @@ script = ExtResource("6_5v3ft")
 unique_name_in_owner = true
 script = ExtResource("7_l6sf2")
 
-[node name="LeftPanel" type="Panel" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.0
-offset_top = 26.0
-offset_right = 212.0
-mouse_filter = 2
-
-[node name="VBox" type="VBoxContainer" parent="LeftPanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.948
-anchor_bottom = 0.963
-offset_left = 8.0
-offset_top = 6.0
-offset_right = 0.0879822
-offset_bottom = 0.0139771
-mouse_filter = 2
-
-[node name="VPPanel" type="Panel" parent="LeftPanel/VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(120, 105)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gcgtm")
-
-[node name="ViewportControl" type="Node" parent="LeftPanel/VBox/VPPanel"]
-script = ExtResource("6_xt0ob")
-
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="LeftPanel/VBox/VPPanel"]
-clip_contents = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.045
-anchor_top = 0.0693069
-anchor_right = 0.045
-anchor_bottom = 0.0693069
-offset_left = 5.99
-offset_top = -0.277225
-offset_right = 167.99
-offset_bottom = 91.7228
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2"]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(162, 92)
-size_2d_override = Vector2i(1280, 720)
-size_2d_override_stretch = true
-render_target_update_mode = 4
-
-[node name="Camera2D" type="Camera2D" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2/SubViewport"]
-unique_name_in_owner = true
-position = Vector2(640, 360)
-
-[node name="ViewportCam" type="HBoxContainer" parent="LeftPanel/VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 20
-
-[node name="ZoomInButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-texture_normal = ExtResource("6_t2a3p")
-texture_pressed = ExtResource("6_t2a3p")
-texture_hover = ExtResource("6_t2a3p")
-texture_disabled = ExtResource("6_t2a3p")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="ZoomResetButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-texture_normal = ExtResource("7_82n4t")
-texture_pressed = ExtResource("7_82n4t")
-texture_hover = ExtResource("7_82n4t")
-texture_disabled = ExtResource("7_82n4t")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="ZoomOutButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-texture_normal = ExtResource("8_46wi4")
-texture_pressed = ExtResource("8_46wi4")
-texture_hover = ExtResource("8_46wi4")
-texture_disabled = ExtResource("8_46wi4")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="CurrentSelVbox" type="VBoxContainer" parent="LeftPanel/VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Panelt" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(87, 87)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("5_w3axc")
-
-[node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panelt"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(79, 79)
-layout_mode = 2
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 83.0
-offset_bottom = 83.0
-size_flags_horizontal = 6
-expand_mode = 1
-stretch_mode = 5
-metadata/_edit_use_anchors_ = true
-
-[node name="Paneln" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(87, 87)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("5_w3axc")
-
-[node name="CurrentSelectedNormal" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Paneln"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(79, 79)
-layout_mode = 2
-anchor_left = -0.0114943
-anchor_top = -0.0114943
-anchor_right = -0.0114943
-anchor_bottom = -0.0114943
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 84.0
-offset_bottom = 84.0
-size_flags_horizontal = 6
-expand_mode = 1
-stretch_mode = 5
-metadata/_edit_use_anchors_ = true
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Imgprev" type="Label" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
-custom_minimum_size = Vector2(87, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Image"
-horizontal_alignment = 1
-
-[node name="NormalMapPrev" type="Label" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
-custom_minimum_size = Vector2(87, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "NormalMap"
-horizontal_alignment = 1
-
-[node name="AnimationFramesLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Animation frames :"
-
-[node name="AnimationFramesSlider" type="HSlider" parent="LeftPanel/VBox/CurrentSelVbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-min_value = 1.0
-max_value = 64.0
-value = 1.0
-rounded = true
-
-[node name="AnimationSpeedLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Animation Speed :"
-
-[node name="AnimationSpeedSlider" type="HSlider" parent="LeftPanel/VBox/CurrentSelVbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-min_value = 0.1
-max_value = 24.0
-step = 0.1
-value = 0.3
-
-[node name="LayersButtons" type="HBoxContainer" parent="LeftPanel/VBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 18)
-layout_mode = 2
-
-[node name="FolderButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("6_hynel")
-texture_pressed = ExtResource("6_hynel")
-texture_hover = ExtResource("6_hynel")
-texture_disabled = ExtResource("6_hynel")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="ReplaceButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("7_cg0wr")
-texture_pressed = ExtResource("7_cg0wr")
-texture_hover = ExtResource("7_cg0wr")
-texture_disabled = ExtResource("7_cg0wr")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="DuplicateButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("8_r6auv")
-texture_pressed = ExtResource("8_r6auv")
-texture_hover = ExtResource("8_r6auv")
-texture_disabled = ExtResource("8_r6auv")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="DeleteButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("9_jhnap")
-texture_pressed = ExtResource("9_jhnap")
-texture_hover = ExtResource("9_jhnap")
-texture_disabled = ExtResource("9_jhnap")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="AddNormalButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("16_l1e6k")
-texture_pressed = ExtResource("16_l1e6k")
-texture_hover = ExtResource("16_l1e6k")
-texture_disabled = ExtResource("16_l1e6k")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="DelNormalButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("17_ex20s")
-texture_pressed = ExtResource("17_ex20s")
-texture_hover = ExtResource("17_ex20s")
-texture_disabled = ExtResource("17_ex20s")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="LayersButtons2" type="HBoxContainer" parent="LeftPanel/VBox"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(0, 18)
-layout_mode = 2
-
-[node name="BGDuplicateButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons2"]
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("8_r6auv")
-texture_pressed = ExtResource("8_r6auv")
-texture_hover = ExtResource("8_r6auv")
-texture_disabled = ExtResource("8_r6auv")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="BGDeleteButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons2"]
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-texture_normal = ExtResource("9_jhnap")
-texture_pressed = ExtResource("9_jhnap")
-texture_hover = ExtResource("9_jhnap")
-texture_disabled = ExtResource("9_jhnap")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="Panel" type="Panel" parent="LeftPanel/VBox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("2_6cxu6")
-metadata/_edit_use_anchors_ = true
-
-[node name="TopPanel2" type="Panel" parent="LeftPanel/VBox/Panel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_bottom = 24.0
-mouse_filter = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="LeftPanel/VBox/Panel/TopPanel2"]
-layout_mode = 0
-anchor_left = 0.013986
-anchor_top = 0.0833333
-anchor_right = 0.986014
-anchor_bottom = 0.916667
-offset_bottom = -3.0
-theme_override_font_sizes/font_size = 14
-text = "Layers"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="LayersTree" type="Tree" parent="LeftPanel/VBox/Panel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 27.0
-offset_right = 188.0
-offset_bottom = -6.0
-grow_horizontal = 0
-grow_vertical = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_force_pass_scroll_events = false
-mouse_default_cursor_shape = 2
-theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
-theme_override_constants/item_margin = 12
-theme_override_font_sizes/font_size = 10
-theme_override_font_sizes/title_button_font_size = 8
-allow_reselect = true
-drop_mode_flags = 3
-script = ExtResource("20_x2k62")
-metadata/_edit_use_anchors_ = true
-
-[node name="Panel2" type="Panel" parent="LeftPanel/VBox"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 1
-theme_override_styles/panel = ExtResource("2_6cxu6")
-metadata/_edit_use_anchors_ = true
-
-[node name="TopPanel" type="Panel" parent="LeftPanel/VBox/Panel2"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_bottom = 24.0
-mouse_filter = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="LeftPanel/VBox/Panel2/TopPanel"]
-layout_mode = 0
-anchor_left = 0.013986
-anchor_top = 0.0833333
-anchor_right = 0.986014
-anchor_bottom = 0.916667
-offset_bottom = -3.0
-theme_override_font_sizes/font_size = 14
-text = "Layers"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="BackgroundTree" type="Tree" parent="LeftPanel/VBox/Panel2"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 27.0
-offset_right = 168.0
-offset_bottom = -6.0
-grow_horizontal = 0
-grow_vertical = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 1
-mouse_default_cursor_shape = 2
-theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
-theme_override_constants/item_margin = 8
-theme_override_font_sizes/font_size = 10
-theme_override_font_sizes/title_button_font_size = 8
-allow_reselect = true
-drop_mode_flags = 2
-script = ExtResource("20_c74i2")
-metadata/_edit_use_anchors_ = true
-
 [node name="RightPanel" type="Panel" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(380, 0)
@@ -1315,7 +910,7 @@ theme_override_font_sizes/font_size = 13
 text = "Idle"
 flat = false
 alignment = 0
-item_count = 4
+item_count = 5
 popup/item_0/text = "Idle"
 popup/item_0/id = 0
 popup/item_1/text = "Bouncy"
@@ -1324,6 +919,8 @@ popup/item_2/text = "One Bounce"
 popup/item_2/id = 3
 popup/item_3/text = "Wobble"
 popup/item_3/id = 4
+popup/item_4/text = "Squish"
+popup/item_4/id = 5
 
 [node name="HBox14" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer"]
 layout_mode = 2
@@ -1341,7 +938,7 @@ theme_override_font_sizes/font_size = 13
 text = "Idle"
 flat = false
 alignment = 0
-item_count = 4
+item_count = 5
 popup/item_0/text = "Idle"
 popup/item_0/id = 0
 popup/item_1/text = "Bouncy"
@@ -1350,6 +947,8 @@ popup/item_2/text = "One Bounce"
 popup/item_2/id = 3
 popup/item_3/text = "Wobble"
 popup/item_3/id = 4
+popup/item_4/text = "Squish"
+popup/item_4/id = 5
 
 [node name="HBox15" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer"]
 layout_mode = 2
@@ -1794,6 +1393,421 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 5
 columns = 10
 
+[node name="LeftPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+anchor_bottom = 1.0
+offset_top = 26.0
+offset_right = 210.0
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="LeftPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.967
+anchor_bottom = 0.963
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -0.0700073
+offset_bottom = -0.322021
+mouse_filter = 2
+
+[node name="VPPanel" type="Panel" parent="LeftPanel/VBox"]
+custom_minimum_size = Vector2(120, 105)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gcgtm")
+metadata/_edit_use_anchors_ = true
+
+[node name="ViewportControl" type="Node" parent="LeftPanel/VBox/VPPanel"]
+script = ExtResource("6_xt0ob")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="LeftPanel/VBox/VPPanel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.498
+anchor_top = 0.5
+anchor_right = 0.498
+anchor_bottom = 0.5
+offset_left = -75.078
+offset_top = -45.5
+offset_right = 75.106
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2"]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(150, 92)
+size_2d_override = Vector2i(1280, 720)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="LeftPanel/VBox/VPPanel/SubViewportContainer2/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+
+[node name="ViewportCam" type="HBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ZoomInButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+tooltip_text = "Mini-View Zoom In"
+texture_normal = ExtResource("6_t2a3p")
+texture_pressed = ExtResource("6_t2a3p")
+texture_hover = ExtResource("6_t2a3p")
+texture_disabled = ExtResource("6_t2a3p")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ZoomResetButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+tooltip_text = "Mini-View Zoom Reset"
+texture_normal = ExtResource("7_82n4t")
+texture_pressed = ExtResource("7_82n4t")
+texture_hover = ExtResource("7_82n4t")
+texture_disabled = ExtResource("7_82n4t")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ZoomOutButton" type="TextureButton" parent="LeftPanel/VBox/ViewportCam"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+tooltip_text = "Mini-View Zoom Out"
+texture_normal = ExtResource("8_46wi4")
+texture_pressed = ExtResource("8_46wi4")
+texture_hover = ExtResource("8_46wi4")
+texture_disabled = ExtResource("8_46wi4")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="CurrentSelVbox" type="VBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Panelt" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(87, 87)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("5_w3axc")
+
+[node name="CurrentSelected" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panelt"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(79, 79)
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 83.0
+offset_bottom = 83.0
+size_flags_horizontal = 6
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Paneln" type="Panel" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(87, 87)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("5_w3axc")
+
+[node name="CurrentSelectedNormal" type="TextureRect" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Paneln"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(79, 79)
+layout_mode = 2
+anchor_left = -0.0114943
+anchor_top = -0.0114943
+anchor_right = -0.0114943
+anchor_bottom = -0.0114943
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 84.0
+offset_bottom = 84.0
+size_flags_horizontal = 6
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LeftPanel/VBox/CurrentSelVbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Imgprev" type="Label" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Image"
+horizontal_alignment = 1
+
+[node name="NormalMapPrev" type="Label" parent="LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "NormalMap"
+horizontal_alignment = 1
+
+[node name="AnimationFramesLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Animation frames :"
+
+[node name="AnimationFramesSlider" type="HSlider" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+min_value = 1.0
+max_value = 64.0
+value = 1.0
+rounded = true
+
+[node name="AnimationSpeedLabel" type="Label" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Animation Speed :"
+
+[node name="AnimationSpeedSlider" type="HSlider" parent="LeftPanel/VBox/CurrentSelVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+min_value = 0.1
+max_value = 24.0
+step = 0.1
+value = 0.3
+
+[node name="LayersButtons" type="HBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="FolderButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+tooltip_text = "Add Folder"
+texture_normal = ExtResource("6_hynel")
+texture_pressed = ExtResource("6_hynel")
+texture_hover = ExtResource("6_hynel")
+texture_disabled = ExtResource("6_hynel")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ReplaceButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+tooltip_text = "Replace Sprite"
+texture_normal = ExtResource("7_cg0wr")
+texture_pressed = ExtResource("7_cg0wr")
+texture_hover = ExtResource("7_cg0wr")
+texture_disabled = ExtResource("7_cg0wr")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="DuplicateButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+tooltip_text = "Duplicate Sprite"
+texture_normal = ExtResource("8_r6auv")
+texture_pressed = ExtResource("8_r6auv")
+texture_hover = ExtResource("8_r6auv")
+texture_disabled = ExtResource("8_r6auv")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="DeleteButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+tooltip_text = "Delete Sprite"
+texture_normal = ExtResource("9_jhnap")
+texture_pressed = ExtResource("9_jhnap")
+texture_hover = ExtResource("9_jhnap")
+texture_disabled = ExtResource("9_jhnap")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="AddNormalButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+tooltip_text = "Add NormalMap"
+texture_normal = ExtResource("16_l1e6k")
+texture_pressed = ExtResource("16_l1e6k")
+texture_hover = ExtResource("16_l1e6k")
+texture_disabled = ExtResource("16_l1e6k")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="DelNormalButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+tooltip_text = "Delete NormalMap"
+texture_normal = ExtResource("17_ex20s")
+texture_pressed = ExtResource("17_ex20s")
+texture_hover = ExtResource("17_ex20s")
+texture_disabled = ExtResource("17_ex20s")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="LayersButtons2" type="HBoxContainer" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+
+[node name="BGDuplicateButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons2"]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture_normal = ExtResource("8_r6auv")
+texture_pressed = ExtResource("8_r6auv")
+texture_hover = ExtResource("8_r6auv")
+texture_disabled = ExtResource("8_r6auv")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="BGDeleteButton" type="TextureButton" parent="LeftPanel/VBox/LayersButtons2"]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture_normal = ExtResource("9_jhnap")
+texture_pressed = ExtResource("9_jhnap")
+texture_hover = ExtResource("9_jhnap")
+texture_disabled = ExtResource("9_jhnap")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Panel" type="Panel" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("2_6cxu6")
+metadata/_edit_use_anchors_ = true
+
+[node name="TopPanel2" type="Panel" parent="LeftPanel/VBox/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 24.0
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="LeftPanel/VBox/Panel/TopPanel2"]
+layout_mode = 0
+anchor_left = 0.013986
+anchor_top = 0.0833333
+anchor_right = 0.986014
+anchor_bottom = 0.916667
+offset_bottom = -3.0
+theme_override_font_sizes/font_size = 14
+text = "Layers"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LayersTree" type="Tree" parent="LeftPanel/VBox/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 27.0
+offset_right = 188.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
+theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
+theme_override_constants/item_margin = 12
+theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/title_button_font_size = 8
+allow_reselect = true
+drop_mode_flags = 3
+script = ExtResource("20_x2k62")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel2" type="Panel" parent="LeftPanel/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("2_6cxu6")
+metadata/_edit_use_anchors_ = true
+
+[node name="TopPanel" type="Panel" parent="LeftPanel/VBox/Panel2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 24.0
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="LeftPanel/VBox/Panel2/TopPanel"]
+layout_mode = 0
+anchor_left = 0.013986
+anchor_top = 0.0833333
+anchor_right = 0.986014
+anchor_bottom = 0.916667
+offset_bottom = -3.0
+theme_override_font_sizes/font_size = 14
+text = "Layers"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BackgroundTree" type="Tree" parent="LeftPanel/VBox/Panel2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 27.0
+offset_right = 168.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
+theme_override_constants/item_margin = 8
+theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/title_button_font_size = 8
+allow_reselect = true
+drop_mode_flags = 2
+script = ExtResource("20_c74i2")
+metadata/_edit_use_anchors_ = true
+
 [node name="TopBar" type="Panel" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -1943,7 +1957,7 @@ offset_bottom = 193.0
 layout_mode = 2
 text = "PNGTuber Remix by TheMime (MudkipWorld)
 Original PNGTuber+ Code by kaiakairos
-V1.3.2
+V1.3.3
 "
 horizontal_alignment = 1
 
@@ -2292,18 +2306,20 @@ layout_mode = 2
 [node name="BounceControlPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(320, 141)
+size = Vector2i(320, 353)
 
 [node name="GridContainer" type="GridContainer" parent="BounceControlPopup"]
 custom_minimum_size = Vector2(300, 0)
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 310.0
-offset_bottom = 131.0
+offset_bottom = 343.0
 
 [node name="BounceAmount" type="Label" parent="BounceControlPopup/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Affects Model Bouncing"
+mouse_filter = 1
 text = "Bounce Amount : "
 
 [node name="BounceAmountSlider" type="HSlider" parent="BounceControlPopup/GridContainer"]
@@ -2321,6 +2337,91 @@ text = "Bounce Gravity : "
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 3000.0
+
+[node name="HSeparator" type="HSeparator" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="XFreqWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling"
+mouse_filter = 1
+text = "X-Frequency Wobble :"
+
+[node name="XFreqWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="VBox2" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="XAmpWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox2"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling"
+mouse_filter = 1
+text = "X-Amplitude Wobble :"
+
+[node name="XAmpWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="HSeparator2" type="HSeparator" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+
+[node name="VBox3" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="YFreqWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox3"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling and Squishing"
+mouse_filter = 1
+text = "Y-Frequency Wobble :"
+
+[node name="YFreqWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="VBox4" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="YAmpWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox4"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling and Squishing"
+mouse_filter = 1
+text = "Y-Frequency Wobble :"
+
+[node name="YAmpWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="HSeparator3" type="HSeparator" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
 
 [node name="BounceStateCheck" type="CheckBox" parent="BounceControlPopup/GridContainer"]
 unique_name_in_owner = true
@@ -2347,23 +2448,6 @@ sampler_visible = false
 color_modes_visible = false
 presets_visible = false
 
-[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomInButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_in_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomResetButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_reset_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomOutButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_out_button_pressed"]
-[connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationFramesSlider" to="UIInput" method="_on_animation_frames_slider_value_changed"]
-[connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationSpeedSlider" to="UIInput" method="_on_animation_speed_slider_value_changed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/FolderButton" to="UIInput" method="_on_folder_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/ReplaceButton" to="UIInput" method="_on_replace_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DuplicateButton" to="UIInput" method="_on_duplicate_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DeleteButton" to="UIInput" method="_on_delete_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/AddNormalButton" to="UIInput" method="_on_add_normal_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons2/BGDuplicateButton" to="BackgroundEdit" method="_on_bg_duplicate_button_pressed"]
-[connection signal="pressed" from="LeftPanel/VBox/LayersButtons2/BGDeleteButton" to="BackgroundEdit" method="_on_bg_delete_button_pressed"]
-[connection signal="button_clicked" from="LeftPanel/VBox/Panel/LayersTree" to="." method="_on_layers_tree_button_clicked"]
-[connection signal="item_selected" from="LeftPanel/VBox/Panel/LayersTree" to="LeftPanel/VBox/Panel/LayersTree" method="_on_item_selected"]
-[connection signal="button_clicked" from="LeftPanel/VBox/Panel2/BackgroundTree" to="BackgroundEdit" method="_on_background_tree_button_clicked"]
-[connection signal="item_selected" from="LeftPanel/VBox/Panel2/BackgroundTree" to="LeftPanel/VBox/Panel2/BackgroundTree" method="_on_item_selected"]
 [connection signal="text_submitted" from="RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
 [connection signal="color_changed" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_color_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21/PosXSpinBox" to="UIInput" method="_on_pos_x_spin_box_value_changed"]
@@ -2434,6 +2518,23 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer2/Grid/HBox11/BGReacttoLight" to="BackgroundEdit" method="_on_bg_reactto_light_toggled"]
 [connection signal="pressed" from="RightPanel/Properties/VBoxContainer/HBoxContainer/AddState" to="StatesStuff" method="_on_add_state_pressed"]
 [connection signal="pressed" from="RightPanel/Properties/VBoxContainer/HBoxContainer/DeleteState" to="StatesStuff" method="_on_delete_state_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomInButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_in_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomResetButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_reset_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/ViewportCam/ZoomOutButton" to="LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_out_button_pressed"]
+[connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationFramesSlider" to="UIInput" method="_on_animation_frames_slider_value_changed"]
+[connection signal="value_changed" from="LeftPanel/VBox/CurrentSelVbox/AnimationSpeedSlider" to="UIInput" method="_on_animation_speed_slider_value_changed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/FolderButton" to="UIInput" method="_on_folder_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/ReplaceButton" to="UIInput" method="_on_replace_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DuplicateButton" to="UIInput" method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DeleteButton" to="UIInput" method="_on_delete_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/AddNormalButton" to="UIInput" method="_on_add_normal_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons2/BGDuplicateButton" to="BackgroundEdit" method="_on_bg_duplicate_button_pressed"]
+[connection signal="pressed" from="LeftPanel/VBox/LayersButtons2/BGDeleteButton" to="BackgroundEdit" method="_on_bg_delete_button_pressed"]
+[connection signal="button_clicked" from="LeftPanel/VBox/Panel/LayersTree" to="." method="_on_layers_tree_button_clicked"]
+[connection signal="item_selected" from="LeftPanel/VBox/Panel/LayersTree" to="LeftPanel/VBox/Panel/LayersTree" method="_on_item_selected"]
+[connection signal="button_clicked" from="LeftPanel/VBox/Panel2/BackgroundTree" to="BackgroundEdit" method="_on_background_tree_button_clicked"]
+[connection signal="item_selected" from="LeftPanel/VBox/Panel2/BackgroundTree" to="LeftPanel/VBox/Panel2/BackgroundTree" method="_on_item_selected"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]
@@ -2455,5 +2556,9 @@ presets_visible = false
 [connection signal="item_selected" from="InputsPopup/HBoxContainer/VBoxContainer/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox/XFreqWobbleSlider" to="TopBarInput" method="_on_x_freq_wobble_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox2/XAmpWobbleSlider" to="TopBarInput" method="_on_x_amp_wobble_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox3/YFreqWobbleSlider" to="TopBarInput" method="_on_y_freq_wobble_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox4/YAmpWobbleSlider" to="TopBarInput" method="_on_y_amp_wobble_slider_value_changed"]
 [connection signal="toggled" from="BounceControlPopup/GridContainer/BounceStateCheck" to="TopBarInput" method="_on_bounce_state_check_toggled"]
 [connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]

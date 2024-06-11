@@ -16,10 +16,6 @@ var bounceChange = 0.0
 
 var currenly_speaking : bool = false
 var tick = 0
-@export var xFrq = 0.3
-@export var xAmp = 5
-@export var yFrq = 0.4
-@export var yAmp = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,6 +42,8 @@ func _process(delta):
 		elif current_mo_anim == "Wobble":
 			set_mo_wobble()
 			
+		elif current_mc_anim == "Squish":
+			set_mo_squish()
 	elif not currenly_speaking:
 		if Global.settings_dict.darken:
 			modulate = lerp(modulate, Color.DIM_GRAY, 0.08)
@@ -56,6 +54,8 @@ func _process(delta):
 			set_mc_bouncy()
 		elif current_mc_anim == "Wobble":
 			set_mc_wobble()
+		elif current_mc_anim == "Squish":
+			set_mc_squish()
 
 func save_state(id):
 	var dict = {
@@ -103,10 +103,13 @@ func not_speaking():
 			set_mc_one_bounce()
 		4:
 			set_mc_wobble()
+		5:
+			set_mc_squish()
 
 func speaking():
 	modulate = Color.WHITE
 	currenly_speaking = true
+	
 	match mouth_open:
 		0:
 			set_mo_idle()
@@ -118,6 +121,8 @@ func speaking():
 			set_mo_one_bounce()
 		4:
 			set_mo_wobble()
+		5:
+			set_mo_squish()
 
 func set_mc_idle():
 	position = pos
@@ -131,8 +136,20 @@ func set_mc_one_bounce():
 		yVel = Global.settings_dict.bounceSlider * -1
 
 func set_mc_wobble():
-	position.x = sin(tick*xFrq)*xAmp
-	position.y = sin(tick*yFrq)*yAmp
+	position.x = sin(tick*Global.settings_dict.xFrq)*Global.settings_dict.xAmp
+	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
+	
+
+func set_mc_squish():
+	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
+	
+	var yvel = (position.y * 0.01)
+	var target = Vector2(1.0-yvel,1.0+yvel)
+
+	scale = lerp(scale,target,0.5)
+
+
+
 
 func set_mo_idle():
 	position = pos
@@ -146,5 +163,17 @@ func set_mo_one_bounce():
 		yVel = Global.settings_dict.bounceSlider * -1
 
 func set_mo_wobble():
-	position.x = sin(tick*xFrq)*xAmp
-	position.y = sin(tick*yFrq)*yAmp
+	position.x = sin(tick*Global.settings_dict.xFrq)*Global.settings_dict.xAmp
+	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
+	
+
+
+func set_mo_squish():
+	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
+	var yvel = (position.y * 0.01)
+	var target = Vector2(1.0-yvel,1.0+yvel)
+
+	scale = lerp(scale,target,0.5)
+
+
+

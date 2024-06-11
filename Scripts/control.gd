@@ -30,6 +30,7 @@ func _ready():
 	_tree(sprite_nodes)
 	
 	Global.reinfo.connect(update_visib_buttons)
+	sliders_revalue(Global.settings_dict)
 
 func _process(_delta):
 	var sample = AudioServer.get_bus_peak_volume_left_db(2, 0)
@@ -47,6 +48,10 @@ func sliders_revalue(settings_dict):
 	%AntiAlCheck.button_pressed = settings_dict.anti_alias
 	$TopBarInput.origin_alias()
 	%BounceStateCheck.button_pressed = settings_dict.bounce_state
+	%XFreqWobbleSlider.value = settings_dict.xFrq
+	%XAmpWobbleSlider.value = settings_dict.xAmp
+	%YFreqWobbleSlider.value = settings_dict.yFrq
+	%YAmpWobbleSlider.value = settings_dict.yAmp
 
 func _tree(sprites):
 	tree.clear()

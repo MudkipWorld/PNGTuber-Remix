@@ -28,6 +28,11 @@ var settings_dict : Dictionary = {
 	darken = false,
 	anti_alias = true,
 	bounce_state = false,
+	
+	xFrq = 0.3,
+	xAmp = 5,
+	yFrq = 0.4,
+	yAmp = 5,
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -74,20 +79,21 @@ func _input(_event):
 	if held_sprite != null:
 		if held_sprite.sprite_type == "Sprite2D":
 			if Input.is_action_pressed("ui_up"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.y -= 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.y += 1
+				held_sprite.position.y -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.y += 1
 				offset()
 			elif Input.is_action_pressed("ui_down"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.y += 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.y -= 1
+				held_sprite.position.y += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.y -= 1
 				offset()
 			if Input.is_action_pressed("ui_left"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.x -= 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.x += 1
+				held_sprite.position.x -= 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.x += 1
 				offset()
 			elif Input.is_action_pressed("ui_right"):
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation").position.x += 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").offset.x -= 1
+				held_sprite.position.x += 1
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.x -= 1
+
 				offset()
 			
 		if Input.is_action_pressed("ctrl"):
@@ -109,6 +115,8 @@ func _input(_event):
 
 func offset():
 	held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+	held_sprite.dictmain.global_position = held_sprite.global_position
+	held_sprite.dictmain.position = held_sprite.position
 	held_sprite.save_state(current_state)
 
 func rot():

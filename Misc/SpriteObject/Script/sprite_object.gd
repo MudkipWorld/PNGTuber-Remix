@@ -375,7 +375,7 @@ func save_state(id):
 	global_position = dictmain.global_position,
 	position = dictmain.position,
 	rotation = rotation,
-	offset = $Pos/Wobble/Squish/Drag/Rotation.position,
+	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.position,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
 	physics = dictmain.physics,
@@ -426,8 +426,7 @@ func get_state(id):
 					%Sprite2D.texture.normal_texture.one_shot = dictmain.one_shot
 			
 		
-		$Pos/Wobble/Squish/Drag/Rotation.position = dictmain.offset 
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset = -dictmain.offset 
+		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.position = dictmain.offset 
 		
 		z_index = dictmain.z_index
 		modulate = dictmain.colored

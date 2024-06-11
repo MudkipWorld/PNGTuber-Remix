@@ -104,6 +104,10 @@ autoplay = true
 bus = &"Mic"
 script = ExtResource("5_swrrk")
 
+[node name="MicTimer" type="Timer" parent="AudioStreamPlayer"]
+wait_time = 30.0
+autostart = true
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05
 
@@ -113,3 +117,4 @@ wait_time = 0.05
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="files_selected" from="FileDialog" to="." method="_on_file_dialog_files_selected"]
+[connection signal="timeout" from="AudioStreamPlayer/MicTimer" to="AudioStreamPlayer" method="_on_mic_timer_timeout"]

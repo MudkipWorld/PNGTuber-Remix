@@ -246,8 +246,8 @@ func _on_deselect_button_pressed():
 
 func desel_everything():
 	if Global.held_sprite != null:
-		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin"):
-			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Origin").hide()
+		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Origin"):
+			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Origin").hide()
 		#	%LayersTree.get_selected().deselect(0)
 	if Global.held_bg_sprite != null:
 		if Global.held_bg_sprite.has_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin"):
@@ -263,3 +263,20 @@ func desel_everything():
 
 func _on_bounce_state_check_toggled(toggled_on):
 	Global.settings_dict.bounce_state = toggled_on
+	
+
+func _on_x_freq_wobble_slider_value_changed(value):
+	Global.settings_dict.xFrq = value
+	%XFreqWobbleLabel.text = "X-Frequency Wobble : " + str(value)
+
+func _on_x_amp_wobble_slider_value_changed(value):
+	Global.settings_dict.xAmp = value
+	%XAmpWobbleLabel.text = "X-Amplitude Wobble : " + str(value)
+
+func _on_y_freq_wobble_slider_value_changed(value):
+	Global.settings_dict.yFrq = value
+	%YFreqWobbleLabel.text = "Y-Frequency Wobble : " + str(value)
+
+func _on_y_amp_wobble_slider_value_changed(value):
+	Global.settings_dict.yAmp = value
+	%YAmpWobbleLabel.text = "Y-Amplitude Wobble : " + str(value)

@@ -234,6 +234,8 @@ func _on_mo_anim_state_pressed(id):
 			contain.current_mo_anim = "One Bounce"
 		4:
 			contain.current_mo_anim = "Wobble"
+		5:
+			contain.current_mo_anim = "Squish"
 		
 			
 	mo_anim.text = contain.current_mo_anim
@@ -255,6 +257,9 @@ func _on_mc_anim_state_pressed(id):
 			
 		4:
 			contain.current_mc_anim = "Wobble"
+			
+		5:
+			contain.current_mc_anim = "Squish"
 			
 	mc_anim.text = contain.current_mc_anim
 	contain.save_state(Global.current_state)
