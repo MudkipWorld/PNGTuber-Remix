@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 signal blink
 signal reinfo
@@ -106,14 +106,11 @@ func _input(event : InputEvent):
 				held_sprite.rotation += 0.05
 				rot()
 			
-			''' to do
-			elif event.is_action_pressed("lmb"):
-				var ds = DisplayServer.mouse_get_position()
-				var of = (Vector2(ds.x, ds.y) - held_sprite.global_position)
-				held_sprite.position += of - Vector2(320,160)
+			elif Input.is_action_pressed("lmb"):
+				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
+				held_sprite.position = of
 				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position = -held_sprite.position
 				offset()
-			'''
 			
 			
 	if held_bg_sprite != null:

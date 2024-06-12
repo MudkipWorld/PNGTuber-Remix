@@ -91,6 +91,7 @@ func get_state(state):
 
 func not_speaking():
 	currenly_speaking = false
+	scale = Vector2(1,1)
 	
 	match mouth_closed:
 		0:
@@ -107,8 +108,9 @@ func not_speaking():
 			set_mc_squish()
 
 func speaking():
-	modulate = Color.WHITE
+#	modulate = Color.WHITE
 	currenly_speaking = true
+	scale = Vector2(1,1)
 	
 	match mouth_open:
 		0:

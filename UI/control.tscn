@@ -2111,13 +2111,13 @@ expand_icon = true
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(626, 408)
+size = Vector2i(600, 434)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp"]
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 616.0
-offset_bottom = 398.0
+offset_right = 590.0
+offset_bottom = 424.0
 
 [node name="TutorialLabel" type="Label" parent="TutorialPopUp/VBoxContainer"]
 layout_mode = 2
@@ -2129,7 +2129,8 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Held Sprite Inputs :
 - Moving Sprite : Click and drag around.
-- Move Origin : Arrow Keys.
+- Move Origin : Arrow Keys or by holding Ctrl on your keyboard 
+and pressing where you want the origin to be.
 - Scroll mouse wheel on sliders for more accurate results.
 
 Input Remap :
