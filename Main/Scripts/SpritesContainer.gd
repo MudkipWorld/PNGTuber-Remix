@@ -46,7 +46,7 @@ func _process(delta):
 			set_mo_squish()
 	elif not currenly_speaking:
 		if Global.settings_dict.darken:
-			modulate = lerp(modulate, Color.DIM_GRAY, 0.08)
+			modulate = lerp(modulate, Global.settings_dict.dim_color, 0.08)
 		else:
 			modulate = Color.WHITE
 		

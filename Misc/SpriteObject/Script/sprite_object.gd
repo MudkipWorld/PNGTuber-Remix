@@ -239,7 +239,7 @@ func rotationalDrag(length):
 	
 	yvel = clamp(yvel,dictmain.rLimitMin,dictmain.rLimitMax)
 	
-	sprite.rotation = lerp_angle(sprite.rotation,deg_to_rad(yvel),0.25)
+	%Rotation.rotation = lerp_angle(%Rotation.rotation,deg_to_rad(yvel),0.25)
 
 func stretch(length):
 	var yvel = (length * dictmain.stretchAmount * 0.01)

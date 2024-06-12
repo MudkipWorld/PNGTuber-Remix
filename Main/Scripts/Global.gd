@@ -33,6 +33,8 @@ var settings_dict : Dictionary = {
 	xAmp = 5,
 	yFrq = 0.4,
 	yAmp = 5,
+	
+	dim_color = Color.DIM_GRAY,
 }
 
 # Called when the node enters the scene tree for the first time.

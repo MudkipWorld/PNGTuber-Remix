@@ -782,7 +782,6 @@ func _on_fmy_slider_value_changed(value):
 
 #endregion
 
-
 func _on_animation_one_shot_toggled(toggled_on):
 	Global.held_sprite.dictmain.one_shot = toggled_on
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.one_shot = toggled_on

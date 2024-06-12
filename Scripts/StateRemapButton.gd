@@ -26,7 +26,7 @@ func _toggled(_button_pressed):
 
 func _unhandled_input(event):
 	if not event is InputEventMouseMotion:
-		if event.pressed:
+		if event.is_released():
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, event)
 			saved_event = event
@@ -51,3 +51,5 @@ func _on_remove_pressed():
 	if InputMap.action_get_events(action).size() != 0:
 		InputMap.action_erase_events(action)
 		update_key_text()
+
+

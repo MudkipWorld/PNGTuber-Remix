@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="3_5sre3"]
 
 [node name="StateButtonHbox" type="HBoxContainer"]
-offset_right = 120.0
+offset_right = 258.0
 offset_bottom = 31.0
 
 [node name="State" type="Label" parent="."]
@@ -18,17 +18,14 @@ layout_mode = 2
 text = "kp 0"
 script = ExtResource("2_ih08l")
 
-[node name="Remove" type="TextureButton" parent="StateRemapButton"]
+[node name="Remove" type="TextureButton" parent="."]
 self_modulate = Color(1, 0.380392, 0.298039, 1)
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_right = 28.0
-offset_bottom = 27.0
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
 texture_normal = ExtResource("3_5sre3")
 ignore_texture_size = true
 stretch_mode = 0
 
-[connection signal="pressed" from="StateRemapButton/Remove" to="StateRemapButton" method="_on_remove_pressed"]
+[connection signal="pressed" from="Remove" to="StateRemapButton" method="_on_remove_pressed"]

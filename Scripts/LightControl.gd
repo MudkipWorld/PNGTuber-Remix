@@ -43,6 +43,7 @@ func get_info(state):
 		%LightPosXSpinBox.value = light.global_position.x
 		%LightPosYSpinBox.value = light.global_position.y
 	%DarkenCheck.button_pressed = Global.settings_dict.darken
+	%DarkenColor.color = Global.settings_dict.dim_color
 
 
 func reset_info(light_source):
@@ -67,3 +68,7 @@ func _on_light_pos_x_spin_box_value_changed(value):
 func _on_light_pos_y_spin_box_value_changed(value):
 	light.global_position.y = value
 	light.save_state(Global.current_state)
+
+
+func _on_darken_color_color_changed(color):
+	Global.settings_dict.dim_color = color

@@ -130,9 +130,11 @@ anchor_right = 0.982544
 anchor_bottom = 0.797037
 theme_override_font_sizes/font_size = 11
 tab_alignment = 1
+current_tab = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Properties" type="Control" parent="RightPanel/Properties/ScrollContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer1" type="ScrollContainer" parent="RightPanel/Properties/ScrollContainer/Properties"]
@@ -376,7 +378,6 @@ theme_override_font_sizes/font_size = 10
 text = "Clip Children"
 
 [node name="Movement" type="Control" parent="RightPanel/Properties/ScrollContainer"]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer3" type="ScrollContainer" parent="RightPanel/Properties/ScrollContainer/Movement"]
@@ -586,6 +587,46 @@ size_flags_horizontal = 3
 min_value = -500.0
 max_value = 500.0
 step = 0.1
+
+[node name="Sp3" type="HSeparator" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBox9" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="MiniRlable" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Minimum Rot :"
+
+[node name="MiniRotationLevel" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -180.0
+max_value = 180.0
+step = 0.01
+
+[node name="HBox10" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="MaxRlable" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Minimum Rot :"
+
+[node name="MaxRotationLevel" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -180.0
+max_value = 180.0
+step = 0.01
 
 [node name="Wiggle Settings" type="Control" parent="RightPanel/Properties/ScrollContainer"]
 visible = false
@@ -1094,6 +1135,12 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Darken When Not Speaking"
+
+[node name="DarkenColor" type="ColorPickerButton" parent="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox20"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
 
 [node name="Experimental" type="Control" parent="RightPanel/Properties/ScrollContainer"]
 visible = false
@@ -2499,6 +2546,7 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox18/LightEnergySlider" to="LightControl" method="_on_light_energy_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox19/LightSizeSlider" to="LightControl" method="_on_light_size_slider_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox20/DarkenCheck" to="LightControl" method="_on_darken_check_toggled"]
+[connection signal="color_changed" from="RightPanel/Properties/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox20/DarkenColor" to="LightControl" method="_on_darken_color_color_changed"]
 [connection signal="mouse_entered" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_entered"]
 [connection signal="mouse_exited" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/HBox22/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_toggled"]
