@@ -77,7 +77,7 @@ func get_sprite_states(state):
 	light_info.emit(current_state)
 	reinfoanim.emit()
 
-func _input(_event):
+func _input(event : InputEvent):
 	if held_sprite != null:
 		if held_sprite.sprite_type == "Sprite2D":
 			if Input.is_action_pressed("ui_up"):
@@ -105,7 +105,17 @@ func _input(_event):
 			elif Input.is_action_pressed("scrolldown"):
 				held_sprite.rotation += 0.05
 				rot()
-				
+			
+			''' to do
+			elif event.is_action_pressed("lmb"):
+				var ds = DisplayServer.mouse_get_position()
+				var of = (Vector2(ds.x, ds.y) - held_sprite.global_position)
+				held_sprite.position += of - Vector2(320,160)
+				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position = -held_sprite.position
+				offset()
+			'''
+			
+			
 	if held_bg_sprite != null:
 		if Input.is_action_pressed("ctrl"):
 			if Input.is_action_pressed("scrollup"):

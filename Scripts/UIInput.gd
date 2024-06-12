@@ -109,6 +109,9 @@ func held_sprite_is_null():
 	%RSSlider.editable = false
 	%FollowParentEffect.disabled = true
 	%FollowWiggleAppTip.disabled = true
+	
+	%MiniRotationLevel.editable = false
+	%MaxRotationLevel.editable = false
 
 
 func held_sprite_is_true():
@@ -196,6 +199,9 @@ func held_sprite_is_true():
 	%RSSlider.editable = true
 	
 	%FollowWiggleAppTip.disabled = false
+	
+	%MiniRotationLevel.editable = true
+	%MaxRotationLevel.editable = true
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -358,6 +364,9 @@ func reinfo():
 	%RSSlider.value = Global.held_sprite.dictmain.rainbow_speed
 	
 	%FollowWiggleAppTip.button_pressed = Global.held_sprite.dictmain.follow_wa_tip
+	
+	%MiniRotationLevel.value = Global.held_sprite.dictmain.rLimitMin
+	%MaxRotationLevel.value = Global.held_sprite.dictmain.rLimitMax
 
 func update_pos_spins():
 	%PosXSpinBox.value = Global.held_sprite.global_position.x
@@ -394,7 +403,7 @@ func _on_yf_slider_value_changed(value):
 
 func _on_rotation_level_value_changed(value):
 	Global.held_sprite.dictmain.rdragStr = value
-	%Rlable.text = "Rot-Degree:" + str(snappedf(value, 0.01))
+	%Rlable.text = "Rot-Degree : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_stretch_slider_value_changed(value):
@@ -789,3 +798,12 @@ func _on_animation_one_shot_toggled(toggled_on):
 		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.one_shot = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
 
+func _on_mini_rotation_level_value_changed(value):
+	%MiniRlable.text = "Minimum Rot : " + str(snappedf(value, 0.1))
+	Global.held_sprite.dictmain.rLimitMin = value
+	Global.held_sprite.save_state(Global.current_state)
+
+func _on_max_rotation_level_value_changed(value):
+	%MaxRlable.text = "Maximum Rot : " + str(snappedf(value, 0.1))
+	Global.held_sprite.dictmain.rLimitMax = value
+	Global.held_sprite.save_state(Global.current_state)

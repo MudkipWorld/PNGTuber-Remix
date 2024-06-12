@@ -35,8 +35,8 @@ var currently_speaking : bool = false
 	yFrq = 0,
 	yAmp = 0,
 	rdragStr = 0,
-	rLimitMax = 100,
-	rLimitMin = -100,
+	rLimitMax = 180,
+	rLimitMin = -180,
 	stretchAmount = 0,
 	blend_mode = "Normal",
 	visible = visible,
@@ -92,6 +92,8 @@ var anim_texture
 var anim_texture_normal 
 var img_animated : bool = false
 
+var dragging_type = "Null"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
@@ -128,13 +130,14 @@ func _process(delta):
 		%Grab.mouse_filter = 1
 	else:
 		%Grab.mouse_filter = 2
+	#	%Origin.mouse_filter = 2
 	if dragging:
-		global_position = get_global_mouse_position() - of
-		dictmain.position = position
-		dictmain.global_position = get_global_mouse_position() - of
-		smooth_glob = get_global_mouse_position() - of
-		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
-	
+		if dragging_type == "Sprite":
+			global_position = get_global_mouse_position() - of
+			dictmain.position = position
+			dictmain.global_position = get_global_mouse_position() - of
+			smooth_glob = get_global_mouse_position() - of
+			get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 	
 	tick += 1
 	glob = dragger.global_position
@@ -180,8 +183,6 @@ func follow_wiggle():
 		
 	else:
 		%Pos.rotation = 0
-		
-
 
 
 func rainbow():
@@ -502,18 +503,23 @@ func set_blend(blend):
 
 func _on_grab_button_down():
 	if Global.held_sprite == self:
-		of = get_global_mouse_position() - global_position
-		dragging = true
+		if not Input.is_action_pressed("ctrl"):
+			of = get_global_mouse_position() - global_position
+			dragging = true
+			dragging_type = "Sprite"
+		else:
+			dragging_type = "Null"
 
 
 func _on_grab_button_up():
 	if Global.held_sprite == self:
 		dragging = false
+		dragging_type = "Null"
 		save_state(Global.current_state)
+		
 
 
 func reparent_obj(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
 			reparent(i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
-

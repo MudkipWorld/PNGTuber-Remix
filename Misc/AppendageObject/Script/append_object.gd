@@ -38,9 +38,11 @@ var img_animated : bool = false
 	xAmp = 0,
 	yFrq = 0,
 	yAmp = 0,
+	
 	rdragStr = 0,
-	rLimitMax = 100,
-	rLimitMin = -100,
+	rLimitMax = 180,
+	rLimitMin = -180,
+	
 	stretchAmount = 0,
 	blend_mode = "Normal",
 	visible = visible,
@@ -222,7 +224,7 @@ func rotationalDrag(length):
 	
 	yvel = clamp(yvel,dictmain.rLimitMin,dictmain.rLimitMax)
 	
-	sprite.rotation = lerp_angle(sprite.rotation,deg_to_rad(yvel),0.25)
+	%Rotation.rotation = lerp_angle(%Rotation.rotation,deg_to_rad(yvel),0.25)
 
 func stretch(length):
 	var yvel = (length * dictmain.stretchAmount * 0.01)

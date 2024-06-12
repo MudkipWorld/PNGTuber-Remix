@@ -432,7 +432,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -100.0
+min_value = -50.0
+max_value = 50.0
 step = 0.01
 
 [node name="Sp" type="HSeparator" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
@@ -474,7 +475,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -100.0
+min_value = -50.0
+max_value = 50.0
 step = 0.01
 
 [node name="HBox7" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
@@ -596,6 +598,7 @@ theme_override_constants/separation = 5
 layout_mode = 2
 
 [node name="MiniRlable" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -603,17 +606,19 @@ theme_override_font_sizes/font_size = 12
 text = "Minimum Rot :"
 
 [node name="MiniRotationLevel" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -180.0
-max_value = 180.0
-step = 0.01
+max_value = 0.0
+step = 0.1
 
 [node name="HBox10" type="HBoxContainer" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
 layout_mode = 2
 
 [node name="MaxRlable" type="Label" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -621,12 +626,12 @@ theme_override_font_sizes/font_size = 12
 text = "Minimum Rot :"
 
 [node name="MaxRotationLevel" type="HSlider" parent="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -180.0
 max_value = 180.0
-step = 0.01
+step = 0.5
 
 [node name="Wiggle Settings" type="Control" parent="RightPanel/Properties/ScrollContainer"]
 visible = false
@@ -2521,6 +2526,8 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox26/RotationSpeed" to="UIInput" method="_on_rotation_speed_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox23/FMxSlider" to="UIInput" method="_on_f_mx_slider_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox24/FMYSlider" to="UIInput" method="_on_fmy_slider_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9/MiniRotationLevel" to="UIInput" method="_on_mini_rotation_level_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10/MaxRotationLevel" to="UIInput" method="_on_max_rotation_level_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/FollowWiggleAppTip" to="UIInput" method="_on_follow_wiggle_app_tip_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/ScrollContainer/Wiggle Settings/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WigglePhysicsCheck" to="UIInput" method="_on_wiggle_physics_check_toggled"]
