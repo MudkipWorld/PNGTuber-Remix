@@ -280,3 +280,11 @@ func _on_y_freq_wobble_slider_value_changed(value):
 func _on_y_amp_wobble_slider_value_changed(value):
 	Global.settings_dict.yAmp = value
 	%YAmpWobbleLabel.text = "Y-Amplitude Wobble : " + str(value)
+
+
+func _on_auto_save_check_toggled(toggled_on):
+	pass # Replace with function body.
+
+
+func _on_auto_save_spin_value_changed(value):
+	pass # Replace with function body.

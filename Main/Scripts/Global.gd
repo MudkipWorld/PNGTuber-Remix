@@ -35,8 +35,11 @@ var settings_dict : Dictionary = {
 	yAmp = 5,
 	
 	dim_color = Color.DIM_GRAY,
+	auto_save = false,
 }
 
+var undo_redo : UndoRedo = UndoRedo.new()
+var new_rot = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_window().min_size = Vector2(1000,720)
@@ -100,12 +103,18 @@ func _input(event : InputEvent):
 			
 		if Input.is_action_pressed("ctrl"):
 			if Input.is_action_pressed("scrollup"):
-				held_sprite.rotation -= 0.05
-				rot()
-			elif Input.is_action_pressed("scrolldown"):
-				held_sprite.rotation += 0.05
-				rot()
-			
+				new_rot += 0.05
+			elif Input.is_action_just_released("scrollup"):
+				rot(new_rot)
+				new_rot = 0
+			if Input.is_action_pressed("scrolldown"):
+				new_rot -= 0.05
+				
+			elif Input.is_action_just_released("scrolldown"):
+				rot(new_rot)
+				new_rot = 0
+
+				
 			elif Input.is_action_pressed("lmb"):
 				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
 				held_sprite.position = of
@@ -118,9 +127,16 @@ func _input(event : InputEvent):
 			if Input.is_action_pressed("scrollup"):
 				held_bg_sprite.rotation -= 0.05
 				bg_rot()
+
 			elif Input.is_action_pressed("scrolldown"):
 				held_bg_sprite.rotation += 0.05
 				bg_rot()
+	if event.is_action_pressed("ui_undo"):
+		undo_redo.undo()
+		print(undo_redo.undo())
+	elif event.is_action_pressed("ui_redo"):
+		undo_redo.redo()
+		print(undo_redo.redo())
 
 func offset():
 	held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
@@ -128,7 +144,12 @@ func offset():
 	held_sprite.dictmain.position = held_sprite.position
 	held_sprite.save_state(current_state)
 
-func rot():
+func rot(value):
+	var val = held_sprite.rotation + value
+	undo_redo.create_action("zaza")
+	undo_redo.add_undo_property(held_sprite, "rotation", held_sprite.rotation)
+	undo_redo.add_do_property(held_sprite, "rotation", val)
+	undo_redo.commit_action(true)
 	held_sprite.save_state(current_state)
 	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 

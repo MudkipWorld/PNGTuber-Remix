@@ -93,16 +93,15 @@ var anim_texture_normal
 var img_animated : bool = false
 
 var dragging_type = "Null"
-
+@onready var og_glob = global_position
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
+	og_glob = dictmain.global_position
 	Global.blink.connect(blink)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	animation()
 #	print(get_node("Pos/Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
-	
 
 func animation():
 	if not dictmain.advanced_lipsync:
@@ -134,8 +133,6 @@ func _process(delta):
 	if dragging:
 		if dragging_type == "Sprite":
 			global_position = get_global_mouse_position() - of
-			dictmain.position = position
-			dictmain.global_position = get_global_mouse_position() - of
 			smooth_glob = get_global_mouse_position() - of
 			get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 	
@@ -172,7 +169,6 @@ func _process(delta):
 	follow_wiggle()
 	follow_mouse()
 
-
 func follow_wiggle():
 	if dictmain.follow_wa_tip:
 		if get_parent() is WigglyAppendage2D:
@@ -183,7 +179,6 @@ func follow_wiggle():
 		
 	else:
 		%Pos.rotation = 0
-
 
 func rainbow():
 	if dictmain.rainbow:
@@ -199,7 +194,6 @@ func rainbow():
 		%Sprite2D.self_modulate.s = 0
 		%Pos.modulate.s = 0
 
-
 func follow_mouse():
 	
 	var mouse = get_local_mouse_position()
@@ -207,10 +201,8 @@ func follow_mouse():
 	%Pos.position.x = dir.x * dictmain.look_at_mouse_pos
 	%Pos.position.y = dir.y * dictmain.look_at_mouse_pos_y
 
-
 func auto_rotate():
 	%Rotation.rotate(dictmain.should_rot_speed)
-
 
 func wiggle_sprite():
 	var wiggle_val = sin(tick*dictmain.wiggle_freq)*dictmain.wiggle_amp
@@ -279,7 +271,6 @@ func speaking():
 	else:
 		%Rotation.show()
 	currently_speaking = true
-	
 
 func advanced_lipsyc():
 	if dictmain.advanced_lipsync:
@@ -336,8 +327,6 @@ func advanced_lipsyc():
 		await $Talk.timeout
 		advanced_lipsyc()
 
-
-
 func not_speaking():
 	if dictmain.should_talk:
 		if dictmain.open_mouth:
@@ -349,7 +338,6 @@ func not_speaking():
 	else:
 		%Rotation.show()
 	currently_speaking = false
-
 
 func save_state(id):
 	var dict : Dictionary = {
@@ -406,7 +394,6 @@ func save_state(id):
 	}
 	states[id] = dict
 
-
 func get_state(id):
 	if not states[id].is_empty():
 		var dict = states[id]
@@ -457,7 +444,6 @@ func get_state(id):
 		
 		%Pos.position = Vector2(0,0)
 
-
 func follow_p_wiggle():
 	if dictmain.follow_parent_effects:
 		use_parent_material = true
@@ -465,7 +451,6 @@ func follow_p_wiggle():
 	else:
 		use_parent_material = false
 		%Sprite2D.use_parent_material = false
-
 
 func check_talk():
 	if dictmain.should_talk:
@@ -475,7 +460,6 @@ func check_talk():
 			%Rotation.show()
 	else:
 		%Rotation.show()
-
 
 func set_blend(blend):
 	match  blend:
@@ -500,7 +484,6 @@ func set_blend(blend):
 			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
 			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
 
-
 func _on_grab_button_down():
 	if Global.held_sprite == self:
 		if not Input.is_action_pressed("ctrl"):
@@ -510,14 +493,16 @@ func _on_grab_button_down():
 		else:
 			dragging_type = "Null"
 
-
 func _on_grab_button_up():
-	if Global.held_sprite == self:
-		dragging = false
+	if Global.held_sprite == self && dragging:
 		dragging_type = "Null"
+		Global.undo_redo.create_action("zaza")
+		Global.undo_redo.add_undo_property(self, "global_position", og_glob)
+		Global.undo_redo.add_do_property(self, "global_position", dictmain.global_position)
+		Global.undo_redo.commit_action()
 		save_state(Global.current_state)
-		
-
+		dragging = false
+	og_glob = dictmain.global_position
 
 func reparent_obj(parent):
 	for i in parent:
