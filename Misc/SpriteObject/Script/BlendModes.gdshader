@@ -3,6 +3,7 @@ shader_type canvas_item;
 uniform sampler2D mask_sampler;
 uniform vec2 mask_offset = vec2(0,0);
 
+
 void fragment() {
 	ivec2 orig_size = textureSize(TEXTURE,0);
 	ivec2 mask_size = textureSize(mask_sampler,0);
