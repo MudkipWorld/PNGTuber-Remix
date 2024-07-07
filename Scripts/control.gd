@@ -52,6 +52,11 @@ func sliders_revalue(settings_dict):
 	%XAmpWobbleSlider.value = settings_dict.xAmp
 	%YFreqWobbleSlider.value = settings_dict.yFrq
 	%YAmpWobbleSlider.value = settings_dict.yAmp
+	%AutoSaveCheck.button_pressed = settings_dict.auto_save
+	%AutoSaveSpin.value = settings_dict.auto_save_timer
+	
+	if %AutoSaveCheck.button_pressed:
+		%AutoSaveTimer.start()
 
 func _tree(sprites):
 	tree.clear()

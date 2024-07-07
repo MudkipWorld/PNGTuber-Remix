@@ -22,16 +22,22 @@ func _ready():
 	about.get_popup().connect("id_pressed",choosing_about)
 	
 	devices = AudioServer.get_input_device_list()
+	devices.append_array(AudioServer.get_output_device_list())
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
 		
 	%MicroPhoneMenu.text = str(AudioServer.input_device)
 	%MicroPhoneMenu.get_popup().connect("id_pressed",choosing_device)
-	
+	print(OS.get_executable_path().get_base_dir() + "/autosaves")
+	if !DirAccess.dir_exists_absolute(OS.get_executable_path().get_base_dir() + "/autosaves"):
+		DirAccess.make_dir_absolute(OS.get_executable_path().get_base_dir() + "/autosaves")
 
 func choosing_device(id):
 	if id != null:
-		AudioServer.input_device = devices[id]
+		if AudioServer.get_input_device_list().has(devices[id]):
+			AudioServer.input_device = devices[id]
+		elif AudioServer.get_output_device_list().has(devices[id]):
+			AudioServer.output_device = devices[id]
 		%MicroPhoneMenu.text = str(devices[id])
 	else:
 		reset_mic_list()
@@ -236,6 +242,7 @@ func _on_reset_mic_button_pressed():
 func reset_mic_list():
 	%MicroPhoneMenu.get_popup().clear()
 	devices = AudioServer.get_input_device_list()
+	devices.append_array(AudioServer.get_output_device_list())
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
 
@@ -283,8 +290,29 @@ func _on_y_amp_wobble_slider_value_changed(value):
 
 
 func _on_auto_save_check_toggled(toggled_on):
-	pass # Replace with function body.
+	Global.settings_dict.auto_save = toggled_on
+	if toggled_on:
+		%AutoSaveTimer.start()
+	else:
+		%AutoSaveTimer.stop()
 
 
 func _on_auto_save_spin_value_changed(value):
-	pass # Replace with function body.
+	%AutoSaveTimer.wait_time = value * 60
+	Global.settings_dict.auto_save_timer = %AutoSaveTimer.wait_time
+
+
+func _on_auto_save_timer_timeout():
+	if Global.settings_dict.auto_save:
+		if path:
+			SaveAndLoad.save_file(path)
+		else:
+			if !DirAccess.dir_exists_absolute(OS.get_executable_path().get_base_dir() + "/autosaves"):
+				DirAccess.make_dir_absolute(OS.get_executable_path().get_base_dir() + "/autosaves")
+			
+			var items = DirAccess.get_files_at(OS.get_executable_path().get_base_dir() + "/autosaves").size()
+			path = OS.get_executable_path().get_base_dir() + "/autosaves" + "/autosave_file" + str(items) 
+			SaveAndLoad.save_file(path)
+			
+			
+		%AutoSaveTimer.start()

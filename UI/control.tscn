@@ -2174,13 +2174,14 @@ from the original software and improve existing ones."
 [node name="InputsPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(497, 619)
+size = Vector2i(497, 650)
+visible = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup"]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 487.0
-offset_bottom = 609.0
+offset_bottom = 640.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InputsPopup/HBoxContainer"]
 layout_mode = 2
@@ -2299,18 +2300,23 @@ size_flags_vertical = 2
 text = "Auto-Load Model : "
 
 [node name="HBox" type="HBoxContainer" parent="InputsPopup/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="AutoSaveCheck" type="CheckButton" parent="InputsPopup/HBoxContainer/VBoxContainer/HBox"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Auto-Save"
 
 [node name="AutoSaveSpin" type="SpinBox" parent="InputsPopup/HBoxContainer/VBoxContainer/HBox"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 suffix = "min"
+
+[node name="AutoSaveTimer" type="Timer" parent="InputsPopup/HBoxContainer/VBoxContainer/HBox"]
+unique_name_in_owner = true
+wait_time = 60.0
 
 [node name="Sp3" type="HSeparator" parent="InputsPopup/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -2624,6 +2630,7 @@ presets_visible = false
 [connection signal="toggled" from="InputsPopup/HBoxContainer/VBoxContainer/AutoLoadCheck" to="_Themes_" method="_on_auto_load_check_toggled"]
 [connection signal="toggled" from="InputsPopup/HBoxContainer/VBoxContainer/HBox/AutoSaveCheck" to="TopBarInput" method="_on_auto_save_check_toggled"]
 [connection signal="value_changed" from="InputsPopup/HBoxContainer/VBoxContainer/HBox/AutoSaveSpin" to="TopBarInput" method="_on_auto_save_spin_value_changed"]
+[connection signal="timeout" from="InputsPopup/HBoxContainer/VBoxContainer/HBox/AutoSaveTimer" to="TopBarInput" method="_on_auto_save_timer_timeout"]
 [connection signal="pressed" from="InputsPopup/HBoxContainer/VBoxContainer/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
 [connection signal="item_selected" from="InputsPopup/HBoxContainer/VBoxContainer/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]

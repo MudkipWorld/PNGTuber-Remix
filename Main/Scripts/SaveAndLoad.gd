@@ -227,4 +227,5 @@ func load_file(path):
 	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control/UIInput").reinfoanim()
 	
+	
 	file.close()
