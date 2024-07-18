@@ -41,6 +41,10 @@ window/size/transparent=true
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true
 
+[dotnet]
+
+project/assembly_name="PNGTube-Remix"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/Sprite_Object/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")

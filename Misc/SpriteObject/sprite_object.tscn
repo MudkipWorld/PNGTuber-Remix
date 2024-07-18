@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://du5v1xpm5fjcm"]
+[gd_scene load_steps=7 format=3 uid="uid://du5v1xpm5fjcm"]
 
 [ext_resource type="Script" path="res://Misc/SpriteObject/Script/sprite_object.gd" id="1_i7wd5"]
-[ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_wfm0d"]
-[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="3_xhumr"]
-[ext_resource type="Texture2D" uid="uid://bgyf0p8jif68s" path="res://icon.svg" id="4_6ey4y"]
+[ext_resource type="Texture2D" uid="uid://dmasowhb8q08u" path="res://Misc/EasyBlend/Blends/multiply.png" id="2_n36sc"]
+[ext_resource type="Texture2D" uid="uid://dv27xjbwfkacl" path="res://Misc/LightSource/Lamp.png" id="3_x1bf3"]
 
 [sub_resource type="Shader" id="Shader_l06p8"]
 resource_local_to_scene = true
@@ -43,13 +42,22 @@ void fragment() {
 	
 	if (enabled){
 		vec4 bgColor;
-		vec4 Color = texture(TEXTURE, UV);
+		vec4 Color;
+		if(wiggle) {
+			
+			Color = texture(TEXTURE, rot_uv);
+			bgColor = texture( TEXTURE, rot_uv);
+		}
+		else{
+			Color = texture(TEXTURE, UV);
+			bgColor = texture( TEXTURE, UV);
+		}
 		vec4 blendColor;
 	   	vec4 output = vec4(1,1,1,1);
 	
-		bgColor = texture( TEXTURE, UV);
+		
 	
-		output.a = Color.a;
+		output.a = COLOR.a;
 	
 		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
 		output.r = blendColor.r;
@@ -61,13 +69,7 @@ void fragment() {
 		output = mix(Color, output, Intensity)* modulate;
 		
 		// needs fix, uauauau
-		if(wiggle){
-			COLOR = output *texture(TEXTURE, rot_uv);
-
-		}
-		else{
-			COLOR = output;
-		}
+		COLOR = output;
 		
 	}
 	
@@ -78,13 +80,13 @@ resource_local_to_scene = true
 shader = SubResource("Shader_l06p8")
 shader_parameter/enabled = false
 shader_parameter/Intensity = 1.0
-shader_parameter/wiggle = true
+shader_parameter/wiggle = false
 shader_parameter/rotation = 0.0
 shader_parameter/rotation_offset = Vector2(0.5, 0.5)
-shader_parameter/Blend = ExtResource("2_wfm0d")
+shader_parameter/Blend = ExtResource("2_n36sc")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
-diffuse_texture = ExtResource("4_6ey4y")
+diffuse_texture = ExtResource("3_x1bf3")
 
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
 script = ExtResource("1_i7wd5")
@@ -109,7 +111,6 @@ use_parent_material = true
 [node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 visible = false
 z_index = 4096
-texture = ExtResource("3_xhumr")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
