@@ -17,8 +17,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6pthk")
 
-[node name="BackgroundInputCapture" type="BackgroundInputCapture" parent="."]
-
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -32,7 +30,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_repeat = 1
-size = Vector2i(1280, 720)
+size = Vector2i(1152, 648)
 size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 render_target_update_mode = 4
@@ -57,7 +55,7 @@ transparent_bg = true
 handle_input_locally = false
 vrs_mode = 2
 canvas_item_default_texture_filter = 2
-size = Vector2i(1280, 720)
+size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport"]
@@ -111,7 +109,6 @@ autostart = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05
 
-[connection signal="bg_key_pressed" from="BackgroundInputCapture" to="." method="_on_background_input_capture_bg_key_pressed"]
 [connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

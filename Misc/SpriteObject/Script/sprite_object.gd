@@ -202,7 +202,7 @@ func follow_mouse():
 	%Pos.position.y = dir.y * dictmain.look_at_mouse_pos_y
 
 func auto_rotate():
-	%Rotation.rotate(dictmain.should_rot_speed)
+	$Pos/Wobble.rotate(dictmain.should_rot_speed)
 
 func wiggle_sprite():
 	var wiggle_val = sin(tick*dictmain.wiggle_freq)*dictmain.wiggle_amp
@@ -432,6 +432,12 @@ func get_state(id):
 		if dictmain.advanced_lipsync:
 			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes = 6
 		
+		if dictmain.should_blink:
+			if dictmain.open_eyes:
+				
+				%Pos.show()
+			else:
+				%Pos.hide()
 		visible = dictmain.visible
 		speaking()
 		not_speaking()

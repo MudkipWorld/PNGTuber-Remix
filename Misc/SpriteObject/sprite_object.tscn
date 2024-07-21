@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://du5v1xpm5fjcm"]
+[gd_scene load_steps=8 format=3 uid="uid://du5v1xpm5fjcm"]
 
 [ext_resource type="Script" path="res://Misc/SpriteObject/Script/sprite_object.gd" id="1_i7wd5"]
+[ext_resource type="Texture2D" uid="uid://t7lg762xsffp" path="res://Misc/FolderObject/origin.png" id="2_lsh2x"]
 [ext_resource type="Texture2D" uid="uid://dmasowhb8q08u" path="res://Misc/EasyBlend/Blends/multiply.png" id="2_n36sc"]
 [ext_resource type="Texture2D" uid="uid://dv27xjbwfkacl" path="res://Misc/LightSource/Lamp.png" id="3_x1bf3"]
 
@@ -111,6 +112,7 @@ use_parent_material = true
 [node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 visible = false
 z_index = 4096
+texture = ExtResource("2_lsh2x")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true

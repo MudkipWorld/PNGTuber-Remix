@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Rules for C#" Description="Custom Rules" ToolsVersion="16.0">
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.Features" RuleNamespace="Microsoft.CodeAnalysis.CSharp.Features">
+    <!-- Disables namespace warning -->
+    <Rule Id="CA1050" Action="None" />
+  </Rules>
+</RuleSet>

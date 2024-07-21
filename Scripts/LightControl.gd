@@ -5,7 +5,8 @@ extends Node
 
 func _ready():
 	Global.light_info.connect(get_info)
-
+	%LightEnergyBSlider.get_node("SliderValue").value_changed.connect(_on_light_energy_slider_value_changed)
+	%LightSizeBSlider.get_node("SliderValue").value_changed.connect(_on_light_size_slider_value_changed)
 
 func _on_light_energy_slider_value_changed(value):
 	light.energy = value
@@ -38,8 +39,8 @@ func get_info(state):
 		var dict = Global.settings_dict.light_states[state]
 		%LightSourceVis.button_pressed = dict.visible
 		%LightColor.color = dict.color
-		%LightEnergySlider.value = dict.energy
-		%LightSizeSlider.value = dict.scale.x
+		%LightEnergyBSlider.get_node("SliderValue").value = dict.energy
+		%LightSizeBSlider.get_node("SliderValue").value = dict.scale.x
 		%LightPosXSpinBox.value = light.global_position.x
 		%LightPosYSpinBox.value = light.global_position.y
 	%DarkenCheck.button_pressed = Global.settings_dict.darken
@@ -50,8 +51,8 @@ func reset_info(light_source):
 		%LightSourceVis.button_pressed = light_source.visible
 		%LSShapeVis.button_pressed = false
 		%LightColor.color = light_source.color
-		%LightEnergySlider.value = light_source.energy
-		%LightSizeSlider.value = light_source.scale.x
+		%LightEnergyBSlider.get_node("SliderValue").value = light_source.energy
+		%LightSizeBSlider.get_node("SliderValue").value = light_source.scale.x
 		%LightPosXSpinBox.value = light_source.global_position.x
 		%LightPosYSpinBox.value = light_source.global_position.y
 

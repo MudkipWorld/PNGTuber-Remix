@@ -4,10 +4,7 @@ extends Button
 @export var input_key : String = "Null"
 
 func _ready():
-	if get_tree().get_root().has_node("Main"):
-		get_tree().get_root().get_node("Main").key_pressed.connect(bg_key_pressed)
-	if get_tree().get_root().has_node("CollabMain"):
-		get_tree().get_root().get_node("CollabMain").key_pressed.connect(bg_key_pressed)
+	pass
 
 func _on_pressed():
 	Global.get_sprite_states(state)
@@ -16,13 +13,7 @@ func _on_pressed():
 func initial_update():
 	Global.get_sprite_states(state)
 
-func _input(_event):
-	if input_key != "Null":
-		if Input.is_action_just_pressed(input_key):
+func _physics_process(delta):
+	if input_key != "Null" && InputMap.has_action(input_key):
+		if GlobalInput.is_action_just_pressed(input_key):
 			Global.get_sprite_states(state)
-
-func bg_key_pressed(key):
-	if key == state:
-		Global.get_sprite_states(state)
-
-
