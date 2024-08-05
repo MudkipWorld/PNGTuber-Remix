@@ -78,8 +78,6 @@ func get_state(state):
 		mouth_open = dict.mouth_open
 		current_mc_anim = dict.current_mc_anim
 		current_mo_anim = dict.current_mo_anim
-		if Global.settings_dict.bounce_state:
-			set_mc_one_bounce()
 			
 		if get_tree().get_root().get_node("Main/Control").has_spoken:
 			speaking()
@@ -87,7 +85,16 @@ func get_state(state):
 			not_speaking()
 			
 	reinfoanim.emit()
-	
+	if Global.settings_dict.bounce_state:
+		set_one_bounce()
+
+
+func set_one_bounce():
+	if get_parent().position.y > -16:
+		yVel = Global.settings_dict.bounceSlider * -1
+
+
+
 
 func not_speaking():
 	currenly_speaking = false
@@ -136,6 +143,7 @@ func set_mc_bouncy():
 func set_mc_one_bounce():
 	if get_parent().position.y > -16:
 		yVel = Global.settings_dict.bounceSlider * -1
+
 
 func set_mc_wobble():
 	position.x = sin(tick*Global.settings_dict.xFrq)*Global.settings_dict.xAmp
