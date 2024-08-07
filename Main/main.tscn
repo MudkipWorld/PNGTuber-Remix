@@ -77,7 +77,6 @@ shadow_color = Color(0, 0, 0, 0.92549)
 
 [node name="Control" parent="." instance=ExtResource("2_micm1")]
 layout_mode = 1
-offset_right = 0.0
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true

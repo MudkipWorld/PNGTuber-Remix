@@ -6,3 +6,7 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4

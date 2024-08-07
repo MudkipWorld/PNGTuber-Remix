@@ -203,8 +203,8 @@ func _on_confirmation_dialog_confirmed():
 func clear_sprites():
 	Global.held_sprite = null
 	$Control/UIInput.held_sprite_is_null()
-	$Control/LeftPanel/VBox/Panel/LayersTree.clear()
-	$Control/LeftPanel/VBox/Panel2/BackgroundTree.clear()
+	$Control/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree.clear()
+	$Control/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree.clear()
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		i.queue_free()
 	for i in get_tree().get_nodes_in_group("BackgroundStuff"):

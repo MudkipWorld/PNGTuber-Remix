@@ -188,3 +188,7 @@ func _on_background_tree_button_clicked(item, column, id, _mouse_button_index):
 		item.set_button(column, id, preload("res://UI/EyeButton.png"))
 	elif not item.get_metadata(0).sprite_object.visible:
 		item.set_button(column, id, preload("res://UI/EyeButton2.png"))
+
+
+func _on_add_bg_image_pressed():
+	get_tree().get_root().get_node("Main").load_bg_sprites()

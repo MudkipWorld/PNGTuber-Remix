@@ -4,14 +4,55 @@ signal update_tree
 signal sprite_info 
 
 @onready var cont = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
+@onready var layers_popup: PopupMenu = $LayersPopup
+@onready var uiinput: = get_tree().get_root().get_node("Main/Control/UIInput")
+@onready var topbarinput: = get_tree().get_root().get_node("Main/Control/TopBarInput")
 
 
 func _ready():
 	set_drop_mode_flags(3)
+	var root = create_item()
+	root.set_text(0, "ROOT")
+	for i in 10:
+		var item = create_item(root)
+		item.set_text(0, "Item %s" % (i+1))
+	
+	layers_popup.connect("id_pressed",choosing_layers_popup)
 
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			var item = get_item_at_position(event.position)
+			if item != null:
+				item.select(0)
+				layers_popup.popup_on_parent(Rect2(event.global_position, Vector2.ZERO))
+	else: 
+			pass
+
+func choosing_layers_popup(id):
+	var main = get_tree().get_root().get_node("Main")
+	match id:
+		0:
+			main.load_sprites()
+		1:  
+			uiinput._on_folder_button_pressed()
+		2:#replace
+			get_tree().get_root().get_node("Main").replacing_sprite()
+		3:#duplicate
+			uiinput._on_duplicate_button_pressed()
+		4:#Delete
+			uiinput._on_delete_button_pressed()
+		5:#add normal
+			get_tree().get_root().get_node("Main").add_normal_sprite()
+		6: #delete normal
+			uiinput._on_del_normal_button_pressed()
+		7: #Deselect
+			topbarinput.desel_everything()
 
 func _get_drag_data(at_position):
 	return get_item_at_position(at_position)
+
 
 func _can_drop_data(_at_position, data):
 	return data is TreeItem && is_instance_valid(data) && _at_position
@@ -76,7 +117,7 @@ func _drop_data(at_position, data):
 			var parent = data.get_parent()
 			update_tree.emit(data, parent, boolean)
 			
-			
+	
 
 static func get_all_treeitems(treeitem, recursive) -> Array:
 	var children := []

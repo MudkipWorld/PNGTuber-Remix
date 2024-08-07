@@ -37,6 +37,7 @@ func _ready():
 	mo_anim.get_popup().connect("id_pressed",_on_mo_anim_state_pressed)
 	mc_anim.get_popup().connect("id_pressed",_on_mc_anim_state_pressed)
 	
+<<<<<<< HEAD
 	%XAmpBSlider.get_node("SliderValue").value_changed.connect(_on_x_amp_slider_value_changed)
 	%XFBSlider.get_node("SliderValue").value_changed.connect(_on_xf_slider_value_changed)
 	%YAmpBSlider.get_node("SliderValue").value_changed.connect(_on_y_amp_slider_value_changed)
@@ -62,6 +63,10 @@ func _ready():
 	%WiggleAppsPhysStiffBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_phys_stiff_slider_value_changed)
 
 	
+=======
+	
+
+>>>>>>> master
 
 #region Update Slider info
 func held_sprite_is_null():
@@ -615,6 +620,9 @@ func _on_duplicate_button_pressed():
 
 func _on_replace_button_pressed():
 	get_tree().get_root().get_node("Main").replacing_sprite()
+
+func _on_add_sprite_button_pressed():
+	get_tree().get_root().get_node("Main").load_sprites()
 
 func _on_folder_button_pressed():
 	var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
