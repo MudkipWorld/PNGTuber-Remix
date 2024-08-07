@@ -13,7 +13,7 @@ func _on_pressed():
 func initial_update():
 	Global.get_sprite_states(state)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if input_key != "Null" && InputMap.has_action(input_key):
 		if GlobalInput.is_action_just_pressed(input_key):
 			Global.get_sprite_states(state)

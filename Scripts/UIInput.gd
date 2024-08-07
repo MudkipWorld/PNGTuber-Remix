@@ -37,7 +37,7 @@ func _ready():
 	mo_anim.get_popup().connect("id_pressed",_on_mo_anim_state_pressed)
 	mc_anim.get_popup().connect("id_pressed",_on_mc_anim_state_pressed)
 	
-<<<<<<< HEAD
+
 	%XAmpBSlider.get_node("SliderValue").value_changed.connect(_on_x_amp_slider_value_changed)
 	%XFBSlider.get_node("SliderValue").value_changed.connect(_on_xf_slider_value_changed)
 	%YAmpBSlider.get_node("SliderValue").value_changed.connect(_on_y_amp_slider_value_changed)
@@ -63,10 +63,8 @@ func _ready():
 	%WiggleAppsPhysStiffBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_phys_stiff_slider_value_changed)
 
 	
-=======
 	
 
->>>>>>> master
 
 #region Update Slider info
 func held_sprite_is_null():
@@ -611,11 +609,11 @@ func _on_duplicate_button_pressed():
 			obj.anim_texture = Global.held_sprite.anim_texture
 			obj.anim_texture_normal = Global.held_sprite.anim_texture_normal 
 		
-		var states = get_tree().get_nodes_in_group("StateButtons").size()
-		for i in states:
-			obj.states.append({})
+		obj.dictmain = Global.held_sprite.dictmain.duplicate()
+		obj.states = Global.held_sprite.states.duplicate()
 		get_parent().add_item(obj)
 		obj.sprite_id = obj.get_instance_id()
+		obj.get_state(Global.current_state)
 
 
 func _on_replace_button_pressed():
