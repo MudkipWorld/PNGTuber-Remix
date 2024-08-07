@@ -3,9 +3,45 @@ extends Tree
 signal update_tree
 signal sprite_bg_info 
 
+@onready var bg_popup: PopupMenu = $PopupMenuBG
+@onready var bgedit: = get_tree().get_root().get_node("Main/Control/BackgroundEdit")
+@onready var topbarinput: = get_tree().get_root().get_node("Main/Control/TopBarInput")
+
 func _ready():
 	Global.reinfo.connect(update_visib_buttons)
 	set_drop_mode_flags(3)
+	var root = create_item()
+	root.set_text(0, "ROOT")
+	for i in 10:
+		var item = create_item(root)
+		item.set_text(0, "Item %s" % (i+1))
+		
+	bg_popup.connect("id_pressed",choosing_bg_popup)
+
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			var item = get_item_at_position(event.position)
+			if item != null:
+				item.select(0)
+				bg_popup.popup_on_parent(Rect2(event.global_position, Vector2.ZERO))
+	else: 
+		pass
+		
+
+func choosing_bg_popup(id):
+	var main = get_tree().get_root().get_node("Main")
+	match id:
+		0: #add bg
+			main.load_bg_sprites()
+		1:  #duplicate
+			bgedit._on_bg_duplicate_button_pressed()
+		2:#delete
+			bgedit._on_bg_delete_button_pressed()
+		3:#deselect
+			topbarinput.desel_everything()
+
 
 func _get_drag_data(at_position):
 	return get_item_at_position(at_position)

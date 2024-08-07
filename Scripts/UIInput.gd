@@ -36,6 +36,9 @@ func _ready():
 	blend.get_popup().connect("id_pressed",_on_blend_state_pressed)
 	mo_anim.get_popup().connect("id_pressed",_on_mo_anim_state_pressed)
 	mc_anim.get_popup().connect("id_pressed",_on_mc_anim_state_pressed)
+	
+	
+
 
 #region Update Slider info
 func held_sprite_is_null():
@@ -589,6 +592,9 @@ func _on_duplicate_button_pressed():
 
 func _on_replace_button_pressed():
 	get_tree().get_root().get_node("Main").replacing_sprite()
+
+func _on_add_sprite_button_pressed():
+	get_tree().get_root().get_node("Main").load_sprites()
 
 func _on_folder_button_pressed():
 	var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()

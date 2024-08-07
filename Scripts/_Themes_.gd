@@ -109,8 +109,8 @@ func blue_theme():
 	get_parent().theme = preload("res://Themes/BlueTheme/BlueTheme.tres")
 	%Panelt.self_modulate = Color.LIGHT_BLUE
 	%Paneln.self_modulate = Color.LIGHT_BLUE
-	%Panel.self_modulate = Color.LIGHT_BLUE
-	%Panel2.self_modulate = Color.LIGHT_BLUE
+	%PanelL1_2.self_modulate = Color.LIGHT_BLUE
+	%PanelL2_2.self_modulate = Color.LIGHT_BLUE
 	%Properties.self_modulate = Color.LIGHT_BLUE
 	%LayersButtons.modulate = Color.AQUA
 	%LayersButtons2.modulate = Color.AQUA
@@ -124,8 +124,8 @@ func purple_theme():
 	get_parent().theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
 	%Panelt.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%Paneln.self_modulate = Color(0.898, 0.796, 0.996, 1 )
-	%Panel.self_modulate = Color(0.898, 0.796, 0.996, 1 )
-	%Panel2.self_modulate = Color(0.898, 0.796, 0.996, 1 )
+	%PanelL1_2.self_modulate = Color(0.898, 0.796, 0.996, 1 )
+	%PanelL2_2.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%Properties.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%LayersButtons.modulate = Color(0.898, 0.796, 0.996, 1 )
 	%LayersButtons2.modulate = Color(0.898, 0.796, 0.996, 1 )
@@ -139,8 +139,8 @@ func orange_theme():
 	get_parent().theme = preload("res://Themes/OrangeTheme/OrangeTheme.tres")
 	%Panelt.self_modulate = Color.ORANGE
 	%Paneln.self_modulate = Color.ORANGE
-	%Panel.self_modulate = Color.ORANGE
-	%Panel2.self_modulate = Color.ORANGE
+	%PanelL1_2.self_modulate = Color.ORANGE
+	%PanelL2_2.self_modulate = Color.ORANGE
 	%Properties.self_modulate = Color.ORANGE
 	%LayersButtons.modulate = Color.ORANGE
 	%LayersButtons2.modulate = Color.ORANGE
@@ -155,8 +155,8 @@ func white_theme():
 	get_parent().theme = preload("res://Themes/WhiteTheme/WhiteTheme.tres")
 	%Panelt.self_modulate = Color.WHITE
 	%Paneln.self_modulate = Color.WHITE
-	%Panel.self_modulate = Color.WHITE
-	%Panel2.self_modulate = Color.WHITE
+	%PanelL1_2.self_modulate = Color.WHITE
+	%PanelL2_2.self_modulate = Color.WHITE
 	%Properties.self_modulate = Color.WHITE
 	%LayersButtons.modulate = Color.WHITE
 	%LayersButtons2.modulate = Color.WHITE
@@ -171,8 +171,8 @@ func dark_theme():
 	get_parent().theme = preload("res://Themes/DarkTheme/DarkTheme.tres")
 	%Panelt.self_modulate = Color.WEB_GRAY
 	%Paneln.self_modulate = Color.WEB_GRAY
-	%Panel.self_modulate = Color.WEB_GRAY
-	%Panel2.self_modulate = Color.WEB_GRAY
+	%PanelL1_2.self_modulate = Color.WEB_GRAY
+	%PanelL2_2.self_modulate = Color.WEB_GRAY
 	%Properties.self_modulate = Color.WEB_GRAY
 	%LayersButtons.modulate = Color.DIM_GRAY
 	%LayersButtons2.modulate = Color.DIM_GRAY
@@ -187,8 +187,8 @@ func green_theme():
 	get_parent().theme = preload("res://Themes/GreenTheme/Green_theme.tres")
 	%Panelt.self_modulate = Color.LIGHT_GREEN
 	%Paneln.self_modulate = Color.LIGHT_GREEN
-	%Panel.self_modulate = Color.LIGHT_GREEN
-	%Panel2.self_modulate = Color.LIGHT_GREEN
+	%PanelL1_2.self_modulate = Color.LIGHT_GREEN
+	%PanelL2_2.self_modulate = Color.LIGHT_GREEN
 	%Properties.self_modulate = Color.LIGHT_GREEN
 	%LayersButtons.modulate = Color.LIGHT_GREEN
 	%LayersButtons2.modulate = Color.LIGHT_GREEN
@@ -203,8 +203,8 @@ func funky_theme():
 	get_parent().theme = preload("res://Themes/FunkyTheme/Funkytheme.tres")
 	%Panelt.self_modulate = Color.SKY_BLUE
 	%Paneln.self_modulate = Color.SKY_BLUE
-	%Panel.self_modulate = Color.SKY_BLUE
-	%Panel2.self_modulate = Color.SKY_BLUE
+	%PanelL1_2.self_modulate = Color.SKY_BLUE
+	%PanelL2_2.self_modulate = Color.SKY_BLUE
 	%Properties.self_modulate = Color.MEDIUM_SEA_GREEN
 	%LayersButtons.modulate = Color.SKY_BLUE
 	%LayersButtons2.modulate = Color.SKY_BLUE
