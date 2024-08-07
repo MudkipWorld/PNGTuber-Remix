@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/StateButton.gd" id="2_2ybu4"]
 
 [node name="StateButton" type="Button" groups=["StateButtons"]]
-custom_minimum_size = Vector2(25, 25)
+custom_minimum_size = Vector2(35, 35)
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 15
