@@ -54,6 +54,7 @@ func sliders_revalue(settings_dict):
 	%YAmpWobbleSlider.value = settings_dict.yAmp
 	%AutoSaveCheck.button_pressed = settings_dict.auto_save
 	%AutoSaveSpin.value = settings_dict.auto_save_timer
+	%BlinkSpeedSlider.value = settings_dict.blink_speed
 	
 	if %AutoSaveCheck.button_pressed:
 		%AutoSaveTimer.start()

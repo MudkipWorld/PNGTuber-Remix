@@ -356,7 +356,12 @@ func get_state(id):
 		rotation = dictmain.rotation
 #		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
 		
-		
+		if dictmain.should_blink:
+			if dictmain.open_eyes:
+				
+				%Pos.show()
+			else:
+				%Pos.hide()
 		speaking()
 		not_speaking()
 #		animation()

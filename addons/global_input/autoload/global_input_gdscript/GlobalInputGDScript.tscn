@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://iejpghgiofrp"]
+
+[ext_resource type="Script" path="res://addons/global_input/autoload/global_input_gdscript/global_input_gd_script.gd" id="1_nf3vv"]
+
+[node name="GlobalInputGdScript" type="Node"]
+script = ExtResource("1_nf3vv")

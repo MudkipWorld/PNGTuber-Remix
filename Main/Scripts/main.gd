@@ -238,28 +238,3 @@ func _notification(what):
 	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		rec_inp = true
 
-
-func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
-	if rec_inp:
-		if Global.settings_dict.checkinput:
-			var keyStrings = []
-			var costumeKeys = []
-			for l in get_tree().get_nodes_in_group("StateButtons"):
-				if InputMap.action_get_events(l.input_key).size() != 0:
-					costumeKeys.append(InputMap.action_get_events(l.input_key)[0].as_text())
-			
-			
-			for i in keys_pressed:
-				if keys_pressed[i]:
-					
-					keyStrings.append(OS.get_keycode_string(i))
-			
-			if %FileDialog.visible:
-				return
-				
-			
-			for key in keyStrings:
-				var i = costumeKeys.find(key)
-				if i >= 0:
-					print(i)
-					key_pressed.emit(i)
