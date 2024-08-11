@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=93 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -34,6 +34,14 @@
 [ext_resource type="Texture2D" uid="uid://fmhwpxa4hlo7" path="res://Template Model(s)/Icons/NormalIcon.png" id="30_c52oo"]
 [ext_resource type="Texture2D" uid="uid://bjxmdyue5pp2x" path="res://Template Model(s)/Icons/FollowMouseIcon.png" id="31_4m8rg"]
 [ext_resource type="Script" path="res://Scripts/ResizeLEFT.gd" id="34_0mitg"]
+[ext_resource type="Texture2D" uid="uid://byc1nc0xfubaq" path="res://TutorialAssets/Pickles/pickle1.png" id="34_bl305"]
+[ext_resource type="Texture2D" uid="uid://4u3y5i46130w" path="res://TutorialAssets/Pickles/pickle2.png" id="35_2e6lj"]
+[ext_resource type="Texture2D" uid="uid://c7wt5f2qinnlu" path="res://TutorialAssets/Pickles/pickle3.png" id="36_mvcg3"]
+[ext_resource type="Texture2D" uid="uid://d2jcon746n427" path="res://TutorialAssets/Pickles/pickle4.png" id="37_ubtp4"]
+[ext_resource type="Texture2D" uid="uid://c8p2b5v284wjd" path="res://TutorialAssets/Others/FreqAmpTimeGraph.png" id="38_6mlab"]
+[ext_resource type="Texture2D" uid="uid://d3djqlup2m5pc" path="res://TutorialAssets/Pickles/HighFrqSheet.png" id="39_8u2u8"]
+[ext_resource type="Texture2D" uid="uid://hrno6rnanx58" path="res://TutorialAssets/Others/FreqAmpTimeGraph2.png" id="39_q852i"]
+[ext_resource type="Texture2D" uid="uid://bqnn7ef13mlhn" path="res://TutorialAssets/Pickles/LowFrqSheet.png" id="40_pd5l1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcgtm"]
 bg_color = Color(0.227451, 0.580392, 0.431373, 1)
@@ -42,6 +50,363 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.196078, 0.415686, 0.345098, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_806ej"]
+animations = [{
+"frames": [{
+"duration": 6.0,
+"texture": ExtResource("34_bl305")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_2e6lj")
+}, {
+"duration": 4.0,
+"texture": ExtResource("34_bl305")
+}, {
+"duration": 5.0,
+"texture": ExtResource("36_mvcg3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_ubtp4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_mvcg3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e05t"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_608vs"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qu3a"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwghd"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d31no"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdd3a"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3yhc"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(600, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfd4o"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(900, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66q5y"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(1200, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xeur0"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(0, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6k634"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(300, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy1ix"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(600, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfmy8"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(900, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cvds"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(1200, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8kgv"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(0, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hosxu"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(600, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6shl2"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(900, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h71y7"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(1200, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0j2d"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(0, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtfk4"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(300, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8nwc"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(600, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cjj6"]
+atlas = ExtResource("39_8u2u8")
+region = Rect2(900, 1200, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8t4wo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e05t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_608vs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qu3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwghd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d31no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdd3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3yhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfd4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66q5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xeur0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6k634")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy1ix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfmy8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cvds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8kgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hosxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6shl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h71y7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0j2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtfk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8nwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cjj6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eedp0"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jph86"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ah17o"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dx1l"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mid1u"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rys1m"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2fvf"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(600, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk5nb"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(900, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ej1k"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(1200, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvcqs"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(0, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w8xr"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(300, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8ie6"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(600, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms6q2"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(900, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qitwx"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(1200, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdjbv"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(0, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36si8"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(300, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eiuyb"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(600, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r538"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(900, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8wg4"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(1200, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh0gc"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(0, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehqn7"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(300, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s37ct"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(600, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qflj5"]
+atlas = ExtResource("40_pd5l1")
+region = Rect2(900, 1200, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1uusd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eedp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jph86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ah17o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dx1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mid1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rys1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2fvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk5nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ej1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvcqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0w8xr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8ie6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms6q2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qitwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mdjbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36si8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eiuyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r538")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8wg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qh0gc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehqn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s37ct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qflj5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iakd"]
 
@@ -122,10 +487,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 455)
 layout_mode = 2
 theme_override_constants/side_margin = 1
-current_tab = 3
 
 [node name="Properties" type="Control" parent="RightPanel/Properties/VSplitContainer/ScrollContainer"]
-visible = false
 layout_mode = 2
 
 [node name="ScrollContainer1" type="ScrollContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties"]
@@ -889,6 +1252,7 @@ min_value = 1.0
 value = 1.0
 
 [node name="Misc" type="Control" parent="RightPanel/Properties/VSplitContainer/ScrollContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ScrollContainer5" type="ScrollContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Misc"]
@@ -1170,7 +1534,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 16
-text = "One Shot (Gif only)   "
+text = "One Shot "
 
 [node name="HBoxPhysics2" type="HBoxContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer"]
 layout_mode = 2
@@ -1424,7 +1788,7 @@ text = "React To Light       "
 
 [node name="LeftPanel" type="Panel" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(230, 630)
+custom_minimum_size = Vector2(240, 630)
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -1679,10 +2043,9 @@ offset_left = 0.0899997
 offset_top = 2.08398
 offset_right = -0.0200043
 offset_bottom = 1.22798
-min_value = 0.1
-max_value = 24.0
-step = 0.1
-value = 0.3
+min_value = 1.0
+max_value = 60.0
+value = 1.0
 
 [node name="PanelL" type="Control" parent="LeftPanel/VBox"]
 unique_name_in_owner = true
@@ -1839,8 +2202,9 @@ custom_minimum_size = Vector2(210, 70)
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.96
 offset_top = 60.0
+offset_bottom = -0.120026
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -2205,21 +2569,23 @@ icon_alignment = 1
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(400, 203)
+size = Vector2i(400, 251)
+wrap_controls = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp"]
 offset_left = 7.0
 offset_top = 8.0
 offset_right = 393.0
-offset_bottom = 195.0
+offset_bottom = 243.0
 
 [node name="CreditLabel" type="Label" parent="AboutPopUp/VBoxContainer"]
 layout_mode = 2
 text = "PNGTuber Remix by TheMime (MudkipWorld)
-Original PNGTuber+ Code by kaiakairos
-V1.3.3
-"
+Original PNGTuber+ Code by kaiakairos. Better UI by LeoRson.
+
+V1.3.4"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="AboutPopUp/VBoxContainer"]
 layout_mode = 2
@@ -2319,13 +2685,187 @@ expand_icon = true
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(600, 434)
+size = Vector2i(600, 437)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp"]
+[node name="TabContainer" type="TabContainer" parent="TutorialPopUp"]
 offset_left = 7.0
 offset_top = 8.0
 offset_right = 593.0
-offset_bottom = 426.0
+offset_bottom = 429.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/side_margin = 1
+theme_override_constants/icon_separation = 0
+
+[node name="What is PNGTubing?" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="TutorialPopUp/TabContainer/What is PNGTubing?"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TutorialPopUp/TabContainer/What is PNGTubing?/Control"]
+position = Vector2(480, 104)
+sprite_frames = SubResource("SpriteFrames_806ej")
+autoplay = "default"
+frame_progress = 0.317187
+
+[node name="Grid" type="GridContainer" parent="TutorialPopUp/TabContainer/What is PNGTubing?/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/What is PNGTubing?/Control/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "PNGTubing is a form of Vtubing.
+However, unlike Vtubing, it is
+much simpler and less costly.
+This is why it gained popularity
+in recent years. There are some
+different types of PNGTubing, this
+includes Static (like the model shown), Toon and
+Rigged. In this software -PNGTube-Remix-, you 
+can create both Static and Rigged! Even mix them
+up if needed. Hope you have fun!
+"
+
+[node name="Basic Concepts" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Control" type="Control" parent="TutorialPopUp/TabContainer/Basic Concepts"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Okay, so bear with me!, You might
+have noticed many sliders here 
+use Amp and Freq. If you don't 
+know how they work, here is a very
+basic explanation! Amplitude is 
+the main value, how high or low
+the object would reach, Frequency 
+is how fast the Amp takes to go 
+from + to - through given time.
+"
+
+[node name="TextureRect" type="TextureRect" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -301.0
+offset_top = 34.0
+offset_right = -1.0
+offset_bottom = 257.0
+grow_horizontal = 0
+texture = ExtResource("38_6mlab")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -301.0
+offset_top = -165.0
+offset_bottom = 59.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("39_q852i")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="FreqHigh" type="AnimatedSprite2D" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+position = Vector2(207, 313)
+scale = Vector2(0.43, 0.43)
+sprite_frames = SubResource("SpriteFrames_8t4wo")
+autoplay = "default"
+frame_progress = 0.678312
+
+[node name="FrqLow" type="AnimatedSprite2D" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+position = Vector2(68, 313)
+scale = Vector2(0.43, 0.43)
+sprite_frames = SubResource("SpriteFrames_1uusd")
+autoplay = "default"
+frame_progress = 0.336932
+
+[node name="Basic Controls" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp/TabContainer/Basic Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/Basic Controls/VBoxContainer"]
+layout_mode = 2
+text = "Held Sprite Inputs :
+- Moving Sprite : Click and drag around.
+- Move Origin : Arrow Keys or by holding Ctrl on your keyboard and pressing where you want the origin to be.
+- Scroll mouse wheel on sliders for more accurate results.
+
+Input Remap :
+- Click the button of the state you want. 
+
+to remap and then add the new button:
+- Change States with input : Captures Input
+when minimized if on.
+
+Control Bounce :
+- Click on bounce top bar to change the bounce and gravity to your desire."
+autowrap_mode = 2
+
+[node name="QNA" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp/TabContainer/QNA"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/QNA/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Who made this software?
+- TheMime (me) is the current main dev, buuut community help is still open and appreciated!
+
+Is this really PNGTubing or Vtubing or ???
+- This form of PNGTubing is the closest thing to Vtubing. Consider it a middle point I guess, lol. Still not as complex as real Vtuber models, so I personally thing it is PNGTubing still!
+
+Why is some of the code a bit of a mess?
+- When I first made this software, I barely knew much about coding, I won't lie when I tell you some code is embarrassing and I hope to improve it myself or with community help. You can find the source code's link in the credits!
+
+You mentioned ToonTubing in the the \"What is PNGTubing?\" tab. Will this ever get supported?
+- Maybe, I am currently working on a personal (private) demo to add a form of easy to understand visual scripting system to be able to pull this sort of stuff. Wish me luck lol!
+
+How can I support this project?
+- You can simply share it around (but please don't be annoying) and show off your model made in it. Adding credit at some point to the software would be nice!
+
+(If i ever got more common questions, will put them here!)"
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp"]
+visible = false
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 593.0
+offset_bottom = 429.0
 
 [node name="TutorialLabel" type="Label" parent="TutorialPopUp/VBoxContainer"]
 layout_mode = 2
@@ -2394,10 +2934,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = -3.824
-offset_top = -2.051
-offset_right = 2.01999
-offset_bottom = 2.05103
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 444.0
+offset_bottom = 521.0
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]

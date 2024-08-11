@@ -110,19 +110,22 @@ func animation():
 		if dictmain.hframes > 1:
 			coord = dictmain.hframes -1
 			if not coord <= 0:
-				if $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x == coord:
-					$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x = 0
+				if $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame == coord:
+					if dictmain.one_shot:
+						return
+					$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame = 0
 					
 				elif dictmain.hframes > 1:
-					$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.set_frame_coords(Vector2(clamp($Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x +1, 0,coord), 0))
+					$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.set_frame_coords(Vector2(clamp($Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame +1, 0,coord), 0))
 					
 		else:
 			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.set_frame_coords(Vector2(0, 0))
-		
-	$Animation.wait_time = dictmain.animation_speed
+	
+	
+	$Animation.wait_time = 1/dictmain.animation_speed 
 	$Animation.start()
-	await $Animation.timeout
-	animation()
+
+
 
 func _process(delta):
 	if Global.held_sprite == self:
@@ -405,7 +408,7 @@ func get_state(id):
 				if %Sprite2D.texture.normal_texture != null:
 					%Sprite2D.texture.normal_texture.current_frame = 0
 			elif dictmain.hframes > 1:
-				%Sprite2D.frame_coords.x = 0
+				%Sprite2D.frame = 0
 				print(%Sprite2D.frame)
 				
 			if img_animated:
@@ -514,3 +517,5 @@ func reparent_obj(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
 			reparent(i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+
+

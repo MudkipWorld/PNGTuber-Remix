@@ -29,10 +29,6 @@ Global="*res://Main/Scripts/Global.gd"
 SaveAndLoad="*res://Main/Scripts/SaveAndLoad.gd"
 GlobalAudioStreamPlayer="*res://Main/Scripts/AudioStreamPlayer.gd"
 
-[display]
-
-window/size/always_on_top=true
-
 [dotnet]
 
 project/assembly_name="GlobalInput"

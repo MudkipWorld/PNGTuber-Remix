@@ -147,3 +147,4 @@ wait_time = 0.12
 
 [connection signal="button_down" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_down"]
 [connection signal="button_up" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_up"]
+[connection signal="timeout" from="Animation" to="." method="animation"]

@@ -219,9 +219,10 @@ func held_sprite_is_true():
 	%FMxBSlider.get_node("SliderValue").editable = true
 	%FMYBSlider.get_node("SliderValue").editable = true
 	
-	if Global.held_sprite.img_animated:
-		%AnimationReset.disabled = false
-		%AnimationOneShot.disabled = false
+	
+	%AnimationOneShot.disabled = false
+	%AnimationReset.disabled = false
+	
 	
 	%Rainbow.disabled = false
 	%"Self-Rainbow Only".disabled = false
@@ -564,7 +565,7 @@ func _on_animation_frames_slider_value_changed(value):
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_animation_speed_slider_value_changed(value):
-	%AnimationSpeedLabel.text = "Animation Speed : " + str(value)
+	%AnimationSpeedLabel.text = "Animation Speed : " + str(value) + " Fps"
 	Global.held_sprite.dictmain.animation_speed = value
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
@@ -828,9 +829,10 @@ func _on_fmy_slider_value_changed(value):
 
 func _on_animation_one_shot_toggled(toggled_on):
 	Global.held_sprite.dictmain.one_shot = toggled_on
-	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.one_shot = toggled_on
-	if Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture != null:
-		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.one_shot = toggled_on
+	if Global.held_sprite.img_animated:
+		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.one_shot = toggled_on
+		if Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture != null:
+			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.one_shot = toggled_on
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_mini_rotation_level_value_changed(value):

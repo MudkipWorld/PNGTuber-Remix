@@ -101,6 +101,7 @@ func _on_file_dialog_file_selected(path):
 				Global.held_sprite.treeitem.set_icon(0, gif_tex)
 				
 				
+				
 
 			else:
 				var img = Image.load_from_file(path)
@@ -168,7 +169,10 @@ func _on_file_dialog_files_selected(paths):
 
 
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
-			sprte_obj.sprite_name = path.get_file()
+			sprte_obj.sprite_name = path.get_file().get_basename()
+			if sprte_obj.img_animated:
+				sprte_obj.sprite_name += " (Gif)"
+				
 			sprte_obj.states = []
 			var states = get_tree().get_nodes_in_group("StateButtons").size()
 			for i in states:
@@ -188,7 +192,7 @@ func _on_file_dialog_files_selected(paths):
 			var bg_sprte_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
 			bg_sprte_obj.texture = img_can
 			bg_sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
-			bg_sprte_obj.sprite_name = path.get_file()
+			bg_sprte_obj.sprite_name = path.get_file().get_basename()
 			%BGContainer.add_child(bg_sprte_obj)
 		
 			bg_sprite_nodes.append(bg_sprte_obj)
