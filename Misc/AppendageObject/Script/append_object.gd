@@ -101,6 +101,10 @@ var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
 var is_apng : bool = false
 
+var dt = 0.0
+var frames : Array[AImgIOFrame] = []
+var frames2 : Array[AImgIOFrame] = []
+var fidx = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -416,4 +420,28 @@ func reparent_obj(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
 			reparent(i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+
+
+func _physics_process(delta):
+	var cframe2: AImgIOFrame
+	if is_apng:
+		if len(frames) == 0:
+			return
+		if fidx >= len(frames):
+			fidx = 0
+		dt += delta
+		var cframe: AImgIOFrame = frames[fidx]
+		if %Sprite2D.texture.normal_texture:
+			cframe2= frames2[fidx]
+		if dt >= cframe.duration:
+			dt -= cframe.duration
+			fidx += 1
+		# yes this does this every _process, oh well
+		var tex = ImageTexture.create_from_image(cframe.content)
+		%Sprite2D.texture.diffuse_texture = tex
+		if %Sprite2D.texture.normal_texture:
+			if frames2.size() != frames.size():
+				frames2.resize(frames.size())
+			%Sprite2D.texture.normal_texture = ImageTexture.create_from_image(cframe2.content)
+		
 

@@ -19,13 +19,14 @@ func save_file(path):
 		sprt.save_state(Global.current_state)
 		var img
 		if sprt.is_apng:
-			pass
 			var exporter := AImgIOAPNGExporter.new()
 			img = exporter.export_animation(sprt.frames, 10, self, "_progress_report", [])
-			
+			exporter = AImgIOAPNGExporter.new()
+			var normal_img = exporter.export_animation(sprt.frames2, 10, self, "_progress_report", [])
 			
 			var sprt_dict = {
 				img = img,
+				normal = normal_img,
 				states = sprt.states,
 				is_apng = sprt.is_apng,
 				sprite_name = sprt.sprite_name,
@@ -199,8 +200,19 @@ func load_file(path):
 				sprite_obj.frames = tex
 				var cframe: AImgIOFrame = sprite_obj.frames[0]
 				var text = ImageTexture.create_from_image(cframe.content)
-				sprite_obj.texture = text
+				var img_can = CanvasTexture.new()
+				img_can.diffuse_texture = text
+		#		if sprite.normal:
+				var norm = AImgIOAPNGImporter.load_from_buffer(sprite.normal)
+				var texn = norm[1] as Array[AImgIOFrame]
+				sprite_obj.frames2 = texn
+				var cframe2: AImgIOFrame = sprite_obj.frames2[0]
+				var text2 = ImageTexture.create_from_image(cframe2.content)
+				img_can.normal_texture = text2
+				
+				sprite_obj.texture = img_can
 				sprite_obj.is_apng = true
+				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 			else:
 				if sprite.sprite_type != "Folder":
 					var img_data = Marshalls.base64_to_raw(sprite.img)

@@ -97,7 +97,8 @@ var dragging_type = "Null"
 @onready var og_glob = global_position
 
 var dt = 0.0
-var frames: Array[AImgIOFrame] = []
+var frames : Array[AImgIOFrame] = []
+var frames2 : Array[AImgIOFrame] = []
 var fidx = 0
 
 
@@ -417,11 +418,13 @@ func get_state(id):
 			elif dictmain.hframes > 1:
 				%Sprite2D.frame = 0
 				print(%Sprite2D.frame)
+			elif is_apng:
+				fidx = 0
 				
-			if img_animated:
-				%Sprite2D.texture.diffuse_texture.one_shot = dictmain.one_shot
-				if %Sprite2D.texture.normal_texture != null:
-					%Sprite2D.texture.normal_texture.one_shot = dictmain.one_shot
+		if img_animated:
+			%Sprite2D.texture.diffuse_texture.one_shot = dictmain.one_shot
+			if %Sprite2D.texture.normal_texture != null:
+				%Sprite2D.texture.normal_texture.one_shot = dictmain.one_shot
 			
 		
 		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.position = dictmain.offset 
@@ -448,6 +451,8 @@ func get_state(id):
 				%Pos.show()
 			else:
 				%Pos.hide()
+		
+		
 		visible = dictmain.visible
 		speaking()
 		not_speaking()
@@ -528,6 +533,7 @@ func reparent_obj(parent):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	var cframe2: AImgIOFrame
 	if is_apng:
 		if len(frames) == 0:
 			return
@@ -535,12 +541,19 @@ func _physics_process(delta):
 			fidx = 0
 		dt += delta
 		var cframe: AImgIOFrame = frames[fidx]
+		if %Sprite2D.texture.normal_texture:
+			cframe2= frames2[fidx]
 		if dt >= cframe.duration:
 			dt -= cframe.duration
 			fidx += 1
 		# yes this does this every _process, oh well
 		var tex = ImageTexture.create_from_image(cframe.content)
-		%Sprite2D.texture = tex
+		%Sprite2D.texture.diffuse_texture = tex
+		if %Sprite2D.texture.normal_texture:
+			if frames2.size() != frames.size():
+				frames2.resize(frames.size())
+			%Sprite2D.texture.normal_texture = ImageTexture.create_from_image(cframe2.content)
+		
 
 
 

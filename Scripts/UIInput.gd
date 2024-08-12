@@ -220,7 +220,8 @@ func held_sprite_is_true():
 	%FMYBSlider.get_node("SliderValue").editable = true
 	
 	
-	%AnimationOneShot.disabled = false
+	if !Global.held_sprite.is_apng:
+		%AnimationOneShot.disabled = false
 	%AnimationReset.disabled = false
 	
 	
@@ -323,7 +324,7 @@ func reinfo():
 	%ZOrderSpinbox.value = Global.held_sprite.dictmain.z_index
 	
 	
-	if not Global.held_sprite.dictmain.folder && !Global.held_sprite.is_apng:
+	if not Global.held_sprite.dictmain.folder:
 		
 		%CurrentSelectedNormal.texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture
 		%CurrentSelected.texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture

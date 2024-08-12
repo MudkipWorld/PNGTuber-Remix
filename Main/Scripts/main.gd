@@ -47,7 +47,7 @@ func load_sprites():
 
 
 func load_append_sprites():
-	%FileDialog.filters = ["*.png, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
+	%FileDialog.filters = ["*.png, *.gif, *.apng", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif", "*.apng"]
 	$FileDialog.file_mode = 1
 	current_state = State.AddAppend
 	%FileDialog.show()
@@ -56,22 +56,23 @@ func load_append_sprites():
 func replacing_sprite():
 	if Global.held_sprite != null:
 		if not Global.held_sprite.dictmain.folder:
-			%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
+			%FileDialog.filters = ["*.png, *.gif, *.apng", "*.jpeg", "*.jpg", "*.svg", "*.gif", "*.apng"]
 			$FileDialog.file_mode = 0
 			current_state = State.ReplaceSprite
 			%FileDialog.show()
 
 func add_normal_sprite():
 	if Global.held_sprite != null:
-		if !Global.held_sprite.is_apng:
-			if not Global.held_sprite.dictmain.folder:
-				if Global.held_sprite.img_animated:
-					%FileDialog.filters = ["*.gif"]
-				else:
-					%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
-				$FileDialog.file_mode = 0
-				current_state = State.AddNormal
-				%FileDialog.show()
+		if not Global.held_sprite.dictmain.folder:
+			if Global.held_sprite.img_animated:
+				%FileDialog.filters = ["*.gif"]
+			elif Global.held_sprite.is_apng:
+				%FileDialog.filters = ["*.png","*.apng"]
+			else:
+				%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+			$FileDialog.file_mode = 0
+			current_state = State.AddNormal
+			%FileDialog.show()
 
 func load_bg_sprites():
 	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
@@ -98,6 +99,7 @@ func _on_file_dialog_file_selected(path):
 				Global.held_sprite.texture = img_can
 				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 				Global.held_sprite.img_animated = true
+				Global.held_sprite.is_apng = false
 				Global.held_sprite.save_state(Global.current_state)
 				Global.held_sprite.treeitem.set_icon(0, gif_tex)
 				
@@ -105,15 +107,30 @@ func _on_file_dialog_file_selected(path):
 				
 
 			else:
-				var img = Image.load_from_file(path)
-				var texture = ImageTexture.create_from_image(img)
-				var img_can = CanvasTexture.new()
-				Global.held_sprite.img_animated = false
-				img_can.diffuse_texture = texture
-				Global.held_sprite.texture = img_can
-				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-				Global.held_sprite.save_state(Global.current_state)
-				Global.held_sprite.treeitem.set_icon(0, texture)
+				var apng_test = AImgIOAPNGImporter.load_from_file(path)
+				if apng_test != ["No frames", null]:
+					var img = AImgIOAPNGImporter.load_from_file(path)
+					var tex = img[1] as Array[AImgIOFrame]
+					Global.held_sprite.frames = tex
+					var cframe: AImgIOFrame = Global.held_sprite.frames[0]
+					var text = ImageTexture.create_from_image(cframe.content)
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = text
+					Global.held_sprite.texture = img_can
+					Global.held_sprite.treeitem.set_icon(0, text)
+					Global.held_sprite.is_apng = true
+					Global.held_sprite.img_animated = false
+				else:
+					var img = Image.load_from_file(path)
+					var texture = ImageTexture.create_from_image(img)
+					var img_can = CanvasTexture.new()
+					Global.held_sprite.img_animated = false
+					Global.held_sprite.is_apng = false
+					img_can.diffuse_texture = texture
+					Global.held_sprite.texture = img_can
+					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+					Global.held_sprite.save_state(Global.current_state)
+					Global.held_sprite.treeitem.set_icon(0, texture)
 			Global.get_sprite_states(Global.current_state)
 			
 			
@@ -125,9 +142,19 @@ func _on_file_dialog_file_selected(path):
 				Global.held_sprite.anim_texture_normal = g_file
 				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = gif_tex
 			else:
-				var img = Image.load_from_file(path)
-				var texture = ImageTexture.create_from_image(img)
-				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = texture
+				var apng_test = AImgIOAPNGImporter.load_from_file(path)
+				if apng_test != ["No frames", null]:
+					var img = AImgIOAPNGImporter.load_from_file(path)
+					var tex = img[1] as Array[AImgIOFrame]
+					Global.held_sprite.frames2 = tex
+					var cframe: AImgIOFrame = Global.held_sprite.frames2[0]
+					var text = ImageTexture.create_from_image(cframe.content)
+					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = text
+
+				else:
+					var img = Image.load_from_file(path)
+					var texture = ImageTexture.create_from_image(img)
+					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = texture
 			Global.get_sprite_states(Global.current_state)
 
 func _on_file_dialog_files_selected(paths):
@@ -163,17 +190,21 @@ func _on_file_dialog_files_selected(paths):
 					sprte_obj.frames = tex
 					var cframe: AImgIOFrame = sprte_obj.frames[0]
 					var text = ImageTexture.create_from_image(cframe.content)
-					sprte_obj.texture = text
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = text
+					sprte_obj.texture = img_can
 					sprte_obj.is_apng = true
+					sprte_obj.sprite_name = "(Apng) " + path.get_file().get_basename() 
 					
 				else:
-				
-					var img = Image.load_from_file(path)
-					var texture = ImageTexture.create_from_image(img)
-					var img_can = CanvasTexture.new()
-					img_can.diffuse_texture = texture
-					sprte_obj.texture = img_can
-					sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+					if !Global.held_sprite.is_apng:
+						var img = Image.load_from_file(path)
+						var texture = ImageTexture.create_from_image(img)
+						var img_can = CanvasTexture.new()
+						img_can.diffuse_texture = texture
+						sprte_obj.texture = img_can
+						sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+						sprte_obj.sprite_name = path.get_file().get_basename()
 				
 				sprte_obj.img_animated = false
 
@@ -182,9 +213,8 @@ func _on_file_dialog_files_selected(paths):
 
 
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
-			sprte_obj.sprite_name = path.get_file().get_basename()
 			if sprte_obj.img_animated:
-				sprte_obj.sprite_name += " (Gif)"
+				sprte_obj.sprite_name = "(Gif) " + path.get_file().get_basename() 
 				
 			sprte_obj.states = []
 			var states = get_tree().get_nodes_in_group("StateButtons").size()
