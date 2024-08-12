@@ -323,7 +323,8 @@ func reinfo():
 	%ZOrderSpinbox.value = Global.held_sprite.dictmain.z_index
 	
 	
-	if not Global.held_sprite.dictmain.folder:
+	if not Global.held_sprite.dictmain.folder && !Global.held_sprite.is_apng:
+		
 		%CurrentSelectedNormal.texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture
 		%CurrentSelected.texture = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture
 	else:
@@ -671,8 +672,9 @@ func _on_add_normal_button_pressed():
 
 func _on_del_normal_button_pressed():
 	if Global.held_sprite != null:
-		if not Global.held_sprite.dictmain.folder:
-			Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = null
+		if !Global.held_sprite.is_apng:
+			if not Global.held_sprite.dictmain.folder:
+				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = null
 #endregion
 
 #region size stuff

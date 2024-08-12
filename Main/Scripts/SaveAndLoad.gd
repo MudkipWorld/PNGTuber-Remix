@@ -18,32 +18,50 @@ func save_file(path):
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
 		var img
-		if sprt.img_animated:
-			img = sprt.anim_texture
+		if sprt.is_apng:
+			pass
+			var exporter := AImgIOAPNGExporter.new()
+			img = exporter.export_animation(sprt.frames, 10, self, "_progress_report", [])
+			
+			
+			var sprt_dict = {
+				img = img,
+				states = sprt.states,
+				is_apng = sprt.is_apng,
+				sprite_name = sprt.sprite_name,
+				sprite_id = sprt.sprite_id,
+				parent_id = sprt.parent_id,
+				sprite_type = sprt.sprite_type
+			}
+			sprites_array.append(sprt_dict)
+			
 		else:
-			if sprt.sprite_type != "Folder":
-				img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
-		var normal_img
-		
-		if sprt.sprite_type != "Folder":
-			if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
-				if sprt.img_animated:
-					normal_img = sprt.anim_texture_normal
-				else:
-					normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
+			if sprt.img_animated:
+				img = sprt.anim_texture
 			else:
-				normal_img = null
-		var sprt_dict = {
-			img = img,
-			normal = normal_img,
-			states = sprt.states,
-			img_animated = sprt.img_animated,
-			sprite_name = sprt.sprite_name,
-			sprite_id = sprt.sprite_id,
-			parent_id = sprt.parent_id,
-			sprite_type = sprt.sprite_type
-		}
-		sprites_array.append(sprt_dict)
+				if sprt.sprite_type != "Folder":
+					img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
+			var normal_img
+			
+			if sprt.sprite_type != "Folder":
+				if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
+					if sprt.img_animated:
+						normal_img = sprt.anim_texture_normal
+					else:
+						normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
+				else:
+					normal_img = null
+			var sprt_dict = {
+				img = img,
+				normal = normal_img,
+				states = sprt.states,
+				img_animated = sprt.img_animated,
+				sprite_name = sprt.sprite_name,
+				sprite_id = sprt.sprite_id,
+				parent_id = sprt.parent_id,
+				sprite_type = sprt.sprite_type
+			}
+			sprites_array.append(sprt_dict)
 	
 	for sprt in bg_sprites:
 		sprt.save_state(Global.current_state)
@@ -175,23 +193,32 @@ func load_file(path):
 				
 				
 		else:
-			if sprite.sprite_type != "Folder":
-				var img_data = Marshalls.base64_to_raw(sprite.img)
-				var img = Image.new()
-				img.load_png_from_buffer(img_data)
-				var img_tex = ImageTexture.new()
-				img_tex.set_image(img)
-				var img_can = CanvasTexture.new()
-				img_can.diffuse_texture = img_tex
-				if sprite.has("normal"):
-					if sprite.normal != null:
-						var img_normal = Marshalls.base64_to_raw(sprite.normal)
-						var nimg = Image.new()
-						nimg.load_png_from_buffer(img_normal)
-						var nimg_tex = ImageTexture.new()
-						nimg_tex.set_image(nimg)
-						img_can.normal_texture = nimg_tex
-				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+			if sprite.has("is_apng"):
+				var img = AImgIOAPNGImporter.load_from_buffer(sprite.img)
+				var tex = img[1] as Array[AImgIOFrame]
+				sprite_obj.frames = tex
+				var cframe: AImgIOFrame = sprite_obj.frames[0]
+				var text = ImageTexture.create_from_image(cframe.content)
+				sprite_obj.texture = text
+				sprite_obj.is_apng = true
+			else:
+				if sprite.sprite_type != "Folder":
+					var img_data = Marshalls.base64_to_raw(sprite.img)
+					var img = Image.new()
+					img.load_png_from_buffer(img_data)
+					var img_tex = ImageTexture.new()
+					img_tex.set_image(img)
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = img_tex
+					if sprite.has("normal"):
+						if sprite.normal != null:
+							var img_normal = Marshalls.base64_to_raw(sprite.normal)
+							var nimg = Image.new()
+							nimg.load_png_from_buffer(img_normal)
+							var nimg_tex = ImageTexture.new()
+							nimg_tex.set_image(nimg)
+							img_can.normal_texture = nimg_tex
+					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 			
 				
 			

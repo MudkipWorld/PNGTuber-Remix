@@ -91,9 +91,16 @@ var smooth_glob = Vector2(0.0,0.0)
 var anim_texture 
 var anim_texture_normal 
 var img_animated : bool = false
+var is_apng : bool = false
 
 var dragging_type = "Null"
 @onready var og_glob = global_position
+
+var dt = 0.0
+var frames: Array[AImgIOFrame] = []
+var fidx = 0
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	og_glob = dictmain.global_position
@@ -517,5 +524,24 @@ func reparent_obj(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
 			reparent(i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta):
+	if is_apng:
+		if len(frames) == 0:
+			return
+		if fidx >= len(frames):
+			fidx = 0
+		dt += delta
+		var cframe: AImgIOFrame = frames[fidx]
+		if dt >= cframe.duration:
+			dt -= cframe.duration
+			fidx += 1
+		# yes this does this every _process, oh well
+		var tex = ImageTexture.create_from_image(cframe.content)
+		%Sprite2D.texture = tex
+
+
 
 

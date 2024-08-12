@@ -40,7 +40,7 @@ func save_as_file():
 	%FileDialog.show()
 
 func load_sprites():
-	%FileDialog.filters = ["*.png, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif"]
+	%FileDialog.filters = ["*.png, *.gif, *.apng", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.gif", "*.apng"]
 	$FileDialog.file_mode = 1
 	current_state = State.LoadSprites
 	%FileDialog.show()
@@ -63,14 +63,15 @@ func replacing_sprite():
 
 func add_normal_sprite():
 	if Global.held_sprite != null:
-		if not Global.held_sprite.dictmain.folder:
-			if Global.held_sprite.img_animated:
-				%FileDialog.filters = ["*.gif"]
-			else:
-				%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
-			$FileDialog.file_mode = 0
-			current_state = State.AddNormal
-			%FileDialog.show()
+		if !Global.held_sprite.is_apng:
+			if not Global.held_sprite.dictmain.folder:
+				if Global.held_sprite.img_animated:
+					%FileDialog.filters = ["*.gif"]
+				else:
+					%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+				$FileDialog.file_mode = 0
+				current_state = State.AddNormal
+				%FileDialog.show()
 
 func load_bg_sprites():
 	%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
@@ -155,15 +156,27 @@ func _on_file_dialog_files_selected(paths):
 			
 			
 			else:
-				var img = Image.load_from_file(path)
-				var texture = ImageTexture.create_from_image(img)
-				var img_can = CanvasTexture.new()
-				img_can.diffuse_texture = texture
-				sprte_obj.texture = img_can
-				sprte_obj.img_animated = false
-				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				var apng_test = AImgIOAPNGImporter.load_from_file(path)
+				if apng_test != ["No frames", null]:
+					var img = AImgIOAPNGImporter.load_from_file(path)
+					var tex = img[1] as Array[AImgIOFrame]
+					sprte_obj.frames = tex
+					var cframe: AImgIOFrame = sprte_obj.frames[0]
+					var text = ImageTexture.create_from_image(cframe.content)
+					sprte_obj.texture = text
+					sprte_obj.is_apng = true
+					
+				else:
 				
-				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+					var img = Image.load_from_file(path)
+					var texture = ImageTexture.create_from_image(img)
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = texture
+					sprte_obj.texture = img_can
+					sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				
+				sprte_obj.img_animated = false
+
 
 			sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 

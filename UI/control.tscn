@@ -2576,7 +2576,7 @@ wrap_controls = false
 offset_left = 7.0
 offset_top = 8.0
 offset_right = 393.0
-offset_bottom = 243.0
+offset_bottom = 529.0
 
 [node name="CreditLabel" type="Label" parent="AboutPopUp/VBoxContainer"]
 layout_mode = 2
