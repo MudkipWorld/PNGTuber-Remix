@@ -4,17 +4,31 @@ extends Node
 var theme_settings : Dictionary = {
 	theme_id = 0,
 	auto_load = false,
+	save_on_exit = false,
 	path = "",
 	
 	
 }
+@onready var os_path = OS.get_executable_path().get_base_dir()
+
+func _exit_tree():
+	if theme_settings.save_on_exit:
+		if FileAccess.file_exists(theme_settings.path):
+			SaveAndLoad.save_file(theme_settings.path)
+		else:
+			DirAccess.make_dir_absolute(os_path + "/AutoSaves")
+			
+			SaveAndLoad.save_file(OS.get_executable_path().get_base_dir() + "/AutoSaves" + "/" + str(randi()))
+		save()
 
 func save():
 	var file = FileAccess
 	var save_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
+	if FileAccess.file_exists(theme_settings.path):
+		SaveAndLoad.save_file(theme_settings.path)
 	save_file.store_var(theme_settings)
 	save_file.close()
-	print("saved")
+#	print("saved")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,18 +40,19 @@ func _ready():
 	%UIThemeButton.add_item("Green", 5)
 	%UIThemeButton.add_item("Funky", 6)
 	
-	print(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat")
+#	print(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat")
 	var file = FileAccess
 	if file.file_exists(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat"):
 		var load_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.READ)
 		var info = load_file.get_var()
 		if info is Dictionary:
 			theme_settings.merge(info, true)
-			print(theme_settings)
+		#	print(theme_settings)
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
 			
 			%AutoLoadCheck.button_pressed = theme_settings.auto_load
+			%SaveOnExitCheck.button_pressed = theme_settings.save_on_exit
 			if theme_settings.auto_load:
 				if FileAccess.file_exists(theme_settings.path):
 					await get_tree().create_timer(0.02).timeout
@@ -219,3 +234,7 @@ func funky_theme():
 func _on_auto_load_check_toggled(toggled_on):
 	theme_settings.auto_load = toggled_on
 	save()
+
+
+func _on_save_on_exit_check_toggled(toggled_on):
+	theme_settings.save_on_exit = toggled_on

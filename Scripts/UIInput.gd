@@ -141,6 +141,10 @@ func held_sprite_is_null():
 	
 	%MiniRotationLevelBSlider.get_node("SliderValue").editable = false
 	%MaxRotationLevelBSlider.get_node("SliderValue").editable = false
+	%IsAssetCheck.disabled = true
+	%IsAssetButton.disabled = true
+	%RemoveAssetButton.disabled = true
+	
 
 
 func held_sprite_is_true():
@@ -233,6 +237,11 @@ func held_sprite_is_true():
 	
 	%MiniRotationLevelBSlider.get_node("SliderValue").editable = true
 	%MaxRotationLevelBSlider.get_node("SliderValue").editable = true
+	
+	%IsAssetCheck.disabled = false
+	%IsAssetButton.disabled = false
+	%RemoveAssetButton.disabled = false
+	%IsAssetButton.text = "Null"
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -399,6 +408,10 @@ func reinfo():
 	
 	%MiniRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMin
 	%MaxRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMax
+	
+	%IsAssetCheck.button_pressed = Global.held_sprite.is_asset
+	%IsAssetButton.action = str(Global.held_sprite.sprite_id)
+	%IsAssetButton.update_key_text()
 
 func update_pos_spins():
 	%PosXSpinBox.value = Global.held_sprite.global_position.x

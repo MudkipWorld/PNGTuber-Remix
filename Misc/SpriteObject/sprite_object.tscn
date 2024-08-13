@@ -103,6 +103,7 @@ use_parent_material = true
 use_parent_material = true
 
 [node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
+unique_name_in_owner = true
 use_parent_material = true
 
 [node name="Rotation" type="Node2D" parent="Pos/Wobble/Squish/Drag"]

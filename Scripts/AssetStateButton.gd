@@ -1,9 +1,7 @@
 extends Button
-class_name RemapButton
-
 
 @export var action: String
-var saved_event : InputEvent
+
 
 func _init():
 	toggle_mode = true
@@ -16,14 +14,15 @@ func _ready():
 
 
 func _toggled(_button_pressed):
-	set_process_unhandled_input(_button_pressed)
-	if _button_pressed:
-		text = "... Awaiting Input ..."
-		release_focus()
-	else:
-		update_key_text()
-		grab_focus()
-		
+	if %IsAssetCheck.button_pressed:
+		set_process_unhandled_input(_button_pressed)
+		if _button_pressed:
+			text = "... Awaiting Input ..."
+			release_focus()
+		else:
+			update_key_text()
+			grab_focus()
+			
 
 func _unhandled_input(event):
 	if not event is InputEventMouseMotion:
@@ -42,15 +41,26 @@ func update_key_text():
 		text = "Null"
 
 func update_stuff():
-	if saved_event != null:
+	if Global.held_sprite.saved_event != null:
 		InputMap.action_erase_events(action)
-		InputMap.action_add_event(action, saved_event)
+		InputMap.action_add_event(action, Global.held_sprite.saved_event)
 		
 		update_key_text()
 
-func _on_remove_pressed():
+func _on_remove_asset_button_pressed():
 	if InputMap.action_get_events(action).size() != 0:
 		InputMap.action_erase_events(action)
 		update_key_text()
 
 
+func _on_is_asset_check_toggled(toggled_on):
+	if toggled_on:
+		if !InputMap.has_action(action):
+			InputMap.add_action(action)
+	else:
+		if InputMap.has_action(action):
+			InputMap.erase_action(action)
+			Global.held_sprite.saved_event = null
+			update_key_text()
+	
+	Global.held_sprite.is_asset = toggled_on

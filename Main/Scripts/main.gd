@@ -197,15 +197,14 @@ func _on_file_dialog_files_selected(paths):
 					sprte_obj.sprite_name = "(Apng) " + path.get_file().get_basename() 
 					
 				else:
-					if !Global.held_sprite.is_apng:
-						var img = Image.load_from_file(path)
-						var texture = ImageTexture.create_from_image(img)
-						var img_can = CanvasTexture.new()
-						img_can.diffuse_texture = texture
-						sprte_obj.texture = img_can
-						sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-						sprte_obj.sprite_name = path.get_file().get_basename()
-				
+					var img = Image.load_from_file(path)
+					var texture = ImageTexture.create_from_image(img)
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = texture
+					sprte_obj.texture = img_can
+					sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+					sprte_obj.sprite_name = path.get_file().get_basename()
+			
 				sprte_obj.img_animated = false
 
 
@@ -253,6 +252,8 @@ func clear_sprites():
 	$Control/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree.clear()
 	$Control/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree.clear()
 	for i in get_tree().get_nodes_in_group("Sprites"):
+		if InputMap.has_action(str(i.sprite_id)):
+			InputMap.erase_action(str(i.sprite_id))
 		i.queue_free()
 	for i in get_tree().get_nodes_in_group("BackgroundStuff"):
 		i.queue_free()

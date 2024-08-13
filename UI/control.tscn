@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=94 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/ZoomOutButton.png" id="8_46wi4"]
 [ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/DupButton.png" id="8_r6auv"]
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="9_jhnap"]
+[ext_resource type="Script" path="res://Scripts/AssetStateButton.gd" id="10_62mcs"]
 [ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="10_efci7"]
 [ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="10_m6pfk"]
 [ext_resource type="Texture2D" uid="uid://diyx30a4yqalc" path="res://UI/NormalMapButton.png" id="16_l1e6k"]
@@ -510,6 +511,8 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="Container" type="Container" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
@@ -740,6 +743,34 @@ layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 16
 text = "Clip Children"
+
+[node name="HBoxAsset" type="HBoxContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
+layout_mode = 2
+
+[node name="IsAssetCheck" type="CheckBox" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Is an Toggle Asset"
+
+[node name="IsAssetButton" type="Button" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(129, 0)
+layout_mode = 2
+text = "Null"
+script = ExtResource("10_62mcs")
+
+[node name="RemoveAssetButton" type="TextureButton" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset"]
+unique_name_in_owner = true
+self_modulate = Color(1, 0.380392, 0.298039, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("9_jhnap")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="Movement" type="Control" parent="RightPanel/Properties/VSplitContainer/ScrollContainer"]
 visible = false
@@ -2923,7 +2954,7 @@ from the original software and improve existing ones."
 unique_name_in_owner = true
 gui_embed_subwindows = true
 initial_position = 2
-size = Vector2i(451, 529)
+size = Vector2i(453, 566)
 unresizable = false
 borderless = false
 
@@ -2934,10 +2965,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = -3.824
-offset_top = -2.051
-offset_right = 2.01999
-offset_bottom = 2.05103
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 446.0
+offset_bottom = 558.0
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3061,6 +3092,24 @@ size_flags_horizontal = 0
 size_flags_vertical = 2
 text = "Auto-Load Model : "
 alignment = 1
+
+[node name="HBox2" type="HBoxContainer" parent="InputsPopup/VBoxContainer2/GridContainer"]
+layout_mode = 2
+
+[node name="SaveOnExitCheck" type="CheckButton" parent="InputsPopup/VBoxContainer2/GridContainer/HBox2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+text = "Save Date On Exit  : "
+alignment = 1
+
+[node name="Label" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer/HBox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "(Helps remember toggled assets)"
+vertical_alignment = 1
 
 [node name="HBox" type="HBoxContainer" parent="InputsPopup/VBoxContainer2/GridContainer"]
 layout_mode = 2
@@ -3345,6 +3394,8 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxPhysics/Physics" to="UIInput" method="_on_physics_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ClipChildren" to="UIInput" method="_on_check_box_toggled"]
+[connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetCheck" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_is_asset_check_toggled"]
+[connection signal="pressed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/RemoveAssetButton" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_remove_asset_button_pressed"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/ShouldRotCheck" to="UIInput" method="_on_should_rot_check_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/FollowWiggleAppTip" to="UIInput" method="_on_follow_wiggle_app_tip_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]
@@ -3418,6 +3469,7 @@ presets_visible = false
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/AntiAlCheck" to="TopBarInput" method="_on_anti_al_check_toggled"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/AutoLoadCheck" to="_Themes_" method="_on_auto_load_check_toggled"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/HBox2/SaveOnExitCheck" to="_Themes_" method="_on_save_on_exit_check_toggled"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveCheck" to="TopBarInput" method="_on_auto_save_check_toggled"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveSpin" to="TopBarInput" method="_on_auto_save_spin_value_changed"]
 [connection signal="timeout" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveTimer" to="TopBarInput" method="_on_auto_save_timer_timeout"]

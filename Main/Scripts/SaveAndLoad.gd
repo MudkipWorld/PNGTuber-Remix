@@ -32,7 +32,10 @@ func save_file(path):
 				sprite_name = sprt.sprite_name,
 				sprite_id = sprt.sprite_id,
 				parent_id = sprt.parent_id,
-				sprite_type = sprt.sprite_type
+				sprite_type = sprt.sprite_type,
+				is_asset = sprt.is_asset,
+				saved_event = sprt.saved_event,
+				was_active_before = sprt.was_active_before,
 			}
 			sprites_array.append(sprt_dict)
 			
@@ -60,7 +63,10 @@ func save_file(path):
 				sprite_name = sprt.sprite_name,
 				sprite_id = sprt.sprite_id,
 				parent_id = sprt.parent_id,
-				sprite_type = sprt.sprite_type
+				sprite_type = sprt.sprite_type,
+				is_asset = sprt.is_asset,
+				saved_event = sprt.saved_event,
+				was_active_before = sprt.was_active_before,
 			}
 			sprites_array.append(sprt_dict)
 	
@@ -157,6 +163,18 @@ func load_file(path):
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 
 		sprite_obj.states = sprite.states
+		
+		if sprite.has("is_asset"):
+			sprite_obj.is_asset = sprite.is_asset
+			sprite_obj.saved_event = sprite.saved_event
+			if sprite_obj.is_asset:
+				sprite_obj.get_node("%Drag").visible = sprite.was_active_before
+				sprite_obj.was_active_before = sprite.was_active_before
+				InputMap.add_action(str(sprite.sprite_id))
+				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+				
+		
+		
 		
 		if sprite.has("img_animated"):
 			if sprite.img_animated:

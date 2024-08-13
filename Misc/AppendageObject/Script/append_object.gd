@@ -106,6 +106,10 @@ var frames : Array[AImgIOFrame] = []
 var frames2 : Array[AImgIOFrame] = []
 var fidx = 0
 
+var saved_event : InputEvent
+var is_asset : bool = false
+var was_active_before : bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.blink.connect(blink)
@@ -443,5 +447,12 @@ func _physics_process(delta):
 			if frames2.size() != frames.size():
 				frames2.resize(frames.size())
 			%Sprite2D.texture.normal_texture = ImageTexture.create_from_image(cframe2.content)
+		
+	
+	if is_asset:
+		if InputMap.has_action(str(sprite_id)):
+			if GlobalInput.is_action_just_pressed(str(sprite_id)):
+				%Drag.visible = !%Drag.visible
+				was_active_before = %Drag.visible
 		
 
