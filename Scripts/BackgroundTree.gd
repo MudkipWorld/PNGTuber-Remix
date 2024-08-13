@@ -10,12 +10,6 @@ signal sprite_bg_info
 func _ready():
 	Global.reinfo.connect(update_visib_buttons)
 	set_drop_mode_flags(3)
-	var root = create_item()
-	root.set_text(0, "ROOT")
-	for i in 10:
-		var item = create_item(root)
-		item.set_text(0, "Item %s" % (i+1))
-		
 	bg_popup.connect("id_pressed",choosing_bg_popup)
 
 

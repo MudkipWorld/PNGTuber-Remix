@@ -1,7 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://nqtn377c0xup"]
-
-[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="1_jdm07"]
-[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="2_c4bkn"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://nqtn377c0xup"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pxpf"]
 content_margin_left = 4.0
@@ -201,8 +198,8 @@ TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_6jcu0")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_0n6va")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_3ni74")
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
-Tree/icons/arrow = ExtResource("1_jdm07")
-Tree/icons/arrow_collapsed = ExtResource("2_c4bkn")
-Tree/icons/select_arrow = ExtResource("1_jdm07")
+Tree/icons/arrow = null
+Tree/icons/arrow_collapsed = null
+Tree/icons/select_arrow = null
 Tree/styles/focus = SubResource("StyleBoxEmpty_q82rr")
 Tree/styles/panel = SubResource("StyleBoxEmpty_pgroq")

@@ -1,9 +1,7 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://c5v4ocnimqa4i"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://c5v4ocnimqa4i"]
 
 [ext_resource type="StyleBox" uid="uid://dt6ohhswi3vpx" path="res://Themes/WhiteTheme/ButtonPressed.tres" id="1_eajkr"]
 [ext_resource type="StyleBox" uid="uid://musbk38v1ou4" path="res://Themes/WhiteTheme/Buttonbase.tres" id="2_3ggix"]
-[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="3_upjow"]
-[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="4_te2p4"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_vn4vb"]
 color = Color(0.25098, 0.25098, 0.25098, 1)
@@ -156,8 +154,8 @@ TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_ghwgg")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_dhfhd")
 Tree/colors/drop_position_color = Color(1, 1, 1, 1)
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
-Tree/icons/arrow = ExtResource("3_upjow")
-Tree/icons/arrow_collapsed = ExtResource("4_te2p4")
-Tree/icons/select_arrow = ExtResource("3_upjow")
+Tree/icons/arrow = null
+Tree/icons/arrow_collapsed = null
+Tree/icons/select_arrow = null
 Tree/styles/focus = SubResource("StyleBoxEmpty_mgdks")
 Tree/styles/panel = SubResource("StyleBoxEmpty_jnojd")

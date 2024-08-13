@@ -1,9 +1,7 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://c3qcvnoy1b7x8"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://c3qcvnoy1b7x8"]
 
 [ext_resource type="StyleBox" uid="uid://dayf2gx72sev3" path="res://Themes/BlueTheme/ButtonBase.tres" id="1_vj17i"]
 [ext_resource type="StyleBox" uid="uid://cwdlpr6rdbrlu" path="res://Themes/BlueTheme/ButtonPressed.tres" id="2_8eny3"]
-[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="3_fmtud"]
-[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="4_xa38f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_di57v"]
 content_margin_left = 4.0
@@ -186,8 +184,8 @@ TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_08yhu")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_yutpl")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fmk5a")
 Tree/colors/font_color = Color(0.811765, 0.937255, 0.913725, 1)
-Tree/icons/arrow = ExtResource("3_fmtud")
-Tree/icons/arrow_collapsed = ExtResource("4_xa38f")
-Tree/icons/select_arrow = ExtResource("3_fmtud")
+Tree/icons/arrow = null
+Tree/icons/arrow_collapsed = null
+Tree/icons/select_arrow = null
 Tree/styles/focus = SubResource("StyleBoxEmpty_frah0")
 Tree/styles/panel = SubResource("StyleBoxEmpty_5xnc2")
