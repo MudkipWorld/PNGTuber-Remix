@@ -30,6 +30,11 @@ Global="*res://Main/Scripts/Global.gd"
 SaveAndLoad="*res://Main/Scripts/SaveAndLoad.gd"
 GlobalAudioStreamPlayer="*res://Main/Scripts/AudioStreamPlayer.gd"
 
+[display]
+
+window/size/transparent=true
+window/per_pixel_transparency/allowed=true
+
 [dotnet]
 
 project/assembly_name="GlobalInput"
@@ -75,3 +80,4 @@ x={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/transparent_background=true

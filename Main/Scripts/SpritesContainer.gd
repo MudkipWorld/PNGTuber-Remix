@@ -45,17 +45,18 @@ func _process(delta):
 		elif current_mc_anim == "Squish":
 			set_mo_squish()
 	elif not currenly_speaking:
-		if Global.settings_dict.darken:
-			modulate = lerp(modulate, Global.settings_dict.dim_color, 0.08)
-		else:
-			modulate = Color.WHITE
-		
 		if current_mc_anim == "Bouncy":
 			set_mc_bouncy()
 		elif current_mc_anim == "Wobble":
 			set_mc_wobble()
 		elif current_mc_anim == "Squish":
 			set_mc_squish()
+
+	if Global.settings_dict.darken && !currenly_speaking:
+		modulate = lerp(modulate, Global.settings_dict.dim_color, 0.08)
+	else:
+		modulate = Color.WHITE
+
 
 func save_state(id):
 	var dict = {

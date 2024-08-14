@@ -3,7 +3,6 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	delete_all_states()
-	await get_tree().create_timer(0.01).timeout
 	initial_state()
 
 func initial_state():
@@ -27,6 +26,7 @@ func _on_delete_state_pressed():
 		
 		state_btn[Global.current_state].queue_free()
 		
+		Global.settings_dict.saved_inputs.remove_at(Global.current_state)
 		Global.settings_dict.states.remove_at(Global.current_state)
 		Global.settings_dict.light_states.remove_at(Global.current_state)
 		
@@ -69,6 +69,7 @@ func _on_add_state_pressed():
 	add_state()
 
 func delete_all_states():
+	Global.settings_dict.saved_inputs.clear()
 	var state_remap = get_tree().get_nodes_in_group("StateRemapButton")
 	var state_btn  = get_tree().get_nodes_in_group("StateButtons")
 		

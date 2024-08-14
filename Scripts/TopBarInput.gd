@@ -15,6 +15,7 @@ var devices : Array = []
 var path = null
 
 func _ready():
+	get_viewport().transparent_bg = false
 	RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 	files.get_popup().connect("id_pressed",choosing_files)
 	mode.get_popup().connect("id_pressed",choosing_mode)
@@ -31,6 +32,8 @@ func _ready():
 	print(OS.get_executable_path().get_base_dir() + "/autosaves")
 	if !DirAccess.dir_exists_absolute(OS.get_executable_path().get_base_dir() + "/autosaves"):
 		DirAccess.make_dir_absolute(OS.get_executable_path().get_base_dir() + "/autosaves")
+		
+
 
 func choosing_device(id):
 	if id != null:

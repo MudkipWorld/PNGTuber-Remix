@@ -10,6 +10,9 @@ func _init():
 	
 	
 func _ready():
+	if !get_parent().get_index() in range(Global.settings_dict.saved_inputs.size()):
+		Global.settings_dict.saved_inputs.append(null)
+
 	set_process_unhandled_input(false)
 	update_key_text()
 
@@ -27,6 +30,10 @@ func _toggled(_button_pressed):
 func _unhandled_input(event):
 	if not event is InputEventMouseMotion:
 		if event.is_released():
+			if !get_parent().get_index() in range(Global.settings_dict.saved_inputs.size()):
+				Global.settings_dict.saved_inputs.append(event)
+			else:
+				Global.settings_dict.saved_inputs[get_parent().get_index()] = event
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, event)
 			saved_event = event
@@ -44,8 +51,7 @@ func update_stuff():
 	if saved_event != null:
 		InputMap.action_erase_events(action)
 		InputMap.action_add_event(action, saved_event)
-		
-		update_key_text()
+	update_key_text()
 
 func _on_remove_pressed():
 	if InputMap.action_get_events(action).size() != 0:

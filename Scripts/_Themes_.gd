@@ -24,9 +24,6 @@ func _exit_tree():
 func save():
 	var file = FileAccess
 	var save_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
-	if FileAccess.file_exists(theme_settings.path):
-		if get_tree().get_nodes_in_group("Sprites").size() > 0:
-			SaveAndLoad.save_file(theme_settings.path)
 	save_file.store_var(theme_settings)
 	save_file.close()
 #	print("saved")
@@ -53,7 +50,7 @@ func _ready():
 			loaded_UI(theme_settings.theme_id)
 			
 			%AutoLoadCheck.button_pressed = theme_settings.auto_load
-			%SaveOnExitCheck.button_pressed = theme_settings.save_on_exit
+			
 			if theme_settings.auto_load:
 				if FileAccess.file_exists(theme_settings.path):
 					await get_tree().create_timer(0.02).timeout
@@ -67,7 +64,7 @@ func _ready():
 		create_file.store_var(theme_settings)
 		create_file.close()
 		purple_theme()
-
+	%SaveOnExitCheck.button_pressed = theme_settings.save_on_exit
 
 func loaded_UI(id):
 	match id:
@@ -239,3 +236,4 @@ func _on_auto_load_check_toggled(toggled_on):
 
 func _on_save_on_exit_check_toggled(toggled_on):
 	theme_settings.save_on_exit = toggled_on
+	save()

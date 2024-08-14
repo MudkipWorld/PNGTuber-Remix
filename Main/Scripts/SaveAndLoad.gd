@@ -14,6 +14,9 @@ func save_file(path):
 	var sprites_array : Array = []
 	var bg_sprites_array : Array = []
 	var input_array : Array = []
+	for input in inputs:
+		input_array.append(input.saved_event)
+	
 	
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
@@ -90,9 +93,6 @@ func save_file(path):
 			sprite_id = sprt.sprite_id,
 		}
 		bg_sprites_array.append(sprt_dict)
-	
-	for input in inputs:
-		input_array.append(input.saved_event)
 	
 	
 	save_dict = {
@@ -272,11 +272,24 @@ func load_file(path):
 		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 #	'''
+	print(load_dict.input_array)
+	if !load_dict.input_array.is_empty():
+		for input in len(load_dict.input_array):
+			get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
+			
+			
+			get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
 	
-	for input in len(load_dict.input_array):
-		get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
-		
-		get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
+#	Global.settings_dict.saved_inputs = []
+#	'''
+	else:
+		var idx = 0
+		for input in Global.settings_dict.saved_inputs:
+			get_tree().get_nodes_in_group("StateRemapButton")[idx].saved_event = input
+			
+			
+			get_tree().get_nodes_in_group("StateRemapButton")[idx].update_stuff()
+			idx += 1
 		
 #	'''
 	var state_count = get_tree().get_nodes_in_group("StateRemapButton").size()

@@ -787,7 +787,8 @@ layout_mode = 2
 
 [node name="ShouldDisLabel" type="Label" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer"]
 layout_mode = 2
-text = "List of Keys for Disappearence."
+text = "List of Keys for Disappearence.
+(Key must correspond to existing asset's)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -828,6 +829,7 @@ tooltip_text = "List of Keys (Must correspond to another asset's Key) that makes
 focus_mode = 1
 allow_reselect = true
 auto_height = true
+text_overrun_behavior = 2
 max_columns = 3
 fixed_column_width = 122
 
@@ -3459,6 +3461,7 @@ presets_visible = false
 [connection signal="pressed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer/ShouldDisDelButton" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_del_button_pressed"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer/ShouldDisRemapButton" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_remap_button_toggled"]
 [connection signal="empty_clicked" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/ShouldDisList" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_list_empty_clicked"]
+[connection signal="focus_exited" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/ShouldDisList" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_list_focus_exited"]
 [connection signal="item_selected" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/ShouldDisList" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_list_item_selected"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/ShouldRotCheck" to="UIInput" method="_on_should_rot_check_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/FollowWiggleAppTip" to="UIInput" method="_on_follow_wiggle_app_tip_toggled"]

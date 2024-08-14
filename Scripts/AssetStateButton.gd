@@ -121,12 +121,20 @@ func _on_should_dis_remap_button_toggled(toggled_on):
 	current_remap = Remap.Keys
 	set_process_unhandled_input(toggled_on)
 	if toggled_on:
-		%ShouldDisList.set_item_text(id, "... Awaiting Input ...")
-		%ShouldDisRemapButton.release_focus()
-	else:
+		%ShouldDisList.set_item_text(id, "Awaiting Input.")
 		%ShouldDisRemapButton.grab_focus()
+	else:
+		%ShouldDisRemapButton.release_focus()
+		
 
 func _on_should_dis_list_empty_clicked(_at_position, _mouse_button_index):
+	selected_item = null
+	id = null
+	%ShouldDisRemapButton.disabled = true
+	%ShouldDisDelButton.disabled = true
+
+
+func _on_should_dis_list_focus_exited():
 	selected_item = null
 	id = null
 	%ShouldDisRemapButton.disabled = true

@@ -37,6 +37,8 @@ var settings_dict : Dictionary = {
 	dim_color = Color.DIM_GRAY,
 	auto_save = false,
 	auto_save_timer = 1.0,
+	
+	saved_inputs = [],
 }
 
 var undo_redo : UndoRedo = UndoRedo.new()

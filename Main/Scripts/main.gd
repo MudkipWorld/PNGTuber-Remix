@@ -244,6 +244,9 @@ func _on_file_dialog_files_selected(paths):
 
 
 func _on_confirmation_dialog_confirmed():
+	$Control/_Themes_.theme_settings.path = null
+	$Control/TopBarInput.path = null
+	$Control/TopBarInput.last_path = ""
 	clear_sprites()
 
 func clear_sprites():
