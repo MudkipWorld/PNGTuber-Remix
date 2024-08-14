@@ -36,6 +36,8 @@ func save_file(path):
 				is_asset = sprt.is_asset,
 				saved_event = sprt.saved_event,
 				was_active_before = sprt.was_active_before,
+				should_disappear = sprt.should_disappear,
+				saved_keys = sprt.saved_keys,
 			}
 			sprites_array.append(sprt_dict)
 			
@@ -67,6 +69,8 @@ func save_file(path):
 				is_asset = sprt.is_asset,
 				saved_event = sprt.saved_event,
 				was_active_before = sprt.was_active_before,
+				should_disappear = sprt.should_disappear,
+				saved_keys = sprt.saved_keys,
 			}
 			sprites_array.append(sprt_dict)
 	
@@ -164,15 +168,17 @@ func load_file(path):
 
 		sprite_obj.states = sprite.states
 		
+
 		if sprite.has("is_asset"):
 			sprite_obj.is_asset = sprite.is_asset
 			sprite_obj.saved_event = sprite.saved_event
+			sprite_obj.should_disappear = sprite.should_disappear
 			if sprite_obj.is_asset:
 				sprite_obj.get_node("%Drag").visible = sprite.was_active_before
 				sprite_obj.was_active_before = sprite.was_active_before
+				sprite_obj.saved_keys = sprite.saved_keys
 				InputMap.add_action(str(sprite.sprite_id))
 				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
-				
 		
 		
 		
@@ -261,6 +267,8 @@ func load_file(path):
 		
 		
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
+		
+		
 		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 #	'''

@@ -752,7 +752,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Is an Toggle Asset"
+tooltip_text = "An Asset is a Sprite you can toggle at any time. I.e glasses, hats, etc.."
+text = "Is a Toggle Asset"
 
 [node name="IsAssetButton" type="Button" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset"]
 unique_name_in_owner = true
@@ -771,6 +772,64 @@ size_flags_vertical = 4
 texture_normal = ExtResource("9_jhnap")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="ShouldDisappearCheck" type="CheckBox" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Check if the current toggle sprite shound't be visible if another one got toggled on. I.e different faces, types of hats, etc.."
+text = "Should Disappear On Other Assets Toggle  "
+
+[node name="ShouldDisListContainer" type="VBoxContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="ShouldDisLabel" type="Label" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer"]
+layout_mode = 2
+text = "List of Keys for Disappearence."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ShouldDisAddButton" type="Button" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+focus_mode = 0
+text = "Add Key"
+
+[node name="ShouldDisDelButton" type="Button" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+text = "Delete Key"
+
+[node name="ShouldDisRemapButton" type="Button" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+focus_mode = 0
+disabled = true
+toggle_mode = true
+text = "Remap Key"
+
+[node name="ShouldDisList" type="ItemList" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "List of Keys (Must correspond to another asset's Key) that makes The selected Asset disappear."
+focus_mode = 1
+allow_reselect = true
+auto_height = true
+max_columns = 3
+fixed_column_width = 122
 
 [node name="Movement" type="Control" parent="RightPanel/Properties/VSplitContainer/ScrollContainer"]
 visible = false
@@ -2274,7 +2333,6 @@ theme_override_font_sizes/font_size = 16
 theme_override_font_sizes/title_button_font_size = 10
 theme_override_icons/select_arrow = ExtResource("22_pgglj")
 allow_reselect = true
-hide_root = true
 drop_mode_flags = 3
 script = ExtResource("20_x2k62")
 
@@ -3396,6 +3454,12 @@ presets_visible = false
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ClipChildren" to="UIInput" method="_on_check_box_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetCheck" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_is_asset_check_toggled"]
 [connection signal="pressed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/RemoveAssetButton" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_remove_asset_button_pressed"]
+[connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisappearCheck" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_disappear_check_toggled"]
+[connection signal="pressed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer/ShouldDisAddButton" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_add_button_pressed"]
+[connection signal="pressed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer/ShouldDisDelButton" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_del_button_pressed"]
+[connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/HBoxContainer/ShouldDisRemapButton" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_remap_button_toggled"]
+[connection signal="empty_clicked" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/ShouldDisList" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_list_empty_clicked"]
+[connection signal="item_selected" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/ShouldDisList" to="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_list_item_selected"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/ShouldRotCheck" to="UIInput" method="_on_should_rot_check_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/FollowWiggleAppTip" to="UIInput" method="_on_follow_wiggle_app_tip_toggled"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]

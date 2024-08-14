@@ -62,7 +62,7 @@ func sliders_revalue(settings_dict):
 func _tree(sprites):
 	tree.clear()
 	var root = tree.create_item()
-	root.set_text(0, "Sprites")
+	root.set_text(0, "Root")
 	for i in sprites:
 		var new_item
 		new_item = tree.create_item(root)

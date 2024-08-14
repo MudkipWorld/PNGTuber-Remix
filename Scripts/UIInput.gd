@@ -144,6 +144,9 @@ func held_sprite_is_null():
 	%IsAssetCheck.disabled = true
 	%IsAssetButton.disabled = true
 	%RemoveAssetButton.disabled = true
+	%ShouldDisappearCheck.disabled = true
+	%ShouldDisDelButton.disabled = true
+	%ShouldDisRemapButton.disabled = true
 	
 
 
@@ -241,7 +244,9 @@ func held_sprite_is_true():
 	%IsAssetCheck.disabled = false
 	%IsAssetButton.disabled = false
 	%RemoveAssetButton.disabled = false
+	%ShouldDisappearCheck.disabled = false
 	%IsAssetButton.text = "Null"
+	
 
 func _on_blend_state_pressed(id):
 	if Global.held_sprite:
@@ -409,9 +414,14 @@ func reinfo():
 	%MiniRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMin
 	%MaxRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMax
 	
-	%IsAssetCheck.button_pressed = Global.held_sprite.is_asset
 	%IsAssetButton.action = str(Global.held_sprite.sprite_id)
+	%IsAssetCheck.button_pressed = Global.held_sprite.is_asset
+	%ShouldDisList.clear()
+	for i in Global.held_sprite.saved_keys:
+		%ShouldDisList.add_item(i)
+	%ShouldDisappearCheck.button_pressed = Global.held_sprite.should_disappear
 	%IsAssetButton.update_key_text()
+	
 
 func update_pos_spins():
 	%PosXSpinBox.value = Global.held_sprite.global_position.x

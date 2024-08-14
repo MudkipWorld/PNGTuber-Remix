@@ -104,6 +104,8 @@ var fidx = 0
 var saved_event : InputEvent
 var is_asset : bool = false
 var was_active_before : bool = true
+var should_disappear : bool = false
+var saved_keys : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -562,8 +564,10 @@ func _physics_process(delta):
 			if GlobalInput.is_action_just_pressed(str(sprite_id)):
 				%Drag.visible = !%Drag.visible
 				was_active_before = %Drag.visible
-		
-
-
-
+				for i in get_tree().get_nodes_in_group("Sprites"):
+					if i.should_disappear:
+						if saved_event.as_text() in i.saved_keys:
+							i.get_node("%Drag").visible = false
+							i.was_active_before = false
+			
 

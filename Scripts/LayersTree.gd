@@ -11,8 +11,6 @@ signal sprite_info
 
 func _ready():
 	set_drop_mode_flags(3)
-	var root = create_item()
-	root.set_text(0, "Sprites")
 	
 	layers_popup.connect("id_pressed",choosing_layers_popup)
 

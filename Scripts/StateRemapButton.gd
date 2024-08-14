@@ -1,7 +1,6 @@
 extends Button
 class_name RemapButton
 
-
 @export var action: String
 var saved_event : InputEvent
 
@@ -30,7 +29,7 @@ func _unhandled_input(event):
 		if event.is_released():
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, event)
-			Global.held_sprite.saved_event = event
+			saved_event = event
 			
 			button_pressed = false
 	

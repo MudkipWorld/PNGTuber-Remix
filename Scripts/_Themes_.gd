@@ -25,7 +25,8 @@ func save():
 	var file = FileAccess
 	var save_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
 	if FileAccess.file_exists(theme_settings.path):
-		SaveAndLoad.save_file(theme_settings.path)
+		if get_tree().get_nodes_in_group("Sprites").size() > 0:
+			SaveAndLoad.save_file(theme_settings.path)
 	save_file.store_var(theme_settings)
 	save_file.close()
 #	print("saved")
