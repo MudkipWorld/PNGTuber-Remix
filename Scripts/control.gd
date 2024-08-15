@@ -102,31 +102,43 @@ func _added_tree(sprites):
 		new_item.set_metadata(0, dic)
 		i.treeitem = new_item
 		new_item.get_next()
-	check_parent()
+		check_parent(i)
 
 func new_tree():
 	var root = tree.create_item()
-	root.set_text(0, "Sprites")
+	root.set_text(0, "Root")
 
 func loaded_tree(sprites):
 	tree.clear()
 	var root = tree.create_item()
-	root.set_text(0, "Sprites")
+	root.set_text(0, "Root")
 	for i in sprites:
 		i.reparent_obj(get_tree().get_nodes_in_group("Sprites"))
 	_tree(get_tree().get_nodes_in_group("Sprites"))
 
-func check_parent():
+func check_parent(new_item = null):
 	var sprites = get_tree().get_nodes_in_group("Sprites")
-	for x in sprites:
-		if x.get_parent() is Sprite2D:
-			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
-			x.treeitem.get_parent().remove_child(x.treeitem)
-			parent.add_child(x.treeitem)
-		elif x.get_parent() is WigglyAppendage2D:
-			var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
-			x.treeitem.get_parent().remove_child(x.treeitem)
-			parent.add_child(x.treeitem)
+	
+	if new_item != null:
+		if new_item.get_parent() is Sprite2D:
+			var parent = new_item.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
+			new_item.treeitem.get_parent().remove_child(new_item.treeitem)
+			parent.add_child(new_item.treeitem)
+		elif new_item.get_parent() is WigglyAppendage2D:
+			var parent = new_item.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
+			new_item.treeitem.get_parent().remove_child(new_item.treeitem)
+			parent.add_child(new_item.treeitem)
+	
+	else:
+		for x in sprites:
+			if x.get_parent() is Sprite2D:
+				var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
+				x.treeitem.get_parent().remove_child(x.treeitem)
+				parent.add_child(x.treeitem)
+			elif x.get_parent() is WigglyAppendage2D:
+				var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
+				x.treeitem.get_parent().remove_child(x.treeitem)
+				parent.add_child(x.treeitem)
 
 func update_tree(child, parent, boolean):
 	var new_c_path = child.get_metadata(0)
@@ -190,3 +202,10 @@ func update_visib_buttons():
 		elif not i.dictmain.visible:
 			i.treeitem.set_button(0, 0, preload("res://UI/EyeButton2.png"))
 
+
+
+func _on_layers_tree_empty_clicked(_position, _mouse_button_index):
+	if tree.has_focus():
+		tree.release_focus()
+		for i in tree:
+			i.release_focus()

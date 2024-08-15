@@ -34,18 +34,16 @@ func _ready():
 	%UIThemeButton.add_item("Blue", 1)
 	%UIThemeButton.add_item("Orange", 2)
 	%UIThemeButton.add_item("White", 3)
-	%UIThemeButton.add_item("Dark (Wip)", 4)
+	%UIThemeButton.add_item("Dark", 4)
 	%UIThemeButton.add_item("Green", 5)
 	%UIThemeButton.add_item("Funky", 6)
 	
-#	print(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat")
 	var file = FileAccess
 	if file.file_exists(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat"):
 		var load_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.READ)
 		var info = load_file.get_var()
 		if info is Dictionary:
 			theme_settings.merge(info, true)
-		#	print(theme_settings)
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
 			
@@ -81,7 +79,7 @@ func loaded_UI(id):
 			%UIThemeButton.text = "White"
 			white_theme()
 		4:
-			%UIThemeButton.text = "Dark (Wip)"
+			%UIThemeButton.text = "Dark"
 			dark_theme()
 		5:
 			%UIThemeButton.text = "Green"
@@ -106,7 +104,7 @@ func _on_ui_theme_button_item_selected(index):
 			%UIThemeButton.text = "White"
 			white_theme()
 		4:
-			%UIThemeButton.text = "Dark (Wip)"
+			%UIThemeButton.text = "Dark"
 			dark_theme()
 		5:
 			%UIThemeButton.text = "Green"

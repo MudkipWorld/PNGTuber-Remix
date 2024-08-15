@@ -68,6 +68,9 @@ func _ready():
 
 #region Update Slider info
 func held_sprite_is_null():
+	if %PosXSpinBox.value_changed.is_connected(_on_pos_x_spin_box_value_changed):
+		%PosXSpinBox.value_changed.disconnect(_on_pos_x_spin_box_value_changed)
+		%PosYSpinBox.value_changed.disconnect(_on_pos_y_spin_box_value_changed)
 	x_amp.editable = false
 	x_freq.editable = false
 	
@@ -147,6 +150,8 @@ func held_sprite_is_null():
 	%ShouldDisappearCheck.disabled = true
 	%ShouldDisDelButton.disabled = true
 	%ShouldDisRemapButton.disabled = true
+	%OffsetXSpinBox.editable = false
+	%OffsetYSpinBox.editable = false
 	
 
 
@@ -221,6 +226,9 @@ func held_sprite_is_true():
 		%WiggleAppsStiffBSlider.get_node("SliderValue").editable = false
 		%WiggleAppsMaxAngleBSlider.get_node("SliderValue").editable = false
 		%WiggleAppsPhysStiffBSlider.get_node("SliderValue").editable = false
+		%OffsetXSpinBox.editable = true
+		%OffsetYSpinBox.editable = true
+	
 		
 	
 	%FMxBSlider.get_node("SliderValue").editable = true
@@ -361,6 +369,9 @@ func reinfo():
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
 	
 	%AdvancedLipSync.button_pressed = Global.held_sprite.dictmain.advanced_lipsync
+	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
+	%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
+	
 	
 	
 	if Global.held_sprite.sprite_type == "Sprite2D":
@@ -390,7 +401,15 @@ func reinfo():
 		%WiggleSubDSpin.value = Global.held_sprite.dictmain.subdivision
 		
 	
-	update_pos_spins()
+	%PosXSpinBox.value = Global.held_sprite.dictmain.global_position.x
+	%PosYSpinBox.value = Global.held_sprite.dictmain.global_position.y
+	%RotSpinBox.value = Global.held_sprite.dictmain.rotation
+	
+	if !%PosXSpinBox.value_changed.is_connected(_on_pos_x_spin_box_value_changed):
+		%PosXSpinBox.value_changed.connect(_on_pos_x_spin_box_value_changed)
+		%PosYSpinBox.value_changed.connect(_on_pos_y_spin_box_value_changed)
+	
+	
 	
 	if Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").get_clip_children_mode() == 0:
 		clip.button_pressed = false
@@ -870,3 +889,22 @@ func _on_max_rotation_level_value_changed(value):
 	%MaxRlable.text = "Maximum Rot : " + str(snappedf(value, 0.1))
 	Global.held_sprite.dictmain.rLimitMax = value
 	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_offset_y_spin_box_value_changed(value):
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		Global.held_sprite.dictmain.position.y = -value
+		Global.held_sprite.dictmain.offset.y = value
+		Global.held_sprite.get_node("%Sprite2D").position.y = value
+		Global.held_sprite.position.y = -value
+		Global.held_sprite.save_state(Global.current_state)
+		
+
+
+func _on_offset_x_spin_box_value_changed(value):
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		Global.held_sprite.dictmain.position.x = -value
+		Global.held_sprite.dictmain.offset.x = value
+		Global.held_sprite.get_node("%Sprite2D").position.x = value
+		Global.held_sprite.position.x = -value
+		Global.held_sprite.save_state(Global.current_state)

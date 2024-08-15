@@ -59,6 +59,7 @@ func _drop_data(at_position, data):
 	# -1 if its dropped above the item, 0 if its dropped on the item and 1 if its below the item
 	# -100 if you didnt drop it on an item
 	var drop_offset = get_drop_section_at_position(at_position)
+	print(drop_offset)
 	if is_instance_valid(other_item) && data != other_item:
 		if drop_offset == -100:
 	#		other_item = other_item.get_parent()
@@ -66,13 +67,20 @@ func _drop_data(at_position, data):
 		
 		var boolean
 		
+		
 		if drop_offset == -1:
 			if other_item is TreeItem:
-				if other_item != data.get_parent():
+				
+				
+				if other_item in get_all_treeitems(data.get_parent(), false):
+					data.move_before(other_item)
+					data.get_metadata(0).sprite_object.get_parent().move_child(data.get_metadata(0).sprite_object,data.get_index())
+				
+				else:
 					if other_item == get_root():
 						data.get_metadata(0).sprite_object.reparent(cont)
 					else:
-						data.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+						update_tree.emit(data, other_item.get_metadata(0).parent, true)
 					
 					data.move_before(other_item)
 			else:
@@ -81,11 +89,15 @@ func _drop_data(at_position, data):
 		
 		elif drop_offset == 1:
 			if other_item is TreeItem:
-				if other_item != data.get_parent():
+				if other_item in get_all_treeitems(data.get_parent(), false):
+					data.move_before(other_item)
+					data.get_metadata(0).sprite_object.get_parent().move_child(data.get_metadata(0).sprite_object,data.get_index())
+				
+				else:
 					if other_item == get_root():
 						data.get_metadata(0).sprite_object.reparent(cont)
 					else:
-						data.get_metadata(0).sprite_object.reparent(other_item.get_metadata(0).sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+						update_tree.emit(data, other_item.get_metadata(0).parent, true)
 					data.move_after(other_item)
 			else:
 				return

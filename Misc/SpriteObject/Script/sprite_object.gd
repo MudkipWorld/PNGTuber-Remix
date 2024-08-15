@@ -380,7 +380,7 @@ func save_state(id):
 	global_position = dictmain.global_position,
 	position = dictmain.position,
 	rotation = rotation,
-	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.position,
+	offset = dictmain.offset,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
 	physics = dictmain.physics,

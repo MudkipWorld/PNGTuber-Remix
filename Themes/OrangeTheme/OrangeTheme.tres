@@ -1,7 +1,10 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://q6qgkkkq85wv"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://q6qgkkkq85wv"]
 
 [ext_resource type="StyleBox" uid="uid://2heiibuale7i" path="res://Themes/OrangeTheme/ButtonPressed.tres" id="1_xvjsm"]
 [ext_resource type="StyleBox" uid="uid://bw3ktrq5jd70u" path="res://Themes/OrangeTheme/Buttonbase.tres" id="2_roxmy"]
+[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="3_8uemc"]
+[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="4_svm61"]
+[ext_resource type="Texture2D" uid="uid://hi8bi4gdyyrj" path="res://UI/Collapse3.png" id="5_er67p"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_h5y6b"]
 color = Color(0.254902, 0.141176, 0.0666667, 1)
@@ -139,8 +142,9 @@ TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_q5lvh")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_q5lvh")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_m6cv6")
 Tree/colors/font_color = Color(0.937255, 0.796078, 0.690196, 1)
-Tree/icons/arrow = null
-Tree/icons/arrow_collapsed = null
+Tree/icons/arrow = ExtResource("3_8uemc")
+Tree/icons/arrow_collapsed = ExtResource("4_svm61")
+Tree/icons/arrow_collapsed_mirrored = ExtResource("5_er67p")
 Tree/icons/select_arrow = null
 Tree/styles/focus = SubResource("StyleBoxEmpty_d8s0b")
 Tree/styles/panel = SubResource("StyleBoxEmpty_7cuko")

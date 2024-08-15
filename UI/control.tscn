@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=95 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -37,6 +37,7 @@
 [ext_resource type="Script" path="res://Scripts/ResizeLEFT.gd" id="34_0mitg"]
 [ext_resource type="Texture2D" uid="uid://byc1nc0xfubaq" path="res://TutorialAssets/Pickles/pickle1.png" id="34_bl305"]
 [ext_resource type="Texture2D" uid="uid://4u3y5i46130w" path="res://TutorialAssets/Pickles/pickle2.png" id="35_2e6lj"]
+[ext_resource type="Texture2D" uid="uid://dm7ppdlhye1ji" path="res://Template Model(s)/Icons/AssetIcon.png" id="35_wy3h6"]
 [ext_resource type="Texture2D" uid="uid://c7wt5f2qinnlu" path="res://TutorialAssets/Pickles/pickle3.png" id="36_mvcg3"]
 [ext_resource type="Texture2D" uid="uid://d2jcon746n427" path="res://TutorialAssets/Pickles/pickle4.png" id="37_ubtp4"]
 [ext_resource type="Texture2D" uid="uid://c8p2b5v284wjd" path="res://TutorialAssets/Others/FreqAmpTimeGraph.png" id="38_6mlab"]
@@ -631,6 +632,41 @@ layout_mode = 2
 size_flags_horizontal = 10
 min_value = -100.0
 step = 0.05
+
+[node name="HBoxOffset" type="GridContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/v_separation = 5
+columns = 4
+
+[node name="OffsetXLabel" type="Label" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxOffset"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Offset-X : "
+
+[node name="OffsetXSpinBox" type="SpinBox" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxOffset"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = -99999.0
+max_value = 99999.0
+step = 0.1
+
+[node name="OffsetYLabel" type="Label" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxOffset"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Offset-Y : "
+
+[node name="OffsetYSpinBox" type="SpinBox" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxOffset"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+min_value = -99999.0
+max_value = 99999.0
+step = 0.1
 
 [node name="HBox9" type="GridContainer" parent="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
 layout_mode = 2
@@ -2727,13 +2763,13 @@ stretch_mode = 0
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(564, 151)
+size = Vector2i(571, 201)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TempPopUp"]
 offset_left = 7.0
 offset_top = 8.0
-offset_right = 557.0
-offset_bottom = 143.0
+offset_right = 564.0
+offset_bottom = 193.0
 
 [node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer"]
 layout_mode = 2
@@ -2771,6 +2807,13 @@ layout_mode = 2
 text = "Follow Mouse Template"
 icon = ExtResource("31_4m8rg")
 expand_icon = true
+
+[node name="AssetTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_constants/icon_max_width = 37
+text = "Asset Model Template"
+icon = ExtResource("35_wy3h6")
 
 [node name="TutorialPopUp" type="PopupPanel" parent="."]
 unique_name_in_owner = true
@@ -3444,6 +3487,8 @@ presets_visible = false
 [connection signal="value_changed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21/PosXSpinBox" to="UIInput" method="_on_pos_x_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21/PosYSpinBox" to="UIInput" method="_on_pos_y_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21/RotSpinBox" to="UIInput" method="_on_rot_spin_box_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxOffset/OffsetXSpinBox" to="UIInput" method="_on_offset_x_spin_box_value_changed"]
+[connection signal="value_changed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxOffset/OffsetYSpinBox" to="UIInput" method="_on_offset_y_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox9/SizeSpinBox" to="UIInput" method="_on_size_spin_box_value_changed"]
 [connection signal="value_changed" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox9/SizeSpinYBox" to="UIInput" method="_on_size_spin_y_box_value_changed"]
 [connection signal="toggled" from="RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/Visible" to="UIInput" method="_on_visible_toggled"]
@@ -3513,6 +3558,7 @@ presets_visible = false
 [connection signal="pressed" from="LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/AddNormalButton" to="UIInput" method="_on_add_normal_button_pressed"]
 [connection signal="pressed" from="LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
 [connection signal="button_clicked" from="LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="." method="_on_layers_tree_button_clicked"]
+[connection signal="empty_clicked" from="LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="." method="_on_layers_tree_empty_clicked"]
 [connection signal="item_selected" from="LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" method="_on_item_selected"]
 [connection signal="pressed" from="LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/Add BG image" to="BackgroundEdit" method="_on_add_bg_image_pressed"]
 [connection signal="pressed" from="LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/BGDuplicateButton" to="BackgroundEdit" method="_on_bg_duplicate_button_pressed"]
@@ -3531,6 +3577,7 @@ presets_visible = false
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BGTempButton" to="TopBarInput" method="_on_bg_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/NormalmTempButton" to="TopBarInput" method="_on_normalm_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/FollowMouseTempButton" to="TopBarInput" method="_on_follow_mouse_temp_button_pressed"]
+[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/AssetTempButton" to="TopBarInput" method="_on_asset_temp_button_pressed"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer2/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer2/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]

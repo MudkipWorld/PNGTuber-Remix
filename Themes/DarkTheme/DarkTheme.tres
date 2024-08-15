@@ -1,4 +1,8 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://b3mqud7u0mbij"]
+[gd_resource type="Theme" load_steps=22 format=3 uid="uid://b3mqud7u0mbij"]
+
+[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="1_0rb5k"]
+[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="2_souq5"]
+[ext_resource type="Texture2D" uid="uid://hi8bi4gdyyrj" path="res://UI/Collapse3.png" id="3_dxsu5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8m0v"]
 content_margin_left = 4.0
@@ -86,10 +90,17 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yevro"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0sc3x"]
 content_margin_left = 5.0
 content_margin_bottom = 3.0
 bg_color = Color(0.188235, 0.188235, 0.188235, 1)
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yevro"]
+content_margin_left = 5.0
+content_margin_bottom = 3.0
+bg_color = Color(0.140447, 0.140447, 0.140447, 1)
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
@@ -182,7 +193,7 @@ MenuButton/styles/hover = SubResource("StyleBoxFlat_3nq3m")
 MenuButton/styles/normal = SubResource("StyleBoxFlat_3nq3m")
 MenuButton/styles/pressed = SubResource("StyleBoxFlat_dkkk2")
 Panel/styles/panel = SubResource("StyleBoxFlat_jbh7f")
-PopupMenu/styles/hover = SubResource("StyleBoxFlat_yevro")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_0sc3x")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_yevro")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_alyix")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_8gpjc")
@@ -192,5 +203,8 @@ TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_cqhoq")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_nbt80")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_rm1ae")
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
+Tree/icons/arrow = ExtResource("1_0rb5k")
+Tree/icons/arrow_collapsed = ExtResource("2_souq5")
+Tree/icons/arrow_collapsed_mirrored = ExtResource("3_dxsu5")
 Tree/styles/focus = SubResource("StyleBoxEmpty_r4ik5")
 Tree/styles/panel = SubResource("StyleBoxEmpty_3ue2i")

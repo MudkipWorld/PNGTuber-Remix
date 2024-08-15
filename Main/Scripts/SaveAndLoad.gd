@@ -272,12 +272,10 @@ func load_file(path):
 		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 #	'''
-	print(load_dict.input_array)
 	if !load_dict.input_array.is_empty():
 		for input in len(load_dict.input_array):
 			get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
-			
-			
+			Global.settings_dict.saved_inputs = load_dict.input_array
 			get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
 	
 #	Global.settings_dict.saved_inputs = []
@@ -291,6 +289,7 @@ func load_file(path):
 			get_tree().get_nodes_in_group("StateRemapButton")[idx].update_stuff()
 			idx += 1
 		
+#	print(Global.settings_dict.saved_inputs)
 #	'''
 	var state_count = get_tree().get_nodes_in_group("StateRemapButton").size()
 	for i in get_tree().get_nodes_in_group("Sprites"):

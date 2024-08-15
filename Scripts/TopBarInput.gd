@@ -238,6 +238,11 @@ func _on_follow_mouse_temp_button_pressed():
 	SaveAndLoad.load_file("res://Template Model(s)/PickleModelFollowMouse.pngRemix")
 	%TempPopUp.hide()
 
+func _on_asset_temp_button_pressed():
+	SaveAndLoad.load_file("res://Template Model(s)/PickleModelAssets.pngRemix")
+	%TempPopUp.hide()
+
+
 
 func _on_reset_mic_button_pressed():
 	reset_mic_list()
@@ -319,3 +324,5 @@ func _on_auto_save_timer_timeout():
 			
 			
 		%AutoSaveTimer.start()
+
+

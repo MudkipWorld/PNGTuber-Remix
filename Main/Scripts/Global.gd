@@ -143,9 +143,10 @@ func _input(event : InputEvent):
 		print(undo_redo.redo())
 
 func offset():
-	held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+	held_sprite.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 	held_sprite.dictmain.global_position = held_sprite.global_position
 	held_sprite.dictmain.position = held_sprite.position
+	held_sprite.dictmain.offset = -held_sprite.position
 	held_sprite.save_state(current_state)
 
 func rot(value):
