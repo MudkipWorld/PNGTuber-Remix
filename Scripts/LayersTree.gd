@@ -46,14 +46,25 @@ func choosing_layers_popup(id):
 			topbarinput.desel_everything()
 
 func _get_drag_data(at_position):
-	return get_item_at_position(at_position)
+	# Use a control that is not in the tree
+	var item = get_item_at_position(at_position)
+	var text = TextureRect.new()
+	text.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	text.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	text.texture = item.get_icon(0)
+	text.size = Vector2(30,30)
+	
+	set_drag_preview(text)
+	return item
 
 
 func _can_drop_data(_at_position, data):
+	set_drop_mode_flags(3)
 	return data is TreeItem && is_instance_valid(data) && _at_position
 
 
 func _drop_data(at_position, data):
+	set_drop_mode_flags(2)
 	# The item it was dropped on
 	var other_item = get_item_at_position(at_position)
 	# -1 if its dropped above the item, 0 if its dropped on the item and 1 if its below the item
@@ -123,8 +134,10 @@ func _drop_data(at_position, data):
 		
 			var parent = data.get_parent()
 			update_tree.emit(data, parent, boolean)
-			
 	
+	set_drop_mode_flags(3)
+#	set_selected(get_item_at_position(get_local_mouse_position()),0)
+
 
 static func get_all_treeitems(treeitem, recursive) -> Array:
 	var children := []

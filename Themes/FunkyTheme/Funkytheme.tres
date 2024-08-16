@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://dpdwkuqahwgqf"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://dpdwkuqahwgqf"]
 
 [ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="1_fmrqb"]
 [ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="2_7u4ys"]
@@ -121,7 +121,8 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4s4pa"]
-content_margin_left = 5.0
+content_margin_left = 10.0
+content_margin_right = 10.0
 bg_color = Color(0.423529, 0.313726, 0.478431, 1)
 border_width_left = 2
 border_width_right = 2
@@ -129,9 +130,11 @@ border_width_bottom = 2
 border_color = Color(0.0862745, 0.0784314, 0.145098, 1)
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jf1r"]
 content_margin_left = 5.0
+content_margin_right = 5.0
 bg_color = Color(0.423529, 0.313726, 0.478431, 1)
 border_width_left = 2
 border_width_top = 2
@@ -139,12 +142,9 @@ border_width_right = 2
 border_color = Color(0.137255, 0.129412, 0.192157, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iwhuw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3i8gl"]
 content_margin_left = 10.0
 content_margin_right = 10.0
 bg_color = Color(0.423529, 0.313726, 0.478431, 1)
@@ -154,10 +154,7 @@ border_width_right = 2
 border_color = Color(0.113725, 0.101961, 0.184314, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wj80s"]
 content_margin_left = 5.0
@@ -169,14 +166,27 @@ border_width_right = 2
 border_color = Color(0.0862745, 0.0784314, 0.145098, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mpdk2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8wcta"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xeasp"]
+bg_color = Color(0.263584, 0.532775, 0.606796, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.110987, 0.26191, 0.353292, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 35.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
@@ -203,7 +213,7 @@ TabContainer/styles/panel = SubResource("StyleBoxFlat_4s4pa")
 TabContainer/styles/tab_disabled = null
 TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_6jf1r")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_6jf1r")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_iwhuw")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_3i8gl")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_wj80s")
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
 Tree/icons/arrow = ExtResource("1_fmrqb")
@@ -212,3 +222,5 @@ Tree/icons/arrow_collapsed_mirrored = ExtResource("3_jgq6w")
 Tree/icons/select_arrow = null
 Tree/styles/focus = SubResource("StyleBoxEmpty_mpdk2")
 Tree/styles/panel = SubResource("StyleBoxEmpty_8wcta")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_xeasp")
+Window/styles/embedded_unfocused_border = SubResource("StyleBoxFlat_xeasp")

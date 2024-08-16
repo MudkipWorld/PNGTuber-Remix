@@ -207,5 +207,7 @@ func update_visib_buttons():
 func _on_layers_tree_empty_clicked(_position, _mouse_button_index):
 	if tree.has_focus():
 		tree.release_focus()
-		for i in tree:
-			i.release_focus()
+	tree.deselect_all()
+	%TopBarInput.desel_everything()
+
+

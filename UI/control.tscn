@@ -435,6 +435,7 @@ script = ExtResource("3_vp3qw")
 script = ExtResource("3_7fg0y")
 
 [node name="TopBarInput" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("3_d50ks")
 
 [node name="UIInput" type="Node" parent="."]
@@ -2354,6 +2355,7 @@ grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
 focus_mode = 0
+mouse_filter = 1
 mouse_force_pass_scroll_events = false
 mouse_default_cursor_shape = 2
 theme_override_colors/guide_color = Color(0, 0, 0, 1)
@@ -2669,6 +2671,32 @@ popup/item_1/text = "About"
 popup/item_1/id = 1
 popup/item_2/text = "Mini Tutorial (Wip)"
 popup/item_2/id = 2
+
+[node name="RecordButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+tooltip_text = "Records Model Only."
+theme_override_colors/font_disabled_color = Color(0.753984, 0.753984, 0.753984, 1)
+text = "Record"
+item_count = 2
+popup/item_0/text = "Click again to stop recording"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "The Images will be exported as image sequence!"
+popup/item_1/id = 1
+popup/item_1/disabled = true
+
+[node name="FileDialog" type="FileDialog" parent="TopBar/HBox/RecordButton"]
+unique_name_in_owner = true
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(800, 500)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+filters = PackedStringArray("*.png", "*.jpeg", "*.jpg", "*.svg")
+use_native_dialog = true
 
 [node name="HideUIButton" type="CheckBox" parent="TopBar/HBox"]
 unique_name_in_owner = true
@@ -3568,6 +3596,8 @@ presets_visible = false
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]
+[connection signal="toggled" from="TopBar/HBox/RecordButton" to="TopBarInput" method="_on_record_button_toggled"]
+[connection signal="dir_selected" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_dir_selected"]
 [connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
 [connection signal="pressed" from="TopBar/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]

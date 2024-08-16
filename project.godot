@@ -41,7 +41,7 @@ project/assembly_name="GlobalInput"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Sprite_Object/plugin.cfg", "res://addons/global_input/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
+enabled=PackedStringArray("res://addons/Recorder/plugin.cfg", "res://addons/Sprite_Object/plugin.cfg", "res://addons/global_input/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
 
 [input]
 

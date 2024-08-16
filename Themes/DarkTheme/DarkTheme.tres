@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://b3mqud7u0mbij"]
+[gd_resource type="Theme" load_steps=24 format=3 uid="uid://b3mqud7u0mbij"]
 
 [ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="1_0rb5k"]
 [ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="2_souq5"]
@@ -121,7 +121,8 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gpjc"]
-content_margin_left = 5.0
+content_margin_left = 10.0
+content_margin_right = 10.0
 bg_color = Color(0.254902, 0.254902, 0.254902, 1)
 border_width_left = 2
 border_width_right = 2
@@ -129,6 +130,7 @@ border_width_bottom = 2
 border_color = Color(0.160784, 0.160784, 0.160784, 1)
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbt80"]
 content_margin_left = 10.0
@@ -140,21 +142,28 @@ border_width_right = 2
 border_color = Color(0.160784, 0.160784, 0.160784, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqhoq"]
 content_margin_left = 5.0
+content_margin_right = 5.0
 bg_color = Color(0.333333, 0.333333, 0.333333, 1)
 border_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnwwo"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.254902, 0.254902, 0.254902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.160784, 0.160784, 0.160784, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+expand_margin_left = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rm1ae"]
 content_margin_left = 5.0
@@ -166,14 +175,27 @@ border_width_right = 2
 border_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r4ik5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ue2i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtkek"]
+bg_color = Color(0.254902, 0.254902, 0.254902, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 35.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 
 [resource]
 Button/colors/font_color = Color(0.976471, 0.976471, 0.976471, 1)
@@ -200,7 +222,7 @@ TabContainer/styles/panel = SubResource("StyleBoxFlat_8gpjc")
 TabContainer/styles/tab_disabled = null
 TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_nbt80")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_cqhoq")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_nbt80")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_vnwwo")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_rm1ae")
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
 Tree/icons/arrow = ExtResource("1_0rb5k")
@@ -208,3 +230,5 @@ Tree/icons/arrow_collapsed = ExtResource("2_souq5")
 Tree/icons/arrow_collapsed_mirrored = ExtResource("3_dxsu5")
 Tree/styles/focus = SubResource("StyleBoxEmpty_r4ik5")
 Tree/styles/panel = SubResource("StyleBoxEmpty_3ue2i")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_xtkek")
+Window/styles/embedded_unfocused_border = SubResource("StyleBoxFlat_xtkek")

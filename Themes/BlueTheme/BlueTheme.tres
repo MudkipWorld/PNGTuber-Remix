@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://c3qcvnoy1b7x8"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://c3qcvnoy1b7x8"]
 
 [ext_resource type="StyleBox" uid="uid://dayf2gx72sev3" path="res://Themes/BlueTheme/ButtonBase.tres" id="1_vj17i"]
 [ext_resource type="StyleBox" uid="uid://cwdlpr6rdbrlu" path="res://Themes/BlueTheme/ButtonPressed.tres" id="2_8eny3"]
@@ -103,7 +103,8 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ego8e"]
-content_margin_left = 5.0
+content_margin_left = 10.0
+content_margin_right = 10.0
 bg_color = Color(0.360784, 0.596078, 0.682353, 1)
 border_width_left = 2
 border_width_right = 2
@@ -111,9 +112,11 @@ border_width_bottom = 2
 border_color = Color(0.180392, 0.180392, 0.180392, 1)
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08yhu"]
 content_margin_left = 5.0
+content_margin_right = 5.0
 bg_color = Color(0.360784, 0.596078, 0.682353, 1)
 border_width_left = 2
 border_width_top = 2
@@ -121,12 +124,9 @@ border_width_right = 2
 border_color = Color(0.054902, 0.184314, 0.247059, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yutpl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slfv5"]
 content_margin_left = 10.0
 content_margin_right = 10.0
 bg_color = Color(0.360784, 0.596078, 0.682353, 1)
@@ -136,14 +136,11 @@ border_width_right = 2
 border_color = Color(0.121569, 0.266667, 0.341176, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmk5a"]
 content_margin_left = 5.0
-content_margin_bottom = 5.0
+content_margin_right = 5.0
 bg_color = Color(0.121569, 0.266667, 0.341176, 1)
 border_width_left = 2
 border_width_top = 2
@@ -151,14 +148,27 @@ border_width_right = 2
 border_color = Color(0.0588235, 0.176471, 0.235294, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_frah0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5xnc2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uain4"]
+bg_color = Color(0.360784, 0.596078, 0.682353, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0784314, 0.27451, 0.411765, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 35.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 
 [resource]
 Button/styles/disabled = SubResource("StyleBoxFlat_di57v")
@@ -184,7 +194,7 @@ TabContainer/styles/panel = SubResource("StyleBoxFlat_ego8e")
 TabContainer/styles/tab_disabled = null
 TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_08yhu")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_08yhu")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_yutpl")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_slfv5")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fmk5a")
 Tree/colors/font_color = Color(0.811765, 0.937255, 0.913725, 1)
 Tree/icons/arrow = ExtResource("3_6lghj")
@@ -193,3 +203,5 @@ Tree/icons/arrow_collapsed_mirrored = ExtResource("5_uhebx")
 Tree/icons/select_arrow = null
 Tree/styles/focus = SubResource("StyleBoxEmpty_frah0")
 Tree/styles/panel = SubResource("StyleBoxEmpty_5xnc2")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_uain4")
+Window/styles/embedded_unfocused_border = SubResource("StyleBoxFlat_uain4")

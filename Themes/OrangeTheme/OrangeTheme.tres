@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://q6qgkkkq85wv"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://q6qgkkkq85wv"]
 
 [ext_resource type="StyleBox" uid="uid://2heiibuale7i" path="res://Themes/OrangeTheme/ButtonPressed.tres" id="1_xvjsm"]
 [ext_resource type="StyleBox" uid="uid://bw3ktrq5jd70u" path="res://Themes/OrangeTheme/Buttonbase.tres" id="2_roxmy"]
@@ -47,12 +47,12 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5movk"]
-bg_color = Color(0.254902, 0.121569, 0.0509804, 1)
+bg_color = Color(0.218251, 0.100625, 0.0383337, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ictqx"]
 content_margin_left = 5.0
 content_margin_bottom = 3.0
-bg_color = Color(0.4, 0.207843, 0.0980392, 1)
+bg_color = Color(0.303625, 0.151798, 0.0649245, 1)
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
@@ -73,7 +73,8 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0trg6"]
-content_margin_left = 5.0
+content_margin_left = 10.0
+content_margin_right = 10.0
 bg_color = Color(0.756863, 0.505882, 0.262745, 1)
 border_width_left = 2
 border_width_right = 2
@@ -81,8 +82,21 @@ border_width_bottom = 2
 border_color = Color(0.270588, 0.156863, 0.0235294, 1)
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5lvh"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.756863, 0.505882, 0.262745, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.270588, 0.156863, 0.0235294, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+expand_margin_left = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cstdf"]
 content_margin_left = 10.0
 content_margin_right = 10.0
 bg_color = Color(0.756863, 0.505882, 0.262745, 1)
@@ -92,10 +106,7 @@ border_width_right = 2
 border_color = Color(0.270588, 0.156863, 0.0235294, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+expand_margin_left = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6cv6"]
 content_margin_left = 5.0
@@ -107,13 +118,27 @@ border_width_right = 2
 border_color = Color(0.270588, 0.156863, 0.0235294, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
+expand_margin_left = 2.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d8s0b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7cuko"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3wfm"]
+bg_color = Color(0.554502, 0.358438, 0.164704, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.270588, 0.156863, 0.0235294, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 35.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
 
 [resource]
 Button/styles/disabled = ExtResource("1_xvjsm")
@@ -139,7 +164,7 @@ TabContainer/styles/panel = SubResource("StyleBoxFlat_0trg6")
 TabContainer/styles/tab_disabled = null
 TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_q5lvh")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_q5lvh")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_q5lvh")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_cstdf")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_m6cv6")
 Tree/colors/font_color = Color(0.937255, 0.796078, 0.690196, 1)
 Tree/icons/arrow = ExtResource("3_8uemc")
@@ -148,3 +173,5 @@ Tree/icons/arrow_collapsed_mirrored = ExtResource("5_er67p")
 Tree/icons/select_arrow = null
 Tree/styles/focus = SubResource("StyleBoxEmpty_d8s0b")
 Tree/styles/panel = SubResource("StyleBoxEmpty_7cuko")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_x3wfm")
+Window/styles/embedded_unfocused_border = SubResource("StyleBoxFlat_x3wfm")

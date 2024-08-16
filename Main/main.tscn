@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b28gjkefgi5bs"]
+[gd_scene load_steps=8 format=3 uid="uid://b28gjkefgi5bs"]
 
 [ext_resource type="Script" path="res://Main/Scripts/main.gd" id="1_6pthk"]
 [ext_resource type="Script" path="res://Main/Scripts/SpritesContainer.gd" id="2_lv028"]
 [ext_resource type="PackedScene" uid="uid://ngta1o5yiqxs" path="res://UI/control.tscn" id="2_micm1"]
 [ext_resource type="PackedScene" uid="uid://dw4brgrpdpurf" path="res://Misc/LightSource/light_source.tscn" id="3_eo07p"]
+[ext_resource type="Script" path="res://addons/Recorder/recorder.gd" id="4_unki4"]
 [ext_resource type="Script" path="res://Main/Scripts/AudioStreamPlayer.gd" id="5_swrrk"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_b50ir"]
@@ -74,6 +75,22 @@ script = ExtResource("2_lv028")
 visible = false
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.92549)
+
+[node name="RecorderLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+
+[node name="Recorder" type="ReferenceRect" parent="SubViewportContainer/SubViewport/RecorderLayer" node_paths=PackedStringArray("_viewport")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+border_width = 5.0
+script = ExtResource("4_unki4")
+frames_per_second = 24.0
+flip_y = false
+_viewport = NodePath("../..")
 
 [node name="Control" parent="." instance=ExtResource("2_micm1")]
 layout_mode = 1

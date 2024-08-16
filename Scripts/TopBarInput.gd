@@ -326,3 +326,15 @@ func _on_auto_save_timer_timeout():
 		%AutoSaveTimer.start()
 
 
+func _on_record_button_toggled(toggled_on):
+	if toggled_on:
+		%RecordButton.text = "Recording..."
+		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").record()
+	else:
+		%FileDialog.popup()
+		%RecordButton.text = "Record"
+
+
+func _on_file_dialog_dir_selected(dir):
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").output_folder = dir
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
