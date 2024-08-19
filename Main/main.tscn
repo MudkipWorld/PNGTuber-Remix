@@ -90,6 +90,7 @@ border_width = 5.0
 script = ExtResource("4_unki4")
 frames_per_second = 24.0
 flip_y = false
+use_thread = true
 _viewport = NodePath("../..")
 
 [node name="Control" parent="." instance=ExtResource("2_micm1")]

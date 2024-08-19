@@ -144,15 +144,25 @@ func update_tree(child, parent, boolean):
 	var new_c_path = child.get_metadata(0)
 	var new_parent = parent.get_metadata(0)
 	if boolean:
-		if child.get_parent() != new_parent.sprite_object:
-			new_c_path.sprite_object.parent_id = new_parent.sprite_object.sprite_id
-			new_c_path.sprite_object.reparent(new_parent.sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+		if new_parent != null:
+			if child.get_parent() != new_parent.sprite_object:
+				new_c_path.sprite_object.parent_id = new_parent.sprite_object.sprite_id
+				new_c_path.sprite_object.reparent(new_parent.sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
 
+				var dic : Dictionary = {
+					sprite_object = new_c_path.sprite_object,
+					parent = child.get_parent()
+					}
+				child.set_metadata(0, dic)
+		else:
+			new_c_path.sprite_object.reparent(container)
+			new_c_path.sprite_object.parent_id = 0
 			var dic : Dictionary = {
 				sprite_object = new_c_path.sprite_object,
 				parent = child.get_parent()
-				}
+			}
 			child.set_metadata(0, dic)
+			
 	else:
 		new_c_path.sprite_object.reparent(container)
 		new_c_path.sprite_object.parent_id = 0
@@ -161,6 +171,7 @@ func update_tree(child, parent, boolean):
 			parent = child.get_parent()
 		}
 		child.set_metadata(0, dic)
+	
 	Global.get_sprite_states(Global.current_state)
 #	_tree(get_tree().get_nodes_in_group("Sprites"))
 

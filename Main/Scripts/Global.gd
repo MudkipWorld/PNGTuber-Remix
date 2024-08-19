@@ -148,6 +148,9 @@ func offset():
 	held_sprite.dictmain.position = held_sprite.position
 	held_sprite.dictmain.offset = -held_sprite.position
 	held_sprite.save_state(current_state)
+	get_tree().get_root().get_node("Main/Control/UIInput").update_offset()
+	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+	
 
 func rot(value):
 	var val = held_sprite.rotation + value

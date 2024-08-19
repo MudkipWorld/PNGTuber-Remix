@@ -338,3 +338,13 @@ func _on_record_button_toggled(toggled_on):
 func _on_file_dialog_dir_selected(dir):
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").output_folder = dir
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
+
+
+func _on_file_dialog_canceled():
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").cancelled()
+
+
+func _on_file_dialog_close_requested():
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").cancelled()
+
+

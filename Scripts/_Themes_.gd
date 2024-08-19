@@ -6,6 +6,7 @@ var theme_settings : Dictionary = {
 	auto_load = false,
 	save_on_exit = false,
 	path = "",
+	fps = 24,
 	
 	
 }
@@ -48,6 +49,8 @@ func _ready():
 			loaded_UI(theme_settings.theme_id)
 			
 			%AutoLoadCheck.button_pressed = theme_settings.auto_load
+			%FpsSping.value = theme_settings.fps
+			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = theme_settings.fps
 			
 			if theme_settings.auto_load:
 				if FileAccess.file_exists(theme_settings.path):
@@ -235,3 +238,12 @@ func _on_auto_load_check_toggled(toggled_on):
 func _on_save_on_exit_check_toggled(toggled_on):
 	theme_settings.save_on_exit = toggled_on
 	save()
+
+
+func _on_fps_sping_value_changed(value):
+	theme_settings.fps = value
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = value
+	%FpsSping.release_focus()
+	%FpsSping.get_line_edit().release_focus()
+	save()
+	

@@ -12,14 +12,15 @@ func _ready():
 	InputMap.load_from_project_settings()
 
 func _input(event):
-	if Input.is_action_just_pressed("lmb"):
-		var rect = get_global_rect()
-		var localMousePos = event.position - get_global_position()
-		if abs(localMousePos.x - rect.size.x) < ResizeThreshold:
-				start.x = event.position.x
-				initialSize.x = get_size().x
-				resizeX = true
-				isResizing = true
+	if event is InputEventMouseButton:
+		if event.is_action_pressed("lmb"):
+			var rect = get_global_rect()
+			var localMousePos = event.position - get_global_position()
+			if abs(localMousePos.x - rect.size.x) < ResizeThreshold:
+					start.x = event.position.x
+					initialSize.x = get_size().x
+					resizeX = true
+					isResizing = true
 		
 	if Input.is_action_pressed("lmb"):
 		

@@ -1,4 +1,4 @@
-@tool
+#@tool
 # Intern initializations
 extends ReferenceRect # Extends from ReferenceRect
 
@@ -20,23 +20,26 @@ extends ReferenceRect # Extends from ReferenceRect
 # ======================================================
 
 func _ready():
-	set_process(true)
-	set_process_input(true)
-	
+	set_process(false)
 
 func record():
 	if (_thread.is_alive()):
 		return
 	_running = !_running
+	get_window().unresizable = true
+	set_process(true)
 
 
 
 func save():
 	if (use_thread):
 		if(not _thread.is_alive()):
-			var err = _thread.start(save_frames)
+			var err = _thread.start(save_frames.bind("Null"))
 	else:
 		save_frames(null)
+	get_window().unresizable = false
+	set_process(false)
+	
 
 func _process(delta):
 	# Get images
@@ -52,6 +55,7 @@ func _process(delta):
 			image.blit_rect(image, rect, Vector2(0,0))
 			_images.append(image)
 
+
 func save_frames(userdata):
 	# userdata wont be used, is just for the thread calling
 	if !DirAccess.dir_exists_absolute(output_folder):
@@ -60,12 +64,15 @@ func save_frames(userdata):
 	var i = 0
 	for image in _images:
 	#	print("saving")
-		image.crop(self.get_rect().size.x, self.get_rect().size.y)
+	#	image.crop.call_deferred(self.get_rect().size.x, self.get_rect().size.y)
 		if (flip_y):
 			image.flip_y()
-		image.save_png(output_folder + "/" + "%03d" % i + ".png")
+		image.save_png(output_folder + "/" + "export."+ "%04d" % i + ".png")
 		i+=1
 	_images.clear()
 	
-	if(_thread.is_alive()):
-		_thread.wait_to_finish()
+#	if(_thread.is_alive()):
+	#	_thread.wait_to_finish()
+
+func cancelled():
+	_images.clear()

@@ -64,7 +64,7 @@ func _can_drop_data(_at_position, data):
 
 
 func _drop_data(at_position, data):
-	set_drop_mode_flags(2)
+	set_drop_mode_flags(3)
 	# The item it was dropped on
 	var other_item = get_item_at_position(at_position)
 	# -1 if its dropped above the item, 0 if its dropped on the item and 1 if its below the item
@@ -90,10 +90,12 @@ func _drop_data(at_position, data):
 				else:
 					if other_item == get_root():
 						data.get_metadata(0).sprite_object.reparent(cont)
+						data.move_before(cont)
+						data.get_metadata(0).sprite_object.get_parent().move_child(data.get_metadata(0).sprite_object,data.get_index())
 					else:
 						update_tree.emit(data, other_item.get_metadata(0).parent, true)
-					
-					data.move_before(other_item)
+						data.move_before(other_item)
+						data.get_metadata(0).sprite_object.get_parent().move_child(data.get_metadata(0).sprite_object,data.get_index())
 			else:
 				return
 			
@@ -107,9 +109,12 @@ func _drop_data(at_position, data):
 				else:
 					if other_item == get_root():
 						data.get_metadata(0).sprite_object.reparent(cont)
+						data.move_after(cont)
+						data.get_metadata(0).sprite_object.get_parent().move_child(data.get_metadata(0).sprite_object,data.get_index())
 					else:
 						update_tree.emit(data, other_item.get_metadata(0).parent, true)
-					data.move_after(other_item)
+						data.move_after(other_item)
+						data.get_metadata(0).sprite_object.get_parent().move_child(data.get_metadata(0).sprite_object,data.get_index())
 			else:
 				return
 			
@@ -135,7 +140,7 @@ func _drop_data(at_position, data):
 			var parent = data.get_parent()
 			update_tree.emit(data, parent, boolean)
 	
-	set_drop_mode_flags(3)
+	
 #	set_selected(get_item_at_position(get_local_mouse_position()),0)
 
 

@@ -448,6 +448,11 @@ func update_pos_spins():
 	%RotSpinBox.value = Global.held_sprite.rotation
 
 
+func update_offset():
+	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
+	%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
+
+
 func reinfoanim():
 	mc_anim.text = contain.current_mc_anim
 	mo_anim.text = contain.current_mo_anim
@@ -457,32 +462,26 @@ func reinfoanim():
 #region Movement Sliders
 func _on_x_amp_slider_value_changed(value):
 	Global.held_sprite.dictmain.xAmp = value
-	%XALabel.text = "X-Amp : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_xf_slider_value_changed(value):
 	Global.held_sprite.dictmain.xFrq = value
-	%XFLabel.text = "X-Freq : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_y_amp_slider_value_changed(value):
 	Global.held_sprite.dictmain.yAmp = value
-	%YALabel.text = "Y-Amp : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_yf_slider_value_changed(value):
 	Global.held_sprite.dictmain.yFrq = value
-	%YFLabel.text = "Y-Freq : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_rotation_level_value_changed(value):
 	Global.held_sprite.dictmain.rdragStr = value
-	%Rlable.text = "Rot-Degree : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_stretch_slider_value_changed(value):
 	Global.held_sprite.dictmain.stretchAmount = value
-	%StretchLabel.text = "Stretch : " + str(snappedf(value, 0.01))
 	Global.held_sprite.save_state(Global.current_state)
 #endregion
 
@@ -561,7 +560,6 @@ func _on_self_rainbow_only_toggled(toggled_on):
 
 func _on_rs_slider_value_changed(value):
 	Global.held_sprite.dictmain.rainbow_speed = value
-	%RSLabel.text = "Rainbow Speed :  " + str(snappedf(value, 0.001))
 	Global.held_sprite.save_state(Global.current_state)
 
 
@@ -735,12 +733,10 @@ func _on_size_spin_box_value_changed(value):
 
 #region Wiggle stuff
 func _on_wiggle_amp_slider_value_changed(value):
-	%WiggleAmpLabel.text = "Wiggle-Amp : " + str(snappedf(value, 0.01))
 	Global.held_sprite.dictmain.wiggle_amp = value
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_wiggle_freq_slider_value_changed(value):
-	%WiggleFreqLabel.text = "Wiggle-Freq : " + str(snappedf(value, 0.01))
 	Global.held_sprite.dictmain.wiggle_freq = value
 	Global.held_sprite.save_state(Global.current_state)
 
@@ -771,31 +767,26 @@ func _on_yoffset_spin_box_value_changed(value):
 func _on_wiggle_app_segm_slider_value_changed(value):
 	if Global.held_sprite:
 		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count = value
-		%WiggleAppsSegmLabel.text = "Wiggle-App Segments : " + str(snappedf(value, 1))
 		Global.held_sprite.save_state(Global.current_state)
 
 func _on_wiggle_apps_curve_slider_value_changed(value):
 	if Global.held_sprite:
 		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").curvature = value
-		%WiggleAppsCurveLabel.text = "Wiggle-App Curvature : " + str(snappedf(value, 0.01))
 		Global.held_sprite.save_state(Global.current_state)
 
 func _on_wiggle_apps_stiff_slider_value_changed(value):
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").stiffness = value
-	%WiggleAppsStiffLabel.text = "Wiggle-App Stiffness : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_wiggle_apps_max_angle_slider_value_changed(value):
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").max_angle = value
-	%WiggleAppsMaxAngleLabel.text = "Wiggle-App Max Angle : " + str(snappedf(value, 0.1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_wiggle_apps_phys_stiff_slider_value_changed(value):
 	if Global.held_sprite:
 		Global.held_sprite.dictmain.wiggle_physics_stiffness = value
-		%WiggleAppsPhysStiffLabel.text = "Wiggle-App Physics Stiffness : " + str(snappedf(value, 0.1))
 		Global.held_sprite.save_state(Global.current_state)
 
 func _on_follow_wiggle_app_tip_toggled(toggled_on):
@@ -808,21 +799,18 @@ func _on_follow_wiggle_app_tip_toggled(toggled_on):
 func _on_wiggle_width_spin_value_changed(value):
 	Global.held_sprite.dictmain.width = value
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").width = value
-	%WiggleWidthLabel.text = "Wiggle-App Width : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_wiggle_length_spin_value_changed(value):
 	Global.held_sprite.dictmain.segm_length = value
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_length = value
-	%WiggleLengthLabel.text = "Wiggle-App length : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_wiggle_sub_d_spin_value_changed(value):
 	Global.held_sprite.dictmain.subdivision = value
 	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").subdivision = value
-	%WiggleSubDLabel.text = "Wiggle-App Subdivision : " + str(snappedf(value, 1))
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_follow_parent_effect_toggled(toggled_on):
@@ -860,13 +848,11 @@ func _on_advanced_lip_sync_mouse_exited():
 
 #region Follow Mouse
 func _on_f_mx_slider_value_changed(value):
-	%FMxLabel.text = "Follow Mouse Range X : " + str(snappedf(value, 0.1))
 	Global.held_sprite.dictmain.look_at_mouse_pos = value
 	Global.held_sprite.save_state(Global.current_state)
 
 
 func _on_fmy_slider_value_changed(value):
-	%FMYLabel.text = "Follow Mouse Range Y : " + str(snappedf(value, 0.1))
 	Global.held_sprite.dictmain.look_at_mouse_pos_y = value
 	Global.held_sprite.save_state(Global.current_state)
 
@@ -881,12 +867,10 @@ func _on_animation_one_shot_toggled(toggled_on):
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_mini_rotation_level_value_changed(value):
-	%MiniRlable.text = "Minimum Rot : " + str(snappedf(value, 0.1))
 	Global.held_sprite.dictmain.rLimitMin = value
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_max_rotation_level_value_changed(value):
-	%MaxRlable.text = "Maximum Rot : " + str(snappedf(value, 0.1))
 	Global.held_sprite.dictmain.rLimitMax = value
 	Global.held_sprite.save_state(Global.current_state)
 
@@ -898,6 +882,7 @@ func _on_offset_y_spin_box_value_changed(value):
 		Global.held_sprite.get_node("%Sprite2D").position.y = value
 		Global.held_sprite.position.y = -value
 		Global.held_sprite.save_state(Global.current_state)
+		update_pos_spins()
 		
 
 
@@ -908,3 +893,4 @@ func _on_offset_x_spin_box_value_changed(value):
 		Global.held_sprite.get_node("%Sprite2D").position.x = value
 		Global.held_sprite.position.x = -value
 		Global.held_sprite.save_state(Global.current_state)
+		update_pos_spins()
