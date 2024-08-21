@@ -15,7 +15,7 @@ var texture
 # Misc
 var treeitem : TreeItem
 var visb
-var tick = 0
+
 var sprite_name : String = ""
 @export var states : Array = [{}]
 var coord
@@ -152,7 +152,6 @@ func _process(delta):
 			smooth_glob = get_global_mouse_position() - of
 			get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 	
-	tick += 1
 	glob = dragger.global_position
 	
 	
@@ -221,7 +220,7 @@ func auto_rotate():
 	$Pos/Wobble.rotate(dictmain.should_rot_speed)
 
 func wiggle_sprite():
-	var wiggle_val = sin(tick*dictmain.wiggle_freq)*dictmain.wiggle_amp
+	var wiggle_val = sin(Global.tick*dictmain.wiggle_freq)*dictmain.wiggle_amp
 	if dictmain.wiggle_physics:
 		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D:
 			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
@@ -238,8 +237,8 @@ func drag(delta):
 		dragger.global_position = lerp(dragger.global_position,wob.global_position,(delta*20)/dragSpeed)
 
 func wobble():
-	wob.position.x = sin(tick*dictmain.xFrq)*dictmain.xAmp
-	wob.position.y = sin(tick*dictmain.yFrq)*dictmain.yAmp
+	wob.position.x = sin(Global.tick*dictmain.xFrq)*dictmain.xAmp
+	wob.position.y = sin(Global.tick*dictmain.yFrq)*dictmain.yAmp
 
 func rotationalDrag(length):
 	var yvel = (length * dictmain.rdragStr)

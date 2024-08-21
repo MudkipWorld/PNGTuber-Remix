@@ -11,7 +11,7 @@ signal reinfoanim
 var blink_timer : Timer = Timer.new()
 var held_sprite = null
 var held_bg_sprite = null
-
+var tick = 0
 var current_state : int = 0
 
 var settings_dict : Dictionary = {
@@ -164,3 +164,8 @@ func rot(value):
 func bg_rot():
 	held_bg_sprite.save_state(current_state)
 	get_tree().get_root().get_node("Main/Control/BackgroundEdit").update_pos_spins()
+
+
+func _process(_delta):
+	tick += 1
+

@@ -2709,6 +2709,7 @@ unique_name_in_owner = true
 title = "Open a Directory"
 initial_position = 2
 size = Vector2i(800, 500)
+transient = false
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2

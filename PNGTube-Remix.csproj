@@ -6,4 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>PNGTubeRemix</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpHook" Version="5.3.7" />
+  </ItemGroup>
 </Project>

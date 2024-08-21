@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PNGTube-Remix", "PNGTube-Remix.csproj", "{AE5E3585-E1E1-41E6-907B-9FF446AD5AF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PNGTube-Remix", "PNGTube-Remix.csproj", "{5E9CD5FD-A2E6-4C98-AEC0-503A22001A42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AE5E3585-E1E1-41E6-907B-9FF446AD5AF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE5E3585-E1E1-41E6-907B-9FF446AD5AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE5E3585-E1E1-41E6-907B-9FF446AD5AF0}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{AE5E3585-E1E1-41E6-907B-9FF446AD5AF0}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{AE5E3585-E1E1-41E6-907B-9FF446AD5AF0}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{AE5E3585-E1E1-41E6-907B-9FF446AD5AF0}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{5E9CD5FD-A2E6-4C98-AEC0-503A22001A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9CD5FD-A2E6-4C98-AEC0-503A22001A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9CD5FD-A2E6-4C98-AEC0-503A22001A42}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{5E9CD5FD-A2E6-4C98-AEC0-503A22001A42}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{5E9CD5FD-A2E6-4C98-AEC0-503A22001A42}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{5E9CD5FD-A2E6-4C98-AEC0-503A22001A42}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal
