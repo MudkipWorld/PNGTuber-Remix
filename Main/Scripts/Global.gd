@@ -41,8 +41,10 @@ var settings_dict : Dictionary = {
 	saved_inputs = [],
 }
 
-var undo_redo : UndoRedo = UndoRedo.new()
+#var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
+@export var max_tick : float = 360
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_window().min_size = Vector2(1000,720)
@@ -84,7 +86,8 @@ func get_sprite_states(state):
 	light_info.emit(current_state)
 	reinfoanim.emit()
 
-func _input(event : InputEvent):
+
+func _input(_event : InputEvent):
 	if held_sprite != null:
 		if held_sprite.sprite_type == "Sprite2D":
 			if Input.is_action_pressed("ui_up"):
@@ -135,12 +138,6 @@ func _input(event : InputEvent):
 			elif Input.is_action_pressed("scrolldown"):
 				held_bg_sprite.rotation += 0.05
 				bg_rot()
-	if event.is_action_pressed("ui_undo"):
-		undo_redo.undo()
-		print(undo_redo.undo())
-	elif event.is_action_pressed("ui_redo"):
-		undo_redo.redo()
-		print(undo_redo.redo())
 
 func offset():
 	held_sprite.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
@@ -152,12 +149,9 @@ func offset():
 	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 	
 
-func rot(value):
-	var val = held_sprite.rotation + value
-	undo_redo.create_action("zaza")
-	undo_redo.add_undo_property(held_sprite, "rotation", held_sprite.rotation)
-	undo_redo.add_do_property(held_sprite, "rotation", val)
-	undo_redo.commit_action(true)
+func rot(_value):
+	held_sprite.dictmain.rotation += _value
+	held_sprite.rotation = held_sprite.dictmain.rotation
 	held_sprite.save_state(current_state)
 	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 
@@ -168,4 +162,3 @@ func bg_rot():
 
 func _process(_delta):
 	tick += 1
-

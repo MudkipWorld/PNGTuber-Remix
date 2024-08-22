@@ -109,6 +109,7 @@ var saved_keys : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().get_root().get_node("Main").key_pressed.connect(asset)
 	og_glob = dictmain.global_position
 	Global.blink.connect(blink)
 	Global.speaking.connect(speaking)
@@ -378,7 +379,7 @@ func save_state(id):
 	folder = dictmain.folder,
 	global_position = dictmain.global_position,
 	position = dictmain.position,
-	rotation = rotation,
+	rotation = dictmain.rotation,
 	offset = dictmain.offset,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
@@ -521,10 +522,6 @@ func _on_grab_button_down():
 func _on_grab_button_up():
 	if Global.held_sprite == self && dragging:
 		dragging_type = "Null"
-		Global.undo_redo.create_action("zaza")
-		Global.undo_redo.add_undo_property(self, "global_position", og_glob)
-		Global.undo_redo.add_do_property(self, "global_position", dictmain.global_position)
-		Global.undo_redo.commit_action()
 		save_state(Global.current_state)
 		dragging = false
 	og_glob = dictmain.global_position
@@ -537,6 +534,7 @@ func reparent_obj(parent):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	set_physics_process(false)
 	var cframe2: AImgIOFrame
 	if is_apng:
 		if len(frames) == 0:
@@ -557,10 +555,12 @@ func _physics_process(delta):
 			if frames2.size() != frames.size():
 				frames2.resize(frames.size())
 			%Sprite2D.texture.normal_texture = ImageTexture.create_from_image(cframe2.content)
-	
+
+
+func asset(key):
 	if is_asset:
-		if InputMap.has_action(str(sprite_id)):
-			if GlobalInput.is_action_just_pressed(str(sprite_id)):
+		if InputMap.action_get_events(str(sprite_id)).size() > 0:
+			if saved_event.as_text() == key:
 				%Drag.visible = !%Drag.visible
 				was_active_before = %Drag.visible
 				for i in get_tree().get_nodes_in_group("Sprites"):
@@ -568,5 +568,3 @@ func _physics_process(delta):
 						if saved_event.as_text() in i.saved_keys:
 							i.get_node("%Drag").visible = false
 							i.was_active_before = false
-			
-

@@ -1,8 +1,11 @@
 extends Control
 
 @onready var view1 
-@onready var view2 = $LeftPanel/VBox/VPPanel/SubViewportContainer2/SubViewport
+@onready var view2 = $HSplitContainer/LeftPanel/VBox/VPPanel/SubViewportContainer2/SubViewport
 @onready var tree = %LayersTree
+var audio = AudioServer
+var sample 
+var linear_sampler
 
 var container
 var has_spoken : bool = true
@@ -33,8 +36,8 @@ func _ready():
 	sliders_revalue(Global.settings_dict)
 
 func _process(_delta):
-	var sample = AudioServer.get_bus_peak_volume_left_db(2, 0)
-	var linear_sampler = db_to_linear(sample) 
+	sample = audio.get_bus_peak_volume_left_db(2, 0)
+	linear_sampler = db_to_linear(sample) 
 	%VolumeBar.value = linear_sampler * Global.settings_dict.sensitivity_limit
 	speech_value = %VolumeBar.value
 

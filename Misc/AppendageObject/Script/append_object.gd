@@ -113,6 +113,7 @@ var saved_keys : Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().get_root().get_node("Main").key_pressed.connect(asset)
 	Global.blink.connect(blink)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
@@ -448,10 +449,11 @@ func _physics_process(delta):
 				frames2.resize(frames.size())
 			%Sprite2D.texture.normal_texture = ImageTexture.create_from_image(cframe2.content)
 		
-	
+
+func asset(key):
 	if is_asset:
-		if InputMap.has_action(str(sprite_id)):
-			if GlobalInput.is_action_just_pressed(str(sprite_id)):
+		if InputMap.action_get_events(str(sprite_id)).size() > 0:
+			if saved_event.as_text() == key:
 				%Drag.visible = !%Drag.visible
 				was_active_before = %Drag.visible
 				for i in get_tree().get_nodes_in_group("Sprites"):
@@ -459,4 +461,3 @@ func _physics_process(delta):
 						if saved_event.as_text() in i.saved_keys:
 							i.get_node("%Drag").visible = false
 							i.was_active_before = false
-			

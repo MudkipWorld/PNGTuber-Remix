@@ -18,6 +18,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6pthk")
 
+[node name="BackgroundInputCapture" type="BackgroundInputCapture" parent="."]
+
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -86,6 +88,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 border_width = 5.0
 script = ExtResource("4_unki4")
 frames_per_second = 24.0
@@ -125,6 +128,7 @@ autostart = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05
 
+[connection signal="bg_key_pressed" from="BackgroundInputCapture" to="." method="_on_background_input_capture_bg_key_pressed"]
 [connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

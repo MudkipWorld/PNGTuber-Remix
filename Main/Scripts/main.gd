@@ -21,6 +21,7 @@ var rec_inp : bool = false
 
 @onready var origin = %SpritesContainer
 
+
 func _ready():
 	%FileDialog.use_native_dialog = true
 
@@ -252,8 +253,8 @@ func _on_confirmation_dialog_confirmed():
 func clear_sprites():
 	Global.held_sprite = null
 	$Control/UIInput.held_sprite_is_null()
-	$Control/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree.clear()
-	$Control/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree.clear()
+	$Control/HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree.clear()
+	$Control/HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree.clear()
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		if InputMap.has_action(str(i.sprite_id)):
 			InputMap.erase_action(str(i.sprite_id))
@@ -282,10 +283,36 @@ func _on_sub_viewport_container_mouse_exited():
 	can_scroll = false
 
 
-
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN:
 		rec_inp = false
 	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		rec_inp = true
 
+
+func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
+	if Global.settings_dict.checkinput:
+		var keyStrings = []
+		var costumeKeys = []
+		
+		for l in get_tree().get_nodes_in_group("StateButtons"):
+			if InputMap.action_get_events(l.input_key).size() > 0:
+				costumeKeys.append(InputMap.action_get_events(l.input_key)[0].as_text())
+				
+		for l in get_tree().get_nodes_in_group("Sprites"):
+			if InputMap.action_get_events(str(l.sprite_id)).size() > 0:
+				costumeKeys.append(InputMap.action_get_events(str(l.sprite_id))[0].as_text())
+		
+		for i in keys_pressed:
+			if keys_pressed[i]:
+				
+				keyStrings.append(OS.get_keycode_string(i))
+		
+		if %FileDialog.visible:
+			return
+			
+		
+		for key in keyStrings:
+			var i = costumeKeys.find(key)
+			if i >= 0:
+				key_pressed.emit(costumeKeys[i])

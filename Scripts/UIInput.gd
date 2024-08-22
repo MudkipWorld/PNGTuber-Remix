@@ -359,6 +359,8 @@ func reinfo():
 	if Global.held_sprite.sprite_type == "Sprite2D":
 		%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
 		%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
+		%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
+		%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
 		
 	%SizeSpinBox.value = Global.held_sprite.dictmain.scale.x
 	%SizeSpinYBox.value = Global.held_sprite.dictmain.scale.y
@@ -369,8 +371,7 @@ func reinfo():
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
 	
 	%AdvancedLipSync.button_pressed = Global.held_sprite.dictmain.advanced_lipsync
-	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
-	%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
+
 	
 	
 	

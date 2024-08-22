@@ -25,7 +25,6 @@ driver/enable_input=true
 
 [autoload]
 
-GlobalInput="*res://addons/global_input/autoload/global_input_gdscript/GlobalInputGDScript.tscn"
 Global="*res://Main/Scripts/Global.gd"
 SaveAndLoad="*res://Main/Scripts/SaveAndLoad.gd"
 GlobalAudioStreamPlayer="*res://Main/Scripts/AudioStreamPlayer.gd"
@@ -41,7 +40,7 @@ project/assembly_name="PNGTube-Remix"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Recorder/plugin.cfg", "res://addons/Sprite_Object/plugin.cfg", "res://addons/aimg_io/plugin.cfg", "res://addons/global_input/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
+enabled=PackedStringArray("res://addons/Recorder/plugin.cfg", "res://addons/Sprite_Object/plugin.cfg", "res://addons/aimg_io/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
 
 [input]
 
