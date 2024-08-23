@@ -72,6 +72,9 @@ var img_animated : bool = false
 	wiggle_stiff = 20,
 	wiggle_max_angle = 30,
 	wiggle_physics_stiffness = 2.5,
+	wiggle_gravity = Vector2(0,0),
+	wiggle_closed_loop = false,
+	
 
 	advanced_lipsync = false,
 	
@@ -94,6 +97,7 @@ var img_animated : bool = false
 	rainbow_speed = 0.01,
 	
 	follow_wa_tip = false,
+	tip_point = 0,
 	}
 
 var smooth_rot = 0.0
@@ -165,8 +169,9 @@ func _process(delta):
 func follow_wiggle():
 	if dictmain.follow_wa_tip:
 		if get_parent() is WigglyAppendage2D:
-			position = get_parent().points[get_parent().points.size() -1]
-			%Pos.rotation = (get_parent().points[get_parent().points.size() -1].y/100)
+			var pnt = get_parent().points[clamp(dictmain.tip_point,0, get_parent().points.size() -1)]
+			position = pnt
+			%Pos.rotation = (pnt.y/100)
 		else:
 			%Pos.rotation = 0
 		

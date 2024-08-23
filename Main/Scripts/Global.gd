@@ -17,6 +17,7 @@ var current_state : int = 0
 var settings_dict : Dictionary = {
 	sensitivity_limit = 1,
 	volume_limit = 0.1,
+	volume_delay = 0.5,
 	blink_speed = 1,
 	checkinput = true,
 	bg_color = Color.SLATE_GRAY,
@@ -39,6 +40,8 @@ var settings_dict : Dictionary = {
 	auto_save_timer = 1.0,
 	
 	saved_inputs = [],
+	zoom = Vector2(1,1),
+	pan = Vector2(640, 360),
 }
 
 #var undo_redo : UndoRedo = UndoRedo.new()

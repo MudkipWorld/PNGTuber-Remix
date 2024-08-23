@@ -32,7 +32,7 @@ func _process(delta):
 		get_parent().position.y = 0
 	bounceChange = hold - get_parent().position.y
 	
-	
+	yVel = clamp(yVel + Global.settings_dict.bounceGravity* delta,-90000000, 90000000)
 	
 	
 	if currenly_speaking:

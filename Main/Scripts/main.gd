@@ -20,7 +20,7 @@ var can_scroll : bool = false
 var rec_inp : bool = false
 
 @onready var origin = %SpritesContainer
-
+var of
 
 func _ready():
 	%FileDialog.use_native_dialog = true
@@ -266,15 +266,24 @@ func clear_sprites():
 	$Control/BackgroundEdit.new_tree()
 	$Control/StatesStuff.delete_all_states()
 	$Control/StatesStuff.initial_state()
+	%Camera2D.zoom = Vector2(1,1)
+
 
 func _input(event):
 	if can_scroll && not Input.is_action_pressed("ctrl"):
 		if event.is_action_pressed("scrollup"):
-			if %Camera2D.zoom != Vector2(4,4):
-				%Camera2D.zoom += Vector2(0.1,0.1)
+				%Camera2D.zoom = clamp(%Camera2D.zoom*Vector2(1.1,1.1) , Vector2(0.01,0.01), Vector2(5,5))
+				Global.settings_dict.zoom = %Camera2D.zoom
 		elif event.is_action_pressed("scrolldown"):
-			if %Camera2D.zoom > Vector2(0.1,0.1):
-				%Camera2D.zoom -= Vector2(0.1,0.1)
+				%Camera2D.zoom = clamp(%Camera2D.zoom/Vector2(1.1,1.1) , Vector2(0.01,0.01), Vector2(5,5))
+				Global.settings_dict.zoom = %Camera2D.zoom
+		
+		if Input.is_action_just_pressed("pan"):
+			of = get_global_mouse_position() + %CamPos.global_position
+		
+		elif Input.is_action_pressed("pan"):
+			%CamPos.global_position = -get_global_mouse_position() + of
+			Global.settings_dict.pan = %CamPos.global_position
 
 func _on_sub_viewport_container_mouse_entered():
 	can_scroll = true

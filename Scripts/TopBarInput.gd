@@ -334,12 +334,6 @@ func _on_record_button_toggled(toggled_on):
 		%FileDialog.popup()
 		%RecordButton.text = "Record"
 
-
-func _on_file_dialog_dir_selected(dir):
-	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").output_folder = dir
-	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
-
-
 func _on_file_dialog_canceled():
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").cancelled()
 
@@ -348,3 +342,21 @@ func _on_file_dialog_close_requested():
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").cancelled()
 
 
+
+
+func _on_file_dialog_file_selected(path):
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").output_folder = path
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
+
+
+func _on_file_type_item_selected(index):
+	match index:
+		0:
+			%_Themes_.theme_settings.as_gif = false
+			%FileDialog.filters = ["*.png"]
+			
+		1:
+			%_Themes_.theme_settings.as_gif = true
+			%FileDialog.filters = ["*.gif"]
+	%_Themes_.save()
+	

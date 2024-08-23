@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=95 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://Scripts/AssetStateButton.gd" id="10_62mcs"]
 [ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="10_efci7"]
 [ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="10_m6pfk"]
+[ext_resource type="Texture2D" uid="uid://cje55ikf44l63" path="res://UI/ZoomResetMainButton.png" id="14_24obs"]
 [ext_resource type="Texture2D" uid="uid://diyx30a4yqalc" path="res://UI/NormalMapButton.png" id="16_l1e6k"]
 [ext_resource type="Texture2D" uid="uid://cxpsf8uoktwrd" path="res://UI/NormalMapDelButton.png" id="17_ex20s"]
 [ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/LinksButtonImages/GithubLogo.png" id="17_tkc2i"]
@@ -428,6 +429,7 @@ script = ExtResource("2_a5rie")
 script = ExtResource("3_pa6sx")
 
 [node name="_Themes_" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("3_vp3qw")
 
 [node name="OnlineLinks" type="Node" parent="."]
@@ -559,6 +561,18 @@ texture_normal = ExtResource("8_46wi4")
 texture_pressed = ExtResource("8_46wi4")
 texture_hover = ExtResource("8_46wi4")
 texture_disabled = ExtResource("8_46wi4")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ZoomMainResetButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/ViewportCam"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+tooltip_text = "Main-View Zoom Reset"
+texture_normal = ExtResource("14_24obs")
+texture_pressed = ExtResource("14_24obs")
+texture_hover = ExtResource("14_24obs")
+texture_disabled = ExtResource("14_24obs")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -1780,10 +1794,26 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 16
-text = "Follow Wiggle App Tip       "
+text = "Follow Wiggle App      "
+
+[node name="HBox34" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TipLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/HBox34"]
+custom_minimum_size = Vector2(174, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wiggle-App Point to follow :  "
+
+[node name="TipSpin" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/HBox34"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="WiggleStuff" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 9
 
@@ -1883,7 +1913,6 @@ step = 0.1
 
 [node name="WiggleAppStuff" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="HBox25" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
@@ -1892,7 +1921,7 @@ layout_mode = 2
 
 [node name="WiggleAppsSegmLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox25"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(170, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Segments : "
@@ -1910,7 +1939,7 @@ layout_mode = 2
 
 [node name="WiggleAppsCurveLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox26"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(170, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Curvature : "
@@ -1928,7 +1957,7 @@ layout_mode = 2
 
 [node name="WiggleAppsStiffLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox27"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(170, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Stiffness : "
@@ -1945,7 +1974,7 @@ layout_mode = 2
 
 [node name="WiggleAppsMaxAngleLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox28"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(170, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Max Angle : "
@@ -1962,7 +1991,7 @@ layout_mode = 2
 
 [node name="WiggleAppsPhysStiffLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox29"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(210, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Physics Stiffness : "
@@ -1981,7 +2010,7 @@ size_flags_horizontal = 0
 
 [node name="WiggleWidthLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox30"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Width : "
@@ -1998,7 +2027,7 @@ size_flags_horizontal = 0
 
 [node name="WiggleLengthLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox31"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Wiggle-App Length : "
@@ -2015,16 +2044,58 @@ size_flags_horizontal = 0
 
 [node name="WiggleSubDLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox32"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Length : "
+text = "Wiggle-App Sub-Division : "
 
 [node name="WiggleSubDSpin" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox32"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
 value = 1.0
+
+[node name="HBox33" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="WiggleGravityLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33"]
+custom_minimum_size = Vector2(143, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wiggle-App Gravity "
+
+[node name="X" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "X : "
+
+[node name="WAGravityX" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -3000.0
+max_value = 3000.0
+step = 0.1
+
+[node name="Y" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Y : "
+
+[node name="WAGravityY" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = -3000.0
+max_value = 3000.0
+step = 0.1
+
+[node name="ClosedLoopCheck" type="CheckBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Is a Closed Loop    "
 
 [node name="Misc" type="Control" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer"]
 visible = false
@@ -2263,10 +2334,13 @@ layout_mode = 2
 [node name="ScrollContainer6" type="ScrollContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Experimental"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = -0.078
-anchor_right = 1.0
+anchor_left = -0.014
+anchor_top = 0.011
+anchor_right = 1.014
 anchor_bottom = 1.0
-offset_top = 33.916
+offset_left = 4.872
+offset_top = 0.0959988
+offset_right = -4.87201
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -2706,14 +2780,12 @@ popup/item_1/disabled = true
 
 [node name="FileDialog" type="FileDialog" parent="TopBar/HBox/RecordButton"]
 unique_name_in_owner = true
-title = "Open a Directory"
 initial_position = 2
 size = Vector2i(800, 500)
 transient = false
-ok_button_text = "Select Current Folder"
-file_mode = 2
+ok_button_text = "Save"
 access = 2
-filters = PackedStringArray("*.png", "*.jpeg", "*.jpg", "*.svg")
+filters = PackedStringArray("*.png")
 use_native_dialog = true
 
 [node name="HideUIButton" type="CheckBox" parent="TopBar/HBox"]
@@ -3103,7 +3175,7 @@ from the original software and improve existing ones."
 unique_name_in_owner = true
 gui_embed_subwindows = true
 initial_position = 2
-size = Vector2i(453, 587)
+size = Vector2i(453, 619)
 unresizable = false
 borderless = false
 
@@ -3114,10 +3186,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 446.0
-offset_bottom = 579.0
+offset_left = -3.872
+offset_top = -3.761
+offset_right = 2.06
+offset_bottom = 3.76099
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3144,6 +3216,39 @@ theme_override_font_sizes/font_size = 12
 max_value = 1.0
 
 [node name="VolumeSlider" type="HSlider" parent="InputsPopup/VBoxContainer2/GridContainer2/VolumeBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("10_efci7")
+theme_override_icons/grabber_highlight = ExtResource("10_efci7")
+theme_override_icons/grabber_disabled = ExtResource("10_efci7")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="DelayLabel" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 20
+text = "Delay"
+horizontal_alignment = 1
+
+[node name="DelayBar" type="ProgressBar" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+max_value = 1.0
+
+[node name="DelaySlider" type="HSlider" parent="InputsPopup/VBoxContainer2/GridContainer2/DelayBar"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
@@ -3299,6 +3404,19 @@ size_flags_horizontal = 2
 min_value = 1.0
 max_value = 120.0
 value = 24.0
+
+[node name="FileType" type="OptionButton" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "Image Sequence"
+popup/item_0/id = 0
+popup/item_1/text = "Gif"
+popup/item_1/id = 1
 
 [node name="Sp3" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer"]
 layout_mode = 2
@@ -3546,6 +3664,7 @@ presets_visible = false
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomInButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomResetButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_reset_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomOutButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_out_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomMainResetButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_main_reset_button_pressed"]
 [connection signal="value_changed" from="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/AnimationFramesSlider" to="UIInput" method="_on_animation_frames_slider_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/AnimationSpeedSlider" to="UIInput" method="_on_animation_speed_slider_value_changed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/AddSpriteButton" to="UIInput" method="_on_add_sprite_button_pressed"]
@@ -3592,6 +3711,7 @@ presets_visible = false
 [connection signal="item_selected" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/ShouldDisListContainer/ShouldDisList" to="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_dis_list_item_selected"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/ShouldRotCheck" to="UIInput" method="_on_should_rot_check_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/FollowWiggleAppTip" to="UIInput" method="_on_follow_wiggle_app_tip_toggled"]
+[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/HBox34/TipSpin" to="UIInput" method="_on_tip_spin_value_changed"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WiggleCheck" to="UIInput" method="_on_wiggle_check_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/HBox22/WigglePhysicsCheck" to="UIInput" method="_on_wiggle_physics_check_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/FollowParentEffect" to="UIInput" method="_on_follow_parent_effect_toggled"]
@@ -3600,6 +3720,9 @@ presets_visible = false
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox30/WiggleWidthSpin" to="UIInput" method="_on_wiggle_width_spin_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox31/WiggleLengthSpin" to="UIInput" method="_on_wiggle_length_spin_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox32/WiggleSubDSpin" to="UIInput" method="_on_wiggle_sub_d_spin_value_changed"]
+[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33/WAGravityX" to="UIInput" method="_on_wa_gravity_x_value_changed"]
+[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33/WAGravityY" to="UIInput" method="_on_wa_gravity_y_value_changed"]
+[connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/ClosedLoopCheck" to="UIInput" method="_on_closed_loop_check_toggled"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox15/BlinkSpeedSlider" to="UIInput" method="_on_blink_speed_slider_value_changed"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox16/LightSourceVis" to="LightControl" method="_on_light_source_vis_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox16/LSShapeVis" to="LightControl" method="_on_ls_shape_vis_toggled"]
@@ -3633,7 +3756,7 @@ presets_visible = false
 [connection signal="toggled" from="TopBar/HBox/RecordButton" to="TopBarInput" method="_on_record_button_toggled"]
 [connection signal="canceled" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_canceled"]
 [connection signal="close_requested" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_close_requested"]
-[connection signal="dir_selected" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_dir_selected"]
+[connection signal="file_selected" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_file_selected"]
 [connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
 [connection signal="pressed" from="TopBar/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
@@ -3645,6 +3768,7 @@ presets_visible = false
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/FollowMouseTempButton" to="TopBarInput" method="_on_follow_mouse_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/AssetTempButton" to="TopBarInput" method="_on_asset_temp_button_pressed"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer2/VolumeBar/VolumeSlider" to="UIInput" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer2/DelayBar/DelaySlider" to="UIInput" method="_on_delay_slider_value_changed"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer2/SensitivityBar/SensitivitySlider" to="UIInput" method="_on_sensitivity_slider_value_changed"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/AntiAlCheck" to="TopBarInput" method="_on_anti_al_check_toggled"]
@@ -3654,6 +3778,7 @@ presets_visible = false
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveSpin" to="TopBarInput" method="_on_auto_save_spin_value_changed"]
 [connection signal="timeout" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveTimer" to="TopBarInput" method="_on_auto_save_timer_timeout"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FpsSping" to="_Themes_" method="_on_fps_sping_value_changed"]
+[connection signal="item_selected" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FileType" to="TopBarInput" method="_on_file_type_item_selected"]
 [connection signal="pressed" from="InputsPopup/VBoxContainer2/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]

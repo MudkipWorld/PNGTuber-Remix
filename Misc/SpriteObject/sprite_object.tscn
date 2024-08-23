@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://Misc/SpriteObject/Script/sprite_object.gd" id="1_i7wd5"]
 [ext_resource type="Texture2D" uid="uid://t7lg762xsffp" path="res://Misc/FolderObject/origin.png" id="2_lsh2x"]
-[ext_resource type="Texture2D" uid="uid://dmasowhb8q08u" path="res://Misc/EasyBlend/Blends/multiply.png" id="2_n36sc"]
+[ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="3_updi2"]
 [ext_resource type="Texture2D" uid="uid://dv27xjbwfkacl" path="res://Misc/LightSource/Lamp.png" id="3_x1bf3"]
 
 [sub_resource type="Shader" id="Shader_l06p8"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, repeat_disable, filter_nearest;
 uniform bool enabled;
 
 
@@ -47,11 +47,11 @@ void fragment() {
 		if(wiggle) {
 			
 			Color = texture(TEXTURE, rot_uv);
-			bgColor = texture( TEXTURE, rot_uv);
+			bgColor = texture(TEXTURE, UV);
 		}
 		else{
 			Color = texture(TEXTURE, UV);
-			bgColor = texture( TEXTURE, UV);
+			bgColor = texture(TEXTURE, UV);
 		}
 		vec4 blendColor;
 	   	vec4 output = vec4(1,1,1,1);
@@ -84,7 +84,7 @@ shader_parameter/Intensity = 1.0
 shader_parameter/wiggle = false
 shader_parameter/rotation = 0.0
 shader_parameter/rotation_offset = Vector2(0.5, 0.5)
-shader_parameter/Blend = ExtResource("2_n36sc")
+shader_parameter/Blend = ExtResource("3_updi2")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
 diffuse_texture = ExtResource("3_x1bf3")

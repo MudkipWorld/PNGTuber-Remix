@@ -13,13 +13,23 @@ var speech_value : float :
 	set(value):
 		if value >= Global.settings_dict.volume_limit:
 			if not has_spoken:
+				%DelayBar.value = 1
 				Global.speaking.emit()
 				has_spoken = true
-		
-		if value < Global.settings_dict.volume_limit:
+		'''
+		if %value < Global.settings_dict.volume_limit:
+			if has_spoken:
+				Global.not_speaking.emit()
+				has_spoken = false'''
+
+var speech_delay : float : 
+	set(value):
+		if value < Global.settings_dict.volume_delay:
 			if has_spoken:
 				Global.not_speaking.emit()
 				has_spoken = false
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,7 +49,11 @@ func _process(_delta):
 	sample = audio.get_bus_peak_volume_left_db(2, 0)
 	linear_sampler = db_to_linear(sample) 
 	%VolumeBar.value = linear_sampler * Global.settings_dict.sensitivity_limit
+	%DelayBar.value = move_toward(%DelayBar.value, %VolumeBar.value, 0.01)
 	speech_value = %VolumeBar.value
+	speech_delay = %DelayBar.value
+
+
 
 func sliders_revalue(settings_dict):
 	%BounceAmountSlider.value = settings_dict.bounceSlider
@@ -58,6 +72,11 @@ func sliders_revalue(settings_dict):
 	%AutoSaveCheck.button_pressed = settings_dict.auto_save
 	%AutoSaveSpin.value = settings_dict.auto_save_timer
 	%BlinkSpeedSlider.value = settings_dict.blink_speed
+	%DelaySlider.value = settings_dict.volume_delay
+	get_tree().get_root().get_node("Main/SubViewportContainer/%Camera2D").zoom = settings_dict.zoom
+	get_tree().get_root().get_node("Main/SubViewportContainer/%CamPos").global_position = settings_dict.pan
+	
+	
 	
 	if %AutoSaveCheck.button_pressed:
 		%AutoSaveTimer.start()

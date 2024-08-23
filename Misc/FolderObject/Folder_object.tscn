@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlewxqv6urfu2"]
+[gd_scene load_steps=5 format=3 uid="uid://dlewxqv6urfu2"]
 
 [ext_resource type="Script" path="res://Misc/FolderObject/Script/Folder_object.gd" id="1_hncgl"]
+[ext_resource type="Shader" path="res://Scripts/BlendLayers.gdshader" id="2_c105c"]
 [ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="4_tgpoe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jna4o"]
+resource_local_to_scene = true
+shader = ExtResource("2_c105c")
+shader_parameter/origin_x_positive = true
+shader_parameter/origin_y_positive = true
 
 [node name="FolderObject" type="Node2D" groups=["Sprites"]]
 script = ExtResource("1_hncgl")
@@ -26,6 +33,7 @@ use_parent_material = true
 [node name="Sprite2D" type="CanvasGroup" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
 process_priority = 765
+material = SubResource("ShaderMaterial_jna4o")
 use_mipmaps = true
 
 [node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]

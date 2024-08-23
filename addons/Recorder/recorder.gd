@@ -16,18 +16,13 @@ extends ReferenceRect # Extends from ReferenceRect
 @export var _viewport = get_parent()
 
 @onready var _thread = Thread.new()
-
+const GIFExporter = preload("res://addons/gdgifexporter/exporter.gd")
+const Quantization = preload("res://addons/gdgifexporter/quantization/uniform.gd")
 # ======================================================
 
 func _ready():
 	set_process(false)
 
-func record():
-	if (_thread.is_alive()):
-		return
-	_running = !_running
-	get_window().unresizable = true
-	set_process(true)
 
 
 
@@ -39,7 +34,47 @@ func save():
 		save_frames(null)
 	get_window().unresizable = false
 	set_process(false)
+
+
+func record():
+	if (_thread.is_alive()):
+		return
+	_running = !_running
+	get_window().unresizable = true
+	set_process(true)
+
+
+func saveg():
+	if (use_thread):
+		if(not _thread.is_alive()):
+			var err = _thread.start(save_gif.bind("Null"))
+	else:
+		save_gif(null)
+	get_window().unresizable = false
+	set_process(false)
 	
+
+
+func save_gif(userdata):
+	# userdata wont be used, is just for the thread calling
+	if !DirAccess.dir_exists_absolute(output_folder.get_base_dir()):
+		print("An error occurred when trying to create the output folder.")
+		var dire = DirAccess.make_dir_absolute(output_folder.get_base_dir())
+	
+	
+	var i = 0
+	var exporter := GIFExporter.new(_images[0].get_width(), _images[0].get_height())
+	for image in _images:
+		image.convert(Image.FORMAT_RGBA8)
+		exporter.add_frame(image, 1, Quantization)
+	
+	var file: FileAccess = FileAccess.open(output_folder + ".gif", FileAccess.WRITE)
+	file.store_buffer(exporter.export_file_data())
+	file.close()
+	_images.clear()
+	_thread.call_deferred("wait_to_finish")
+
+
 
 func _process(delta):
 	# Get images
@@ -58,21 +93,25 @@ func _process(delta):
 
 func save_frames(userdata):
 	# userdata wont be used, is just for the thread calling
-	if !DirAccess.dir_exists_absolute(output_folder):
+	if !DirAccess.dir_exists_absolute(output_folder.get_base_dir()):
 		print("An error occurred when trying to create the output folder.")
-		var dire = DirAccess.make_dir_absolute(output_folder)
+		var dire = DirAccess.make_dir_absolute(output_folder.get_base_dir())
 	var i = 0
 	for image in _images:
-	#	print("saving")
-	#	image.crop.call_deferred(self.get_rect().size.x, self.get_rect().size.y)
 		if (flip_y):
 			image.flip_y()
-		image.save_png(output_folder + "/" + "export."+ "%04d" % i + ".png")
+		image.save_png(output_folder +"."+ "%04d" % i + ".png")
 		i+=1
 	_images.clear()
 	
-#	if(_thread.is_alive()):
-	#	_thread.wait_to_finish()
+	_thread.call_deferred("wait_to_finish")
+
+
+func end_func():
+	var result = _thread.wait_to_finish()
+	return result
 
 func cancelled():
 	_images.clear()
+
+
