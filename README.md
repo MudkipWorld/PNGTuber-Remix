@@ -3,6 +3,9 @@
 Note : This is a forked version of PNGTuber+, credits for the core stuff goes to Kaiakairos. make sure to support them :D
 If you always wanted to try the most recent version, install Godot then clone the repository to open the project files. Builds/ compiled versions will only be for main updates or bugs that needed to be patched quickly 
 
+_<br> This project uses Godot 4.2.2 </br>_
+
+
 <h3>PNGTube-Remix!</h3>
 <br>Start PNGTubing in a more interesting and alive way.</br>
 <br>This software is currently in its Alpha stages. However, it is usable!</br>
@@ -11,6 +14,10 @@ If you always wanted to try the most recent version, install Godot then clone th
 
 <br>The UI had been remade to be much easier to understand thanks to [LeoRson](https://github.com/LeoRson). A document will be made when the first full release is out.</br>
 <br>An in-app doc will be added too, tho.. not as complex, more of a heads up!</br>
+[RoadMap](https://trello.com/b/w9Iz2vah/pngtuber-remix)
 
-![DifferentStates-ezgif com-optimize](https://github.com/MudkipWorld/PNGTuber-Remix/assets/94318023/adf32ea2-c193-4622-823f-a95274fcfdd7)
+![ThemesPreview](https://github.com/user-attachments/assets/c2abcb85-06dd-4128-92bd-4b598182ec15)
+
+
+![Preview1(1)](https://github.com/user-attachments/assets/42722dcc-b322-4b81-a91f-8e1dc2f7a017)
 
