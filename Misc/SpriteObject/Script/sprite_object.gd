@@ -180,8 +180,6 @@ func _process(delta):
 	
 	if dictmain.should_rotate:
 		auto_rotate()
-
-	
 	rainbow()
 	follow_wiggle()
 	follow_mouse()
@@ -409,6 +407,7 @@ func save_state(id):
 	
 	follow_parent_wiggle = dictmain.follow_parent_effects,
 	follow_wa_tip = dictmain.follow_wa_tip,
+	tip_point = dictmain.tip_point,
 	}
 	states[id] = dict
 
@@ -434,7 +433,7 @@ func get_state(id):
 				%Sprite2D.texture.normal_texture.one_shot = dictmain.one_shot
 			
 		
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.position = dictmain.offset 
+		%Sprite2D.position = dictmain.offset 
 		
 		z_index = dictmain.z_index
 		modulate = dictmain.colored

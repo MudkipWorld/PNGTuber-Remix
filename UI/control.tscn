@@ -1813,7 +1813,6 @@ layout_mode = 2
 
 [node name="WiggleStuff" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 9
 
@@ -1913,25 +1912,8 @@ step = 0.1
 
 [node name="WiggleAppStuff" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
-
-[node name="HBox25" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="WiggleAppsSegmLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox25"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(174, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Segments : "
-
-[node name="WiggleAppSegmBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox25" instance=ExtResource("10_m6pfk")]
-unique_name_in_owner = true
-layout_mode = 2
-mini_value = -3.0
-max_value = 15.0
-step = 1.0
 
 [node name="HBox26" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
 unique_name_in_owner = true
@@ -1942,7 +1924,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Curvature : "
+text = "Curvature : "
 
 [node name="WiggleAppsCurveBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox26" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
@@ -1950,6 +1932,78 @@ layout_mode = 2
 mini_value = -1.57
 max_value = 1.57
 step = 0.01
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
+layout_mode = 2
+
+[node name="AutoWagCheck" type="CheckBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 13
+text = "Auto Wag   "
+
+[node name="WiggleAppsCurveLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wag Speed :"
+
+[node name="WagSpeedBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxContainer" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+mini_value = 0.1
+max_value = 5.0
+step = 0.1
+
+[node name="HBoxMiniCurve" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxMiniCurve"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Mini-Curve :    "
+
+[node name="MinimumCurve" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxMiniCurve" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+mini_value = -1.57
+step = 0.01
+
+[node name="HBoxMaxCurve" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxMaxCurve"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Max-Curve :    "
+
+[node name="MaxmumCurve" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxMaxCurve" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.57
+step = 0.01
+
+[node name="HBox25" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="WiggleAppsSegmLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox25"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(174, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Segments : "
+
+[node name="WiggleAppSegmBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox25" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+mini_value = -3.0
+max_value = 15.0
+step = 1.0
 
 [node name="HBox27" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
 unique_name_in_owner = true
@@ -1960,7 +2014,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Stiffness : "
+text = "Stiffness : "
 
 [node name="WiggleAppsStiffBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox27" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
@@ -1977,7 +2031,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Max Angle : "
+text = "Max Angle : "
 
 [node name="WiggleAppsMaxAngleBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox28" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
@@ -1994,7 +2048,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Physics Stiffness : "
+text = "Physics Stiffness : "
 
 [node name="WiggleAppsPhysStiffBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox29" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
@@ -2013,7 +2067,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Width : "
+text = "Width : "
 
 [node name="WiggleWidthSpin" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox30"]
 unique_name_in_owner = true
@@ -2030,7 +2084,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Length : "
+text = "Length : "
 
 [node name="WiggleLengthSpin" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox31"]
 unique_name_in_owner = true
@@ -2047,7 +2101,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(174, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Sub-Division : "
+text = "Sub-Division : "
 
 [node name="WiggleSubDSpin" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox32"]
 unique_name_in_owner = true
@@ -2064,7 +2118,7 @@ size_flags_horizontal = 0
 custom_minimum_size = Vector2(143, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "Wiggle-App Gravity "
+text = "Gravity "
 
 [node name="X" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox33"]
 layout_mode = 2
@@ -3186,10 +3240,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = -3.872
-offset_top = -3.761
-offset_right = 2.06
-offset_bottom = 3.76099
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 446.0
+offset_bottom = 611.0
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3415,7 +3469,7 @@ item_count = 2
 selected = 0
 popup/item_0/text = "Image Sequence"
 popup/item_0/id = 0
-popup/item_1/text = "Gif"
+popup/item_1/text = "Apng"
 popup/item_1/id = 1
 
 [node name="Sp3" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer"]
@@ -3717,6 +3771,7 @@ presets_visible = false
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/FollowParentEffect" to="UIInput" method="_on_follow_parent_effect_toggled"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/HBox/XoffsetSpinBox" to="UIInput" method="_on_xoffset_spin_box_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleStuff/HBox/YoffsetSpinBox" to="UIInput" method="_on_yoffset_spin_box_value_changed"]
+[connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxContainer/AutoWagCheck" to="UIInput" method="_on_auto_wag_check_toggled"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox30/WiggleWidthSpin" to="UIInput" method="_on_wiggle_width_spin_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox31/WiggleLengthSpin" to="UIInput" method="_on_wiggle_length_spin_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBox32/WiggleSubDSpin" to="UIInput" method="_on_wiggle_sub_d_spin_value_changed"]

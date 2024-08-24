@@ -61,6 +61,12 @@ func _ready():
 	%WiggleAppsStiffBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_stiff_slider_value_changed)
 	%WiggleAppsMaxAngleBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_max_angle_slider_value_changed)
 	%WiggleAppsPhysStiffBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_phys_stiff_slider_value_changed)
+	%WagSpeedBSlider.get_node("SliderValue").value_changed.connect(on_wag_speed_changed)
+	%MinimumCurve.get_node("SliderValue").value_changed.connect(on_wag_minicurve_changed)
+	%MaxmumCurve.get_node("SliderValue").value_changed.connect(on_wag_maxcurve_changed)
+	
+	
+	
 
 	
 	
@@ -134,6 +140,16 @@ func held_sprite_is_null():
 	%WiggleAppsMaxAngleBSlider.get_node("SpinBoxValue").editable = false
 	%WiggleAppsPhysStiffBSlider.get_node("SliderValue").editable = false
 	%WiggleAppsPhysStiffBSlider.get_node("SpinBoxValue").editable = false
+	%WagSpeedBSlider.get_node("SliderValue").editable = false
+	%WagSpeedBSlider.get_node("SpinBoxValue").editable = false
+	
+	%MinimumCurve.get_node("SliderValue").editable = false
+	%MinimumCurve.get_node("SpinBoxValue").editable = false
+	%MaxmumCurve.get_node("SliderValue").editable = false
+	%MaxmumCurve.get_node("SpinBoxValue").editable = false
+	%AutoWagCheck.disabled = true
+	
+	
 	%WiggleWidthSpin.editable = false
 	%WiggleLengthSpin.editable = false
 	%WiggleSubDSpin.editable = false
@@ -266,6 +282,17 @@ func held_sprite_is_true():
 		%WAGravityY.editable = true
 		%ClosedLoopCheck.disabled = false
 		
+		%WagSpeedBSlider.get_node("SliderValue").editable = true
+		%WagSpeedBSlider.get_node("SpinBoxValue").editable = true
+
+		%MinimumCurve.get_node("SliderValue").editable = true
+		%MinimumCurve.get_node("SpinBoxValue").editable = true
+		%MaxmumCurve.get_node("SliderValue").editable = true
+		%MaxmumCurve.get_node("SpinBoxValue").editable = true
+		%AutoWagCheck.disabled = false
+		
+		
+		
 	else:
 		%WiggleAppSegmBSlider.get_node("SliderValue").editable = false
 		%WiggleAppSegmBSlider.get_node("SpinBoxValue").editable = false
@@ -277,8 +304,9 @@ func held_sprite_is_true():
 		%WiggleAppsMaxAngleBSlider.get_node("SpinBoxValue").editable = false
 		%WiggleAppsPhysStiffBSlider.get_node("SliderValue").editable = false
 		%WiggleAppsPhysStiffBSlider.get_node("SpinBoxValue").editable = false
-		%OffsetXSpinBox.editable = true
-		%OffsetYSpinBox.editable = true
+		
+	%OffsetXSpinBox.editable = true
+	%OffsetYSpinBox.editable = true
 	
 		
 	
@@ -415,8 +443,9 @@ func reinfo():
 	if Global.held_sprite.sprite_type == "Sprite2D":
 		%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
 		%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
-		%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
-		%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
+	
+	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
+	%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
 		
 	%SizeSpinBox.value = Global.held_sprite.dictmain.scale.x
 	%SizeSpinYBox.value = Global.held_sprite.dictmain.scale.y
@@ -459,6 +488,13 @@ func reinfo():
 		%WAGravityX.value = Global.held_sprite.dictmain.wiggle_gravity.x
 		%WAGravityY.value = Global.held_sprite.dictmain.wiggle_gravity.y
 		%ClosedLoopCheck.button_pressed = Global.held_sprite.dictmain.wiggle_closed_loop
+		%AutoWagCheck.button_pressed = Global.held_sprite.dictmain.auto_wag
+		%WagSpeedBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_speed
+		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini
+		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max
+		
+		
+		
 		
 	
 	%PosXSpinBox.value = Global.held_sprite.dictmain.global_position.x
@@ -947,24 +983,22 @@ func _on_max_rotation_level_value_changed(value):
 
 
 func _on_offset_y_spin_box_value_changed(value):
-	if Global.held_sprite.sprite_type == "Sprite2D":
-		Global.held_sprite.dictmain.position.y = -value
-		Global.held_sprite.dictmain.offset.y = value
-		Global.held_sprite.get_node("%Sprite2D").position.y = value
-		Global.held_sprite.position.y = -value
-		Global.held_sprite.save_state(Global.current_state)
-		update_pos_spins()
+	Global.held_sprite.dictmain.position.y = -value
+	Global.held_sprite.dictmain.offset.y = value
+	Global.held_sprite.get_node("%Sprite2D").position.y = value
+	Global.held_sprite.position.y = -value
+	Global.held_sprite.save_state(Global.current_state)
+	update_pos_spins()
 		
 
 
 func _on_offset_x_spin_box_value_changed(value):
-	if Global.held_sprite.sprite_type == "Sprite2D":
-		Global.held_sprite.dictmain.position.x = -value
-		Global.held_sprite.dictmain.offset.x = value
-		Global.held_sprite.get_node("%Sprite2D").position.x = value
-		Global.held_sprite.position.x = -value
-		Global.held_sprite.save_state(Global.current_state)
-		update_pos_spins()
+	Global.held_sprite.dictmain.position.x = -value
+	Global.held_sprite.dictmain.offset.x = value
+	Global.held_sprite.get_node("%Sprite2D").position.x = value
+	Global.held_sprite.position.x = -value
+	Global.held_sprite.save_state(Global.current_state)
+	update_pos_spins()
 
 
 
@@ -994,3 +1028,34 @@ func _on_closed_loop_check_toggled(toggled_on):
 		Global.held_sprite.dictmain.wiggle_closed_loop = toggled_on
 		Global.held_sprite.get_node("%Sprite2D").closed = toggled_on
 		Global.held_sprite.save_state(Global.current_state)
+
+
+func on_wag_speed_changed(value):
+	if Global.held_sprite != null:
+		Global.held_sprite.dictmain.wag_speed = value
+		Global.held_sprite.save_state(Global.current_state)
+
+func on_wag_minicurve_changed(value):
+	if Global.held_sprite != null:
+		Global.held_sprite.dictmain.wag_mini = value
+		Global.held_sprite.save_state(Global.current_state)
+		
+func on_wag_maxcurve_changed(value):
+	if Global.held_sprite != null:
+		Global.held_sprite.dictmain.wag_max = value
+		Global.held_sprite.save_state(Global.current_state)
+		
+
+func _on_auto_wag_check_toggled(toggled_on):
+	Global.held_sprite.dictmain.auto_wag = toggled_on
+	if toggled_on:
+		%HBoxMiniCurve.show()
+		%HBoxMaxCurve.show()
+		%HBox26.hide()
+	if !toggled_on:
+		Global.held_sprite.get_node("%Sprite2D").curvature = Global.held_sprite.dictmain.wiggle_curve
+		%HBoxMiniCurve.hide()
+		%HBoxMaxCurve.hide()
+		%HBox26.show()
+		
+	Global.held_sprite.save_state(Global.current_state)

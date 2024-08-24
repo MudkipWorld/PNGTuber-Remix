@@ -7,7 +7,7 @@ var theme_settings : Dictionary = {
 	save_on_exit = false,
 	path = "",
 	fps = 24,
-	as_gif = false,
+	as_apng = false,
 	
 	
 }
@@ -51,7 +51,7 @@ func _ready():
 			
 			%AutoLoadCheck.button_pressed = theme_settings.auto_load
 			%FpsSping.value = theme_settings.fps
-			if theme_settings.as_gif:
+			if theme_settings.as_apng:
 				%TopBarInput._on_file_type_item_selected(1)
 				%FileType.select(1)
 			else:

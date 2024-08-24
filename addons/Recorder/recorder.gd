@@ -16,8 +16,7 @@ extends ReferenceRect # Extends from ReferenceRect
 @export var _viewport = get_parent()
 
 @onready var _thread = Thread.new()
-const GIFExporter = preload("res://addons/gdgifexporter/exporter.gd")
-const Quantization = preload("res://addons/gdgifexporter/quantization/uniform.gd")
+var anpng_export = AImgIOAPNGExporter.new()
 # ======================================================
 
 func _ready():
@@ -44,18 +43,18 @@ func record():
 	set_process(true)
 
 
-func saveg():
+func savea():
 	if (use_thread):
 		if(not _thread.is_alive()):
-			var err = _thread.start(save_gif.bind("Null"))
+			var err = _thread.start(save_apng.bind("Null"))
 	else:
-		save_gif(null)
+		save_apng(null)
 	get_window().unresizable = false
 	set_process(false)
 	
 
 
-func save_gif(userdata):
+func save_apng(userdata):
 	# userdata wont be used, is just for the thread calling
 	if !DirAccess.dir_exists_absolute(output_folder.get_base_dir()):
 		print("An error occurred when trying to create the output folder.")
@@ -63,13 +62,18 @@ func save_gif(userdata):
 	
 	
 	var i = 0
-	var exporter := GIFExporter.new(_images[0].get_width(), _images[0].get_height())
+	var frames : Array[AImgIOFrame] = []
 	for image in _images:
-		image.convert(Image.FORMAT_RGBA8)
-		exporter.add_frame(image, 1, Quantization)
+		if image != null:
+			var a = AImgIOFrame.new()
+			a.content = image
+			frames.append(a)
 	
-	var file: FileAccess = FileAccess.open(output_folder + ".gif", FileAccess.WRITE)
-	file.store_buffer(exporter.export_file_data())
+	var result = anpng_export.export_animation(frames, 30, self, "", [])
+	
+	var file: FileAccess = FileAccess.open(output_folder + ".Apng", FileAccess.WRITE)
+	file.store_buffer(result)
+	print("sav")
 	file.close()
 	_images.clear()
 	_thread.call_deferred("wait_to_finish")

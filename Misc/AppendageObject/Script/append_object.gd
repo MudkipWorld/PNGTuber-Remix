@@ -58,6 +58,7 @@ var img_animated : bool = false
 	global_position = global_position,
 	position = position,
 	rotation = rotation,
+	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.position,
 #	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
 	ignore_bounce = false,
 	clip = 0,
@@ -98,6 +99,12 @@ var img_animated : bool = false
 	
 	follow_wa_tip = false,
 	tip_point = 0,
+	
+	auto_wag = false,
+	wag_mini = -1.57,
+	wag_max = 1.57,
+	wag_speed = 1,
+	
 	}
 
 var smooth_rot = 0.0
@@ -124,6 +131,9 @@ func _ready():
 
 
 func _process(delta):
+	if dictmain.auto_wag:
+		%Sprite2D.curvature = clamp(sin(Global.tick*(0.05*dictmain.wag_speed))*dictmain.wag_speed, dictmain.wag_mini, dictmain.wag_max)
+	
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
 		%Grab.show()
@@ -301,7 +311,7 @@ func save_state(id):
 	global_position = dictmain.global_position,
 	position = dictmain.position,
 	rotation = rotation,
-#	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
+	offset = dictmain.offset,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
 	physics = dictmain.physics,
@@ -328,7 +338,19 @@ func save_state(id):
 	rainbow_self = dictmain.rainbow_self,
 	rainbow_speed = dictmain.rainbow_speed,
 	
+	
 	follow_wa_tip = dictmain.follow_wa_tip,
+	tip_point = dictmain.tip_point,
+	
+	wiggle_gravity = dictmain.wiggle_gravity,
+	wiggle_closed_loop = dictmain.wiggle_closed_loop,
+	
+	auto_wag = dictmain.auto_wag,
+	wag_mini = dictmain.wag_mini,
+	wag_max = dictmain.wag_max,
+	wag_speed = dictmain.wag_speed,
+	
+	
 	}
 	states[id] = dict
 
@@ -354,6 +376,12 @@ func get_state(id):
 		scale = dictmain.scale
 		global_position = dictmain.global_position
 		position = dictmain.position
+		%Sprite2D.position = dictmain.offset 
+		
+		%Sprite2D.closed = dictmain.wiggle_closed_loop
+		%Sprite2D.gravity = dictmain.wiggle_gravity
+		
+		
 		
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count = dictmain.wiggle_segm
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").curvature = dictmain.wiggle_curve
@@ -364,11 +392,9 @@ func get_state(id):
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_length = dictmain.segm_length
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").subdivision = dictmain.subdivision
 		
-#		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset = dictmain.offset 
-#		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Origin.position = - dictmain.offset 
+
 		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
-#		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
 		
 		if dictmain.should_blink:
 			if dictmain.open_eyes:

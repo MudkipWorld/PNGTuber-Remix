@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb6sos2p8qbrr"]
+[gd_scene load_steps=10 format=3 uid="uid://cb6sos2p8qbrr"]
 
 [ext_resource type="Script" path="res://Misc/AppendageObject/Script/append_object.gd" id="1_yuqos"]
 [ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_2g5n2"]
+[ext_resource type="Texture2D" uid="uid://t7lg762xsffp" path="res://Misc/FolderObject/origin.png" id="2_sl64r"]
 [ext_resource type="Texture2D" uid="uid://dajiyes440dqd" path="res://Misc/AppendageObject/tail - Copy.png" id="3_x2iay"]
 [ext_resource type="Script" path="res://addons/wiggly_appendage_2d/wiggly_appendage_2d.gd" id="4_e6x1l"]
 [ext_resource type="Texture2D" uid="uid://boqyue1ceoy4b" path="res://Misc/AppendageObject/Folder.png" id="5_n8i6v"]
@@ -103,10 +104,15 @@ texture_repeat = 1
 [node name="Rotation" type="Node2D" parent="Pos/Wobble/Squish/Drag"]
 unique_name_in_owner = true
 
+[node name="Origin" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
+visible = false
+z_index = 4096
+texture = ExtResource("2_sl64r")
+
 [node name="Sprite2D" type="Line2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_1tqhp")
-points = PackedVector2Array(-10, 0, -5.8, 0, -1.2, 0, 3.8, 0, 9.2, 0, 15, 0, 21, 0, 27, 0, 33, 0, 39, 0, 45, 0, 51, 0, 57, 0, 63, 0, 69, 0, 75, 0, 81, 0, 87, 0, 93, 0, 99, 0, 105, 0, 111, 0, 117, 0, 123, 0, 129, 0, 135, 0, 141, 0, 147, 0)
+points = PackedVector2Array(-10, 0, -5.8, 2.80241e-05, -1.2, 0.000112097, 3.8, 0.000252217, 9.2, 0.000448386, 15, 0.000700603, 21, 0.00100428, 27, 0.00135482, 33, 0.00175224, 39, 0.00219652, 45, 0.00268767, 51, 0.00316402, 57, 0.00356389, 63, 0.00388729, 69, 0.00413421, 75, 0.00430465, 81, 0.00449508, 87, 0.00480199, 93, 0.00522535, 99, 0.00576519, 105, 0.00642149, 111, 0.00727693, 117, 0.00841415, 123, 0.00983315, 129, 0.011534, 135, 0.0135165, 141, 0.0157809, 147, 0.0183271)
 width = 80.0
 texture = SubResource("CanvasTexture_aq8i0")
 texture_mode = 2

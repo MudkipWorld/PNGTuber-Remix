@@ -344,19 +344,23 @@ func _on_file_dialog_close_requested():
 
 
 
-func _on_file_dialog_file_selected(path):
-	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").output_folder = path
-	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
+func _on_file_dialog_file_selected(savpath):
+	
+	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").output_folder = savpath
+	if %_Themes_.theme_settings.as_apng:
+		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").savea()
+	else:
+		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
 
 
 func _on_file_type_item_selected(index):
 	match index:
 		0:
-			%_Themes_.theme_settings.as_gif = false
+			%_Themes_.theme_settings.as_apng = false
 			%FileDialog.filters = ["*.png"]
 			
 		1:
-			%_Themes_.theme_settings.as_gif = true
-			%FileDialog.filters = ["*.gif"]
+			%_Themes_.theme_settings.as_apng = true
+			%FileDialog.filters = ["*.apng"]
 	%_Themes_.save()
 	

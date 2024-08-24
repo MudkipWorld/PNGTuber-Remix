@@ -59,6 +59,7 @@ handle_input_locally = false
 vrs_mode = 2
 canvas_item_default_texture_filter = 2
 size = Vector2i(1152, 648)
+render_target_update_mode = 4
 
 [node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport"]
 position = Vector2(640, 360)

@@ -92,24 +92,23 @@ func get_sprite_states(state):
 
 func _input(_event : InputEvent):
 	if held_sprite != null:
-		if held_sprite.sprite_type == "Sprite2D":
-			if Input.is_action_pressed("ui_up"):
-				held_sprite.position.y -= 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.y += 1
-				offset()
-			elif Input.is_action_pressed("ui_down"):
-				held_sprite.position.y += 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.y -= 1
-				offset()
-			if Input.is_action_pressed("ui_left"):
-				held_sprite.position.x -= 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.x += 1
-				offset()
-			elif Input.is_action_pressed("ui_right"):
-				held_sprite.position.x += 1
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position.x -= 1
+		if Input.is_action_pressed("ui_up"):
+			held_sprite.position.y -= 1
+			held_sprite.get_node("%Sprite2D").position.y += 1
+			offset()
+		elif Input.is_action_pressed("ui_down"):
+			held_sprite.position.y += 1
+			held_sprite.get_node("%Sprite2D").position.y -= 1
+			offset()
+		if Input.is_action_pressed("ui_left"):
+			held_sprite.position.x -= 1
+			held_sprite.get_node("%Sprite2D").position.x += 1
+			offset()
+		elif Input.is_action_pressed("ui_right"):
+			held_sprite.position.x += 1
+			held_sprite.get_node("%Sprite2D").position.x -= 1
 
-				offset()
+			offset()
 			
 		if Input.is_action_pressed("ctrl"):
 			if Input.is_action_pressed("scrollup"):
@@ -128,7 +127,7 @@ func _input(_event : InputEvent):
 			elif Input.is_action_pressed("lmb"):
 				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
 				held_sprite.position = of
-				held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Sprite2D").position = -held_sprite.position
+				held_sprite.get_node("%Sprite2D").position = -held_sprite.position
 				offset()
 			
 			
@@ -149,7 +148,7 @@ func offset():
 	held_sprite.dictmain.offset = -held_sprite.position
 	held_sprite.save_state(current_state)
 	get_tree().get_root().get_node("Main/Control/UIInput").update_offset()
-	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+#	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 	
 
 func rot(_value):
