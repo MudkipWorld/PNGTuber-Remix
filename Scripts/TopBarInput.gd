@@ -122,7 +122,8 @@ func choosing_mode(id):
 			%HideUIButton.show()
 			%HideUIButton.button_pressed = true
 		#	'''
-		
+	%_Themes_.theme_settings.mode = id
+	%_Themes_.save()
 	desel_everything()
 
 func choosing_bg_color(id):

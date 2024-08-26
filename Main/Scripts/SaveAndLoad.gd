@@ -114,6 +114,208 @@ func save_file(path):
 
 
 func load_file(path):
+	if path.get_extension() == "save":
+		load_pngplus_file(path)
+		
+	else:
+		get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
+		get_tree().get_root().get_node("Main/Control/TopBarInput").path = path
+		
+		get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
+		get_tree().get_root().get_node("Main").clear_sprites()
+		
+		get_tree().get_root().get_node("Main/Timer").start()
+		get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
+		await get_tree().get_root().get_node("Main/Timer").timeout
+		
+		var file = FileAccess.open(path, FileAccess.READ)
+		var load_dict = file.get_var(true)
+		
+		if !load_dict.has("sprites_array"):
+			return
+		
+		
+		Global.settings_dict.merge(load_dict.settings_dict, true)
+		
+		get_tree().get_root().get_node("Main/Control/StatesStuff").update_states(load_dict.settings_dict.states)
+		
+		
+		if load_dict.has("bg_sprites_array"):
+			for sprite in load_dict.bg_sprites_array:
+				var sprite_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
+				var img_data = Marshalls.base64_to_raw(sprite.img)
+				var img = Image.new()
+				img.load_png_from_buffer(img_data)
+				var img_tex = ImageTexture.new()
+				img_tex.set_image(img)
+				var img_can = CanvasTexture.new()
+				img_can.diffuse_texture = img_tex
+				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
+				sprite_obj.states = sprite.states
+				sprite_obj.sprite_name = sprite.sprite_name
+				
+				get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer").add_child(sprite_obj)
+				sprite_obj.get_state(0)
+				
+		
+		
+		
+		for sprite in load_dict.sprites_array:
+			var sprite_obj
+			if sprite.has("sprite_type"):
+				if sprite.sprite_type == "Sprite2D":
+					sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+				elif sprite.sprite_type == "WiggleApp":
+					sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
+				elif sprite.sprite_type == "Folder":
+					sprite_obj = preload("res://Misc/FolderObject/Folder_object.tscn").instantiate()
+					
+			else:
+				sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+
+			sprite_obj.states = sprite.states
+			
+
+			if sprite.has("is_asset"):
+				sprite_obj.is_asset = sprite.is_asset
+				sprite_obj.saved_event = sprite.saved_event
+				sprite_obj.should_disappear = sprite.should_disappear
+				if sprite_obj.is_asset:
+					sprite_obj.get_node("%Drag").visible = sprite.was_active_before
+					sprite_obj.was_active_before = sprite.was_active_before
+					sprite_obj.saved_keys = sprite.saved_keys
+					InputMap.add_action(str(sprite.sprite_id))
+					InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+			
+			
+			
+			if sprite.has("img_animated"):
+				if sprite.img_animated:
+					var gif_texture = GifManager.animated_texture_from_buffer(sprite.img)
+					sprite_obj.anim_texture = sprite.img
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = gif_texture
+					
+					
+					if sprite.has("normal"):
+						if sprite.normal != null:
+							var gif_normal = GifManager.animated_texture_from_buffer(sprite.normal)
+							img_can.normal_texture = gif_normal
+							sprite_obj.anim_texture_normal = sprite.normal
+					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+					
+				else:
+					if sprite.sprite_type != "Folder":
+						var img_data = Marshalls.base64_to_raw(sprite.img)
+						var img = Image.new()
+						img.load_png_from_buffer(img_data)
+						var img_tex = ImageTexture.new()
+						img_tex.set_image(img)
+						var img_can = CanvasTexture.new()
+						img_can.diffuse_texture = img_tex
+						if sprite.has("normal"):
+							if sprite.normal != null:
+								var img_normal = Marshalls.base64_to_raw(sprite.normal)
+								var nimg = Image.new()
+								nimg.load_png_from_buffer(img_normal)
+								var nimg_tex = ImageTexture.new()
+								nimg_tex.set_image(nimg)
+								img_can.normal_texture = nimg_tex
+						sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+					
+					
+			else:
+				if sprite.has("is_apng"):
+					var img = AImgIOAPNGImporter.load_from_buffer(sprite.img)
+					var tex = img[1] as Array[AImgIOFrame]
+					sprite_obj.frames = tex
+					var cframe: AImgIOFrame = sprite_obj.frames[0]
+					var text = ImageTexture.create_from_image(cframe.content)
+					var img_can = CanvasTexture.new()
+					img_can.diffuse_texture = text
+			#		if sprite.normal:
+					var norm = AImgIOAPNGImporter.load_from_buffer(sprite.normal)
+					var texn = norm[1] as Array[AImgIOFrame]
+					sprite_obj.frames2 = texn
+					var cframe2: AImgIOFrame = sprite_obj.frames2[0]
+					var text2 = ImageTexture.create_from_image(cframe2.content)
+					img_can.normal_texture = text2
+					
+					sprite_obj.texture = img_can
+					sprite_obj.is_apng = true
+					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				else:
+					if sprite.sprite_type != "Folder":
+						var img_data = Marshalls.base64_to_raw(sprite.img)
+						var img = Image.new()
+						img.load_png_from_buffer(img_data)
+						var img_tex = ImageTexture.new()
+						img_tex.set_image(img)
+						var img_can = CanvasTexture.new()
+						img_can.diffuse_texture = img_tex
+						if sprite.has("normal"):
+							if sprite.normal != null:
+								var img_normal = Marshalls.base64_to_raw(sprite.normal)
+								var nimg = Image.new()
+								nimg.load_png_from_buffer(img_normal)
+								var nimg_tex = ImageTexture.new()
+								nimg_tex.set_image(nimg)
+								img_can.normal_texture = nimg_tex
+						sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				
+					
+				
+			
+			if sprite.has("img_animated"):
+				sprite_obj.img_animated = sprite.img_animated
+			sprite_obj.sprite_id = sprite.sprite_id
+			sprite_obj.parent_id = sprite.parent_id
+			sprite_obj.sprite_name = sprite.sprite_name
+			
+			
+			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
+			
+			
+			sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+
+	#	'''
+		if !load_dict.input_array.is_empty():
+			for input in len(load_dict.input_array):
+				get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
+				Global.settings_dict.saved_inputs = load_dict.input_array
+				get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
+		
+	#	Global.settings_dict.saved_inputs = []
+	#	'''
+		else:
+			var idx = 0
+			for input in Global.settings_dict.saved_inputs:
+				get_tree().get_nodes_in_group("StateRemapButton")[idx].saved_event = input
+				
+				
+				get_tree().get_nodes_in_group("StateRemapButton")[idx].update_stuff()
+				idx += 1
+			
+	#	print(Global.settings_dict.saved_inputs)
+	#	'''
+		var state_count = get_tree().get_nodes_in_group("StateRemapButton").size()
+		for i in get_tree().get_nodes_in_group("Sprites"):
+			if i.states.size() != state_count:
+				for l in abs(i.states.size() - state_count):
+					i.states.append({})
+		
+		Global.load_sprite_states(0)
+		get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
+		get_tree().get_root().get_node("Main/Control/BackgroundEdit").loaded_tree(get_tree().get_nodes_in_group("BackgroundStuff"))
+		get_tree().get_root().get_node("Main/Control").sliders_revalue(Global.settings_dict)
+		Global.load_sprite_states(0)
+		get_tree().get_root().get_node("Main/Control/UIInput").reinfoanim()
+		
+		
+		file.close()
+
+
+func load_pngplus_file(path):
 	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
 	get_tree().get_root().get_node("Main/Control/TopBarInput").path = path
 	
@@ -124,185 +326,130 @@ func load_file(path):
 	get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
 	await get_tree().get_root().get_node("Main/Timer").timeout
 	
+	
+	
 	var file = FileAccess.open(path, FileAccess.READ)
-	var load_dict = file.get_var(true)
+	var load_dict = JSON.parse_string(file.get_as_text())
+	
+	file.close()
+	
+	if !load_dict["0"].has("identification"):
+		print("Failed")
+		return
+		
+	
+		
+		
+	var dict = {
+		mouth_closed = 0,
+		mouth_open = 0,
+		current_mc_anim = "Idle",
+		current_mo_anim = "Idle",
+	}
 	
 	
-	Global.settings_dict.merge(load_dict.settings_dict, true)
+	var dict2 = {
+		visible = false,
+		energy = 0.2,
+		color = Color.WHITE,
+		global_position = Vector2(640,360),
+		scale = Vector2(1,1),
+	}
 	
-	get_tree().get_root().get_node("Main/Control/StatesStuff").update_states(load_dict.settings_dict.states)
-	
-	
-	if load_dict.has("bg_sprites_array"):
-		for sprite in load_dict.bg_sprites_array:
-			var sprite_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
-			var img_data = Marshalls.base64_to_raw(sprite.img)
-			var img = Image.new()
-			img.load_png_from_buffer(img_data)
-			var img_tex = ImageTexture.new()
-			img_tex.set_image(img)
-			var img_can = CanvasTexture.new()
-			img_can.diffuse_texture = img_tex
-			sprite_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
-			sprite_obj.states = sprite.states
-			sprite_obj.sprite_name = sprite.sprite_name
-			
-			get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer").add_child(sprite_obj)
-			sprite_obj.get_state(0)
-			
-	
-	
-	
-	for sprite in load_dict.sprites_array:
-		var sprite_obj
-		if sprite.has("sprite_type"):
-			if sprite.sprite_type == "Sprite2D":
-				sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
-			elif sprite.sprite_type == "WiggleApp":
-				sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
-			elif sprite.sprite_type == "Folder":
-				sprite_obj = preload("res://Misc/FolderObject/Folder_object.tscn").instantiate()
-				
+		
+	for i in load_dict:
+		var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+		var img_data = Marshalls.base64_to_raw(load_dict[i]["imageData"])
+		var img = Image.new()
+		img.load_png_from_buffer(img_data)
+		var img_tex = ImageTexture.new()
+		img_tex.set_image(img)
+		var img_can = CanvasTexture.new()
+		img_can.diffuse_texture = img_tex
+		sprite_obj.get_node("%Sprite2D").texture = img_can
+		
+	#	'''
+		sprite_obj.dictmain.position = str_to_var(load_dict[i]["pos"])
+		sprite_obj.sprite_id = load_dict[i]["identification"]
+		sprite_obj.parent_id = load_dict[i]["parentId"]
+		sprite_obj.sprite_name = "Sprite " + str(i)
+		
+		sprite_obj.dictmain.xFrq = load_dict[i]["xFrq"]
+		sprite_obj.dictmain.xAmp = load_dict[i]["xAmp"]
+		sprite_obj.dictmain.yFrq = load_dict[i]["yFrq"]
+		sprite_obj.dictmain.yAmp = load_dict[i]["yAmp"]
+		sprite_obj.dictmain.rdragStr = load_dict[i]["rotDrag"]
+		sprite_obj.dictmain.stretchAmount = load_dict[i]["stretchAmount"]
+		
+		sprite_obj.dictmain.ignore_bounce = load_dict[i]["ignoreBounce"]
+		sprite_obj.dictmain.hframes = load_dict[i]["frames"]
+		sprite_obj.dictmain.animation_speed = load_dict[i]["animSpeed"]
+		
+		if load_dict[i]["clipped"]:
+			sprite_obj.dictmain.clip = 2
 		else:
-			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+			sprite_obj.dictmain.clip = 0
+		
+		sprite_obj.dictmain.rLimitMin = load_dict[i]["rLimitMin"]
+		sprite_obj.dictmain.rLimitMax = load_dict[i]["rLimitMax"]
+		sprite_obj.dictmain.z_index = load_dict[i]["zindex"]
+		sprite_obj.dictmain.offset = str_to_var(load_dict[i]["offset"])
 
-		sprite_obj.states = sprite.states
+		var test = load_dict[i]["showBlink"]
+		var test2 = load_dict[i]["showTalk"]
 		
-
-		if sprite.has("is_asset"):
-			sprite_obj.is_asset = sprite.is_asset
-			sprite_obj.saved_event = sprite.saved_event
-			sprite_obj.should_disappear = sprite.should_disappear
-			if sprite_obj.is_asset:
-				sprite_obj.get_node("%Drag").visible = sprite.was_active_before
-				sprite_obj.was_active_before = sprite.was_active_before
-				sprite_obj.saved_keys = sprite.saved_keys
-				InputMap.add_action(str(sprite.sprite_id))
-				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+		if test == 0:
+			sprite_obj.dictmain.should_blink = false
+			sprite_obj.dictmain.open_eyes = false
+		elif test == 1:
+			sprite_obj.dictmain.should_blink = true
+			sprite_obj.dictmain.open_eyes = true
+		elif test == 2:
+			sprite_obj.dictmain.should_blink = true
+			sprite_obj.dictmain.open_eyes = false
 		
-		
-		
-		if sprite.has("img_animated"):
-			if sprite.img_animated:
-				var gif_texture = GifManager.animated_texture_from_buffer(sprite.img)
-				sprite_obj.anim_texture = sprite.img
-				var img_can = CanvasTexture.new()
-				img_can.diffuse_texture = gif_texture
-				
-				
-				if sprite.has("normal"):
-					if sprite.normal != null:
-						var gif_normal = GifManager.animated_texture_from_buffer(sprite.normal)
-						img_can.normal_texture = gif_normal
-						sprite_obj.anim_texture_normal = sprite.normal
-				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-				
-			else:
-				if sprite.sprite_type != "Folder":
-					var img_data = Marshalls.base64_to_raw(sprite.img)
-					var img = Image.new()
-					img.load_png_from_buffer(img_data)
-					var img_tex = ImageTexture.new()
-					img_tex.set_image(img)
-					var img_can = CanvasTexture.new()
-					img_can.diffuse_texture = img_tex
-					if sprite.has("normal"):
-						if sprite.normal != null:
-							var img_normal = Marshalls.base64_to_raw(sprite.normal)
-							var nimg = Image.new()
-							nimg.load_png_from_buffer(img_normal)
-							var nimg_tex = ImageTexture.new()
-							nimg_tex.set_image(nimg)
-							img_can.normal_texture = nimg_tex
-					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-				
-				
-		else:
-			if sprite.has("is_apng"):
-				var img = AImgIOAPNGImporter.load_from_buffer(sprite.img)
-				var tex = img[1] as Array[AImgIOFrame]
-				sprite_obj.frames = tex
-				var cframe: AImgIOFrame = sprite_obj.frames[0]
-				var text = ImageTexture.create_from_image(cframe.content)
-				var img_can = CanvasTexture.new()
-				img_can.diffuse_texture = text
-		#		if sprite.normal:
-				var norm = AImgIOAPNGImporter.load_from_buffer(sprite.normal)
-				var texn = norm[1] as Array[AImgIOFrame]
-				sprite_obj.frames2 = texn
-				var cframe2: AImgIOFrame = sprite_obj.frames2[0]
-				var text2 = ImageTexture.create_from_image(cframe2.content)
-				img_can.normal_texture = text2
-				
-				sprite_obj.texture = img_can
-				sprite_obj.is_apng = true
-				sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-			else:
-				if sprite.sprite_type != "Folder":
-					var img_data = Marshalls.base64_to_raw(sprite.img)
-					var img = Image.new()
-					img.load_png_from_buffer(img_data)
-					var img_tex = ImageTexture.new()
-					img_tex.set_image(img)
-					var img_can = CanvasTexture.new()
-					img_can.diffuse_texture = img_tex
-					if sprite.has("normal"):
-						if sprite.normal != null:
-							var img_normal = Marshalls.base64_to_raw(sprite.normal)
-							var nimg = Image.new()
-							nimg.load_png_from_buffer(img_normal)
-							var nimg_tex = ImageTexture.new()
-							nimg_tex.set_image(nimg)
-							img_can.normal_texture = nimg_tex
-					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
-			
-				
+		if test2 == 0:
+			sprite_obj.dictmain.should_talk = false
+			sprite_obj.dictmain.open_mouth = false
+		elif test2 == 1:
+			sprite_obj.dictmain.should_talk = true
+			sprite_obj.dictmain.open_mouth = false
+		elif test2 == 2:
+			sprite_obj.dictmain.should_talk = true
+			sprite_obj.dictmain.open_mouth = true
 			
 		
-		if sprite.has("img_animated"):
-			sprite_obj.img_animated = sprite.img_animated
-		sprite_obj.sprite_id = sprite.sprite_id
-		sprite_obj.parent_id = sprite.parent_id
-		sprite_obj.sprite_name = sprite.sprite_name
+		sprite_obj.states[0].merge(sprite_obj.dictmain, true)
 		
-		
+		var cust = str_to_var(load_dict[i]["costumeLayers"])
+		for l in cust:
+			var ndict = sprite_obj.dictmain.duplicate()
+			if l == 0:
+				ndict.visible = false
+			else:
+				ndict.visible = true
+			sprite_obj.states.append(ndict)
+			
+			
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
-		
-		
 		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
-
-#	'''
-	if !load_dict.input_array.is_empty():
-		for input in len(load_dict.input_array):
-			get_tree().get_nodes_in_group("StateRemapButton")[input].saved_event = load_dict.input_array[input]
-			Global.settings_dict.saved_inputs = load_dict.input_array
-			get_tree().get_nodes_in_group("StateRemapButton")[input].update_stuff()
-	
-#	Global.settings_dict.saved_inputs = []
-#	'''
-	else:
-		var idx = 0
-		for input in Global.settings_dict.saved_inputs:
-			get_tree().get_nodes_in_group("StateRemapButton")[idx].saved_event = input
-			
-			
-			get_tree().get_nodes_in_group("StateRemapButton")[idx].update_stuff()
-			idx += 1
 		
-#	print(Global.settings_dict.saved_inputs)
-#	'''
-	var state_count = get_tree().get_nodes_in_group("StateRemapButton").size()
-	for i in get_tree().get_nodes_in_group("Sprites"):
-		if i.states.size() != state_count:
-			for l in abs(i.states.size() - state_count):
-				i.states.append({})
+	for n in 10:
+		get_tree().get_root().get_node("Main/Control/StatesStuff").add_state()
 	
+	
+	
+	for l in Global.settings_dict.states:
+		l = dict
+	for l in Global.settings_dict.light_states:
+		l = dict2
+		
+		
+		
+		
 	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
 	get_tree().get_root().get_node("Main/Control/BackgroundEdit").loaded_tree(get_tree().get_nodes_in_group("BackgroundStuff"))
 	get_tree().get_root().get_node("Main/Control").sliders_revalue(Global.settings_dict)
 	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control/UIInput").reinfoanim()
-	
-	
-	file.close()

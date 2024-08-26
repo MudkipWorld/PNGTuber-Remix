@@ -64,6 +64,8 @@ func _ready():
 	%WagSpeedBSlider.get_node("SliderValue").value_changed.connect(on_wag_speed_changed)
 	%MinimumCurve.get_node("SliderValue").value_changed.connect(on_wag_minicurve_changed)
 	%MaxmumCurve.get_node("SliderValue").value_changed.connect(on_wag_maxcurve_changed)
+	%WagFreqBSlider.get_node("SliderValue").value_changed.connect(on_wag_freq_changed)
+	
 	
 	
 	
@@ -148,6 +150,9 @@ func held_sprite_is_null():
 	%MaxmumCurve.get_node("SliderValue").editable = false
 	%MaxmumCurve.get_node("SpinBoxValue").editable = false
 	%AutoWagCheck.disabled = true
+	%WagFreqBSlider.get_node("SliderValue").editable = false
+	%WagFreqBSlider.get_node("SpinBoxValue").editable = false
+	
 	
 	
 	%WiggleWidthSpin.editable = false
@@ -290,6 +295,9 @@ func held_sprite_is_true():
 		%MaxmumCurve.get_node("SliderValue").editable = true
 		%MaxmumCurve.get_node("SpinBoxValue").editable = true
 		%AutoWagCheck.disabled = false
+		%WagFreqBSlider.get_node("SliderValue").editable = true
+		%WagFreqBSlider.get_node("SpinBoxValue").editable = true
+		
 		
 		
 		
@@ -444,8 +452,6 @@ func reinfo():
 		%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
 		%AnimationSpeedSlider.value = Global.held_sprite.dictmain.animation_speed
 	
-	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
-	%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
 		
 	%SizeSpinBox.value = Global.held_sprite.dictmain.scale.x
 	%SizeSpinYBox.value = Global.held_sprite.dictmain.scale.y
@@ -490,20 +496,24 @@ func reinfo():
 		%ClosedLoopCheck.button_pressed = Global.held_sprite.dictmain.wiggle_closed_loop
 		%AutoWagCheck.button_pressed = Global.held_sprite.dictmain.auto_wag
 		%WagSpeedBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_speed
-		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini
-		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max
+		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini / 0.01744
+		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max / 0.01744
+		%WagFreqBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_freq
 		
 		
-		
-		
+	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
+	%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
 	
-	%PosXSpinBox.value = Global.held_sprite.dictmain.global_position.x
-	%PosYSpinBox.value = Global.held_sprite.dictmain.global_position.y
-	%RotSpinBox.value = Global.held_sprite.dictmain.rotation
+	%PosXSpinBox.value = Global.held_sprite.dictmain.position.x
+	%PosYSpinBox.value = Global.held_sprite.dictmain.position.y
+	%RotSpinBox.value = Global.held_sprite.dictmain.rotation / 0.035
 	
 	if !%PosXSpinBox.value_changed.is_connected(_on_pos_x_spin_box_value_changed):
 		%PosXSpinBox.value_changed.connect(_on_pos_x_spin_box_value_changed)
 		%PosYSpinBox.value_changed.connect(_on_pos_y_spin_box_value_changed)
+	
+	
+
 	
 	
 	if Global.held_sprite.get_parent() is WigglyAppendage2D:
@@ -544,14 +554,23 @@ func reinfo():
 	
 
 func update_pos_spins():
-	%PosXSpinBox.value = Global.held_sprite.global_position.x
-	%PosYSpinBox.value = Global.held_sprite.global_position.y
-	%RotSpinBox.value = Global.held_sprite.rotation
+	%PosXSpinBox.value = Global.held_sprite.position.x
+	%PosYSpinBox.value = Global.held_sprite.position.y
+	%RotSpinBox.value = Global.held_sprite.rotation / 0.035
+	Global.held_sprite.save_state(Global.current_state)
+	
+
+
+
 
 
 func update_offset():
 	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
 	%OffsetYSpinBox.value = Global.held_sprite.dictmain.offset.y
+	update_pos_spins()
+
+
+
 
 
 func reinfoanim():
@@ -798,19 +817,19 @@ func _on_physics_toggled(toggled_on):
 
 #region Position and rotation
 func _on_pos_x_spin_box_value_changed(value):
-	Global.held_sprite.global_position.x = value
-	Global.held_sprite.dictmain.global_position.x = value
-	Global.held_sprite.dictmain.position.x = Global.held_sprite.position.x
-	Global.held_sprite.save_state(Global.current_state)
+	if %PosXSpinBox.get_line_edit().has_focus():
+		Global.held_sprite.global_position.x = value
+		Global.held_sprite.dictmain.position.x = Global.held_sprite.position.x
+		Global.held_sprite.save_state(Global.current_state)
 
 func _on_pos_y_spin_box_value_changed(value):
-	Global.held_sprite.global_position.y = value
-	Global.held_sprite.dictmain.global_position.y = value
-	Global.held_sprite.dictmain.position.y = Global.held_sprite.position.y
-	Global.held_sprite.save_state(Global.current_state)
+	if %PosYSpinBox.get_line_edit().has_focus():
+		Global.held_sprite.global_position.y = value
+		Global.held_sprite.dictmain.position.y = Global.held_sprite.position.y
+		Global.held_sprite.save_state(Global.current_state)
 
 func _on_rot_spin_box_value_changed(value):
-	Global.held_sprite.rotation = value
+	Global.held_sprite.rotation = value * 0.035 
 	Global.held_sprite.save_state(Global.current_state)
 #endregion
 
@@ -983,22 +1002,16 @@ func _on_max_rotation_level_value_changed(value):
 
 
 func _on_offset_y_spin_box_value_changed(value):
-	Global.held_sprite.dictmain.position.y = -value
 	Global.held_sprite.dictmain.offset.y = value
-	Global.held_sprite.get_node("%Sprite2D").position.y = value
-	Global.held_sprite.position.y = -value
+	Global.held_sprite.get_node("%Sprite2D").position.y = Global.held_sprite.dictmain.offset.y
 	Global.held_sprite.save_state(Global.current_state)
-	update_pos_spins()
 		
 
 
 func _on_offset_x_spin_box_value_changed(value):
-	Global.held_sprite.dictmain.position.x = -value
 	Global.held_sprite.dictmain.offset.x = value
-	Global.held_sprite.get_node("%Sprite2D").position.x = value
-	Global.held_sprite.position.x = -value
+	Global.held_sprite.get_node("%Sprite2D").position.x = Global.held_sprite.dictmain.offset.x
 	Global.held_sprite.save_state(Global.current_state)
-	update_pos_spins()
 
 
 
@@ -1037,12 +1050,12 @@ func on_wag_speed_changed(value):
 
 func on_wag_minicurve_changed(value):
 	if Global.held_sprite != null:
-		Global.held_sprite.dictmain.wag_mini = value
+		Global.held_sprite.dictmain.wag_mini = value * 0.01744
 		Global.held_sprite.save_state(Global.current_state)
 		
 func on_wag_maxcurve_changed(value):
 	if Global.held_sprite != null:
-		Global.held_sprite.dictmain.wag_max = value
+		Global.held_sprite.dictmain.wag_max = value * 0.01744
 		Global.held_sprite.save_state(Global.current_state)
 		
 
@@ -1051,11 +1064,20 @@ func _on_auto_wag_check_toggled(toggled_on):
 	if toggled_on:
 		%HBoxMiniCurve.show()
 		%HBoxMaxCurve.show()
+		%HBoxWagFreq.show()
 		%HBox26.hide()
 	if !toggled_on:
 		Global.held_sprite.get_node("%Sprite2D").curvature = Global.held_sprite.dictmain.wiggle_curve
 		%HBoxMiniCurve.hide()
 		%HBoxMaxCurve.hide()
+		%HBoxWagFreq.hide()
 		%HBox26.show()
 		
 	Global.held_sprite.save_state(Global.current_state)
+
+
+
+func on_wag_freq_changed(value):
+	if Global.held_sprite != null:
+		Global.held_sprite.dictmain.wag_freq = value
+		Global.held_sprite.save_state(Global.current_state)

@@ -1033,7 +1033,6 @@ stretch_mode = 4
 
 [node name="PanelL2_2" type="Panel" parent="HSplitContainer/LeftPanel/VBox/PanelL2"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 1
 anchors_preset = -1
@@ -1259,8 +1258,8 @@ text = "Pos-X : "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
-min_value = -9999.0
-max_value = 9999.0
+min_value = -1e+09
+max_value = 1e+09
 step = 0.1
 
 [node name="PosYLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21"]
@@ -1272,8 +1271,8 @@ text = "Pos-Y : "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
-min_value = -9999.0
-max_value = 9999.0
+min_value = -1e+09
+max_value = 1e+09
 step = 0.1
 
 [node name="RotLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21"]
@@ -1285,7 +1284,8 @@ text = "Rotation : "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-min_value = -100.0
+min_value = -360.0
+max_value = 360.0
 step = 0.05
 
 [node name="HBoxOffset" type="GridContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
@@ -1813,6 +1813,7 @@ layout_mode = 2
 
 [node name="WiggleStuff" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 9
 
@@ -1912,7 +1913,6 @@ step = 0.1
 
 [node name="WiggleAppStuff" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="HBox26" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
@@ -1952,7 +1952,24 @@ text = "Wag Speed :"
 unique_name_in_owner = true
 layout_mode = 2
 mini_value = 0.1
-max_value = 5.0
+max_value = 50.0
+step = 0.1
+
+[node name="HBoxWagFreq" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxWagFreq"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wag Freq :    "
+
+[node name="WagFreqBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxWagFreq" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+mini_value = -50.0
+max_value = 50.0
 step = 0.1
 
 [node name="HBoxMiniCurve" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
@@ -1968,7 +1985,7 @@ text = "Mini-Curve :    "
 [node name="MinimumCurve" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxMiniCurve" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
 layout_mode = 2
-mini_value = -1.57
+mini_value = -180.0
 step = 0.01
 
 [node name="HBoxMaxCurve" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
@@ -1984,7 +2001,7 @@ text = "Max-Curve :    "
 [node name="MaxmumCurve" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff/HBoxMaxCurve" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
 layout_mode = 2
-max_value = 1.57
+max_value = 180.0
 step = 0.01
 
 [node name="HBox25" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
@@ -3240,10 +3257,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 446.0
-offset_bottom = 611.0
+offset_left = -3.872
+offset_top = -3.761
+offset_right = 2.06
+offset_bottom = 3.76099
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]

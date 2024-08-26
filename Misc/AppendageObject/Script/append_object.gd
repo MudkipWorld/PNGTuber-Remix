@@ -5,9 +5,9 @@ var heldTicks = 0
 var dragSpeed = 0
 @onready var dragger = $Pos/Wobble/Squish/Drag
 @onready var wob = $Pos/Wobble
-@onready var sprite = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D
+@onready var sprite = %Sprite2D
 @onready var contain = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
-@onready var img = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.texture.get_image()
+@onready var img = %Sprite2D.texture.get_image()
 #Wobble
 var squish = 1
 var texture 
@@ -55,11 +55,10 @@ var img_animated : bool = false
 	hframes = 1,
 	scale = scale,
 	folder = false,
-	global_position = global_position,
+#	global_position = global_position,
 	position = position,
 	rotation = rotation,
-	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.position,
-#	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
+	offset = %Sprite2D.position,
 	ignore_bounce = false,
 	clip = 0,
 	physics = true,
@@ -104,6 +103,7 @@ var img_animated : bool = false
 	wag_mini = -1.57,
 	wag_max = 1.57,
 	wag_speed = 1,
+	wag_freq = 1,
 	
 	}
 
@@ -132,19 +132,18 @@ func _ready():
 
 func _process(delta):
 	if dictmain.auto_wag:
-		%Sprite2D.curvature = clamp(sin(Global.tick*(0.05*dictmain.wag_speed))*dictmain.wag_speed, dictmain.wag_mini, dictmain.wag_max)
+		%Sprite2D.curvature = clamp(sin(Global.tick*(dictmain.wag_freq))*dictmain.wag_speed, dictmain.wag_mini, dictmain.wag_max)
 	
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
-		%Grab.show()
 	else:
 		%Grab.mouse_filter = 2
-		%Grab.hide()
+	#	%Origin.mouse_filter = 2
 	if dragging:
-		global_position = get_global_mouse_position() - of
-		smooth_glob = get_global_mouse_position() - of
+		var mpos = get_parent().to_local(get_global_mouse_position())
+		position = mpos - of
+		smooth_glob = mpos - of
 		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
-	
 	
 	glob = dragger.global_position
 	
@@ -229,7 +228,7 @@ func wiggle_sprite():
 			wiggle_val = wiggle_val + (c_parrent_length/10)
 		
 		
-	$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
+	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 
 func drag(delta):
 	if dragSpeed == 0:
@@ -308,17 +307,17 @@ func save_state(id):
 	hframes = dictmain.hframes,
 	scale = scale,
 	folder = dictmain.folder,
-	global_position = dictmain.global_position,
+#	global_position = dictmain.global_position,
 	position = dictmain.position,
 	rotation = rotation,
 	offset = dictmain.offset,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
 	physics = dictmain.physics,
-	wiggle_segm = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count,
-	wiggle_curve = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").curvature,
-	wiggle_stiff = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").stiffness,
-	wiggle_max_angle = get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").max_angle,
+	wiggle_segm = %Sprite2D.segment_count,
+	wiggle_curve = %Sprite2D.curvature,
+	wiggle_stiff = %Sprite2D.stiffness,
+	wiggle_max_angle = %Sprite2D.max_angle,
 	wiggle_physics_stiffness = dictmain.wiggle_physics_stiffness,
 	advanced_lipsync = dictmain.advanced_lipsync,
 	
@@ -374,7 +373,7 @@ func get_state(id):
 		modulate = dictmain.colored
 		visible = dictmain.visible
 		scale = dictmain.scale
-		global_position = dictmain.global_position
+	#	global_position = dictmain.global_position
 		position = dictmain.position
 		%Sprite2D.position = dictmain.offset 
 		
@@ -383,17 +382,18 @@ func get_state(id):
 		
 		
 		
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count = dictmain.wiggle_segm
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").curvature = dictmain.wiggle_curve
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").stiffness = dictmain.wiggle_stiff
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").max_angle = dictmain.wiggle_max_angle
 		
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").width = dictmain.width
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_length = dictmain.segm_length
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").subdivision = dictmain.subdivision
+		%Sprite2D.segment_count = dictmain.wiggle_segm
+		%Sprite2D.curvature = dictmain.wiggle_curve
+		%Sprite2D.stiffness = dictmain.wiggle_stiff
+		%Sprite2D.max_angle = dictmain.wiggle_max_angle
+		
+		%Sprite2D.width = dictmain.width
+		%Sprite2D.segment_length = dictmain.segm_length
+		%Sprite2D.subdivision = dictmain.subdivision
 		
 
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").set_clip_children_mode(dictmain.clip)
+		%Sprite2D.set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
 		
 		if dictmain.should_blink:
@@ -419,30 +419,30 @@ func check_talk():
 func set_blend(blend):
 	match  blend:
 		"Normal":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", false)
+			%Sprite2D.material.set_shader_parameter("enabled", false)
 		"Add":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
 		"Subtract":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
 		"Multiply":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
 		"Burn":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
 		"HardMix":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
 		"Cursed":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
 
 
 func _on_grab_button_down():
 	if Global.held_sprite == self:
-		of = get_global_mouse_position() - global_position
+		of = get_parent().to_local(get_global_mouse_position()) - position
 		dragging = true
 
 
@@ -455,7 +455,7 @@ func _on_grab_button_up():
 func reparent_obj(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
-			reparent(i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+			reparent(i.get_node("%Sprite2D"))
 
 
 func _physics_process(delta):

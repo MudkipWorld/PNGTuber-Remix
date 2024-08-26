@@ -46,7 +46,10 @@ var settings_dict : Dictionary = {
 
 #var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
-@export var max_tick : float = 360
+var sprite_of 
+var sprite_pos
+var spritesp_pos
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -93,20 +96,20 @@ func get_sprite_states(state):
 func _input(_event : InputEvent):
 	if held_sprite != null:
 		if Input.is_action_pressed("ui_up"):
-			held_sprite.position.y -= 1
 			held_sprite.get_node("%Sprite2D").position.y += 1
+			held_sprite.position.y -= 1
 			offset()
 		elif Input.is_action_pressed("ui_down"):
-			held_sprite.position.y += 1
 			held_sprite.get_node("%Sprite2D").position.y -= 1
+			held_sprite.position.y += 1
 			offset()
 		if Input.is_action_pressed("ui_left"):
-			held_sprite.position.x -= 1
 			held_sprite.get_node("%Sprite2D").position.x += 1
+			held_sprite.position.x -= 1
 			offset()
 		elif Input.is_action_pressed("ui_right"):
-			held_sprite.position.x += 1
 			held_sprite.get_node("%Sprite2D").position.x -= 1
+			held_sprite.position.x += 1
 
 			offset()
 			
@@ -122,14 +125,23 @@ func _input(_event : InputEvent):
 			elif Input.is_action_just_released("scrolldown"):
 				rot(new_rot)
 				new_rot = 0
-
 				
-			elif Input.is_action_pressed("lmb"):
+				
+				
+			if Input.is_action_just_pressed("lmb"):
 				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
-				held_sprite.position = of
-				held_sprite.get_node("%Sprite2D").position = -held_sprite.position
+				sprite_of = of - held_sprite.position
+				held_sprite.get_node("%Sprite2D").position -= sprite_of
+				held_sprite.position += sprite_of
 				offset()
 			
+			''' TO DO - > Being able to drag the Origin point.
+			if Input.is_action_pressed("lmb"):
+				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
+				held_sprite.get_node("%Sprite2D").position = -of
+			#	held_sprite.position = of
+				offset()
+			'''
 			
 	if held_bg_sprite != null:
 		if Input.is_action_pressed("ctrl"):
@@ -143,13 +155,12 @@ func _input(_event : InputEvent):
 
 func offset():
 	held_sprite.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
-	held_sprite.dictmain.global_position = held_sprite.global_position
 	held_sprite.dictmain.position = held_sprite.position
-	held_sprite.dictmain.offset = -held_sprite.position
+	held_sprite.dictmain.offset = held_sprite.get_node("%Sprite2D").position
 	held_sprite.save_state(current_state)
+
 	get_tree().get_root().get_node("Main/Control/UIInput").update_offset()
-#	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
-	
+
 
 func rot(_value):
 	held_sprite.dictmain.rotation += _value
@@ -162,5 +173,5 @@ func bg_rot():
 	get_tree().get_root().get_node("Main/Control/BackgroundEdit").update_pos_spins()
 
 
-func _process(_delta):
-	tick += 1
+func _process(delta):
+	tick = wrap(tick + delta, -922337203685477630, 922337203685477630)

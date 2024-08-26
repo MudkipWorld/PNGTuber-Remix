@@ -1,13 +1,17 @@
 extends Node
 
 
-var theme_settings : Dictionary = {
+@onready var theme_settings : Dictionary = {
 	theme_id = 0,
 	auto_load = false,
 	save_on_exit = false,
 	path = "",
 	fps = 24,
 	as_apng = false,
+	screen_size = Vector2(1152, 648),
+	screen_pos = Vector2(DisplayServer.screen_get_size(0).x/2- get_window().size.x/2,DisplayServer.screen_get_size(0).y/2- get_window().size.y/2),
+	screen_window = 0,
+	mode = 0,
 	
 	
 }
@@ -21,6 +25,7 @@ func _exit_tree():
 			DirAccess.make_dir_absolute(os_path + "/AutoSaves")
 			
 			SaveAndLoad.save_file(OS.get_executable_path().get_base_dir() + "/AutoSaves" + "/" + str(randi()))
+		window_size_changed()
 		save()
 
 func save():
@@ -58,7 +63,17 @@ func _ready():
 				%TopBarInput._on_file_type_item_selected(0)
 				%FileType.select(0)
 			
+			if theme_settings.screen_window == 0:
+				get_window().mode = get_window().MODE_WINDOWED
+			elif theme_settings.screen_window == 1:
+				get_window().mode = get_window().MODE_MAXIMIZED
+			elif theme_settings.screen_window == 2:
+				get_window().mode = get_window().MODE_MINIMIZED
 			
+			
+			
+			
+			get_window().position = theme_settings.screen_pos
 			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = theme_settings.fps
 			
 			if theme_settings.auto_load:
@@ -75,6 +90,30 @@ func _ready():
 		create_file.close()
 		purple_theme()
 	%SaveOnExitCheck.button_pressed = theme_settings.save_on_exit
+	
+	
+	get_window().size_changed.connect(window_size_changed)
+	await get_tree().create_timer(0.05).timeout
+	get_window().size = theme_settings.screen_size
+	check_ui()
+
+func window_size_changed():
+	theme_settings.screen_size = get_window().size
+	theme_settings.screen_pos = get_window().position
+	if get_window().mode == get_window().MODE_MAXIMIZED:
+		theme_settings.screen_window = 1
+	elif get_window().mode == get_window().MODE_MINIMIZED:
+		theme_settings.screen_window = 2
+	else:
+		theme_settings.screen_window = 0
+	save()
+
+
+func check_ui():
+	if theme_settings.mode == 0:
+		%TopBarInput.choosing_mode(0)
+	else:
+		%TopBarInput.choosing_mode(1)
 
 func loaded_UI(id):
 	match id:

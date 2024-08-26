@@ -73,6 +73,9 @@ func save_state(id):
 		not_speaking()
 
 func get_state(state):
+	if !Global.settings_dict.states.has(state):
+		return
+	
 	if not Global.settings_dict.states[state].is_empty():
 		var dict = Global.settings_dict.states[state]
 		mouth_closed = dict.mouth_closed
@@ -141,6 +144,7 @@ func set_mc_one_bounce():
 func set_mc_wobble():
 	position.x = sin(tick*Global.settings_dict.xFrq)*Global.settings_dict.xAmp
 	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
+	bounceChange = position.y
 	
 
 func set_mc_squish():
@@ -168,6 +172,7 @@ func set_mo_one_bounce():
 func set_mo_wobble():
 	position.x = sin(tick*Global.settings_dict.xFrq)*Global.settings_dict.xAmp
 	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
+	bounceChange = position.y
 	
 
 

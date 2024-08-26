@@ -31,6 +31,7 @@ GlobalAudioStreamPlayer="*res://Main/Scripts/AudioStreamPlayer.gd"
 
 [display]
 
+window/size/initial_position_type=0
 window/size/transparent=true
 window/per_pixel_transparency/allowed=true
 

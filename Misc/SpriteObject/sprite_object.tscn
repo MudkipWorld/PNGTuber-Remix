@@ -30,6 +30,7 @@ use_parent_material = true
 use_parent_material = true
 
 [node name="Squish" type="Node2D" parent="Pos/Wobble"]
+unique_name_in_owner = true
 use_parent_material = true
 
 [node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
@@ -57,10 +58,10 @@ layout_direction = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -64.0
-offset_right = -64.0
-offset_bottom = -64.0
+offset_left = -46.0
+offset_top = -46.0
+offset_right = -46.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -78,4 +79,6 @@ wait_time = 0.12
 
 [connection signal="button_down" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_down"]
 [connection signal="button_up" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_up"]
+[connection signal="mouse_entered" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_mouse_entered"]
+[connection signal="mouse_exited" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_mouse_exited"]
 [connection signal="timeout" from="Animation" to="." method="animation"]

@@ -5,9 +5,9 @@ var heldTicks = 0
 var dragSpeed = 0
 @onready var dragger = $Pos/Wobble/Squish/Drag
 @onready var wob = $Pos/Wobble
-@onready var sprite = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D
+@onready var sprite = %Sprite2D
 @onready var contain = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
-@onready var img = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.texture.get_image()
+@onready var img = %Sprite2D.texture.get_image()
 #Wobble
 var squish = 1
 var texture 
@@ -23,7 +23,7 @@ var dragging : bool = false
 var of = Vector2(0,0)
 
 var sprite_id : float
-var parent_id : float = 0
+var parent_id 
 var physics_effect = 1
 var glob
 var sprite_type : String = "Sprite2D"
@@ -50,10 +50,10 @@ var currently_speaking : bool = false
 	hframes = 1,
 	scale = scale,
 	folder = false,
-	global_position = global_position,
+#	global_position = global_position,
 	position = position,
 	rotation = rotation,
-	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
+	offset = Vector2(0,0),
 	ignore_bounce = false,
 	clip = 0,
 	physics = true,
@@ -111,30 +111,31 @@ var saved_keys : Array = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().get_root().get_node("Main").key_pressed.connect(asset)
-	og_glob = dictmain.global_position
+	og_glob = dictmain.position
 	Global.blink.connect(blink)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	animation()
-#	print(get_node("Pos/Wobble/Squish/Drag/Sprite2D/Grab").pivot_offset)
+	
+	await get_tree().create_timer(0.05).timeout
 
 func animation():
 	if not dictmain.advanced_lipsync:
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes = dictmain.hframes
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.vframes = 1
+		%Sprite2D.hframes = dictmain.hframes
+		%Sprite2D.vframes = 1
 		if dictmain.hframes > 1:
 			coord = dictmain.hframes -1
 			if not coord <= 0:
-				if $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame == coord:
+				if %Sprite2D.frame == coord:
 					if dictmain.one_shot:
 						return
-					$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame = 0
+					%Sprite2D.frame = 0
 					
 				elif dictmain.hframes > 1:
-					$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.set_frame_coords(Vector2(clamp($Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame +1, 0,coord), 0))
+					%Sprite2D.set_frame_coords(Vector2(clamp(%Sprite2D.frame +1, 0,coord), 0))
 					
 		else:
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.set_frame_coords(Vector2(0, 0))
+			%Sprite2D.set_frame_coords(Vector2(0, 0))
 	
 	
 	$Animation.wait_time = 1/dictmain.animation_speed 
@@ -149,10 +150,12 @@ func _process(delta):
 		%Grab.mouse_filter = 2
 	#	%Origin.mouse_filter = 2
 	if dragging:
-		if dragging_type == "Sprite":
-			global_position = get_global_mouse_position() - of
-			smooth_glob = get_global_mouse_position() - of
-			get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+		var mpos = get_parent().to_local(get_global_mouse_position())
+		position = mpos - of
+		smooth_glob = mpos - of
+		dictmain.position = position
+		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+		
 	
 	glob = dragger.global_position
 	
@@ -229,7 +232,7 @@ func wiggle_sprite():
 			wiggle_val = wiggle_val + (c_parrent_length/10)
 		
 		
-	$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
+	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 
 func drag(delta):
 	if dragSpeed == 0:
@@ -291,8 +294,8 @@ func speaking():
 func advanced_lipsyc():
 	if dictmain.advanced_lipsync:
 		
-		if $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes != 6:
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes = 6
+		if %Sprite2D.hframes != 6:
+			%Sprite2D.hframes = 6
 		$Talk.start()
 	#	var vol_lim_array = [Global.settings_dict.volume_limit, Global.settings_dict.volume_limit, Global.settings_dict.volume_limit, Global.settings_dict.volume_limit]
 		var t1 = [21.8125849517025, 0, 0, 0]
@@ -313,31 +316,31 @@ func advanced_lipsyc():
 		if currently_speaking:
 			if GlobalAudioStreamPlayer.used_bar > t1 && GlobalAudioStreamPlayer.used_bar < t2:
 		#		print("a")
-				$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x = 1
+				%Sprite2D.frame_coords.x = 1
 				
 
 			elif GlobalAudioStreamPlayer.used_bar > t3 && GlobalAudioStreamPlayer.used_bar < t4:
 		#		print("s")
-				$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x = 2
+				%Sprite2D.frame_coords.x = 2
 				
 
 			elif GlobalAudioStreamPlayer.used_bar > t5 && GlobalAudioStreamPlayer.used_bar < t6:
 			#	print("o")
-				$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x = 3
+				%Sprite2D.frame_coords.x = 3
 				
 
 				
 			elif GlobalAudioStreamPlayer.used_bar > t9 && GlobalAudioStreamPlayer.used_bar < t10:
 			#	print("e")
-				$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x = 4
+				%Sprite2D.frame_coords.x = 4
 				
 			elif GlobalAudioStreamPlayer.used_bar > t7 && GlobalAudioStreamPlayer.used_bar < t8:
 			#	print("h")
-				$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x = 5
+				%Sprite2D.frame_coords.x = 5
 			
 	
 		else:
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.frame_coords.x = 0
+			%Sprite2D.frame_coords.x = 0
 			
 		
 		await $Talk.timeout
@@ -377,7 +380,7 @@ func save_state(id):
 	hframes = dictmain.hframes,
 	scale = scale,
 	folder = dictmain.folder,
-	global_position = dictmain.global_position,
+#	global_position = dictmain.global_position,
 	position = dictmain.position,
 	rotation = dictmain.rotation,
 	offset = dictmain.offset,
@@ -438,18 +441,17 @@ func get_state(id):
 		z_index = dictmain.z_index
 		modulate = dictmain.colored
 		scale = dictmain.scale
-		global_position = dictmain.global_position
+	#	global_position = dictmain.global_position
 		position = dictmain.position
 
-#		$Pos/Wobble/Squish/Drag/Rotation/Origin.position = - dictmain.offset 
-		get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").set_clip_children_mode(dictmain.clip)
+		%Sprite2D.set_clip_children_mode(dictmain.clip)
 		rotation = dictmain.rotation
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
-		$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("rotation_offset", dictmain.wiggle_rot_offset)
+		%Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
+		%Sprite2D.material.set_shader_parameter("rotation_offset", dictmain.wiggle_rot_offset)
 		
 		
 		if dictmain.advanced_lipsync:
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.hframes = 6
+			%Sprite2D.hframes = 6
 		
 		if dictmain.should_blink:
 			if dictmain.open_eyes:
@@ -491,30 +493,30 @@ func check_talk():
 func set_blend(blend):
 	match  blend:
 		"Normal":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", false)
+			%Sprite2D.material.set_shader_parameter("enabled", false)
 		"Add":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
 		"Subtract":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
 		"Multiply":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
 		"Burn":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
 		"HardMix":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
 		"Cursed":
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("enabled", true)
-			$Pos/Wobble/Squish/Drag/Rotation/Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
+			%Sprite2D.material.set_shader_parameter("enabled", true)
+			%Sprite2D.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
 
 func _on_grab_button_down():
 	if Global.held_sprite == self:
 		if not Input.is_action_pressed("ctrl"):
-			of = get_global_mouse_position() - global_position
+			of = get_parent().to_local(get_global_mouse_position()) - position
 			dragging = true
 			dragging_type = "Sprite"
 		else:
@@ -525,12 +527,11 @@ func _on_grab_button_up():
 		dragging_type = "Null"
 		save_state(Global.current_state)
 		dragging = false
-	og_glob = dictmain.global_position
 
 func reparent_obj(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
-			reparent(i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
+			reparent(i.get_node("%Sprite2D"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -22,6 +22,7 @@ var rec_inp : bool = false
 @onready var origin = %SpritesContainer
 var of
 
+
 func _ready():
 	%FileDialog.use_native_dialog = true
 
@@ -29,7 +30,7 @@ func new_file():
 	%ConfirmationDialog.popup()
 
 func load_file():
-	%FileDialog.filters = ["*.pngRemix"]
+	%FileDialog.filters = ["*.pngRemix, *.save"]
 	$FileDialog.file_mode = 0
 	current_state = State.LoadFile
 	%FileDialog.show()
