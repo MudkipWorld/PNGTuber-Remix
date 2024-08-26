@@ -92,89 +92,19 @@ func get_sprite_states(state):
 
 
 func _input(_event : InputEvent):
-	if held_sprite != null:
-		if Input.is_action_pressed("ui_up"):
-			held_sprite.get_node("%Sprite2D").position.y += 1
-			held_sprite.position.y -= 1
-			offset()
-		elif Input.is_action_pressed("ui_down"):
-			held_sprite.get_node("%Sprite2D").position.y -= 1
-			held_sprite.position.y += 1
-			offset()
-		if Input.is_action_pressed("ui_left"):
-			held_sprite.get_node("%Sprite2D").position.x += 1
-			held_sprite.position.x -= 1
-			offset()
-		elif Input.is_action_pressed("ui_right"):
-			held_sprite.get_node("%Sprite2D").position.x -= 1
-			held_sprite.position.x += 1
-
-			offset()
+	if Input.is_action_pressed("ctrl"):
+		if Input.is_action_pressed("scrollup"):
+			new_rot += 0.05
+		elif Input.is_action_just_released("scrollup"):
+			rot(new_rot)
+			new_rot = 0
+		if Input.is_action_pressed("scrolldown"):
+			new_rot -= 0.05
 			
+		elif Input.is_action_just_released("scrolldown"):
+			rot(new_rot)
+			new_rot = 0
 			
-		if Input.is_action_pressed("w"):
-			held_sprite.position.y -= 1
-			held_sprite.dictmain.position.y -= 1
-			held_sprite.save_state(current_state)
-		elif Input.is_action_pressed("s"):
-			held_sprite.position.y += 1
-			held_sprite.dictmain.position.y += 1
-			held_sprite.save_state(current_state)
-			
-		if Input.is_action_pressed("a"):
-			held_sprite.position.x -= 1
-			held_sprite.dictmain.position.x -= 1
-			held_sprite.save_state(current_state)
-			
-		elif Input.is_action_pressed("d"):
-			held_sprite.position.x += 1
-			held_sprite.dictmain.position.x += 1
-			held_sprite.save_state(current_state)
-			
-			
-			
-			
-			
-			
-		if Input.is_action_pressed("ctrl"):
-			if Input.is_action_pressed("scrollup"):
-				new_rot += 0.05
-			elif Input.is_action_just_released("scrollup"):
-				rot(new_rot)
-				new_rot = 0
-			if Input.is_action_pressed("scrolldown"):
-				new_rot -= 0.05
-				
-			elif Input.is_action_just_released("scrolldown"):
-				rot(new_rot)
-				new_rot = 0
-				
-				
-				
-			if Input.is_action_just_pressed("lmb"):
-				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
-				var sprite_of = held_sprite.position - of
-				held_sprite.get_node("%Sprite2D").position += sprite_of
-				held_sprite.position -= sprite_of
-				offset()
-			
-			''' TO DO - > Being able to drag the Origin point.
-			if Input.is_action_pressed("lmb"):
-				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
-				held_sprite.get_node("%Sprite2D").position = -of
-			#	held_sprite.position = of
-				offset()
-			'''
-			
-	if held_bg_sprite != null:
-		if Input.is_action_pressed("ctrl"):
-			if Input.is_action_pressed("scrollup"):
-				held_bg_sprite.rotation -= 0.05
-				bg_rot()
-
-			elif Input.is_action_pressed("scrolldown"):
-				held_bg_sprite.rotation += 0.05
-				bg_rot()
 
 func offset():
 	held_sprite.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
@@ -198,6 +128,76 @@ func bg_rot():
 
 func _process(delta):
 	if settings_dict.should_delta:
-		tick = wrap(tick + delta, -922337203685477630, 922337203685477630)
+		tick = wrap(tick + delta, 0, 922337203685477630)
 	elif !settings_dict.should_delta:
-		tick = wrap(tick + 1, -922337203685477630, 922337203685477630)
+		tick = Time.get_ticks_msec() / 1000.0
+	moving_origin(delta)
+	rotating_sprite()
+	moving_sprite(delta)
+
+func moving_origin(delta):
+	if held_sprite != null:
+		if Input.is_action_pressed("ui_up"):
+			held_sprite.get_node("%Sprite2D").position.y += 1 * delta
+			held_sprite.position.y -= 1 * delta
+			offset()
+		elif Input.is_action_pressed("ui_down"):
+			held_sprite.get_node("%Sprite2D").position.y -= 1 * delta
+			held_sprite.position.y += 1 * delta
+			offset()
+		if Input.is_action_pressed("ui_left"):
+			held_sprite.get_node("%Sprite2D").position.x += 1 * delta
+			held_sprite.position.x -= 1 * delta
+			offset()
+		elif Input.is_action_pressed("ui_right"):
+			held_sprite.get_node("%Sprite2D").position.x -= 1 * delta
+			held_sprite.position.x += 1 * delta
+
+			offset()
+			
+			
+
+		if Input.is_action_pressed("ctrl"):
+			if Input.is_action_just_pressed("lmb"):
+				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
+				var sprite_of = held_sprite.position - of
+				held_sprite.get_node("%Sprite2D").position += sprite_of
+				held_sprite.position -= sprite_of
+				offset()
+
+func rotating_sprite():
+	if held_bg_sprite != null:
+		if Input.is_action_pressed("ctrl"):
+			if Input.is_action_pressed("scrollup"):
+				held_bg_sprite.rotation -= 0.05
+				bg_rot()
+
+			elif Input.is_action_pressed("scrolldown"):
+				held_bg_sprite.rotation += 0.05
+				bg_rot()
+
+func moving_sprite(delta):
+	if held_sprite != null:
+		if Input.is_action_pressed("w"):
+			held_sprite.position.y -= 1 * delta
+			held_sprite.dictmain.position.y -= 1 * delta
+			update_spins()
+		elif Input.is_action_pressed("s"):
+			held_sprite.position.y += 1 * delta
+			held_sprite.dictmain.position.y += 1 * delta
+			update_spins()
+			
+		if Input.is_action_pressed("a"):
+			held_sprite.position.x -= 1 * delta
+			held_sprite.dictmain.position.x -= 1 * delta
+			update_spins()
+			
+		elif Input.is_action_pressed("d"):
+			held_sprite.position.x += 1 * delta
+			held_sprite.dictmain.position.x += 1 * delta
+			update_spins()
+
+
+func update_spins():
+	held_sprite.save_state(current_state)
+	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()

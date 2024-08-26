@@ -659,7 +659,6 @@ func _on_color_picker_button_color_changed(newcolor):
 
 
 func _on_rotation_speed_value_changed(value):
-	%RSLable.text = "Rot-Speed : " + str(snappedf(value, 0.001))
 	Global.held_sprite.dictmain.should_rot_speed = value
 	Global.held_sprite.save_state(Global.current_state)
 
