@@ -12,6 +12,7 @@ extends Node
 	screen_pos = Vector2(DisplayServer.screen_get_size(0).x/2- get_window().size.x/2,DisplayServer.screen_get_size(0).y/2- get_window().size.y/2),
 	screen_window = 0,
 	mode = 0,
+	borders = true,
 	
 	
 }
@@ -71,7 +72,10 @@ func _ready():
 				get_window().mode = get_window().MODE_MINIMIZED
 			
 			
-			
+			if theme_settings.borders:
+				get_window().borderless = false
+			elif !theme_settings.borders:
+				get_window().borderless = true
 			
 			get_window().position = theme_settings.screen_pos
 			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = theme_settings.fps
@@ -294,4 +298,16 @@ func _on_fps_sping_value_changed(value):
 	%FpsSping.release_focus()
 	%FpsSping.get_line_edit().release_focus()
 	save()
-	
+
+
+func toggle_borders():
+	theme_settings.borders = !theme_settings.borders
+	if theme_settings.borders:
+		get_window().borderless = false
+	elif !theme_settings.borders:
+		get_window().borderless = true
+	save()
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("toggle_borders"):
+		toggle_borders()

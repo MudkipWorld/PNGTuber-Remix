@@ -3,7 +3,7 @@
 Note : This is a forked version of PNGTuber+, credits for the core stuff goes to Kaiakairos. make sure to support them :D
 If you always wanted to try the most recent version, install Godot then clone the repository to open the project files. Builds/ compiled versions will only be for main updates or bugs that needed to be patched quickly 
 
-_<br> This project uses Godot 4.2.2 </br>_
+_<br> This project uses Godot 4.3 </br>_
 
 
 <h3>PNGTube-Remix!</h3>

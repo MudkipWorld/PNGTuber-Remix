@@ -119,4 +119,3 @@ func cancelled():
 	_images.clear()
 	get_window().unresizable = false
 	set_process(false)
-

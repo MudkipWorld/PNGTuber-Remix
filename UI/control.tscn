@@ -907,16 +907,16 @@ mouse_filter = 1
 mouse_force_pass_scroll_events = false
 mouse_default_cursor_shape = 2
 theme_override_colors/guide_color = Color(0, 0, 0, 1)
-theme_override_colors/drop_position_color = Color(0, 0, 0, 1)
 theme_override_colors/custom_button_font_highlight = Color(0, 0, 0, 1)
-theme_override_constants/v_separation = 5
+theme_override_colors/drop_position_color = Color(0, 0, 0, 1)
 theme_override_constants/item_margin = 15
+theme_override_constants/icon_max_width = 25
 theme_override_constants/inner_item_margin_left = 3
+theme_override_constants/draw_guides = 5
 theme_override_constants/draw_relationship_lines = 20
 theme_override_constants/relationship_line_width = 2
 theme_override_constants/parent_hl_line_width = 4
-theme_override_constants/draw_guides = 5
-theme_override_constants/icon_max_width = 25
+theme_override_constants/v_separation = 5
 theme_override_font_sizes/font_size = 16
 theme_override_font_sizes/title_button_font_size = 10
 theme_override_icons/select_arrow = ExtResource("22_pgglj")
@@ -929,7 +929,6 @@ unique_name_in_owner = true
 size = Vector2i(174, 219)
 item_count = 8
 item_0/text = "Add image"
-item_0/id = 0
 item_1/text = "Add folder"
 item_1/id = 1
 item_2/text = "Replace"
@@ -1060,13 +1059,13 @@ focus_mode = 0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
-theme_override_constants/v_separation = 6
 theme_override_constants/item_margin = 15
+theme_override_constants/icon_max_width = 25
 theme_override_constants/inner_item_margin_left = 6
 theme_override_constants/draw_relationship_lines = 30
 theme_override_constants/relationship_line_width = 2
 theme_override_constants/parent_hl_line_width = 4
-theme_override_constants/icon_max_width = 25
+theme_override_constants/v_separation = 6
 theme_override_font_sizes/font_size = 16
 theme_override_font_sizes/title_button_font_size = 10
 allow_reselect = true
@@ -1078,7 +1077,6 @@ script = ExtResource("20_c74i2")
 unique_name_in_owner = true
 item_count = 4
 item_0/text = "Add Background Item"
-item_0/id = 0
 item_1/text = "Duplicate"
 item_1/id = 1
 item_2/text = "Delete"
@@ -1145,9 +1143,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 413)
 layout_mode = 2
 theme_override_constants/side_margin = 1
+current_tab = 0
 
 [node name="Properties" type="Control" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="ScrollContainer1" type="ScrollContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties"]
 unique_name_in_owner = true
@@ -1213,7 +1213,6 @@ alignment = 0
 item_count = 7
 popup/item_0/text = "Normal"
 popup/item_0/checked = true
-popup/item_0/id = 0
 popup/item_1/text = "Add"
 popup/item_1/id = 1
 popup/item_2/text = "Subtract"
@@ -1527,6 +1526,7 @@ fixed_column_width = 122
 [node name="Movement" type="Control" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="ScrollContainer3" type="ScrollContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement"]
 layout_mode = 1
@@ -1767,6 +1767,7 @@ step = 0.01
 [node name="Wiggle" type="Control" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="ScrollContainer4" type="ScrollContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle"]
 layout_mode = 1
@@ -2171,6 +2172,7 @@ text = "Is a Closed Loop    "
 [node name="Misc" type="Control" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="ScrollContainer5" type="ScrollContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc"]
 layout_mode = 1
@@ -2211,7 +2213,6 @@ flat = false
 alignment = 0
 item_count = 5
 popup/item_0/text = "Idle"
-popup/item_0/id = 0
 popup/item_1/text = "Bouncy"
 popup/item_1/id = 1
 popup/item_2/text = "One Bounce"
@@ -2239,7 +2240,6 @@ flat = false
 alignment = 0
 item_count = 5
 popup/item_0/text = "Idle"
-popup/item_0/id = 0
 popup/item_1/text = "Bouncy"
 popup/item_1/id = 1
 popup/item_2/text = "One Bounce"
@@ -2401,6 +2401,7 @@ color = Color(1, 1, 1, 1)
 visible = false
 y_sort_enabled = true
 layout_mode = 2
+metadata/_tab_index = 4
 
 [node name="ScrollContainer6" type="ScrollContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Experimental"]
 layout_mode = 1
@@ -2730,14 +2731,14 @@ theme_override_constants/separation = 2
 
 [node name="FilesButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
 text = "Files"
 item_count = 8
 popup/item_0/text = "New"
-popup/item_0/id = 0
 popup/item_1/text = "Open"
 popup/item_1/id = 1
 popup/item_2/text = "Save"
@@ -2755,14 +2756,14 @@ popup/item_7/id = 5
 
 [node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
 text = "Mode"
 item_count = 3
 popup/item_0/text = "Editor"
-popup/item_0/id = 0
 popup/item_1/text = "Layout"
 popup/item_1/id = 2
 popup/item_2/text = "PNGTube"
@@ -2770,14 +2771,14 @@ popup/item_2/id = 1
 
 [node name="BGButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
 text = "BG Color"
 item_count = 7
 popup/item_0/text = "Red"
-popup/item_0/id = 0
 popup/item_1/text = "Blue"
 popup/item_1/id = 1
 popup/item_2/text = "Green"
@@ -2793,42 +2794,58 @@ popup/item_6/id = 6
 
 [node name="BounceControlButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
 text = "Bounce
 "
 
 [node name="InputsButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
 text = "Settings
 "
 
 [node name="CollabButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
 text = "Collab
 "
 
-[node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
+[node name="WindowButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
+text = "Window"
+item_count = 2
+popup/item_0/text = "Toggle Borders"
+popup/item_1/text = "Save Window (Saves position, size, etc..)"
+popup/item_1/id = 1
+
+[node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(79, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 13
 text = "About"
 item_count = 3
 popup/item_0/text = "Credits"
-popup/item_0/id = 0
 popup/item_1/text = "About"
 popup/item_1/id = 1
 popup/item_2/text = "Mini Tutorial (Wip)"
@@ -2836,14 +2853,14 @@ popup/item_2/id = 2
 
 [node name="RecordButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 tooltip_text = "Records Model Only."
 theme_override_colors/font_disabled_color = Color(0.753984, 0.753984, 0.753984, 1)
+theme_override_font_sizes/font_size = 13
 text = "Record"
 item_count = 2
 popup/item_0/text = "Click again to stop recording"
-popup/item_0/id = 0
 popup/item_0/disabled = true
 popup/item_1/text = "The Images will be exported as image sequence!"
 popup/item_1/id = 1
@@ -2861,8 +2878,9 @@ use_native_dialog = true
 
 [node name="HideUIButton" type="CheckBox" parent="TopBar/HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 13
 button_pressed = true
 text = "Show UI"
 flat = true
@@ -2870,13 +2888,14 @@ flat = true
 [node name="DeselectButton" type="Button" parent="TopBar/HBox"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.74558, 0.74558, 0.74558, 1)
 theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 13
 text = "Deselect"
 flat = true
 icon_alignment = 1
@@ -3019,9 +3038,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/side_margin = 1
 theme_override_constants/icon_separation = 0
+current_tab = 0
 
 [node name="What is PNGTubing?" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Control" type="Control" parent="TutorialPopUp/TabContainer/What is PNGTubing?"]
 layout_mode = 2
@@ -3061,6 +3082,7 @@ up if needed. Hope you have fun!
 [node name="Basic Concepts" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Control" type="Control" parent="TutorialPopUp/TabContainer/Basic Concepts"]
 layout_mode = 2
@@ -3129,6 +3151,7 @@ frame_progress = 0.336932
 [node name="Basic Controls" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp/TabContainer/Basic Controls"]
 layout_mode = 2
@@ -3156,6 +3179,7 @@ autowrap_mode = 2
 [node name="QNA" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp/TabContainer/QNA"]
 layout_mode = 2
@@ -3257,10 +3281,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 446.0
-offset_bottom = 611.0
+offset_left = -3.872
+offset_top = -3.761
+offset_right = 2.06
+offset_bottom = 3.76099
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3482,12 +3506,18 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 2
 alignment = 1
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "Image Sequence"
-popup/item_0/id = 0
 popup/item_1/text = "Apng"
 popup/item_1/id = 1
+
+[node name="DeltaTimeCheck" type="CheckBox" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+tooltip_text = "The movement Ticks uses (Tick + 1 every frame), which could lead to very strong movements even with low movement values. Using DeltaTime makes it slower ( Tick + 0.016 every frame) and more forgiving to use higher values. This needs to be set for every model to prevent sharing issues."
+text = "Use DeltaTime  "
 
 [node name="Sp3" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer"]
 layout_mode = 2
@@ -3824,7 +3854,6 @@ presets_visible = false
 [connection signal="pressed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/VBoxContainer/HBoxContainer/DeleteState" to="StatesStuff" method="_on_delete_state_pressed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
 [connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
-[connection signal="pressed" from="TopBar/HBox/CollabButton" to="TopBarInput" method="_on_collab_button_pressed"]
 [connection signal="toggled" from="TopBar/HBox/RecordButton" to="TopBarInput" method="_on_record_button_toggled"]
 [connection signal="canceled" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_canceled"]
 [connection signal="close_requested" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_close_requested"]
@@ -3851,6 +3880,7 @@ presets_visible = false
 [connection signal="timeout" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveTimer" to="TopBarInput" method="_on_auto_save_timer_timeout"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FpsSping" to="_Themes_" method="_on_fps_sping_value_changed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FileType" to="TopBarInput" method="_on_file_type_item_selected"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/DeltaTimeCheck" to="TopBarInput" method="_on_delta_time_check_toggled"]
 [connection signal="pressed" from="InputsPopup/VBoxContainer2/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]

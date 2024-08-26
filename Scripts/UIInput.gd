@@ -818,14 +818,14 @@ func _on_physics_toggled(toggled_on):
 #region Position and rotation
 func _on_pos_x_spin_box_value_changed(value):
 	if %PosXSpinBox.get_line_edit().has_focus():
-		Global.held_sprite.global_position.x = value
-		Global.held_sprite.dictmain.position.x = Global.held_sprite.position.x
+		Global.held_sprite.dictmain.position.x = value
+		Global.held_sprite.position.x = value
 		Global.held_sprite.save_state(Global.current_state)
 
 func _on_pos_y_spin_box_value_changed(value):
 	if %PosYSpinBox.get_line_edit().has_focus():
-		Global.held_sprite.global_position.y = value
-		Global.held_sprite.dictmain.position.y = Global.held_sprite.position.y
+		Global.held_sprite.dictmain.position.y = value
+		Global.held_sprite.position.y = value
 		Global.held_sprite.save_state(Global.current_state)
 
 func _on_rot_spin_box_value_changed(value):

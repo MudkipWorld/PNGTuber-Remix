@@ -21,6 +21,9 @@ func _ready():
 	mode.get_popup().connect("id_pressed",choosing_mode)
 	bgcolor.get_popup().connect("id_pressed",choosing_bg_color)
 	about.get_popup().connect("id_pressed",choosing_about)
+	%WindowButton.get_popup().connect("id_pressed",choosing_window)
+	
+	
 	
 	devices = AudioServer.get_input_device_list()
 	devices.append_array(AudioServer.get_output_device_list())
@@ -33,6 +36,15 @@ func _ready():
 	if !DirAccess.dir_exists_absolute(OS.get_executable_path().get_base_dir() + "/autosaves"):
 		DirAccess.make_dir_absolute(OS.get_executable_path().get_base_dir() + "/autosaves")
 		
+
+
+func choosing_window(id):
+	match id:
+		0:
+			%_Themes_.toggle_borders()
+		1:
+			%_Themes_.save()
+
 
 
 func choosing_device(id):
@@ -365,3 +377,7 @@ func _on_file_type_item_selected(index):
 			%FileDialog.filters = ["*.apng"]
 	%_Themes_.save()
 	
+
+
+func _on_delta_time_check_toggled(toggled_on: bool) -> void:
+	Global.settings_dict.should_delta = toggled_on

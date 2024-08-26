@@ -75,6 +75,7 @@ func sliders_revalue(settings_dict):
 	%DelaySlider.value = settings_dict.volume_delay
 	get_tree().get_root().get_node("Main/SubViewportContainer/%Camera2D").zoom = settings_dict.zoom
 	get_tree().get_root().get_node("Main/SubViewportContainer/%CamPos").global_position = settings_dict.pan
+	%DeltaTimeCheck.button_pressed = settings_dict.should_delta
 	
 	
 	
@@ -242,5 +243,3 @@ func _on_layers_tree_empty_clicked(_position, _mouse_button_index):
 		tree.release_focus()
 	tree.deselect_all()
 	%TopBarInput.desel_everything()
-
-

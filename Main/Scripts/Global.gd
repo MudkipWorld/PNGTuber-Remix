@@ -42,15 +42,13 @@ var settings_dict : Dictionary = {
 	saved_inputs = [],
 	zoom = Vector2(1,1),
 	pan = Vector2(640, 360),
+	
+	should_delta = false,
 }
 
 #var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
 var sprite_of 
-var sprite_pos
-var spritesp_pos
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_window().min_size = Vector2(1000,720)
@@ -174,4 +172,7 @@ func bg_rot():
 
 
 func _process(delta):
-	tick = wrap(tick + delta, -922337203685477630, 922337203685477630)
+	if settings_dict.should_delta:
+		tick = wrap(tick + delta, -922337203685477630, 922337203685477630)
+	elif !settings_dict.should_delta:
+		tick = wrap(tick + 1, -922337203685477630, 922337203685477630)
