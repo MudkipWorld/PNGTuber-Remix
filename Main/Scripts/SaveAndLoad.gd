@@ -378,6 +378,7 @@ func load_pngplus_file(path):
 		sprite_obj.dictmain.xAmp = load_dict[i]["xAmp"]
 		sprite_obj.dictmain.yFrq = load_dict[i]["yFrq"]
 		sprite_obj.dictmain.yAmp = load_dict[i]["yAmp"]
+		sprite_obj.dictmain.dragSpeed = load_dict[i]["dragSpeed"]
 		sprite_obj.dictmain.rdragStr = load_dict[i]["rotDrag"]
 		sprite_obj.dictmain.stretchAmount = load_dict[i]["stretchAmount"]
 		

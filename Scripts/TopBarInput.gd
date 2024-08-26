@@ -43,7 +43,7 @@ func choosing_window(id):
 		0:
 			%_Themes_.toggle_borders()
 		1:
-			%_Themes_.save()
+			%_Themes_.window_size_changed()
 
 
 
@@ -353,6 +353,7 @@ func _on_file_dialog_canceled():
 
 func _on_file_dialog_close_requested():
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").cancelled()
+	get_window().unresizable = false
 
 
 
@@ -364,6 +365,8 @@ func _on_file_dialog_file_selected(savpath):
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").savea()
 	else:
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
+		
+	get_window().unresizable = false
 
 
 func _on_file_type_item_selected(index):

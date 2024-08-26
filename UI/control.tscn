@@ -1624,6 +1624,26 @@ mini_value = -100.0
 max_value = 100.0
 step = 0.01
 
+[node name="Sp4" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBox11" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="StretchLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox11"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 14
+text = "Drag  :"
+
+[node name="DragBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox11" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 100.0
+step = 1.0
+
 [node name="HBox7" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
 layout_mode = 2
 
@@ -1641,6 +1661,10 @@ layout_mode = 2
 mini_value = -100.0
 max_value = 100.0
 step = 0.01
+
+[node name="Sp3" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="HBox8" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
 layout_mode = 2
@@ -1686,6 +1710,40 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 14
 text = "Auto Rotation"
 
+[node name="HBox9" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="MiniRlable" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 14
+text = "Minimum Rot :"
+
+[node name="MiniRotationLevelBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+mini_value = -180.0
+step = 0.01
+
+[node name="HBox10" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="MaxRlable" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 14
+text = "Minimum Rot :"
+
+[node name="MaxRotationLevelBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 180.0
+step = 0.01
+
 [node name="Sp2" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
@@ -1724,44 +1782,6 @@ unique_name_in_owner = true
 layout_mode = 2
 mini_value = -500.0
 max_value = 500.0
-step = 0.01
-
-[node name="Sp3" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="HBox9" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
-layout_mode = 2
-
-[node name="MiniRlable" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 14
-text = "Minimum Rot :"
-
-[node name="MiniRotationLevelBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox9" instance=ExtResource("10_m6pfk")]
-unique_name_in_owner = true
-layout_mode = 2
-mini_value = -180.0
-step = 0.01
-
-[node name="HBox10" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer"]
-layout_mode = 2
-
-[node name="MaxRlable" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(120, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 14
-text = "Minimum Rot :"
-
-[node name="MaxRotationLevelBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Movement/ScrollContainer3/VBoxContainer/HBox10" instance=ExtResource("10_m6pfk")]
-unique_name_in_owner = true
-layout_mode = 2
-max_value = 180.0
 step = 0.01
 
 [node name="Wiggle" type="Control" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer"]
@@ -2876,6 +2896,18 @@ access = 2
 filters = PackedStringArray("*.png")
 use_native_dialog = true
 
+[node name="PreviewModeCheck" type="CheckBox" parent="TopBar/HBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(79, 0)
+layout_mode = 2
+tooltip_text = "Turns your model Static for easier editing positions, etc..
+Uncheck to preview your model's movement. This Automatically gets unchecked when changing modes.
+"
+theme_override_font_sizes/font_size = 13
+text = "Pause Movement   "
+flat = true
+
 [node name="HideUIButton" type="CheckBox" parent="TopBar/HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 0)
@@ -3620,6 +3652,7 @@ layout_mode = 2
 unique_name_in_owner = true
 initial_position = 2
 size = Vector2i(320, 353)
+unresizable = false
 borderless = false
 
 [node name="GridContainer" type="GridContainer" parent="BounceControlPopup"]
@@ -3858,6 +3891,7 @@ presets_visible = false
 [connection signal="canceled" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_canceled"]
 [connection signal="close_requested" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_close_requested"]
 [connection signal="file_selected" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_file_selected"]
+[connection signal="toggled" from="TopBar/HBox/PreviewModeCheck" to="TopBarInput" method="_on_hide_ui_button_toggled"]
 [connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
 [connection signal="pressed" from="TopBar/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]

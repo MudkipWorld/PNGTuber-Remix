@@ -2,7 +2,6 @@ extends Node2D
 
 #Movement
 var heldTicks = 0
-var dragSpeed = 0
 @onready var dragger = $Pos/Wobble/Squish/Drag
 @onready var wob = $Pos/Wobble
 @onready var sprite = %Sprite2D
@@ -37,6 +36,9 @@ var currently_speaking : bool = false
 	rdragStr = 0,
 	rLimitMax = 180,
 	rLimitMin = -180,
+	dragSpeed = 0,
+	
+	
 	stretchAmount = 0,
 	blend_mode = "Normal",
 	visible = visible,
@@ -235,10 +237,10 @@ func wiggle_sprite():
 	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 
 func drag(delta):
-	if dragSpeed == 0:
+	if dictmain.dragSpeed == 0:
 		dragger.global_position = wob.global_position
 	else:
-		dragger.global_position = lerp(dragger.global_position,wob.global_position,(delta*20)/dragSpeed)
+		dragger.global_position = lerp(dragger.global_position,wob.global_position,(delta*20)/dictmain.dragSpeed)
 
 func wobble():
 	wob.position.x = sin(Global.tick*dictmain.xFrq)*dictmain.xAmp
@@ -536,7 +538,6 @@ func reparent_obj(parent):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	set_physics_process(false)
 	var cframe2: AImgIOFrame
 	if is_apng:
 		if len(frames) == 0:

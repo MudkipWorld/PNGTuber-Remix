@@ -48,7 +48,7 @@ var settings_dict : Dictionary = {
 
 #var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
-var sprite_of 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_window().min_size = Vector2(1000,720)
@@ -111,6 +111,31 @@ func _input(_event : InputEvent):
 
 			offset()
 			
+			
+		if Input.is_action_pressed("w"):
+			held_sprite.position.y -= 1
+			held_sprite.dictmain.position.y -= 1
+			held_sprite.save_state(current_state)
+		elif Input.is_action_pressed("s"):
+			held_sprite.position.y += 1
+			held_sprite.dictmain.position.y += 1
+			held_sprite.save_state(current_state)
+			
+		if Input.is_action_pressed("a"):
+			held_sprite.position.x -= 1
+			held_sprite.dictmain.position.x -= 1
+			held_sprite.save_state(current_state)
+			
+		elif Input.is_action_pressed("d"):
+			held_sprite.position.x += 1
+			held_sprite.dictmain.position.x += 1
+			held_sprite.save_state(current_state)
+			
+			
+			
+			
+			
+			
 		if Input.is_action_pressed("ctrl"):
 			if Input.is_action_pressed("scrollup"):
 				new_rot += 0.05
@@ -128,9 +153,9 @@ func _input(_event : InputEvent):
 				
 			if Input.is_action_just_pressed("lmb"):
 				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
-				sprite_of = of - held_sprite.position
-				held_sprite.get_node("%Sprite2D").position -= sprite_of
-				held_sprite.position += sprite_of
+				var sprite_of = held_sprite.position - of
+				held_sprite.get_node("%Sprite2D").position += sprite_of
+				held_sprite.position -= sprite_of
 				offset()
 			
 			''' TO DO - > Being able to drag the Origin point.

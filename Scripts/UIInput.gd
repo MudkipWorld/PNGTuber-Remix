@@ -66,6 +66,8 @@ func _ready():
 	%MaxmumCurve.get_node("SliderValue").value_changed.connect(on_wag_maxcurve_changed)
 	%WagFreqBSlider.get_node("SliderValue").value_changed.connect(on_wag_freq_changed)
 	
+	%DragBSlider.get_node("SliderValue").value_changed.connect(on_drag_changed)
+	
 	
 	
 	
@@ -200,6 +202,8 @@ func held_sprite_is_null():
 	%OffsetYSpinBox.editable = false
 	%TipSpin.editable = false
 	
+	%DragBSlider.get_node("SliderValue").editable = false
+	%DragBSlider.get_node("SpinBoxValue").editable = false
 
 
 func held_sprite_is_true():
@@ -346,6 +350,9 @@ func held_sprite_is_true():
 	%ShouldDisappearCheck.disabled = false
 	%TipSpin.editable = true
 	%IsAssetButton.text = "Null"
+	
+	%DragBSlider.get_node("SliderValue").editable = true
+	%DragBSlider.get_node("SpinBoxValue").editable = true
 	
 
 func _on_blend_state_pressed(id):
@@ -543,6 +550,9 @@ func reinfo():
 	
 	%MiniRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMin
 	%MaxRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMax
+	
+	%DragBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.dragSpeed
+	
 	
 	%IsAssetButton.action = str(Global.held_sprite.sprite_id)
 	%IsAssetCheck.button_pressed = Global.held_sprite.is_asset
@@ -1081,3 +1091,8 @@ func on_wag_freq_changed(value):
 	if Global.held_sprite != null:
 		Global.held_sprite.dictmain.wag_freq = value
 		Global.held_sprite.save_state(Global.current_state)
+
+
+func on_drag_changed(value):
+	Global.held_sprite.dictmain.dragSpeed = value
+	Global.held_sprite.save_state(Global.current_state)
