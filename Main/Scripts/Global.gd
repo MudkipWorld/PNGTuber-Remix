@@ -152,10 +152,9 @@ func _input(_event : InputEvent):
 				
 				
 			if Input.is_action_just_pressed("lmb"):
-				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
-				var sprite_of = held_sprite.position - of
-				held_sprite.get_node("%Sprite2D").position += sprite_of
-				held_sprite.position -= sprite_of
+				var sprite_pos := held_sprite.get_node("%Sprite2D").global_position as Vector2
+				held_sprite.global_position = held_sprite.get_global_mouse_position()
+				held_sprite.get_node("%Sprite2D").global_position = sprite_pos
 				offset()
 			
 			''' TO DO - > Being able to drag the Origin point.
