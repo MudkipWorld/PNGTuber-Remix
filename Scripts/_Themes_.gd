@@ -1,6 +1,6 @@
 extends Node
 
-
+@warning_ignore("integer_division")
 @onready var theme_settings : Dictionary = {
 	theme_id = 0,
 	auto_load = false,
@@ -9,12 +9,10 @@ extends Node
 	fps = 24,
 	as_apng = false,
 	screen_size = Vector2(1152, 648),
-	screen_pos = Vector2(DisplayServer.screen_get_size(0).x/2- get_window().size.x/2,DisplayServer.screen_get_size(0).y/2- get_window().size.y/2),
+	screen_pos = Vector2i(DisplayServer.screen_get_size(0).x/2- get_window().size.x/2,DisplayServer.screen_get_size(0).y/2- get_window().size.y/2),
 	screen_window = 0,
 	mode = 0,
 	borders = true,
-	
-	
 }
 @onready var os_path = OS.get_executable_path().get_base_dir()
 
@@ -34,9 +32,7 @@ func save():
 	var save_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
 	save_file.store_var(theme_settings)
 	save_file.close()
-#	print("saved")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	%UIThemeButton.add_item("Purple", 0)
 	%UIThemeButton.add_item("Blue", 1)
@@ -111,7 +107,6 @@ func window_size_changed():
 	else:
 		theme_settings.screen_window = 0
 	save()
-
 
 func check_ui():
 	if theme_settings.mode == 0:
@@ -281,16 +276,13 @@ func funky_theme():
 	%RightPanel.self_modulate = Color.WHITE
 	%TopBar.self_modulate = Color.WHITE
 
-
 func _on_auto_load_check_toggled(toggled_on):
 	theme_settings.auto_load = toggled_on
 	save()
 
-
 func _on_save_on_exit_check_toggled(toggled_on):
 	theme_settings.save_on_exit = toggled_on
 	save()
-
 
 func _on_fps_sping_value_changed(value):
 	theme_settings.fps = value
@@ -298,7 +290,6 @@ func _on_fps_sping_value_changed(value):
 	%FpsSping.release_focus()
 	%FpsSping.get_line_edit().release_focus()
 	save()
-
 
 func toggle_borders():
 	theme_settings.borders = !theme_settings.borders
@@ -308,6 +299,6 @@ func toggle_borders():
 		get_window().borderless = true
 	save()
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("toggle_borders"):
 		toggle_borders()

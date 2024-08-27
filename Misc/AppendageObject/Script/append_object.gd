@@ -131,9 +131,6 @@ func _ready():
 
 
 func _process(delta):
-	if dictmain.auto_wag:
-		%Sprite2D.curvature = clamp(sin(Global.tick*(dictmain.wag_freq))*dictmain.wag_speed, dictmain.wag_mini, dictmain.wag_max)
-	
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
 	else:
@@ -142,37 +139,62 @@ func _process(delta):
 	if dragging:
 		var mpos = get_parent().to_local(get_global_mouse_position())
 		position = mpos - of
-		smooth_glob = mpos - of
+		dictmain.position = position
+		save_state(Global.current_state)
 		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 	
-	glob = dragger.global_position
 	
-	
-	drag(delta)
-	wobble()
-	if not dictmain.ignore_bounce:
-		glob.y -= contain.bounceChange
-	
-	var length = (glob.y - dragger.global_position.y)/dictmain.wiggle_physics_stiffness
-	
-	if dictmain.physics:
-		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
-			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
-			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
-			length += (c_parrent_length/dictmain.wiggle_physics_stiffness)
-	
-	rotationalDrag(length)
-	stretch(length)
-	
-	follow_mouse()
-	
-	if dictmain.should_rotate:
-		auto_rotate()
+	if !Global.static_view:
+		if dictmain.auto_wag:
+			%Sprite2D.curvature = clamp(sin(Global.tick*(dictmain.wag_freq))*dictmain.wag_speed, dictmain.wag_mini, dictmain.wag_max)
 		
-	rainbow()
-	follow_wiggle()
+		
+		
+		
+		glob = dragger.global_position
+		
+		
+		drag(delta)
+		wobble()
+		if not dictmain.ignore_bounce:
+			glob.y -= contain.bounceChange
+		
+		var length = (glob.y - dragger.global_position.y)/dictmain.wiggle_physics_stiffness
+		
+		if dictmain.physics:
+			if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
+				var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+				var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
+				length += (c_parrent_length/dictmain.wiggle_physics_stiffness)
+		
+		rotationalDrag(length)
+		stretch(length)
+		
+		follow_mouse()
+		
+		if dictmain.should_rotate:
+			auto_rotate()
+			
+		rainbow()
+		follow_wiggle()
+	else:
+		static_prev()
 	
 	%Grab.anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+
+
+func static_prev():
+	%Pos.position = Vector2(0,0)
+	%Sprite2D.self_modulate.s = 0
+	%Pos.modulate.s = 0
+	$Pos/Wobble.rotation = 0
+	%Rotation.rotation = 0
+	wob.position = Vector2(0,0)
+	sprite.scale = Vector2(1,1)
+	dragger.global_position = wob.global_position
+	%Sprite2D.curvature = 0
+
+
 
 
 func follow_wiggle():

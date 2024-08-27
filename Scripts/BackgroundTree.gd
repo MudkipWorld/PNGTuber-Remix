@@ -1,6 +1,8 @@
 extends Tree
 
+@warning_ignore("unused_signal")
 signal update_tree
+@warning_ignore("unused_signal")
 signal sprite_bg_info 
 
 @onready var bg_popup: PopupMenu = $PopupMenuBG

@@ -33,7 +33,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_repeat = 1
-size = Vector2i(1152, 648)
+size = Vector2i(1280, 720)
 size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 render_target_update_mode = 4
@@ -58,7 +58,7 @@ transparent_bg = true
 handle_input_locally = false
 vrs_mode = 2
 canvas_item_default_texture_filter = 2
-size = Vector2i(1152, 648)
+size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
 [node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport"]

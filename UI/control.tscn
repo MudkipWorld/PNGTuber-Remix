@@ -2755,7 +2755,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "Files"
 item_count = 8
 popup/item_0/text = "New"
@@ -2780,7 +2780,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "Mode"
 item_count = 3
 popup/item_0/text = "Editor"
@@ -2795,7 +2795,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "BG Color"
 item_count = 7
 popup/item_0/text = "Red"
@@ -2818,7 +2818,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "Bounce
 "
 
@@ -2828,7 +2828,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "Settings
 "
 
@@ -2839,7 +2839,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "Collab
 "
 
@@ -2849,7 +2849,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "Window"
 item_count = 2
 popup/item_0/text = "Toggle Borders"
@@ -2862,7 +2862,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "About"
 item_count = 3
 popup/item_0/text = "Credits"
@@ -2877,7 +2877,7 @@ custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 tooltip_text = "Records Model Only."
 theme_override_colors/font_disabled_color = Color(0.753984, 0.753984, 0.753984, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 15
 text = "Record"
 item_count = 2
 popup/item_0/text = "Click again to stop recording"
@@ -3891,7 +3891,7 @@ presets_visible = false
 [connection signal="canceled" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_canceled"]
 [connection signal="close_requested" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_close_requested"]
 [connection signal="file_selected" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_file_selected"]
-[connection signal="toggled" from="TopBar/HBox/PreviewModeCheck" to="TopBarInput" method="_on_hide_ui_button_toggled"]
+[connection signal="toggled" from="TopBar/HBox/PreviewModeCheck" to="TopBarInput" method="_on_preview_mode_check_toggled"]
 [connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
 [connection signal="pressed" from="TopBar/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
 [connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]

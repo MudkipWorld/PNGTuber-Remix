@@ -42,6 +42,9 @@ func _unhandled_input(event):
 				InputMap.action_erase_events(action)
 				InputMap.action_add_event(action, event)
 				Global.held_sprite.saved_event = event
+				update_other_assets()
+
+				
 				
 				button_pressed = false
 	elif current_remap == Remap.Keys:
@@ -53,7 +56,15 @@ func _unhandled_input(event):
 				%ShouldDisList.set_item_text(id, event.as_text())
 				
 				%ShouldDisRemapButton.button_pressed = false
-	
+
+func update_other_assets():
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		if i != Global.held_sprite:
+			if i.saved_event != null:
+				if Global.held_sprite.saved_event.as_text() == i.saved_event.as_text():
+					i.get_node("%Drag").visible = Global.held_sprite.get_node("%Drag").visible
+					i.was_active_before = Global.held_sprite.get_node("%Drag").visible
+
 
 func update_key_text():
 	if InputMap.action_get_events(action).size() != 0:

@@ -130,4 +130,3 @@ func update_states(states):
 			if i.states.size() != state_count:
 				for h in abs(i.states.size() - state_count):
 					i.states.append({})
-

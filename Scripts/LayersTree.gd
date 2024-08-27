@@ -1,6 +1,7 @@
 extends Tree
 
 signal update_tree
+@warning_ignore("unused_signal")
 signal sprite_info 
 
 @onready var cont = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")

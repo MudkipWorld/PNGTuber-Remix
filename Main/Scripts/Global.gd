@@ -1,10 +1,14 @@
 extends Node2D
 
 signal blink
+
+@warning_ignore("unused_signal")
 signal reinfo
 signal animation_state
 signal light_info
+@warning_ignore("unused_signal")
 signal speaking
+@warning_ignore("unused_signal")
 signal not_speaking
 signal reinfoanim
 
@@ -48,6 +52,8 @@ var settings_dict : Dictionary = {
 
 #var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
+var static_view : bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -92,72 +98,6 @@ func get_sprite_states(state):
 
 
 func _input(_event : InputEvent):
-	if Input.is_action_pressed("ctrl"):
-		if Input.is_action_pressed("scrollup"):
-			new_rot += 0.05
-		elif Input.is_action_just_released("scrollup"):
-			rot(new_rot)
-			new_rot = 0
-		if Input.is_action_pressed("scrolldown"):
-			new_rot -= 0.05
-			
-		elif Input.is_action_just_released("scrolldown"):
-			rot(new_rot)
-			new_rot = 0
-			
-		if Input.is_action_pressed("w"):
-			held_sprite.position.y -= 1
-			held_sprite.dictmain.position.y -= 1
-			held_sprite.save_state(current_state)
-		elif Input.is_action_pressed("s"):
-			held_sprite.position.y += 1
-			held_sprite.dictmain.position.y += 1
-			held_sprite.save_state(current_state)
-			
-		if Input.is_action_pressed("a"):
-			held_sprite.position.x -= 1
-			held_sprite.dictmain.position.x -= 1
-			held_sprite.save_state(current_state)
-			
-		elif Input.is_action_pressed("d"):
-			held_sprite.position.x += 1
-			held_sprite.dictmain.position.x += 1
-			held_sprite.save_state(current_state)
-			
-			
-			
-			
-			
-			
-		if Input.is_action_pressed("ctrl"):
-			if Input.is_action_pressed("scrollup"):
-				new_rot += 0.05
-			elif Input.is_action_just_released("scrollup"):
-				rot(new_rot)
-				new_rot = 0
-			if Input.is_action_pressed("scrolldown"):
-				new_rot -= 0.05
-				
-			elif Input.is_action_just_released("scrolldown"):
-				rot(new_rot)
-				new_rot = 0
-				
-				
-				
-			if Input.is_action_just_pressed("lmb"):
-				var sprite_pos := held_sprite.get_node("%Sprite2D").global_position as Vector2
-				held_sprite.global_position = held_sprite.get_global_mouse_position()
-				held_sprite.get_node("%Sprite2D").global_position = sprite_pos
-				offset()
-			
-			''' TO DO - > Being able to drag the Origin point.
-			if Input.is_action_pressed("lmb"):
-				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
-				held_sprite.get_node("%Sprite2D").position = -of
-			#	held_sprite.position = of
-				offset()
-			'''
-			
 	if held_bg_sprite != null:
 		if Input.is_action_pressed("ctrl"):
 			if Input.is_action_pressed("scrollup"):
@@ -200,20 +140,20 @@ func _process(delta):
 func moving_origin(delta):
 	if held_sprite != null:
 		if Input.is_action_pressed("ui_up"):
-			held_sprite.get_node("%Sprite2D").position.y += 1 * delta
-			held_sprite.position.y -= 1 * delta
+			held_sprite.get_node("%Sprite2D").position.y += 25 * delta
+			held_sprite.position.y -= 25 * delta
 			offset()
 		elif Input.is_action_pressed("ui_down"):
-			held_sprite.get_node("%Sprite2D").position.y -= 1 * delta
-			held_sprite.position.y += 1 * delta
+			held_sprite.get_node("%Sprite2D").position.y -= 25 * delta
+			held_sprite.position.y += 25 * delta
 			offset()
 		if Input.is_action_pressed("ui_left"):
-			held_sprite.get_node("%Sprite2D").position.x += 1 * delta
-			held_sprite.position.x -= 1 * delta
+			held_sprite.get_node("%Sprite2D").position.x += 25 * delta
+			held_sprite.position.x -= 25 * delta
 			offset()
 		elif Input.is_action_pressed("ui_right"):
-			held_sprite.get_node("%Sprite2D").position.x -= 1 * delta
-			held_sprite.position.x += 1 * delta
+			held_sprite.get_node("%Sprite2D").position.x -= 25 * delta
+			held_sprite.position.x += 25 * delta
 
 			offset()
 			
@@ -221,11 +161,12 @@ func moving_origin(delta):
 
 		if Input.is_action_pressed("ctrl"):
 			if Input.is_action_just_pressed("lmb"):
-				var of = get_local_mouse_position() - (Vector2(get_window().size.x,get_window().size.y)/2)
-				var sprite_of = held_sprite.position - of
-				held_sprite.get_node("%Sprite2D").position += sprite_of
-				held_sprite.position -= sprite_of
+				var of = held_sprite.get_parent().to_local(held_sprite.get_parent().get_global_mouse_position()) - held_sprite.position
+				held_sprite.position += of
+				held_sprite.get_node("%Sprite2D").position -= of
+
 				offset()
+
 
 func rotating_sprite():
 	if held_bg_sprite != null:
@@ -241,24 +182,23 @@ func rotating_sprite():
 func moving_sprite(delta):
 	if held_sprite != null:
 		if Input.is_action_pressed("w"):
-			held_sprite.position.y -= 1 * delta
-			held_sprite.dictmain.position.y -= 1 * delta
+			held_sprite.position.y -= 25 * delta
+			held_sprite.dictmain.position.y -= 25 * delta
 			update_spins()
 		elif Input.is_action_pressed("s"):
-			held_sprite.position.y += 1 * delta
-			held_sprite.dictmain.position.y += 1 * delta
+			held_sprite.position.y += 25 * delta
+			held_sprite.dictmain.position.y += 25 * delta
 			update_spins()
 			
 		if Input.is_action_pressed("a"):
-			held_sprite.position.x -= 1 * delta
-			held_sprite.dictmain.position.x -= 1 * delta
+			held_sprite.position.x -= 25 * delta
+			held_sprite.dictmain.position.x -= 25 * delta
 			update_spins()
 			
 		elif Input.is_action_pressed("d"):
-			held_sprite.position.x += 1 * delta
-			held_sprite.dictmain.position.x += 1 * delta
+			held_sprite.position.x += 25 * delta
+			held_sprite.dictmain.position.x += 25 * delta
 			update_spins()
-
 
 func update_spins():
 	held_sprite.save_state(current_state)

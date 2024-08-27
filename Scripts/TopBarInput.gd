@@ -103,6 +103,7 @@ func choosing_mode(id):
 			%HideUIButton.button_pressed = true
 			
 			is_editor = true
+			%PreviewModeCheck.show()
 			
 			
 				
@@ -118,6 +119,10 @@ func choosing_mode(id):
 			%HideUIButton.hide()
 			%HideUIButton.button_pressed = false
 			%UIInput.held_sprite_is_null()
+			%PreviewModeCheck.hide()
+			Global.static_view = false
+			%PreviewModeCheck.button_pressed = false
+			
 		
 		#	'''
 		2:
@@ -133,6 +138,10 @@ func choosing_mode(id):
 			%LayersButtons2.show()
 			%HideUIButton.show()
 			%HideUIButton.button_pressed = true
+			%PreviewModeCheck.hide()
+			Global.static_view = false
+			%PreviewModeCheck.button_pressed = false
+			
 		#	'''
 	%_Themes_.theme_settings.mode = id
 	%_Themes_.save()
@@ -384,3 +393,7 @@ func _on_file_type_item_selected(index):
 
 func _on_delta_time_check_toggled(toggled_on: bool) -> void:
 	Global.settings_dict.should_delta = toggled_on
+
+
+func _on_preview_mode_check_toggled(toggled_on: bool) -> void:
+	Global.static_view = toggled_on
