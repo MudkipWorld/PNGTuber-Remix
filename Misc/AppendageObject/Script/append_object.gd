@@ -176,9 +176,10 @@ func _process(delta):
 			auto_rotate()
 			
 		rainbow()
-		follow_wiggle()
 	else:
 		static_prev()
+	
+	follow_wiggle()
 	
 	%Grab.anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 

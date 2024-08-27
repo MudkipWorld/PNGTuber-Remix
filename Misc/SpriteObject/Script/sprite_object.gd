@@ -187,11 +187,12 @@ func _process(delta):
 		if dictmain.should_rotate:
 			auto_rotate()
 		rainbow()
-		follow_wiggle()
+		
 		follow_mouse()
 	else:
 		static_prev()
-
+		
+	follow_wiggle()
 
 func static_prev():
 	%Pos.position = Vector2(0,0)

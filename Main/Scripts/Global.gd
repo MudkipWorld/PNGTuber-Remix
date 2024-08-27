@@ -107,6 +107,21 @@ func _input(_event : InputEvent):
 			elif Input.is_action_pressed("scrolldown"):
 				held_bg_sprite.rotation += 0.05
 				bg_rot()
+	
+	if held_sprite != null:
+		if Input.is_action_pressed("ctrl"):
+			if Input.is_action_pressed("scrollup"):
+				held_sprite.dictmain.rotation -= 0.05
+				rot()
+
+			elif Input.is_action_pressed("scrolldown"):
+				held_sprite.dictmain.rotation += 0.05
+				rot()
+
+
+
+
+
 
 func offset():
 	held_sprite.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
@@ -116,12 +131,6 @@ func offset():
 
 	get_tree().get_root().get_node("Main/Control/UIInput").update_offset()
 
-
-func rot(_value):
-	held_sprite.dictmain.rotation += _value
-	held_sprite.rotation = held_sprite.dictmain.rotation
-	held_sprite.save_state(current_state)
-	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 
 func bg_rot():
 	held_bg_sprite.save_state(current_state)
@@ -134,7 +143,6 @@ func _process(delta):
 	elif !settings_dict.should_delta:
 		tick = Time.get_ticks_msec() / 1000.0
 	moving_origin(delta)
-	rotating_sprite()
 	moving_sprite(delta)
 
 func moving_origin(delta):
@@ -168,16 +176,12 @@ func moving_origin(delta):
 				offset()
 
 
-func rotating_sprite():
-	if held_bg_sprite != null:
-		if Input.is_action_pressed("ctrl"):
-			if Input.is_action_pressed("scrollup"):
-				held_bg_sprite.rotation -= 0.05
-				bg_rot()
+func rot():
+	held_sprite.rotation = held_sprite.dictmain.rotation
+	held_sprite.save_state(current_state)
+	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
 
-			elif Input.is_action_pressed("scrolldown"):
-				held_bg_sprite.rotation += 0.05
-				bg_rot()
+
 
 func moving_sprite(delta):
 	if held_sprite != null:
