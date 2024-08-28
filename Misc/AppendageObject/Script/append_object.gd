@@ -105,6 +105,9 @@ var img_animated : bool = false
 	wag_speed = 1,
 	wag_freq = 1,
 	
+	follow_wa_mini = -180,
+	follow_wa_max = 180,
+	
 	}
 
 var smooth_rot = 0.0
@@ -189,7 +192,6 @@ func static_prev():
 	%Sprite2D.self_modulate.s = 0
 	%Pos.modulate.s = 0
 	$Pos/Wobble.rotation = 0
-	%Rotation.rotation = 0
 	wob.position = Vector2(0,0)
 	sprite.scale = Vector2(1,1)
 	dragger.global_position = wob.global_position
@@ -203,7 +205,7 @@ func follow_wiggle():
 		if get_parent() is WigglyAppendage2D:
 			var pnt = get_parent().points[clamp(dictmain.tip_point,0, get_parent().points.size() -1)]
 			position = pnt
-			%Pos.rotation = (pnt.y/100)
+			%Pos.rotation = clamp(deg_to_rad((pnt.y/80)), dictmain.follow_wa_mini, dictmain.follow_wa_max)
 		else:
 			%Pos.rotation = 0
 		
@@ -239,7 +241,7 @@ func follow_mouse():
 
 
 func auto_rotate():
-	%Rotation.rotation = wrap(%Rotation.rotation + dictmain.should_rot_speed, 0, 360)
+	$Pos/Wobble.rotate(dictmain.should_rot_speed)
 
 
 func wiggle_sprite():
@@ -372,7 +374,8 @@ func save_state(id):
 	wag_max = dictmain.wag_max,
 	wag_speed = dictmain.wag_speed,
 	
-	
+	follow_wa_mini = dictmain.follow_wa_mini,
+	follow_wa_max = dictmain.follow_wa_max,
 	}
 	states[id] = dict
 

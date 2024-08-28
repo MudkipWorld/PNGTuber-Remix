@@ -49,8 +49,6 @@ void fragment() {
 	
 		
 	
-		output.a = COLOR.a;
-	
 		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
 		output.r = blendColor.r;
 		blendColor = texture( Blend, vec2(bgColor.g, Color.g) );
@@ -61,7 +59,7 @@ void fragment() {
 		output = mix(Color, output, Intensity)* modulate;
 		
 		// needs fix, uauauau
-		COLOR = output;
+		COLOR.rgb = output.rgb;
 		
 	}
 	

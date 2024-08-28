@@ -69,6 +69,8 @@ func _ready():
 	%DragBSlider.get_node("SliderValue").value_changed.connect(on_drag_changed)
 	
 	
+	%MiniFWBSlider.get_node("SliderValue").value_changed.connect(on_mini_fw_changed)
+	%MaxFWBSlider.get_node("SliderValue").value_changed.connect(on_max_fw_changed)
 	
 	
 
@@ -204,6 +206,12 @@ func held_sprite_is_null():
 	
 	%DragBSlider.get_node("SliderValue").editable = false
 	%DragBSlider.get_node("SpinBoxValue").editable = false
+	
+	%MiniFWBSlider.get_node("SliderValue").editable = false
+	%MiniFWBSlider.get_node("SpinBoxValue").editable = false
+	
+	%MaxFWBSlider.get_node("SliderValue").editable = false
+	%MaxFWBSlider.get_node("SpinBoxValue").editable = false
 
 
 func held_sprite_is_true():
@@ -353,6 +361,12 @@ func held_sprite_is_true():
 	
 	%DragBSlider.get_node("SliderValue").editable = true
 	%DragBSlider.get_node("SpinBoxValue").editable = true
+	
+	%MiniFWBSlider.get_node("SliderValue").editable = true
+	%MiniFWBSlider.get_node("SpinBoxValue").editable = true
+	
+	%MaxFWBSlider.get_node("SliderValue").editable = true
+	%MaxFWBSlider.get_node("SpinBoxValue").editable = true
 	
 
 func _on_blend_state_pressed(id):
@@ -520,7 +534,8 @@ func reinfo():
 		%PosYSpinBox.value_changed.connect(_on_pos_y_spin_box_value_changed)
 	
 	
-
+	%MiniFWBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.follow_wa_mini
+	%MaxFWBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.follow_wa_max
 	
 	
 	if Global.held_sprite.get_parent() is WigglyAppendage2D:
@@ -926,7 +941,14 @@ func _on_wiggle_apps_phys_stiff_slider_value_changed(value):
 
 func _on_follow_wiggle_app_tip_toggled(toggled_on):
 	Global.held_sprite.dictmain.follow_wa_tip = toggled_on
+	if toggled_on:
+		%HBox34.show()
+		%MiniFWBox.show()
+		%MaxFWBox.show()
 	if not toggled_on:
+		%HBox34.hide()
+		%MiniFWBox.hide()
+		%MaxFWBox.hide()
 		Global.held_sprite.get_node("Pos").position = Vector2(0,0)
 	Global.held_sprite.save_state(Global.current_state)
 	
@@ -1094,4 +1116,15 @@ func on_wag_freq_changed(value):
 
 func on_drag_changed(value):
 	Global.held_sprite.dictmain.dragSpeed = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+func on_mini_fw_changed(value):
+	Global.held_sprite.dictmain.follow_wa_mini = value
+	Global.held_sprite.save_state(Global.current_state)
+
+
+
+func on_max_fw_changed(value):
+	Global.held_sprite.dictmain.follow_wa_max = value
 	Global.held_sprite.save_state(Global.current_state)

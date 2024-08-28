@@ -21,7 +21,7 @@ var rec_inp : bool = false
 
 @onready var origin = %SpritesContainer
 var of
-
+var keys : Array = []
 
 func _ready():
 	%FileDialog.use_native_dialog = true
@@ -301,6 +301,7 @@ func _notification(what):
 
 
 func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
+	await get_tree().create_timer(0.05).timeout
 	if Global.settings_dict.checkinput:
 		var keyStrings = []
 		var costumeKeys = []
@@ -325,4 +326,10 @@ func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
 		for key in keyStrings:
 			var i = costumeKeys.find(key)
 			if i >= 0:
-				key_pressed.emit(costumeKeys[i])
+				if costumeKeys[i] not in keys:
+					print(keys)
+					print(costumeKeys[i])
+					key_pressed.emit(costumeKeys[i])
+					keys.append(costumeKeys[i])
+	
+	keys = []

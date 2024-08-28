@@ -103,14 +103,9 @@ func save_file(path):
 	}
 	
 	
-	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.WRITE)
-		file.store_var(save_dict, true)
-		file.close()
-	else:
-		var file = FileAccess.open(path + ".pngRemix", FileAccess.WRITE)
-		file.store_var(save_dict, true)
-		file.close()
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	file.store_var(save_dict, true)
+	file.close()
 
 
 func load_file(path):

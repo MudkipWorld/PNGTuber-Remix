@@ -1819,6 +1819,7 @@ text = "Follow Wiggle App      "
 
 [node name="HBox34" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -1831,6 +1832,36 @@ text = "Wiggle-App Point to follow :  "
 [node name="TipSpin" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/HBox34"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="MiniFWBox" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/MiniFWBox"]
+layout_mode = 2
+text = "Mini Rotation : "
+
+[node name="MiniFWBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/MiniFWBox" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+mini_value = -180.0
+step = 0.5
+
+[node name="MaxFWBox" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/MaxFWBox"]
+layout_mode = 2
+text = "Max Rotation : "
+
+[node name="MaxFWBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/MaxFWBox" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 180.0
+step = 0.5
 
 [node name="WiggleStuff" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer"]
 unique_name_in_owner = true
@@ -2771,7 +2802,7 @@ popup/item_5/text = "Add Appendage Based Image"
 popup/item_5/id = 6
 popup/item_6/text = "Add Background Item"
 popup/item_6/id = 7
-popup/item_7/text = "Template Model"
+popup/item_7/text = "Demo Model"
 popup/item_7/id = 5
 
 [node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
@@ -3013,7 +3044,7 @@ offset_bottom = 193.0
 
 [node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer"]
 layout_mode = 2
-text = "Choose Template :"
+text = "Choose Demo :"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="TempPopUp/VBoxContainer"]
@@ -3023,28 +3054,28 @@ columns = 2
 [node name="BasicTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-text = "Basic Template"
+text = "Basic Demo"
 icon = ExtResource("28_fyin0")
 expand_icon = true
 
 [node name="BGTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(320, 50)
 layout_mode = 2
-text = "Model With Background Template"
+text = "Model With Background Demo"
 icon = ExtResource("29_rak5y")
 expand_icon = true
 
 [node name="NormalmTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
-text = "NormalMap Template"
+text = "NormalMap Demo"
 icon = ExtResource("30_c52oo")
 expand_icon = true
 
 [node name="FollowMouseTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-text = "Follow Mouse Template"
+text = "Follow Mouse Demo"
 icon = ExtResource("31_4m8rg")
 expand_icon = true
 
@@ -3052,7 +3083,7 @@ expand_icon = true
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_constants/icon_max_width = 37
-text = "Asset Model Template"
+text = "Asset Model Demo"
 icon = ExtResource("35_wy3h6")
 
 [node name="TutorialPopUp" type="PopupPanel" parent="."]

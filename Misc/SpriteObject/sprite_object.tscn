@@ -48,7 +48,6 @@ texture = ExtResource("2_lsh2x")
 
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
-process_priority = 5
 material = SubResource("ShaderMaterial_1tqhp")
 texture = SubResource("CanvasTexture_aq8i0")
 

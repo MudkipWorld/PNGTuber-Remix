@@ -141,7 +141,8 @@ func _process(delta):
 	if settings_dict.should_delta:
 		tick = wrap(tick + delta, 0, 922337203685477630)
 	elif !settings_dict.should_delta:
-		tick = Time.get_ticks_msec() / 1000.0
+		tick = wrap(tick + 1, 0, 922337203685477630)
+	#	print(tick)
 	moving_origin(delta)
 	moving_sprite(delta)
 

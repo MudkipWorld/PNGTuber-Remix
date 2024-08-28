@@ -87,6 +87,11 @@ var currently_speaking : bool = false
 	follow_wa_tip = false,
 	tip_point = 0,
 	
+	follow_wa_mini = -180,
+	follow_wa_max = 180,
+	
+	
+	
 	}
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
@@ -199,7 +204,6 @@ func static_prev():
 	%Sprite2D.self_modulate.s = 0
 	%Pos.modulate.s = 0
 	$Pos/Wobble.rotation = 0
-	%Rotation.rotation = 0
 	wob.position = Vector2(0,0)
 	sprite.scale = Vector2(1,1)
 	dragger.global_position = wob.global_position
@@ -211,7 +215,7 @@ func follow_wiggle():
 		if get_parent() is WigglyAppendage2D:
 			var pnt = get_parent().points[clamp(dictmain.tip_point,0, get_parent().points.size() -1)]
 			position = pnt
-			%Pos.rotation = (pnt.y/100)
+			%Pos.rotation = clamp(pnt.y/80, deg_to_rad(dictmain.follow_wa_mini), deg_to_rad(dictmain.follow_wa_max))
 		else:
 			%Pos.rotation = 0
 		
@@ -430,6 +434,9 @@ func save_state(id):
 	follow_parent_wiggle = dictmain.follow_parent_effects,
 	follow_wa_tip = dictmain.follow_wa_tip,
 	tip_point = dictmain.tip_point,
+	
+	follow_wa_mini = dictmain.follow_wa_mini,
+	follow_wa_max = dictmain.follow_wa_max,
 	}
 	states[id] = dict
 
@@ -577,14 +584,14 @@ func _physics_process(delta):
 			%Sprite2D.texture.normal_texture = ImageTexture.create_from_image(cframe2.content)
 
 
+
 func asset(key):
-	if is_asset:
-		if InputMap.action_get_events(str(sprite_id)).size() > 0:
-			if saved_event.as_text() == key:
-				%Drag.visible = !%Drag.visible
-				was_active_before = %Drag.visible
-				for i in get_tree().get_nodes_in_group("Sprites"):
-					if i.should_disappear:
-						if saved_event.as_text() in i.saved_keys:
-							i.get_node("%Drag").visible = false
-							i.was_active_before = false
+	if is_asset && InputMap.action_get_events(str(sprite_id)).size() > 0:
+		if saved_event.as_text() == key:
+			%Drag.visible = !%Drag.visible
+			was_active_before = %Drag.visible
+			for i in get_tree().get_nodes_in_group("Sprites"):
+				if i.should_disappear:
+					if saved_event.as_text() in i.saved_keys:
+						i.get_node("%Drag").visible = false
+						i.was_active_before = false
