@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=96 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" path="res://Scripts/BackgroundTree.gd" id="20_c74i2"]
 [ext_resource type="Script" path="res://Scripts/LayersTree.gd" id="20_x2k62"]
 [ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="22_pgglj"]
+[ext_resource type="Script" path="res://Scripts/Spinboxes.gd" id="26_0wx0w"]
 [ext_resource type="Texture2D" uid="uid://dt530lalergk0" path="res://Template Model(s)/Icons/BasicIcon.png" id="28_fyin0"]
 [ext_resource type="Texture2D" uid="uid://bhidrbb01hfmq" path="res://Template Model(s)/Icons/BGIcon.png" id="29_rak5y"]
 [ext_resource type="Texture2D" uid="uid://fmhwpxa4hlo7" path="res://Template Model(s)/Icons/NormalIcon.png" id="30_c52oo"]
@@ -1241,6 +1242,7 @@ unique_name_in_owner = true
 layout_mode = 2
 min_value = -9999.0
 max_value = 9999.0
+script = ExtResource("26_0wx0w")
 
 [node name="HBox21" type="GridContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
 layout_mode = 2
@@ -1260,6 +1262,7 @@ size_flags_horizontal = 8
 min_value = -1e+09
 max_value = 1e+09
 step = 0.1
+script = ExtResource("26_0wx0w")
 
 [node name="PosYLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21"]
 layout_mode = 2
@@ -1273,6 +1276,7 @@ size_flags_horizontal = 6
 min_value = -1e+09
 max_value = 1e+09
 step = 0.1
+script = ExtResource("26_0wx0w")
 
 [node name="RotLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21"]
 layout_mode = 2
@@ -1286,6 +1290,7 @@ size_flags_horizontal = 10
 min_value = -360.0
 max_value = 360.0
 step = 0.05
+script = ExtResource("26_0wx0w")
 
 [node name="HBoxOffset" type="GridContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
 unique_name_in_owner = true
@@ -1307,6 +1312,7 @@ size_flags_horizontal = 8
 min_value = -99999.0
 max_value = 99999.0
 step = 0.1
+script = ExtResource("26_0wx0w")
 
 [node name="OffsetYLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBoxOffset"]
 unique_name_in_owner = true
@@ -1340,6 +1346,7 @@ layout_mode = 2
 min_value = 0.1
 step = 0.1
 value = 1.0
+script = ExtResource("26_0wx0w")
 
 [node name="SizeYLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox9"]
 layout_mode = 2
@@ -1354,6 +1361,7 @@ size_flags_horizontal = 0
 min_value = 0.1
 step = 0.1
 value = 1.0
+script = ExtResource("26_0wx0w")
 
 [node name="Sp3" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer"]
 layout_mode = 2
@@ -2384,6 +2392,7 @@ layout_mode = 2
 min_value = -9999.0
 max_value = 9999.0
 step = 0.1
+script = ExtResource("26_0wx0w")
 
 [node name="PosYLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox25"]
 layout_mode = 2
@@ -2398,6 +2407,7 @@ size_flags_horizontal = 8
 min_value = -9999.0
 max_value = 9999.0
 step = 0.1
+script = ExtResource("26_0wx0w")
 
 [node name="HBox18" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer"]
 layout_mode = 2
@@ -3344,10 +3354,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 446.0
-offset_bottom = 611.0
+offset_left = -3.872
+offset_top = -3.761
+offset_right = 2.06
+offset_bottom = 3.76099
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3542,6 +3552,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 alignment = 1
 suffix = "min"
+script = ExtResource("26_0wx0w")
 
 [node name="AutoSaveTimer" type="Timer" parent="InputsPopup/VBoxContainer2/GridContainer/HBox"]
 unique_name_in_owner = true
@@ -3562,6 +3573,7 @@ size_flags_horizontal = 2
 min_value = 1.0
 max_value = 120.0
 value = 24.0
+script = ExtResource("26_0wx0w")
 
 [node name="FileType" type="OptionButton" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
 unique_name_in_owner = true

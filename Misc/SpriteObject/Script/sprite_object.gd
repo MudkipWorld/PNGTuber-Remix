@@ -180,7 +180,8 @@ func _process(delta):
 				var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 				
 				var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
-				length += c_parrent_length
+				var c_parrent_length2 = (c_parent.glob.x - c_parent.dragger.global_position.x)
+				length += c_parrent_length + c_parrent_length2
 		
 		rotationalDrag(length)
 		stretch(length)

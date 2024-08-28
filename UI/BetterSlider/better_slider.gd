@@ -27,3 +27,8 @@ func _on_spin_box_value_value_changed(nvalue):
 func _on_slider_value_value_changed(nvalue):
 	%SpinBoxValue.value = nvalue
 	
+
+
+func _on_spin_box_value_focus_exited() -> void:
+	print("ya")
+	%SpinBoxValue.release_focus()

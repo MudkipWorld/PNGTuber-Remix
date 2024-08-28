@@ -168,7 +168,8 @@ func _process(delta):
 			if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
 				var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 				var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
-				length += (c_parrent_length/dictmain.wiggle_physics_stiffness)
+				var c_parrent_length2 = (c_parent.glob.x - c_parent.dragger.global_position.x)
+				length += c_parrent_length + c_parrent_length2
 		
 		rotationalDrag(length)
 		stretch(length)

@@ -182,6 +182,3 @@ func set_mo_squish():
 	var target = Vector2(1.0-yvel,1.0+yvel)
 
 	scale = lerp(scale,target,0.5)
-
-
-

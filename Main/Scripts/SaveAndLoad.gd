@@ -334,22 +334,6 @@ func load_pngplus_file(path):
 		
 	
 		
-		
-	var dict = {
-		mouth_closed = 0,
-		mouth_open = 0,
-		current_mc_anim = "Idle",
-		current_mo_anim = "Idle",
-	}
-	
-	
-	var dict2 = {
-		visible = false,
-		energy = 0.2,
-		color = Color.WHITE,
-		global_position = Vector2(640,360),
-		scale = Vector2(1,1),
-	}
 	
 		
 	for i in load_dict:
@@ -373,7 +357,7 @@ func load_pngplus_file(path):
 		sprite_obj.dictmain.xAmp = load_dict[i]["xAmp"]
 		sprite_obj.dictmain.yFrq = load_dict[i]["yFrq"]
 		sprite_obj.dictmain.yAmp = load_dict[i]["yAmp"]
-		sprite_obj.dictmain.dragSpeed = load_dict[i]["dragSpeed"]
+		sprite_obj.dictmain.dragSpeed = load_dict[i]["drag"]
 		sprite_obj.dictmain.rdragStr = load_dict[i]["rotDrag"]
 		sprite_obj.dictmain.stretchAmount = load_dict[i]["stretchAmount"]
 		
@@ -433,6 +417,23 @@ func load_pngplus_file(path):
 	for n in 10:
 		get_tree().get_root().get_node("Main/Control/StatesStuff").add_state()
 	
+	
+		
+	var dict = {
+		mouth_closed = 0,
+		mouth_open = 3,
+		current_mc_anim = "Idle",
+		current_mo_anim = "One Bounce",
+	}
+	
+	
+	var dict2 = {
+		visible = false,
+		energy = 0.2,
+		color = Color.WHITE,
+		global_position = Vector2(640,360),
+		scale = Vector2(1,1),
+	}
 	
 	
 	for l in Global.settings_dict.states:

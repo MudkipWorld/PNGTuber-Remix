@@ -149,20 +149,20 @@ func _process(delta):
 func moving_origin(delta):
 	if held_sprite != null:
 		if Input.is_action_pressed("ui_up"):
-			held_sprite.get_node("%Sprite2D").position.y += 25 * delta
-			held_sprite.position.y -= 25 * delta
+			held_sprite.get_node("%Sprite2D").position.y += 10 * delta
+			held_sprite.position.y -= 10 * delta
 			offset()
 		elif Input.is_action_pressed("ui_down"):
-			held_sprite.get_node("%Sprite2D").position.y -= 25 * delta
-			held_sprite.position.y += 25 * delta
+			held_sprite.get_node("%Sprite2D").position.y -= 10 * delta
+			held_sprite.position.y += 10 * delta
 			offset()
 		if Input.is_action_pressed("ui_left"):
-			held_sprite.get_node("%Sprite2D").position.x += 25 * delta
-			held_sprite.position.x -= 25 * delta
+			held_sprite.get_node("%Sprite2D").position.x += 10 * delta
+			held_sprite.position.x -= 10 * delta
 			offset()
 		elif Input.is_action_pressed("ui_right"):
-			held_sprite.get_node("%Sprite2D").position.x -= 25 * delta
-			held_sprite.position.x += 25 * delta
+			held_sprite.get_node("%Sprite2D").position.x -= 10 * delta
+			held_sprite.position.x += 10 * delta
 
 			offset()
 			
@@ -187,22 +187,22 @@ func rot():
 func moving_sprite(delta):
 	if held_sprite != null:
 		if Input.is_action_pressed("w"):
-			held_sprite.position.y -= 25 * delta
-			held_sprite.dictmain.position.y -= 25 * delta
+			held_sprite.position.y -= 10 * delta
+			held_sprite.dictmain.position.y -= 10 * delta
 			update_spins()
 		elif Input.is_action_pressed("s"):
-			held_sprite.position.y += 25 * delta
-			held_sprite.dictmain.position.y += 25 * delta
+			held_sprite.position.y += 10 * delta
+			held_sprite.dictmain.position.y += 10 * delta
 			update_spins()
 			
 		if Input.is_action_pressed("a"):
-			held_sprite.position.x -= 25 * delta
-			held_sprite.dictmain.position.x -= 25 * delta
+			held_sprite.position.x -= 10 * delta
+			held_sprite.dictmain.position.x -= 10 * delta
 			update_spins()
 			
 		elif Input.is_action_pressed("d"):
-			held_sprite.position.x += 25 * delta
-			held_sprite.dictmain.position.x += 25 * delta
+			held_sprite.position.x += 10 * delta
+			held_sprite.dictmain.position.x += 10 * delta
 			update_spins()
 
 func update_spins():
