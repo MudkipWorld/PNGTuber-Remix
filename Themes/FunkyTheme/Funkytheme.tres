@@ -37,29 +37,47 @@ corner_radius_bottom_left = 4
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_git5q"]
 color = Color(0.219608, 0.121569, 0.156863, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wngy"]
-bg_color = Color(0.968627, 0.968627, 0.968627, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbyft"]
+content_margin_left = 4.0
+bg_color = Color(0.266667, 0.192157, 0.305882, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.517647, 0.517647, 0.517647, 1)
+border_color = Color(0.0862745, 0.0784314, 0.145098, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnnph"]
-bg_color = Color(0.713726, 0.713726, 0.713726, 1)
+content_margin_left = 4.0
+bg_color = Color(0.419608, 0.309804, 0.478431, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.517647, 0.517647, 0.517647, 1)
+border_color = Color(0.0862745, 0.0784314, 0.145098, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibk6o"]
-bg_color = Color(0.317647, 0.317647, 0.317647, 1)
+content_margin_left = 4.0
+bg_color = Color(0.266667, 0.192157, 0.305882, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.180392, 0.180392, 0.180392, 1)
+border_color = Color(0.0862745, 0.0784314, 0.145098, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 11
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ribt"]
 bg_color = Color(0.180392, 0.164706, 0.278431, 1)
@@ -196,8 +214,8 @@ Button/styles/hover = SubResource("StyleBoxFlat_f28yv")
 Button/styles/normal = SubResource("StyleBoxFlat_f28yv")
 Button/styles/pressed = SubResource("StyleBoxFlat_wdkco")
 HSeparator/styles/separator = SubResource("StyleBoxLine_git5q")
-LineEdit/colors/font_color = Color(0, 0, 0, 1)
-LineEdit/styles/focus = SubResource("StyleBoxFlat_3wngy")
+LineEdit/colors/font_color = Color(0.866667, 0.866667, 0.87451, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_sbyft")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_vnnph")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_ibk6o")
 MenuButton/styles/disabled = SubResource("StyleBoxFlat_2ribt")

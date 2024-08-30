@@ -38,28 +38,45 @@ corner_radius_bottom_left = 4
 color = Color(0.160784, 0.223529, 0.0666667, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ytxh3"]
-bg_color = Color(0.968627, 0.968627, 0.968627, 1)
+content_margin_left = 4.0
+bg_color = Color(0.627451, 0.772549, 0.643137, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.517647, 0.517647, 0.517647, 1)
+border_color = Color(0.188235, 0.262745, 0.0980392, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jxlmd"]
-bg_color = Color(0.713726, 0.713726, 0.713726, 1)
+content_margin_left = 4.0
+bg_color = Color(0.356863, 0.482353, 0.243137, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.517647, 0.517647, 0.517647, 1)
+border_color = Color(0.188235, 0.262745, 0.0980392, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0h0af"]
-bg_color = Color(0.317647, 0.317647, 0.317647, 1)
+content_margin_left = 4.0
+bg_color = Color(0.180392, 0.223529, 0.176471, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.180392, 0.180392, 0.180392, 1)
+border_color = Color(0.188235, 0.262745, 0.0980392, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvi6d"]
 bg_color = Color(0.262745, 0.360784, 0.2, 1)
@@ -131,7 +148,7 @@ expand_margin_left = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jcu0"]
 content_margin_left = 5.0
 content_margin_right = 5.0
-bg_color = Color(0.458824, 0.607843, 0.317647, 1)
+bg_color = Color(0.356863, 0.482353, 0.243137, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
