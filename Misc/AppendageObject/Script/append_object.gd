@@ -155,7 +155,7 @@ func _process(delta):
 		
 		
 		
-		glob = %Dragger.global_position
+		glob = %Drag.global_position
 		
 		
 		drag(delta)
@@ -163,13 +163,13 @@ func _process(delta):
 		if not dictmain.ignore_bounce:
 			glob.y -= contain.bounceChange
 		
-		var length = (glob.y - %Dragger.global_position.y)/dictmain.wiggle_physics_stiffness
+		var length = (glob.y - %Drag.global_position.y)/dictmain.wiggle_physics_stiffness
 		
 		if dictmain.physics:
 			if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
 				var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
-				var c_parrent_length = (c_parent.glob.y - c_parent.get_node("%Dragger").global_position.y)
-				var c_parrent_length2 = (c_parent.glob.x - c_parent.get_node("%Dragger").global_position.x)
+				var c_parrent_length = (c_parent.glob.y - c_parent.get_node("%Drag").global_position.y)
+				var c_parrent_length2 = (c_parent.glob.x - c_parent.get_node("%Drag").global_position.x)
 				length += c_parrent_length + c_parrent_length2
 		
 		rotationalDrag(length)

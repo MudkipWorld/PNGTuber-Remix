@@ -13,6 +13,12 @@ extends Node
 	screen_window = 0,
 	mode = 0,
 	borders = true,
+	
+	panel_sizes = {
+		right = 2500,
+		left = -2000,
+		properties = 0,
+	},
 }
 @onready var os_path = OS.get_executable_path().get_base_dir()
 
@@ -72,6 +78,10 @@ func _ready():
 				get_window().borderless = false
 			elif !theme_settings.borders:
 				get_window().borderless = true
+			
+			%HSplitContainer.split_offset = theme_settings.panel_sizes.left
+			%HSplit.split_offset = theme_settings.panel_sizes.right
+			%VSplitContainer.split_offset = theme_settings.panel_sizes.properties
 			
 			get_window().position = theme_settings.screen_pos
 			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = theme_settings.fps
@@ -302,3 +312,18 @@ func toggle_borders():
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("toggle_borders"):
 		toggle_borders()
+
+
+func _on_h_split_container_dragged(offset: int) -> void:
+	theme_settings.panel_sizes.left = offset
+	save()
+
+
+func _on_h_split_dragged(offset: int) -> void:
+	theme_settings.panel_sizes.right = offset
+	save()
+
+
+func _on_v_split_container_dragged(offset: int) -> void:
+	theme_settings.panel_sizes.properties = offset
+	save()

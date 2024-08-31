@@ -29,6 +29,10 @@ Global="*res://Main/Scripts/Global.gd"
 SaveAndLoad="*res://Main/Scripts/SaveAndLoad.gd"
 GlobalAudioStreamPlayer="*res://Main/Scripts/AudioStreamPlayer.gd"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [display]
 
 window/size/viewport_width=1280

@@ -453,6 +453,7 @@ unique_name_in_owner = true
 script = ExtResource("7_l6sf2")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1100,6 +1101,7 @@ mouse_force_pass_scroll_events = false
 mouse_default_cursor_shape = 10
 
 [node name="HSplit" type="HSplitContainer" parent="HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
@@ -1137,6 +1139,7 @@ placeholder_text = "Name"
 alignment = 1
 
 [node name="VSplitContainer" type="VSplitContainer" parent="HSplitContainer/HSplit/RightPanel/Properties"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -3421,10 +3424,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = -3.608
-offset_top = -3.4
-offset_right = 30.84
-offset_bottom = 3.40002
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 464.0
+offset_bottom = 592.0
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3914,6 +3917,7 @@ sampler_visible = false
 color_modes_visible = false
 presets_visible = false
 
+[connection signal="dragged" from="HSplitContainer" to="_Themes_" method="_on_h_split_container_dragged"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomInButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomResetButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_reset_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomOutButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_out_button_pressed"]
@@ -3935,7 +3939,9 @@ presets_visible = false
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/BGDeleteButton" to="BackgroundEdit" method="_on_bg_delete_button_pressed"]
 [connection signal="button_clicked" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" to="BackgroundEdit" method="_on_background_tree_button_clicked"]
 [connection signal="item_selected" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" to="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" method="_on_item_selected"]
+[connection signal="dragged" from="HSplitContainer/HSplit" to="_Themes_" method="_on_h_split_dragged"]
 [connection signal="text_submitted" from="HSplitContainer/HSplit/RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
+[connection signal="dragged" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer" to="_Themes_" method="_on_v_split_container_dragged"]
 [connection signal="color_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_color_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox12/ZOrderSpinbox" to="UIInput" method="_on_z_order_spinbox_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21/PosXSpinBox" to="UIInput" method="_on_pos_x_spin_box_value_changed"]

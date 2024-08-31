@@ -107,7 +107,6 @@ func save_file(path):
 	file.store_var(save_dict, true)
 	file.close()
 
-
 func load_file(path):
 	if path.get_extension() == "save":
 		load_pngplus_file(path)
@@ -151,6 +150,8 @@ func load_file(path):
 				
 				get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer").add_child(sprite_obj)
 				sprite_obj.get_state(0)
+				
+				
 				
 		
 		
@@ -308,7 +309,6 @@ func load_file(path):
 		
 		
 		file.close()
-
 
 func load_pngplus_file(path):
 	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
