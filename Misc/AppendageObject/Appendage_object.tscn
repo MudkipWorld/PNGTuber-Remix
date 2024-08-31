@@ -99,7 +99,6 @@ texture_repeat = 1
 
 [node name="Dragger" type="Node2D" parent="Pos/Wobble"]
 unique_name_in_owner = true
-top_level = true
 
 [node name="Squish" type="Node2D" parent="Pos/Wobble"]
 unique_name_in_owner = true

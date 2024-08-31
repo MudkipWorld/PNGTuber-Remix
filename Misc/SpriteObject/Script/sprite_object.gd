@@ -123,8 +123,9 @@ func _ready():
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	animation()
-	
-	await get_tree().create_timer(0.05).timeout
+	%Dragger.top_level = true
+	%Dragger.global_position = wob.global_position
+
 
 func animation():
 	if not dictmain.advanced_lipsync:

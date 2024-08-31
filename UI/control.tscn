@@ -2044,7 +2044,7 @@ unique_name_in_owner = true
 layout_mode = 2
 mini_value = 0.1
 max_value = 50.0
-step = 0.1
+step = 0.01
 
 [node name="HBox26" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
 unique_name_in_owner = true
@@ -2080,7 +2080,7 @@ unique_name_in_owner = true
 layout_mode = 2
 mini_value = -50.0
 max_value = 50.0
-step = 0.1
+step = 0.01
 
 [node name="HBoxMiniCurve" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/VBoxContainer/WiggleAppStuff"]
 unique_name_in_owner = true
@@ -3421,10 +3421,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 464.0
-offset_bottom = 592.0
+offset_left = -3.608
+offset_top = -3.4
+offset_right = 30.84
+offset_bottom = 3.40002
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]

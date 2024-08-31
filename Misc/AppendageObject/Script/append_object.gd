@@ -100,10 +100,10 @@ var img_animated : bool = false
 	tip_point = 0,
 	
 	auto_wag = false,
-	wag_mini = -1.57,
-	wag_max = 1.57,
-	wag_speed = 1,
-	wag_freq = 1,
+	wag_mini = -180,
+	wag_max = 180,
+	wag_speed = 0.5,
+	wag_freq = 0.02,
 	
 	follow_wa_mini = -180,
 	follow_wa_max = 180,
@@ -131,7 +131,8 @@ func _ready():
 	Global.blink.connect(blink)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
-
+	%Dragger.top_level = true
+	%Dragger.global_position = wob.global_position
 
 func _process(delta):
 	if Global.held_sprite == self:
@@ -149,7 +150,7 @@ func _process(delta):
 	
 	if !Global.static_view:
 		if dictmain.auto_wag:
-			%Sprite2D.curvature = clamp(sin(Global.tick*(dictmain.wag_freq))*dictmain.wag_speed, dictmain.wag_mini, dictmain.wag_max)
+			%Sprite2D.curvature = clamp(sin(Global.tick*(dictmain.wag_freq))*dictmain.wag_speed, deg_to_rad(dictmain.wag_mini), deg_to_rad(dictmain.wag_max))
 		
 		
 		

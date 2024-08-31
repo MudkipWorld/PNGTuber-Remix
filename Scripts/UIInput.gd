@@ -517,8 +517,8 @@ func reinfo():
 		%ClosedLoopCheck.button_pressed = Global.held_sprite.dictmain.wiggle_closed_loop
 		%AutoWagCheck.button_pressed = Global.held_sprite.dictmain.auto_wag
 		%WagSpeedBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_speed
-		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini / 0.01745
-		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max / 0.01745
+		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini
+		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max
 		%WagFreqBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_freq
 		
 		
@@ -1082,12 +1082,12 @@ func on_wag_speed_changed(value):
 
 func on_wag_minicurve_changed(value):
 	if Global.held_sprite != null:
-		Global.held_sprite.dictmain.wag_mini = value * 0.01744
+		Global.held_sprite.dictmain.wag_mini = value
 		Global.held_sprite.save_state(Global.current_state)
 		
 func on_wag_maxcurve_changed(value):
 	if Global.held_sprite != null:
-		Global.held_sprite.dictmain.wag_max = value * 0.01744
+		Global.held_sprite.dictmain.wag_max = value
 		Global.held_sprite.save_state(Global.current_state)
 		
 
