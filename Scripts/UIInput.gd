@@ -517,8 +517,8 @@ func reinfo():
 		%ClosedLoopCheck.button_pressed = Global.held_sprite.dictmain.wiggle_closed_loop
 		%AutoWagCheck.button_pressed = Global.held_sprite.dictmain.auto_wag
 		%WagSpeedBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_speed
-		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini / 0.01744
-		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max / 0.01744
+		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini / 0.01745
+		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max / 0.01745
 		%WagFreqBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_freq
 		
 		
@@ -527,7 +527,7 @@ func reinfo():
 	
 	%PosXSpinBox.value = Global.held_sprite.dictmain.position.x
 	%PosYSpinBox.value = Global.held_sprite.dictmain.position.y
-	%RotSpinBox.value = Global.held_sprite.dictmain.rotation / 0.035
+	%RotSpinBox.value = Global.held_sprite.dictmain.rotation / 0.01745
 	
 	if !%PosXSpinBox.value_changed.is_connected(_on_pos_x_spin_box_value_changed):
 		%PosXSpinBox.value_changed.connect(_on_pos_x_spin_box_value_changed)
@@ -581,7 +581,7 @@ func reinfo():
 func update_pos_spins():
 	%PosXSpinBox.value = Global.held_sprite.position.x
 	%PosYSpinBox.value = Global.held_sprite.position.y
-	%RotSpinBox.value = Global.held_sprite.rotation / 0.035
+	%RotSpinBox.value = Global.held_sprite.rotation / 0.01745
 	Global.held_sprite.save_state(Global.current_state)
 	
 
@@ -853,7 +853,8 @@ func _on_pos_y_spin_box_value_changed(value):
 		Global.held_sprite.save_state(Global.current_state)
 
 func _on_rot_spin_box_value_changed(value):
-	Global.held_sprite.rotation = value * 0.035 
+	Global.held_sprite.rotation = value * 0.01745
+	Global.held_sprite.dictmain.rotation = value * 0.01745
 	Global.held_sprite.save_state(Global.current_state)
 #endregion
 

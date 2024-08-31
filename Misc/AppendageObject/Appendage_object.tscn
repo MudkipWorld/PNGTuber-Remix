@@ -97,10 +97,15 @@ texture_repeat = 1
 
 [node name="Wobble" type="Node2D" parent="Pos"]
 
+[node name="Dragger" type="Node2D" parent="Pos/Wobble"]
+unique_name_in_owner = true
+top_level = true
+
 [node name="Squish" type="Node2D" parent="Pos/Wobble"]
 unique_name_in_owner = true
 
 [node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
+unique_name_in_owner = true
 
 [node name="Rotation" type="Node2D" parent="Pos/Wobble/Squish/Drag"]
 unique_name_in_owner = true

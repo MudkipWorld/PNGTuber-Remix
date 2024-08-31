@@ -154,7 +154,7 @@ func _process(delta):
 		
 		
 		
-		glob = dragger.global_position
+		glob = %Dragger.global_position
 		
 		
 		drag(delta)
@@ -162,13 +162,13 @@ func _process(delta):
 		if not dictmain.ignore_bounce:
 			glob.y -= contain.bounceChange
 		
-		var length = (glob.y - dragger.global_position.y)/dictmain.wiggle_physics_stiffness
+		var length = (glob.y - %Dragger.global_position.y)/dictmain.wiggle_physics_stiffness
 		
 		if dictmain.physics:
 			if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
 				var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
-				var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
-				var c_parrent_length2 = (c_parent.glob.x - c_parent.dragger.global_position.x)
+				var c_parrent_length = (c_parent.glob.y - c_parent.get_node("%Dragger").global_position.y)
+				var c_parrent_length2 = (c_parent.glob.x - c_parent.get_node("%Dragger").global_position.x)
 				length += c_parrent_length + c_parrent_length2
 		
 		rotationalDrag(length)
@@ -256,11 +256,13 @@ func wiggle_sprite():
 		
 	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 
-func drag(delta):
+func drag(_delta):
 	if dictmain.dragSpeed == 0:
-		dragger.global_position = wob.global_position
+		%Dragger.global_position = wob.global_position
+		%Drag.global_position = %Dragger.global_position
 	else:
-		dragger.global_position = lerp(dragger.global_position,wob.global_position,(delta*20)/dictmain.dragSpeed)
+		%Dragger.global_position = lerp(%Dragger.global_position, wob.global_position,1/dictmain.dragSpeed)
+		%Drag.global_position = %Dragger.global_position
 
 func wobble():
 	wob.position.x = sin(Global.tick*dictmain.xFrq)*dictmain.xAmp
@@ -333,6 +335,8 @@ func save_state(id):
 	hframes = dictmain.hframes,
 	scale = scale,
 	folder = dictmain.folder,
+	dragSpeed = dictmain.dragSpeed,
+	
 #	global_position = dictmain.global_position,
 	position = dictmain.position,
 	rotation = rotation,

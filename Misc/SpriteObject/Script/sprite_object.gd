@@ -2,7 +2,7 @@ extends Node2D
 
 #Movement
 var heldTicks = 0
-@onready var dragger = $Pos/Wobble/Squish/Drag
+@onready var dragger = %Drag
 @onready var wob = $Pos/Wobble
 @onready var sprite = %Sprite2D
 @onready var contain = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
@@ -167,20 +167,20 @@ func _process(delta):
 	
 	
 	if !Global.static_view:
-		glob = dragger.global_position
+		glob = %Dragger.global_position
 		drag(delta)
 		wobble()
 		if not dictmain.ignore_bounce:
 			glob.y -= contain.bounceChange
 		
-		var length = (glob.y - dragger.global_position.y)
+		var length = (glob.y - %Dragger.global_position.y)
 		
 		if dictmain.physics:
 			if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
 				var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
 				
-				var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
-				var c_parrent_length2 = (c_parent.glob.x - c_parent.dragger.global_position.x)
+				var c_parrent_length = (c_parent.glob.y - c_parent.get_node("%Dragger").global_position.y)
+				var c_parrent_length2 = (c_parent.glob.x - c_parent.get_node("%Dragger").global_position.x)
 				length += c_parrent_length + c_parrent_length2
 		
 		rotationalDrag(length)
@@ -195,6 +195,7 @@ func _process(delta):
 		rainbow()
 		
 		follow_mouse()
+		
 	else:
 		static_prev()
 		
@@ -258,11 +259,13 @@ func wiggle_sprite():
 		
 	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 
-func drag(delta):
+func drag(_delta):
 	if dictmain.dragSpeed == 0:
-		dragger.global_position = wob.global_position
+		%Dragger.global_position = wob.global_position
+		%Drag.global_position = %Dragger.global_position
 	else:
-		dragger.global_position = lerp(dragger.global_position,wob.global_position,(delta*20)/dictmain.dragSpeed)
+		%Dragger.global_position = lerp(%Dragger.global_position, wob.global_position,1/dictmain.dragSpeed)
+		%Drag.global_position = %Dragger.global_position
 
 func wobble():
 	wob.position.x = sin(Global.tick*dictmain.xFrq)*dictmain.xAmp
@@ -410,6 +413,8 @@ func save_state(id):
 	offset = dictmain.offset,
 	ignore_bounce = dictmain.ignore_bounce,
 	clip = dictmain.clip,
+	dragSpeed = dictmain.dragSpeed,
+	
 	physics = dictmain.physics,
 	wiggle = dictmain.wiggle,
 	wiggle_amp = dictmain.wiggle_amp,

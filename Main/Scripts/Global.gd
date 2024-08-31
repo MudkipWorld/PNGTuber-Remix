@@ -53,7 +53,7 @@ var settings_dict : Dictionary = {
 #var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
 var static_view : bool = false
-
+var spinbox_held : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -143,8 +143,9 @@ func _process(delta):
 	elif !settings_dict.should_delta:
 		tick = wrap(tick + 1, 0, 922337203685477630)
 	#	print(tick)
-	moving_origin(delta)
-	moving_sprite(delta)
+	if !spinbox_held:
+		moving_origin(delta)
+		moving_sprite(delta)
 
 func moving_origin(delta):
 	if held_sprite != null:
