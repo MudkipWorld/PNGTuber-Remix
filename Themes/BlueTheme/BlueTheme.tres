@@ -40,28 +40,46 @@ corner_radius_bottom_left = 4
 color = Color(0.0666667, 0.188235, 0.25098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5ms2"]
-bg_color = Color(0.968627, 0.968627, 0.968627, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.517647, 0.517647, 0.517647, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mo8oh"]
-bg_color = Color(0.713726, 0.713726, 0.713726, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.517647, 0.517647, 0.517647, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtj40"]
-bg_color = Color(0.317647, 0.317647, 0.317647, 1)
+content_margin_left = 4.0
+bg_color = Color(0.356863, 0.592157, 0.682353, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mo8oh"]
+content_margin_left = 4.0
+bg_color = Color(0.356863, 0.592157, 0.682353, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtj40"]
+content_margin_left = 4.0
+bg_color = Color(0.121569, 0.262745, 0.341176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvksv"]
 content_margin_left = 7.0
@@ -177,7 +195,7 @@ Button/styles/hover = SubResource("StyleBoxFlat_cqmw0")
 Button/styles/normal = SubResource("StyleBoxFlat_cqmw0")
 Button/styles/pressed = SubResource("StyleBoxFlat_di57v")
 HSeparator/styles/separator = SubResource("StyleBoxLine_vn4vb")
-LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_color = Color(0.921569, 0.92549, 0.937255, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_w5ms2")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_mo8oh")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_rtj40")
