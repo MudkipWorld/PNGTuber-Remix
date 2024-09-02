@@ -22,6 +22,7 @@ var rec_inp : bool = false
 @onready var origin = %SpritesContainer
 var of
 var keys : Array = []
+var already_input_keys : Array = []
 
 func _ready():
 	%FileDialog.use_native_dialog = true
@@ -301,7 +302,6 @@ func _notification(what):
 
 
 func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
-	await get_tree().create_timer(0.05).timeout
 	if Global.settings_dict.checkinput:
 		var keyStrings = []
 		var costumeKeys = []
@@ -314,10 +314,17 @@ func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
 			if InputMap.action_get_events(str(l.sprite_id)).size() > 0:
 				costumeKeys.append(InputMap.action_get_events(str(l.sprite_id))[0].as_text())
 		
+		
+		
 		for i in keys_pressed:
 			if keys_pressed[i]:
-				
-				keyStrings.append(OS.get_keycode_string(i))
+				if OS.get_keycode_string(i) not in already_input_keys:
+					keyStrings.append(OS.get_keycode_string(i))
+		
+		already_input_keys = keyStrings
+		
+	#	print(keyStrings)
+		
 		
 		if %FileDialog.visible:
 			return
@@ -327,8 +334,8 @@ func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):
 			var i = costumeKeys.find(key)
 			if i >= 0:
 				if costumeKeys[i] not in keys:
-					print(keys)
-					print(costumeKeys[i])
+				#	print(keys)
+				#	print(costumeKeys[i])
 					key_pressed.emit(costumeKeys[i])
 					keys.append(costumeKeys[i])
 	

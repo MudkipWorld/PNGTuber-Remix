@@ -436,14 +436,13 @@ func load_pngplus_file(path):
 	}
 	
 	
-	for l in Global.settings_dict.states:
-		l = dict
+	for n in Global.settings_dict.states:
+		n.merge(dict, true)
+	
 	for l in Global.settings_dict.light_states:
-		l = dict2
+		l.merge(dict2, true)
 		
-		
-		
-		
+	
 	Global.load_sprite_states(0)
 	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
 	get_tree().get_root().get_node("Main/Control/BackgroundEdit").loaded_tree(get_tree().get_nodes_in_group("BackgroundStuff"))

@@ -42,8 +42,10 @@ func _process(delta):
 		elif current_mo_anim == "Wobble":
 			set_mo_wobble()
 			
-		elif current_mc_anim == "Squish":
+		elif current_mo_anim == "Squish":
 			set_mo_squish()
+			
+			
 	elif not currenly_speaking:
 		if current_mc_anim == "Bouncy":
 			set_mc_bouncy()
@@ -73,9 +75,6 @@ func save_state(id):
 		not_speaking()
 
 func get_state(state):
-	if !Global.settings_dict.states.has(state):
-		return
-	
 	if not Global.settings_dict.states[state].is_empty():
 		var dict = Global.settings_dict.states[state]
 		mouth_closed = dict.mouth_closed
@@ -127,8 +126,10 @@ func speaking():
 			set_mo_one_bounce()
 		4:
 			set_mo_wobble()
+			
 		5:
 			set_mo_squish()
+
 
 func set_mc_idle():
 	position = pos
@@ -178,6 +179,7 @@ func set_mo_wobble():
 
 func set_mo_squish():
 	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
+	
 	var yvel = (position.y * 0.01)
 	var target = Vector2(1.0-yvel,1.0+yvel)
 

@@ -754,6 +754,7 @@ func _on_animation_frames_slider_value_changed(value):
 	%AnimationFramesLabel.text = "Animation frames : " + str(value)
 	Global.held_sprite.dictmain.hframes = value
 	Global.held_sprite.animation()
+	Global.held_sprite.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_animation_speed_slider_value_changed(value):
