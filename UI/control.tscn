@@ -3317,7 +3317,11 @@ to remap and then add the new button:
 when minimized if on.
 
 Control Bounce :
-- Click on bounce top bar to change the bounce and gravity to your desire."
+- Click on bounce top bar to change the bounce and gravity to your desire.
+
+Mouse Controls :
+- Scroll Wheel to zoom in/ out.
+- Middle Mouse button to pan the camera."
 autowrap_mode = 2
 
 [node name="QNA" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]

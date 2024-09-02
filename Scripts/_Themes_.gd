@@ -106,6 +106,7 @@ func _ready():
 	await get_tree().create_timer(0.05).timeout
 	get_window().size = theme_settings.screen_size
 	check_ui()
+	
 
 func window_size_changed():
 	theme_settings.screen_size = get_window().size

@@ -145,7 +145,7 @@ func set_mc_one_bounce():
 func set_mc_wobble():
 	position.x = sin(tick*Global.settings_dict.xFrq)*Global.settings_dict.xAmp
 	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
-	bounceChange = position.y
+	bounceChange = position.y/10
 	
 
 func set_mc_squish():
@@ -173,7 +173,7 @@ func set_mo_one_bounce():
 func set_mo_wobble():
 	position.x = sin(tick*Global.settings_dict.xFrq)*Global.settings_dict.xAmp
 	position.y = sin(tick*Global.settings_dict.yFrq)*Global.settings_dict.yAmp
-	bounceChange = position.y
+	bounceChange = position.y/10
 	
 
 
