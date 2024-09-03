@@ -168,14 +168,14 @@ func moving_origin(delta):
 			offset()
 			
 			
+		if get_tree().get_root().get_node("Main").can_scroll:
+			if Input.is_action_pressed("ctrl"):
+				if Input.is_action_just_pressed("lmb"):
+					var of = held_sprite.get_parent().to_local(held_sprite.get_parent().get_global_mouse_position()) - held_sprite.position
+					held_sprite.position += of
+					held_sprite.get_node("%Sprite2D").position -= of
 
-		if Input.is_action_pressed("ctrl"):
-			if Input.is_action_just_pressed("lmb"):
-				var of = held_sprite.get_parent().to_local(held_sprite.get_parent().get_global_mouse_position()) - held_sprite.position
-				held_sprite.position += of
-				held_sprite.get_node("%Sprite2D").position -= of
-
-				offset()
+					offset()
 
 
 func rot():
