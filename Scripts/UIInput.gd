@@ -1035,16 +1035,28 @@ func _on_max_rotation_level_value_changed(value):
 
 
 func _on_offset_y_spin_box_value_changed(value):
-	Global.held_sprite.dictmain.offset.y = value
-	Global.held_sprite.get_node("%Sprite2D").position.y = Global.held_sprite.dictmain.offset.y
-	Global.held_sprite.save_state(Global.current_state)
+	if %OffsetYSpinBox.get_line_edit().has_focus():
+		var of = Global.held_sprite.dictmain.offset.y - value
+		Global.held_sprite.dictmain.position.y += of
+		Global.held_sprite.position.y = Global.held_sprite.dictmain.position.y
+		
+		Global.held_sprite.dictmain.offset.y = value
+		Global.held_sprite.get_node("%Sprite2D").position.y = Global.held_sprite.dictmain.offset.y
+		Global.held_sprite.save_state(Global.current_state)
+		update_pos_spins()
 		
 
 
 func _on_offset_x_spin_box_value_changed(value):
-	Global.held_sprite.dictmain.offset.x = value
-	Global.held_sprite.get_node("%Sprite2D").position.x = Global.held_sprite.dictmain.offset.x
-	Global.held_sprite.save_state(Global.current_state)
+	if %OffsetXSpinBox.get_line_edit().has_focus():
+		var of = Global.held_sprite.dictmain.offset.x - value
+		Global.held_sprite.dictmain.position.x += of
+		Global.held_sprite.position.x = Global.held_sprite.dictmain.position.x
+		
+		Global.held_sprite.dictmain.offset.x = value
+		Global.held_sprite.get_node("%Sprite2D").position.x = Global.held_sprite.dictmain.offset.x
+		Global.held_sprite.save_state(Global.current_state)
+		update_pos_spins()
 
 
 

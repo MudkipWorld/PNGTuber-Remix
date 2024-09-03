@@ -9,25 +9,27 @@ var linear_sampler
 
 var container
 var has_spoken : bool = true
+var has_delayed : bool = true
+
 var speech_value : float : 
 	set(value):
 		if value >= Global.settings_dict.volume_limit:
 			if not has_spoken:
 				%DelayBar.value = 1
 				Global.speaking.emit()
+				has_delayed = true
 				has_spoken = true
-		'''
-		if %value < Global.settings_dict.volume_limit:
+
+		if value < Global.settings_dict.volume_limit:
 			if has_spoken:
-				Global.not_speaking.emit()
-				has_spoken = false'''
+				has_spoken = false
 
 var speech_delay : float : 
 	set(value):
 		if value < Global.settings_dict.volume_delay:
-			if has_spoken:
+			if has_delayed:
 				Global.not_speaking.emit()
-				has_spoken = false
+				has_delayed = false
 
 
 
