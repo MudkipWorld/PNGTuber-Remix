@@ -63,15 +63,18 @@ func save_apng(userdata):
 	
 	var i = 0
 	var frames : Array[AImgIOFrame] = []
+	var index = 0
 	for image in _images:
-		if image != null:
+		if index != 0:
 			var a = AImgIOFrame.new()
 			a.content = image
+			a.duration = 1/frames_per_second
 			frames.append(a)
+		index +=1
 	
-	var result = anpng_export.export_animation(frames, 30, self, "", [])
+	var result = anpng_export.export_animation(frames, frames_per_second, self, "_progress_report", [])
 	
-	var file: FileAccess = FileAccess.open(output_folder + ".Apng", FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(output_folder, FileAccess.WRITE)
 	file.store_buffer(result)
 	print("sav")
 	file.close()
@@ -104,10 +107,9 @@ func save_frames(userdata):
 	for image in _images:
 		if (flip_y):
 			image.flip_y()
-		image.save_png(output_folder +"."+ "%04d" % i + ".png")
+		image.save_png(output_folder +"."+ "%04d" % i)
 		i+=1
 	_images.clear()
-	
 	_thread.call_deferred("wait_to_finish")
 
 

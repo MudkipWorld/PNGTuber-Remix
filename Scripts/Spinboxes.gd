@@ -22,5 +22,5 @@ func release():
 	get_line_edit().release_focus()
 	release_focus()
 
-func text_done(text):
+func text_done(_text):
 	Global.spinbox_held = false

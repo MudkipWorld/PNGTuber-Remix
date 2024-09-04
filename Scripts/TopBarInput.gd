@@ -80,6 +80,8 @@ func choosing_files(id):
 		8:
 			if path != null:
 				SaveAndLoad.save_file(path)
+		9:
+			export_images(get_tree().get_nodes_in_group("Sprites"))
 			
 
 func choosing_mode(id):
@@ -365,6 +367,9 @@ func _on_file_dialog_close_requested():
 	get_window().unresizable = false
 
 
+func _on_file_dialog_confirmed() -> void:
+	get_window().unresizable = false
+
 
 
 func _on_file_dialog_file_selected(savpath):
@@ -374,8 +379,6 @@ func _on_file_dialog_file_selected(savpath):
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").savea()
 	else:
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
-		
-	get_window().unresizable = false
 
 
 func _on_file_type_item_selected(index):
@@ -397,3 +400,29 @@ func _on_delta_time_check_toggled(toggled_on: bool) -> void:
 
 func _on_preview_mode_check_toggled(toggled_on: bool) -> void:
 	Global.static_view = toggled_on
+
+
+
+func export_images(images = get_tree().get_nodes_in_group("Sprites")):
+	#OS.get_executable_path().get_base_dir() + "/ExportedAssets" + "/" + str(randi())
+	var dire = OS.get_executable_path().get_base_dir() + "/ExportedAssets"
+	if !DirAccess.dir_exists_absolute(dire):
+		DirAccess.make_dir_absolute(dire)
+		
+	for sprite in images:
+		if !sprite.dictmain.folder:
+			if sprite.img_animated:
+				var file = FileAccess.open(dire +"/" + sprite.sprite_name + str(randi()) + ".gif", FileAccess.WRITE)
+				file.store_buffer(sprite.anim_texture)
+				file.close()
+				file = null
+			elif sprite.is_apng:
+				var file = FileAccess.open(dire +"/" + sprite.sprite_name + str(randi()) + ".apng", FileAccess.WRITE)
+				var exp = AImgIOAPNGExporter.new().export_animation(sprite.frames, 10, self, "_progress_report", [])
+				file.store_buffer(exp)
+				file.close()
+				file = null
+			elif !sprite.img_animated && !sprite.is_apng:
+				var img = Image.new()
+				img = sprite.get_node("%Sprite2D").texture.get_image()
+				img.save_png(dire +"/" + sprite.sprite_name + str(randi()) + ".png")

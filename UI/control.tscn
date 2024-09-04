@@ -2877,7 +2877,7 @@ size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
 text = "   Files "
-item_count = 8
+item_count = 9
 popup/item_0/text = "New"
 popup/item_1/text = "Open"
 popup/item_1/id = 1
@@ -2891,8 +2891,10 @@ popup/item_5/text = "Add Appendage Based Image"
 popup/item_5/id = 6
 popup/item_6/text = "Add Background Item"
 popup/item_6/id = 7
-popup/item_7/text = "Demo Model"
-popup/item_7/id = 5
+popup/item_7/text = "Export Model Parts"
+popup/item_7/id = 9
+popup/item_8/text = "Demo Model"
+popup/item_8/id = 5
 
 [node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
@@ -3417,7 +3419,7 @@ from the original software and improve existing ones."
 [node name="InputsPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 4
-size = Vector2i(442, 600)
+size = Vector2i(471, 630)
 unresizable = false
 borderless = false
 
@@ -3431,7 +3433,7 @@ anchor_bottom = 0.981
 offset_left = 7.0
 offset_top = 8.0
 offset_right = 464.0
-offset_bottom = 592.0
+offset_bottom = 622.0
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3644,7 +3646,7 @@ text = "Record FPS : "
 unique_name_in_owner = true
 custom_minimum_size = Vector2(158, 0)
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 min_value = 1.0
 max_value = 120.0
 value = 24.0
@@ -3652,9 +3654,8 @@ script = ExtResource("26_0wx0w")
 
 [node name="FileType" type="OptionButton" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 alignment = 1
 selected = 0
 item_count = 2
@@ -3662,7 +3663,7 @@ popup/item_0/text = "Image Sequence"
 popup/item_1/text = "Apng"
 popup/item_1/id = 1
 
-[node name="DeltaTimeCheck" type="CheckBox" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
+[node name="DeltaTimeCheck" type="CheckBox" parent="InputsPopup/VBoxContainer2/GridContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -4019,6 +4020,7 @@ presets_visible = false
 [connection signal="toggled" from="TopBar/HBox/RecordButton" to="TopBarInput" method="_on_record_button_toggled"]
 [connection signal="canceled" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_canceled"]
 [connection signal="close_requested" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_close_requested"]
+[connection signal="confirmed" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_confirmed"]
 [connection signal="file_selected" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_file_selected"]
 [connection signal="toggled" from="TopBar/HBox/PreviewModeCheck" to="TopBarInput" method="_on_preview_mode_check_toggled"]
 [connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
@@ -4043,7 +4045,7 @@ presets_visible = false
 [connection signal="timeout" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveTimer" to="TopBarInput" method="_on_auto_save_timer_timeout"]
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FpsSping" to="_Themes_" method="_on_fps_sping_value_changed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FileType" to="TopBarInput" method="_on_file_type_item_selected"]
-[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/DeltaTimeCheck" to="TopBarInput" method="_on_delta_time_check_toggled"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/DeltaTimeCheck" to="TopBarInput" method="_on_delta_time_check_toggled"]
 [connection signal="pressed" from="InputsPopup/VBoxContainer2/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
