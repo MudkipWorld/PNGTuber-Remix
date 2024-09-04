@@ -212,6 +212,9 @@ func held_sprite_is_null():
 	
 	%MaxFWBSlider.get_node("SliderValue").editable = false
 	%MaxFWBSlider.get_node("SpinBoxValue").editable = false
+	%FlipSpriteH.disabled = true
+	%FlipSpriteV.disabled = true
+	
 
 
 func held_sprite_is_true():
@@ -324,6 +327,9 @@ func held_sprite_is_true():
 		%WiggleAppsMaxAngleBSlider.get_node("SpinBoxValue").editable = false
 		%WiggleAppsPhysStiffBSlider.get_node("SliderValue").editable = false
 		%WiggleAppsPhysStiffBSlider.get_node("SpinBoxValue").editable = false
+		
+		%FlipSpriteH.disabled = false
+		%FlipSpriteV.disabled = false
 		
 	%OffsetXSpinBox.editable = true
 	%OffsetYSpinBox.editable = true
@@ -490,7 +496,7 @@ func reinfo():
 	if Global.held_sprite.sprite_type == "Sprite2D":
 		%WiggleStuff.show()
 		%WiggleAppStuff.hide()
-		
+		%FlipSpriteHBox.show()
 		%WiggleCheck.button_pressed = Global.held_sprite.dictmain.wiggle
 		%WigglePhysicsCheck.button_pressed = Global.held_sprite.dictmain.wiggle_physics
 		%WiggleAmpBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wiggle_amp
@@ -499,8 +505,12 @@ func reinfo():
 		%XoffsetSpinBox.value = Global.held_sprite.dictmain.wiggle_rot_offset.x
 		%YoffsetSpinBox.value = Global.held_sprite.dictmain.wiggle_rot_offset.y
 		
+		%FlipSpriteH.button_pressed = Global.held_sprite.dictmain.flip_sprite_h
+		%FlipSpriteV.button_pressed = Global.held_sprite.dictmain.flip_sprite_v
+		
 	
 	elif Global.held_sprite.sprite_type == "WiggleApp":
+		%FlipSpriteHBox.hide()
 		%WiggleStuff.hide()
 		%WiggleAppStuff.show()
 		
@@ -1142,3 +1152,16 @@ func on_mini_fw_changed(value):
 func on_max_fw_changed(value):
 	Global.held_sprite.dictmain.follow_wa_max = value
 	Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_flip_sprite_h_toggled(toggled_on: bool) -> void:
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		Global.held_sprite.dictmain.flip_sprite_h = toggled_on
+		Global.held_sprite.get_node("%Sprite2D").flip_h = toggled_on
+		Global.held_sprite.save_state(Global.current_state)
+
+func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
+	if Global.held_sprite.sprite_type == "Sprite2D":
+		Global.held_sprite.dictmain.flip_sprite_v = toggled_on
+		Global.held_sprite.get_node("%Sprite2D").flip_v = toggled_on
+		Global.held_sprite.save_state(Global.current_state)

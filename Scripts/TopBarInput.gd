@@ -299,7 +299,6 @@ func desel_everything():
 	%BackgroundTree.deselect_all()
 	%DeselectButton.hide()
 
-
 func _on_bounce_state_check_toggled(toggled_on):
 	Global.settings_dict.bounce_state = toggled_on
 	
@@ -320,7 +319,6 @@ func _on_y_amp_wobble_slider_value_changed(value):
 	Global.settings_dict.yAmp = value
 	%YAmpWobbleLabel.text = "Y-Amplitude Wobble : " + str(value)
 
-
 func _on_auto_save_check_toggled(toggled_on):
 	Global.settings_dict.auto_save = toggled_on
 	if toggled_on:
@@ -328,11 +326,9 @@ func _on_auto_save_check_toggled(toggled_on):
 	else:
 		%AutoSaveTimer.stop()
 
-
 func _on_auto_save_spin_value_changed(value):
 	%AutoSaveTimer.wait_time = value * 60
 	Global.settings_dict.auto_save_timer = %AutoSaveTimer.wait_time
-
 
 func _on_auto_save_timer_timeout():
 	if Global.settings_dict.auto_save:
@@ -349,7 +345,6 @@ func _on_auto_save_timer_timeout():
 			
 		%AutoSaveTimer.start()
 
-
 func _on_record_button_toggled(toggled_on):
 	if toggled_on:
 		%RecordButton.text = "Recording..."
@@ -361,16 +356,12 @@ func _on_record_button_toggled(toggled_on):
 func _on_file_dialog_canceled():
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").cancelled()
 
-
 func _on_file_dialog_close_requested():
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").cancelled()
 	get_window().unresizable = false
 
-
 func _on_file_dialog_confirmed() -> void:
 	get_window().unresizable = false
-
-
 
 func _on_file_dialog_file_selected(savpath):
 	
@@ -379,7 +370,6 @@ func _on_file_dialog_file_selected(savpath):
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").savea()
 	else:
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
-
 
 func _on_file_type_item_selected(index):
 	match index:
@@ -393,15 +383,11 @@ func _on_file_type_item_selected(index):
 	%_Themes_.save()
 	
 
-
 func _on_delta_time_check_toggled(toggled_on: bool) -> void:
 	Global.settings_dict.should_delta = toggled_on
 
-
 func _on_preview_mode_check_toggled(toggled_on: bool) -> void:
 	Global.static_view = toggled_on
-
-
 
 func export_images(images = get_tree().get_nodes_in_group("Sprites")):
 	#OS.get_executable_path().get_base_dir() + "/ExportedAssets" + "/" + str(randi())
@@ -416,13 +402,33 @@ func export_images(images = get_tree().get_nodes_in_group("Sprites")):
 				file.store_buffer(sprite.anim_texture)
 				file.close()
 				file = null
+				if sprite.anim_texture_normal != null:
+					var filenormal = FileAccess.open(dire +"/" + sprite.sprite_name + str(randi()) + "Normal" + ".gif", FileAccess.WRITE)
+					filenormal.store_buffer(sprite.anim_texture_normal)
+					filenormal.close()
+					filenormal = null
+					
 			elif sprite.is_apng:
 				var file = FileAccess.open(dire +"/" + sprite.sprite_name + str(randi()) + ".apng", FileAccess.WRITE)
 				var exp = AImgIOAPNGExporter.new().export_animation(sprite.frames, 10, self, "_progress_report", [])
 				file.store_buffer(exp)
 				file.close()
 				file = null
+				if !sprite.frames2.is_empty():
+					var filenormal = FileAccess.open(dire +"/" + sprite.sprite_name + "Normal" + str(randi()) + ".apng", FileAccess.WRITE)
+					var exp2 = AImgIOAPNGExporter.new().export_animation(sprite.frames2, 10, self, "_progress_report", [])
+					filenormal.store_buffer(exp2)
+					filenormal.close()
+					filenormal = null
+				
 			elif !sprite.img_animated && !sprite.is_apng:
 				var img = Image.new()
-				img = sprite.get_node("%Sprite2D").texture.get_image()
+				img = sprite.get_node("%Sprite2D").texture.diffuse_texture.get_image()
 				img.save_png(dire +"/" + sprite.sprite_name + str(randi()) + ".png")
+				img = null
+				
+				if sprite.get_node("%Sprite2D").texture.normal_texture != null:
+					var normimg = Image.new()
+					normimg = sprite.get_node("%Sprite2D").texture.normal_texture.get_image()
+					normimg.save_png(dire +"/" + sprite.sprite_name + "Normal" + str(randi()) + ".png")
+					normimg = null

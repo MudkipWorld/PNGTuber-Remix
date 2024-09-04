@@ -90,7 +90,8 @@ var currently_speaking : bool = false
 	follow_wa_mini = -180,
 	follow_wa_max = 180,
 	
-	
+	flip_sprite_h = false,
+	flip_sprite_v = false,
 	
 	}
 var smooth_rot = 0.0
@@ -444,6 +445,10 @@ func save_state(id):
 	
 	follow_wa_mini = dictmain.follow_wa_mini,
 	follow_wa_max = dictmain.follow_wa_max,
+	
+	flip_sprite_h = dictmain.flip_sprite_h,
+	flip_sprite_v = dictmain.flip_sprite_v,
+	
 	}
 	states[id] = dict
 
@@ -481,6 +486,11 @@ func get_state(id):
 		rotation = dictmain.rotation
 		%Sprite2D.material.set_shader_parameter("wiggle", dictmain.wiggle)
 		%Sprite2D.material.set_shader_parameter("rotation_offset", dictmain.wiggle_rot_offset)
+		
+		
+		%Sprite2D.flip_h = dictmain.flip_sprite_h
+		%Sprite2D.flip_v = dictmain.flip_sprite_v
+		
 		
 		
 		if dictmain.advanced_lipsync:

@@ -1456,9 +1456,30 @@ text = "Physics"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 30)
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "Clip Children"
+
+[node name="FlipSpriteHBox" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="FlipSpriteH" type="CheckBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/FlipSpriteHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(161, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 16
+text = "Flip Sprite H"
+
+[node name="FlipSpriteV" type="CheckBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/FlipSpriteHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(151, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 16
+text = "Flip Sprite V"
 
 [node name="HBoxAsset" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -3430,10 +3451,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 464.0
-offset_bottom = 622.0
+offset_left = -4.304
+offset_top = -3.97
+offset_right = 2.41998
+offset_bottom = 3.96997
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3964,6 +3985,8 @@ presets_visible = false
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxPhysics/IgnoreBounce" to="UIInput" method="_on_ignore_bounce_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxPhysics/Physics" to="UIInput" method="_on_physics_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/ClipChildren" to="UIInput" method="_on_check_box_toggled"]
+[connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/FlipSpriteHBox/FlipSpriteH" to="UIInput" method="_on_flip_sprite_h_toggled"]
+[connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/FlipSpriteHBox/FlipSpriteV" to="UIInput" method="_on_flip_sprite_v_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxAsset/IsAssetCheck" to="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_is_asset_check_toggled"]
 [connection signal="pressed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxAsset/RemoveAssetButton" to="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_remove_asset_button_pressed"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/ShouldDisappearCheck" to="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxAsset/IsAssetButton" method="_on_should_disappear_check_toggled"]
