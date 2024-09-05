@@ -96,6 +96,10 @@ func _on_file_dialog_file_selected(path):
 				var g_file = FileAccess.get_file_as_bytes(path)
 				var gif_tex = GifManager.animated_texture_from_buffer(g_file)
 				var img_can = CanvasTexture.new()
+				
+				for n in gif_tex.frames:
+					gif_tex.get_frame_texture(n).get_image().fix_alpha_edges()
+				
 				img_can.diffuse_texture = gif_tex
 				Global.held_sprite.anim_texture = g_file
 				Global.held_sprite.anim_texture_normal = null
@@ -115,6 +119,10 @@ func _on_file_dialog_file_selected(path):
 					var img = AImgIOAPNGImporter.load_from_file(path)
 					var tex = img[1] as Array[AImgIOFrame]
 					Global.held_sprite.frames = tex
+					
+					for n in Global.held_sprite.frames:
+						n.content.fix_alpha_edges()
+					
 					var cframe: AImgIOFrame = Global.held_sprite.frames[0]
 					var text = ImageTexture.create_from_image(cframe.content)
 					var img_can = CanvasTexture.new()
@@ -127,6 +135,7 @@ func _on_file_dialog_file_selected(path):
 					var img = Image.load_from_file(path)
 					var texture = ImageTexture.create_from_image(img)
 					var img_can = CanvasTexture.new()
+					img.fix_alpha_edges()
 					Global.held_sprite.img_animated = false
 					Global.held_sprite.is_apng = false
 					img_can.diffuse_texture = texture
@@ -142,6 +151,11 @@ func _on_file_dialog_file_selected(path):
 			if path.get_extension() == "gif":
 				var g_file = FileAccess.get_file_as_bytes(path)
 				var gif_tex = GifManager.animated_texture_from_buffer(g_file)
+				
+				for n in gif_tex.frames:
+					gif_tex.get_frame_texture(n).get_image().fix_alpha_edges()
+				
+				
 				Global.held_sprite.anim_texture_normal = g_file
 				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = gif_tex
 			else:
@@ -150,14 +164,19 @@ func _on_file_dialog_file_selected(path):
 					var img = AImgIOAPNGImporter.load_from_file(path)
 					var tex = img[1] as Array[AImgIOFrame]
 					Global.held_sprite.frames2 = tex
+					
+					for n in Global.held_sprite.frames2:
+						n.content.fix_alpha_edges()
+					
 					var cframe: AImgIOFrame = Global.held_sprite.frames2[0]
 					var text = ImageTexture.create_from_image(cframe.content)
 					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = text
 
 				else:
 					var img = Image.load_from_file(path)
+					img.fix_alpha_edges()
 					var texture = ImageTexture.create_from_image(img)
-					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture = texture
+					Global.held_sprite.get_node("%Sprite2D").texture.normal_texture = texture
 			Global.get_sprite_states(Global.current_state)
 
 func _on_file_dialog_files_selected(paths):
@@ -176,6 +195,10 @@ func _on_file_dialog_files_selected(paths):
 			if path.get_extension() == "gif":
 				var g_file = FileAccess.get_file_as_bytes(path)
 				var gif_tex = GifManager.animated_texture_from_buffer(g_file)
+				
+				for n in gif_tex.frames:
+					gif_tex.get_frame_texture(n).get_image().fix_alpha_edges()
+				
 				var img_can = CanvasTexture.new()
 				img_can.diffuse_texture = gif_tex
 				sprte_obj.anim_texture = g_file
@@ -191,6 +214,10 @@ func _on_file_dialog_files_selected(paths):
 					var img = AImgIOAPNGImporter.load_from_file(path)
 					var tex = img[1] as Array[AImgIOFrame]
 					sprte_obj.frames = tex
+					
+					for n in sprte_obj.frames:
+						n.content.fix_alpha_edges()
+					
 					var cframe: AImgIOFrame = sprte_obj.frames[0]
 					var text = ImageTexture.create_from_image(cframe.content)
 					var img_can = CanvasTexture.new()
@@ -201,6 +228,7 @@ func _on_file_dialog_files_selected(paths):
 					
 				else:
 					var img = Image.load_from_file(path)
+					img.fix_alpha_edges()
 					var texture = ImageTexture.create_from_image(img)
 					var img_can = CanvasTexture.new()
 					img_can.diffuse_texture = texture

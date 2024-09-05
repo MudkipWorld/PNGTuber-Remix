@@ -187,15 +187,26 @@ func load_file(path):
 			
 			if sprite.has("img_animated"):
 				if sprite.img_animated:
-					var gif_texture = GifManager.animated_texture_from_buffer(sprite.img)
+					var gif_texture : AnimatedTexture = GifManager.animated_texture_from_buffer(sprite.img)
 					sprite_obj.anim_texture = sprite.img
 					var img_can = CanvasTexture.new()
+					
+					for n in gif_texture.frames:
+						gif_texture.get_frame_texture(n).get_image().fix_alpha_edges()
+
+					
 					img_can.diffuse_texture = gif_texture
+					
+					
 					
 					
 					if sprite.has("normal"):
 						if sprite.normal != null:
 							var gif_normal = GifManager.animated_texture_from_buffer(sprite.normal)
+							
+							for n in gif_normal.frames:
+								gif_normal.get_frame_texture(n).get_image().fix_alpha_edges()
+							
 							img_can.normal_texture = gif_normal
 							sprite_obj.anim_texture_normal = sprite.normal
 					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
@@ -205,6 +216,7 @@ func load_file(path):
 						var img_data = Marshalls.base64_to_raw(sprite.img)
 						var img = Image.new()
 						img.load_png_from_buffer(img_data)
+						img.fix_alpha_edges()
 						var img_tex = ImageTexture.new()
 						img_tex.set_image(img)
 						var img_can = CanvasTexture.new()
@@ -214,6 +226,8 @@ func load_file(path):
 								var img_normal = Marshalls.base64_to_raw(sprite.normal)
 								var nimg = Image.new()
 								nimg.load_png_from_buffer(img_normal)
+								
+								nimg.fix_alpha_edges()
 								var nimg_tex = ImageTexture.new()
 								nimg_tex.set_image(nimg)
 								img_can.normal_texture = nimg_tex
@@ -225,17 +239,28 @@ func load_file(path):
 					var img = AImgIOAPNGImporter.load_from_buffer(sprite.img)
 					var tex = img[1] as Array[AImgIOFrame]
 					sprite_obj.frames = tex
+					
+					for n in sprite_obj.frames:
+						n.content.fix_alpha_edges()
+					
 					var cframe: AImgIOFrame = sprite_obj.frames[0]
+					
 					var text = ImageTexture.create_from_image(cframe.content)
 					var img_can = CanvasTexture.new()
 					img_can.diffuse_texture = text
-			#		if sprite.normal:
-					var norm = AImgIOAPNGImporter.load_from_buffer(sprite.normal)
-					var texn = norm[1] as Array[AImgIOFrame]
-					sprite_obj.frames2 = texn
-					var cframe2: AImgIOFrame = sprite_obj.frames2[0]
-					var text2 = ImageTexture.create_from_image(cframe2.content)
-					img_can.normal_texture = text2
+					
+					
+					
+					if sprite.normal:
+						var norm = AImgIOAPNGImporter.load_from_buffer(sprite.normal)
+						var texn = norm[1] as Array[AImgIOFrame]
+						sprite_obj.frames2 = texn
+						for n in sprite_obj.frames2:
+							n.content.fix_alpha_edges()
+						
+						var cframe2: AImgIOFrame = sprite_obj.frames2[0]
+						var text2 = ImageTexture.create_from_image(cframe2.content)
+						img_can.normal_texture = text2
 					
 					sprite_obj.texture = img_can
 					sprite_obj.is_apng = true
@@ -245,6 +270,7 @@ func load_file(path):
 						var img_data = Marshalls.base64_to_raw(sprite.img)
 						var img = Image.new()
 						img.load_png_from_buffer(img_data)
+						img.fix_alpha_edges()
 						var img_tex = ImageTexture.new()
 						img_tex.set_image(img)
 						var img_can = CanvasTexture.new()
@@ -254,6 +280,7 @@ func load_file(path):
 								var img_normal = Marshalls.base64_to_raw(sprite.normal)
 								var nimg = Image.new()
 								nimg.load_png_from_buffer(img_normal)
+								nimg.fix_alpha_edges()
 								var nimg_tex = ImageTexture.new()
 								nimg_tex.set_image(nimg)
 								img_can.normal_texture = nimg_tex
