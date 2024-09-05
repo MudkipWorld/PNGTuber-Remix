@@ -3161,7 +3161,7 @@ cache/0/17/0/glyphs/75/size = Vector2(11, 14)
 cache/0/17/0/glyphs/75/uv_rect = Rect2(28, 17, 11, 14)
 cache/0/17/0/glyphs/75/texture_idx = 0
 
-[sub_resource type="Image" id="Image_vmbok"]
+[sub_resource type="Image" id="Image_yns57"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////YP///2H///8A////AP///wD///8A////AP///wD///8A////AP///2D///9h////AP///wD///8A////YP///7////+/////Yf///wD///8A////AP///wD///8A////AP///2D///+/////v////2H///8A////AP///2H///+/////v////7////9h////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////Yf///7////+/////v////2H///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///wD///9h////v////7////+/////Yf///2D///+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///2H///+/////v////7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////Yf///7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////Yf///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////v////7////9h////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////9g////Yf///7////+/////v////2H///8A////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///9h////v////7////+/////Yf///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///2H///+/////v////7////9h////AP///wD///9h////v////7////9g////AP///wD///8A////AP///wD///8A////Yf///7////+/////YP///wD///8A////AP///2H///9g////AP///wD///8A////AP///wD///8A////AP///wD///9h////YP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -3171,7 +3171,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_aovhr"]
-image = SubResource("Image_vmbok")
+image = SubResource("Image_yns57")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5ms2"]
 content_margin_left = 4.0

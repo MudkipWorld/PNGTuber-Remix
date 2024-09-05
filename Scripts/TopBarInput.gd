@@ -225,9 +225,19 @@ func _on_anti_al_check_toggled(toggled_on):
 	Global.settings_dict.anti_alias = toggled_on
 	if toggled_on:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		bg.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	else:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
+		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
 
+
+func origin_alias():
+	if Global.settings_dict.anti_alias:
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		bg.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	else:
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
+		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
 
 func _on_hide_ui_button_toggled(toggled_on):
 	%LeftPanel.visible = toggled_on
