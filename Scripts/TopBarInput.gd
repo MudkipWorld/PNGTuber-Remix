@@ -224,18 +224,9 @@ func _on_collab_button_pressed():
 func _on_anti_al_check_toggled(toggled_on):
 	Global.settings_dict.anti_alias = toggled_on
 	if toggled_on:
-		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	else:
-		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-
-func origin_alias():
-	if %AntiAlCheck.button_pressed:
-		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-		bg.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-	else:
-		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		
+		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
 
 
 func _on_hide_ui_button_toggled(toggled_on):
