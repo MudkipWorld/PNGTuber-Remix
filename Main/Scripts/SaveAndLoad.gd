@@ -41,6 +41,7 @@ func save_file(path):
 				was_active_before = sprt.was_active_before,
 				should_disappear = sprt.should_disappear,
 				saved_keys = sprt.saved_keys,
+				is_collapsed = sprt.is_collapsed,
 			}
 			sprites_array.append(sprt_dict)
 			
@@ -74,6 +75,7 @@ func save_file(path):
 				was_active_before = sprt.was_active_before,
 				should_disappear = sprt.should_disappear,
 				saved_keys = sprt.saved_keys,
+				is_collapsed = sprt.is_collapsed,
 			}
 			sprites_array.append(sprt_dict)
 	
@@ -295,6 +297,8 @@ func load_file(path):
 			sprite_obj.parent_id = sprite.parent_id
 			sprite_obj.sprite_name = sprite.sprite_name
 			
+			if sprite.has("is_collapsed"):
+				sprite_obj.is_collapsed = sprite.is_collapsed
 			
 			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer").add_child(sprite_obj)
 			

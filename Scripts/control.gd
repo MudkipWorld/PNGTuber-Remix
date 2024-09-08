@@ -140,6 +140,7 @@ func loaded_tree(sprites):
 	for i in sprites:
 		i.reparent_obj(get_tree().get_nodes_in_group("Sprites"))
 	_tree(get_tree().get_nodes_in_group("Sprites"))
+	collapsing(get_tree().get_nodes_in_group("Sprites"))
 
 func check_parent(new_item = null):
 	var sprites = get_tree().get_nodes_in_group("Sprites")
@@ -245,3 +246,10 @@ func _on_layers_tree_empty_clicked(_position, _mouse_button_index):
 		tree.release_focus()
 	tree.deselect_all()
 	%TopBarInput.desel_everything()
+
+
+func collapsing(sprites):
+	for i in sprites:
+		if i.treeitem.get_child_count() > 0:
+			i.treeitem.collapsed = i.is_collapsed
+	

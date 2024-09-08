@@ -101,6 +101,7 @@ var anim_texture
 var anim_texture_normal 
 var img_animated : bool = false
 var is_apng : bool = false
+var is_collapsed : bool = false
 
 var dragging_type = "Null"
 @onready var og_glob = global_position
@@ -115,6 +116,7 @@ var is_asset : bool = false
 var was_active_before : bool = true
 var should_disappear : bool = false
 var saved_keys : Array = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -166,3 +166,8 @@ func _on_item_selected():
 		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Origin"):
 			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Origin").show()
 		emit_signal("sprite_info")
+
+
+func _on_item_collapsed(item: TreeItem) -> void:
+	if get_selected() != get_root():
+		item.get_metadata(0).sprite_object.is_collapsed  = item.collapsed

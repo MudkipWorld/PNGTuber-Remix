@@ -24,7 +24,10 @@ var of
 var keys : Array = []
 var already_input_keys : Array = []
 
+var obj = Object.new()
+
 func _ready():
+	DisplayServer.register_additional_output(obj)
 	%FileDialog.use_native_dialog = true
 
 func new_file():
@@ -327,6 +330,7 @@ func _notification(what):
 		rec_inp = false
 	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
 		rec_inp = true
+	
 
 
 func _on_background_input_capture_bg_key_pressed(_node, keys_pressed):

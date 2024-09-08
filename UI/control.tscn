@@ -3959,6 +3959,7 @@ presets_visible = false
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
 [connection signal="button_clicked" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="." method="_on_layers_tree_button_clicked"]
 [connection signal="empty_clicked" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="." method="_on_layers_tree_empty_clicked"]
+[connection signal="item_collapsed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" method="_on_item_collapsed"]
 [connection signal="item_selected" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" method="_on_item_selected"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/Add BG image" to="BackgroundEdit" method="_on_add_bg_image_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/BGDuplicateButton" to="BackgroundEdit" method="_on_bg_duplicate_button_pressed"]

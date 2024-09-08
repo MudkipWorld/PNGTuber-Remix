@@ -15,7 +15,7 @@ varying vec2 rot_uv;
 
 void vertex(){
 	modulate = COLOR;
-	
+
 }
 
 
@@ -27,16 +27,16 @@ void fragment() {
 		vec2 centered_uv = UV - rotation_offset;
 		vec2 rotated_uv = centered_uv * rotation_mat;
 		rotated_uv = rotated_uv + rotation_offset;
-		
+
 		COLOR = texture(TEXTURE, rotated_uv)*modulate;
 		rot_uv = rotated_uv;
 	}
-	
+
 	if (enabled){
 		vec4 bgColor;
 		vec4 Color;
 		if(wiggle) {
-			
+
 			Color = texture(TEXTURE, rot_uv);
 			bgColor = texture(TEXTURE, UV);
 		}
@@ -46,23 +46,21 @@ void fragment() {
 		}
 		vec4 blendColor;
 	   	vec4 output = vec4(1,1,1,1);
-	
-		
-	
+
+
+
 		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
 		output.r = blendColor.r;
 		blendColor = texture( Blend, vec2(bgColor.g, Color.g) );
 		output.g = blendColor.g;
 		blendColor = texture( Blend, vec2(bgColor.b, Color.b) );
 		output.b = blendColor.b;
-	
+
 		output = mix(Color, output, Intensity)* modulate;
-		
+
 		// needs fix, uauauau
 		COLOR.rgb = output.rgb;
-		
+
 	}
-	
+
 }
-
-

@@ -113,6 +113,7 @@ var img_animated : bool = false
 var smooth_rot = 0.0
 var smooth_glob = Vector2(0.0,0.0)
 var is_apng : bool = false
+var is_collapsed : bool = false
 
 var dt = 0.0
 var frames : Array[AImgIOFrame] = []

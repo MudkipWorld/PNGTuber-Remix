@@ -10,6 +10,7 @@
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_b50ir"]
 
 [node name="Main" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

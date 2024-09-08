@@ -108,6 +108,7 @@ func _ready():
 	check_ui()
 	
 
+
 func window_size_changed():
 	theme_settings.screen_size = get_window().size
 	theme_settings.screen_pos = get_window().position
