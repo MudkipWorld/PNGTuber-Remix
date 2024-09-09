@@ -433,3 +433,11 @@ func export_images(images = get_tree().get_nodes_in_group("Sprites")):
 					normimg = sprite.get_node("%Sprite2D").texture.normal_texture.get_image()
 					normimg.save_png(dire +"/" + sprite.sprite_name + "Normal" + str(randi()) + ".png")
 					normimg = null
+
+
+func _on_background_focus_entered() -> void:
+	Global.spinbox_held = true
+
+
+func _on_background_focus_exited() -> void:
+	Global.spinbox_held = false

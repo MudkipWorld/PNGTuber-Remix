@@ -55,8 +55,6 @@ func _process(_delta):
 	speech_value = %VolumeBar.value
 	speech_delay = %DelayBar.value
 
-
-
 func sliders_revalue(settings_dict):
 	%BounceAmountSlider.value = settings_dict.bounceSlider
 	%GravityAmountSlider.value = settings_dict.bounceGravity

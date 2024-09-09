@@ -654,6 +654,8 @@ func _on_name_text_submitted(new_text):
 	Global.held_sprite.treeitem.set_text(0, new_text)
 	Global.held_sprite.sprite_name = new_text
 	Global.held_sprite.save_state(Global.current_state)
+	Global.spinbox_held = false
+	%Name.release_focus()
 
 func _on_visible_toggled(toggled_on):
 	if toggled_on:
@@ -1165,3 +1167,19 @@ func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 		Global.held_sprite.dictmain.flip_sprite_v = toggled_on
 		Global.held_sprite.get_node("%Sprite2D").flip_v = toggled_on
 		Global.held_sprite.save_state(Global.current_state)
+
+
+func _on_name_focus_entered() -> void:
+	Global.spinbox_held = true
+
+
+func _on_name_focus_exited() -> void:
+	Global.spinbox_held = false
+
+
+func _on_color_picker_button_focus_entered() -> void:
+	Global.spinbox_held = true
+
+
+func _on_color_picker_button_focus_exited() -> void:
+	Global.spinbox_held = false

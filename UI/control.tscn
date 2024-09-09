@@ -3935,6 +3935,7 @@ offset_left = 7.0
 offset_top = 8.0
 offset_right = 277.0
 offset_bottom = 404.0
+mouse_filter = 0
 edit_alpha = false
 color_mode = 1
 picker_shape = 1
@@ -3967,9 +3968,13 @@ presets_visible = false
 [connection signal="button_clicked" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" to="BackgroundEdit" method="_on_background_tree_button_clicked"]
 [connection signal="item_selected" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" to="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" method="_on_item_selected"]
 [connection signal="dragged" from="HSplitContainer/HSplit" to="_Themes_" method="_on_h_split_dragged"]
+[connection signal="focus_entered" from="HSplitContainer/HSplit/RightPanel/Properties/Name" to="UIInput" method="_on_name_focus_entered"]
+[connection signal="focus_exited" from="HSplitContainer/HSplit/RightPanel/Properties/Name" to="UIInput" method="_on_name_focus_exited"]
 [connection signal="text_submitted" from="HSplitContainer/HSplit/RightPanel/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
 [connection signal="dragged" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer" to="_Themes_" method="_on_v_split_container_dragged"]
 [connection signal="color_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_color_changed"]
+[connection signal="focus_entered" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_focus_entered"]
+[connection signal="focus_exited" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/Hbox/ColorPickerButton" to="UIInput" method="_on_color_picker_button_focus_exited"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox12/ZOrderSpinbox" to="UIInput" method="_on_z_order_spinbox_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21/PosXSpinBox" to="UIInput" method="_on_pos_x_spin_box_value_changed"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/HBox21/PosYSpinBox" to="UIInput" method="_on_pos_y_spin_box_value_changed"]
@@ -4079,4 +4084,6 @@ presets_visible = false
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox3/YFreqWobbleSlider" to="TopBarInput" method="_on_y_freq_wobble_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox4/YAmpWobbleSlider" to="TopBarInput" method="_on_y_amp_wobble_slider_value_changed"]
 [connection signal="toggled" from="BounceControlPopup/GridContainer/BounceStateCheck" to="TopBarInput" method="_on_bounce_state_check_toggled"]
+[connection signal="focus_entered" from="Background" to="TopBarInput" method="_on_background_focus_entered"]
+[connection signal="focus_exited" from="Background" to="TopBarInput" method="_on_background_focus_exited"]
 [connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]
