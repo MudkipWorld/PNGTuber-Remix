@@ -25,7 +25,9 @@ func save_file(path):
 			var exporter := AImgIOAPNGExporter.new()
 			img = exporter.export_animation(sprt.frames, 10, self, "_progress_report", [])
 			exporter = AImgIOAPNGExporter.new()
-			var normal_img = exporter.export_animation(sprt.frames2, 10, self, "_progress_report", [])
+			var normal_img
+			if !sprt.frames2.is_empty:
+				normal_img = exporter.export_animation(sprt.frames2, 10, self, "_progress_report", [])
 			
 			var sprt_dict = {
 				img = img,
