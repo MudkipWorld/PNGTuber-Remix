@@ -104,10 +104,12 @@ func save_file(path):
 		bg_sprites_array = bg_sprites_array
 	}
 	
-	
+	if DirAccess.dir_exists_absolute(path):
+		DirAccess.remove_absolute(path)
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_var(save_dict, true)
 	file.close()
+	file = null
 
 func load_file(path):
 	if path.get_extension() == "save":
@@ -340,6 +342,7 @@ func load_file(path):
 		
 		
 		file.close()
+		file = null
 
 func load_pngplus_file(path):
 	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
@@ -358,6 +361,7 @@ func load_pngplus_file(path):
 	var load_dict = JSON.parse_string(file.get_as_text())
 	
 	file.close()
+	file = null
 	
 	if !load_dict["0"].has("identification"):
 		print("Failed")
