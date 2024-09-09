@@ -37,8 +37,6 @@ var currently_speaking : bool = false
 	rLimitMax = 180,
 	rLimitMin = -180,
 	dragSpeed = 0,
-	
-	
 	stretchAmount = 0,
 	blend_mode = "Normal",
 	visible = visible,
@@ -59,43 +57,29 @@ var currently_speaking : bool = false
 	ignore_bounce = false,
 	clip = 0,
 	physics = true,
-	
 	wiggle = false,
 	wiggle_amp = 0,
 	wiggle_freq = 0,
 	wiggle_physics = false,
 	wiggle_rot_offset = Vector2(0.5, 0.5),
-	
-	
-	
 	advanced_lipsync = false,
-	
 	look_at_mouse_pos = 0,
 	look_at_mouse_pos_y = 0,
-	
 	should_rotate = false,
 	should_rot_speed = 0.01,
-	
 	should_reset = false,
 	one_shot = false,
-	
 	rainbow = false,
 	rainbow_self = false,
 	rainbow_speed = 0.01,
-	
 	follow_parent_effects = false,
 	follow_wa_tip = false,
 	tip_point = 0,
-	
 	follow_wa_mini = -180,
 	follow_wa_max = 180,
-	
 	flip_sprite_h = false,
 	flip_sprite_v = false,
-	
 	}
-var smooth_rot = 0.0
-var smooth_glob = Vector2(0.0,0.0)
 
 var anim_texture 
 var anim_texture_normal 
@@ -163,7 +147,6 @@ func _process(delta):
 	if dragging:
 		var mpos = get_parent().to_local(get_global_mouse_position())
 		position = mpos - of
-		smooth_glob = mpos - of
 		dictmain.position = position
 		save_state(Global.current_state)
 		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()

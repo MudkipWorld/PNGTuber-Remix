@@ -291,15 +291,19 @@ func clear_sprites():
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		if InputMap.has_action(str(i.sprite_id)):
 			InputMap.erase_action(str(i.sprite_id))
-		i.queue_free()
-	for i in get_tree().get_nodes_in_group("BackgroundStuff"):
-		i.queue_free()
-	
+
+	for i in %SpritesContainer.get_children():
+		i.free()
+		
+	for i in %BGContainer.get_children():
+		i.free()
+		
 	$Control.new_tree()
 	$Control/BackgroundEdit.new_tree()
 	$Control/StatesStuff.delete_all_states()
 	$Control/StatesStuff.initial_state()
 	%Camera2D.zoom = Vector2(1,1)
+	
 
 
 func _input(event):

@@ -36,12 +36,10 @@ var img_animated : bool = false
 	xAmp = 0,
 	yFrq = 0,
 	yAmp = 0,
-	
 	rdragStr = 0,
 	rLimitMax = 180,
 	rLimitMin = -180,
 	dragSpeed = 0,
-	
 	stretchAmount = 0,
 	blend_mode = "Normal",
 	visible = visible,
@@ -55,18 +53,12 @@ var img_animated : bool = false
 	hframes = 1,
 	scale = scale,
 	folder = false,
-#	global_position = global_position,
 	position = position,
 	rotation = rotation,
 	offset = %Sprite2D.position,
 	ignore_bounce = false,
 	clip = 0,
 	physics = true,
-	
-#	wiggle = false,
-#	wiggle_amp = 0,
-#	wiggle_freq = 0,
-#	wiggle_physics = false
 	wiggle_segm = 5,
 	wiggle_curve = 0,
 	wiggle_stiff = 20,
@@ -74,40 +66,28 @@ var img_animated : bool = false
 	wiggle_physics_stiffness = 2.5,
 	wiggle_gravity = Vector2(0,0),
 	wiggle_closed_loop = false,
-	
-
 	advanced_lipsync = false,
-	
 	look_at_mouse_pos = 0,
 	look_at_mouse_pos_y = 0,
-	
-	
 	should_rotate = false,
 	should_rot_speed = 0.001,
-	
 	width = 80,
 	segm_length = 30,
 	subdivision = 5,
-	
 	should_reset = false,
 	one_shot = false,
-	
 	rainbow = false,
 	rainbow_self = false,
 	rainbow_speed = 0.01,
-	
 	follow_wa_tip = false,
 	tip_point = 0,
-	
 	auto_wag = false,
 	wag_mini = -180,
 	wag_max = 180,
 	wag_speed = 0.5,
 	wag_freq = 0.02,
-	
 	follow_wa_mini = -180,
 	follow_wa_max = 180,
-	
 	}
 
 var smooth_rot = 0.0
