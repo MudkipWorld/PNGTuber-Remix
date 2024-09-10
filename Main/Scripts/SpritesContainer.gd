@@ -82,7 +82,7 @@ func get_state(state):
 		current_mc_anim = dict.current_mc_anim
 		current_mo_anim = dict.current_mo_anim
 		if Global.settings_dict.bounce_state:
-			set_mc_one_bounce()
+			state_bounce()
 			
 		if get_tree().get_root().get_node("Main/Control").has_spoken:
 			speaking()
@@ -129,6 +129,13 @@ func speaking():
 			
 		5:
 			set_mo_squish()
+
+
+func state_bounce():
+	if get_parent().position.y > -16:
+		yVel = Global.settings_dict.bounceSlider * -1
+
+
 
 
 func set_mc_idle():

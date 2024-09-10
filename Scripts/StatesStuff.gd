@@ -102,7 +102,13 @@ func add_state():
 		%Grid.add_child(remap_btn)
 		InputMap.add_action(remap_btn.get_node("StateRemapButton").action)
 		
-		Global.settings_dict.states.append({})
+		Global.settings_dict.states.append({
+		mouth_closed = 0,
+		mouth_open = 3,
+		current_mc_anim = "Idle",
+		current_mo_anim = "One Bounce",
+		})
+		
 		Global.settings_dict.light_states.append({})
 		
 		state_count = get_tree().get_nodes_in_group("StateButtons").size()

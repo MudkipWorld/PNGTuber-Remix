@@ -396,15 +396,21 @@ func get_state(id):
 		
 		
 		
+		if %Sprite2D.segment_count != dictmain.wiggle_segm:
+			%Sprite2D.segment_count = dictmain.wiggle_segm
+		if %Sprite2D.curvature != dictmain.wiggle_curve:
+			%Sprite2D.curvature = dictmain.wiggle_curve
+		if %Sprite2D.stiffness != dictmain.wiggle_stiff:
+			%Sprite2D.stiffness = dictmain.wiggle_stiff
+		if %Sprite2D.max_angle != dictmain.wiggle_max_angle:
+			%Sprite2D.max_angle = dictmain.wiggle_max_angle
 		
-		%Sprite2D.segment_count = dictmain.wiggle_segm
-		%Sprite2D.curvature = dictmain.wiggle_curve
-		%Sprite2D.stiffness = dictmain.wiggle_stiff
-		%Sprite2D.max_angle = dictmain.wiggle_max_angle
-		
-		%Sprite2D.width = dictmain.width
-		%Sprite2D.segment_length = dictmain.segm_length
-		%Sprite2D.subdivision = dictmain.subdivision
+		if %Sprite2D.width != dictmain.width:
+			%Sprite2D.width = dictmain.width
+		if %Sprite2D.segment_length != dictmain.segm_length:
+			%Sprite2D.segment_length = dictmain.segm_length
+		if %Sprite2D.subdivision!= dictmain.subdivision:
+			%Sprite2D.subdivision = dictmain.subdivision
 		
 
 		%Sprite2D.set_clip_children_mode(dictmain.clip)

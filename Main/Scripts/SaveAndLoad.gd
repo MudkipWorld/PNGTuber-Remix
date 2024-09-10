@@ -36,7 +36,7 @@ func save_file(path):
 
 			
 			
-			print(cleaned_array)
+		#	print(cleaned_array)
 			
 			
 			var sprt_dict = {
@@ -79,7 +79,7 @@ func save_file(path):
 
 			
 			
-			print(cleaned_array)
+		#	print(cleaned_array)
 			var sprt_dict = {
 				img = img,
 				normal = normal_img,
