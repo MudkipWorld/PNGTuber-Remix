@@ -27,19 +27,22 @@ func save_file(path):
 			if !sprt.frames2.is_empty:
 				normal_img = exporter.export_animation(sprt.frames2, 10, self, "_progress_report", [])
 			
+			var cleaned_array = []
+			
+			var index = 0
 			for st in sprt.states:
-	#			print(st)
-				if st.is_empty():
-					var ind = sprt.states.find(st)
-					sprt.states.remove_at(ind)
+				if !st.is_empty():
+					cleaned_array.append(st)
+
 			
 			
-				
-			print(sprt.states)
+			print(cleaned_array)
+			
+			
 			var sprt_dict = {
 				img = img,
 				normal = normal_img,
-				states = sprt.states,
+				states = cleaned_array,
 				is_apng = sprt.is_apng,
 				sprite_name = sprt.sprite_name,
 				sprite_id = sprt.sprite_id,
@@ -52,6 +55,7 @@ func save_file(path):
 				saved_keys = sprt.saved_keys,
 				is_collapsed = sprt.is_collapsed,
 			}
+			
 			sprites_array.append(sprt_dict)
 		else:
 			if sprt.img_animated:
@@ -65,17 +69,21 @@ func save_file(path):
 					normal_img = sprt.anim_texture_normal
 				else:
 					normal_img = sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer()
-				
+			
+			var cleaned_array = []
+			
+			var index = 0
 			for st in sprt.states:
-	#			print(st)
-				if st.is_empty():
-					var ind = sprt.states.find(st)
-					sprt.states.remove_at(ind)
-			print(sprt.states)
+				if !st.is_empty():
+					cleaned_array.append(st)
+
+			
+			
+			print(cleaned_array)
 			var sprt_dict = {
 				img = img,
 				normal = normal_img,
-				states = sprt.states,
+				states = cleaned_array,
 				img_animated = sprt.img_animated,
 				sprite_name = sprt.sprite_name,
 				sprite_id = sprt.sprite_id,
@@ -89,6 +97,8 @@ func save_file(path):
 				is_collapsed = sprt.is_collapsed,
 			}
 			sprites_array.append(sprt_dict)
+			
+			
 	for sprt in bg_sprites:
 		sprt.save_state(Global.current_state)
 		var img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer())
@@ -119,6 +129,7 @@ func save_file(path):
 		input_array = input_array,
 		bg_sprites_array = bg_sprites_array
 	}
+	
 	
 	var file = FileAccess.open(path,FileAccess.WRITE)
 #	if FileAccess.file_exists(path):
@@ -185,8 +196,18 @@ func load_file(path):
 			else:
 				sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 				
+				
+				
+				
+			var cleaned_array = []
+			
+			var index = 0
+			for st in sprite.states:
+				if !st.is_empty():
+					cleaned_array.append(st)
+					
 			sprite_obj.states.clear()
-			sprite_obj.states = sprite.states
+			sprite_obj.states = cleaned_array
 			
 			if sprite.has("is_asset"):
 				sprite_obj.is_asset = sprite.is_asset

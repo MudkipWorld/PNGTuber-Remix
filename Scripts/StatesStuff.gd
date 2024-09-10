@@ -67,6 +67,8 @@ func update_state_numbering():
 
 func _on_add_state_pressed():
 	add_state()
+	Global.current_state = Global.settings_dict.states.size() - 1
+	Global.load_sprite_states(Global.current_state)
 
 func delete_all_states():
 	Global.settings_dict.saved_inputs.clear()
@@ -85,12 +87,12 @@ func delete_all_states():
 	Global.settings_dict.light_states = [{}]
 
 func add_state():
-	if get_tree().get_nodes_in_group("StateButtons").size() < 100:
+	if get_tree().get_nodes_in_group("StateButtons").size() < 200:
 		var button = preload("res://UI/StateButton/state_button.tscn").instantiate()
 		var state_count = Global.settings_dict.states.size()
-		button.state = clamp(state_count, 0, 100)
+		button.state = clamp(state_count, 0, 200)
 		button.input_key = "State " + str(button.state)
-		button.text = str(clamp(state_count + 1, 0, 100))
+		button.text = str(clamp(state_count + 1, 0, 200))
 		%StateButtons.add_child(button)
 		
 		
@@ -108,6 +110,10 @@ func add_state():
 			if i.states.size() != state_count:
 				for l in abs(i.states.size() - state_count):
 					i.states.append({})
+					
+
+
+
 
 func update_states(states):
 	var states_size = states.size()
