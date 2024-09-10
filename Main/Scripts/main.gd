@@ -303,6 +303,7 @@ func clear_sprites():
 	$Control/StatesStuff.delete_all_states()
 	$Control/StatesStuff.initial_state()
 	%Camera2D.zoom = Vector2(1,1)
+	%CamPos.global_position = Vector2(640, 360)
 	
 
 

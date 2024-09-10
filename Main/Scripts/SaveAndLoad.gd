@@ -29,7 +29,6 @@ func save_file(path):
 			
 			var cleaned_array = []
 			
-			var index = 0
 			for st in sprt.states:
 				if !st.is_empty():
 					cleaned_array.append(st)
@@ -72,7 +71,6 @@ func save_file(path):
 			
 			var cleaned_array = []
 			
-			var index = 0
 			for st in sprt.states:
 				if !st.is_empty():
 					cleaned_array.append(st)
@@ -201,7 +199,6 @@ func load_file(path):
 				
 			var cleaned_array = []
 			
-			var index = 0
 			for st in sprite.states:
 				if !st.is_empty():
 					cleaned_array.append(st)

@@ -106,7 +106,7 @@ func _ready():
 	await get_tree().create_timer(0.05).timeout
 	get_window().size = theme_settings.screen_size
 	check_ui()
-	
+	%WindowSize.text = "Window Size " + str(theme_settings.screen_size)
 
 
 func window_size_changed():
@@ -118,6 +118,8 @@ func window_size_changed():
 		theme_settings.screen_window = 2
 	else:
 		theme_settings.screen_window = 0
+	
+	%WindowSize.text = "Window Size " + str(theme_settings.screen_size)
 	save()
 
 func check_ui():
@@ -305,15 +307,25 @@ func _on_fps_sping_value_changed(value):
 
 func toggle_borders():
 	theme_settings.borders = !theme_settings.borders
+	var s = theme_settings.screen_size
 	if theme_settings.borders:
 		get_window().borderless = false
+		get_window().size = s
 	elif !theme_settings.borders:
 		get_window().borderless = true
+		get_window().size = s
 	save()
 
+
+@warning_ignore("integer_division")
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("toggle_borders"):
 		toggle_borders()
+	
+	if Input.is_action_just_pressed("center_screen"):
+		var ds = DisplayServer.screen_get_size(0)
+		get_window().position = Vector2i(ds.x/2- get_window().size.x/2,ds.y/2- get_window().size.y/2)
+		window_size_changed()
 
 
 func _on_h_split_container_dragged(offset: int) -> void:

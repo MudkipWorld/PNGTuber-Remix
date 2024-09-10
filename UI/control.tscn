@@ -1446,7 +1446,7 @@ text = "Ignore Bounce"
 
 [node name="Physics" type="CheckBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Properties/ScrollContainer1/VBoxContainer/VBoxContainer/HBoxPhysics"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 30)
+custom_minimum_size = Vector2(151, 30)
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 16
@@ -3066,6 +3066,17 @@ theme_override_font_sizes/font_size = 14
 text = "Deselect"
 flat = true
 icon_alignment = 1
+
+[node name="WindowSize" type="Label" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(184, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 11
+text = "Window Size (0,0)"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AboutPopUp" type="PopupPanel" parent="."]
 unique_name_in_owner = true
