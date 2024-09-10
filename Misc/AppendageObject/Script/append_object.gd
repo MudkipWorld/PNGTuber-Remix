@@ -360,6 +360,7 @@ func save_state(id):
 	wag_mini = dictmain.wag_mini,
 	wag_max = dictmain.wag_max,
 	wag_speed = dictmain.wag_speed,
+	wag_freq = dictmain.wag_freq,
 	
 	follow_wa_mini = dictmain.follow_wa_mini,
 	follow_wa_max = dictmain.follow_wa_max,

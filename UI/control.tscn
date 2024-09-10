@@ -3451,10 +3451,10 @@ anchor_left = 0.024
 anchor_top = 0.019
 anchor_right = 0.98
 anchor_bottom = 0.981
-offset_left = -4.304
-offset_top = -3.97
-offset_right = 2.41998
-offset_bottom = 3.96997
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 464.0
+offset_bottom = 622.0
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
