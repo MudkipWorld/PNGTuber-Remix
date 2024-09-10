@@ -27,6 +27,15 @@ func save_file(path):
 			if !sprt.frames2.is_empty:
 				normal_img = exporter.export_animation(sprt.frames2, 10, self, "_progress_report", [])
 			
+			for st in sprt.states:
+	#			print(st)
+				if st.is_empty():
+					var ind = sprt.states.find(st)
+					sprt.states.remove_at(ind)
+			
+			
+				
+			print(sprt.states)
 			var sprt_dict = {
 				img = img,
 				normal = normal_img,
@@ -56,6 +65,13 @@ func save_file(path):
 					normal_img = sprt.anim_texture_normal
 				else:
 					normal_img = sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer()
+				
+			for st in sprt.states:
+	#			print(st)
+				if st.is_empty():
+					var ind = sprt.states.find(st)
+					sprt.states.remove_at(ind)
+			print(sprt.states)
 			var sprt_dict = {
 				img = img,
 				normal = normal_img,
@@ -81,6 +97,14 @@ func save_file(path):
 			normal_img = Marshalls.raw_to_base64(sprt.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer())
 		else:
 			normal_img = null
+			
+		for st in sprt.states:
+	#		print(st)
+			if st.is_empty():
+				var ind = sprt.states.find(st)
+				sprt.states.remove_at(ind)
+			
+			
 		var sprt_dict = {
 			img = img,
 			normal = normal_img,
@@ -96,9 +120,10 @@ func save_file(path):
 		bg_sprites_array = bg_sprites_array
 	}
 	
-	if DirAccess.dir_exists_absolute(path):
-		DirAccess.remove_absolute(path)
 	var file = FileAccess.open(path,FileAccess.WRITE)
+#	if FileAccess.file_exists(path):
+	#	print(file.get_var())
+	
 	
 	file.store_var(save_dict, true)
 	file.close()
@@ -127,7 +152,7 @@ func load_file(path):
 		get_tree().get_root().get_node("Main/Control/StatesStuff").update_states(load_dict.settings_dict.states)
 		
 		
-		
+		##########################################################################################################
 		if load_dict.has("bg_sprites_array"):
 			for sprite in load_dict.bg_sprites_array:
 				var sprite_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
@@ -144,7 +169,9 @@ func load_file(path):
 				
 				get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer").add_child(sprite_obj)
 				sprite_obj.get_state(0)
-				
+		
+		
+		##########################################################################################################
 		for sprite in load_dict.sprites_array:
 			var sprite_obj
 			if sprite.has("sprite_type"):
