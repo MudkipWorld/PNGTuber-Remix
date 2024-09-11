@@ -725,8 +725,6 @@ func _on_rs_slider_value_changed(value):
 #region Eye and Mouth stuff
 func _on_check_eye_toggled(toggled_on):
 	Global.held_sprite.dictmain.should_blink = toggled_on
-	if not toggled_on:
-		Global.held_sprite.show()
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_eye_open_toggled(toggled_on):
@@ -737,8 +735,6 @@ func _on_eye_open_toggled(toggled_on):
 
 func _on_check_mouth_toggled(toggled_on):
 	Global.held_sprite.dictmain.should_talk = toggled_on
-	if not toggled_on:
-		Global.held_sprite.show()
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_mouth_open_toggled(toggled_on):

@@ -597,3 +597,7 @@ func asset(key):
 					if saved_event.as_text() in i.saved_keys:
 						i.get_node("%Drag").visible = false
 						i.was_active_before = false
+						if !i.is_asset && !%Drag.visible:
+							i.get_node("%Drag").visible = true
+							i.was_active_before = true
+							

@@ -67,7 +67,7 @@ func _can_drop_data(_at_position, data):
 func _drop_data(at_position, data):
 	set_drop_mode_flags(3)
 	# The item it was dropped on
-	var other_item = get_item_at_position(at_position)
+	var other_item = get_item_at_position(get_local_mouse_position())
 	# -1 if its dropped above the item, 0 if its dropped on the item and 1 if its below the item
 	# -100 if you didnt drop it on an item
 	var drop_offset = get_drop_section_at_position(at_position)
