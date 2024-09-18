@@ -16,6 +16,9 @@ _<br> This project uses Godot 4.3 </br>_
 <br>An in-app doc will be added too, tho.. not as complex, more of a heads up!</br>
 [RoadMap](https://trello.com/b/w9Iz2vah/pngtuber-remix)
 
+[Official Discord Server](https://discord.gg/un3JBEvYNR)
+
+
 ![Model](https://github.com/user-attachments/assets/a5e98f4d-52c8-48a9-83c0-1c2337c307fd)
 
 ![ThemesPreview](https://github.com/user-attachments/assets/c2abcb85-06dd-4128-92bd-4b598182ec15)
