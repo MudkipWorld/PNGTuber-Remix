@@ -44,7 +44,8 @@ func _process(delta):
 			
 		elif current_mo_anim == "Squish":
 			set_mo_squish()
-			
+		elif current_mo_anim == "Float":
+			set_mo_float()
 			
 	elif not currenly_speaking:
 		if current_mc_anim == "Bouncy":
@@ -53,6 +54,10 @@ func _process(delta):
 			set_mc_wobble()
 		elif current_mc_anim == "Squish":
 			set_mc_squish()
+		elif current_mc_anim == "Float":
+			set_mc_float()
+
+
 
 	if Global.settings_dict.darken && !currenly_speaking:
 		modulate = lerp(modulate, Global.settings_dict.dim_color, 0.08)
@@ -136,6 +141,10 @@ func state_bounce():
 		yVel = Global.settings_dict.bounceSlider * -1
 
 
+func set_mc_float():
+	position.y = (sin(tick*Global.settings_dict.yFrq)*(Global.settings_dict.yAmp*2))
+#	yVel = (position.y * 0.08)
+	bounceChange = position.y /10
 
 
 func set_mc_idle():
@@ -164,6 +173,10 @@ func set_mc_squish():
 	scale = lerp(scale,target,0.5)
 
 
+
+func set_mo_float():
+	position.y = (sin(tick*Global.settings_dict.yFrq)*(Global.settings_dict.yAmp*10))
+	bounceChange = position.y /10
 
 
 func set_mo_idle():

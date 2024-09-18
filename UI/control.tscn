@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=96 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -29,8 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://whhnbdvw3i1j" path="res://UI/LinksButtonImages/TumblrLogo.png" id="18_qwjx1"]
 [ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/LinksButtonImages/RedditLogo.png" id="19_wqyow"]
 [ext_resource type="Script" path="res://Scripts/BackgroundTree.gd" id="20_c74i2"]
-[ext_resource type="Script" path="res://Scripts/LayersTree.gd" id="20_x2k62"]
-[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="22_pgglj"]
+[ext_resource type="PackedScene" uid="uid://mldwqrl5tu11" path="res://UI/LayerView/layer_view_bg.tscn" id="25_g04q3"]
 [ext_resource type="Script" path="res://Scripts/Spinboxes.gd" id="26_0wx0w"]
 [ext_resource type="Texture2D" uid="uid://dt530lalergk0" path="res://Template Model(s)/Icons/BasicIcon.png" id="28_fyin0"]
 [ext_resource type="Texture2D" uid="uid://bhidrbb01hfmq" path="res://Template Model(s)/Icons/BGIcon.png" id="29_rak5y"]
@@ -579,34 +578,40 @@ texture_disabled = ExtResource("14_24obs")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="CurrentSelVbox" type="Panel" parent="HSplitContainer/LeftPanel/VBox"]
+[node name="LayersViewSplit" type="VSplitContainer" parent="HSplitContainer/LeftPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = -500
+
+[node name="CurrentSelVbox" type="Panel" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(210, 196)
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.025
-anchor_right = 1.0
-anchor_bottom = 0.49
-offset_top = 0.0425005
-offset_bottom = 0.0874939
+anchor_left = 0.0304348
+anchor_top = 0.0255102
+anchor_right = 0.973913
+anchor_bottom = 0.489796
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 12
 alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Panelt" type="Panel" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+[node name="Panelt" type="Panel" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(87, 87)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("5_w3axc")
 
-[node name="CurrentSelected" type="TextureRect" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Panelt"]
+[node name="CurrentSelected" type="TextureRect" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/HBoxContainer/Panelt"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
@@ -621,15 +626,14 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="Paneln" type="Panel" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/HBoxContainer"]
+[node name="Paneln" type="Panel" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(87, 87)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("5_w3axc")
 
-[node name="CurrentSelectedNormal" type="TextureRect" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/HBoxContainer/Paneln"]
+[node name="CurrentSelectedNormal" type="TextureRect" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/HBoxContainer/Paneln"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
@@ -646,7 +650,7 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox"]
 layout_mode = 2
 anchor_top = 0.481
 anchor_right = 1.0
@@ -656,89 +660,91 @@ offset_bottom = -0.000999451
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Imgprev" type="Label" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
+[node name="Imgprev" type="Label" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/HBoxContainer2"]
 custom_minimum_size = Vector2(87, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Image"
 horizontal_alignment = 1
 
-[node name="NormalMapPrev" type="Label" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/HBoxContainer2"]
+[node name="NormalMapPrev" type="Label" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/HBoxContainer2"]
 custom_minimum_size = Vector2(87, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "NormalMap"
 horizontal_alignment = 1
 
-[node name="AnimationFramesLabel" type="Label" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox"]
+[node name="AnimationFramesLabel" type="Label" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox"]
 unique_name_in_owner = true
 layout_mode = 2
 anchor_left = 0.03
 anchor_top = 0.589
 anchor_right = 0.974
-anchor_bottom = 0.706
-offset_left = 0.0999999
+anchor_bottom = 0.594
+offset_left = 0.0999994
 offset_top = 0.920982
 offset_right = -0.0200195
-offset_bottom = 1.04199
+offset_bottom = 22.994
 theme_override_font_sizes/font_size = 16
 text = "Animation frames :"
 
-[node name="AnimationFramesSlider" type="HSlider" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox"]
+[node name="AnimationFramesSlider" type="HSlider" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 anchor_left = 0.017
 anchor_top = 0.694
 anchor_right = 0.974
-anchor_bottom = 0.78
+anchor_bottom = 0.705
 offset_left = 0.0899997
 offset_top = 2.08598
 offset_right = -0.0200043
-offset_bottom = 2.00398
+offset_bottom = 16.704
 min_value = 1.0
 max_value = 64.0
 value = 1.0
 rounded = true
 
-[node name="AnimationSpeedLabel" type="Label" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox"]
+[node name="AnimationSpeedLabel" type="Label" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox"]
 unique_name_in_owner = true
 layout_mode = 2
 anchor_left = 0.03
 anchor_top = 0.773
 anchor_right = 0.974
-anchor_bottom = 0.891
-offset_left = 0.0999999
+anchor_bottom = 0.783
+offset_left = 0.0999994
 offset_top = 1.98099
 offset_right = -0.0200195
-offset_bottom = 1.91499
+offset_bottom = 23.083
 theme_override_font_sizes/font_size = 16
 text = "Animation Speed :"
 
-[node name="AnimationSpeedSlider" type="HSlider" parent="HSplitContainer/LeftPanel/VBox/CurrentSelVbox"]
+[node name="AnimationSpeedSlider" type="HSlider" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 anchor_left = 0.017
 anchor_top = 0.884
 anchor_right = 0.974
-anchor_bottom = 0.97
+anchor_bottom = 0.895
 offset_left = 0.0899997
 offset_top = 2.08398
 offset_right = -0.0200043
-offset_bottom = 1.22798
+offset_bottom = 15.928
 min_value = 1.0
 max_value = 60.0
 value = 1.0
 
-[node name="PanelL" type="Control" parent="HSplitContainer/LeftPanel/VBox"]
+[node name="PanelL" type="Control" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(210, 150)
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="TopPanelL1" type="Panel" parent="HSplitContainer/LeftPanel/VBox/PanelL"]
+[node name="TopPanelL1" type="Panel" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(210, 28)
 layout_mode = 1
@@ -748,7 +754,7 @@ offset_bottom = 28.0
 grow_horizontal = 2
 mouse_filter = 1
 
-[node name="Sprites" type="Label" parent="HSplitContainer/LeftPanel/VBox/PanelL/TopPanelL1"]
+[node name="Sprites" type="Label" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/TopPanelL1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -761,7 +767,7 @@ text = "Sprites"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelL1_1" type="Panel" parent="HSplitContainer/LeftPanel/VBox/PanelL"]
+[node name="PanelL1_1" type="Panel" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL"]
 custom_minimum_size = Vector2(210, 36)
 layout_mode = 1
 anchors_preset = -1
@@ -771,7 +777,7 @@ offset_bottom = 62.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LayersButtons" type="HBoxContainer" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1"]
+[node name="LayersButtons" type="HBoxContainer" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -782,7 +788,7 @@ grow_vertical = 2
 theme_override_constants/separation = 7
 alignment = 1
 
-[node name="AddSpriteButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons"]
+[node name="AddSpriteButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
@@ -796,7 +802,7 @@ texture_disabled = ExtResource("6_t2a3p")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="FolderButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons"]
+[node name="FolderButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
@@ -810,7 +816,7 @@ texture_disabled = ExtResource("6_hynel")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="ReplaceButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons"]
+[node name="ReplaceButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
@@ -824,7 +830,7 @@ texture_disabled = ExtResource("7_cg0wr")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="DuplicateButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons"]
+[node name="DuplicateButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
@@ -838,7 +844,7 @@ texture_disabled = ExtResource("8_r6auv")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="DeleteButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons"]
+[node name="DeleteButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
@@ -852,7 +858,7 @@ texture_disabled = ExtResource("9_jhnap")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="AddNormalButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons"]
+[node name="AddNormalButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
@@ -866,7 +872,7 @@ texture_disabled = ExtResource("16_l1e6k")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="DelNormalButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons"]
+[node name="DelNormalButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
@@ -880,7 +886,7 @@ texture_disabled = ExtResource("17_ex20s")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="PanelL1_2" type="Panel" parent="HSplitContainer/LeftPanel/VBox/PanelL"]
+[node name="PanelL1_2" type="Panel" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(210, 70)
 layout_mode = 1
@@ -895,39 +901,11 @@ size_flags_vertical = 3
 mouse_filter = 1
 theme_override_styles/panel = ExtResource("2_6cxu6")
 
-[node name="LayersTree" type="Tree" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2"]
+[node name="LayerViewBG" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_2" instance=ExtResource("25_g04q3")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(210, 107)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 1
-mouse_force_pass_scroll_events = false
-mouse_default_cursor_shape = 2
-theme_override_colors/guide_color = Color(0, 0, 0, 1)
-theme_override_colors/custom_button_font_highlight = Color(0, 0, 0, 1)
-theme_override_colors/drop_position_color = Color(0, 0, 0, 1)
-theme_override_constants/item_margin = 15
-theme_override_constants/icon_max_width = 25
-theme_override_constants/inner_item_margin_left = 3
-theme_override_constants/draw_guides = 5
-theme_override_constants/draw_relationship_lines = 20
-theme_override_constants/relationship_line_width = 2
-theme_override_constants/parent_hl_line_width = 4
-theme_override_constants/v_separation = 5
-theme_override_font_sizes/font_size = 16
-theme_override_font_sizes/title_button_font_size = 10
-theme_override_icons/select_arrow = ExtResource("22_pgglj")
-allow_reselect = true
-drop_mode_flags = 3
-script = ExtResource("20_x2k62")
 
-[node name="LayersPopup" type="PopupMenu" parent="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree"]
+[node name="LayersPopup" type="PopupMenu" parent="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_2/LayerViewBG"]
 unique_name_in_owner = true
 size = Vector2i(174, 219)
 item_count = 8
@@ -2354,7 +2332,7 @@ theme_override_font_sizes/font_size = 14
 text = "Idle"
 flat = false
 alignment = 0
-item_count = 5
+item_count = 6
 popup/item_0/text = "Idle"
 popup/item_1/text = "Bouncy"
 popup/item_1/id = 1
@@ -2364,6 +2342,8 @@ popup/item_3/text = "Wobble"
 popup/item_3/id = 4
 popup/item_4/text = "Squish"
 popup/item_4/id = 5
+popup/item_5/text = "Float"
+popup/item_5/id = 6
 
 [node name="HBox14" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer"]
 layout_mode = 2
@@ -2381,7 +2361,7 @@ theme_override_font_sizes/font_size = 14
 text = "Idle"
 flat = false
 alignment = 0
-item_count = 5
+item_count = 6
 popup/item_0/text = "Idle"
 popup/item_1/text = "Bouncy"
 popup/item_1/id = 1
@@ -2391,6 +2371,8 @@ popup/item_3/text = "Wobble"
 popup/item_3/id = 4
 popup/item_4/text = "Squish"
 popup/item_4/id = 5
+popup/item_5/text = "Float"
+popup/item_5/id = 6
 
 [node name="HBox15" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer"]
 layout_mode = 2
@@ -3810,7 +3792,7 @@ theme_override_font_sizes/font_size = 16
 [node name="BounceControlPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 2
-size = Vector2i(320, 353)
+size = Vector2i(320, 397)
 unresizable = false
 borderless = false
 
@@ -3819,7 +3801,7 @@ custom_minimum_size = Vector2(300, 0)
 offset_left = 7.0
 offset_top = 8.0
 offset_right = 313.0
-offset_bottom = 347.0
+offset_bottom = 389.0
 
 [node name="BounceAmount" type="Label" parent="BounceControlPopup/GridContainer"]
 unique_name_in_owner = true
@@ -3828,21 +3810,22 @@ tooltip_text = "Affects Model Bouncing"
 mouse_filter = 1
 text = "Bounce Amount : "
 
-[node name="BounceAmountSlider" type="HSlider" parent="BounceControlPopup/GridContainer"]
+[node name="BounceAmountSlider" parent="BounceControlPopup/GridContainer" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
 max_value = 3000.0
+step = 1.0
 
 [node name="GravityAmount" type="Label" parent="BounceControlPopup/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Bounce Gravity : "
 
-[node name="GravityAmountSlider" type="HSlider" parent="BounceControlPopup/GridContainer"]
+[node name="GravityAmountSlider" parent="BounceControlPopup/GridContainer" instance=ExtResource("10_m6pfk")]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 3000.0
+step = 1.0
 
 [node name="HSeparator" type="HSeparator" parent="BounceControlPopup/GridContainer"]
 layout_mode = 2
@@ -3960,19 +3943,16 @@ presets_visible = false
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomResetButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_reset_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomOutButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/ViewportCam/ZoomMainResetButton" to="HSplitContainer/LeftPanel/VBox/VPPanel/ViewportControl" method="_on_zoom_main_reset_button_pressed"]
-[connection signal="value_changed" from="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/AnimationFramesSlider" to="UIInput" method="_on_animation_frames_slider_value_changed"]
-[connection signal="value_changed" from="HSplitContainer/LeftPanel/VBox/CurrentSelVbox/AnimationSpeedSlider" to="UIInput" method="_on_animation_speed_slider_value_changed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/AddSpriteButton" to="UIInput" method="_on_add_sprite_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/FolderButton" to="UIInput" method="_on_folder_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/ReplaceButton" to="UIInput" method="_on_replace_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/DuplicateButton" to="UIInput" method="_on_duplicate_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/DeleteButton" to="UIInput" method="_on_delete_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/AddNormalButton" to="UIInput" method="_on_add_normal_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_1/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
-[connection signal="button_clicked" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="." method="_on_layers_tree_button_clicked"]
-[connection signal="empty_clicked" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="." method="_on_layers_tree_empty_clicked"]
-[connection signal="item_collapsed" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" method="_on_item_collapsed"]
-[connection signal="item_selected" from="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" to="HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree" method="_on_item_selected"]
+[connection signal="dragged" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit" to="_Themes_" method="_on_layers_view_split_dragged"]
+[connection signal="value_changed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/AnimationFramesSlider" to="UIInput" method="_on_animation_frames_slider_value_changed"]
+[connection signal="value_changed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/CurrentSelVbox/AnimationSpeedSlider" to="UIInput" method="_on_animation_speed_slider_value_changed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/AddSpriteButton" to="UIInput" method="_on_add_sprite_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/FolderButton" to="UIInput" method="_on_folder_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/ReplaceButton" to="UIInput" method="_on_replace_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/DuplicateButton" to="UIInput" method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/DeleteButton" to="UIInput" method="_on_delete_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/AddNormalButton" to="UIInput" method="_on_add_normal_button_pressed"]
+[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/Add BG image" to="BackgroundEdit" method="_on_add_bg_image_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/BGDuplicateButton" to="BackgroundEdit" method="_on_bg_duplicate_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/BGDeleteButton" to="BackgroundEdit" method="_on_bg_delete_button_pressed"]
@@ -4088,8 +4068,6 @@ presets_visible = false
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/DeltaTimeCheck" to="TopBarInput" method="_on_delta_time_check_toggled"]
 [connection signal="pressed" from="InputsPopup/VBoxContainer2/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
-[connection signal="value_changed" from="BounceControlPopup/GridContainer/BounceAmountSlider" to="TopBarInput" method="_on_bounce_amount_slider_value_changed"]
-[connection signal="value_changed" from="BounceControlPopup/GridContainer/GravityAmountSlider" to="TopBarInput" method="_on_gravity_amount_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox/XFreqWobbleSlider" to="TopBarInput" method="_on_x_freq_wobble_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox2/XAmpWobbleSlider" to="TopBarInput" method="_on_x_amp_wobble_slider_value_changed"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox3/YFreqWobbleSlider" to="TopBarInput" method="_on_y_freq_wobble_slider_value_changed"]

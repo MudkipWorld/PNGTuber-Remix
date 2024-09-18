@@ -30,7 +30,7 @@ func _ready():
 	
 	
 	held_sprite_is_null()
-	%LayersTree.connect("sprite_info", reinfo)
+	%LayerViewBG.connect("sprite_info", reinfo)
 	Global.connect("reinfo", reinfo)
 	Global.connect("reinfoanim", reinfoanim)
 	blend.get_popup().connect("id_pressed",_on_blend_state_pressed)
@@ -414,7 +414,8 @@ func _on_mo_anim_state_pressed(id):
 			contain.current_mo_anim = "Wobble"
 		5:
 			contain.current_mo_anim = "Squish"
-		
+		6:
+			contain.current_mo_anim = "Float"
 			
 	mo_anim.text = contain.current_mo_anim
 	
@@ -438,6 +439,9 @@ func _on_mc_anim_state_pressed(id):
 			
 		5:
 			contain.current_mc_anim = "Squish"
+			
+		6:
+			contain.current_mc_anim = "Float"
 			
 	mc_anim.text = contain.current_mc_anim
 	contain.save_state(Global.current_state)
@@ -473,7 +477,7 @@ func reinfo():
 		%CurrentSelected.texture = null
 		%CurrentSelectedNormal.texture = null
 	
-	%Name.text = Global.held_sprite.treeitem.get_text(0)
+	%Name.text = Global.held_sprite.treeitem.get_node("%NameLabel").text
 	
 	if Global.held_sprite.sprite_type == "Sprite2D":
 		%AnimationFramesSlider.value = Global.held_sprite.dictmain.hframes
@@ -651,7 +655,7 @@ func _on_check_box_toggled(toggled_on):
 	Global.held_sprite.save_state(Global.current_state)
 
 func _on_name_text_submitted(new_text):
-	Global.held_sprite.treeitem.set_text(0, new_text)
+	Global.held_sprite.treeitem.get_node("%NameLabel").text = new_text
 	Global.held_sprite.sprite_name = new_text
 	Global.held_sprite.save_state(Global.current_state)
 	Global.spinbox_held = false

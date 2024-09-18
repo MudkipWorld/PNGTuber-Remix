@@ -23,6 +23,8 @@ func _ready():
 	about.get_popup().connect("id_pressed",choosing_about)
 	%WindowButton.get_popup().connect("id_pressed",choosing_window)
 	
+	%BounceAmountSlider.get_node("%SliderValue").value_changed.connect(_on_bounce_amount_slider_value_changed)
+	%GravityAmountSlider.get_node("%SliderValue").value_changed.connect(_on_gravity_amount_slider_value_changed)
 	
 	
 	devices = AudioServer.get_input_device_list()
@@ -196,11 +198,11 @@ func _on_bounce_control_button_pressed():
 
 func _on_bounce_amount_slider_value_changed(value):
 	Global.settings_dict.bounceSlider = value
-	%BounceAmount.text = "Bounce Amount : " + str(value)
+#	%BounceAmount.text = "Bounce Amount : " + str(value)
 
 func _on_gravity_amount_slider_value_changed(value):
 	Global.settings_dict.bounceGravity = value
-	%GravityAmount.text = "Bounce Gravity : " + str(value)
+#	%GravityAmount.text = "Bounce Gravity : " + str(value)
 
 func _on_input_check_button_toggled(toggled_on):
 	Global.settings_dict.checkinput = toggled_on
@@ -295,7 +297,7 @@ func desel_everything():
 	Global.held_sprite = null
 	Global.held_bg_sprite = null
 	%UIInput.held_sprite_is_null()
-	%LayersTree.deselect_all()
+	%LayerViewBG.deselect_all()
 	%BackgroundEdit.held_sprite_is_null()
 	%BackgroundTree.deselect_all()
 	%DeselectButton.hide()

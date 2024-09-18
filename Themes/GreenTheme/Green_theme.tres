@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://nqtn377c0xup"]
+[gd_resource type="Theme" load_steps=24 format=3 uid="uid://nqtn377c0xup"]
 
 [ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Collapse1.png" id="1_rudof"]
 [ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Collapse2.png" id="2_8ic8k"]
@@ -102,6 +102,21 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.192157, 0.262745, 0.121569, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3nt7"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.631373, 0.780392, 0.643137, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.262745, 0.356863, 0.12549, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -219,6 +234,7 @@ MenuButton/styles/hover = SubResource("StyleBoxFlat_44c1g")
 MenuButton/styles/normal = SubResource("StyleBoxFlat_44c1g")
 MenuButton/styles/pressed = SubResource("StyleBoxFlat_xvi6d")
 Panel/styles/panel = SubResource("StyleBoxFlat_lunr8")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_p3nt7")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_sl4c5")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_my0p4")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_8cvnu")

@@ -10,6 +10,12 @@
 resource_local_to_scene = true
 shader = ExtResource("3_lejuk")
 shader_parameter/enabled = false
+shader_parameter/selected = false
+shader_parameter/ant_color_1 = Color(1, 1, 1, 1)
+shader_parameter/ant_color_2 = Color(0, 0, 0, 1)
+shader_parameter/ant_width = 2.0
+shader_parameter/ant_length = 10.0
+shader_parameter/ant_speed = 30.0
 shader_parameter/Intensity = 1.0
 shader_parameter/wiggle = false
 shader_parameter/rotation = 0.0

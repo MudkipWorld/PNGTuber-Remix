@@ -2,7 +2,6 @@ extends Control
 
 @onready var view1 
 @onready var view2 = $HSplitContainer/LeftPanel/VBox/VPPanel/SubViewportContainer2/SubViewport
-@onready var tree = %LayersTree
 var audio = AudioServer
 var sample 
 var linear_sampler
@@ -35,7 +34,7 @@ var speech_delay : float :
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	tree.update_tree.connect(update_tree)
+#	tree.update_tree.connect(update_tree)
 	if get_parent().has_node("SubViewportContainer/SubViewport"):
 		view1 = get_parent().get_node("SubViewportContainer/SubViewport")
 		view2.world_2d = view1.world_2d
@@ -56,8 +55,8 @@ func _process(_delta):
 	speech_delay = %DelayBar.value
 
 func sliders_revalue(settings_dict):
-	%BounceAmountSlider.value = settings_dict.bounceSlider
-	%GravityAmountSlider.value = settings_dict.bounceGravity
+	%BounceAmountSlider.get_node("%SliderValue").value = settings_dict.bounceSlider
+	%GravityAmountSlider.get_node("%SliderValue").value = settings_dict.bounceGravity
 	%BGColorPicker.color = settings_dict.bg_color
 	%InputCheckButton.button_pressed = settings_dict.checkinput
 	%VolumeSlider.value = settings_dict.volume_limit
@@ -83,58 +82,51 @@ func sliders_revalue(settings_dict):
 		%AutoSaveTimer.start()
 
 func _tree(sprites):
-	tree.clear()
-	var root = tree.create_item()
-	root.set_text(0, "Root")
-	for i in sprites:
-		var new_item
-		new_item = tree.create_item(root)
-		new_item.set_text(0, str(i.sprite_name))
-		if i.dictmain.folder:
-			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
+	for i in %LayerViewBG.get_node("%LayerVBox").get_children():
+		i.free()
+
+
+	for sprite in sprites:
+		var new_item = preload("res://UI/LayerView/layer_item.tscn").instantiate()
+		new_item.get_node("%NameLabel").text = str(sprite.sprite_name)
+		if sprite.dictmain.folder:
+			new_item.get_node("%Icon").texture = preload("res://UI/FolderButton.png")
 		else:
-			new_item.set_icon(0, i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture)
-		
-		new_item.set_icon_max_width(0, 20)
-		new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
+			new_item.get_node("%Icon").texture = sprite.get_node("%Sprite2D").texture
 		var dic : Dictionary = {
-			sprite_object = i,
+			sprite_object = sprite,
 			parent = new_item.get_parent()
 		}
-		new_item.set_metadata(0, dic)
-		i.treeitem = new_item
-		new_item.get_next()
+		new_item.data = dic
+		sprite.treeitem = new_item
+		new_item.layer_holder = %LayerViewBG
+		%LayerViewBG.get_node("%LayerVBox").add_child(new_item)
 	check_parent()
 	update_visib_buttons()
 
 func _added_tree(sprites):
-	for i in sprites:
-		var new_item
-		new_item = tree.create_item(tree.get_root())
-		new_item.set_text(0, str(i.sprite_name))
-		new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
-		if i.dictmain.folder:
-			new_item.set_icon(0, preload("res://UI/FolderButton.png"))
+	for sprite in sprites:
+		var new_item = preload("res://UI/LayerView/layer_item.tscn").instantiate()
+		new_item.get_node("%NameLabel").text = str(sprite.sprite_name)
+		if sprite.dictmain.folder:
+			new_item.get_node("%Icon").texture = preload("res://UI/FolderButton.png")
 		else:
-			new_item.set_icon(0, i.texture)
-		new_item.set_icon_max_width(0, 20)
+			new_item.get_node("%Icon").texture = sprite.get_node("%Sprite2D").texture
 		var dic : Dictionary = {
-			sprite_object = i,
+			sprite_object = sprite,
 			parent = new_item.get_parent()
 		}
-		new_item.set_metadata(0, dic)
-		i.treeitem = new_item
-		new_item.get_next()
-		check_parent(i)
+		new_item.data = dic
+		sprite.treeitem = new_item
+		new_item.layer_holder = %LayerViewBG
+		%LayerViewBG.get_node("%LayerVBox").add_child(new_item)
+		check_parent(sprite)
 
-func new_tree():
-	var root = tree.create_item()
-	root.set_text(0, "Root")
+
+
+
 
 func loaded_tree(sprites):
-	tree.clear()
-	var root = tree.create_item()
-	root.set_text(0, "Root")
 	for i in sprites:
 		i.reparent_obj(get_tree().get_nodes_in_group("Sprites"))
 	_tree(get_tree().get_nodes_in_group("Sprites"))
@@ -148,106 +140,70 @@ func check_parent(new_item = null):
 			var parent = new_item.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 			new_item.treeitem.get_parent().remove_child(new_item.treeitem)
 			parent.add_child(new_item.treeitem)
+			parent.get_node("%Collapse").disabled = false
+			parent.get_node("%Intend").show()
+			new_item.treeitem.get_node("%Intend2").show()
 		elif new_item.get_parent() is WigglyAppendage2D:
 			var parent = new_item.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 			new_item.treeitem.get_parent().remove_child(new_item.treeitem)
 			parent.add_child(new_item.treeitem)
+			parent.get_node("%Collapse").disabled = false
+			parent.get_node("%Intend").show()
+			new_item.treeitem.get_node("%Intend2").show()
 	
 	else:
 		for x in sprites:
 			if x.get_parent() is Sprite2D:
 				var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 				x.treeitem.get_parent().remove_child(x.treeitem)
-				parent.add_child(x.treeitem)
+				parent.get_node("%OtherLayers").add_child(x.treeitem)
+				x.treeitem.get_node("%Intend2").show()
+				parent.get_node("%Intend").show()
+				parent.get_node("%Collapse").disabled = false
 			elif x.get_parent() is WigglyAppendage2D:
 				var parent = x.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().treeitem
 				x.treeitem.get_parent().remove_child(x.treeitem)
-				parent.add_child(x.treeitem)
+				parent.get_node("%OtherLayers").add_child(x.treeitem)
+				x.treeitem.get_node("%Intend2").show()
+				parent.get_node("%Intend").show()
+				parent.get_node("%Collapse").disabled = false
 
-func update_tree(child, parent, boolean):
-	var new_c_path = child.get_metadata(0)
-	var new_parent = parent.get_metadata(0)
-	if boolean:
-		if new_parent != null:
-			if child.get_parent() != new_parent.sprite_object:
-				new_c_path.sprite_object.parent_id = new_parent.sprite_object.sprite_id
-				new_c_path.sprite_object.reparent(new_parent.sprite_object.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
-
-				var dic : Dictionary = {
-					sprite_object = new_c_path.sprite_object,
-					parent = child.get_parent()
-					}
-				child.set_metadata(0, dic)
-		else:
-			new_c_path.sprite_object.reparent(container)
-			new_c_path.sprite_object.parent_id = 0
-			var dic : Dictionary = {
-				sprite_object = new_c_path.sprite_object,
-				parent = child.get_parent()
-			}
-			child.set_metadata(0, dic)
-			
-	else:
-		new_c_path.sprite_object.reparent(container)
-		new_c_path.sprite_object.parent_id = 0
-		var dic : Dictionary = {
-			sprite_object = new_c_path.sprite_object,
-			parent = child.get_parent()
-		}
-		child.set_metadata(0, dic)
-	
-	Global.get_sprite_states(Global.current_state)
-#	_tree(get_tree().get_nodes_in_group("Sprites"))
 
 func add_item(sprite):
-	var root = tree.get_root()
-	var new_item
-	new_item = tree.create_item(root)
-	new_item.set_text(0, str(sprite.sprite_name))
-	new_item.add_button(0, preload("res://UI/EyeButton.png"), -1, false, "")
+	var new_item = preload("res://UI/LayerView/layer_item.tscn").instantiate()
+	new_item.get_node("%NameLabel").text = str(sprite.sprite_name)
 	if sprite.dictmain.folder:
-		new_item.set_icon(0, preload("res://UI/FolderButton.png"))
+		new_item.get_node("%Icon").texture = preload("res://UI/FolderButton.png")
 	else:
-		new_item.set_icon(0, sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture)
-	new_item.set_icon_max_width(0, 20)
+		new_item.get_node("%Icon").texture = sprite.get_node("%Sprite2D").texture
 	var dic : Dictionary = {
 		sprite_object = sprite,
 		parent = new_item.get_parent()
 	}
-	new_item.set_metadata(0, dic)
+	new_item.data = dic
 	sprite.treeitem = new_item
-	new_item.get_next()
+	new_item.layer_holder = %LayerViewBG
+	%LayerViewBG.get_node("%LayerVBox").add_child(new_item)
 	check_parent()
 
-func _on_layers_tree_button_clicked(item, column, id, _mouse_button_index):
-	item.get_metadata(0).sprite_object.dictmain.visible =! item.get_metadata(0).sprite_object.dictmain.visible 
-	item.get_metadata(0).sprite_object.visible = item.get_metadata(0).sprite_object.dictmain.visible 
-	item.get_metadata(0).sprite_object.save_state(Global.current_state)
-#	print(column)
-#	print(id)
-	if item.get_metadata(0).sprite_object.visible:
-		item.set_button(column, id, preload("res://UI/EyeButton.png"))
-	elif not item.get_metadata(0).sprite_object.visible:
-		item.set_button(column, id, preload("res://UI/EyeButton2.png"))
 
 func update_visib_buttons():
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		if i.dictmain.visible:
-			i.treeitem.set_button(0, 0, preload("res://UI/EyeButton.png"))
+			i.treeitem.get_node("%Visiblity").button_pressed = false
 		elif not i.dictmain.visible:
-			i.treeitem.set_button(0, 0, preload("res://UI/EyeButton2.png"))
-
-
-
-func _on_layers_tree_empty_clicked(_position, _mouse_button_index):
-	if tree.has_focus():
-		tree.release_focus()
-	tree.deselect_all()
-	%TopBarInput.desel_everything()
+			i.treeitem.get_node("%Visiblity").button_pressed = true
 
 
 func collapsing(sprites):
 	for i in sprites:
-		if i.treeitem.get_child_count() > 0:
-			i.treeitem.collapsed = i.is_collapsed
+		if i.treeitem.get_node("%OtherLayers").get_child_count() > 0:
+			i.treeitem.get_node("%Collapse").button_pressed = i.is_collapsed
 	
+
+
+func _on_layer_view_bg_focus_entered() -> void:
+	if %LayerViewBG.has_focus():
+		%LayerViewBG.release_focus()
+	%LayerViewBG.deselect_all()
+	%TopBarInput.desel_everything()

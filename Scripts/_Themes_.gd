@@ -14,11 +14,10 @@ extends Node
 	mode = 0,
 	borders = true,
 	
-	panel_sizes = {
-		right = 2500,
-		left = -2000,
-		properties = 0,
-	},
+	right = 2500,
+	left = -2000,
+	properties = 0,
+	layers = -100,
 }
 @onready var os_path = OS.get_executable_path().get_base_dir()
 
@@ -54,6 +53,7 @@ func _ready():
 		var info = load_file.get_var()
 		if info is Dictionary:
 			theme_settings.merge(info, true)
+			
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
 			
@@ -79,9 +79,10 @@ func _ready():
 			elif !theme_settings.borders:
 				get_window().borderless = true
 			
-			%HSplitContainer.split_offset = theme_settings.panel_sizes.left
-			%HSplit.split_offset = theme_settings.panel_sizes.right
-			%VSplitContainer.split_offset = theme_settings.panel_sizes.properties
+			%HSplitContainer.split_offset = theme_settings.left
+			%HSplit.split_offset = theme_settings.right
+			%VSplitContainer.split_offset = theme_settings.properties
+			%LayersViewSplit.split_offset = theme_settings.layers
 			
 			get_window().position = theme_settings.screen_pos
 			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = theme_settings.fps
@@ -329,15 +330,20 @@ func _input(_event: InputEvent) -> void:
 
 
 func _on_h_split_container_dragged(offset: int) -> void:
-	theme_settings.panel_sizes.left = offset
+	theme_settings.left = offset
 	save()
 
 
 func _on_h_split_dragged(offset: int) -> void:
-	theme_settings.panel_sizes.right = offset
+	theme_settings.right = offset
 	save()
 
 
 func _on_v_split_container_dragged(offset: int) -> void:
-	theme_settings.panel_sizes.properties = offset
+	theme_settings.properties = offset
+	save()
+
+
+func _on_layers_view_split_dragged(offset: int) -> void:
+	theme_settings.layers = offset
 	save()

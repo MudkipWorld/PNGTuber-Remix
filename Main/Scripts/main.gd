@@ -145,7 +145,7 @@ func _on_file_dialog_file_selected(path):
 					Global.held_sprite.texture = img_can
 					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 					Global.held_sprite.save_state(Global.current_state)
-					Global.held_sprite.treeitem.set_icon(0, texture)
+					Global.held_sprite.treeitem.get_node("%Icon").texture = texture
 			Global.get_sprite_states(Global.current_state)
 			
 			
@@ -286,7 +286,9 @@ func _on_confirmation_dialog_confirmed():
 func clear_sprites():
 	Global.held_sprite = null
 	$Control/UIInput.held_sprite_is_null()
-	$Control/HSplitContainer/LeftPanel/VBox/PanelL/PanelL1_2/LayersTree.clear()
+	
+	for i in $Control/%LayerViewBG.get_node("%LayerVBox").get_children():
+		i.free()
 	$Control/HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree.clear()
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		if InputMap.has_action(str(i.sprite_id)):
@@ -298,7 +300,6 @@ func clear_sprites():
 	for i in %BGContainer.get_children():
 		i.free()
 		
-	$Control.new_tree()
 	$Control/BackgroundEdit.new_tree()
 	$Control/StatesStuff.delete_all_states()
 	$Control/StatesStuff.initial_state()
