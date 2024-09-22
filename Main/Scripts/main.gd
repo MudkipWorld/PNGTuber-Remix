@@ -24,10 +24,7 @@ var of
 var keys : Array = []
 var already_input_keys : Array = []
 
-var obj = Object.new()
-
 func _ready():
-	DisplayServer.register_additional_output(obj)
 	%FileDialog.use_native_dialog = true
 
 func new_file():

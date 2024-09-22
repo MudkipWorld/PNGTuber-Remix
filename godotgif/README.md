@@ -70,28 +70,28 @@ Extract the contents to your Godot project directory.
 You should have an `addons` directory at the root with the following structure:
 ```bash
 └───addons
-    └───godotgif
-        │   godotgif.gdextension
-        │   LICENSE.txt
-        │   README.md
-        │
-        └───bin
-            │   godotgif.windows.template_debug.x86_32.dll
-            │   godotgif.windows.template_debug.x86_64.dll
-            │   godotgif.windows.template_release.x86_32.dll
-            │   godotgif.windows.template_release.x86_64.dll
-            │   libgodotgif.android.template_debug.arm64.so
-            │   libgodotgif.android.template_release.arm64.so
-            │   libgodotgif.linux.template_debug.x86_32.so
-            │   libgodotgif.linux.template_debug.x86_64.so
-            │   libgodotgif.linux.template_release.x86_32.so
-            │   libgodotgif.linux.template_release.x86_64.so
-            │
-            ├───godotgif.macos.template_debug.framework
-            │       libgodotgif.macos.template_debug
-            │
-            └───godotgif.macos.template_release.framework
-                    libgodotgif.macos.template_release
+	└───godotgif
+		│   godotgif.gdextension
+		│   LICENSE.txt
+		│   README.md
+		│
+		└───bin
+			│   godotgif.windows.template_debug.x86_32.dll
+			│   godotgif.windows.template_debug.x86_64.dll
+			│   godotgif.windows.template_release.x86_32.dll
+			│   godotgif.windows.template_release.x86_64.dll
+			│   libgodotgif.android.template_debug.arm64.so
+			│   libgodotgif.android.template_release.arm64.so
+			│   libgodotgif.linux.template_debug.x86_32.so
+			│   libgodotgif.linux.template_debug.x86_64.so
+			│   libgodotgif.linux.template_release.x86_32.so
+			│   libgodotgif.linux.template_release.x86_64.so
+			│
+			├───godotgif.macos.template_debug.framework
+			│       libgodotgif.macos.template_debug
+			│
+			└───godotgif.macos.template_release.framework
+					libgodotgif.macos.template_release
 ```
 
 Open your project. Any exisitng gifs should auto-import. New gifs in the project directory will automatically import as `SpriteFrames`. To convert them into `AnimatedTexture`, update the [import settings](#editor).
@@ -105,13 +105,13 @@ The `GifManager` class should also now be available for access within GDScript.
 Ensure **SCons** is setup. Refer to [Introduction to the buildsystem](https://docs.godotengine.org/en/stable/contributing/development/compiling/introduction_to_the_buildsystem.html)
 
 * If using a different version of Godot, be sure to dump the bindings e.g. 
-    ```sh
-        godot --dump-extension-api extension_api.json
-    ```
+	```sh
+		godot --dump-extension-api extension_api.json
+	```
 *  Compile with 
-    ```sh
-        scons platform=<platform> custom_api_file=extension_api.json
-    ```
+	```sh
+		scons platform=<platform> custom_api_file=extension_api.json
+	```
 
 ### Debugging
 
