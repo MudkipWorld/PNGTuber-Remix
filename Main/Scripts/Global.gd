@@ -26,8 +26,8 @@ var settings_dict : Dictionary = {
 	checkinput = true,
 	bg_color = Color.SLATE_GRAY,
 	is_transparent = false,
-	bounceGravity = 1000,
-	bounceSlider = 100,
+	bounceGravity = 575,
+	bounceSlider = 250,
 	states = [{}],
 	light_states = [{}],
 	darken = false,
@@ -48,6 +48,7 @@ var settings_dict : Dictionary = {
 	pan = Vector2(640, 360),
 	
 	should_delta = false,
+	max_fps = 241,
 }
 
 #var undo_redo : UndoRedo = UndoRedo.new()

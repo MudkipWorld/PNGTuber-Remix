@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=94 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_oukb3"]
 [ext_resource type="StyleBox" uid="uid://2gwilgyuyfv7" path="res://Themes/PurpleTheme/LightPanel.tres" id="2_6cxu6"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://Scripts/ViewportControl.gd" id="6_xt0ob"]
 [ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/ZoomResetButton.png" id="7_82n4t"]
 [ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/ReplaceButton.png" id="7_cg0wr"]
-[ext_resource type="Script" path="res://Scripts/BackgroundEdit.gd" id="7_l6sf2"]
 [ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/ZoomOutButton.png" id="8_46wi4"]
 [ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/DupButton.png" id="8_r6auv"]
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/DeleteButton.png" id="9_jhnap"]
@@ -28,7 +27,6 @@
 [ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/LinksButtonImages/GithubLogo.png" id="17_tkc2i"]
 [ext_resource type="Texture2D" uid="uid://whhnbdvw3i1j" path="res://UI/LinksButtonImages/TumblrLogo.png" id="18_qwjx1"]
 [ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/LinksButtonImages/RedditLogo.png" id="19_wqyow"]
-[ext_resource type="Script" path="res://Scripts/BackgroundTree.gd" id="20_c74i2"]
 [ext_resource type="PackedScene" uid="uid://mldwqrl5tu11" path="res://UI/LayerView/layer_view_bg.tscn" id="25_g04q3"]
 [ext_resource type="Script" path="res://Scripts/Spinboxes.gd" id="26_0wx0w"]
 [ext_resource type="Texture2D" uid="uid://dt530lalergk0" path="res://Template Model(s)/Icons/BasicIcon.png" id="28_fyin0"]
@@ -446,10 +444,6 @@ script = ExtResource("3_1eur5")
 
 [node name="LightControl" type="Node" parent="."]
 script = ExtResource("6_5v3ft")
-
-[node name="BackgroundEdit" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("7_l6sf2")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 unique_name_in_owner = true
@@ -924,146 +918,6 @@ item_6/text = "Delete normal map"
 item_6/id = 6
 item_7/text = "Deselect"
 item_7/id = 7
-
-[node name="PanelL2" type="Control" parent="HSplitContainer/LeftPanel/VBox"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 1
-
-[node name="TopPanelL2" type="Panel" parent="HSplitContainer/LeftPanel/VBox/PanelL2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.000322644
-anchor_right = 1.0
-anchor_bottom = 0.000322644
-offset_bottom = 36.0
-mouse_filter = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Background layers" type="Label" parent="HSplitContainer/LeftPanel/VBox/PanelL2/TopPanelL2"]
-custom_minimum_size = Vector2(130, 36)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 36.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 18
-text = " Background layers"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PanelL2_1" type="Panel" parent="HSplitContainer/LeftPanel/VBox/PanelL2"]
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 34.112
-offset_bottom = 70.112
-grow_horizontal = 2
-
-[node name="LayersButtons2" type="HBoxContainer" parent="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 36)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 26.0
-grow_horizontal = 2
-theme_override_constants/separation = 35
-alignment = 1
-
-[node name="Add BG image" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2"]
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("6_t2a3p")
-texture_pressed = ExtResource("6_t2a3p")
-texture_hover = ExtResource("6_t2a3p")
-texture_disabled = ExtResource("6_t2a3p")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="BGDuplicateButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2"]
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("8_r6auv")
-texture_pressed = ExtResource("8_r6auv")
-texture_hover = ExtResource("8_r6auv")
-texture_disabled = ExtResource("8_r6auv")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="BGDeleteButton" type="TextureButton" parent="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2"]
-custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
-size_flags_vertical = 4
-texture_normal = ExtResource("9_jhnap")
-texture_pressed = ExtResource("9_jhnap")
-texture_hover = ExtResource("9_jhnap")
-texture_disabled = ExtResource("9_jhnap")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="PanelL2_2" type="Panel" parent="HSplitContainer/LeftPanel/VBox/PanelL2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 70)
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.967
-offset_top = 69.0
-offset_bottom = -0.210022
-grow_horizontal = 2
-theme_override_styles/panel = ExtResource("2_6cxu6")
-
-[node name="BackgroundTree" type="Tree" parent="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 1
-mouse_default_cursor_shape = 2
-theme_override_colors/drop_position_color = Color(0.858824, 0.811765, 0.909804, 1)
-theme_override_constants/item_margin = 15
-theme_override_constants/icon_max_width = 25
-theme_override_constants/inner_item_margin_left = 6
-theme_override_constants/draw_relationship_lines = 30
-theme_override_constants/relationship_line_width = 2
-theme_override_constants/parent_hl_line_width = 4
-theme_override_constants/v_separation = 6
-theme_override_font_sizes/font_size = 16
-theme_override_font_sizes/title_button_font_size = 10
-allow_reselect = true
-hide_root = true
-drop_mode_flags = 2
-script = ExtResource("20_c74i2")
-
-[node name="PopupMenuBG" type="PopupMenu" parent="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree"]
-unique_name_in_owner = true
-item_count = 4
-item_0/text = "Add Background Item"
-item_1/text = "Duplicate"
-item_1/id = 1
-item_2/text = "Delete"
-item_2/id = 2
-item_3/text = "Deselect"
-item_3/id = 3
 
 [node name="ResizeSpotArrow" type="Control" parent="HSplitContainer/LeftPanel"]
 custom_minimum_size = Vector2(7, 0)
@@ -2647,167 +2501,6 @@ max_value = 1.0
 step = 0.001
 value = 0.001
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 2
-focus_mode = 1
-mouse_filter = 2
-horizontal_scroll_mode = 0
-
-[node name="Grid" type="GridContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2"]
-clip_contents = true
-custom_minimum_size = Vector2(350, 0)
-layout_mode = 2
-theme_override_constants/v_separation = 7
-metadata/_edit_use_anchors_ = true
-
-[node name="Container" type="Container" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-custom_minimum_size = Vector2(100, 5)
-layout_mode = 2
-
-[node name="Hbox" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-
-[node name="ColorLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/Hbox"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 16
-text = "Color :"
-
-[node name="BGColorPickerButton" type="ColorPickerButton" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/Hbox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-color = Color(1, 1, 1, 1)
-
-[node name="HBox10" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-
-[node name="BGVisible" type="CheckBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox10"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_font_sizes/font_size = 16
-text = " Visible           "
-
-[node name="HBox12" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-
-[node name="ZOrderLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox12"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Z Order :"
-
-[node name="BGZOrderSpinbox" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox12"]
-unique_name_in_owner = true
-layout_mode = 2
-min_value = -9999.0
-max_value = 9999.0
-
-[node name="Sp1" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="HBox21" type="GridContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/v_separation = 5
-columns = 4
-
-[node name="PosXLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Pos-X : "
-
-[node name="BGPosXSpinBox" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 10
-min_value = -9999.0
-max_value = 9999.0
-step = 0.1
-
-[node name="PosYLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Pos-Y : "
-
-[node name="BGPosYSpinBox" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 6
-min_value = -9999.0
-max_value = 9999.0
-step = 0.1
-
-[node name="RotLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Rotation : "
-
-[node name="BGRotSpinBox" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 10
-min_value = -100.0
-step = 0.05
-
-[node name="Sp2" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="HBox9" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-
-[node name="SizeLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox9"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Size-X : "
-
-[node name="BGSizeSpinBox" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox9"]
-unique_name_in_owner = true
-layout_mode = 2
-min_value = 0.1
-step = 0.1
-value = 1.0
-
-[node name="SizeYLabel" type="Label" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox9"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 14
-text = "Size-Y : "
-
-[node name="BGSizeSpinYBox" type="SpinBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox9"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-min_value = 0.1
-step = 0.1
-value = 1.0
-
-[node name="Sp3" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Sp4" type="HSeparator" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="HBox11" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid"]
-layout_mode = 2
-
-[node name="BGReacttoLight" type="CheckBox" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox11"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_font_sizes/font_size = 16
-text = "React To Light       "
-
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer"]
 custom_minimum_size = Vector2(350, 107)
 layout_mode = 2
@@ -2880,7 +2573,7 @@ size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
 text = "   Files "
-item_count = 9
+item_count = 8
 popup/item_0/text = "New"
 popup/item_1/text = "Open"
 popup/item_1/id = 1
@@ -2892,12 +2585,10 @@ popup/item_4/text = "Add Images"
 popup/item_4/id = 4
 popup/item_5/text = "Add Appendage Based Image"
 popup/item_5/id = 6
-popup/item_6/text = "Add Background Item"
-popup/item_6/id = 7
-popup/item_7/text = "Export Model Parts"
-popup/item_7/id = 9
-popup/item_8/text = "Demo Model"
-popup/item_8/id = 5
+popup/item_6/text = "Export Model Parts"
+popup/item_6/id = 9
+popup/item_7/text = "Demo Model"
+popup/item_7/id = 5
 
 [node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
@@ -2906,12 +2597,10 @@ size_flags_horizontal = 4
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 16
 text = " Mode "
-item_count = 3
+item_count = 2
 popup/item_0/text = "Editor"
-popup/item_1/text = "Layout"
-popup/item_1/id = 2
-popup/item_2/text = "PNGTube"
-popup/item_2/id = 1
+popup/item_1/text = "PNGTube"
+popup/item_1/id = 1
 
 [node name="BGButton" type="MenuButton" parent="TopBar/HBox"]
 unique_name_in_owner = true
@@ -3131,13 +2820,13 @@ stretch_mode = 0
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
-size = Vector2i(571, 201)
+size = Vector2i(571, 147)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TempPopUp"]
 offset_left = 7.0
 offset_top = 8.0
 offset_right = 564.0
-offset_bottom = 193.0
+offset_bottom = 139.0
 
 [node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer"]
 layout_mode = 2
@@ -3151,13 +2840,16 @@ columns = 2
 [node name="BasicTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Basic Demo"
 icon = ExtResource("28_fyin0")
 expand_icon = true
 
 [node name="BGTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(320, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Model With Background Demo"
 icon = ExtResource("29_rak5y")
 expand_icon = true
@@ -3165,6 +2857,7 @@ expand_icon = true
 [node name="NormalmTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "NormalMap Demo"
 icon = ExtResource("30_c52oo")
 expand_icon = true
@@ -3172,6 +2865,7 @@ expand_icon = true
 [node name="FollowMouseTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Follow Mouse Demo"
 icon = ExtResource("31_4m8rg")
 expand_icon = true
@@ -3179,6 +2873,7 @@ expand_icon = true
 [node name="AssetTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/icon_max_width = 37
 text = "Asset Model Demo"
 icon = ExtResource("35_wy3h6")
@@ -3433,7 +3128,7 @@ from the original software and improve existing ones."
 [node name="InputsPopup" type="PopupPanel" parent="."]
 unique_name_in_owner = true
 initial_position = 4
-size = Vector2i(471, 630)
+size = Vector2i(471, 657)
 unresizable = false
 borderless = false
 
@@ -3447,7 +3142,7 @@ anchor_bottom = 0.981
 offset_left = 7.0
 offset_top = 8.0
 offset_right = 464.0
-offset_bottom = 622.0
+offset_bottom = 649.0
 mouse_filter = 2
 
 [node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
@@ -3690,6 +3385,24 @@ and more forgiving to use higher values.
 This needs to be set for every model to prevent sharing issues."
 text = "Use DeltaTime  "
 autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup/VBoxContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MaxFPSLabel" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(144, 0)
+layout_mode = 2
+text = "Max FPS : "
+
+[node name="MaxFPSlider" type="HSlider" parent="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 24.0
+max_value = 241.0
+value = 241.0
 
 [node name="Sp3" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer"]
 layout_mode = 2
@@ -3953,11 +3666,6 @@ presets_visible = false
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/DeleteButton" to="UIInput" method="_on_delete_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/AddNormalButton" to="UIInput" method="_on_add_normal_button_pressed"]
 [connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/LayersViewSplit/PanelL/PanelL1_1/LayersButtons/DelNormalButton" to="UIInput" method="_on_del_normal_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/Add BG image" to="BackgroundEdit" method="_on_add_bg_image_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/BGDuplicateButton" to="BackgroundEdit" method="_on_bg_duplicate_button_pressed"]
-[connection signal="pressed" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_1/LayersButtons2/BGDeleteButton" to="BackgroundEdit" method="_on_bg_delete_button_pressed"]
-[connection signal="button_clicked" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" to="BackgroundEdit" method="_on_background_tree_button_clicked"]
-[connection signal="item_selected" from="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" to="HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree" method="_on_item_selected"]
 [connection signal="dragged" from="HSplitContainer/HSplit" to="_Themes_" method="_on_h_split_dragged"]
 [connection signal="focus_entered" from="HSplitContainer/HSplit/RightPanel/Properties/Name" to="UIInput" method="_on_name_focus_entered"]
 [connection signal="focus_exited" from="HSplitContainer/HSplit/RightPanel/Properties/Name" to="UIInput" method="_on_name_focus_exited"]
@@ -4024,15 +3732,6 @@ presets_visible = false
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/VBoxContainer/HBoxPhysics2/Rainbow" to="UIInput" method="_on_rainbow_toggled"]
 [connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/VBoxContainer/HBoxPhysics2/Self-Rainbow Only" to="UIInput" method="_on_self_rainbow_only_toggled"]
 [connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Experimental/ScrollContainer6/VBoxContainer/VBoxContainer/HBox3/RSSlider" to="UIInput" method="_on_rs_slider_value_changed"]
-[connection signal="color_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/Hbox/BGColorPickerButton" to="BackgroundEdit" method="_on_bg_color_picker_button_color_changed"]
-[connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox10/BGVisible" to="BackgroundEdit" method="_on_bg_visible_toggled"]
-[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox12/BGZOrderSpinbox" to="BackgroundEdit" method="_on_bgz_order_spinbox_value_changed"]
-[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21/BGPosXSpinBox" to="BackgroundEdit" method="_on_bg_pos_x_spin_box_value_changed"]
-[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21/BGPosYSpinBox" to="BackgroundEdit" method="_on_bg_pos_y_spin_box_value_changed"]
-[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox21/BGRotSpinBox" to="BackgroundEdit" method="_on_bg_rot_spin_box_value_changed"]
-[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox9/BGSizeSpinBox" to="BackgroundEdit" method="_on_bg_size_spin_box_value_changed"]
-[connection signal="value_changed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox9/BGSizeSpinYBox" to="BackgroundEdit" method="_on_bg_size_spin_y_box_value_changed"]
-[connection signal="toggled" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer2/Grid/HBox11/BGReacttoLight" to="BackgroundEdit" method="_on_bg_reactto_light_toggled"]
 [connection signal="pressed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/VBoxContainer/HBoxContainer/AddState" to="StatesStuff" method="_on_add_state_pressed"]
 [connection signal="pressed" from="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/VBoxContainer/HBoxContainer/DeleteState" to="StatesStuff" method="_on_delete_state_pressed"]
 [connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
@@ -4066,6 +3765,8 @@ presets_visible = false
 [connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FpsSping" to="_Themes_" method="_on_fps_sping_value_changed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FileType" to="TopBarInput" method="_on_file_type_item_selected"]
 [connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/DeltaTimeCheck" to="TopBarInput" method="_on_delta_time_check_toggled"]
+[connection signal="drag_ended" from="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer/MaxFPSlider" to="TopBarInput" method="_on_max_fp_slider_drag_ended"]
+[connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer/MaxFPSlider" to="TopBarInput" method="_on_max_fp_slider_value_changed"]
 [connection signal="pressed" from="InputsPopup/VBoxContainer2/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
 [connection signal="item_selected" from="InputsPopup/VBoxContainer2/Grid2/UIThemeButton" to="_Themes_" method="_on_ui_theme_button_item_selected"]
 [connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox/XFreqWobbleSlider" to="TopBarInput" method="_on_x_freq_wobble_slider_value_changed"]

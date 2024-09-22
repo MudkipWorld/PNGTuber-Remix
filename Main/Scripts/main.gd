@@ -258,23 +258,6 @@ func _on_file_dialog_files_selected(paths):
 			
 
 		$Control._added_tree(sprite_nodes)
-	if current_state == State.AddBgSprite:
-		var bg_sprite_nodes = []
-		for path in paths:
-			var img = Image.load_from_file(path)
-			var texture = ImageTexture.create_from_image(img)
-			var img_can = CanvasTexture.new()
-			img_can.diffuse_texture = texture
-			var bg_sprte_obj = preload("res://Misc/BackgroundObject/background_object.tscn").instantiate()
-			bg_sprte_obj.texture = img_can
-			bg_sprte_obj.get_node("Pos/Wobble/Squish/Drag/Sprite2D").texture = img_can
-			bg_sprte_obj.sprite_name = path.get_file().get_basename()
-			%BGContainer.add_child(bg_sprte_obj)
-		
-			bg_sprite_nodes.append(bg_sprte_obj)
-			
-		#	bg_sprte_obj.global_position = Vector2(640, 360)
-		$Control/BackgroundEdit._added_tree(bg_sprite_nodes)
 
 
 func _on_confirmation_dialog_confirmed():
@@ -282,6 +265,11 @@ func _on_confirmation_dialog_confirmed():
 	$Control/TopBarInput.path = null
 	$Control/TopBarInput.last_path = ""
 	clear_sprites()
+	Global.settings_dict.max_fps = 241
+	$Control.update_fps(241)
+	$Control/%MaxFPSlider.value = 241
+	
+	
 
 func clear_sprites():
 	Global.held_sprite = null
@@ -289,7 +277,6 @@ func clear_sprites():
 	
 	for i in $Control/%LayerViewBG.get_node("%LayerVBox").get_children():
 		i.free()
-	$Control/HSplitContainer/LeftPanel/VBox/PanelL2/PanelL2_2/BackgroundTree.clear()
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		if InputMap.has_action(str(i.sprite_id)):
 			InputMap.erase_action(str(i.sprite_id))
@@ -297,14 +284,13 @@ func clear_sprites():
 	for i in %SpritesContainer.get_children():
 		i.free()
 		
-	for i in %BGContainer.get_children():
-		i.free()
-		
-	$Control/BackgroundEdit.new_tree()
+
 	$Control/StatesStuff.delete_all_states()
 	$Control/StatesStuff.initial_state()
 	%Camera2D.zoom = Vector2(1,1)
 	%CamPos.global_position = Vector2(640, 360)
+	Global.settings_dict.zoom = Vector2(1,1)
+	Global.settings_dict.pan = Vector2(640, 360)
 	
 
 

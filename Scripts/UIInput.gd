@@ -986,7 +986,6 @@ func _on_wiggle_sub_d_spin_value_changed(value):
 
 func _on_follow_parent_effect_toggled(toggled_on):
 	Global.held_sprite.dictmain.follow_parent_effects = toggled_on
-	Global.held_sprite.follow_p_wiggle()
 	Global.held_sprite.save_state(Global.current_state)
 	
 

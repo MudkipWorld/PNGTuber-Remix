@@ -75,11 +75,23 @@ func sliders_revalue(settings_dict):
 	get_tree().get_root().get_node("Main/SubViewportContainer/%Camera2D").zoom = settings_dict.zoom
 	get_tree().get_root().get_node("Main/SubViewportContainer/%CamPos").global_position = settings_dict.pan
 	%DeltaTimeCheck.button_pressed = settings_dict.should_delta
-	
+	%MaxFPSlider.value = settings_dict.max_fps
+	update_fps(settings_dict.max_fps)
 	
 	
 	if %AutoSaveCheck.button_pressed:
 		%AutoSaveTimer.start()
+
+
+func update_fps(value):
+	if value == 241:
+		Engine.max_fps = 0
+		return
+	
+	Engine.max_fps = value
+
+
+
 
 func _tree(sprites):
 	for i in %LayerViewBG.get_node("%LayerVBox").get_children():

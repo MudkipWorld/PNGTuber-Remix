@@ -141,11 +141,13 @@ func animation():
 func _process(delta):
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
-		%Sprite2D.material.set_shader_parameter("selected", true)
+		%Selection.material.set_shader_parameter("text",%Sprite2D.texture.diffuse_texture)
+		%Selection.show()
 	else:
 		%Grab.mouse_filter = 2
-		%Sprite2D.material.set_shader_parameter("selected", false)
+		%Selection.hide()
 	#	%Origin.mouse_filter = 2
+	
 	if dragging:
 		var mpos = get_parent().to_local(get_global_mouse_position())
 		position = mpos - of
@@ -177,6 +179,9 @@ func _process(delta):
 		
 		if dictmain.wiggle:
 			wiggle_sprite()
+			%Selection.material.set_shader_parameter("wiggle", true)
+		else:
+			%Selection.material.set_shader_parameter("wiggle", false)
 			
 		
 		if dictmain.should_rotate:
@@ -232,8 +237,8 @@ func follow_mouse():
 	var mouse = get_local_mouse_position()
 	var dir = Vector2.ZERO.direction_to(mouse)
 	var dist = mouse.length()
-	%Pos.position.x = dir.x * min(dist, dictmain.look_at_mouse_pos)
-	%Pos.position.y = dir.y * min(dist, dictmain.look_at_mouse_pos_y)
+	%Pos.position.x = lerp(%Pos.position.x, dir.x * min(dist, dictmain.look_at_mouse_pos), 0.1)
+	%Pos.position.y = lerp(%Pos.position.y, dir.y * min(dist, dictmain.look_at_mouse_pos_y), 0.1)
 
 func auto_rotate():
 	$Pos/Wobble.rotate(dictmain.should_rot_speed)
@@ -246,8 +251,18 @@ func wiggle_sprite():
 			var c_parrent_length = (c_parent.glob.y - c_parent.dragger.global_position.y)
 			wiggle_val = wiggle_val + (c_parrent_length/10)
 		
-		
-	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
+	
+	if !get_parent() is Sprite2D:
+		%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
+	elif get_parent() is Sprite2D:
+		if dictmain.follow_parent_effects:
+			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+			%Sprite2D.material.set_shader_parameter("rotation", c_parent.get_node("%Sprite2D").material.get_shader_parameter("rotation"))
+		else:
+			%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
+	
+	%Selection.material.set_shader_parameter("rotation_offs",dictmain.wiggle_rot_offset)
+	%Selection.material.set_shader_parameter("rotation", %Sprite2D.get_node("%Sprite2D").material.get_shader_parameter("rotation"))
 
 func drag(_delta):
 	if dictmain.dragSpeed == 0:
@@ -500,17 +515,10 @@ func get_state(id):
 		advanced_lipsyc()
 		
 		
-		follow_p_wiggle()
 		
 		%Pos.position = Vector2(0,0)
 
-func follow_p_wiggle():
-	if dictmain.follow_parent_effects:
-		use_parent_material = true
-		%Sprite2D.use_parent_material = true
-	else:
-		use_parent_material = false
-		%Sprite2D.use_parent_material = false
+
 
 func check_talk():
 	if dictmain.should_talk:

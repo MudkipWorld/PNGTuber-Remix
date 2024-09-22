@@ -173,6 +173,7 @@ color = Color(1, 1, 1, 0)
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="toggled" from="Layout/LayerVBox/LayerHBox/Collapse" to="." method="_on_collapse_toggled"]
+[connection signal="toggled" from="Layout/LayerVBox/LayerHBox/SideButtons/Visiblity" to="." method="_on_visiblity_toggled"]
 [connection signal="pressed" from="Layout/LayerVBox/LayerHBox/MoveUp" to="." method="_on_move_up_pressed"]
 [connection signal="pressed" from="Layout/LayerVBox/LayerHBox/MoveDown" to="." method="_on_move_down_pressed"]
 [connection signal="mouse_entered" from="Drop2" to="." method="_on_drop_2_mouse_entered"]

@@ -1,29 +1,35 @@
-[gd_scene load_steps=8 format=3 uid="uid://du5v1xpm5fjcm"]
+[gd_scene load_steps=10 format=3 uid="uid://du5v1xpm5fjcm"]
 
 [ext_resource type="Script" path="res://Misc/SpriteObject/Script/sprite_object.gd" id="1_i7wd5"]
 [ext_resource type="Texture2D" uid="uid://t7lg762xsffp" path="res://Misc/FolderObject/origin.png" id="2_lsh2x"]
 [ext_resource type="Shader" path="res://Scripts/SpriteShader.gdshader" id="3_lejuk"]
 [ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="3_updi2"]
 [ext_resource type="Texture2D" uid="uid://dv27xjbwfkacl" path="res://Misc/LightSource/Lamp.png" id="3_x1bf3"]
+[ext_resource type="Texture2D" uid="uid://cl34ikuixnd2" path="res://Misc/FolderObject/Folder.png" id="5_bwuk4"]
+[ext_resource type="Shader" path="res://Scripts/SpriteSelection.gdshader" id="6_ww6s0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1tqhp"]
 resource_local_to_scene = true
 shader = ExtResource("3_lejuk")
 shader_parameter/enabled = false
-shader_parameter/selected = false
-shader_parameter/ant_color_1 = Color(1, 1, 1, 1)
-shader_parameter/ant_color_2 = Color(0, 0, 0, 1)
-shader_parameter/ant_width = 2.0
-shader_parameter/ant_length = 10.0
-shader_parameter/ant_speed = 30.0
 shader_parameter/Intensity = 1.0
 shader_parameter/wiggle = false
 shader_parameter/rotation = 0.0
 shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 shader_parameter/Blend = ExtResource("3_updi2")
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
-diffuse_texture = ExtResource("3_x1bf3")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0d1ib"]
+resource_local_to_scene = true
+shader = ExtResource("6_ww6s0")
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 2.0
+shader_parameter/frequency = 10.0
+shader_parameter/phase_speed = 8.0
+shader_parameter/base_line_color = Vector4(0, 0, 0, 1)
+shader_parameter/wiggle = false
+shader_parameter/rotation = 4.0
+shader_parameter/rotation_offset = Vector2(0.5, 0.5)
+shader_parameter/text = ExtResource("3_x1bf3")
 
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
 script = ExtResource("1_i7wd5")
@@ -58,7 +64,7 @@ texture = ExtResource("2_lsh2x")
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_1tqhp")
-texture = SubResource("CanvasTexture_aq8i0")
+texture = ExtResource("5_bwuk4")
 
 [node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
 unique_name_in_owner = true
@@ -66,16 +72,32 @@ layout_direction = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -46.0
-offset_top = -46.0
-offset_right = -46.0
-offset_bottom = -46.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = -50.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 stretch_mode = 0
+
+[node name="Selection" type="TextureRect" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab"]
+unique_name_in_owner = true
+visible = false
+z_index = 4096
+z_as_relative = false
+material = SubResource("ShaderMaterial_0d1ib")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_bwuk4")
+expand_mode = 1
 
 [node name="Blink" type="Timer" parent="."]
 wait_time = 0.2

@@ -207,3 +207,14 @@ func _on_move_up_pressed() -> void:
 func _on_move_down_pressed() -> void:
 	get_parent().move_child(self, clamp(get_index() + 1, 0, get_parent().get_child_count() - 1))
 	data.sprite_object.get_parent().move_child(data.sprite_object, clamp(get_index(), 0, data.sprite_object.get_parent().get_child_count() - 1))
+
+
+func _on_visiblity_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		data.sprite_object.dictmain.visible = false
+		data.sprite_object.visible = false
+	else:
+		data.sprite_object.dictmain.visible = true
+		data.sprite_object.visible = true
+
+	data.sprite_object.save_state(Global.current_state)

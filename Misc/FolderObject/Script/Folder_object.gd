@@ -395,4 +395,3 @@ func reparent_obj(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
 			reparent(i.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D"))
-

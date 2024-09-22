@@ -17,6 +17,7 @@ var bounceChange = 0.0
 var currenly_speaking : bool = false
 var tick = 0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.animation_state.connect(get_state)
@@ -27,9 +28,10 @@ func _process(delta):
 	tick +=1
 	var hold = get_parent().position.y
 	
-	get_parent().position.y += yVel * delta
+	get_parent().position.y = clamp(get_parent().position.y + (yVel * delta),-90000000, 0)
+	
 	if get_parent().position.y > 0:
-		get_parent().position.y = 0
+		get_parent().position.y = lerp(get_parent().position.y, 0, 0.08)
 	bounceChange = hold - get_parent().position.y
 	
 	yVel = clamp(yVel + Global.settings_dict.bounceGravity* delta,-90000000, 90000000)

@@ -186,10 +186,9 @@ func blue_theme():
 	%Panelt.self_modulate = Color.LIGHT_BLUE
 	%Paneln.self_modulate = Color.LIGHT_BLUE
 	%PanelL1_2.self_modulate = Color.LIGHT_BLUE
-	%PanelL2_2.self_modulate = Color.LIGHT_BLUE
 	%Properties.self_modulate = Color.LIGHT_BLUE
 	%LayersButtons.modulate = Color.AQUA
-	%LayersButtons2.modulate = Color.AQUA
+
 	%ViewportCam.modulate = Color.AQUA
 	%ResetMicButton.modulate = Color.AQUA
 	%LeftPanel.self_modulate = Color.WHITE
@@ -201,10 +200,9 @@ func purple_theme():
 	%Panelt.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%Paneln.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%PanelL1_2.self_modulate = Color(0.898, 0.796, 0.996, 1 )
-	%PanelL2_2.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%Properties.self_modulate = Color(0.898, 0.796, 0.996, 1 )
 	%LayersButtons.modulate = Color(0.898, 0.796, 0.996, 1 )
-	%LayersButtons2.modulate = Color(0.898, 0.796, 0.996, 1 )
+
 	%ViewportCam.modulate = Color(0.898, 0.796, 0.996, 1 )
 	%ResetMicButton.modulate = Color(0.898, 0.796, 0.996, 1 )
 	%LeftPanel.self_modulate = Color.WHITE
@@ -216,10 +214,9 @@ func orange_theme():
 	%Panelt.self_modulate = Color.ORANGE
 	%Paneln.self_modulate = Color.ORANGE
 	%PanelL1_2.self_modulate = Color.ORANGE
-	%PanelL2_2.self_modulate = Color.ORANGE
 	%Properties.self_modulate = Color.ORANGE
 	%LayersButtons.modulate = Color.ORANGE
-	%LayersButtons2.modulate = Color.ORANGE
+
 	%ViewportCam.modulate = Color.ORANGE
 	%ResetMicButton.modulate = Color.ORANGE
 	
@@ -232,10 +229,9 @@ func white_theme():
 	%Panelt.self_modulate = Color.WHITE
 	%Paneln.self_modulate = Color.WHITE
 	%PanelL1_2.self_modulate = Color.WHITE
-	%PanelL2_2.self_modulate = Color.WHITE
 	%Properties.self_modulate = Color.WHITE
 	%LayersButtons.modulate = Color.WHITE
-	%LayersButtons2.modulate = Color.WHITE
+
 	%ViewportCam.modulate = Color.WHITE
 	%ResetMicButton.modulate = Color.WHITE
 	
@@ -248,10 +244,9 @@ func dark_theme():
 	%Panelt.self_modulate = Color.WEB_GRAY
 	%Paneln.self_modulate = Color.WEB_GRAY
 	%PanelL1_2.self_modulate = Color.WEB_GRAY
-	%PanelL2_2.self_modulate = Color.WEB_GRAY
 	%Properties.self_modulate = Color.WEB_GRAY
 	%LayersButtons.modulate = Color.DIM_GRAY
-	%LayersButtons2.modulate = Color.DIM_GRAY
+
 	%ViewportCam.modulate = Color.DIM_GRAY
 	%ResetMicButton.modulate = Color.DIM_GRAY
 	
@@ -264,10 +259,9 @@ func green_theme():
 	%Panelt.self_modulate = Color.LIGHT_GREEN
 	%Paneln.self_modulate = Color.LIGHT_GREEN
 	%PanelL1_2.self_modulate = Color.LIGHT_GREEN
-	%PanelL2_2.self_modulate = Color.LIGHT_GREEN
 	%Properties.self_modulate = Color.LIGHT_GREEN
 	%LayersButtons.modulate = Color.LIGHT_GREEN
-	%LayersButtons2.modulate = Color.LIGHT_GREEN
+
 	%ViewportCam.modulate = Color.LIGHT_GREEN
 	%ResetMicButton.modulate = Color.LIGHT_GREEN
 	
@@ -280,10 +274,9 @@ func funky_theme():
 	%Panelt.self_modulate = Color.SKY_BLUE
 	%Paneln.self_modulate = Color.SKY_BLUE
 	%PanelL1_2.self_modulate = Color.SKY_BLUE
-	%PanelL2_2.self_modulate = Color.SKY_BLUE
 	%Properties.self_modulate = Color.MEDIUM_SEA_GREEN
 	%LayersButtons.modulate = Color.SKY_BLUE
-	%LayersButtons2.modulate = Color.SKY_BLUE
+
 	%ViewportCam.modulate = Color.SKY_BLUE
 	%ResetMicButton.modulate = Color.SKY_BLUE
 	

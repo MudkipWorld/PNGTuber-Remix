@@ -118,10 +118,10 @@ func _ready():
 func _process(delta):
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
-		%Sprite2D.material.set_shader_parameter("selected", true)
+		%Selection.show()
 	else:
 		%Grab.mouse_filter = 2
-		%Sprite2D.material.set_shader_parameter("selected", false)
+		%Selection.hide()
 	#	%Origin.mouse_filter = 2
 	if dragging:
 		var mpos = get_parent().to_local(get_global_mouse_position())
@@ -216,8 +216,8 @@ func follow_mouse():
 	var mouse = get_local_mouse_position()
 	var dir = Vector2.ZERO.direction_to(mouse)
 	var dist = mouse.length()
-	%Pos.position.x = dir.x * min(dist, dictmain.look_at_mouse_pos)
-	%Pos.position.y = dir.y * min(dist, dictmain.look_at_mouse_pos_y)
+	%Pos.position.x = lerp(%Pos.position.x, dir.x * min(dist, dictmain.look_at_mouse_pos), 0.1)
+	%Pos.position.y = lerp(%Pos.position.y, dir.y * min(dist, dictmain.look_at_mouse_pos_y), 0.1)
 
 
 func auto_rotate():

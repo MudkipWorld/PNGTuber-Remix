@@ -9,7 +9,6 @@ var is_transparent : bool
 var is_editor : bool = true
 var last_path : String = ""
 @onready var origin = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/Origin/SpritesContainer")
-@onready var bg = get_tree().get_root().get_node("Main/SubViewportContainer2/SubViewport/BackgroundStuff/BGContainer")
 @onready var light = get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/Node2D/LightSource")
 var devices : Array = []
 var path = null
@@ -98,12 +97,10 @@ func choosing_mode(id):
 			%CurrentSelVbox.show()
 			%LayersButtons.show()
 			%PanelL.show()
-			%PanelL2.hide()
-			%LayersButtons2.hide()
 			%HideUIButton.show()
+			%LayersViewSplit.show()
 			
 			%ScrollContainer.show()
-			%ScrollContainer2.hide()
 			%HideUIButton.button_pressed = true
 			
 			is_editor = true
@@ -111,6 +108,7 @@ func choosing_mode(id):
 			
 			
 				
+		
 		1:
 			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
 			RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
@@ -128,17 +126,15 @@ func choosing_mode(id):
 			%PreviewModeCheck.button_pressed = false
 			
 		
-		#	'''
+			'''
 		2:
 			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 2
 			%LeftPanel.show()
-			%CurrentSelVbox.hide()
 			%LayersButtons.hide()
-			%PanelL.hide()
+			%LayersViewSplit.hide()
 			%RightPanel.show()
 			%ScrollContainer.hide()
 			%ScrollContainer2.show()
-			%PanelL2.show()
 			%LayersButtons2.show()
 			%HideUIButton.show()
 			%HideUIButton.button_pressed = true
@@ -146,7 +142,7 @@ func choosing_mode(id):
 			Global.static_view = false
 			%PreviewModeCheck.button_pressed = false
 			
-		#	'''
+		'''
 	%_Themes_.theme_settings.mode = id
 	%_Themes_.save()
 	desel_everything()
@@ -227,19 +223,19 @@ func _on_anti_al_check_toggled(toggled_on):
 	Global.settings_dict.anti_alias = toggled_on
 	if toggled_on:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-		bg.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+
 	else:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
-		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
+
 
 
 func origin_alias():
 	if Global.settings_dict.anti_alias:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-		bg.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+
 	else:
 		origin.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
-		bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
+
 
 func _on_hide_ui_button_toggled(toggled_on):
 	%LeftPanel.visible = toggled_on
@@ -298,8 +294,6 @@ func desel_everything():
 	Global.held_bg_sprite = null
 	%UIInput.held_sprite_is_null()
 	%LayerViewBG.deselect_all()
-	%BackgroundEdit.held_sprite_is_null()
-	%BackgroundTree.deselect_all()
 	%DeselectButton.hide()
 
 func _on_bounce_state_check_toggled(toggled_on):
@@ -443,3 +437,15 @@ func _on_background_focus_entered() -> void:
 
 func _on_background_focus_exited() -> void:
 	Global.spinbox_held = false
+
+
+func _on_max_fp_slider_drag_ended(value_changed: bool) -> void:
+	if value_changed:
+		%MaxFPSLabel.text = "Max FPS : " + str(%MaxFPSlider.value)
+		Global.settings_dict.max_fps = %MaxFPSlider.value
+		get_parent().update_fps(%MaxFPSlider.value)
+		
+
+
+func _on_max_fp_slider_value_changed(value: float) -> void:
+	%MaxFPSLabel.text = "Max FPS : " + str(value)

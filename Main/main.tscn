@@ -21,30 +21,6 @@ script = ExtResource("1_6pthk")
 
 [node name="BackgroundInputCapture" type="BackgroundInputCapture" parent="."]
 
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
-transparent_bg = true
-handle_input_locally = false
-canvas_item_default_texture_repeat = 1
-size = Vector2i(1280, 720)
-size_2d_override = Vector2i(1280, 720)
-size_2d_override_stretch = true
-render_target_update_mode = 4
-
-[node name="BackgroundStuff" type="Node2D" parent="SubViewportContainer2/SubViewport"]
-position = Vector2(640, 360)
-
-[node name="BGContainer" type="Node2D" parent="SubViewportContainer2/SubViewport/BackgroundStuff"]
-unique_name_in_owner = true
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
