@@ -1,0 +1,1565 @@
+[gd_scene load_steps=74 format=3 uid="uid://bpmlfhv30o08l"]
+
+[ext_resource type="Script" path="res://Scripts/top_ui.gd" id="2_fpnkx"]
+[ext_resource type="Script" path="res://Scripts/OnlineLinks.gd" id="3_tep3f"]
+[ext_resource type="Script" path="res://Scripts/TopBarInput.gd" id="4_r6evh"]
+[ext_resource type="Texture2D" uid="uid://dvxndiuwvsbe7" path="res://UI/RecordButton.png" id="5_3v45m"]
+[ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/LinksButtonImages/GithubLogo.png" id="6_0f73e"]
+[ext_resource type="Texture2D" uid="uid://whhnbdvw3i1j" path="res://UI/LinksButtonImages/TumblrLogo.png" id="7_ja8k8"]
+[ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/LinksButtonImages/RedditLogo.png" id="8_3p41m"]
+[ext_resource type="Texture2D" uid="uid://dt530lalergk0" path="res://Template Model(s)/Icons/BasicIcon.png" id="9_hrvuv"]
+[ext_resource type="Texture2D" uid="uid://bhidrbb01hfmq" path="res://Template Model(s)/Icons/BGIcon.png" id="10_apeyf"]
+[ext_resource type="Texture2D" uid="uid://fmhwpxa4hlo7" path="res://Template Model(s)/Icons/NormalIcon.png" id="11_bgxcq"]
+[ext_resource type="Texture2D" uid="uid://bjxmdyue5pp2x" path="res://Template Model(s)/Icons/FollowMouseIcon.png" id="12_bmktp"]
+[ext_resource type="Texture2D" uid="uid://dm7ppdlhye1ji" path="res://Template Model(s)/Icons/AssetIcon.png" id="13_f2y74"]
+[ext_resource type="Texture2D" uid="uid://byc1nc0xfubaq" path="res://TutorialAssets/Pickles/pickle1.png" id="14_co54c"]
+[ext_resource type="Texture2D" uid="uid://4u3y5i46130w" path="res://TutorialAssets/Pickles/pickle2.png" id="15_gjje1"]
+[ext_resource type="Texture2D" uid="uid://c7wt5f2qinnlu" path="res://TutorialAssets/Pickles/pickle3.png" id="16_d88w6"]
+[ext_resource type="Texture2D" uid="uid://d2jcon746n427" path="res://TutorialAssets/Pickles/pickle4.png" id="17_h7d3n"]
+[ext_resource type="Texture2D" uid="uid://c8p2b5v284wjd" path="res://TutorialAssets/Others/FreqAmpTimeGraph.png" id="18_ks30k"]
+[ext_resource type="Texture2D" uid="uid://hrno6rnanx58" path="res://TutorialAssets/Others/FreqAmpTimeGraph2.png" id="19_j6s72"]
+[ext_resource type="Texture2D" uid="uid://d3djqlup2m5pc" path="res://TutorialAssets/Pickles/HighFrqSheet.png" id="20_0y77w"]
+[ext_resource type="Texture2D" uid="uid://bqnn7ef13mlhn" path="res://TutorialAssets/Pickles/LowFrqSheet.png" id="21_wly1d"]
+[ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/slider.png" id="22_suo2n"]
+[ext_resource type="Script" path="res://Scripts/Spinboxes.gd" id="23_t65gs"]
+[ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/ZoomResetButton.png" id="24_14r3m"]
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="25_715by"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_806ej"]
+animations = [{
+"frames": [{
+"duration": 6.0,
+"texture": ExtResource("14_co54c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_gjje1")
+}, {
+"duration": 4.0,
+"texture": ExtResource("14_co54c")
+}, {
+"duration": 5.0,
+"texture": ExtResource("16_d88w6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_h7d3n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_d88w6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e05t"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_608vs"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qu3a"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwghd"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d31no"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdd3a"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3yhc"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(600, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfd4o"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(900, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66q5y"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(1200, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xeur0"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(0, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6k634"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(300, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy1ix"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(600, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfmy8"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(900, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cvds"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(1200, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8kgv"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(0, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hosxu"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(600, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6shl2"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(900, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h71y7"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(1200, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0j2d"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(0, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtfk4"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(300, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8nwc"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(600, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cjj6"]
+atlas = ExtResource("20_0y77w")
+region = Rect2(900, 1200, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8t4wo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e05t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_608vs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qu3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwghd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d31no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdd3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3yhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfd4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66q5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xeur0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6k634")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy1ix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfmy8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cvds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8kgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hosxu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6shl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h71y7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0j2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtfk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8nwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cjj6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eedp0"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jph86"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ah17o"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dx1l"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mid1u"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rys1m"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2fvf"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(600, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk5nb"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(900, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ej1k"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(1200, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvcqs"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(0, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w8xr"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(300, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8ie6"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(600, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms6q2"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(900, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qitwx"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(1200, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdjbv"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(0, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36si8"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(300, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eiuyb"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(600, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r538"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(900, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8wg4"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(1200, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh0gc"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(0, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehqn7"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(300, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s37ct"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(600, 1200, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qflj5"]
+atlas = ExtResource("21_wly1d")
+region = Rect2(900, 1200, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1uusd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eedp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jph86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ah17o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dx1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mid1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rys1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2fvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk5nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ej1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvcqs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0w8xr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8ie6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms6q2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qitwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mdjbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36si8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eiuyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r538")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8wg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qh0gc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehqn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s37ct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qflj5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iakd"]
+
+[node name="TopUI" type="Control"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("2_fpnkx")
+
+[node name="OnlineLinks" type="Node" parent="."]
+script = ExtResource("3_tep3f")
+
+[node name="TopBarInput" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_r6evh")
+
+[node name="TopBar" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 28.0
+
+[node name="HBox" type="HBoxContainer" parent="TopBar"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="FilesButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "   Files "
+item_count = 8
+popup/item_0/text = "New"
+popup/item_1/text = "Open"
+popup/item_1/id = 1
+popup/item_2/text = "Save"
+popup/item_2/id = 8
+popup/item_3/text = "Save As"
+popup/item_3/id = 3
+popup/item_4/text = "Add Images"
+popup/item_4/id = 4
+popup/item_5/text = "Add Appendage Based Image"
+popup/item_5/id = 6
+popup/item_6/text = "Export Model Parts"
+popup/item_6/id = 9
+popup/item_7/text = "Demo Model"
+popup/item_7/id = 5
+
+[node name="ModeButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = " Mode "
+item_count = 2
+popup/item_0/text = "Editor"
+popup/item_1/text = "PNGTube"
+popup/item_1/id = 1
+
+[node name="BGButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = " BG Color "
+item_count = 7
+popup/item_0/text = "Red"
+popup/item_1/text = "Blue"
+popup/item_1/id = 1
+popup/item_2/text = "Green"
+popup/item_2/id = 2
+popup/item_3/text = "Magenta"
+popup/item_3/id = 3
+popup/item_4/text = "Transparent"
+popup/item_4/id = 4
+popup/item_5/text = "Gray"
+popup/item_5/id = 5
+popup/item_6/text = "Custom"
+popup/item_6/id = 6
+
+[node name="BounceControlButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = " Bounce "
+
+[node name="InputsButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = " Settings "
+
+[node name="CollabButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(79, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+text = "Collab
+"
+
+[node name="WindowButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = " Window "
+item_count = 2
+popup/item_0/text = "Toggle Borders"
+popup/item_1/text = "Save Window (position, size, etc..)"
+popup/item_1/id = 1
+
+[node name="AboutButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = " About "
+item_count = 3
+popup/item_0/text = "Credits"
+popup/item_1/text = "About"
+popup/item_1/id = 1
+popup/item_2/text = "Mini Tutorial (Wip)"
+popup/item_2/id = 2
+
+[node name="RecordButton" type="MenuButton" parent="TopBar/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Records Model Only"
+theme_override_colors/icon_pressed_color = Color(0.596078, 0.0627451, 0.0901961, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.596078, 0.0627451, 0.0941176, 1)
+theme_override_font_sizes/font_size = 16
+text = "Record  "
+icon = ExtResource("5_3v45m")
+switch_on_hover = true
+item_count = 1
+popup/item_0/text = "Click again to stop recording. The Images will be exported as image sequence!"
+
+[node name="FileDialog" type="FileDialog" parent="TopBar/HBox/RecordButton"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(800, 500)
+transient = false
+ok_button_text = "Save"
+access = 2
+filters = PackedStringArray("*.png")
+use_native_dialog = true
+
+[node name="PreviewModeCheck" type="CheckBox" parent="TopBar/HBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(79, 0)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Turns your model Static.
+Uncheck to preview your model's movement. 
+This automatically gets unchecked when changing modes.
+"
+theme_override_font_sizes/font_size = 14
+text = "Pause Movement   "
+flat = true
+
+[node name="HideUIButton" type="CheckBox" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(79, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+button_pressed = true
+text = "Show UI"
+flat = true
+
+[node name="DeselectButton" type="Button" parent="TopBar/HBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(79, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.74558, 0.74558, 0.74558, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 14
+text = "Deselect"
+flat = true
+icon_alignment = 1
+
+[node name="WindowSize" type="Label" parent="TopBar/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(184, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 11
+text = "Window Size (0,0)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AboutPopUp" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(400, 251)
+wrap_controls = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 396.0
+offset_bottom = 525.0
+
+[node name="CreditLabel" type="Label" parent="AboutPopUp/VBoxContainer"]
+layout_mode = 2
+text = "PNGTuber Remix by TheMime (MudkipWorld)
+Original PNGTuber+ Code by kaiakairos. Better UI by LeoRson.
+
+V1.3.4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="AboutPopUp/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="SourceLabel" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Source code : "
+
+[node name="GitHubButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("6_0f73e")
+texture_pressed = ExtResource("6_0f73e")
+texture_hover = ExtResource("6_0f73e")
+texture_disabled = ExtResource("6_0f73e")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EmptySpace" type="Control" parent="AboutPopUp/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="SocialLabel" type="Label" parent="AboutPopUp/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Social : "
+
+[node name="TumblrButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("7_ja8k8")
+texture_pressed = ExtResource("7_ja8k8")
+texture_hover = ExtResource("7_ja8k8")
+texture_disabled = ExtResource("7_ja8k8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="RedditButton" type="TextureButton" parent="AboutPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("8_3p41m")
+texture_pressed = ExtResource("8_3p41m")
+texture_hover = ExtResource("8_3p41m")
+texture_disabled = ExtResource("8_3p41m")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TempPopUp" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(571, 147)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TempPopUp"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 567.0
+offset_bottom = 143.0
+
+[node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Choose Demo :"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="TempPopUp/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="BasicTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Basic Demo"
+icon = ExtResource("9_hrvuv")
+expand_icon = true
+
+[node name="BGTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(320, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Model With Background Demo"
+icon = ExtResource("10_apeyf")
+expand_icon = true
+
+[node name="NormalmTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(220, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "NormalMap Demo"
+icon = ExtResource("11_bgxcq")
+expand_icon = true
+
+[node name="FollowMouseTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Follow Mouse Demo"
+icon = ExtResource("12_bmktp")
+expand_icon = true
+
+[node name="AssetTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/icon_max_width = 37
+text = "Asset Model Demo"
+icon = ExtResource("13_f2y74")
+
+[node name="TutorialPopUp" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(600, 437)
+
+[node name="TabContainer" type="TabContainer" parent="TutorialPopUp"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 596.0
+offset_bottom = 433.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/side_margin = 1
+theme_override_constants/icon_separation = 0
+current_tab = 0
+
+[node name="What is PNGTubing?" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Control" type="Control" parent="TutorialPopUp/TabContainer/What is PNGTubing?"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TutorialPopUp/TabContainer/What is PNGTubing?/Control"]
+position = Vector2(480, 104)
+sprite_frames = SubResource("SpriteFrames_806ej")
+autoplay = "default"
+frame_progress = 0.317187
+
+[node name="Grid" type="GridContainer" parent="TutorialPopUp/TabContainer/What is PNGTubing?/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/What is PNGTubing?/Control/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "PNGTubing is a form of Vtubing.
+However, unlike Vtubing, it is
+much simpler and less costly.
+This is why it gained popularity
+in recent years. There are some
+different types of PNGTubing, this
+includes Static (like the model shown), Toon and
+Rigged. In this software -PNGTube-Remix-, you 
+can create both Static and Rigged! Even mix them
+up if needed. Hope you have fun!
+"
+
+[node name="Basic Concepts" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Control" type="Control" parent="TutorialPopUp/TabContainer/Basic Concepts"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Okay, so bear with me!, You might
+have noticed many sliders here 
+use Amp and Freq. If you don't 
+know how they work, here is a very
+basic explanation! Amplitude is 
+the main value, how high or low
+the object would reach, Frequency 
+is how fast the Amp takes to go 
+from + to - through given time.
+"
+
+[node name="TextureRect" type="TextureRect" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -301.0
+offset_top = 34.0
+offset_right = -1.0
+offset_bottom = 257.0
+grow_horizontal = 0
+texture = ExtResource("18_ks30k")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -301.0
+offset_top = -165.0
+offset_bottom = 59.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("19_j6s72")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="FreqHigh" type="AnimatedSprite2D" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+position = Vector2(207, 313)
+scale = Vector2(0.43, 0.43)
+sprite_frames = SubResource("SpriteFrames_8t4wo")
+autoplay = "default"
+frame_progress = 0.678312
+
+[node name="FrqLow" type="AnimatedSprite2D" parent="TutorialPopUp/TabContainer/Basic Concepts/Control"]
+position = Vector2(68, 313)
+scale = Vector2(0.43, 0.43)
+sprite_frames = SubResource("SpriteFrames_1uusd")
+autoplay = "default"
+frame_progress = 0.336932
+
+[node name="Basic Controls" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp/TabContainer/Basic Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/Basic Controls/VBoxContainer"]
+layout_mode = 2
+text = "Held Sprite Inputs :
+- Moving Sprite : Click and drag around.
+- Move Origin : Arrow Keys or by holding Ctrl on your keyboard and pressing where you want the origin to be.
+- Scroll mouse wheel on sliders for more accurate results.
+
+Input Remap :
+- Click the button of the state you want. 
+
+to remap and then add the new button:
+- Change States with input : Captures Input
+when minimized if on.
+
+Control Bounce :
+- Click on bounce top bar to change the bounce and gravity to your desire.
+
+Mouse Controls :
+- Scroll Wheel to zoom in/ out.
+- Middle Mouse button to pan the camera."
+autowrap_mode = 2
+
+[node name="QNA" type="ScrollContainer" parent="TutorialPopUp/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp/TabContainer/QNA"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TutorialPopUp/TabContainer/QNA/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Who made this software?
+- TheMime (me) is the current main dev, buuut community help is still open and appreciated!
+
+Is this really PNGTubing or Vtubing or ???
+- This form of PNGTubing is the closest thing to Vtubing. Consider it a middle point I guess, lol. Still not as complex as real Vtuber models, so I personally thing it is PNGTubing still!
+
+Why is some of the code a bit of a mess?
+- When I first made this software, I barely knew much about coding, I won't lie when I tell you some code is embarrassing and I hope to improve it myself or with community help. You can find the source code's link in the credits!
+
+You mentioned ToonTubing in the the \"What is PNGTubing?\" tab. Will this ever get supported?
+- Maybe, I am currently working on a personal (private) demo to add a form of easy to understand visual scripting system to be able to pull this sort of stuff. Wish me luck lol!
+
+How can I support this project?
+- You can simply share it around (but please don't be annoying) and show off your model made in it. Adding credit at some point to the software would be nice!
+
+(If i ever got more common questions, will put them here!)"
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopUp"]
+visible = false
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 596.0
+offset_bottom = 433.0
+
+[node name="TutorialLabel" type="Label" parent="TutorialPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Tutorial!
+"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="TutorialPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Held Sprite Inputs :
+- Moving Sprite : Click and drag around.
+- Move Origin : Arrow Keys or by holding Ctrl on your keyboard 
+and pressing where you want the origin to be.
+- Scroll mouse wheel on sliders for more accurate results.
+
+Input Remap :
+- Click the button of the state you want. 
+to remap and then add the new button.
+- Change States with input : Captures Input
+when minimized if on.
+
+Control Bounce :
+- Click on bounce top bar to change the bounce
+and gravity to your desire."
+vertical_alignment = 1
+
+[node name="CreditPopUp" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(435, 207)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditPopUp"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 431.0
+offset_bottom = 203.0
+
+[node name="AboutLabel" type="Label" parent="CreditPopUp/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "About
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CreditPopUp/VBoxContainer"]
+layout_mode = 2
+text = "This is a PNGTubing App made to be as lightweight 
+and easy to use as possible.
+This app is based off PNGTuber+.
+Main goal is to implement new features as fix bugs 
+from the original software and improve existing ones."
+
+[node name="InputsPopup" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 4
+size = Vector2i(471, 657)
+unresizable = false
+borderless = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="InputsPopup"]
+custom_minimum_size = Vector2(420, 200)
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.019
+anchor_right = 0.98
+anchor_bottom = 0.981
+offset_left = -7.304
+offset_top = -8.483
+offset_right = 5.41998
+offset_bottom = 35.483
+mouse_filter = 2
+
+[node name="GridContainer2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/h_separation = 8
+columns = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VolumeLabel" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 20
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumeBar" type="ProgressBar" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+max_value = 1.0
+
+[node name="VolumeSlider" type="HSlider" parent="InputsPopup/VBoxContainer2/GridContainer2/VolumeBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("22_suo2n")
+theme_override_icons/grabber_highlight = ExtResource("22_suo2n")
+theme_override_icons/grabber_disabled = ExtResource("22_suo2n")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="DelayLabel" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 20
+text = "Delay"
+horizontal_alignment = 1
+
+[node name="DelayBar" type="ProgressBar" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+max_value = 1.0
+
+[node name="DelaySlider" type="HSlider" parent="InputsPopup/VBoxContainer2/GridContainer2/DelayBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("22_suo2n")
+theme_override_icons/grabber_highlight = ExtResource("22_suo2n")
+theme_override_icons/grabber_disabled = ExtResource("22_suo2n")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="Sp" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Sp2" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SensitivityLabel" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 20
+text = "Vol. Sensitivity"
+horizontal_alignment = 1
+
+[node name="SensitivityBar" type="ProgressBar" parent="InputsPopup/VBoxContainer2/GridContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="SensitivitySlider" type="HSlider" parent="InputsPopup/VBoxContainer2/GridContainer2/SensitivityBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("22_suo2n")
+theme_override_icons/grabber_highlight = ExtResource("22_suo2n")
+theme_override_icons/grabber_disabled = ExtResource("22_suo2n")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+min_value = 1.0
+max_value = 10.0
+step = 0.01
+value = 1.0
+
+[node name="GridContainer" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
+custom_minimum_size = Vector2(428, 0)
+layout_mode = 2
+
+[node name="Sp2" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer"]
+custom_minimum_size = Vector2(428, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="InputCheckButton" type="CheckButton" parent="InputsPopup/VBoxContainer2/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(262, 27)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+button_pressed = true
+text = "Change States With Inputs : "
+alignment = 1
+
+[node name="AntiAlCheck" type="CheckButton" parent="InputsPopup/VBoxContainer2/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(262, 27)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+button_pressed = true
+text = "Anti-Aliasing : "
+alignment = 1
+
+[node name="AutoLoadCheck" type="CheckButton" parent="InputsPopup/VBoxContainer2/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(262, 27)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+text = "Auto-Load Model : "
+alignment = 1
+
+[node name="HBox2" type="HBoxContainer" parent="InputsPopup/VBoxContainer2/GridContainer"]
+layout_mode = 2
+
+[node name="SaveOnExitCheck" type="CheckButton" parent="InputsPopup/VBoxContainer2/GridContainer/HBox2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(262, 27)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+text = "Save Date On Exit  : "
+alignment = 1
+
+[node name="Label" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer/HBox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "(Helps remember toggled assets)"
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="InputsPopup/VBoxContainer2/GridContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AutoSaveCheck" type="CheckButton" parent="InputsPopup/VBoxContainer2/GridContainer/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Auto-Save"
+alignment = 1
+
+[node name="AutoSaveSpin" type="SpinBox" parent="InputsPopup/VBoxContainer2/GridContainer/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+suffix = "min"
+script = ExtResource("23_t65gs")
+
+[node name="AutoSaveTimer" type="Timer" parent="InputsPopup/VBoxContainer2/GridContainer/HBox"]
+unique_name_in_owner = true
+wait_time = 60.0
+
+[node name="HBox3" type="HBoxContainer" parent="InputsPopup/VBoxContainer2/GridContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Record FPS : "
+
+[node name="FpsSping" type="SpinBox" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(158, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+min_value = 1.0
+max_value = 120.0
+value = 24.0
+script = ExtResource("23_t65gs")
+
+[node name="FileType" type="OptionButton" parent="InputsPopup/VBoxContainer2/GridContainer/HBox3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "Image Sequence"
+popup/item_1/text = "Apng"
+popup/item_1/id = 1
+
+[node name="DeltaTimeCheck" type="CheckBox" parent="InputsPopup/VBoxContainer2/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+tooltip_text = "The movement Ticks uses (Tick + 1 every frame),
+which could lead to very strong movements even with low 
+movement values.
+Using DeltaTime makes it slower ( Tick + 0.016 every frame) 
+and more forgiving to use higher values. 
+This needs to be set for every model to prevent sharing issues."
+text = "Use DeltaTime  "
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup/VBoxContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MaxFPSLabel" type="Label" parent="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(144, 0)
+layout_mode = 2
+text = "Max FPS : "
+
+[node name="MaxFPSlider" type="HSlider" parent="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 30.0
+max_value = 241.0
+value = 241.0
+
+[node name="Sp3" type="HSeparator" parent="InputsPopup/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InputsPopup/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+theme_override_constants/separation = 7
+
+[node name="MicLabel" type="Label" parent="InputsPopup/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Used Microphone : "
+
+[node name="MicroPhoneMenu" type="MenuButton" parent="InputsPopup/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 17
+text = "Default"
+flat = false
+text_overrun_behavior = 3
+
+[node name="ResetMicButton" type="TextureButton" parent="InputsPopup/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+tooltip_text = "Update Mic list"
+button_mask = 7
+texture_normal = ExtResource("24_14r3m")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VBoxContainer2" type="Control" parent="InputsPopup/VBoxContainer2"]
+custom_minimum_size = Vector2(415, 210)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel2" type="Panel" parent="InputsPopup/VBoxContainer2/VBoxContainer2"]
+custom_minimum_size = Vector2(420, 210)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RemapLabel" type="Label" parent="InputsPopup/VBoxContainer2/VBoxContainer2/Panel2"]
+layout_mode = 2
+anchor_right = 0.991
+offset_left = 2.0
+offset_right = -0.130035
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 17
+text = "Remap States Input :"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="InputsPopup/VBoxContainer2/VBoxContainer2/Panel2"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 29.0
+offset_right = -4.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="VBoxContainer" parent="InputsPopup/VBoxContainer2/VBoxContainer2/Panel2/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Grid2" type="GridContainer" parent="InputsPopup/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 2
+
+[node name="ThemeLabel" type="Label" parent="InputsPopup/VBoxContainer2/Grid2"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 20
+text = "UI Theme : "
+vertical_alignment = 2
+max_lines_visible = 5
+
+[node name="UIThemeButton" type="OptionButton" parent="InputsPopup/VBoxContainer2/Grid2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+item_count = 7
+popup/item_0/text = "Purple"
+popup/item_1/text = "Blue"
+popup/item_1/id = 1
+popup/item_2/text = "Orange"
+popup/item_2/id = 2
+popup/item_3/text = "White"
+popup/item_3/id = 3
+popup/item_4/text = "Dark"
+popup/item_4/id = 4
+popup/item_5/text = "Green"
+popup/item_5/id = 5
+popup/item_6/text = "Funky"
+popup/item_6/id = 6
+
+[node name="BounceControlPopup" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(320, 397)
+unresizable = false
+borderless = false
+
+[node name="GridContainer" type="GridContainer" parent="BounceControlPopup"]
+custom_minimum_size = Vector2(300, 0)
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 316.0
+offset_bottom = 393.0
+
+[node name="BounceAmount" type="Label" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects Model Bouncing"
+mouse_filter = 1
+text = "Bounce Amount : "
+
+[node name="BounceAmountSlider" parent="BounceControlPopup/GridContainer" instance=ExtResource("25_715by")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 3000.0
+step = 1.0
+ui_type = 3
+
+[node name="GravityAmount" type="Label" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bounce Gravity : "
+
+[node name="GravityAmountSlider" parent="BounceControlPopup/GridContainer" instance=ExtResource("25_715by")]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 3000.0
+step = 1.0
+ui_type = 3
+
+[node name="HSeparator" type="HSeparator" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="XFreqWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling"
+mouse_filter = 1
+text = "X-Frequency Wobble :"
+
+[node name="XFreqWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="VBox2" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="XAmpWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox2"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling"
+mouse_filter = 1
+text = "X-Amplitude Wobble :"
+
+[node name="XAmpWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="HSeparator2" type="HSeparator" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+
+[node name="VBox3" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="YFreqWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox3"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling and Squishing"
+mouse_filter = 1
+text = "Y-Frequency Wobble :"
+
+[node name="YFreqWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="VBox4" type="VBoxContainer" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="YAmpWobbleLabel" type="Label" parent="BounceControlPopup/GridContainer/VBox4"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Affects the Wobbling and Squishing"
+mouse_filter = 1
+text = "Y-Frequency Wobble :"
+
+[node name="YAmpWobbleSlider" type="HSlider" parent="BounceControlPopup/GridContainer/VBox4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="HSeparator3" type="HSeparator" parent="BounceControlPopup/GridContainer"]
+layout_mode = 2
+
+[node name="BounceStateCheck" type="CheckBox" parent="BounceControlPopup/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Bounce when changing states    "
+
+[node name="Background" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(284, 412)
+
+[node name="BGColorPicker" type="ColorPicker" parent="Background"]
+unique_name_in_owner = true
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 280.0
+offset_bottom = 412.0
+mouse_filter = 0
+edit_alpha = false
+color_mode = 1
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+presets_visible = false
+
+[connection signal="pressed" from="TopBar/HBox/BounceControlButton" to="TopBarInput" method="_on_bounce_control_button_pressed"]
+[connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
+[connection signal="toggled" from="TopBar/HBox/RecordButton" to="TopBarInput" method="_on_record_button_toggled"]
+[connection signal="canceled" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_canceled"]
+[connection signal="close_requested" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_close_requested"]
+[connection signal="confirmed" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_confirmed"]
+[connection signal="file_selected" from="TopBar/HBox/RecordButton/FileDialog" to="TopBarInput" method="_on_file_dialog_file_selected"]
+[connection signal="toggled" from="TopBar/HBox/PreviewModeCheck" to="TopBarInput" method="_on_preview_mode_check_toggled"]
+[connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
+[connection signal="pressed" from="TopBar/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
+[connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
+[connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/TumblrButton" to="OnlineLinks" method="_on_tumblr_button_pressed"]
+[connection signal="pressed" from="AboutPopUp/VBoxContainer/GridContainer/RedditButton" to="OnlineLinks" method="_on_reddit_button_pressed"]
+[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BasicTempButton" to="TopBarInput" method="_on_basic_temp_button_pressed"]
+[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BGTempButton" to="TopBarInput" method="_on_bg_temp_button_pressed"]
+[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/NormalmTempButton" to="TopBarInput" method="_on_normalm_temp_button_pressed"]
+[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/FollowMouseTempButton" to="TopBarInput" method="_on_follow_mouse_temp_button_pressed"]
+[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/AssetTempButton" to="TopBarInput" method="_on_asset_temp_button_pressed"]
+[connection signal="drag_ended" from="InputsPopup/VBoxContainer2/GridContainer2/VolumeBar/VolumeSlider" to="." method="_on_volume_slider_drag_ended"]
+[connection signal="drag_ended" from="InputsPopup/VBoxContainer2/GridContainer2/DelayBar/DelaySlider" to="." method="_on_delay_slider_drag_ended"]
+[connection signal="drag_ended" from="InputsPopup/VBoxContainer2/GridContainer2/SensitivityBar/SensitivitySlider" to="." method="_on_sensitivity_slider_drag_ended"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/InputCheckButton" to="TopBarInput" method="_on_input_check_button_toggled"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/AntiAlCheck" to="TopBarInput" method="_on_anti_al_check_toggled"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveCheck" to="TopBarInput" method="_on_auto_save_check_toggled"]
+[connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveSpin" to="TopBarInput" method="_on_auto_save_spin_value_changed"]
+[connection signal="timeout" from="InputsPopup/VBoxContainer2/GridContainer/HBox/AutoSaveTimer" to="TopBarInput" method="_on_auto_save_timer_timeout"]
+[connection signal="item_selected" from="InputsPopup/VBoxContainer2/GridContainer/HBox3/FileType" to="TopBarInput" method="_on_file_type_item_selected"]
+[connection signal="toggled" from="InputsPopup/VBoxContainer2/GridContainer/DeltaTimeCheck" to="TopBarInput" method="_on_delta_time_check_toggled"]
+[connection signal="drag_ended" from="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer/MaxFPSlider" to="TopBarInput" method="_on_max_fp_slider_drag_ended"]
+[connection signal="value_changed" from="InputsPopup/VBoxContainer2/GridContainer/HBoxContainer/MaxFPSlider" to="TopBarInput" method="_on_max_fp_slider_value_changed"]
+[connection signal="pressed" from="InputsPopup/VBoxContainer2/HBoxContainer/ResetMicButton" to="TopBarInput" method="_on_reset_mic_button_pressed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox/XFreqWobbleSlider" to="TopBarInput" method="_on_x_freq_wobble_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox2/XAmpWobbleSlider" to="TopBarInput" method="_on_x_amp_wobble_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox3/YFreqWobbleSlider" to="TopBarInput" method="_on_y_freq_wobble_slider_value_changed"]
+[connection signal="value_changed" from="BounceControlPopup/GridContainer/VBox4/YAmpWobbleSlider" to="TopBarInput" method="_on_y_amp_wobble_slider_value_changed"]
+[connection signal="toggled" from="BounceControlPopup/GridContainer/BounceStateCheck" to="TopBarInput" method="_on_bounce_state_check_toggled"]
+[connection signal="focus_entered" from="Background" to="TopBarInput" method="_on_background_focus_entered"]
+[connection signal="focus_exited" from="Background" to="TopBarInput" method="_on_background_focus_exited"]
+[connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]

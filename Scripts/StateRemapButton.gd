@@ -57,5 +57,3 @@ func _on_remove_pressed():
 	if InputMap.action_get_events(action).size() != 0:
 		InputMap.action_erase_events(action)
 		update_key_text()
-
-

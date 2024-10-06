@@ -32,7 +32,7 @@ void fragment() {
 		rot_uv = rotated_uv;
 	}
 	else {
-		
+
 		rot_uv = UV;
 	}
 
@@ -66,9 +66,7 @@ void fragment() {
 		COLOR.rgb = output.rgb;
 
 	}
-	
+
 
 
 }
-
-

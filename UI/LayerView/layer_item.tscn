@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cfjpkynuomjse"]
+[gd_scene load_steps=15 format=3 uid="uid://cfjpkynuomjse"]
 
 [ext_resource type="Texture2D" uid="uid://djvq48ngt4g2q" path="res://UI/LayerView/Assets/New folder/Collapse1.png" id="1_6761a"]
 [ext_resource type="Script" path="res://UI/LayerView/Scripts/layer_item.gd" id="1_l3niq"]
@@ -11,7 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://dmp476rwkambq" path="res://UI/LayerView/Assets/New folder/EyeButton.png" id="7_0ogu2"]
 [ext_resource type="Texture2D" uid="uid://fq0xpdjqn7sk" path="res://UI/LayerView/Assets/New folder/EyeButton2.png" id="8_cfyu2"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r3uah"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_go0j8"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gktpn"]
+color = Color(0.158472, 0.158472, 0.158472, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vc2uw"]
 bg_color = Color(1, 1, 1, 1)
@@ -23,70 +26,102 @@ border_width_bottom = 1
 
 [sub_resource type="ImageTexture" id="ImageTexture_slif5"]
 
-[node name="LayerItem" type="PanelContainer" groups=["Layers"]]
+[node name="VBoxContainer" type="VBoxContainer"]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 29.0
 grow_horizontal = 2
 size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="LayerItem" type="PanelContainer" parent="." groups=["Layers"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 focus_mode = 1
-theme_override_styles/panel = SubResource("StyleBoxEmpty_r3uah")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_go0j8")
 script = ExtResource("1_l3niq")
 
-[node name="Select" type="PanelContainer" parent="."]
+[node name="HSeparator2" type="HSeparator" parent="LayerItem"]
 visible = false
 layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = -1
+theme_override_styles/separator = SubResource("StyleBoxLine_gktpn")
+
+[node name="Panel" type="Panel" parent="LayerItem"]
+self_modulate = Color(1, 1, 1, 0.156863)
+custom_minimum_size = Vector2(0, 29)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Select" type="PanelContainer" parent="LayerItem/Panel"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+z_as_relative = false
+layout_mode = 2
+offset_right = 1280.0
+offset_bottom = 30.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vc2uw")
 
-[node name="Layout" type="HBoxContainer" parent="."]
+[node name="Layout" type="HBoxContainer" parent="LayerItem"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="Layout"]
+[node name="Control" type="Control" parent="LayerItem/Layout"]
+custom_minimum_size = Vector2(1, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Intend" type="TextureRect" parent="Layout/Control"]
+[node name="Intend" type="TextureRect" parent="LayerItem/Layout/Control"]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(0.23, 0.23, 0.23, 0.588235)
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = -1
+anchor_top = 0.000482755
 anchor_bottom = 1.0
-offset_top = 11.0
+offset_top = -0.0139999
 offset_right = 2.0
 offset_bottom = -16.0
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_t3juo")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="Intend2" type="TextureRect" parent="Layout/Control"]
+[node name="Intend2" type="TextureRect" parent="LayerItem/Layout/Control"]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(0.23, 0.23, 0.23, 0.588235)
 custom_minimum_size = Vector2(10, 2)
 layout_mode = 2
-offset_left = -2.0
-offset_top = 11.0
+anchor_top = -0.033
+anchor_bottom = -0.033
+offset_top = 11.957
 offset_right = 12.0
-offset_bottom = 13.0
+offset_bottom = 13.957
 size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("3_t7tql")
 expand_mode = 1
 
-[node name="LayerVBox" type="VBoxContainer" parent="Layout"]
+[node name="LayerVBox" type="VBoxContainer" parent="LayerItem/Layout"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
-[node name="LayerHBox" type="HBoxContainer" parent="Layout/LayerVBox"]
+[node name="LayerHBox" type="HBoxContainer" parent="LayerItem/Layout/LayerVBox"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Collapse" type="TextureButton" parent="Layout/LayerVBox/LayerHBox"]
+[node name="Collapse" type="TextureButton" parent="LayerItem/Layout/LayerVBox/LayerHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(12, 12)
 layout_mode = 2
@@ -100,10 +135,11 @@ texture_pressed = ExtResource("2_wqf1w")
 texture_disabled = SubResource("ImageTexture_slif5")
 stretch_mode = 0
 
-[node name="SideButtons" type="HBoxContainer" parent="Layout/LayerVBox/LayerHBox"]
+[node name="SideButtons" type="HBoxContainer" parent="LayerItem/Layout/LayerVBox/LayerHBox"]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="Visiblity" type="TextureButton" parent="Layout/LayerVBox/LayerHBox/SideButtons"]
+[node name="Visiblity" type="TextureButton" parent="LayerItem/Layout/LayerVBox/LayerHBox/SideButtons"]
 unique_name_in_owner = true
 texture_filter = 1
 custom_minimum_size = Vector2(12, 12)
@@ -114,7 +150,7 @@ toggle_mode = true
 texture_normal = ExtResource("7_0ogu2")
 texture_pressed = ExtResource("8_cfyu2")
 
-[node name="Icon" type="TextureRect" parent="Layout/LayerVBox/LayerHBox"]
+[node name="Icon" type="TextureRect" parent="LayerItem/Layout/LayerVBox/LayerHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
@@ -125,7 +161,7 @@ texture = ExtResource("1_msyel")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NameLabel" type="Label" parent="Layout/LayerVBox/LayerHBox"]
+[node name="NameLabel" type="Label" parent="LayerItem/Layout/LayerVBox/LayerHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -133,7 +169,7 @@ text = "Name"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="MoveUp" type="TextureButton" parent="Layout/LayerVBox/LayerHBox"]
+[node name="MoveUp" type="TextureButton" parent="LayerItem/Layout/LayerVBox/LayerHBox"]
 texture_filter = 1
 custom_minimum_size = Vector2(12, 12)
 layout_mode = 2
@@ -142,7 +178,7 @@ size_flags_vertical = 4
 texture_normal = ExtResource("5_2xg42")
 stretch_mode = 0
 
-[node name="MoveDown" type="TextureButton" parent="Layout/LayerVBox/LayerHBox"]
+[node name="MoveDown" type="TextureButton" parent="LayerItem/Layout/LayerVBox/LayerHBox"]
 texture_filter = 1
 custom_minimum_size = Vector2(12, 12)
 layout_mode = 2
@@ -150,33 +186,44 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 texture_normal = ExtResource("6_mmski")
 
-[node name="OtherLayers" type="VBoxContainer" parent="Layout/LayerVBox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Drop2" type="ColorRect" parent="."]
+[node name="Drop2" type="ColorRect" parent="LayerItem"]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Drop1" type="ColorRect" parent="."]
+[node name="Drop1" type="ColorRect" parent="LayerItem"]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="toggled" from="Layout/LayerVBox/LayerHBox/Collapse" to="." method="_on_collapse_toggled"]
-[connection signal="toggled" from="Layout/LayerVBox/LayerHBox/SideButtons/Visiblity" to="." method="_on_visiblity_toggled"]
-[connection signal="pressed" from="Layout/LayerVBox/LayerHBox/MoveUp" to="." method="_on_move_up_pressed"]
-[connection signal="pressed" from="Layout/LayerVBox/LayerHBox/MoveDown" to="." method="_on_move_down_pressed"]
-[connection signal="mouse_entered" from="Drop2" to="." method="_on_drop_2_mouse_entered"]
-[connection signal="mouse_exited" from="Drop2" to="." method="_on_drop_2_mouse_exited"]
-[connection signal="mouse_entered" from="Drop1" to="." method="_on_drop_1_mouse_entered"]
-[connection signal="mouse_exited" from="Drop1" to="." method="_on_drop_1_mouse_exited"]
+[node name="T" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="T"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="OtherLayers" type="VBoxContainer" parent="T"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="focus_entered" from="LayerItem" to="LayerItem" method="_on_focus_entered"]
+[connection signal="mouse_entered" from="LayerItem" to="LayerItem" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="LayerItem" to="LayerItem" method="_on_mouse_exited"]
+[connection signal="toggled" from="LayerItem/Layout/LayerVBox/LayerHBox/Collapse" to="LayerItem" method="_on_collapse_toggled"]
+[connection signal="toggled" from="LayerItem/Layout/LayerVBox/LayerHBox/SideButtons/Visiblity" to="LayerItem" method="_on_visiblity_toggled"]
+[connection signal="pressed" from="LayerItem/Layout/LayerVBox/LayerHBox/MoveUp" to="LayerItem" method="_on_move_up_pressed"]
+[connection signal="pressed" from="LayerItem/Layout/LayerVBox/LayerHBox/MoveDown" to="LayerItem" method="_on_move_down_pressed"]
+[connection signal="mouse_entered" from="LayerItem/Drop2" to="LayerItem" method="_on_drop_2_mouse_entered"]
+[connection signal="mouse_exited" from="LayerItem/Drop2" to="LayerItem" method="_on_drop_2_mouse_exited"]
+[connection signal="mouse_entered" from="LayerItem/Drop1" to="LayerItem" method="_on_drop_1_mouse_entered"]
+[connection signal="mouse_exited" from="LayerItem/Drop1" to="LayerItem" method="_on_drop_1_mouse_exited"]

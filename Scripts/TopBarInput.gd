@@ -42,9 +42,9 @@ func _ready():
 func choosing_window(id):
 	match id:
 		0:
-			%_Themes_.toggle_borders()
+			Themes.toggle_borders()
 		1:
-			%_Themes_.window_size_changed()
+			Themes.window_size_changed()
 
 
 
@@ -88,21 +88,11 @@ func choosing_files(id):
 func choosing_mode(id):
 	match id:
 		0:
-			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
+			get_parent().get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
 			get_viewport().transparent_bg = false
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
-			%RightPanel.show()
-			%LeftPanel.show()
-			%ViewportCam.show()
-			%CurrentSelVbox.show()
-			%LayersButtons.show()
-			%PanelL.show()
-			%HideUIButton.show()
-			%LayersViewSplit.show()
-			
-			%ScrollContainer.show()
+			get_tree().get_root().get_node("Main/%Control").show()
 			%HideUIButton.button_pressed = true
-			
 			is_editor = true
 			%PreviewModeCheck.show()
 			
@@ -110,45 +100,31 @@ func choosing_mode(id):
 				
 		
 		1:
-			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
+			get_parent().get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
 			RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
 			get_viewport().transparent_bg = Global.settings_dict.is_transparent
-			%RightPanel.hide()
-			%LeftPanel.hide()
+			get_tree().get_root().get_node("Main/%Control").hide()
 			is_editor = false
 			light.get_node("Grab").hide()
-			%LSShapeVis.button_pressed = false
+			get_tree().get_root().get_node("Main/%Control/%LSShapeVis").button_pressed = false
 			%HideUIButton.hide()
 			%HideUIButton.button_pressed = false
-			%UIInput.held_sprite_is_null()
+			Global.deselect.emit()
 			%PreviewModeCheck.hide()
 			Global.static_view = false
 			%PreviewModeCheck.button_pressed = false
 			
 		
-			'''
-		2:
-			get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 2
-			%LeftPanel.show()
-			%LayersButtons.hide()
-			%LayersViewSplit.hide()
-			%RightPanel.show()
-			%ScrollContainer.hide()
-			%ScrollContainer2.show()
-			%LayersButtons2.show()
-			%HideUIButton.show()
-			%HideUIButton.button_pressed = true
-			%PreviewModeCheck.hide()
-			Global.static_view = false
-			%PreviewModeCheck.button_pressed = false
-			
-		'''
-	%_Themes_.theme_settings.mode = id
-	%_Themes_.save()
+
+	Themes.theme_settings.mode = id
+	Global.mode = id
+	Themes.save()
 	desel_everything()
 
 func choosing_bg_color(id):
 	Global.settings_dict.is_transparent = false
+	ProjectSettings.set_setting("display/window/per_pixel_transparency/allowed", false)
+	ProjectSettings.set_setting("display/window/size/transparent", false)
 	match id:
 		0:
 			Global.settings_dict.bg_color = Color.RED
@@ -160,6 +136,8 @@ func choosing_bg_color(id):
 			Global.settings_dict.bg_color = Color.MAGENTA
 		4:
 			Global.settings_dict.bg_color = Color.DIM_GRAY
+			ProjectSettings.set_setting("display/window/per_pixel_transparency/allowed", true)
+			ProjectSettings.set_setting("display/window/size/transparent", true)
 			Global.settings_dict.is_transparent  = true
 		5:
 			Global.settings_dict.bg_color = Color.SLATE_GRAY
@@ -238,8 +216,7 @@ func origin_alias():
 
 
 func _on_hide_ui_button_toggled(toggled_on):
-	%LeftPanel.visible = toggled_on
-	%RightPanel.visible = toggled_on
+	get_tree().get_root().get_node("Main/%Control").visible = toggled_on
 
 
 func _on_basic_temp_button_pressed():
@@ -292,8 +269,7 @@ func desel_everything():
 			Global.held_bg_sprite.get_node("Pos//Wobble/Squish/Drag/Sprite2D/Origin").hide()
 	Global.held_sprite = null
 	Global.held_bg_sprite = null
-	%UIInput.held_sprite_is_null()
-	%LayerViewBG.deselect_all()
+	Global.deselect.emit()
 	%DeselectButton.hide()
 
 func _on_bounce_state_check_toggled(toggled_on):
@@ -363,7 +339,7 @@ func _on_file_dialog_confirmed() -> void:
 func _on_file_dialog_file_selected(savpath):
 	
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").output_folder = savpath
-	if %_Themes_.theme_settings.as_apng:
+	if Themes.theme_settings.as_apng:
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").savea()
 	else:
 		get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").save()
@@ -371,13 +347,13 @@ func _on_file_dialog_file_selected(savpath):
 func _on_file_type_item_selected(index):
 	match index:
 		0:
-			%_Themes_.theme_settings.as_apng = false
+			Themes.theme_settings.as_apng = false
 			%FileDialog.filters = ["*.png"]
 			
 		1:
-			%_Themes_.theme_settings.as_apng = true
+			Themes.theme_settings.as_apng = true
 			%FileDialog.filters = ["*.apng"]
-	%_Themes_.save()
+	Themes.save()
 	
 
 func _on_delta_time_check_toggled(toggled_on: bool) -> void:

@@ -254,25 +254,25 @@ func _on_file_dialog_files_selected(paths):
 			sprite_nodes.append(sprte_obj)
 			
 
-		$Control._added_tree(sprite_nodes)
+		%Control._added_tree(sprite_nodes)
 
 
 func _on_confirmation_dialog_confirmed():
-	$Control/_Themes_.theme_settings.path = null
-	$Control/TopBarInput.path = null
-	$Control/TopBarInput.last_path = ""
+	%Control/_Themes_.theme_settings.path = null
+	%TopUI/TopBarInput.path = null
+	%TopUI/TopBarInput.last_path = ""
 	clear_sprites()
 	Global.settings_dict.max_fps = 241
-	$Control.update_fps(241)
-	$Control/%MaxFPSlider.value = 241
+	%TopUI.update_fps(241)
+	%TopUI/%MaxFPSlider.value = 241
 	
 	
 
 func clear_sprites():
 	Global.held_sprite = null
-	$Control/UIInput.held_sprite_is_null()
+	%Control/UIInput.held_sprite_is_null()
 	
-	for i in $Control/%LayerViewBG.get_node("%LayerVBox").get_children():
+	for i in %Control/%LayerViewBG.get_node("%LayerVBox").get_children():
 		i.free()
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		if InputMap.has_action(str(i.sprite_id)):
@@ -282,8 +282,8 @@ func clear_sprites():
 		i.free()
 		
 
-	$Control/StatesStuff.delete_all_states()
-	$Control/StatesStuff.initial_state()
+	%Control/StatesStuff.delete_all_states()
+	%Control/StatesStuff.initial_state()
 	%Camera2D.zoom = Vector2(1,1)
 	%CamPos.global_position = Vector2(640, 360)
 	Global.settings_dict.zoom = Vector2(1,1)

@@ -1,5 +1,7 @@
 extends PanelContainer
 class_name LayerItem
+
+@warning_ignore("unused_signal")
 signal sprite_info 
 
 static var dragged_item = null
@@ -12,19 +14,21 @@ static var selected_layer : LayerItem
 
 func deselect() -> void:
 	selected_layer = null
-	$Select.hide()
+	%Select.hide()
 
 func _on_focus_entered() -> void:
 	for i in get_tree().get_nodes_in_group("Layers"):
 		i.deselect()
 		
-	$Select.show()
+	%Select.show()
 	if Global.held_sprite != null:
 		if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Origin"):
 			Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Origin").hide()
 	Global.held_sprite = data.sprite_object
 	if Global.held_sprite.has_node("Pos//Wobble/Squish/Drag/Rotation/Origin"):
 		Global.held_sprite.get_node("Pos//Wobble/Squish/Drag/Rotation/Origin").show()
+		
+	Global.reinfo.emit()
 	layer_holder.emit_signal("sprite_info")
 	selected_layer = self
 
@@ -33,13 +37,13 @@ func _on_focus_entered() -> void:
 func _on_mouse_entered() -> void:
 	if has_focus():
 		return
-	$Select.show()
+	%Select.show()
 
 
 func _on_mouse_exited() -> void:
 	if has_focus():
 		return
-	$Select.hide()
+	%Select.hide()
 
 
 
@@ -81,11 +85,12 @@ func _drop_data(at_position: Vector2, newdata: Variant) -> void:
 			
 			#
 			
-			newdata.get_parent().remove_child(newdata)
-			other_item.get_node("%Intend").show()
+			newdata.get_parent().get_parent().remove_child(newdata.get_parent())
+			other_item.get_node("%Intend2").show()
 			newdata.get_node("%Intend2").show()
-			other_item.get_node("%OtherLayers").show()
-			other_item.get_node("%OtherLayers").add_child(newdata)
+			newdata.get_node("%Intend").show()
+			other_item.get_node("%T").show()
+			other_item.get_node("%OtherLayers").add_child(newdata.get_parent())
 			other_item.get_node("%Collapse").disabled = false
 			
 			newdata.data.sprite_object.get_parent().remove_child(newdata.data.sprite_object)
@@ -94,51 +99,51 @@ func _drop_data(at_position: Vector2, newdata: Variant) -> void:
 			
 		
 		if drop_place == 1:
-			if other_item.get_parent() != newdata.get_parent():
-				if other_item.get_parent().name == "LayerVBox":
+			if other_item.get_parent().get_parent() != newdata.get_parent().get_parent():
+				if other_item.get_parent().get_parent().name == "LayerVBox":
 					newdata.get_node("%Intend2").hide()
 					newdata.data.sprite_object.parent_id = 0
 				else:
 					other_item.get_node("%Intend").show()
 					newdata.get_node("%Intend2").show()
 					newdata.data.sprite_object.parent_id = other_item.data.sprite_object.parent_id
-				newdata.get_parent().remove_child(newdata)
-				other_item.get_parent().add_child(newdata)
-				other_item.get_parent().move_child(newdata, clamp(other_item.get_index(), 0, other_item.get_index() + 1))
+				newdata.get_parent().get_parent().remove_child(newdata.get_parent())
+				other_item.get_parent().get_parent().add_child(newdata.get_parent())
+				other_item.get_parent().get_parent().move_child(newdata.get_parent(), clamp(other_item.get_parent().get_index(), 0, other_item.get_parent().get_index() + 1))
 				
 				newdata.data.sprite_object.get_parent().remove_child(newdata.data.sprite_object)
 				other_item.data.sprite_object.get_node("%Sprite2D").add_child(newdata.data.sprite_object)
-				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object,newdata.get_index())
+				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object,newdata.get_parent().get_index())
 				
 				
 				
 			else:
-				newdata.get_parent().move_child(newdata, clamp(other_item.get_index(), 0, other_item.get_index() + 1))
-				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object,newdata.get_index())
+				newdata.get_parent().get_parent().move_child(newdata.get_parent(), clamp(other_item.get_parent().get_index(), 0, other_item.get_parent().get_index() + 1))
+				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object,newdata.get_parent().get_index())
 				
 				
 			
 		if drop_place == -1:
-			if other_item.get_parent() != newdata.get_parent():
-				if other_item.get_parent().name == "LayerVBox":
+			if other_item.get_parent().get_parent() != newdata.get_parent().get_parent():
+				if other_item.get_parent().get_parent().name == "LayerVBox":
 					newdata.data.sprite_object.parent_id = 0
 					newdata.get_node("%Intend2").hide()
 				else:
 					other_item.get_node("%Intend").show()
 					newdata.get_node("%Intend2").show()
 					newdata.data.sprite_object.parent_id = other_item.data.sprite_object.parent_id
-				newdata.get_parent().remove_child(newdata)
-				other_item.get_parent().add_child(newdata)
-				other_item.get_parent().move_child(newdata, clamp(other_item.get_index() + 1, 0, other_item.get_index() + 1))
+				newdata.get_parent().get_parent().remove_child(newdata.get_parent())
+				other_item.get_parent().get_parent().add_child(newdata.get_parent())
+				other_item.get_parent().get_parent().move_child(newdata.get_parent(), clamp(other_item.get_parent().get_index() + 1, 0, other_item.get_parent().get_index() + 1))
 				
 				newdata.data.sprite_object.get_parent().remove_child(newdata.data.sprite_object)
 				other_item.data.sprite_object.get_node("%Sprite2D").add_child(newdata.data.sprite_object)
-				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object, clamp(newdata.get_index(), 0, newdata.data.sprite_object.get_parent().get_child_count() - 1))
+				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object, clamp(newdata.get_parent().get_index(), 0, newdata.data.sprite_object.get_parent().get_child_count() - 1))
 				
 				
 			else:
-				newdata.get_parent().move_child(newdata, clamp(other_item.get_index() +1, 0, other_item.get_index() + 1))
-				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object,newdata.get_index())
+				newdata.get_parent().get_parent().move_child(newdata.get_parent(), clamp(other_item.get_parent().get_index() +1, 0, other_item.get_parent().get_index() + 1))
+				newdata.data.sprite_object.get_parent().move_child(newdata.data.sprite_object,newdata.get_parent().get_index())
 		
 		
 		drop_place = 0
@@ -147,6 +152,9 @@ func _drop_data(at_position: Vector2, newdata: Variant) -> void:
 				old_parent.get_node("%Intend").hide()
 				old_parent.get_node("%Collapse").disabled = true
 				old_parent.get_node("%Collapse").button_pressed = false
+				if old_parent.has_node("%T"):
+					old_parent.get_node("%T").hide()
+				
 
 
 func _get_item_at_pos(_at_position) -> Variant:
@@ -201,12 +209,12 @@ func get_all_layeritems(layeritem, recursive) -> Array:
 
 
 func _on_move_up_pressed() -> void:
-	get_parent().move_child(self, clamp(get_index() - 1, 0, get_parent().get_child_count() - 1))
-	data.sprite_object.get_parent().move_child(data.sprite_object, clamp(get_index(), 0, data.sprite_object.get_parent().get_child_count() - 1))
+	get_parent().get_parent().move_child(get_parent(), clamp(get_parent().get_index() - 1, 0, get_parent().get_parent().get_child_count() - 1))
+	data.sprite_object.get_parent().move_child(data.sprite_object, clamp(get_parent().get_index(), 0, data.sprite_object.get_parent().get_child_count() - 1))
 
 func _on_move_down_pressed() -> void:
-	get_parent().move_child(self, clamp(get_index() + 1, 0, get_parent().get_child_count() - 1))
-	data.sprite_object.get_parent().move_child(data.sprite_object, clamp(get_index(), 0, data.sprite_object.get_parent().get_child_count() - 1))
+	get_parent().get_parent().move_child(get_parent(), clamp(get_parent().get_index() + 1, 0, get_parent().get_parent().get_child_count() - 1))
+	data.sprite_object.get_parent().move_child(data.sprite_object, clamp(get_parent().get_index(), 0, data.sprite_object.get_parent().get_child_count() - 1))
 
 
 func _on_visiblity_toggled(toggled_on: bool) -> void:

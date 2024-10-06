@@ -2,8 +2,8 @@ extends PointLight2D
 
 var of = 0
 var dragging
-@onready var light_controls = get_tree().get_root().get_node("Main/Control/HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Misc/ScrollContainer5/VBoxContainer/HBox25")
-@onready var light_control_node = get_tree().get_root().get_node("Main/Control/LightControl")
+@onready var light_controls = get_tree().get_root().get_node("Main/%Control/%HBox25")
+@onready var light_control_node = get_tree().get_root().get_node("Main/%Control/LightControl")
 
 
 func _ready():

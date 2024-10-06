@@ -12,6 +12,13 @@ signal speaking
 signal not_speaking
 signal reinfoanim
 
+@warning_ignore("unused_signal")
+signal mode_changed
+@warning_ignore("unused_signal")
+signal deselect
+@warning_ignore("unused_signal")
+signal theme_update
+
 var blink_timer : Timer = Timer.new()
 var held_sprite = null
 var held_bg_sprite = null
@@ -51,6 +58,11 @@ var settings_dict : Dictionary = {
 	max_fps = 241,
 }
 
+var mode : int = 0 : 
+	set(nmode):
+		mode = nmode
+		mode_changed.emit(nmode)
+		
 #var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
 var static_view : bool = false

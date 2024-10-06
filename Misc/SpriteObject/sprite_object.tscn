@@ -22,7 +22,7 @@ shader_parameter/Blend = ExtResource("3_updi2")
 resource_local_to_scene = true
 shader = ExtResource("6_ww6s0")
 shader_parameter/line_color = Vector4(1, 1, 1, 1)
-shader_parameter/line_thickness = 2.0
+shader_parameter/line_thickness = 3.0
 shader_parameter/frequency = 10.0
 shader_parameter/phase_speed = 8.0
 shader_parameter/base_line_color = Vector4(0, 0, 0, 1)
@@ -64,7 +64,7 @@ texture = ExtResource("2_lsh2x")
 [node name="Sprite2D" type="Sprite2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_1tqhp")
-texture = ExtResource("5_bwuk4")
+texture = ExtResource("3_x1bf3")
 
 [node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
 unique_name_in_owner = true

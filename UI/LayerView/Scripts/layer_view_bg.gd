@@ -2,12 +2,13 @@ extends PanelContainer
 signal sprite_info 
 
 @onready var layers_popup: PopupMenu = $LayersPopup
-@onready var uiinput: = get_tree().get_root().get_node("Main/Control/UIInput")
-@onready var topbarinput: = get_tree().get_root().get_node("Main/Control/TopBarInput")
+@onready var uiinput: = get_tree().get_root().get_node("Main/%Control/UIInput")
+@onready var topbarinput: = get_tree().get_root().get_node("Main/%TopUI/TopBarInput")
 
 
 func _ready() -> void:
 	layers_popup.connect("id_pressed",choosing_layers_popup)
+	Global.deselect.connect(deselect_all)
 
 func deselect_all():
 	for i in get_tree().get_nodes_in_group("Layers"):

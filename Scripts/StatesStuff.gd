@@ -99,11 +99,11 @@ func add_state():
 		var remap_btn = preload("res://UI/StateButton/state_remap_button.tscn").instantiate()
 		remap_btn.get_node("State").text = "State " + button.text
 		remap_btn.get_node("StateRemapButton").action = "State " + str(button.state)
-		%Grid.add_child(remap_btn)
+		get_tree().get_root().get_node("Main/%TopUI/%Grid").add_child(remap_btn)
 		InputMap.add_action(remap_btn.get_node("StateRemapButton").action)
 		
 		Global.settings_dict.states.append({
-		mouth_closed = 0,
+		outh_closed = 0,
 		mouth_open = 3,
 		current_mc_anim = "Idle",
 		current_mo_anim = "One Bounce",
@@ -136,7 +136,7 @@ func update_states(states):
 		remap_btn.get_node("StateRemapButton").action = "State " + str(button.state)
 		InputMap.add_action("State " + str(button.state), 0.5)
 		
-		%Grid.add_child(remap_btn)
+		get_tree().get_root().get_node("Main/%TopUI/%Grid").add_child(remap_btn)
 		var state_count = get_tree().get_nodes_in_group("StateButtons").size()
 		for i in get_tree().get_nodes_in_group("Sprites"):
 			if i.states.size() != state_count:

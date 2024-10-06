@@ -1,5 +1,9 @@
 extends Node
 
+@onready var top_bar = get_tree().get_root().get_node("Main/%TopUI")
+var ui_theme
+
+
 @warning_ignore("integer_division")
 @onready var theme_settings : Dictionary = {
 	theme_id = 0,
@@ -39,14 +43,11 @@ func save():
 	save_file.close()
 
 func _ready():
-	%UIThemeButton.add_item("Purple", 0)
-	%UIThemeButton.add_item("Blue", 1)
-	%UIThemeButton.add_item("Orange", 2)
-	%UIThemeButton.add_item("White", 3)
-	%UIThemeButton.add_item("Dark", 4)
-	%UIThemeButton.add_item("Green", 5)
-	%UIThemeButton.add_item("Funky", 6)
+	await  get_tree().create_timer(0.1).timeout
+	ui_theme = get_tree().get_root().get_node("Main/%TopUI/%UIThemeButton")
+	top_bar = get_tree().get_root().get_node("Main/%TopUI")
 	
+	ui_theme.item_selected.connect(_on_ui_theme_button_item_selected)
 	var file = FileAccess
 	if file.file_exists(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat"):
 		var load_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.READ)
@@ -57,14 +58,14 @@ func _ready():
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
 			
-			%AutoLoadCheck.button_pressed = theme_settings.auto_load
-			%FpsSping.value = theme_settings.fps
+			top_bar.get_node("%AutoLoadCheck").button_pressed = theme_settings.auto_load
+			top_bar.get_node("%FpsSping").value = theme_settings.fps
 			if theme_settings.as_apng:
-				%TopBarInput._on_file_type_item_selected(1)
-				%FileType.select(1)
+				top_bar.get_node("%TopBarInput")._on_file_type_item_selected(1)
+				top_bar.get_node("%FileType").select(1)
 			else:
-				%TopBarInput._on_file_type_item_selected(0)
-				%FileType.select(0)
+				top_bar.get_node("%TopBarInput")._on_file_type_item_selected(0)
+				top_bar.get_node("%FileType").select(0)
 			
 			if theme_settings.screen_window == 0:
 				get_window().mode = get_window().MODE_WINDOWED
@@ -79,10 +80,10 @@ func _ready():
 			elif !theme_settings.borders:
 				get_window().borderless = true
 			
-			%HSplitContainer.split_offset = theme_settings.left
-			%HSplit.split_offset = theme_settings.right
-			%VSplitContainer.split_offset = theme_settings.properties
-			%LayersViewSplit.split_offset = theme_settings.layers
+			get_tree().get_root().get_node("Main/%Control/%HSplitContainer").split_offset = theme_settings.left
+			get_tree().get_root().get_node("Main/%Control/%HSplit").split_offset = theme_settings.right
+			get_tree().get_root().get_node("Main/%Control/%VSplitContainer").split_offset = theme_settings.properties
+			get_tree().get_root().get_node("Main/%Control/%LayersViewSplit").split_offset = theme_settings.layers
 			
 			get_window().position = theme_settings.screen_pos
 			get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = theme_settings.fps
@@ -99,15 +100,24 @@ func _ready():
 		theme_settings.theme_id = 0
 		create_file.store_var(theme_settings)
 		create_file.close()
-		purple_theme()
-	%SaveOnExitCheck.button_pressed = theme_settings.save_on_exit
+		get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
+	top_bar.get_node("%SaveOnExitCheck").button_pressed = theme_settings.save_on_exit
 	
 	
 	get_window().size_changed.connect(window_size_changed)
+	
+	
+	get_tree().get_root().get_node("Main/%Control/%HSplitContainer").dragged.connect(_on_h_split_container_dragged)
+	get_tree().get_root().get_node("Main/%Control/%HSplit").dragged.connect(_on_h_split_dragged)
+	get_tree().get_root().get_node("Main/%Control/%VSplitContainer").dragged.connect(_on_v_split_container_dragged)
+	get_tree().get_root().get_node("Main/%Control/%LayersViewSplit").dragged.connect(_on_layers_view_split_dragged)
+	
+	
+	
 	await get_tree().create_timer(0.05).timeout
 	get_window().size = theme_settings.screen_size
 	check_ui()
-	%WindowSize.text = "Window Size " + str(theme_settings.screen_size)
+	top_bar.get_node("%WindowSize").text = "Window Size " + str(theme_settings.screen_size)
 
 
 func window_size_changed():
@@ -120,169 +130,62 @@ func window_size_changed():
 	else:
 		theme_settings.screen_window = 0
 	
-	%WindowSize.text = "Window Size " + str(theme_settings.screen_size)
+	top_bar.get_node("%WindowSize").text = "Window Size " + str(theme_settings.screen_size)
 	save()
 
 func check_ui():
 	if theme_settings.mode == 0:
-		%TopBarInput.choosing_mode(0)
+		top_bar.get_node("%TopBarInput").choosing_mode(0)
 	else:
-		%TopBarInput.choosing_mode(1)
+		top_bar.get_node("%TopBarInput").choosing_mode(1)
 
 func loaded_UI(id):
 	match id:
 		0:
-			%UIThemeButton.text = "Purple"
-			purple_theme()
+			ui_theme.text = "Purple"
 		1:
-			%UIThemeButton.text = "Blue"
-			blue_theme()
+			ui_theme.text = "Blue"
 		2:
-			%UIThemeButton.text = "Orange"
-			orange_theme()
+			ui_theme.text = "Orange"
 		3:
-			%UIThemeButton.text = "White"
-			white_theme()
+			ui_theme.text = "White"
 		4:
-			%UIThemeButton.text = "Dark"
-			dark_theme()
+			ui_theme.text = "Dark"
 		5:
-			%UIThemeButton.text = "Green"
-			green_theme()
+			ui_theme.text = "Green"
 		6:
-			%UIThemeButton.text = "Funky"
-			funky_theme()
-	%UIThemeButton.select(id)
+			ui_theme.text = "Funky"
+	_on_ui_theme_button_item_selected(id)
+	
 
 func _on_ui_theme_button_item_selected(index):
 	match index:
 		0:
-			%UIThemeButton.text = "Purple"
-			purple_theme()
+			ui_theme.text = "Purple"
+			get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
 		1:
-			%UIThemeButton.text = "Blue"
-			blue_theme()
+			ui_theme.text = "Blue"
+			get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/BlueTheme/BlueTheme.tres")
 		2:
-			%UIThemeButton.text = "Orange"
-			orange_theme()
+			ui_theme.text = "Orange"
+			get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/OrangeTheme/OrangeTheme.tres")
 		3:
-			%UIThemeButton.text = "White"
-			white_theme()
+			ui_theme.text = "White"
+			get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/WhiteTheme/WhiteTheme.tres")
 		4:
-			%UIThemeButton.text = "Dark"
-			dark_theme()
+			ui_theme.text = "Dark"
+			get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/DarkTheme/DarkTheme.tres")
 		5:
-			%UIThemeButton.text = "Green"
-			green_theme()
+			ui_theme.text = "Green"
+			get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/GreenTheme/Green_theme.tres")
 		6:
-			%UIThemeButton.text = "Funky"
-			funky_theme()
+			ui_theme.text = "Funky"
+			get_tree().get_root().get_node("Main/UIHolder").theme = preload("res://Themes/FunkyTheme/Funkytheme.tres")
 	theme_settings.theme_id = index
-	%UIThemeButton.select(index)
+	ui_theme.select(index)
+	Global.theme_update.emit(index)
 	save()
 
-func blue_theme():
-	get_parent().theme = preload("res://Themes/BlueTheme/BlueTheme.tres")
-	%Panelt.self_modulate = Color.LIGHT_BLUE
-	%Paneln.self_modulate = Color.LIGHT_BLUE
-	%PanelL1_2.self_modulate = Color.LIGHT_BLUE
-	%Properties.self_modulate = Color.LIGHT_BLUE
-	%LayersButtons.modulate = Color.AQUA
-
-	%ViewportCam.modulate = Color.AQUA
-	%ResetMicButton.modulate = Color.AQUA
-	%LeftPanel.self_modulate = Color.WHITE
-	%RightPanel.self_modulate = Color.WHITE
-	%TopBar.self_modulate = Color.WHITE
-
-func purple_theme():
-	get_parent().theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
-	%Panelt.self_modulate = Color(0.898, 0.796, 0.996, 1 )
-	%Paneln.self_modulate = Color(0.898, 0.796, 0.996, 1 )
-	%PanelL1_2.self_modulate = Color(0.898, 0.796, 0.996, 1 )
-	%Properties.self_modulate = Color(0.898, 0.796, 0.996, 1 )
-	%LayersButtons.modulate = Color(0.898, 0.796, 0.996, 1 )
-
-	%ViewportCam.modulate = Color(0.898, 0.796, 0.996, 1 )
-	%ResetMicButton.modulate = Color(0.898, 0.796, 0.996, 1 )
-	%LeftPanel.self_modulate = Color.WHITE
-	%RightPanel.self_modulate = Color.WHITE
-	%TopBar.self_modulate = Color.WHITE
-
-func orange_theme():
-	get_parent().theme = preload("res://Themes/OrangeTheme/OrangeTheme.tres")
-	%Panelt.self_modulate = Color.ORANGE
-	%Paneln.self_modulate = Color.ORANGE
-	%PanelL1_2.self_modulate = Color.ORANGE
-	%Properties.self_modulate = Color.ORANGE
-	%LayersButtons.modulate = Color.ORANGE
-
-	%ViewportCam.modulate = Color.ORANGE
-	%ResetMicButton.modulate = Color.ORANGE
-	
-	%LeftPanel.self_modulate = Color.WHITE
-	%RightPanel.self_modulate = Color.WHITE
-	%TopBar.self_modulate = Color.WHITE
-
-func white_theme():
-	get_parent().theme = preload("res://Themes/WhiteTheme/WhiteTheme.tres")
-	%Panelt.self_modulate = Color.WHITE
-	%Paneln.self_modulate = Color.WHITE
-	%PanelL1_2.self_modulate = Color.WHITE
-	%Properties.self_modulate = Color.WHITE
-	%LayersButtons.modulate = Color.WHITE
-
-	%ViewportCam.modulate = Color.WHITE
-	%ResetMicButton.modulate = Color.WHITE
-	
-	%LeftPanel.self_modulate = Color.WHITE
-	%RightPanel.self_modulate = Color.WHITE
-	%TopBar.self_modulate = Color.WHITE
-
-func dark_theme():
-	get_parent().theme = preload("res://Themes/DarkTheme/DarkTheme.tres")
-	%Panelt.self_modulate = Color.WEB_GRAY
-	%Paneln.self_modulate = Color.WEB_GRAY
-	%PanelL1_2.self_modulate = Color.WEB_GRAY
-	%Properties.self_modulate = Color.WEB_GRAY
-	%LayersButtons.modulate = Color.DIM_GRAY
-
-	%ViewportCam.modulate = Color.DIM_GRAY
-	%ResetMicButton.modulate = Color.DIM_GRAY
-	
-	%LeftPanel.self_modulate = Color.WHITE
-	%RightPanel.self_modulate = Color.WHITE
-	%TopBar.self_modulate = Color.WHITE
-
-func green_theme():
-	get_parent().theme = preload("res://Themes/GreenTheme/Green_theme.tres")
-	%Panelt.self_modulate = Color.LIGHT_GREEN
-	%Paneln.self_modulate = Color.LIGHT_GREEN
-	%PanelL1_2.self_modulate = Color.LIGHT_GREEN
-	%Properties.self_modulate = Color.LIGHT_GREEN
-	%LayersButtons.modulate = Color.LIGHT_GREEN
-
-	%ViewportCam.modulate = Color.LIGHT_GREEN
-	%ResetMicButton.modulate = Color.LIGHT_GREEN
-	
-	%LeftPanel.self_modulate = Color.WHITE
-	%RightPanel.self_modulate = Color.WHITE
-	%TopBar.self_modulate = Color.WHITE
-
-func funky_theme():
-	get_parent().theme = preload("res://Themes/FunkyTheme/Funkytheme.tres")
-	%Panelt.self_modulate = Color.SKY_BLUE
-	%Paneln.self_modulate = Color.SKY_BLUE
-	%PanelL1_2.self_modulate = Color.SKY_BLUE
-	%Properties.self_modulate = Color.MEDIUM_SEA_GREEN
-	%LayersButtons.modulate = Color.SKY_BLUE
-
-	%ViewportCam.modulate = Color.SKY_BLUE
-	%ResetMicButton.modulate = Color.SKY_BLUE
-	
-	%LeftPanel.self_modulate = Color.WHITE
-	%RightPanel.self_modulate = Color.WHITE
-	%TopBar.self_modulate = Color.WHITE
 
 func _on_auto_load_check_toggled(toggled_on):
 	theme_settings.auto_load = toggled_on
@@ -295,8 +198,8 @@ func _on_save_on_exit_check_toggled(toggled_on):
 func _on_fps_sping_value_changed(value):
 	theme_settings.fps = value
 	get_tree().get_root().get_node("Main/SubViewportContainer/SubViewport/RecorderLayer/Recorder").frames_per_second = value
-	%FpsSping.release_focus()
-	%FpsSping.get_line_edit().release_focus()
+	top_bar.get_node("%FpsSping").release_focus()
+	top_bar.get_node("%FpsSping").get_line_edit().release_focus()
 	save()
 
 func toggle_borders():

@@ -5,8 +5,8 @@ var save_dict : Dictionary = {}
 
 
 func save_file(path):
-	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
-	get_tree().get_root().get_node("Main/Control/TopBarInput").path = path
+	Themes.theme_settings.path = path
+	get_tree().get_root().get_node("Main/%TopUI/TopBarInput").path = path
 	var sprites = get_tree().get_nodes_in_group("Sprites")
 	var inputs = get_tree().get_nodes_in_group("StateRemapButton")
 	
@@ -115,14 +115,14 @@ func load_file(path):
 	if path.get_extension() == "save":
 		load_pngplus_file(path)
 	else:
-		get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
-		get_tree().get_root().get_node("Main/Control/TopBarInput").path = path
+		Themes.theme_settings.path = path
+		get_tree().get_root().get_node("Main/%TopUI/TopBarInput").path = path
 		
-		get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
+		get_tree().get_root().get_node("Main/%Control/StatesStuff").delete_all_states()
 		get_tree().get_root().get_node("Main").clear_sprites()
 		
 		get_tree().get_root().get_node("Main/Timer").start()
-		get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
+		get_tree().get_root().get_node("Main/%Control/StatesStuff").delete_all_states()
 		await get_tree().get_root().get_node("Main/Timer").timeout
 		
 		var file = FileAccess.open(path, FileAccess.READ)
@@ -131,7 +131,7 @@ func load_file(path):
 		if !load_dict.has("sprites_array"):
 			return
 		Global.settings_dict.merge(load_dict.settings_dict, true)
-		get_tree().get_root().get_node("Main/Control/StatesStuff").update_states(load_dict.settings_dict.states)
+		get_tree().get_root().get_node("Main/%Control/StatesStuff").update_states(load_dict.settings_dict.states)
 		
 		
 		for sprite in load_dict.sprites_array:
@@ -306,22 +306,22 @@ func load_file(path):
 				for l in abs(i.states.size() - state_count):
 					i.states.append({})
 		Global.load_sprite_states(0)
-		get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
-		get_tree().get_root().get_node("Main/Control").sliders_revalue(Global.settings_dict)
+		get_tree().get_root().get_node("Main/%Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
+		get_tree().get_root().get_node("Main/%TopUI").sliders_revalue(Global.settings_dict)
 		Global.load_sprite_states(0)
-		get_tree().get_root().get_node("Main/Control/UIInput").reinfoanim()
+		get_tree().get_root().get_node("Main/%Control/UIInput").reinfoanim()
 		file.close()
 		file = null
 
 func load_pngplus_file(path):
-	get_tree().get_root().get_node("Main/Control/_Themes_").theme_settings.path = path
-	get_tree().get_root().get_node("Main/Control/TopBarInput").path = path
+	Themes.theme_settings.path = path
+	get_tree().get_root().get_node("Main/%TopUI/TopBarInput").path = path
 	
-	get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
+	get_tree().get_root().get_node("Main/%Control/StatesStuff").delete_all_states()
 	get_tree().get_root().get_node("Main").clear_sprites()
 	
 	get_tree().get_root().get_node("Main/Timer").start()
-	get_tree().get_root().get_node("Main/Control/StatesStuff").delete_all_states()
+	get_tree().get_root().get_node("Main/%Control/StatesStuff").delete_all_states()
 	await get_tree().get_root().get_node("Main/Timer").timeout
 	
 	
@@ -419,7 +419,7 @@ func load_pngplus_file(path):
 		sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 		
 	for n in 10:
-		get_tree().get_root().get_node("Main/Control/StatesStuff").add_state()
+		get_tree().get_root().get_node("Main/%Control/StatesStuff").add_state()
 	
 	
 		
@@ -448,8 +448,8 @@ func load_pngplus_file(path):
 		
 	
 	Global.load_sprite_states(0)
-	get_tree().get_root().get_node("Main/Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
+	get_tree().get_root().get_node("Main/%Control").loaded_tree(get_tree().get_nodes_in_group("Sprites"))
 #	get_tree().get_root().get_node("Main/Control/BackgroundEdit").loaded_tree(get_tree().get_nodes_in_group("BackgroundStuff"))
-	get_tree().get_root().get_node("Main/Control").sliders_revalue(Global.settings_dict)
+	get_tree().get_root().get_node("Main/%TopUI").sliders_revalue(Global.settings_dict)
 	Global.load_sprite_states(0)
-	get_tree().get_root().get_node("Main/Control/UIInput").reinfoanim()
+	get_tree().get_root().get_node("Main/%Control/UIInput").reinfoanim()

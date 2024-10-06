@@ -10,7 +10,7 @@ var heldTicks = 0
 #Wobble
 var squish = 1
 var texture 
-
+var currently_speaking : bool = false
 # Misc
 var treeitem : LayerItem
 var visb
@@ -62,7 +62,7 @@ var img_animated : bool = false
 	wiggle_segm = 5,
 	wiggle_curve = 0,
 	wiggle_stiff = 20,
-	wiggle_max_angle = 30,
+	wiggle_max_angle = 0.5,
 	wiggle_physics_stiffness = 2.5,
 	wiggle_gravity = Vector2(0,0),
 	wiggle_closed_loop = false,
@@ -109,11 +109,96 @@ var saved_keys : Array = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().get_root().get_node("Main").key_pressed.connect(asset)
+	Global.mode_changed.connect(update_to_mode_change)
 	Global.blink.connect(blink)
+	Global.blink.connect(editor_blink)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	%Dragger.top_level = true
 	%Dragger.global_position = wob.global_position
+	update_wiggle_parts()
+
+func blink():
+	if Global.mode != 0:
+		if dictmain.should_blink:
+			%Pos.modulate.a = 1
+			if not dictmain.open_eyes:
+				
+				%Pos.show()
+			else:
+				%Pos.hide()
+		
+		$Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
+		$Blink.start()
+		await  $Blink.timeout
+		if dictmain.should_blink:
+			if not dictmain.open_eyes:
+				%Pos.hide()
+			else:
+				%Pos.show()
+		else:
+			%Pos.show()
+
+func editor_blink():
+	if Global.mode == 0:
+		if dictmain.should_blink:
+			%Pos.show()
+			if not dictmain.open_eyes:
+				
+				%Pos.modulate.a = 1
+			else:
+				%Pos.modulate.a = 0.3
+		
+		$Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
+		$Blink.start()
+		await  $Blink.timeout
+		if dictmain.should_blink:
+			if not dictmain.open_eyes:
+				%Pos.modulate.a = 0.3
+			else:
+				%Pos.modulate.a = 1
+		else:
+			%Pos.modulate.a = 1
+
+func update_to_mode_change(mode : int):
+	match mode:
+		0:
+			editor_blink()
+			%Rotation.show()
+			if dictmain.should_talk:
+				if currently_speaking:
+					if dictmain.open_mouth:
+						%Rotation.modulate.a = 1
+					else:
+						%Rotation.modulate.a = 0.3
+				if !currently_speaking:
+					if !dictmain.open_mouth:
+						%Rotation.modulate.a = 0.3
+					else:
+						%Rotation.modulate.a = 1
+			else:
+				%Rotation.show()
+				%Rotation.modulate.a = 1
+		1:
+			blink()
+			%Rotation.modulate.a = 1
+			if dictmain.should_talk:
+				if currently_speaking:
+					if dictmain.open_mouth:
+						%Rotation.show()
+					else:
+						%Rotation.hide()
+				elif !currently_speaking:
+					if !dictmain.open_mouth:
+						%Rotation.show()
+					else:
+						%Rotation.hide()
+			else:
+				%Rotation.show()
+				%Rotation.modulate.a = 1
+
+
+
 
 func _process(delta):
 	if Global.held_sprite == self:
@@ -128,7 +213,7 @@ func _process(delta):
 		position = mpos - of
 		dictmain.position = position
 		save_state(Global.current_state)
-		get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+		get_tree().get_root().get_node("Main/%Control/UIInput").update_pos_spins()
 	
 	
 	if !Global.static_view:
@@ -137,27 +222,7 @@ func _process(delta):
 		
 		
 		
-		
-		glob = %Drag.global_position
-		
-		
-		drag(delta)
-		wobble()
-		if not dictmain.ignore_bounce:
-			glob.y -= contain.bounceChange
-		
-		var length = (glob.y - %Drag.global_position.y)/dictmain.wiggle_physics_stiffness
-		
-		if dictmain.physics:
-			if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
-				var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
-				var c_parrent_length = (c_parent.glob.y - c_parent.get_node("%Drag").global_position.y)
-				var c_parrent_length2 = (c_parent.glob.x - c_parent.get_node("%Drag").global_position.x)
-				length += c_parrent_length + c_parrent_length2
-		
-		rotationalDrag(length)
-		stretch(length)
-		
+		movements(delta)
 		follow_mouse()
 		
 		if dictmain.should_rotate:
@@ -171,7 +236,6 @@ func _process(delta):
 	
 	%Grab.anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
-
 func static_prev():
 	%Pos.position = Vector2(0,0)
 	%Sprite2D.self_modulate.s = 0
@@ -182,7 +246,48 @@ func static_prev():
 	dragger.global_position = wob.global_position
 	%Sprite2D.curvature = 0
 
-
+func movements(_delta):
+	# Drag :
+	if dictmain.dragSpeed == 0:
+		%Dragger.global_position = wob.global_position
+		%Drag.global_position = %Dragger.global_position
+	else:
+		%Dragger.global_position = lerp(%Dragger.global_position, wob.global_position,1/dictmain.dragSpeed)
+		%Drag.global_position = %Dragger.global_position
+	
+	# Wobbling : 
+	wob.position.x = sin(Global.tick*dictmain.xFrq)*dictmain.xAmp
+	wob.position.y = sin(Global.tick*dictmain.yFrq)*dictmain.yAmp
+	
+	# Rotational-Drag and Stretch/ Squish Calculations
+	glob = %Drag.global_position
+	if not dictmain.ignore_bounce:
+		glob.y -= contain.bounceChange
+	
+	var length = (glob.y - %Drag.global_position.y)
+	
+	if dictmain.physics:
+		if get_parent() is Sprite2D or get_parent() is WigglyAppendage2D or get_parent() is CanvasGroup:
+			var c_parent = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+			
+			var c_parrent_length = (c_parent.glob.y - c_parent.get_node("%Drag").global_position.y)
+			var c_parrent_length2 = (c_parent.glob.x - c_parent.get_node("%Drag").global_position.x)
+			length += c_parrent_length + c_parrent_length2
+	
+	# Rotational-Drag 
+	var yvel = (length * dictmain.rdragStr)
+	
+	#Calculate Max angle
+	
+	yvel = clamp(yvel,dictmain.rLimitMin,dictmain.rLimitMax)
+	
+	%Rotation.rotation = lerp_angle(%Rotation.rotation,deg_to_rad(yvel),0.25)
+	
+	# Stretch/ Squish
+	var syvel = (length * dictmain.stretchAmount * 0.01)
+	var target = Vector2(1.0-syvel,1.0+syvel)
+	
+	sprite.scale = lerp(sprite.scale,target,0.5)
 
 
 func follow_wiggle():
@@ -235,133 +340,59 @@ func wiggle_sprite():
 		
 	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 
-func drag(_delta):
-	if dictmain.dragSpeed == 0:
-		%Dragger.global_position = wob.global_position
-		%Drag.global_position = %Dragger.global_position
-	else:
-		%Dragger.global_position = lerp(%Dragger.global_position, wob.global_position,1/dictmain.dragSpeed)
-		%Drag.global_position = %Dragger.global_position
-
-func wobble():
-	wob.position.x = sin(Global.tick*dictmain.xFrq)*dictmain.xAmp
-	wob.position.y = sin(Global.tick*dictmain.yFrq)*dictmain.yAmp
-
-func rotationalDrag(length):
-	var yvel = (length * dictmain.rdragStr)
-	
-	#Calculate Max angle
-	
-	yvel = clamp(yvel,dictmain.rLimitMin,dictmain.rLimitMax)
-	
-	%Rotation.rotation = lerp_angle(%Rotation.rotation,deg_to_rad(yvel),0.25)
-
-func stretch(length):
-	var yvel = (length * dictmain.stretchAmount * 0.01)
-	var target = Vector2(1.0-yvel,1.0+yvel)
-	
-	sprite.scale = lerp(sprite.scale,target,0.5)
-
-func blink():
-	if dictmain.should_blink:
-		if not dictmain.open_eyes:
-			%Pos.show()
-		else:
-			%Pos.hide()
-	
-	$Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
-	$Blink.start()
-	await  $Blink.timeout
-	if dictmain.should_blink:
-		if not dictmain.open_eyes:
-			%Pos.hide()
-		else:
-			%Pos.show()
-
 func speaking():
-	if dictmain.should_talk:
-		if dictmain.open_mouth:
-			%Rotation.show()
+	if Global.mode != 0:
+		%Rotation.modulate.a = 1
+		if dictmain.should_talk:
+			if dictmain.open_mouth:
+				%Rotation.show()
+					
+			else:
+				%Rotation.hide()
 		else:
-			%Rotation.hide()
+			%Rotation.show()
+			
+	elif Global.mode == 0:
+		%Rotation.show()
+		if dictmain.should_talk:
+			if dictmain.open_mouth:
+				%Rotation.modulate.a = 1
+					
+			else:
+				%Rotation.modulate.a = 0.3
+		else:
+			%Rotation.modulate.a = 1
+		
+	currently_speaking = true
 
 func not_speaking():
-	if dictmain.should_talk:
-		if dictmain.open_mouth:
-			%Rotation.hide()
+	if Global.mode != 0:
+		%Rotation.modulate.a = 1
+		if dictmain.should_talk:
+			if dictmain.open_mouth:
+				%Rotation.hide()
+			else:
+				%Rotation.show()
 		else:
 			%Rotation.show()
+			
+	elif Global.mode == 0:
+		%Rotation.show()
+		if dictmain.should_talk:
+			if dictmain.open_mouth:
+				%Rotation.modulate.a = 0.3
+			else:
+				%Rotation.modulate.a = 1
+		else:
+			%Rotation.modulate.a = 1
+			
+		
+		
+	currently_speaking = false
+
 
 func save_state(id):
-	var dict : Dictionary = {
-	xFrq = dictmain.xFrq,
-	xAmp = dictmain.xAmp,
-	yFrq = dictmain.yFrq,
-	yAmp = dictmain.yAmp,
-	rdragStr = dictmain.rdragStr,
-	rLimitMax = dictmain.rLimitMax,
-	rLimitMin = dictmain.rLimitMin,
-	stretchAmount = dictmain.stretchAmount,
-	blend_mode = dictmain.blend_mode,
-	visible = visible,
-	colored = dictmain.colored,
-	z_index = z_index,
-	open_eyes =  dictmain.open_eyes,
-	open_mouth = dictmain.open_mouth,
-	should_blink = dictmain.should_blink,
-	should_talk =  dictmain.should_talk,
-	animation_speed = dictmain.animation_speed ,
-	hframes = dictmain.hframes,
-	scale = scale,
-	folder = dictmain.folder,
-	dragSpeed = dictmain.dragSpeed,
-	
-#	global_position = dictmain.global_position,
-	position = dictmain.position,
-	rotation = rotation,
-	offset = dictmain.offset,
-	ignore_bounce = dictmain.ignore_bounce,
-	clip = dictmain.clip,
-	physics = dictmain.physics,
-	wiggle_segm = %Sprite2D.segment_count,
-	wiggle_curve = %Sprite2D.curvature,
-	wiggle_stiff = %Sprite2D.stiffness,
-	wiggle_max_angle = %Sprite2D.max_angle,
-	wiggle_physics_stiffness = dictmain.wiggle_physics_stiffness,
-	advanced_lipsync = dictmain.advanced_lipsync,
-	
-	look_at_mouse_pos = dictmain.look_at_mouse_pos,
-	look_at_mouse_pos_y = dictmain.look_at_mouse_pos_y,
-	width = dictmain.width,
-	segm_length = dictmain.segm_length,
-	subdivision = dictmain.subdivision,
-	
-	
-	should_rotate = dictmain.should_rotate,
-	should_rot_speed = dictmain.should_rot_speed,
-	should_reset = dictmain.should_reset,
-	one_shot = dictmain.one_shot,
-	
-	rainbow = dictmain.rainbow,
-	rainbow_self = dictmain.rainbow_self,
-	rainbow_speed = dictmain.rainbow_speed,
-	
-	
-	follow_wa_tip = dictmain.follow_wa_tip,
-	tip_point = dictmain.tip_point,
-	
-	wiggle_gravity = dictmain.wiggle_gravity,
-	wiggle_closed_loop = dictmain.wiggle_closed_loop,
-	
-	auto_wag = dictmain.auto_wag,
-	wag_mini = dictmain.wag_mini,
-	wag_max = dictmain.wag_max,
-	wag_speed = dictmain.wag_speed,
-	wag_freq = dictmain.wag_freq,
-	
-	follow_wa_mini = dictmain.follow_wa_mini,
-	follow_wa_max = dictmain.follow_wa_max,
-	}
+	var dict : Dictionary = dictmain.duplicate()
 	states[id] = dict
 
 
@@ -424,6 +455,22 @@ func get_state(id):
 #		animation()
 		set_blend(dictmain.blend_mode)
 
+func update_wiggle_parts():
+	if %Sprite2D.segment_count != dictmain.wiggle_segm:
+		%Sprite2D.segment_count = dictmain.wiggle_segm
+	if %Sprite2D.curvature != dictmain.wiggle_curve:
+		%Sprite2D.curvature = dictmain.wiggle_curve
+	if %Sprite2D.stiffness != dictmain.wiggle_stiff:
+		%Sprite2D.stiffness = dictmain.wiggle_stiff
+	if %Sprite2D.max_angle != dictmain.wiggle_max_angle:
+		%Sprite2D.max_angle = dictmain.wiggle_max_angle
+	
+	if %Sprite2D.width != dictmain.width:
+		%Sprite2D.width = dictmain.width
+	if %Sprite2D.segment_length != dictmain.segm_length:
+		%Sprite2D.segment_length = dictmain.segm_length
+	if %Sprite2D.subdivision!= dictmain.subdivision:
+		%Sprite2D.subdivision = dictmain.subdivision
 
 func check_talk():
 	if dictmain.should_talk:

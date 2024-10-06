@@ -2,13 +2,19 @@
 
 [ext_resource type="Script" path="res://UI/BetterSlider/better_slider.gd" id="1_dnfx4"]
 
-[node name="BetterSlider" type="HBoxContainer"]
+[node name="BetterSlider" type="HBoxContainer" groups=["InputsUIs"]]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_dnfx4")
+
+[node name="BetterSliderLabel" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+text = "Test : "
 
 [node name="SpinBoxValue" type="SpinBox" parent="."]
 unique_name_in_owner = true
@@ -26,4 +32,5 @@ mouse_filter = 1
 
 [connection signal="focus_exited" from="SpinBoxValue" to="." method="_on_spin_box_value_focus_exited"]
 [connection signal="value_changed" from="SpinBoxValue" to="." method="_on_spin_box_value_value_changed"]
+[connection signal="drag_ended" from="SliderValue" to="." method="_on_slider_value_drag_ended"]
 [connection signal="value_changed" from="SliderValue" to="." method="_on_slider_value_value_changed"]

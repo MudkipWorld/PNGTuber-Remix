@@ -266,53 +266,7 @@ func not_speaking():
 
 
 func save_state(id):
-	var dict : Dictionary = {
-	xFrq = dictmain.xFrq,
-	xAmp = dictmain.xAmp,
-	yFrq = dictmain.yFrq,
-	yAmp = dictmain.yAmp,
-	rdragStr = dictmain.rdragStr,
-	rLimitMax = dictmain.rLimitMax,
-	rLimitMin = dictmain.rLimitMin,
-	stretchAmount = dictmain.stretchAmount,
-	blend_mode = dictmain.blend_mode,
-	visible = dictmain.visible,
-	colored = dictmain.colored,
-	z_index = z_index,
-	open_eyes =  dictmain.open_eyes,
-	open_mouth = dictmain.open_mouth,
-	should_blink = dictmain.should_blink,
-	should_talk =  dictmain.should_talk,
-	animation_speed = dictmain.animation_speed ,
-	hframes = dictmain.hframes,
-	scale = scale,
-	folder = dictmain.folder,
-	global_position = dictmain.global_position,
-	rotation = rotation,
-#	offset = $Pos/Wobble/Squish/Drag/Rotation/Sprite2D.offset,
-	ignore_bounce = dictmain.ignore_bounce,
-	clip = dictmain.clip,
-	physics = dictmain.physics,
-	wiggle = dictmain.wiggle,
-	wiggle_amp = dictmain.wiggle_amp,
-	wiggle_freq = dictmain.wiggle_freq,
-	wiggle_physics = dictmain.wiggle_physics,
-	advanced_lipsync = dictmain.advanced_lipsync,
-	
-	look_at_mouse_pos = dictmain.look_at_mouse_pos,
-	look_at_mouse_pos_y = dictmain.look_at_mouse_pos_y,
-	
-	should_rotate = dictmain.should_rotate,
-	should_rot_speed = dictmain.should_rot_speed,
-	
-	should_reset = dictmain.should_reset,
-	rainbow = dictmain.rainbow,
-	rainbow_self = dictmain.rainbow_self,
-	rainbow_speed = dictmain.rainbow_speed,
-	
-	follow_parent_wiggle = dictmain.follow_parent_effects,
-	follow_wa_tip = dictmain.follow_wa_tip,
-	}
+	var dict : Dictionary = dictmain.duplicate()
 	states[id] = dict
 
 

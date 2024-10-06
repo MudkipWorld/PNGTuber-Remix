@@ -33,49 +33,14 @@ func _ready():
 	%LayerViewBG.connect("sprite_info", reinfo)
 	Global.connect("reinfo", reinfo)
 	Global.connect("reinfoanim", reinfoanim)
+	
+	Global.deselect.connect(held_sprite_is_null)
+	
 	blend.get_popup().connect("id_pressed",_on_blend_state_pressed)
 	mo_anim.get_popup().connect("id_pressed",_on_mo_anim_state_pressed)
 	mc_anim.get_popup().connect("id_pressed",_on_mc_anim_state_pressed)
-	
 
-	%XAmpBSlider.get_node("SliderValue").value_changed.connect(_on_x_amp_slider_value_changed)
-	%XFBSlider.get_node("SliderValue").value_changed.connect(_on_xf_slider_value_changed)
-	%YAmpBSlider.get_node("SliderValue").value_changed.connect(_on_y_amp_slider_value_changed)
-	%YFBSlider.get_node("SliderValue").value_changed.connect(_on_yf_slider_value_changed)
-	
-	%StretchBSlider.get_node("SliderValue").value_changed.connect(_on_stretch_slider_value_changed)
-	%RotationLevelBSlider.get_node("SliderValue").value_changed.connect(_on_rotation_level_value_changed)
-	%RotationSpeedBSlider.get_node("SliderValue").value_changed.connect(_on_rotation_speed_value_changed)
-	
-	%FMxBSlider.get_node("SliderValue").value_changed.connect(_on_f_mx_slider_value_changed)
-	%FMYBSlider.get_node("SliderValue").value_changed.connect(_on_fmy_slider_value_changed)
-	
-	%MiniRotationLevelBSlider.get_node("SliderValue").value_changed.connect(_on_mini_rotation_level_value_changed)
-	%MaxRotationLevelBSlider.get_node("SliderValue").value_changed.connect(_on_max_rotation_level_value_changed)
-	
-	%WiggleAmpBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_amp_slider_value_changed)
-	%WiggleFreqBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_freq_slider_value_changed)
-	
-	%WiggleAppSegmBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_app_segm_slider_value_changed)
-	%WiggleAppsCurveBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_curve_slider_value_changed)
-	%WiggleAppsStiffBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_stiff_slider_value_changed)
-	%WiggleAppsMaxAngleBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_max_angle_slider_value_changed)
-	%WiggleAppsPhysStiffBSlider.get_node("SliderValue").value_changed.connect(_on_wiggle_apps_phys_stiff_slider_value_changed)
-	%WagSpeedBSlider.get_node("SliderValue").value_changed.connect(on_wag_speed_changed)
-	%MinimumCurve.get_node("SliderValue").value_changed.connect(on_wag_minicurve_changed)
-	%MaxmumCurve.get_node("SliderValue").value_changed.connect(on_wag_maxcurve_changed)
-	%WagFreqBSlider.get_node("SliderValue").value_changed.connect(on_wag_freq_changed)
-	
-	%DragBSlider.get_node("SliderValue").value_changed.connect(on_drag_changed)
-	
-	
-	%MiniFWBSlider.get_node("SliderValue").value_changed.connect(on_mini_fw_changed)
-	%MaxFWBSlider.get_node("SliderValue").value_changed.connect(on_max_fw_changed)
-	
-	
 
-	
-	
 
 
 #region Update Slider info
@@ -89,8 +54,7 @@ func held_sprite_is_null():
 	
 	y_amp.editable = false
 	y_freq.editable = false
-	%StretchBSlider.get_node("SliderValue").editable = false
-	%StretchBSlider.get_node("SpinBoxValue").editable = false
+
 	
 	%AnimationFramesSlider.editable = false
 	%AnimationSpeedSlider.editable = false
@@ -102,13 +66,7 @@ func held_sprite_is_null():
 	%PosXSpinBox.editable = false
 	%PosYSpinBox.editable = false
 	%RotSpinBox.editable = false
-	
-	%RotationLevelBSlider.get_node("SpinBoxValue").editable = false
-	
-	%XAmpBSlider.get_node("SpinBoxValue").editable = false
-	%XFBSlider.get_node("SpinBoxValue").editable = false
-	%YAmpBSlider.get_node("SpinBoxValue").editable = false
-	%YFBSlider.get_node("SpinBoxValue").editable = false
+
 	
 	%Name.editable = false
 	%Name.text = ""
@@ -127,35 +85,10 @@ func held_sprite_is_null():
 	
 	%WiggleCheck.disabled = true
 	%WigglePhysicsCheck.disabled = true
-	%WiggleAmpBSlider.get_node("SliderValue").editable = false
-	
-	%WiggleAmpBSlider.get_node("SpinBoxValue").editable = false
-	%WiggleFreqBSlider.get_node("SliderValue").editable = false
-	%WiggleFreqBSlider.get_node("SpinBoxValue").editable = false
 	%XoffsetSpinBox.editable = false
 	%YoffsetSpinBox.editable = false
-	
-	
-	%WiggleAppSegmBSlider.get_node("SliderValue").editable = false
-	%WiggleAppSegmBSlider.get_node("SpinBoxValue").editable = false
-	%WiggleAppsCurveBSlider.get_node("SliderValue").editable = false
-	%WiggleAppsCurveBSlider.get_node("SpinBoxValue").editable = false
-	%WiggleAppsStiffBSlider.get_node("SliderValue").editable = false
-	%WiggleAppsStiffBSlider.get_node("SpinBoxValue").editable = false
-	%WiggleAppsMaxAngleBSlider.get_node("SliderValue").editable = false
-	%WiggleAppsMaxAngleBSlider.get_node("SpinBoxValue").editable = false
-	%WiggleAppsPhysStiffBSlider.get_node("SliderValue").editable = false
-	%WiggleAppsPhysStiffBSlider.get_node("SpinBoxValue").editable = false
-	%WagSpeedBSlider.get_node("SliderValue").editable = false
-	%WagSpeedBSlider.get_node("SpinBoxValue").editable = false
-	
-	%MinimumCurve.get_node("SliderValue").editable = false
-	%MinimumCurve.get_node("SpinBoxValue").editable = false
-	%MaxmumCurve.get_node("SliderValue").editable = false
-	%MaxmumCurve.get_node("SpinBoxValue").editable = false
 	%AutoWagCheck.disabled = true
-	%WagFreqBSlider.get_node("SliderValue").editable = false
-	%WagFreqBSlider.get_node("SpinBoxValue").editable = false
+
 	
 	
 	
@@ -169,14 +102,8 @@ func held_sprite_is_null():
 	
 	%AdvancedLipSync.disabled = true
 	
-	%FMxBSlider.get_node("SliderValue").editable = false
-	%FMxBSlider.get_node("SpinBoxValue").editable = false
-	%FMYBSlider.get_node("SliderValue").editable = false
-	%FMYBSlider.get_node("SpinBoxValue").editable = false
 	
 	%ShouldRotCheck.disabled = true
-	%RotationSpeedBSlider.get_node("SliderValue").editable = false
-	%RotationSpeedBSlider.get_node("SpinBoxValue").editable = false
 
 	%CurrentSelectedNormal.texture = null
 	%CurrentSelected.texture = null
@@ -189,11 +116,7 @@ func held_sprite_is_null():
 	%RSSlider.editable = false
 	%FollowParentEffect.disabled = true
 	%FollowWiggleAppTip.disabled = true
-	
-	%MiniRotationLevelBSlider.get_node("SliderValue").editable = false
-	%MiniRotationLevelBSlider.get_node("SpinBoxValue").editable = false
-	%MaxRotationLevelBSlider.get_node("SliderValue").editable = false
-	%MaxRotationLevelBSlider.get_node("SpinBoxValue").editable = false
+
 	%IsAssetCheck.disabled = true
 	%IsAssetButton.disabled = true
 	%RemoveAssetButton.disabled = true
@@ -203,37 +126,19 @@ func held_sprite_is_null():
 	%OffsetXSpinBox.editable = false
 	%OffsetYSpinBox.editable = false
 	%TipSpin.editable = false
-	
-	%DragBSlider.get_node("SliderValue").editable = false
-	%DragBSlider.get_node("SpinBoxValue").editable = false
-	
-	%MiniFWBSlider.get_node("SliderValue").editable = false
-	%MiniFWBSlider.get_node("SpinBoxValue").editable = false
-	
-	%MaxFWBSlider.get_node("SliderValue").editable = false
-	%MaxFWBSlider.get_node("SpinBoxValue").editable = false
 	%FlipSpriteH.disabled = true
 	%FlipSpriteV.disabled = true
 	
 
 
 func held_sprite_is_true():
-	%DeselectButton.show()
+	get_parent().get_parent().get_node("TopUI/%DeselectButton").show()
 	x_amp.editable = true
 	x_freq.editable = true
 	
 	y_amp.editable = true
 	y_freq.editable = true
 	
-	%RotationLevelBSlider.get_node("SpinBoxValue").editable = true
-	
-	%XAmpBSlider.get_node("SpinBoxValue").editable = true
-	%XFBSlider.get_node("SpinBoxValue").editable = true
-	%YAmpBSlider.get_node("SpinBoxValue").editable = true
-	%YFBSlider.get_node("SpinBoxValue").editable = true
-	
-	%StretchBSlider.get_node("SliderValue").editable = true
-	%StretchBSlider.get_node("SpinBoxValue").editable = true
 	
 	if not Global.held_sprite.dictmain.advanced_lipsync:
 		if Global.held_sprite.sprite_type == "Sprite2D" && not Global.held_sprite.img_animated:
@@ -270,10 +175,6 @@ func held_sprite_is_true():
 	
 	%WiggleCheck.disabled = false
 	%WigglePhysicsCheck.disabled = false
-	%WiggleAmpBSlider.get_node("SliderValue").editable = true
-	%WiggleAmpBSlider.get_node("SpinBoxValue").editable = true
-	%WiggleFreqBSlider.get_node("SliderValue").editable = true
-	%WiggleFreqBSlider.get_node("SpinBoxValue").editable = true
 	%FollowParentEffect.disabled = false
 	%XoffsetSpinBox.editable = true
 	%YoffsetSpinBox.editable = true
@@ -281,65 +182,26 @@ func held_sprite_is_true():
 	%AdvancedLipSync.disabled = false
 	
 	%ShouldRotCheck.disabled = false
-	%RotationSpeedBSlider.get_node("SliderValue").editable = true
-	%RotationSpeedBSlider.get_node("SpinBoxValue").editable = true
 	
 	if Global.held_sprite.sprite_type == "WiggleApp":
-		%WiggleAppSegmBSlider.get_node("SliderValue").editable = true
-		%WiggleAppSegmBSlider.get_node("SpinBoxValue").editable = true
-		%WiggleAppsCurveBSlider.get_node("SliderValue").editable = true
-		%WiggleAppsCurveBSlider.get_node("SpinBoxValue").editable = true
-		%WiggleAppsStiffBSlider.get_node("SliderValue").editable = true
-		%WiggleAppsStiffBSlider.get_node("SpinBoxValue").editable = true
-		%WiggleAppsMaxAngleBSlider.get_node("SliderValue").editable = true
-		%WiggleAppsMaxAngleBSlider.get_node("SpinBoxValue").editable = true
-		%WiggleAppsPhysStiffBSlider.get_node("SliderValue").editable = true
-		%WiggleAppsPhysStiffBSlider.get_node("SpinBoxValue").editable = true
+
 		%WiggleWidthSpin.editable = true
 		%WiggleLengthSpin.editable = true
 		%WiggleSubDSpin.editable = true
 		%WAGravityX.editable = true
 		%WAGravityY.editable = true
 		%ClosedLoopCheck.disabled = false
-		
-		%WagSpeedBSlider.get_node("SliderValue").editable = true
-		%WagSpeedBSlider.get_node("SpinBoxValue").editable = true
-
-		%MinimumCurve.get_node("SliderValue").editable = true
-		%MinimumCurve.get_node("SpinBoxValue").editable = true
-		%MaxmumCurve.get_node("SliderValue").editable = true
-		%MaxmumCurve.get_node("SpinBoxValue").editable = true
 		%AutoWagCheck.disabled = false
-		%WagFreqBSlider.get_node("SliderValue").editable = true
-		%WagFreqBSlider.get_node("SpinBoxValue").editable = true
 		
 		
 		
 		
 	else:
-		%WiggleAppSegmBSlider.get_node("SliderValue").editable = false
-		%WiggleAppSegmBSlider.get_node("SpinBoxValue").editable = false
-		%WiggleAppsCurveBSlider.get_node("SliderValue").editable = false
-		%WiggleAppsCurveBSlider.get_node("SpinBoxValue").editable = false
-		%WiggleAppsStiffBSlider.get_node("SliderValue").editable = false
-		%WiggleAppsStiffBSlider.get_node("SpinBoxValue").editable = false
-		%WiggleAppsMaxAngleBSlider.get_node("SliderValue").editable = false
-		%WiggleAppsMaxAngleBSlider.get_node("SpinBoxValue").editable = false
-		%WiggleAppsPhysStiffBSlider.get_node("SliderValue").editable = false
-		%WiggleAppsPhysStiffBSlider.get_node("SpinBoxValue").editable = false
-		
 		%FlipSpriteH.disabled = false
 		%FlipSpriteV.disabled = false
 		
 	%OffsetXSpinBox.editable = true
 	%OffsetYSpinBox.editable = true
-	
-		
-	
-	%FMxBSlider.get_node("SliderValue").editable = true
-	%FMxBSlider.get_node("SpinBoxValue").editable = true
-	%FMYBSlider.get_node("SliderValue").editable = true
-	%FMYBSlider.get_node("SpinBoxValue").editable = true
 	
 	
 	if !Global.held_sprite.is_apng:
@@ -353,26 +215,12 @@ func held_sprite_is_true():
 	
 	%FollowWiggleAppTip.disabled = false
 	
-	%MiniRotationLevelBSlider.get_node("SliderValue").editable = true
-	%MiniRotationLevelBSlider.get_node("SpinBoxValue").editable = true
-	%MaxRotationLevelBSlider.get_node("SliderValue").editable = true
-	%MaxRotationLevelBSlider.get_node("SpinBoxValue").editable = true
-	
 	%IsAssetCheck.disabled = false
 	%IsAssetButton.disabled = false
 	%RemoveAssetButton.disabled = false
 	%ShouldDisappearCheck.disabled = false
 	%TipSpin.editable = true
 	%IsAssetButton.text = "Null"
-	
-	%DragBSlider.get_node("SliderValue").editable = true
-	%DragBSlider.get_node("SpinBoxValue").editable = true
-	
-	%MiniFWBSlider.get_node("SliderValue").editable = true
-	%MiniFWBSlider.get_node("SpinBoxValue").editable = true
-	
-	%MaxFWBSlider.get_node("SliderValue").editable = true
-	%MaxFWBSlider.get_node("SpinBoxValue").editable = true
 	
 
 func _on_blend_state_pressed(id):
@@ -450,13 +298,6 @@ func _on_mc_anim_state_pressed(id):
 func reinfo():
 	held_sprite_is_null()
 	held_sprite_is_true()
-	x_amp.value = Global.held_sprite.dictmain.xAmp
-	x_freq.value = Global.held_sprite.dictmain.xFrq
-	
-	y_amp.value = Global.held_sprite.dictmain.yAmp
-	y_freq.value = Global.held_sprite.dictmain.yFrq
-	
-	rot.value = Global.held_sprite.dictmain.rdragStr
 	vis.button_pressed = Global.held_sprite.dictmain.visible
 	
 	checke.button_pressed = Global.held_sprite.dictmain.should_blink
@@ -465,7 +306,6 @@ func reinfo():
 	checkm.button_pressed = Global.held_sprite.dictmain.should_talk
 	mouthop.button_pressed = Global.held_sprite.dictmain.open_mouth
 	%ShouldRotCheck.button_pressed = Global.held_sprite.dictmain.should_rotate
-	%RotationSpeedBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.should_rot_speed
 	%ZOrderSpinbox.value = Global.held_sprite.dictmain.z_index
 	
 	
@@ -487,7 +327,6 @@ func reinfo():
 	%SizeSpinBox.value = Global.held_sprite.dictmain.scale.x
 	%SizeSpinYBox.value = Global.held_sprite.dictmain.scale.y
 	
-	%StretchBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.stretchAmount
 	color.color = Global.held_sprite.dictmain.colored
 	%IgnoreBounce.button_pressed = Global.held_sprite.dictmain.ignore_bounce
 	%Physics.button_pressed = Global.held_sprite.dictmain.physics
@@ -503,8 +342,6 @@ func reinfo():
 		%FlipSpriteHBox.show()
 		%WiggleCheck.button_pressed = Global.held_sprite.dictmain.wiggle
 		%WigglePhysicsCheck.button_pressed = Global.held_sprite.dictmain.wiggle_physics
-		%WiggleAmpBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wiggle_amp
-		%WiggleFreqBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wiggle_freq
 		%FollowParentEffect.button_pressed = Global.held_sprite.dictmain.follow_parent_effects
 		%XoffsetSpinBox.value = Global.held_sprite.dictmain.wiggle_rot_offset.x
 		%YoffsetSpinBox.value = Global.held_sprite.dictmain.wiggle_rot_offset.y
@@ -517,12 +354,6 @@ func reinfo():
 		%FlipSpriteHBox.hide()
 		%WiggleStuff.hide()
 		%WiggleAppStuff.show()
-		
-		%WiggleAppSegmBSlider.get_node("SliderValue").value = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count
-		%WiggleAppsCurveBSlider.get_node("SliderValue").value = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").curvature
-		%WiggleAppsStiffBSlider.get_node("SliderValue").value = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").stiffness
-		%WiggleAppsMaxAngleBSlider.get_node("SliderValue").value = Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").max_angle
-		%WiggleAppsPhysStiffBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wiggle_physics_stiffness
 		%WiggleWidthSpin.value = Global.held_sprite.dictmain.width
 		%WiggleLengthSpin.value = Global.held_sprite.dictmain.segm_length
 		%WiggleSubDSpin.value = Global.held_sprite.dictmain.subdivision
@@ -530,10 +361,6 @@ func reinfo():
 		%WAGravityY.value = Global.held_sprite.dictmain.wiggle_gravity.y
 		%ClosedLoopCheck.button_pressed = Global.held_sprite.dictmain.wiggle_closed_loop
 		%AutoWagCheck.button_pressed = Global.held_sprite.dictmain.auto_wag
-		%WagSpeedBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_speed
-		%MinimumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_mini
-		%MaxmumCurve.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_max
-		%WagFreqBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.wag_freq
 		
 		
 	%OffsetXSpinBox.value = Global.held_sprite.dictmain.offset.x
@@ -547,9 +374,6 @@ func reinfo():
 		%PosXSpinBox.value_changed.connect(_on_pos_x_spin_box_value_changed)
 		%PosYSpinBox.value_changed.connect(_on_pos_y_spin_box_value_changed)
 	
-	
-	%MiniFWBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.follow_wa_mini
-	%MaxFWBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.follow_wa_max
 	
 	
 	if Global.held_sprite.get_parent() is WigglyAppendage2D:
@@ -565,9 +389,6 @@ func reinfo():
 		
 	blend.text = Global.held_sprite.dictmain.blend_mode
 	
-	%FMxBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.look_at_mouse_pos
-	%FMYBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.look_at_mouse_pos_y
-	
 	%AnimationReset.button_pressed = Global.held_sprite.dictmain.should_reset
 	%AnimationOneShot.button_pressed = Global.held_sprite.dictmain.one_shot
 	
@@ -577,10 +398,6 @@ func reinfo():
 	
 	%FollowWiggleAppTip.button_pressed = Global.held_sprite.dictmain.follow_wa_tip
 	
-	%MiniRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMin
-	%MaxRotationLevelBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.rLimitMax
-	
-	%DragBSlider.get_node("SliderValue").value = Global.held_sprite.dictmain.dragSpeed
 	
 	
 	%IsAssetButton.action = str(Global.held_sprite.sprite_id)
@@ -618,31 +435,6 @@ func reinfoanim():
 
 #endregion
 
-#region Movement Sliders
-func _on_x_amp_slider_value_changed(value):
-	Global.held_sprite.dictmain.xAmp = value
-	Global.held_sprite.save_state(Global.current_state)
-
-func _on_xf_slider_value_changed(value):
-	Global.held_sprite.dictmain.xFrq = value
-	Global.held_sprite.save_state(Global.current_state)
-
-func _on_y_amp_slider_value_changed(value):
-	Global.held_sprite.dictmain.yAmp = value
-	Global.held_sprite.save_state(Global.current_state)
-
-func _on_yf_slider_value_changed(value):
-	Global.held_sprite.dictmain.yFrq = value
-	Global.held_sprite.save_state(Global.current_state)
-
-func _on_rotation_level_value_changed(value):
-	Global.held_sprite.dictmain.rdragStr = value
-	Global.held_sprite.save_state(Global.current_state)
-
-func _on_stretch_slider_value_changed(value):
-	Global.held_sprite.dictmain.stretchAmount = value
-	Global.held_sprite.save_state(Global.current_state)
-#endregion
 
 #region misc
 func _on_check_box_toggled(toggled_on):
@@ -686,11 +478,6 @@ func _on_color_picker_button_color_changed(newcolor):
 		Global.held_sprite.modulate = newcolor
 	
 	Global.held_sprite.dictmain.colored = newcolor
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_rotation_speed_value_changed(value):
-	Global.held_sprite.dictmain.should_rot_speed = value
 	Global.held_sprite.save_state(Global.current_state)
 
 
@@ -746,19 +533,6 @@ func _on_mouth_open_toggled(toggled_on):
 	Global.held_sprite.check_talk()
 	
 	Global.held_sprite.save_state(Global.current_state)
-
-func _on_volume_slider_value_changed(value):
-	Global.settings_dict.volume_limit = value
-
-
-func _on_delay_slider_value_changed(value):
-	Global.settings_dict.volume_delay = value
-
-
-
-func _on_sensitivity_slider_value_changed(value):
-	Global.settings_dict.sensitivity_limit = value
-	%SensitivityBar.value = value
 #endregion
 
 #region Left Panel
@@ -775,8 +549,14 @@ func _on_animation_speed_slider_value_changed(value):
 	Global.held_sprite.animation()
 	Global.held_sprite.save_state(Global.current_state)
 
+
+func _on_blink_speed_slider_drag_ended(value_changed: bool) -> void:
+	if value_changed:
+		Global.settings_dict.blink_speed = %BlinkSpeedSlider.value
+		%BlinkSpeedLabel.text = "Blink Speed : " + str(snappedf(%BlinkSpeedSlider.value, 0.1))
+
+
 func _on_blink_speed_slider_value_changed(value):
-	Global.settings_dict.blink_speed = value
 	%BlinkSpeedLabel.text = "Blink Speed : " + str(snappedf(value, 0.1))
 
 func _on_delete_button_pressed():
@@ -832,7 +612,7 @@ func _on_folder_button_pressed():
 	var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 	contain.add_child(sprte_obj)
 	sprte_obj.texture = preload("res://Misc/SpriteObject/Folder.png")
-	sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
+	sprte_obj.get_node("%Sprite2D").texture = preload("res://Misc/SpriteObject/Folder.png")
 	sprte_obj.sprite_name = str("Folder")
 	sprte_obj.dictmain.folder = true
 	var states = get_tree().get_nodes_in_group("StateButtons").size()
@@ -896,14 +676,6 @@ func _on_size_spin_box_value_changed(value):
 #endregion
 
 #region Wiggle stuff
-func _on_wiggle_amp_slider_value_changed(value):
-	Global.held_sprite.dictmain.wiggle_amp = value
-	Global.held_sprite.save_state(Global.current_state)
-
-func _on_wiggle_freq_slider_value_changed(value):
-	Global.held_sprite.dictmain.wiggle_freq = value
-	Global.held_sprite.save_state(Global.current_state)
-
 
 func _on_wiggle_check_toggled(toggled_on):
 	Global.held_sprite.dictmain.wiggle = toggled_on
@@ -927,42 +699,16 @@ func _on_yoffset_spin_box_value_changed(value):
 
 # -------------------------------------------------
 
-
-func _on_wiggle_app_segm_slider_value_changed(value):
-	if Global.held_sprite:
-		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").segment_count = value
-		Global.held_sprite.save_state(Global.current_state)
-
-func _on_wiggle_apps_curve_slider_value_changed(value):
-	if Global.held_sprite:
-		Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").curvature = value
-		Global.held_sprite.save_state(Global.current_state)
-
-func _on_wiggle_apps_stiff_slider_value_changed(value):
-	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").stiffness = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_wiggle_apps_max_angle_slider_value_changed(value):
-	Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").max_angle = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_wiggle_apps_phys_stiff_slider_value_changed(value):
-	if Global.held_sprite:
-		Global.held_sprite.dictmain.wiggle_physics_stiffness = value
-		Global.held_sprite.save_state(Global.current_state)
-
 func _on_follow_wiggle_app_tip_toggled(toggled_on):
 	Global.held_sprite.dictmain.follow_wa_tip = toggled_on
 	if toggled_on:
 		%HBox34.show()
-		%MiniFWBox.show()
-		%MaxFWBox.show()
+		%MiniFWBSlider.show()
+		%MaxFWBSlider.show()
 	if not toggled_on:
 		%HBox34.hide()
-		%MiniFWBox.hide()
-		%MaxFWBox.hide()
+		%MiniFWBSlider.hide()
+		%MaxFWBSlider.hide()
 		Global.held_sprite.get_node("Pos").position = Vector2(0,0)
 	Global.held_sprite.save_state(Global.current_state)
 	
@@ -1016,17 +762,6 @@ func _on_advanced_lip_sync_mouse_exited():
 
 #endregion
 
-#region Follow Mouse
-func _on_f_mx_slider_value_changed(value):
-	Global.held_sprite.dictmain.look_at_mouse_pos = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func _on_fmy_slider_value_changed(value):
-	Global.held_sprite.dictmain.look_at_mouse_pos_y = value
-	Global.held_sprite.save_state(Global.current_state)
-
-#endregion
 
 func _on_animation_one_shot_toggled(toggled_on):
 	Global.held_sprite.dictmain.one_shot = toggled_on
@@ -1104,54 +839,22 @@ func on_wag_speed_changed(value):
 		Global.held_sprite.dictmain.wag_speed = value
 		Global.held_sprite.save_state(Global.current_state)
 
-func on_wag_minicurve_changed(value):
-	if Global.held_sprite != null:
-		Global.held_sprite.dictmain.wag_mini = value
-		Global.held_sprite.save_state(Global.current_state)
-		
-func on_wag_maxcurve_changed(value):
-	if Global.held_sprite != null:
-		Global.held_sprite.dictmain.wag_max = value
-		Global.held_sprite.save_state(Global.current_state)
 		
 
 func _on_auto_wag_check_toggled(toggled_on):
 	Global.held_sprite.dictmain.auto_wag = toggled_on
 	if toggled_on:
-		%HBoxMiniCurve.show()
-		%HBoxMaxCurve.show()
-		%HBoxWagFreq.show()
-		%HBox26.hide()
+		%MinimumCurve.show()
+		%MaxmumCurve.show()
+		%WagFreqBSlider.show()
+		%WiggleAppsCurveBSlider.hide()
 	if !toggled_on:
 		Global.held_sprite.get_node("%Sprite2D").curvature = Global.held_sprite.dictmain.wiggle_curve
-		%HBoxMiniCurve.hide()
-		%HBoxMaxCurve.hide()
-		%HBoxWagFreq.hide()
-		%HBox26.show()
+		%MinimumCurve.hide()
+		%MaxmumCurve.hide()
+		%WagFreqBSlider.hide()
+		%WiggleAppsCurveBSlider.show()
 		
-	Global.held_sprite.save_state(Global.current_state)
-
-
-
-func on_wag_freq_changed(value):
-	if Global.held_sprite != null:
-		Global.held_sprite.dictmain.wag_freq = value
-		Global.held_sprite.save_state(Global.current_state)
-
-
-func on_drag_changed(value):
-	Global.held_sprite.dictmain.dragSpeed = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-func on_mini_fw_changed(value):
-	Global.held_sprite.dictmain.follow_wa_mini = value
-	Global.held_sprite.save_state(Global.current_state)
-
-
-
-func on_max_fw_changed(value):
-	Global.held_sprite.dictmain.follow_wa_max = value
 	Global.held_sprite.save_state(Global.current_state)
 
 

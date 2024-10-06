@@ -27,7 +27,7 @@ diffuse_texture = ExtResource("3_x2iay")
 shader = ExtResource("8_cwgos")
 shader_parameter/ant_color_1 = Color(1, 1, 1, 1)
 shader_parameter/ant_color_2 = Color(0, 0, 0, 1)
-shader_parameter/ant_width = 3.0
+shader_parameter/ant_width = 5.0
 shader_parameter/ant_length = 10.0
 shader_parameter/ant_speed = 30.0
 

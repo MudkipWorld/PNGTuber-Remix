@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b28gjkefgi5bs"]
+[gd_scene load_steps=10 format=3 uid="uid://b28gjkefgi5bs"]
 
 [ext_resource type="Script" path="res://Main/Scripts/main.gd" id="1_6pthk"]
 [ext_resource type="Script" path="res://Main/Scripts/SpritesContainer.gd" id="2_lv028"]
 [ext_resource type="PackedScene" uid="uid://ngta1o5yiqxs" path="res://UI/control.tscn" id="2_micm1"]
 [ext_resource type="PackedScene" uid="uid://dw4brgrpdpurf" path="res://Misc/LightSource/light_source.tscn" id="3_eo07p"]
 [ext_resource type="Script" path="res://addons/Recorder/recorder.gd" id="4_unki4"]
+[ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="5_4hh1t"]
 [ext_resource type="Script" path="res://Main/Scripts/AudioStreamPlayer.gd" id="5_swrrk"]
+[ext_resource type="PackedScene" uid="uid://bpmlfhv30o08l" path="res://UI/TopUI/top_ui.tscn" id="7_qwnpc"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_b50ir"]
 
@@ -51,6 +53,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+z_index = 4
 texture_filter = 4
 
 [node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin"]
@@ -59,6 +62,8 @@ script = ExtResource("2_lv028")
 
 [node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" instance=ExtResource("3_eo07p")]
 visible = false
+z_index = 4096
+z_as_relative = false
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.92549)
 
@@ -80,8 +85,26 @@ flip_y = false
 use_thread = true
 _viewport = NodePath("../..")
 
-[node name="Control" parent="." instance=ExtResource("2_micm1")]
+[node name="UIHolder" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_4hh1t")
+theme_override_constants/separation = -1
+
+[node name="TopUI" parent="UIHolder" instance=ExtResource("7_qwnpc")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Control" parent="UIHolder" instance=ExtResource("2_micm1")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
