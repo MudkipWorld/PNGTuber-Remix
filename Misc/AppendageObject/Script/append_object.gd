@@ -88,6 +88,11 @@ var img_animated : bool = false
 	wag_freq = 0.02,
 	follow_wa_mini = -180,
 	follow_wa_max = 180,
+	
+	max_angular_momentum = 15,
+	damping = 5,
+	comeback_speed = 0.419,
+	
 	}
 
 var smooth_rot = 0.0
@@ -116,7 +121,18 @@ func _ready():
 	Global.not_speaking.connect(not_speaking)
 	%Dragger.top_level = true
 	%Dragger.global_position = wob.global_position
+	
+	
+	
 	update_wiggle_parts()
+
+func correct_sprite_size():
+	var w = %Sprite2D.texture.get_image().get_size().y / 0.98
+	var l = %Sprite2D.texture.get_image().get_size().x / 5
+	
+	dictmain.width = w
+	dictmain.segm_length = l
+
 
 func blink():
 	if Global.mode != 0:
@@ -471,6 +487,17 @@ func update_wiggle_parts():
 		%Sprite2D.segment_length = dictmain.segm_length
 	if %Sprite2D.subdivision!= dictmain.subdivision:
 		%Sprite2D.subdivision = dictmain.subdivision
+		
+	if %Sprite2D.comeback_speed!= dictmain.comeback_speed:
+		%Sprite2D.comeback_speed = dictmain.comeback_speed
+		
+	if %Sprite2D.max_angular_momentum!= dictmain.max_angular_momentum:
+		%Sprite2D.max_angular_momentum = dictmain.max_angular_momentum
+		
+	if %Sprite2D.damping!= dictmain.damping:
+		%Sprite2D.damping = dictmain.damping
+
+
 
 func check_talk():
 	if dictmain.should_talk:

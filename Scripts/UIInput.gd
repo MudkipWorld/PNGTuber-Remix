@@ -30,7 +30,6 @@ func _ready():
 	
 	
 	held_sprite_is_null()
-	%LayerViewBG.connect("sprite_info", reinfo)
 	Global.connect("reinfo", reinfo)
 	Global.connect("reinfoanim", reinfoanim)
 	
@@ -48,6 +47,7 @@ func held_sprite_is_null():
 	if %PosXSpinBox.value_changed.is_connected(_on_pos_x_spin_box_value_changed):
 		%PosXSpinBox.value_changed.disconnect(_on_pos_x_spin_box_value_changed)
 		%PosYSpinBox.value_changed.disconnect(_on_pos_y_spin_box_value_changed)
+		%RotSpinBox.value_changed.disconnect(_on_rot_spin_box_value_changed)
 	x_amp.editable = false
 	
 	x_freq.editable = false
@@ -297,6 +297,7 @@ func _on_mc_anim_state_pressed(id):
 
 func reinfo():
 	held_sprite_is_null()
+	await get_tree().create_timer(0.01).timeout
 	held_sprite_is_true()
 	vis.button_pressed = Global.held_sprite.dictmain.visible
 	
@@ -373,6 +374,7 @@ func reinfo():
 	if !%PosXSpinBox.value_changed.is_connected(_on_pos_x_spin_box_value_changed):
 		%PosXSpinBox.value_changed.connect(_on_pos_x_spin_box_value_changed)
 		%PosYSpinBox.value_changed.connect(_on_pos_y_spin_box_value_changed)
+		%RotSpinBox.value_changed.connect(_on_rot_spin_box_value_changed)
 	
 	
 	
@@ -566,7 +568,7 @@ func _on_delete_button_pressed():
 		%CurrentSelected.texture = null
 		Global.held_sprite = null
 		held_sprite_is_null()
-		%DeselectButton.hide()
+		get_tree().get_root().get_node("Main/%TopUI/%DeselectButton").hide()
 
 func _on_duplicate_button_pressed():
 	if Global.held_sprite != null:

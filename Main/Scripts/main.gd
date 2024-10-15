@@ -143,6 +143,10 @@ func _on_file_dialog_file_selected(path):
 					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 					Global.held_sprite.save_state(Global.current_state)
 					Global.held_sprite.treeitem.get_node("%Icon").texture = texture
+				if Global.held_sprite.sprite_type == "WiggleApp":
+					Global.held_sprite.correct_sprite_size()
+					Global.held_sprite.update_wiggle_parts()
+				
 			Global.get_sprite_states(Global.current_state)
 			
 			
@@ -235,8 +239,10 @@ func _on_file_dialog_files_selected(paths):
 					sprte_obj.texture = img_can
 					sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 					sprte_obj.sprite_name = path.get_file().get_basename()
+				
 			
 				sprte_obj.img_animated = false
+
 
 
 			sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
@@ -251,6 +257,9 @@ func _on_file_dialog_files_selected(paths):
 			for i in states:
 				sprte_obj.states.append({})
 				
+			if current_state == State.AddAppend:
+				sprte_obj.correct_sprite_size()
+				sprte_obj.update_wiggle_parts()
 			sprite_nodes.append(sprte_obj)
 			
 

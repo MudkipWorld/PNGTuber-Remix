@@ -103,7 +103,7 @@ func add_state():
 		InputMap.add_action(remap_btn.get_node("StateRemapButton").action)
 		
 		Global.settings_dict.states.append({
-		outh_closed = 0,
+		mouth_closed = 0,
 		mouth_open = 3,
 		current_mc_anim = "Idle",
 		current_mo_anim = "One Bounce",

@@ -142,12 +142,12 @@ func offset():
 	held_sprite.dictmain.offset = held_sprite.get_node("%Sprite2D").position
 	held_sprite.save_state(current_state)
 
-	get_tree().get_root().get_node("Main/Control/UIInput").update_offset()
+	get_tree().get_root().get_node("Main/%Control/%UIInput").update_offset()
 
 
 func bg_rot():
 	held_bg_sprite.save_state(current_state)
-	get_tree().get_root().get_node("Main/Control/BackgroundEdit").update_pos_spins()
+	get_tree().get_root().get_node("Main/%Control/BackgroundEdit").update_pos_spins()
 
 
 func _process(delta):
@@ -194,7 +194,7 @@ func moving_origin(delta):
 func rot():
 	held_sprite.rotation = held_sprite.dictmain.rotation
 	held_sprite.save_state(current_state)
-	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+	get_tree().get_root().get_node("Main/%Control/%UIInput").update_pos_spins()
 
 
 
@@ -221,4 +221,4 @@ func moving_sprite(delta):
 
 func update_spins():
 	held_sprite.save_state(current_state)
-	get_tree().get_root().get_node("Main/Control/UIInput").update_pos_spins()
+	get_tree().get_root().get_node("Main/%Control/%UIInput").update_pos_spins()

@@ -70,6 +70,7 @@ func _on_spin_box_value_value_changed(nvalue):
 	%SpinBoxValue.get_line_edit().release_focus()
 	if Global.held_sprite != null && sp_type != "Null":
 		Global.held_sprite.dictmain[value_to_update] = nvalue
+		Global.held_sprite.save_state(Global.current_state)
 
 
 
@@ -80,6 +81,7 @@ func _on_slider_value_value_changed(nvalue):
 		Global.held_sprite.dictmain[value_to_update] = nvalue
 		if sp_type == "WiggleApp":
 			Global.held_sprite.update_wiggle_parts()
+		Global.held_sprite.save_state(Global.current_state)
 	
 
 func _on_spin_box_value_focus_exited() -> void:
@@ -107,3 +109,4 @@ func _on_slider_value_drag_ended(value_changed: bool) -> void:
 		Global.held_sprite.dictmain[value_to_update] = %SliderValue.value
 		if sp_type == "WiggleApp":
 			Global.held_sprite.update_wiggle_parts()
+		Global.held_sprite.save_state(Global.current_state)

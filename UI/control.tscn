@@ -1460,6 +1460,33 @@ max_value = 10.0
 step = 0.1
 value_to_update = "wiggle_physics_stiffness"
 
+[node name="ComeBackSpeedBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/MarginContainer/VBoxContainer/WiggleAppStuff" instance=ExtResource("10_m6pfk")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "Comeback Speed : "
+max_value = 6.28
+step = 0.01
+value_to_update = "comeback_speed"
+
+[node name="MaxAngularMomentumBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/MarginContainer/VBoxContainer/WiggleAppStuff" instance=ExtResource("10_m6pfk")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "Max Angular Momentum : "
+max_value = 10000.0
+step = 0.01
+ui_type = 1
+value_to_update = "max_angular_momentum"
+
+[node name="DampBSlider" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/MarginContainer/VBoxContainer/WiggleAppStuff" instance=ExtResource("10_m6pfk")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "Damp : "
+max_value = 1000.0
+step = 0.01
+ui_type = 1
+value_to_update = "damping"
+
 [node name="HBox30" type="HBoxContainer" parent="HSplitContainer/HSplit/RightPanel/Properties/VSplitContainer/ScrollContainer/Wiggle/ScrollContainer4/MarginContainer/VBoxContainer/WiggleAppStuff"]
 unique_name_in_owner = true
 layout_mode = 2

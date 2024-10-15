@@ -3,6 +3,7 @@ extends SpinBox
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.reinfo.connect(release)
 	get_line_edit().focus_mode = 1
 	get_line_edit().text_submitted.connect(text_done)
 	focus_exited.connect(release)
@@ -13,12 +14,11 @@ func _ready() -> void:
 
 func f_entered():
 	Global.spinbox_held = true
-	
-	
+
 
 func release():
 	Global.spinbox_held = false
-	print("ya")
+#	print("ya")
 	get_line_edit().release_focus()
 	release_focus()
 
