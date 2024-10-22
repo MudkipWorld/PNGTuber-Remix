@@ -6,7 +6,6 @@
 [ext_resource type="Shader" path="res://Scripts/SpriteShader.gdshader" id="3_p6byp"]
 [ext_resource type="Script" path="res://addons/wiggly_appendage_2d/wiggly_appendage_2d.gd" id="4_e6x1l"]
 [ext_resource type="Texture2D" uid="uid://c7poyj5s0pd1v" path="res://PicklesIdle.png" id="5_fthni"]
-[ext_resource type="Texture2D" uid="uid://boqyue1ceoy4b" path="res://Misc/AppendageObject/Folder.png" id="5_n8i6v"]
 [ext_resource type="Shader" path="res://Scripts/SpriteSelectionWA.gdshader" id="8_cwgos"]
 [ext_resource type="Texture2D" uid="uid://chuvmi2yancux" path="res://Misc/AppendageObject/origin.png" id="9_u04em"]
 
@@ -14,11 +13,20 @@
 resource_local_to_scene = true
 shader = ExtResource("3_p6byp")
 shader_parameter/enabled = false
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+shader_parameter/frequency = 10.0
+shader_parameter/phase_speed = 1.0
+shader_parameter/base_line_color = Vector4(0, 0, 0, 0)
 shader_parameter/Intensity = 1.0
 shader_parameter/wiggle = true
 shader_parameter/rotation = 0.0
 shader_parameter/rotation_offset = Vector2(0.5, 0.5)
+shader_parameter/marshing_ants = false
 shader_parameter/Blend = ExtResource("2_2g5n2")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8dpbe"]
+load_path = "res://.godot/imported/Folder.png-3e2b186b08c07a918653895b22f207e4.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_acear"]
 shader = ExtResource("8_cwgos")
@@ -57,7 +65,7 @@ texture = ExtResource("2_sl64r")
 [node name="Sprite2D" type="Line2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_1tqhp")
-points = PackedVector2Array(-10, 0, -4.96, -5.9844e-05, 2.16, -0.000239376, 11.36, -0.000538596, 22.64, -0.000957504, 36, -0.0014961, 50.4, -0.00189315, 64.8, -0.00188741, 79.2, -0.00147888, 93.6, -0.000667575, 108, 0.00054652, 122.4, 0.00211772, 136.8, 0.00400035, 151.2, 0.00619441, 165.6, 0.0086999, 180, 0.0115168, 194.4, 0.0141637, 208.8, 0.0161592, 223.2, 0.0175033, 237.6, 0.0181959, 252, 0.0182371, 266.4, 0.0176622, 280.8, 0.0165063, 295.2, 0.0147695, 309.6, 0.0124517, 324, 0.00955304, 338.4, 0.00607343, 352.8, 0.0020129)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, 0, 64.8, 0, 79.2, 0, 93.6, 0, 108, 0, 122.4, 0, 136.8, 0, 151.2, 0, 165.6, 0, 180, 0, 194.4, 0, 208.8, 0, 223.2, 0, 237.6, 0, 252, 0, 266.4, 0, 280.8, 0, 295.2, 0, 309.6, 0, 324, 0, 338.4, 0, 352.8, 0)
 texture = ExtResource("5_fthni")
 texture_mode = 2
 joint_mode = 2
@@ -82,7 +90,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
-texture_normal = ExtResource("5_n8i6v")
+texture_normal = SubResource("CompressedTexture2D_8dpbe")
 stretch_mode = 0
 
 [node name="Selection" type="TextureRect" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab"]

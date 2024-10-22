@@ -1868,7 +1868,8 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 14
-text = "Only works if your mouth shapes are in a sprite-sheet. 6 frames"
+text = "Only works if your mouth shapes are in a sprite-sheet. 14 frames
+(Check the Lipsync configuration)"
 autowrap_mode = 3
 justification_flags = 169
 max_lines_visible = 3

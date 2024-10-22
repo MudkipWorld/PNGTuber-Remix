@@ -27,7 +27,6 @@ func _ready():
 	
 	
 	devices = AudioServer.get_input_device_list()
-	devices.append_array(AudioServer.get_output_device_list())
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
 		
@@ -52,9 +51,6 @@ func choosing_device(id):
 	if id != null:
 		if AudioServer.get_input_device_list().has(devices[id]):
 			AudioServer.input_device = devices[id]
-		elif AudioServer.get_output_device_list().has(devices[id]):
-			AudioServer.output_device = devices[id]
-		%MicroPhoneMenu.text = str(devices[id])
 	else:
 		reset_mic_list()
 
@@ -84,17 +80,23 @@ func choosing_files(id):
 		9:
 			export_images(get_tree().get_nodes_in_group("Sprites"))
 			
+		10:
+			add_a_lipsync_config()
+		
 
 func choosing_mode(id):
+	var saved_id = 0
 	match id:
 		0:
 			get_parent().get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
 			get_viewport().transparent_bg = false
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 			get_tree().get_root().get_node("Main/%Control").show()
+			get_tree().get_root().get_node("Main/%VS").hide()
 			%HideUIButton.button_pressed = true
 			is_editor = true
 			%PreviewModeCheck.show()
+			saved_id = 0
 			
 			
 				
@@ -104,6 +106,7 @@ func choosing_mode(id):
 			RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
 			get_viewport().transparent_bg = Global.settings_dict.is_transparent
 			get_tree().get_root().get_node("Main/%Control").hide()
+			get_tree().get_root().get_node("Main/%VS").hide()
 			is_editor = false
 			light.get_node("Grab").hide()
 			get_tree().get_root().get_node("Main/%Control/%LSShapeVis").button_pressed = false
@@ -113,10 +116,20 @@ func choosing_mode(id):
 			%PreviewModeCheck.hide()
 			Global.static_view = false
 			%PreviewModeCheck.button_pressed = false
-			
+			saved_id = 1
+		2:
+			get_parent().get_parent().get_parent().get_node("SubViewportContainer").mouse_filter = 1
+			get_viewport().transparent_bg = false
+			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
+			get_tree().get_root().get_node("Main/%Control").hide()
+			get_tree().get_root().get_node("Main/%VS").show()
+			%HideUIButton.button_pressed = true
+			is_editor = true
+			%PreviewModeCheck.hide()
+			saved_id = 0
 		
 
-	Themes.theme_settings.mode = id
+	Themes.theme_settings.mode = saved_id
 	Global.mode = id
 	Themes.save()
 	desel_everything()
@@ -425,3 +438,9 @@ func _on_max_fp_slider_drag_ended(value_changed: bool) -> void:
 
 func _on_max_fp_slider_value_changed(value: float) -> void:
 	%MaxFPSLabel.text = "Max FPS : " + str(value)
+
+
+func add_a_lipsync_config():
+	var lipsync = preload("res://UI/Lipsync stuff/lipsync_configuration_popup.tscn").instantiate()
+	lipsync.name = "LipsyncConfigurationPopup"
+	get_tree().get_root().get_node("Main").add_child(lipsync)

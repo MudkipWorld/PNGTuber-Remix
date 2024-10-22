@@ -31,6 +31,7 @@ Global="*res://Main/Scripts/Global.gd"
 SaveAndLoad="*res://Main/Scripts/SaveAndLoad.gd"
 GlobalAudioStreamPlayer="*res://Main/Scripts/AudioStreamPlayer.gd"
 Themes="*res://Scripts/_Themes_.gd"
+LipSyncGlobals="*res://UI/Lipsync stuff/godot-lip-sync/lip_sync_globals.gd"
 
 [display]
 
@@ -46,7 +47,7 @@ project/assembly_name="PNGTube-Remix"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Recorder/plugin.cfg", "res://addons/Sprite_Object/plugin.cfg", "res://addons/aimg_io/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
+enabled=PackedStringArray("res://addons/Recorder/plugin.cfg", "res://addons/aimg_io/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
 
 [global_group]
 

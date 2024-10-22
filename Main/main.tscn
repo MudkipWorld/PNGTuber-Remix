@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b28gjkefgi5bs"]
+[gd_scene load_steps=11 format=3 uid="uid://b28gjkefgi5bs"]
 
 [ext_resource type="Script" path="res://Main/Scripts/main.gd" id="1_6pthk"]
 [ext_resource type="Script" path="res://Main/Scripts/SpritesContainer.gd" id="2_lv028"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="5_4hh1t"]
 [ext_resource type="Script" path="res://Main/Scripts/AudioStreamPlayer.gd" id="5_swrrk"]
 [ext_resource type="PackedScene" uid="uid://bpmlfhv30o08l" path="res://UI/TopUI/top_ui.tscn" id="7_qwnpc"]
+[ext_resource type="PackedScene" uid="uid://ckxam8ohd3x2v" path="res://UI/Secret/VisualScripting/vs.tscn" id="8_6dk20"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_b50ir"]
 
@@ -104,6 +105,11 @@ size_flags_vertical = 0
 
 [node name="Control" parent="UIHolder" instance=ExtResource("2_micm1")]
 unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VS" parent="UIHolder" instance=ExtResource("8_6dk20")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]

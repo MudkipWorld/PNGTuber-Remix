@@ -12,7 +12,7 @@ uniform float rotation = 0.0;
 uniform vec2 rotation_offset = vec2(0.5, 0.5);
 
 varying vec2 rot_uv;
-uniform sampler2D text;
+uniform sampler2D text : hint_default_black;
 
 
 void fragment() {
@@ -27,14 +27,14 @@ void fragment() {
 		rot_uv = rotated_uv;
 	}
 	else {
-		
+
 		rot_uv = UV;
 	}
-	
+
 	vec2 text_size = vec2(textureSize(text,0));
-	
+
 	vec2 size = vec2(1.0/text_size.x, 1.0/text_size.y) * line_thickness;
-	
+
 	float outline = texture(text, rot_uv + vec2(-size.x, 0)).a;
 	outline += texture(text, rot_uv + vec2(0, size.y)).a;
 	outline += texture(text, rot_uv + vec2(size.x, 0)).a;

@@ -104,11 +104,11 @@ func _on_file_dialog_file_selected(path):
 				Global.held_sprite.anim_texture = g_file
 				Global.held_sprite.anim_texture_normal = null
 				Global.held_sprite.texture = img_can
-				Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				Global.held_sprite.get_node("%Sprite2D").texture = img_can
 				Global.held_sprite.img_animated = true
 				Global.held_sprite.is_apng = false
 				Global.held_sprite.save_state(Global.current_state)
-				Global.held_sprite.treeitem.set_icon(0, gif_tex)
+				Global.held_sprite.treeitem.get_node("%Icon").texture = Global.held_sprite.get_node("%Sprite2D").texture
 				
 				
 				
@@ -128,7 +128,7 @@ func _on_file_dialog_file_selected(path):
 					var img_can = CanvasTexture.new()
 					img_can.diffuse_texture = text
 					Global.held_sprite.texture = img_can
-					Global.held_sprite.treeitem.set_icon(0, text)
+					Global.held_sprite.treeitem.get_node("%Icon").texture = Global.held_sprite.texture
 					Global.held_sprite.is_apng = true
 					Global.held_sprite.img_animated = false
 				else:
@@ -143,10 +143,11 @@ func _on_file_dialog_file_selected(path):
 					Global.held_sprite.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
 					Global.held_sprite.save_state(Global.current_state)
 					Global.held_sprite.treeitem.get_node("%Icon").texture = texture
+					
 				if Global.held_sprite.sprite_type == "WiggleApp":
 					Global.held_sprite.correct_sprite_size()
 					Global.held_sprite.update_wiggle_parts()
-				
+			Global.held_sprite.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 			Global.get_sprite_states(Global.current_state)
 			
 			
@@ -207,7 +208,7 @@ func _on_file_dialog_files_selected(paths):
 				img_can.diffuse_texture = gif_tex
 				sprte_obj.anim_texture = g_file
 				sprte_obj.img_animated = true
-				sprte_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+				sprte_obj.get_node("%Sprite2D").texture = img_can
 
 
 			

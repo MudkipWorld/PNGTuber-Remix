@@ -221,12 +221,10 @@ func animation():
 func _process(delta):
 	if Global.held_sprite == self:
 		%Grab.mouse_filter = 1
-		if %Sprite2D.texture is CanvasTexture:
-			%Selection.material.set_shader_parameter("text",%Sprite2D.texture.diffuse_texture)
-			%Selection.show()
+		%Sprite2D.material.set_shader_parameter("marshing_ants",true)
 	else:
 		%Grab.mouse_filter = 2
-		%Selection.hide()
+		%Sprite2D.material.set_shader_parameter("marshing_ants",false)
 	#	%Origin.mouse_filter = 2
 	
 	if dragging:
@@ -239,13 +237,6 @@ func _process(delta):
 	
 	
 	if !Global.static_view:
-		if dictmain.wiggle:
-			wiggle_sprite()
-			%Selection.material.set_shader_parameter("wiggle", true)
-		else:
-			%Selection.material.set_shader_parameter("wiggle", false)
-			
-		
 		if dictmain.should_rotate:
 			auto_rotate()
 		rainbow()
@@ -253,10 +244,14 @@ func _process(delta):
 		movements(delta)
 		follow_mouse()
 		
+		if dictmain.wiggle:
+			wiggle_sprite()
+		
 	else:
 		static_prev()
 		
 	follow_wiggle()
+	advanced_lipsyc()
 
 
 func movements(_delta):
@@ -367,9 +362,6 @@ func wiggle_sprite():
 			%Sprite2D.material.set_shader_parameter("rotation", c_parent.get_node("%Sprite2D").material.get_shader_parameter("rotation"))
 		else:
 			%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
-	
-	%Selection.material.set_shader_parameter("rotation_offs",dictmain.wiggle_rot_offset)
-	%Selection.material.set_shader_parameter("rotation", %Sprite2D.get_node("%Sprite2D").material.get_shader_parameter("rotation"))
 
 func speaking():
 	if Global.mode != 0:
@@ -402,58 +394,16 @@ func speaking():
 
 func advanced_lipsyc():
 	if dictmain.advanced_lipsync:
-		
-		if %Sprite2D.hframes != 6:
-			%Sprite2D.hframes = 6
-		$Talk.start()
-	#	var vol_lim_array = [Global.settings_dict.volume_limit, Global.settings_dict.volume_limit, Global.settings_dict.volume_limit, Global.settings_dict.volume_limit]
-		var t1 = [21.8125849517025, 0, 0, 0]
-		var t2 = [28.79458014297, 5.76142491051318, 0, 0]
-		
-		var t3 = [1.94345997247315, 16.6082798477067, 20.2565333927231, 0]
-		var t4 = [3.01663259741776, 17.0816552167815, 18.6912089735756, 0]
-		# 
-		var t5 = [15.9207278487366, 0, 0, 0]
-		var t6 = [19.8393356272706, 0.94239520235854, 0, 0]
-		
-		var t7 = [19.8393356272706, 0.94239520235854, 0, 0]
-		var t8 = [21.8125849517025, 0, 0, 0]
-		
-		var t9 = [3.01663259741776, 17.0816552167815, 18.6912089735756, 0]
-		var t10 = [15.9207278487366, 0, 0, 0]
-		
+		if %Sprite2D.hframes != 14:
+			%Sprite2D.hframes = 14
 		if currently_speaking:
-			if GlobalAudioStreamPlayer.used_bar > t1 && GlobalAudioStreamPlayer.used_bar < t2:
-		#		print("a")
-				%Sprite2D.frame_coords.x = 1
-				
-
-			elif GlobalAudioStreamPlayer.used_bar > t3 && GlobalAudioStreamPlayer.used_bar < t4:
-		#		print("s")
-				%Sprite2D.frame_coords.x = 2
-				
-
-			elif GlobalAudioStreamPlayer.used_bar > t5 && GlobalAudioStreamPlayer.used_bar < t6:
-			#	print("o")
-				%Sprite2D.frame_coords.x = 3
-				
-
-				
-			elif GlobalAudioStreamPlayer.used_bar > t9 && GlobalAudioStreamPlayer.used_bar < t10:
-			#	print("e")
-				%Sprite2D.frame_coords.x = 4
-				
-			elif GlobalAudioStreamPlayer.used_bar > t7 && GlobalAudioStreamPlayer.used_bar < t8:
-			#	print("h")
-				%Sprite2D.frame_coords.x = 5
-			
-	
+			if GlobalAudioStreamPlayer.t.value == 0:
+				%Sprite2D.frame_coords.x = 13
+			else:
+				%Sprite2D.frame_coords.x = GlobalAudioStreamPlayer.t.actual_value
 		else:
-			%Sprite2D.frame_coords.x = 0
-			
-		
-		await $Talk.timeout
-		advanced_lipsyc()
+			%Sprite2D.frame_coords.x = GlobalAudioStreamPlayer.t.actual_value
+
 
 func not_speaking():
 	if Global.mode != 0:
