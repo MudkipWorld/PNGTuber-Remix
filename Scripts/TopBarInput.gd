@@ -29,7 +29,8 @@ func _ready():
 	devices = AudioServer.get_input_device_list()
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
-		
+	
+	ProjectSettings.set("audio/driver/mix_rate", AudioServer.get_mix_rate())
 	%MicroPhoneMenu.text = str(AudioServer.input_device)
 	%MicroPhoneMenu.get_popup().connect("id_pressed",choosing_device)
 	print(OS.get_executable_path().get_base_dir() + "/autosaves")
@@ -51,6 +52,7 @@ func choosing_device(id):
 	if id != null:
 		if AudioServer.get_input_device_list().has(devices[id]):
 			AudioServer.input_device = devices[id]
+			ProjectSettings.set("audio/driver/mix_rate", AudioServer.get_mix_rate())
 	else:
 		reset_mic_list()
 

@@ -613,8 +613,10 @@ func _on_add_sprite_button_pressed():
 func _on_folder_button_pressed():
 	var sprte_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 	contain.add_child(sprte_obj)
-	sprte_obj.texture = preload("res://Misc/SpriteObject/Folder.png")
-	sprte_obj.get_node("%Sprite2D").texture = preload("res://Misc/SpriteObject/Folder.png")
+	var canv = CanvasTexture.new()
+	canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
+	sprte_obj.texture = canv
+	sprte_obj.get_node("%Sprite2D").texture =  canv
 	sprte_obj.sprite_name = str("Folder")
 	sprte_obj.dictmain.folder = true
 	var states = get_tree().get_nodes_in_group("StateButtons").size()

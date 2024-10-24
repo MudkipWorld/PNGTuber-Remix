@@ -104,6 +104,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="TopMenu" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -134,13 +135,20 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="CalibrationTree" type="Tree" parent="VBoxContainer/UIContainer/TreePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/UIContainer/TreePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="CalibrationTree" type="Tree" parent="VBoxContainer/UIContainer/TreePanel/MarginContainer"]
+layout_mode = 2
 columns = 2
 script = ExtResource("2_yucjp")
 
@@ -202,7 +210,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 script = ExtResource("17_c25av")
-calibration_tree = NodePath("../../../../../TreePanel/CalibrationTree")
+calibration_tree = NodePath("../../../../../TreePanel/MarginContainer/CalibrationTree")
 
 [node name="Insp1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
 custom_minimum_size = Vector2(10, 0)
@@ -387,10 +395,9 @@ show_percentage = false
 [node name="Stuff" type="TabContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Spectrum" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff"]
-visible = false
 layout_mode = 2
 script = ExtResource("18_cl2hy")
 metadata/_tab_index = 0
@@ -585,6 +592,7 @@ fill_mode = 3
 show_percentage = false
 
 [node name="Phonemes" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff" node_paths=PackedStringArray("sprite")]
+visible = false
 layout_mode = 2
 script = ExtResource("19_uhohj")
 sprite = NodePath("../../../../PreviewBG/Pos/Shapes")

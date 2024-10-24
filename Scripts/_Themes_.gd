@@ -22,6 +22,7 @@ var ui_theme
 	left = -2000,
 	properties = 0,
 	layers = -100,
+	lipsync_file_path = OS.get_executable_path().get_base_dir() + "/DefaultTraining.tres",
 }
 @onready var os_path = OS.get_executable_path().get_base_dir()
 
@@ -43,6 +44,8 @@ func save():
 	save_file.close()
 
 func _ready():
+	if !FileAccess.file_exists(OS.get_executable_path().get_base_dir() + "/DefaultTraining.tres"):
+		ResourceSaver.save(preload("res://UI/Lipsync stuff/DefaultLipsync.tres"),OS.get_executable_path().get_base_dir() + "/DefaultTraining.tres")
 	await  get_tree().create_timer(0.1).timeout
 	ui_theme = get_tree().get_root().get_node("Main/%TopUI/%UIThemeButton")
 	top_bar = get_tree().get_root().get_node("Main/%TopUI")
@@ -92,6 +95,11 @@ func _ready():
 				if FileAccess.file_exists(theme_settings.path):
 					await get_tree().create_timer(0.02).timeout
 					SaveAndLoad.load_file(theme_settings.path)
+					
+			if FileAccess.file_exists(theme_settings.lipsync_file_path):
+				LipSyncGlobals.file_data = ResourceLoader.load(theme_settings.lipsync_file_path)
+			else:
+				LipSyncGlobals.file_data = ResourceLoader.load(OS.get_executable_path().get_base_dir() + "/DefaultTraining.tres")
 			
 		load_file.close()
 		

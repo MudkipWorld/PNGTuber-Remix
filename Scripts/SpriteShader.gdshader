@@ -79,11 +79,11 @@ void fragment() {
 
 	}
 	else{
-		
+
 		output_1 = COLOR.rgb;
-		
+
 	}
-	
+
 	if (marshing_ants){
 	vec2 text_size = vec2(textureSize(TEXTURE,0));
 
@@ -116,7 +116,7 @@ void fragment() {
 		vec4 t = mix(base_line_color, line_color, ring * line_color.a);
 		COLOR.rgb = output_1;
 		COLOR = t;
-		
+
 		}
 	}
 

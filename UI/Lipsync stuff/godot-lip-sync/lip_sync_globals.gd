@@ -15,7 +15,7 @@ var file_name := ""
 var file_modified := false
 
 ## Training file data
-var file_data := LipSyncTraining.new()
+var file_data : LipSyncTraining = preload("res://UI/Lipsync stuff/DefaultLipsync.tres")
 
 ## Speech audio bus
 var speech_bus : int
@@ -24,7 +24,7 @@ var speech_bus : int
 var speech_spectrum: AudioEffectSpectrumAnalyzerInstance
 
 func _ready() -> void:
-	speech_spectrum = AudioServer.get_bus_effect_instance(2, 2)
+	speech_spectrum = AudioServer.get_bus_effect_instance(2, 1)
 
 ## Report the training data has been modified
 func set_modified(cause):
@@ -53,6 +53,7 @@ func new_file():
 func load_file(path: String):
 	# Load the data
 	file_name = path
+	Themes.theme_settings.lipsync_file_path = file_name
 	file_data = ResourceLoader.load(path)
 	file_modified = false
 
@@ -65,6 +66,7 @@ func load_file(path: String):
 func save_file():
 	# Save the resource
 	ResourceSaver.save(file_data, file_name)
+	Themes.theme_settings.lipsync_file_path = file_name
 	
 	file_modified = false
 

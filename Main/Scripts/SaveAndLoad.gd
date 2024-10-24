@@ -58,14 +58,14 @@ func save_file(path):
 			if sprt.img_animated:
 				img = sprt.anim_texture
 			else:
-				img = sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer()
+				img = sprt.get_node("%Sprite2D").texture.diffuse_texture.get_image().save_png_to_buffer()
 				
 			var normal_img
-			if sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture:
+			if sprt.get_node("%Sprite2D").texture.normal_texture:
 				if sprt.img_animated:
 					normal_img = sprt.anim_texture_normal
 				else:
-					normal_img = sprt.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture.normal_texture.get_image().save_png_to_buffer()
+					normal_img = sprt.get_node("%Sprite2D").texture.normal_texture.get_image().save_png_to_buffer()
 			
 			var cleaned_array = []
 			
@@ -188,7 +188,7 @@ func load_file(path):
 							
 							img_can.normal_texture = gif_normal
 							sprite_obj.anim_texture_normal = sprite.normal
-					sprite_obj.get_node("Pos/Wobble/Squish/Drag/Rotation/Sprite2D").texture = img_can
+					sprite_obj.get_node("%Sprite2D").texture = img_can
 					
 				else:
 					var img_data

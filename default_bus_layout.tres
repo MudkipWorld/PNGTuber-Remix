@@ -1,10 +1,7 @@
-[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://b2xlc2esq3cvw"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://b2xlc2esq3cvw"]
 
 [sub_resource type="AudioEffectRecord" id="AudioEffectRecord_tvg3x"]
 resource_name = "Record"
-
-[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_ac6xp"]
-resource_name = "HighPassFilter"
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_1ksyd"]
 resource_name = "SpectrumAnalyzer"
@@ -24,7 +21,5 @@ bus/2/volume_db = 0.0
 bus/2/send = &"ShadowBus"
 bus/2/effect/0/effect = SubResource("AudioEffectRecord_tvg3x")
 bus/2/effect/0/enabled = true
-bus/2/effect/1/effect = SubResource("AudioEffectHighPassFilter_ac6xp")
+bus/2/effect/1/effect = SubResource("AudioEffectSpectrumAnalyzer_1ksyd")
 bus/2/effect/1/enabled = true
-bus/2/effect/2/effect = SubResource("AudioEffectSpectrumAnalyzer_1ksyd")
-bus/2/effect/2/enabled = true

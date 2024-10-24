@@ -402,7 +402,7 @@ func advanced_lipsyc():
 			else:
 				%Sprite2D.frame_coords.x = GlobalAudioStreamPlayer.t.actual_value
 		else:
-			%Sprite2D.frame_coords.x = GlobalAudioStreamPlayer.t.actual_value
+			%Sprite2D.frame_coords.x = 13
 
 
 func not_speaking():

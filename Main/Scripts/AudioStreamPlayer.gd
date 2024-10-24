@@ -56,5 +56,5 @@ func global_lipsync():
 			t.value = value
 			t.actual_value = phoneme
 			
-	await get_tree().create_timer(0.042).timeout
+	await get_tree().create_timer(0.08).timeout
 	global_lipsync()
