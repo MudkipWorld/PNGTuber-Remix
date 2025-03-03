@@ -223,8 +223,9 @@ func _input(_event: InputEvent) -> void:
 		toggle_borders()
 	
 	if Input.is_action_just_pressed("center_screen"):
-		var ds = DisplayServer.screen_get_size(0)
-		get_window().position = Vector2i(ds.x/2- get_window().size.x/2,ds.y/2- get_window().size.y/2)
+		var i = DisplayServer.window_get_current_screen()
+		var ds = DisplayServer.screen_get_size(i)
+		get_window().position = DisplayServer.screen_get_position(i) + Vector2i(ds.x/2- get_window().size.x/2,ds.y/2- get_window().size.y/2)
 		window_size_changed()
 
 
