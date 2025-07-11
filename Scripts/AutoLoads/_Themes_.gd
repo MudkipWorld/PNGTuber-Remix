@@ -26,7 +26,7 @@ var current_theme : Theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
 	left = -2000,
 	properties = 0,
 	layers = -100,
-	lipsync_file_path = OS.get_executable_path().get_base_dir() + "/DefaultTraining.tres",
+	lipsync_file_path = Global.save_dir + "/DefaultTraining.tres",
 	microphone = null,
 	enable_trimmer = false,
 	always_on_top = false,
@@ -36,7 +36,7 @@ var current_theme : Theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
 	session = 0,
 	auto_activate_websocket = false,
 }
-@onready var os_path = OS.get_executable_path().get_base_dir()
+@onready var os_path = Global.save_dir
 
 var additional_output = RefCounted.new()
 
@@ -50,7 +50,7 @@ func save_before_closing():
 			SaveAndLoad.save_file(theme_settings.path)
 		else:
 			DirAccess.make_dir_absolute(os_path + "/AutoSaves")
-			SaveAndLoad.save_file(OS.get_executable_path().get_base_dir() + "/AutoSaves" + "/" + str(randi()))
+			SaveAndLoad.save_file(Global.save_dir + "/AutoSaves" + "/" + str(randi()))
 		window_size_changed()
 		save()
 	await get_tree().create_timer(0.1).timeout
@@ -59,7 +59,7 @@ func save_before_closing():
 
 func save():
 	var file = FileAccess
-	var save_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
+	var save_file = file.open(Global.save_dir + "/Preferences.pRDat", FileAccess.WRITE)
 	save_file.store_var(theme_settings)
 	save_file.close()
 
@@ -68,7 +68,7 @@ func auto_save():
 		SaveAndLoad.save_file(theme_settings.path)
 	else:
 		DirAccess.make_dir_absolute(os_path + "/AutoSaves")
-		SaveAndLoad.save_file(OS.get_executable_path().get_base_dir() + "/AutoSaves" + "/" + str(randi()))
+		SaveAndLoad.save_file(Global.save_dir + "/AutoSaves" + "/" + str(randi()))
 	window_size_changed()
 	save()
 	if Global.settings_dict.auto_save:
@@ -87,8 +87,8 @@ func _ready():
 		top_bar = get_tree().get_root().get_node("Main/%TopUI")
 	
 	var file = FileAccess
-	if file.file_exists(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat"):
-		var load_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.READ)
+	if file.file_exists(Global.save_dir + "/Preferences.pRDat"):
+		var load_file = file.open(Global.save_dir + "/Preferences.pRDat", FileAccess.READ)
 		var info = load_file.get_var()
 		if info is Dictionary:
 			theme_settings.merge(info, true)
@@ -118,7 +118,7 @@ func _ready():
 		load_file.close()
 		
 	else:
-		var create_file = file.open(OS.get_executable_path().get_base_dir() + "/Preferences.pRDat", FileAccess.WRITE)
+		var create_file = file.open(Global.save_dir + "/Preferences.pRDat", FileAccess.WRITE)
 		theme_settings.theme_id = 0
 		create_file.store_var(theme_settings)
 		create_file.close()

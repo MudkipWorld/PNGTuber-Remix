@@ -92,8 +92,11 @@ var frame_counter := 0
 const FRAME_INTERVAL := 3  # Run every 5 frames
 var swtich_session_popup : Node = null
 
+var save_dir: String = OS.get_executable_path().get_base_dir()
 
-# Called when the node enters the scene tree for the first time.
+func _init():
+	save_dir = OS.get_user_data_dir()
+
 func _ready():
 	get_window().min_size = Vector2(720,720)
 	add_child(blink_timer)

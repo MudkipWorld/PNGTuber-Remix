@@ -27,9 +27,9 @@ func _ready():
 	
 	%WindowButton.get_popup().set_item_checked(2, Themes.theme_settings.always_on_top)
 	
-	print(OS.get_executable_path().get_base_dir() + "/autosaves")
-	if !DirAccess.dir_exists_absolute(OS.get_executable_path().get_base_dir() + "/autosaves"):
-		DirAccess.make_dir_absolute(OS.get_executable_path().get_base_dir() + "/autosaves")
+	print(Global.save_dir + "/autosaves")
+	if !DirAccess.dir_exists_absolute(Global.save_dir + "/autosaves"):
+		DirAccess.make_dir_absolute(Global.save_dir + "/autosaves")
 		
 
 func choosing_window(id):
@@ -234,8 +234,8 @@ func _on_preview_mode_check_toggled(toggled_on: bool) -> void:
 	Global.static_view = toggled_on
 
 func export_images(images = get_tree().get_nodes_in_group("Sprites")):
-	#OS.get_executable_path().get_base_dir() + "/ExportedAssets" + "/" + str(randi())
-	var dire = OS.get_executable_path().get_base_dir() + "/ExportedAssets"
+	#Global.save_dir + "/ExportedAssets" + "/" + str(randi())
+	var dire = Global.save_dir + "/ExportedAssets"
 	if !DirAccess.dir_exists_absolute(dire):
 		DirAccess.make_dir_absolute(dire)
 		
