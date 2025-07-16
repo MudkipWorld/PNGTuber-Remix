@@ -55,13 +55,13 @@ func save_between_sessions():
 			SaveAndLoad.save_file(Themes.theme_settings.path)
 		else:
 			DirAccess.make_dir_absolute(Themes.os_path + "/AutoSaves")
-			SaveAndLoad.save_file(OS.get_executable_path().get_base_dir() + "/AutoSaves" + "/" + str(randi()))
+			SaveAndLoad.save_file(Global.save_dir + "/AutoSaves" + "/" + str(randi()))
 	elif Themes.theme_settings.session == 1:
 		if FileAccess.file_exists(Themes.theme_settings.path):
 			SaveAndLoad.save_file(Themes.theme_settings.path)
 		else:
 			DirAccess.make_dir_absolute(Themes.os_path + "/AutoSaves")
-			SaveAndLoad.save_file(OS.get_executable_path().get_base_dir() + "/AutoSaves" + "/" + str(randi()))
+			SaveAndLoad.save_file(Global.save_dir + "/AutoSaves" + "/" + str(randi()))
 
 
 

@@ -143,7 +143,7 @@ func _ready():
 func lipsync_set_up():
 	if !FileAccess.file_exists(theme_settings.lipsync_file_path):
 		#ResourceSaver.save(preload("res://UI/Lipsync stuff/PrebuildFile/DefaultTraining.tres") ,OS.get_executable_path().get_base_dir() + "/DefaultTraining.tres")
-		theme_settings.lipsync_file_path = OS.get_executable_path().get_base_dir() + "/DefaultTraining.tres"
+		theme_settings.lipsync_file_path = Global.save_dir + "/DefaultTraining.tres"
 		LipSyncGlobals.file_data = preload("res://UI/Lipsync stuff/DefaultTraining.tres")
 		LipSyncGlobals.save_file_as(theme_settings.lipsync_file_path)
 		
