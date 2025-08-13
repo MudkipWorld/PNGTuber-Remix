@@ -28,6 +28,7 @@ func get_default_object_data() -> Dictionary:
 		comeback_speed = 0.419,
 		flip_h = false,
 		flip_v = false,
+		pixel_art = false,
 		
 		tile = 2,
 		anchor_id = null,
@@ -141,6 +142,10 @@ func get_state(id):
 			%Sprite2D.scale.y = -1
 		else:
 			%Sprite2D.scale.y = 1
+		if get_value("pixel_art"):
+			%Sprite2D.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		else:
+			%Sprite2D.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		
 		if !get_value("should_blink"):
 			%Pos.show()

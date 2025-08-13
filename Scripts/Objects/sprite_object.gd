@@ -11,6 +11,7 @@ func get_default_object_data() -> Dictionary:
 		follow_parent_effects = false,
 		flip_sprite_h = false,
 		flip_sprite_v = false,
+		pixel_art_sprite = false,
 		non_animated_sheet = false,
 		animate_to_mouse = false,
 		animate_to_mouse_speed = 10,
@@ -185,6 +186,11 @@ func get_state(id):
 			%Sprite2D.scale.y = -1
 		else:
 			%Sprite2D.scale.y = 1
+
+		if get_value("pixel_art_sprite"):
+			%Sprite2D.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		else:
+			%Sprite2D.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 
 		if get_value("advanced_lipsync"):
 			%Sprite2D.hframes = 6

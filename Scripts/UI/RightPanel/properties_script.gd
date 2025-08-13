@@ -34,6 +34,7 @@ func nullfy():
 	%RotSpinBox.editable = false
 	%BlendMode.disabled = true
 	%ClipChildren.disabled = true
+	%PixelArt.disabled = true
 	%Visible.disabled = true
 	%ZOrderSpinbox.editable = false
 
@@ -58,6 +59,7 @@ func enable():
 			%RotSpinBox.editable = true
 			%BlendMode.disabled = false
 			%ClipChildren.disabled = false
+			%PixelArt.disabled = false
 			%Visible.disabled = false
 			%ZOrderSpinbox.editable = true
 			%EyeOption.disabled = false
@@ -85,6 +87,7 @@ func set_data():
 		else:
 			%ClipChildren.button_pressed = true
 			
+		%PixelArt.button_pressed = i.get_value("pixel_art_sprite")
 		%BlendMode.text = i.get_value("blend_mode")
 		%OffsetXSpinBox.value = i.get_value("offset").x
 		%OffsetYSpinBox.value = i.get_value("offset").y
@@ -428,6 +431,34 @@ func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 			state = Global.current_state})
 			
 		UndoRedoManager.add_data_to_manager(undo_redo_data)
+
+func _on_pixel_art_toggled(toggled_on: bool) -> void:
+	if should_change:
+		var undo_redo_data : Array = []
+		for i in Global.held_sprites:
+			var og_val = i.sprite_data.duplicate()
+			if i.sprite_type == "Sprite2D":
+				i.sprite_data.pixel_art_sprite = toggled_on
+				if i.get_value("pixel_art_sprite"):
+					i.get_node("%Sprite2D").texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+				else:
+					i.get_node("%Sprite2D").texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+				StateButton.multi_edit(toggled_on, "pixel_art_sprite", i, i.states)
+				i.save_state(Global.current_state)
+
+			elif i.sprite_type == "WiggleApp":
+				i.sprite_data.pixel_art = toggled_on
+				if i.get_value("pixel_art"):
+					i.get_node("%Sprite2D").texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+				else:
+					i.get_node("%Sprite2D").texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+				StateButton.multi_edit(toggled_on, "pixel_art", i, i.states)
+				i.save_state(Global.current_state)
+			undo_redo_data.append({sprite_object = i,
+			data = i.sprite_data.duplicate(),
+			og_data = og_val,
+			data_type = "sprite_data",
+			state = Global.current_state})
 
 func _on_clip_children_toggled(toggled_on: bool) -> void:
 	if should_change:

@@ -324,6 +324,13 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "Clip Children"
 
+[node name="PixelArt" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/Visibilty"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Pixel Art"
+
 [node name="HSeparator" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -433,5 +440,6 @@ layout_mode = 2
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/Visibilty/FlipSpriteH" to="PropertiesScript" method="_on_flip_sprite_h_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/Visibilty/FlipSpriteV" to="PropertiesScript" method="_on_flip_sprite_v_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/Visibilty/ClipChildren" to="PropertiesScript" method="_on_clip_children_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/Visibilty/PixelArt" to="PropertiesScript" method="_on_pixel_art_toggled"]
 [connection signal="item_selected" from="Scroll/MarginContainer/VBoxContainer/Reactions/EyeOption" to="PropertiesScript" method="_on_eye_option_item_selected"]
 [connection signal="item_selected" from="Scroll/MarginContainer/VBoxContainer/Reactions/MouthOption" to="PropertiesScript" method="_on_mouth_option_item_selected"]
