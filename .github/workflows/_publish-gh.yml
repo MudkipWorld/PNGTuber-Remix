@@ -1,0 +1,135 @@
+name: (Publish) - Publish on Github
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: false
+        type: string
+        default: ${{ github.ref_name }}
+      generate-notes:
+        required: false
+        type: boolean
+        default: false
+      name:
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  publish-gh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: '*'
+          merge-multiple: true
+
+      - name: 🏷️ Create/update ${{ inputs.tag }} tag
+        if: ${{ inputs.name != '' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ inputs.tag }}',
+              sha: context.sha
+            }).catch(err => {
+              if (err.status !== 422) throw err;
+              github.rest.git.updateRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: 'tags/${{ inputs.tag }}',
+                sha: context.sha
+              });
+            })
+
+      - name: 'Release to ${{ inputs.tag }}'
+        uses: softprops/action-gh-release@v2
+        with:
+          name: '${{ inputs.name }}'
+          tag_name: ${{ inputs.tag }}
+          generate_release_notes: ${{ inputs.generate-notes }}
+
+  publish-linux-zip:
+    needs: [publish-gh]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download linux files
+        uses: actions/download-artifact@v4
+        with:
+          name: linux
+          path: 'build/linux/'
+
+      - name: Archive Zip
+        uses: thedoctor0/zip-release@main
+        with:
+          type: 'zip'
+          filename: 'PNGTuber-Remix-linux-x86_64.zip'
+          directory: 'build/linux/'
+
+      - name: Release to ${{ inputs.tag }} tag
+        uses: softprops/action-gh-release@v2
+        with:
+          name: '${{ inputs.name }}'
+          tag_name: ${{ inputs.tag }}
+          files: 'build/linux/PNGTuber-Remix-linux-x86_64.zip'
+
+  publish-windows-zip:
+    needs: [publish-gh]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      
+      - name: Download windows files
+        uses: actions/download-artifact@v4
+        with:
+          name: windows
+          path: 'build/windows/'
+
+      - name: Archive Zip
+        uses: thedoctor0/zip-release@main
+        with:
+          type: 'zip'
+          filename: 'PNGTuber-Remix-win32-x86_64.zip'
+          directory: 'build/windows/'
+
+      - name: Release to ${{ inputs.tag }} tag
+        uses: softprops/action-gh-release@v2
+        with:
+          name: '${{ inputs.name }}'
+          tag_name: ${{ inputs.tag }}
+          files: 'build/windows/PNGTuber-Remix-win32-x86_64.zip'
+
+  publish-mac-zip:
+    if: false
+    needs: [publish-gh]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      
+      - name: Download mac files
+        uses: actions/download-artifact@v4
+        with:
+          name: mac
+          path: 'build/mac/'
+
+      - name: Archive Zip
+        uses: thedoctor0/zip-release@main
+        with:
+          type: 'zip'
+          filename: 'PNGTuber-Remix-mac.zip'
+          directory: 'build/mac/'
+
+      - name: Release to ${{ inputs.tag }} tag
+        uses: softprops/action-gh-release@v2
+        with:
+          name: '${{ inputs.name }}'
+          tag_name: ${{ inputs.tag }}
+          files: 'build/mac/PNGTuber-Remix-mac.zip'
