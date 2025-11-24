@@ -54,11 +54,12 @@ func _ready() -> void:
 	rdrag_rad = deg_to_rad(actor.get_value("rdragStr"))
 
 func _physics_process(delta: float) -> void:
+	follow_wiggle(delta)
 	placeholder_position = %Modifier1.global_position
 	applied_pos = %Modifier1.global_position
 	applied_rotation = 0.0
 	applied_scale = Vector2.ONE
-
+	
 	if !Global.static_view and actor.rest_mode != 5:
 		if (actor.rest_mode == 2 or actor.rest_mode == 3) and rest:
 			rest_mode_movements(delta)
@@ -77,7 +78,7 @@ func _physics_process(delta: float) -> void:
 		%Modifier.scale = Vector2(1,1)
 		%Sprite2D.self_modulate = actor.get_value("tint")
 
-	follow_wiggle(delta)
+	
 
 	if not Global.static_view:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
@@ -152,17 +153,27 @@ func wobble(_delta: float) -> void:
 	applied_pos += last_wobble_pos
 
 func rotationalDrag(length, delta: float):
-	var tick = Global.tick
-	if actor.get_value("pause_movement"):
-		paused_rotation += delta if Global.settings_dict.should_delta else 1.0
+	if actor.is_default("rot_frq"):
+		if actor.get_value("pause_movement"):
+			if actor.is_all_default("rot_frq"):
+				last_rot = 0
+			else:
+				paused_rotation += delta if Global.settings_dict.should_delta else 1.
+		else:
+			last_rot = sin((Global.tick-paused_rotation) * actor.get_value("rot_frq"))
+			last_rot *= deg_to_rad(actor.get_value("rdragStr"))
 	else:
-		last_rot = sin((tick - paused_rotation) * actor.get_value("rot_frq")) * rdrag_rad
-
-	applied_rotation = lerp_angle(applied_rotation, last_rot, _frame_lerp(delta, 0.15))
-
-	var yvel = ((length * actor.get_value("rdragStr")) * 0.5)
-	yvel = clamp(yvel, actor.get_value("rLimitMin"), actor.get_value("rLimitMax"))
-	rot_drag = lerp_angle(rot_drag, deg_to_rad(yvel), _frame_lerp(delta, 0.15))
+		last_rot = sin((Global.tick-paused_rotation) * actor.get_value("rot_frq"))
+		last_rot *= deg_to_rad(actor.get_value("rdragStr"))
+	
+	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
+	
+	var yvel = ((length * actor.get_value("rdragStr"))* 0.5)
+	
+	
+	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
+	
+	applied_rotation = lerp_angle(applied_rotation,deg_to_rad(yvel),0.15)
 
 func stretch(length, delta):
 	var yvel = length * actor.get_value("stretchAmount") * 0.01
@@ -172,55 +183,52 @@ func stretch(length, delta):
 var points_cache: Array = []
 var points_dirty: bool = true
 
-func follow_wiggle(delta: float) -> void:
+func follow_wiggle(delta):
 	if not actor.get_value("follow_wa_tip"):
 		follow_point_rot = 0.0
 		return
-	if !parent_node or not parent_node.has_method("get_points"):
+	var parent = actor.get_parent()
+	if not is_instance_valid(parent) or not (parent is WigglyAppendage2D):
 		follow_point_rot = 0.0
 		return
+	var tip_index = clamp(actor.get_value("tip_point"), 0, parent.points.size() - 1)
+	var raw_tip = parent.points[tip_index]
+	var speed_strength = actor.get_value("follow_strength")
+	if not has_prev:
+		prev_smoothed_pos = raw_tip
+		has_prev = true
+	var d = prev_smoothed_pos.distance_to(raw_tip)
+	var w = clamp(d * speed_strength, 0.0, 1.0)
+	var smoothed = prev_smoothed_pos.lerp(raw_tip, w)
+	prev_smoothed_pos = smoothed
+	var parent_pos = %Modifier1.position
+	var final_pos = smoothed.lerp(parent_pos, actor.get_value("follow_strength"))
+	%Modifier1.position = final_pos
 
-	if points_dirty:
-		points_cache = parent_node.get_points()
-		points_dirty = false
-
-	var tip_index = clamp(actor.get_value("tip_point"), 0, points_cache.size() - 1)
-	var raw_tip: Vector2 = points_cache[tip_index]
-
-	var rest_angle: float = 0.0
-	if parent_node.has_method("get_rest_direction_angle"):
-		rest_angle = parent_node.get_rest_direction_angle()
-
-	var smoothed_pos = modifier_node.position.lerp(raw_tip, 0.9)
-	modifier_node.position = smoothed_pos
-
-	var base_length: float = max(points_cache[0].distance_to(points_cache[-1]), 0.001) if points_cache.size() > 1 else 1.0
-
-	if has_prev:
-		var movement = smoothed_pos - prev_smoothed_pos
-		var raw_strength = movement.length() / (base_length * max(delta, 0.0001))
-		strength = lerp(strength, clamp(raw_strength, 0.0, 1.0), 0.1)
-
-	prev_smoothed_pos = smoothed_pos
-	has_prev = true
-
-	var dir = prev_smoothed_pos - raw_tip
-	var min_angle = deg_to_rad(actor.get_value("follow_wa_mini"))
-	var max_angle = deg_to_rad(actor.get_value("follow_wa_max"))
+	var prev_point_pos
+	if tip_index > 0:
+		prev_point_pos = parent.points[tip_index - 1]
+	else:
+		prev_point_pos = raw_tip - Vector2(cos(parent._rest_direction_angle), sin(parent._rest_direction_angle))
+	var dir = raw_tip - prev_point_pos
+	if dir == Vector2.ZERO:
+		dir = Vector2(cos(parent._rest_direction_angle), sin(parent._rest_direction_angle))
 	var dir_angle = atan2(dir.y, dir.x)
+	var rest_angle = parent._rest_direction_angle
+	var min_angle = deg_to_rad(actor.get_value("follow_wa_mini")) + rest_angle
+	var max_angle = deg_to_rad(actor.get_value("follow_wa_max")) + rest_angle
+	var rel_angle = wrapf(dir_angle - rest_angle, -PI, PI)
+	var target_ang = rest_angle + rel_angle
 
-	if dir.length() > actor.get_value("rotation_threshold"):
-		if actor.get_value("anchor_id") == null:
-			if actor.get_value("follow_range"):
-				var rel_angle = wrapf(dir_angle - rest_angle, -PI, PI)
-				var target_rel: float = rel_angle * strength
-				_b = rest_angle + target_rel
-			else:
-				var rel_angle = wrapf(dir_angle, -PI, PI)
-				_b = rel_angle
+	if abs(target_ang - biased) < actor.get_value("rotation_threshold"):
+		return
 
+	_b = target_ang
 	biased = lerp(biased, _b, actor.get_value("follow_strength"))
-	follow_point_rot = GlobalCalculations.clamp_angle(biased, min_angle, max_angle)
+	follow_point_rot = GlobalCalculations.clamp_angle(biased, min_angle, max_angle, rest_angle)
+
+
+
 
 func rainbow(delta):
 	if actor.get_value("hidden_item") and Global.mode != 0:

@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccvo3k5t6lis6"]
+[gd_scene load_steps=5 format=3 uid="uid://ccvo3k5t6lis6"]
 
 [ext_resource type="Script" uid="uid://c8nhrcj1ttgu0" path="res://Scripts/UI/RightPanel/movement_tab.gd" id="1_fsl5l"]
 [ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="1_h5u6y"]
 [ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="2_qiucb"]
 [ext_resource type="Script" uid="uid://b75cjxwjdv1t3" path="res://Scripts/UI/RightPanel/whyisntthisworking.gd" id="2_t2p8h"]
-[ext_resource type="PackedScene" uid="uid://gi7i6hmto4hq" path="res://UI/BetterSlider/better_range_slider.tscn" id="5_x0aup"]
 
 [node name="Movement" type="Control"]
 layout_mode = 3
@@ -216,18 +215,6 @@ layout_mode = 2
 text = "TR_ROTATION"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="BetterSliderRotationRange" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("5_x0aup")]
-visible = false
-layout_mode = 2
-sp_type = ""
-label_text = "Rot-Range "
-mini_value = -360.0
-max_value = 360.0
-step = 0.01
-value_min_update = "rLimitMin"
-value_max_update = "rLimitMax"
-has_alt_values = true
 
 [node name="RotationMinRotBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true

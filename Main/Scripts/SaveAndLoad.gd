@@ -731,6 +731,8 @@ func add_object_to_scene(image_data, add_as_appendage : bool = false, folder : b
 		
 	spawn.sprite_id = spawn.get_instance_id()
 	spawn.disappear_keys = str(spawn.sprite_id) + "Disappear"
+	if add_as_appendage:
+		spawn.correct_sprite_size()
 	Global.sprite_container.add_child(spawn)
 	if !force_offset && !folder:
 		Global.update_layers.emit(0, spawn, "Sprite")

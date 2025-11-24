@@ -72,7 +72,7 @@ func _on_follow_wiggle_app_tip_toggled(toggled_on):
 		for i in Global.held_sprites:
 			if i != null && is_instance_valid(i):
 				i.sprite_data.follow_wa_tip = toggled_on
-				i.get_node("Pos").position = Vector2(0,0)
+				i.get_node("%Modifier").position = Vector2(0,0)
 				StateButton.multi_edit(toggled_on, "follow_wa_tip", i, i.states)
 				i.save_state(Global.current_state)
 

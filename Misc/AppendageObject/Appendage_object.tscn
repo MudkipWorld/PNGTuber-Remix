@@ -46,15 +46,16 @@ script = ExtResource("1_yuqos")
 sprite_object = NodePath("Modifier1/Modifier/Sprite2D")
 grab_object = NodePath("Modifier1/Modifier/Sprite2D/Grab")
 
-[node name="Sprite2D" type="Line2D" parent="Modifier1/Modifier" index="1"]
+[node name="Sprite2D" type="Line2D" parent="Modifier1/Modifier" index="1" node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, -1.88789e-05, 64.8, -7.55154e-05, 79.2, -0.00016991, 93.6, -0.000302062, 108, -0.000471971, 122.4, -0.000790128, 136.8, -0.00136702, 151.2, -0.00220265, 165.6, -0.00329701, 180, -0.00465011, 194.4, -0.00594433, 208.8, -0.00686204, 223.2, -0.00740324, 237.6, -0.00756793, 252, -0.00735612, 266.4, -0.00612983, 280.8, -0.00325108, 295.2, 0.00128014, 309.6, 0.0074638, 324, 0.0152999, 338.4, 0.0247885, 352.8, 0.0359295)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, -8.06488e-05, 64.8, -0.000322595, 79.2, -0.000725839, 93.6, -0.00129038, 108, -0.00201622, 122.4, -0.0029243, 136.8, -0.00403555, 151.2, -0.00534998, 165.6, -0.00686758, 180, -0.00858836, 194.4, -0.00999696, 208.8, -0.010578, 223.2, -0.0103315, 237.6, -0.00925747, 252, -0.00735588, 266.4, -0.00481378, 280.8, -0.0018182, 295.2, 0.00163087, 309.6, 0.00553342, 324, 0.00988945, 338.4, 0.014699, 352.8, 0.019962)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
+actor = NodePath("../../..")
 segment_length = 72.0
 max_angle = 0.523599
 comeback_speed = 0.419
