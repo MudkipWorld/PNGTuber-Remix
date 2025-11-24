@@ -9,3 +9,15 @@ windows.x86_64.single.release = "res://GI/windows/GlobalInput.windows.template_r
 
 linux.x86_64.single.debug = "res://GI/linux/GlobalInput.linux.template_debug.x86_64.so"
 linux.x86_64.single.release = "res://GI/linux/GlobalInput.linux.template_release.x86_64.so"
+
+[dependencies]
+windows = {
+    "res://GI/windows/libgcc_s_seh-1.dll" : "",
+    "res://GI/windows/libstdc++-6.dll" : "",
+    "res://GI/windows/libuiohook.dll" : "",
+    "res://GI/windows/libwinpthread-1.dll" : "",
+}
+linux = {
+    "res://GI/linux/libuiohook.so" : "",
+}
+
