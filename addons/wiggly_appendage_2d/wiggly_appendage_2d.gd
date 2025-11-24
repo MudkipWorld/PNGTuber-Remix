@@ -99,7 +99,7 @@ func _physics_process(delta):
 		return
 	if anchor_target != null && is_instance_valid(anchor_target):
 		var root_pos = get_global_position()
-		var anchor_pos = anchor_target.position
+		var anchor_pos = anchor_target.get_node("%Origin").global_position
 		var total_length = root_pos.distance_to(anchor_pos)
 	current_segment_length = _get_true_segment_length()
 	
@@ -135,8 +135,8 @@ func _apply_verlet_anchor(delta):
 	root[POSITION] = global_position
 	physics_points[0] = root
 	if anchor_target != null and is_instance_valid(anchor_target):
-		physics_points[-1][POSITION] = anchor_target.global_position
-		var anchor = anchor_target.get_node("%Modifier").global_position
+		physics_points[-1][POSITION] = anchor_target.get_node("%Origin").global_position
+		var anchor = anchor_target.get_node("%Origin").global_position
 		var root_pos = global_position
 		var max_reach = segment_length * (physics_points.size() - 1)
 		var max_stretch_reached = max_length_stretch * (physics_points.size() - 1)
