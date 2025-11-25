@@ -20,17 +20,19 @@ var frame_v := 0.0
 
 var target_x := 0.0
 var target_y := 0.0
-var target_rotation := Vector2.ZERO
-var target_scale := Vector2.ONE
+var target_rotation :Vector2 = Vector2.ZERO
+var target_scale :Vector2 = Vector2.ONE
 var target_pos = Vector2.ZERO
 
-var mouse_delta := Vector2.ZERO
+var mouse_delta :Vector2 = Vector2.ZERO
 var rest := false
-var axis_left := Vector2.ZERO
-var axis_right := Vector2.ZERO
-var axis_shoulderl := Vector2.ZERO
-var axis_shoulderr := Vector2.ZERO
-var axis_lr_3 := Vector2.ZERO
+var axis_left :Vector2 = Vector2.ZERO
+var axis_right :Vector2 = Vector2.ZERO
+var axis_shoulderl :Vector2 = Vector2.ZERO
+var axis_shoulderr :Vector2 = Vector2.ZERO
+var axis_lr_3 : Vector2 = Vector2.ZERO
+var current_dir : Vector2 = Vector2.ZERO
+var current_dist : float = 0.0
 
 
 func _physics_process(delta: float) -> void:
@@ -71,7 +73,7 @@ func process_follow(delta: float) -> void:
 	update_position(dir, dist, delta)
 	update_rotation(dir, delta)
 	update_scale(dir, delta)
-	update_sprite_animation(dir, dist, delta)
+	
 
 func follow_calculation(_delta = 0.0):
 	var main_marker = Global.main.get_node("%Marker")
@@ -112,40 +114,103 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	if follow_type in [3,4,5,6,7,8]:
 		keyboard_axis = GlobalCalculations.some_keyboard_calc_wasd("follow_type", actor)
 	if follow_type == 0:
-		if actor.sprite_type == "Sprite2D" && actor.get_value("non_animated_sheet") && actor.get_value("animate_to_mouse") && !actor.get_value("animate_to_mouse_track_pos"):
-				target_pos = Vector2.ZERO
-		else:
-			if actor.get_value("follow_mouse_velocity"):
-				if actor.get_value("snap_pos"):
-					if abs(distance.x) > 0.5:
-						target_pos.x = lerp(target_pos.x, last_dist.x, actor.get_value("mouse_delay"))
-					if abs(distance.y) > 0.5:
-						target_pos.y = lerp(target_pos.y, last_dist.y, actor.get_value("mouse_delay"))
-				else:
-					target_pos = target_pos.lerp(last_dist, actor.get_value("mouse_delay")) 
-			
+		if actor.get_value("follow_mouse_velocity"):
+			if actor.get_value("snap_pos"):
+				if abs(distance.x) > 0.5:
+					target_pos.x = lerp(target_pos.x, last_dist.x, actor.get_value("mouse_delay"))
+					current_dir.x = dir.x
+				if abs(distance.y) > 0.5:
+					target_pos.y = lerp(target_pos.y, last_dist.y, actor.get_value("mouse_delay"))
+					current_dir.y = dir.y
 			else:
-				target_pos.x = dir.x * min(dist, actor.get_value("look_at_mouse_pos"))
-				target_pos.y = dir.y * min(dist, actor.get_value("look_at_mouse_pos_y"))
+				target_pos = target_pos.lerp(last_dist, actor.get_value("mouse_delay")) 
+				current_dir = dir
+		
+		else:
+			target_pos.x = dir.x * min(dist, actor.get_value("look_at_mouse_pos"))
+			target_pos.y = dir.y * min(dist, actor.get_value("look_at_mouse_pos_y"))
+			current_dir = dir
+		
+		
+		
 	elif follow_type == 1:
-		target_pos = axis_left * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+		if actor.get_value("snap_pos"):
+			if axis_left.x != 0:
+				target_x = lerp(target_x, axis_left.x * actor.get_value("look_at_mouse_pos"), actor.get_value("mouse_delay"))
+				current_dir.x = axis_left.x
+			if axis_left.y != 0:
+				target_y = lerp(target_y, axis_left.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
+				current_dir.y = axis_left.y
+			target_pos = Vector2(target_x, target_y)
+		else:
+			target_pos = axis_left * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			current_dir = axis_left
+			current_dist = target_pos.length()
 	elif follow_type == 2:
-		target_pos = axis_right * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+		if actor.get_value("snap_pos"):
+			if axis_right.x != 0:
+				target_x = lerp(target_x, axis_right.x * actor.get_value("look_at_mouse_pos"), actor.get_value("mouse_delay"))
+				current_dir.x = axis_right.x
+			if axis_right.y != 0:
+				target_y = lerp(target_y, axis_right.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
+				current_dir.y = axis_right.y
+			target_pos = Vector2(target_x, target_y)
+		else:
+			target_pos = axis_right * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			current_dir = axis_right
+			current_dist = target_pos.length()
 	elif follow_type == 10:
-		target_pos = axis_shoulderl * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+		if actor.get_value("snap_pos"):
+			if axis_shoulderl.x != 0:
+				target_x = lerp(target_x, axis_shoulderl.x * actor.get_value("look_at_mouse_pos"), actor.get_value("mouse_delay"))
+				current_dir.x = axis_shoulderl.x
+			if axis_shoulderl.y != 0:
+				target_y = lerp(target_y, axis_shoulderl.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
+				current_dir.y = axis_shoulderl.y
+			target_pos = Vector2(target_x, target_y)
+		else:
+			target_pos = axis_shoulderl * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			current_dir = axis_shoulderl
+			current_dist = target_pos.length()
 	elif follow_type == 11:
-		target_pos = axis_shoulderr * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+		if actor.get_value("snap_pos"):
+			if axis_shoulderr.x != 0:
+				target_x = lerp(target_x, axis_shoulderr.x * actor.get_value("look_at_mouse_pos"), actor.get_value("mouse_delay"))
+				current_dir.x = axis_shoulderr.x
+			if axis_shoulderr.y != 0:
+				target_y = lerp(target_y, axis_shoulderr.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
+				current_dir.y = axis_shoulderr.y
+			target_pos = Vector2(target_x, target_y)
+		else:
+			target_pos = axis_shoulderr * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			current_dir = axis_shoulderr
+			current_dist = target_pos.length()
 	elif follow_type == 12:
-		target_pos = axis_lr_3 * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+		if actor.get_value("snap_pos"):
+			if axis_lr_3.x != 0:
+				target_x = lerp(target_x, axis_lr_3.x * actor.get_value("look_at_mouse_pos"), actor.get_value("mouse_delay"))
+				current_dir.x = axis_lr_3.x
+			if axis_lr_3.y != 0:
+				target_y = lerp(target_y, axis_lr_3.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
+				current_dir.y = axis_lr_3.y
+			target_pos = Vector2(target_x, target_y)
+		else:
+			target_pos = axis_lr_3 * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			current_dir = axis_lr_3
+			current_dist = target_pos.length()
 	elif follow_type in [3,4,5,6,7,8]:
 		if actor.get_value("snap_pos"):
 			if keyboard_axis.x != 0:
 				target_x = lerp(target_x, keyboard_axis.x * actor.get_value("look_at_mouse_pos"), actor.get_value("mouse_delay"))
+				current_dir.x = keyboard_axis.x
 			if keyboard_axis.y != 0:
 				target_y = lerp(target_y, keyboard_axis.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
+				current_dir.y = keyboard_axis.y
 			target_pos = Vector2(target_x, target_y)
 		else:
 			target_pos = keyboard_axis * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			current_dir = keyboard_axis
+		current_dist = target_pos.length()
 
 	else:
 		target_pos = dir * Vector2(
@@ -159,6 +224,12 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			target_y = lerp(target_y, target_pos.y, actor.get_value("mouse_delay"))
 		target_pos = Vector2(target_x, target_y)
 
+	if actor.sprite_type == "Sprite2D" && actor.get_value("non_animated_sheet") && actor.get_value("animate_to_mouse"):
+		update_sprite_animation(current_dir, current_dist, _delta)
+		if !actor.get_value("animate_to_mouse_track_pos"):
+			modifier.position.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.x, 0.0, actor.get_value("mouse_delay")))
+			modifier.position.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.y, 0.0, actor.get_value("mouse_delay")))
+			return
 	modifier.position.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.x, target_pos.x, actor.get_value("mouse_delay")))
 	modifier.position.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.y, target_pos.y, actor.get_value("mouse_delay")))
 
