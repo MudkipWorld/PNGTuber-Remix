@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cb6sos2p8qbrr"]
+[gd_scene load_steps=15 format=3 uid="uid://cb6sos2p8qbrr"]
 
 [ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_31wc5"]
 [ext_resource type="Script" uid="uid://cpxma1104nmwe" path="res://Scripts/Objects/append_object.gd" id="1_yuqos"]
@@ -21,12 +21,12 @@ shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 [sub_resource type="CanvasTexture" id="CanvasTexture_6684t"]
 diffuse_texture = ExtResource("5_mwqm8")
 
-[sub_resource type="Gradient" id="Gradient_uswo1"]
+[sub_resource type="Gradient" id="Gradient_31wc5"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_wmc63"]
-gradient = SubResource("Gradient_uswo1")
+gradient = SubResource("Gradient_31wc5")
 width = 120
 height = 120
 
@@ -38,8 +38,12 @@ shader_parameter/ant_width = 1.5
 shader_parameter/ant_length = 10.0
 shader_parameter/ant_speed = 30.0
 
+[sub_resource type="Gradient" id="Gradient_lijf4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i82gq"]
-gradient = SubResource("Gradient_uswo1")
+gradient = SubResource("Gradient_lijf4")
 
 [node name="SpriteObject" node_paths=PackedStringArray("sprite_object", "grab_object") instance=ExtResource("1_31wc5")]
 script = ExtResource("1_yuqos")
@@ -51,7 +55,7 @@ unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, -2.46156e-05, 64.8, -9.84625e-05, 79.2, -0.000221541, 93.6, -0.00039385, 108, -0.000615391, 122.4, -0.000874595, 136.8, -0.0011599, 151.2, -0.00147129, 165.6, -0.00180879, 180, -0.00217238, 194.4, -0.00275254, 208.8, -0.00373974, 223.2, -0.00513399, 237.6, -0.00693528, 252, -0.00914361, 266.4, -0.0118741, 280.8, -0.015242, 295.2, -0.0192471, 309.6, -0.0238896, 324, -0.0291695, 338.4, -0.0350866, 352.8, -0.0416411)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, 3.00363e-05, 64.8, 0.000120145, 79.2, 0.000270327, 93.6, 0.000480581, 108, 0.000750908, 122.4, 0.00119607, 136.8, 0.00193084, 151.2, 0.00295521, 165.6, 0.00426919, 180, 0.00587276, 194.4, 0.00762284, 208.8, 0.00937631, 223.2, 0.0111332, 237.6, 0.0128934, 252, 0.0146571, 266.4, 0.0174882, 280.8, 0.0224507, 295.2, 0.0295447, 309.6, 0.0387702, 324, 0.0501271, 338.4, 0.0636155, 352.8, 0.0792354)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")

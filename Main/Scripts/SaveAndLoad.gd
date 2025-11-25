@@ -296,6 +296,8 @@ func load_objects(load_dict: Dictionary) -> void:
 		var sprite_obj
 		if sprite.has("sprite_type") and sprite.sprite_type == "WiggleApp":
 			sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
+		elif sprite.has("sprite_type") and sprite.sprite_type == "Comment":
+			sprite_obj = preload("res://Misc/CommentObject/comment_object.tscn").instantiate()
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 
@@ -334,49 +336,50 @@ func load_objects(load_dict: Dictionary) -> void:
 					InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
 
 		sprite_obj.sprite_name = sprite.sprite_name
-		var canv: CanvasTexture = CanvasTexture.new()
-		canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
-		sprite_obj.get_node("%Sprite2D").texture = canv
+		if !sprite.sprite_type == "Comment":
+			var canv: CanvasTexture = CanvasTexture.new()
+			canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
+			sprite_obj.get_node("%Sprite2D").texture = canv
 
-		var image_data: ImageData = null
-		var image_data_normal: ImageData = null
+			var image_data: ImageData = null
+			var image_data_normal: ImageData = null
 
-		if load_dict.get("image_manager_data", []) == [] and !sprite.states[0].get("folder"):
-			image_data = ImageData.new()
-			if sprite.has("normal") and sprite.normal != null:
-				image_data_normal = ImageData.new()
+			if load_dict.get("image_manager_data", []) == [] and !sprite.states[0].get("folder"):
+				image_data = ImageData.new()
+				if sprite.has("normal") and sprite.normal != null:
+					image_data_normal = ImageData.new()
 
-			if sprite.has("is_apng"):
-				ImageTextureLoaderManager.load_apng(sprite, image_data)
-				if image_data_normal != null:
-					ImageTextureLoaderManager.load_apng(sprite, image_data_normal, true)
-			elif sprite.has("img_animated") and sprite.img_animated:
-				ImageTextureLoaderManager.load_gif(sprite_obj, sprite, image_data)
-				if image_data_normal != null:
-					ImageTextureLoaderManager.load_gif(sprite, image_data_normal, true)
-			else:
-				load_sprite(sprite, image_data)
-				if image_data_normal != null:
-					load_sprite(sprite, image_data_normal, true)
-			canv.diffuse_texture = image_data.runtime_texture
-			sprite_obj.referenced_data = image_data
-			sprite_obj.used_image_id = image_data.id
-			image_data.image_name = sprite_obj.sprite_name
-			Global.image_manager_data.append(image_data)
+				if sprite.has("is_apng"):
+					ImageTextureLoaderManager.load_apng(sprite, image_data)
+					if image_data_normal != null:
+						ImageTextureLoaderManager.load_apng(sprite, image_data_normal, true)
+				elif sprite.has("img_animated") and sprite.img_animated:
+					ImageTextureLoaderManager.load_gif(sprite_obj, sprite, image_data)
+					if image_data_normal != null:
+						ImageTextureLoaderManager.load_gif(sprite, image_data_normal, true)
+				else:
+					load_sprite(sprite, image_data)
+					if image_data_normal != null:
+						load_sprite(sprite, image_data_normal, true)
+				canv.diffuse_texture = image_data.runtime_texture
+				sprite_obj.referenced_data = image_data
+				sprite_obj.used_image_id = image_data.id
+				image_data.image_name = sprite_obj.sprite_name
+				Global.image_manager_data.append(image_data)
 
-			if image_data_normal != null:
-				canv.normal_texture = image_data_normal.runtime_texture
-				sprite_obj.referenced_data_normal = image_data_normal
-				sprite_obj.used_image_id_normal = image_data_normal.id
-				image_data_normal.image_name = sprite_obj.sprite_name + "(Normal)"
-				Global.image_manager_data.append(image_data_normal)
-			if import_resized and import_percent != 100.0:
-				_resize_image_data(image_data, sprite_obj.get_node("%Sprite2D"), import_percent)
 				if image_data_normal != null:
-					_resize_image_data(image_data_normal, null, import_percent)
+					canv.normal_texture = image_data_normal.runtime_texture
+					sprite_obj.referenced_data_normal = image_data_normal
+					sprite_obj.used_image_id_normal = image_data_normal.id
+					image_data_normal.image_name = sprite_obj.sprite_name + "(Normal)"
+					Global.image_manager_data.append(image_data_normal)
+				if import_resized and import_percent != 100.0:
+					_resize_image_data(image_data, sprite_obj.get_node("%Sprite2D"), import_percent)
+					if image_data_normal != null:
+						_resize_image_data(image_data_normal, null, import_percent)
 
 		else:
-			if !sprite.states[0].get("folder"):
+			if !sprite.states[0].get("folder") && !sprite.sprite_type == "Comment":
 				sprite_obj.rotated = sprite.get("rotated", 0)
 				sprite_obj.flipped_h = sprite.get("flipped_h", false)
 				sprite_obj.flipped_v = sprite.get("flipped_v", false)
@@ -407,8 +410,11 @@ func load_objects(load_dict: Dictionary) -> void:
 
 		if sprite.has("is_collapsed"):
 			sprite_obj.is_collapsed = sprite.is_collapsed
-		sprite_obj.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+		if !sprite.sprite_type == "Comment":
+			sprite_obj.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 		Global.sprite_container.add_child(sprite_obj)
+		if sprite.sprite_type == "Comment":
+			sprite_obj.sprite_type = "Comment"
 
 func load_sprite(sprite, image_data = null, normal = false):
 	var img_data

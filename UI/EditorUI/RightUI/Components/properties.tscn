@@ -70,8 +70,8 @@ text = "TR_POS_X"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -1000000000.0
-max_value = 1000000000.0
+min_value = -1e+09
+max_value = 1e+09
 step = 0.1
 script = ExtResource("1_tcd20")
 
@@ -89,8 +89,8 @@ text = "TR_POS_Y"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -1000000000.0
-max_value = 1000000000.0
+min_value = -1e+09
+max_value = 1e+09
 step = 0.1
 script = ExtResource("1_tcd20")
 

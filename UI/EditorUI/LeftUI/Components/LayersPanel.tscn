@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://7r3v4vohf4at"]
+[gd_scene load_steps=17 format=3 uid="uid://7r3v4vohf4at"]
 
 [ext_resource type="Script" uid="uid://sipcpctah7rf" path="res://Scripts/UI/LeftPanel/layers_panel_scripts.gd" id="1_jg6ph"]
 [ext_resource type="Texture2D" uid="uid://b1mau3t40axff" path="res://UI/Assets/FlipHButton.png" id="2_1ikkj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bobj6c6goa1d3" path="res://UI/Assets/FolderButton.png" id="3_4imd6"]
 [ext_resource type="Texture2D" uid="uid://bl0hqylj4sn5e" path="res://UI/Assets/AddAppendage.png" id="3_bjklo"]
 [ext_resource type="Texture2D" uid="uid://bdn1lqcsryehy" path="res://UI/Assets/FlipVButton.png" id="3_bwdjw"]
+[ext_resource type="Texture2D" uid="uid://cy7f2n2248fnu" path="res://UI/Assets/TextButton.png" id="3_rijo6"]
 [ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/Assets/ReplaceButton.png" id="4_fs6qq"]
 [ext_resource type="Texture2D" uid="uid://db71o0x7h6duq" path="res://UI/Assets/RotateClockWiseButton.png" id="4_rijo6"]
 [ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/Assets/DupButton.png" id="5_rccg0"]
@@ -64,6 +65,18 @@ tooltip_text = "Unlinks a child Object from Parent Object."
 focus_mode = 0
 mouse_default_cursor_shape = 2
 icon = ExtResource("2_bwdjw")
+expand_icon = true
+
+[node name="CommentsButton" type="Button" parent="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "Unlinks a child Object from Parent Object."
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = ExtResource("3_rijo6")
 expand_icon = true
 
 [node name="FlipH" type="Button" parent="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer"]
@@ -299,6 +312,7 @@ select_mode = 2
 script = ExtResource("11_hewhr")
 
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/UnlinkButton" to="LayersPanelScripts" method="_on_unlink_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/CommentsButton" to="LayersPanelScripts" method="_on_comments_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/FlipH" to="LayersPanelScripts" method="_on_flip_h_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/FlipV" to="LayersPanelScripts" method="_on_flip_v_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/RotateImage" to="LayersPanelScripts" method="_on_rotate_image_pressed"]

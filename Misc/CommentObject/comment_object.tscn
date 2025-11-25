@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://xi7wuil2fgw"]
+
+[ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_6cwnl"]
+[ext_resource type="Script" uid="uid://c3gej70hph4uo" path="res://Scripts/Objects/comment_object.gd" id="2_etb4i"]
+[ext_resource type="Shader" uid="uid://di5vad1bc51ed" path="res://Scripts/Shaders/SpriteSelectionWA.gdshader" id="3_8ts6b"]
+
+[sub_resource type="Gradient" id="Gradient_uswo1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dxs6g"]
+gradient = SubResource("Gradient_uswo1")
+width = 120
+height = 120
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etb4i"]
+shader = ExtResource("3_8ts6b")
+shader_parameter/ant_color_1 = Color(1, 1, 1, 1)
+shader_parameter/ant_color_2 = Color(0, 0, 0, 1)
+shader_parameter/ant_width = 1.5
+shader_parameter/ant_length = 10.0
+shader_parameter/ant_speed = 30.0
+
+[sub_resource type="Gradient" id="Gradient_31wc5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ts6b"]
+gradient = SubResource("Gradient_31wc5")
+
+[node name="CommentObject" node_paths=PackedStringArray("comment_object", "sprite_object", "grab_object") instance=ExtResource("1_6cwnl")]
+script = ExtResource("2_etb4i")
+comment_object = NodePath("Modifier1/Modifier/Sprite2D")
+sprite_object = NodePath("Modifier1/Modifier/Placeholder")
+grab_object = NodePath("Modifier1/Modifier/Grab")
+sprite_type = "Comment"
+
+[node name="Placeholder" type="Sprite2D" parent="Modifier1/Modifier" index="1"]
+visible = false
+
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" index="2"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+texture_normal = SubResource("GradientTexture2D_dxs6g")
+
+[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Grab" index="0"]
+unique_name_in_owner = true
+visible = false
+z_index = 4096
+z_as_relative = false
+material = SubResource("ShaderMaterial_etb4i")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_8ts6b")
+expand_mode = 1
+
+[node name="Sprite2D" type="TextEdit" parent="Modifier1/Modifier" index="3"]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_right = 0.876405
+anchor_bottom = 0.893417
+offset_right = 434.0
+offset_bottom = 306.0
+focus_mode = 1
+mouse_filter = 1
+placeholder_text = "Comments go here"
+editable = false
+wrap_mode = 1
+
+[node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="Movements" parent="." index="4" node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
+sprite_node = NodePath("../Modifier1/Modifier/Placeholder")
+
+[connection signal="text_changed" from="Modifier1/Modifier/Sprite2D" to="." method="_on_sprite_2d_text_changed"]

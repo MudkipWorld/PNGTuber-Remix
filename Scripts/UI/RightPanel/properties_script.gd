@@ -44,8 +44,12 @@ func nullfy():
 	%RestModeOption.disabled = true
 
 func enable():
+	var seen_comment : bool = false
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
+			if i.sprite_type == "Comment":
+				seen_comment = true
+			
 			%TintPickerButton.disabled = false
 			%ColorPickerButton.disabled = false
 			%EyeOption.disabled = false
@@ -66,8 +70,12 @@ func enable():
 			
 			%OffsetXSpinBox.editable = true
 			%OffsetYSpinBox.editable = true
-			%FlipSpriteH.disabled = false
-			%FlipSpriteV.disabled = false
+			if !seen_comment:
+				%FlipSpriteH.disabled = false
+				%FlipSpriteV.disabled = false
+			else:
+				%FlipSpriteH.disabled = true
+				%FlipSpriteV.disabled = true
 			%RestModeOption.disabled = false
 			
 			set_data()

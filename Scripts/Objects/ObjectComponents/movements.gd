@@ -4,7 +4,7 @@ extends Node
 
 # --- Cached Nodes ---
 var modifier_node: Node2D
-var sprite_node: Node2D
+var sprite_node: Node
 
 var parent_node: Node
 var parent_movements: Node
