@@ -296,90 +296,121 @@ func load_objects(load_dict: Dictionary) -> void:
 		var sprite_obj
 		if sprite.has("sprite_type") and sprite.sprite_type == "WiggleApp":
 			sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
+			set_common_data(sprite, sprite_obj)
+			load_normal_objects(load_dict, sprite, sprite_obj)
 		elif sprite.has("sprite_type") and sprite.sprite_type == "Comment":
 			sprite_obj = preload("res://Misc/CommentObject/comment_object.tscn").instantiate()
+			set_common_data(sprite, sprite_obj)
+			load_comment_block_object(load_dict, sprite, sprite_obj)
+			
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
+			set_common_data(sprite, sprite_obj)
+			load_normal_objects(load_dict, sprite, sprite_obj)
 
-		sprite_obj.layer_color = sprite.get("layer_color", Color.BLACK)
-		sprite_obj.used_image_id = sprite.get("image_id", 0)
-		sprite_obj.used_image_id_normal = sprite.get("normal_id", 0)
-		sprite_obj.sprite_id = sprite.sprite_id
-		sprite_obj.rest_mode = sprite.get("rest_mode", 1)
-		if sprite.has("parent_id") and sprite.parent_id != null:
-			sprite_obj.parent_id = sprite.parent_id
 
-		if sprite.has("is_asset"):
-			sprite_obj.is_asset = sprite.is_asset
-			sprite_obj.saved_event = sprite.saved_event
-			sprite_obj.should_disappear = sprite.should_disappear
-			if sprite.has("show_only"):
-				sprite_obj.show_only = sprite.show_only
-			if sprite.has("hold_to_show"):
-				sprite_obj.hold_to_show = sprite.hold_to_show
-			sprite_obj.get_node("%Sprite2D").visible = sprite.was_active_before
-			sprite_obj.was_active_before = sprite.was_active_before
+func set_common_data(sprite, sprite_obj):
+	sprite_obj.layer_color = sprite.get("layer_color", Color.BLACK)
+	sprite_obj.used_image_id = sprite.get("image_id", 0)
+	sprite_obj.used_image_id_normal = sprite.get("normal_id", 0)
+	sprite_obj.sprite_id = sprite.sprite_id
+	sprite_obj.rest_mode = sprite.get("rest_mode", 1)
+	if sprite.has("parent_id") and sprite.parent_id != null:
+		sprite_obj.parent_id = sprite.parent_id
 
-			sprite_obj.disappear_keys = str(sprite.sprite_id) + "Disappear"
-			if !InputMap.has_action(sprite_obj.disappear_keys):
-				InputMap.add_action(sprite_obj.disappear_keys)
-				for keys in sprite.get("saved_keys", []):
-					var event = InputEventKey.new()
-					event.keycode = OS.find_keycode_from_string(keys)
-					InputMap.action_add_event(sprite_obj.disappear_keys, event)
-				for keys in sprite.get("saved_disappear", []):
-					InputMap.action_add_event(sprite_obj.disappear_keys, keys)
+	if sprite.has("is_asset"):
+		sprite_obj.is_asset = sprite.is_asset
+		sprite_obj.saved_event = sprite.saved_event
+		sprite_obj.should_disappear = sprite.should_disappear
+		if sprite.has("show_only"):
+			sprite_obj.show_only = sprite.show_only
+		if sprite.has("hold_to_show"):
+			sprite_obj.hold_to_show = sprite.hold_to_show
+		sprite_obj.get_node("%Sprite2D").visible = sprite.was_active_before
+		sprite_obj.was_active_before = sprite.was_active_before
 
-			if !InputMap.has_action(str(sprite.sprite_id)):
-				InputMap.add_action(str(sprite.sprite_id))
-				if sprite_obj.saved_event != null:
-					InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+		sprite_obj.disappear_keys = str(sprite.sprite_id) + "Disappear"
+		if !InputMap.has_action(sprite_obj.disappear_keys):
+			InputMap.add_action(sprite_obj.disappear_keys)
+			for keys in sprite.get("saved_keys", []):
+				var event = InputEventKey.new()
+				event.keycode = OS.find_keycode_from_string(keys)
+				InputMap.action_add_event(sprite_obj.disappear_keys, event)
+			for keys in sprite.get("saved_disappear", []):
+				InputMap.action_add_event(sprite_obj.disappear_keys, keys)
 
-		sprite_obj.sprite_name = sprite.sprite_name
-		if !sprite.sprite_type == "Comment":
-			var canv: CanvasTexture = CanvasTexture.new()
-			canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
-			sprite_obj.get_node("%Sprite2D").texture = canv
+		if !InputMap.has_action(str(sprite.sprite_id)):
+			InputMap.add_action(str(sprite.sprite_id))
+			if sprite_obj.saved_event != null:
+				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+	sprite_obj.sprite_name = sprite.sprite_name
 
-			var image_data: ImageData = null
-			var image_data_normal: ImageData = null
+func load_comment_block_object(_load_dict : Dictionary, sprite, sprite_obj):
+	var cleaned_array := []
+	for st in sprite.states:
+		if not st.is_empty():
+			if import_trimmed and !Global.settings_dict.trimmed and sprite_obj.referenced_data != null:
+				st["offset"] += sprite_obj.referenced_data.offset
+			if import_resized and import_percent != 100.0:
+				var scale := import_percent / 100.0
+				st["offset"] *= scale
+				if st.has("position"):
+					st["position"] *= scale
+			cleaned_array.append(st)
+	for st in cleaned_array:
+		var new_dict = sprite_obj.sprite_data.duplicate()
+		new_dict.merge(st, true)
+		st = new_dict
+	sprite_obj.states = cleaned_array
+	if sprite.has("is_collapsed"):
+		sprite_obj.is_collapsed = sprite.is_collapsed
+	Global.sprite_container.add_child(sprite_obj)
+	sprite_obj.sprite_type = "Comment"
 
-			if load_dict.get("image_manager_data", []) == [] and !sprite.states[0].get("folder"):
-				image_data = ImageData.new()
-				if sprite.has("normal") and sprite.normal != null:
-					image_data_normal = ImageData.new()
+func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
+		var canv: CanvasTexture = CanvasTexture.new()
+		canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
+		sprite_obj.get_node("%Sprite2D").texture = canv
 
-				if sprite.has("is_apng"):
-					ImageTextureLoaderManager.load_apng(sprite, image_data)
-					if image_data_normal != null:
-						ImageTextureLoaderManager.load_apng(sprite, image_data_normal, true)
-				elif sprite.has("img_animated") and sprite.img_animated:
-					ImageTextureLoaderManager.load_gif(sprite_obj, sprite, image_data)
-					if image_data_normal != null:
-						ImageTextureLoaderManager.load_gif(sprite, image_data_normal, true)
-				else:
-					load_sprite(sprite, image_data)
-					if image_data_normal != null:
-						load_sprite(sprite, image_data_normal, true)
-				canv.diffuse_texture = image_data.runtime_texture
-				sprite_obj.referenced_data = image_data
-				sprite_obj.used_image_id = image_data.id
-				image_data.image_name = sprite_obj.sprite_name
-				Global.image_manager_data.append(image_data)
+		var image_data: ImageData = null
+		var image_data_normal: ImageData = null
 
+		if load_dict.get("image_manager_data", []) == [] and !sprite.states[0].get("folder"):
+			image_data = ImageData.new()
+			if sprite.has("normal") and sprite.normal != null:
+				image_data_normal = ImageData.new()
+
+			if sprite.has("is_apng"):
+				ImageTextureLoaderManager.load_apng(sprite, image_data)
 				if image_data_normal != null:
-					canv.normal_texture = image_data_normal.runtime_texture
-					sprite_obj.referenced_data_normal = image_data_normal
-					sprite_obj.used_image_id_normal = image_data_normal.id
-					image_data_normal.image_name = sprite_obj.sprite_name + "(Normal)"
-					Global.image_manager_data.append(image_data_normal)
-				if import_resized and import_percent != 100.0:
-					_resize_image_data(image_data, sprite_obj.get_node("%Sprite2D"), import_percent)
-					if image_data_normal != null:
-						_resize_image_data(image_data_normal, null, import_percent)
+					ImageTextureLoaderManager.load_apng(sprite, image_data_normal, true)
+			elif sprite.has("img_animated") and sprite.img_animated:
+				ImageTextureLoaderManager.load_gif(sprite_obj, sprite, image_data)
+				if image_data_normal != null:
+					ImageTextureLoaderManager.load_gif(sprite, image_data_normal, true)
+			else:
+				load_sprite(sprite, image_data)
+				if image_data_normal != null:
+					load_sprite(sprite, image_data_normal, true)
+			canv.diffuse_texture = image_data.runtime_texture
+			sprite_obj.referenced_data = image_data
+			sprite_obj.used_image_id = image_data.id
+			image_data.image_name = sprite_obj.sprite_name
+			Global.image_manager_data.append(image_data)
+
+			if image_data_normal != null:
+				canv.normal_texture = image_data_normal.runtime_texture
+				sprite_obj.referenced_data_normal = image_data_normal
+				sprite_obj.used_image_id_normal = image_data_normal.id
+				image_data_normal.image_name = sprite_obj.sprite_name + "(Normal)"
+				Global.image_manager_data.append(image_data_normal)
+			if import_resized and import_percent != 100.0:
+				_resize_image_data(image_data, sprite_obj.get_node("%Sprite2D"), import_percent)
+				if image_data_normal != null:
+					_resize_image_data(image_data_normal, null, import_percent)
 
 		else:
-			if !sprite.states[0].get("folder") && !sprite.sprite_type == "Comment":
+			if !sprite.states[0].get("folder"):
 				sprite_obj.rotated = sprite.get("rotated", 0)
 				sprite_obj.flipped_h = sprite.get("flipped_h", false)
 				sprite_obj.flipped_v = sprite.get("flipped_v", false)
@@ -410,11 +441,9 @@ func load_objects(load_dict: Dictionary) -> void:
 
 		if sprite.has("is_collapsed"):
 			sprite_obj.is_collapsed = sprite.is_collapsed
-		if !sprite.sprite_type == "Comment":
-			sprite_obj.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+			
+		sprite_obj.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 		Global.sprite_container.add_child(sprite_obj)
-		if sprite.sprite_type == "Comment":
-			sprite_obj.sprite_type = "Comment"
 
 func load_sprite(sprite, image_data = null, normal = false):
 	var img_data

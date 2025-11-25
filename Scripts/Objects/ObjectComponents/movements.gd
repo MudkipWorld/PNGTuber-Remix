@@ -183,7 +183,7 @@ func stretch(length, delta):
 var points_cache: Array = []
 var points_dirty: bool = true
 
-func follow_wiggle(delta):
+func follow_wiggle(_delta):
 	if not actor.get_value("follow_wa_tip"):
 		follow_point_rot = 0.0
 		return
