@@ -14,7 +14,6 @@ static var internal_point_count : int = 50
 static var eplision : float = 1
 static var merge_close : float = 25
 
-
 func regenerate_mesh():
 	if mesh == null or !is_instance_valid(mesh):
 		push_error("Mesh is null or invalid!")
@@ -116,7 +115,7 @@ func _input(event):
 					return
 				var img_space = mouse_pos + mesh.texture.get_size() / 2
 				if Input.is_action_pressed("alt"):
-					mesh.remove_nearest_internal_point(img_space)
+					mesh.remove_nearest_internal_point(img_space, 5)
 				elif Input.is_action_pressed("ctrl"):
 					mesh.add_internal_point(img_space)
 		elif event is InputEventMouseMotion:
@@ -158,27 +157,31 @@ func is_triangle_valid(a: Vector2, b: Vector2, c: Vector2) -> bool:
 	return abs(area) > 0.001
 
 func deform_vertex(index: int, drag: Vector2) -> void:
-	if mesh == null  or !is_instance_valid(mesh):
+	if mesh == null or !is_instance_valid(mesh):
 		return
 	if index < 0:
 		return
-	var target_vertices = mesh.deformed_vertices
+	var vertices_ref := mesh.deformed_vertices 
 	if !mesh.interpolated_vertices.is_empty():
-		target_vertices = mesh.interpolated_vertices
-	if index >= target_vertices.size():
+		vertices_ref = mesh.interpolated_vertices
+	
+	if index >= vertices_ref.size():
 		return
-	var origin_pos = target_vertices[index]
-	for i in range(target_vertices.size()):
-		var dist = target_vertices[i].distance_to(origin_pos)
+	var origin_pos = vertices_ref[index]
+	for i in range(vertices_ref.size()):
+		var dist = vertices_ref[i].distance_to(origin_pos)
 		if dist > influence_radius:
 			continue
 		var influence = pow(1.0 - dist / influence_radius, 1.0) * influence_strength
-		target_vertices[i] += drag * influence
-	if !mesh.interpolated_vertices.is_empty():
-		for i in range(target_vertices.size()):
-			mesh.deformed_vertices[i] = target_vertices[i]
-	queue_redraw()
+		vertices_ref[i] += drag * influence
+	if mesh.interpolated_vertices.is_empty():
+		mesh.deformed_vertices = vertices_ref
+	else:
+		mesh.interpolated_vertices = vertices_ref
+		mesh.deformed_vertices = vertices_ref
+	
 	mesh.queue_redraw()
+	queue_redraw()
 
 func smooth_and_even_poly(poly: Array, iterations: int, spacing: float = 5) -> Array:
 	if mesh == null  or !is_instance_valid(mesh):
@@ -312,9 +315,14 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 	mesh.base_vertices = base_vertices.duplicate()
 	mesh.internal_vertices.clear()
 	if ring_grid:
-		mesh.internal_vertices.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
+		var arr = mesh.internal_vertices.duplicate()
+		arr.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
+		mesh.internal_vertices = arr 
+
 	if square_grid:
-		mesh.internal_vertices.append_array(generate_internal_points_grid(mesh.base_vertices))
+		var arr = mesh.internal_vertices.duplicate() 
+		arr.append_array(generate_internal_points_grid(mesh.base_vertices))
+		mesh.internal_vertices = arr 
 	var all_vertices = mesh.base_vertices.duplicate()
 	all_vertices += mesh.internal_vertices.duplicate()
 	mesh.original_vertices = all_vertices

@@ -160,7 +160,7 @@ func wobble(_delta: float) -> void:
 		if  !mesh.editable && !can_deform:
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
 			if amp != Vector2.ZERO && Vector2(actor.get_value("xFrq"), actor.get_value("yFrq")) != Vector2.ZERO:
-				var safe_deform_pos = mesh.apply_wobble_to_deformer(last_wobble_pos, _delta, amp)
+				var safe_deform_pos = mesh.apply_wobble_to_deformer(last_wobble_pos, _delta, amp, 0.08)
 				if !safe_deform_pos.is_equal_approx(Vector2(mesh.deform_x, mesh.deform_y)):
 					mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
 			if !actor.get_value("move_with_wobble"):

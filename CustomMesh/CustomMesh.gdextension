@@ -1,0 +1,18 @@
+[configuration]
+
+entry_symbol = "custom_mesh_library_init"
+compatibility_minimum = "4.2"
+
+[libraries]
+windows.x86_64.single.debug = "res://CustomMesh/windows/CustomMesh.windows.template_debug.x86_64.dll"
+windows.x86_64.single.release = "res://CustomMesh/windows/CustomMesh.windows.template_release.x86_64.dll"
+
+linux.x86_64.single.debug = "res://CustomMesh/linux/CustomMesh.linux.template_debug.x86_64.so"
+linux.x86_64.single.release = "res://CustomMesh/linux/CustomMesh.linux.template_release.x86_64.so"
+
+[dependencies]
+windows = {
+    "res://CustomMesh/windows/libgcc_s_seh-1.dll" : "",
+    "res://CustomMesh/windows/libstdc++-6.dll" : "",
+    "res://CustomMesh/windows/libwinpthread-1.dll" : ""
+	}

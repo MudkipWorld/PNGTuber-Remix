@@ -237,7 +237,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		if !mesh.editable && !can_deform:
 			var raw_offset = target_pos
 			var amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
-			var safe_deform_pos = mesh.apply_wobble_to_deformer(raw_offset, _delta, amp)
+			var safe_deform_pos = mesh.apply_wobble_to_deformer(raw_offset, _delta, amp, 0.08)
 			if !safe_deform_pos.is_equal_approx(Vector2(mesh.deform_x, mesh.deform_y)):
 				mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
 		if !actor.get_value("move_with_follow"):

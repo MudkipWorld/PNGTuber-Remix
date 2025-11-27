@@ -154,20 +154,20 @@ func _copy_transform(src, dst):
 	dst.sprite_data.scale = src.scale
 
 func duplicate_mesh_data(src: CustomMesh, dst: CustomMesh) -> void:
-	dst.original_vertices = src.original_vertices.duplicate(true)
-	dst.base_vertices = src.base_vertices.duplicate(true)
-	dst.deformed_vertices = src.deformed_vertices.duplicate(true)
-	dst.internal_vertices = src.internal_vertices.duplicate(true)
+	dst.original_vertices = src.original_vertices.duplicate()
+	dst.base_vertices = src.base_vertices.duplicate()
+	dst.deformed_vertices = src.deformed_vertices.duplicate()
+	dst.internal_vertices = src.internal_vertices.duplicate()
 	dst.triangles = src.triangles.duplicate()
-	dst.deform_top_left = src.deform_top_left.duplicate(true)
-	dst.deform_top_middle = src.deform_top_middle.duplicate(true)
-	dst.deform_top_right = src.deform_top_right.duplicate(true)
-	dst.deform_middle_left = src.deform_middle_left.duplicate(true)
-	dst.deform_center = src.deform_center.duplicate(true)
-	dst.deform_middle_right = src.deform_middle_right.duplicate(true)
-	dst.deform_bottom_left = src.deform_bottom_left.duplicate(true)
-	dst.deform_bottom_middle = src.deform_bottom_middle.duplicate(true)
-	dst.deform_bottom_right = src.deform_bottom_right.duplicate(true)
+	dst.deform_top_left = src.deform_top_left.duplicate()
+	dst.deform_top_middle = src.deform_top_middle.duplicate()
+	dst.deform_top_right = src.deform_top_right.duplicate()
+	dst.deform_middle_left = src.deform_middle_left.duplicate()
+	dst.deform_center = src.deform_center.duplicate()
+	dst.deform_middle_right = src.deform_middle_right.duplicate()
+	dst.deform_bottom_left = src.deform_bottom_left.duplicate()
+	dst.deform_bottom_middle = src.deform_bottom_middle.duplicate()
+	dst.deform_bottom_right = src.deform_bottom_right.duplicate()
 	dst.texture = src.texture
 
 

@@ -1,5 +1,5 @@
 extends Node2D
-class_name CustomMesh
+class_name CustomMeshOld
 
 @export var texture : Texture2D
 @export var actor : Node

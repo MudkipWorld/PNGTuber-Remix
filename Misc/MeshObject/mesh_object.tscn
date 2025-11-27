@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_mho80"]
 [ext_resource type="Script" uid="uid://c2cvkimlig3bp" path="res://Scripts/Misc/mesh_object.gd" id="2_i8o0q"]
-[ext_resource type="Script" uid="uid://bkffcdjdqc65g" path="res://Scripts/Objects/custom_mesh_base.gd" id="3_6vnt7"]
+[ext_resource type="Script" uid="uid://bnem0rgp25udm" path="res://Misc/MeshObject/mesh_gd.tres.gd" id="3_pfue5"]
 [ext_resource type="Shader" uid="uid://di5vad1bc51ed" path="res://Scripts/Shaders/SpriteSelectionWA.gdshader" id="4_6vnt7"]
 [ext_resource type="Script" uid="uid://cur4yqw18532d" path="res://Scripts/Objects/mesh_editor.gd" id="4_pfue5"]
 
@@ -40,11 +40,10 @@ sprite_type = "Mesh"
 [node name="placeholder" type="Sprite2D" parent="Modifier1/Modifier" index="0"]
 visible = false
 
-[node name="Sprite2D" type="Node2D" parent="Modifier1/Modifier" index="2" node_paths=PackedStringArray("actor")]
+[node name="Sprite2D" type="CustomMesh" parent="Modifier1/Modifier" index="2" node_paths=PackedStringArray("parent")]
 unique_name_in_owner = true
-script = ExtResource("3_6vnt7")
-actor = NodePath("../../..")
-metadata/_custom_type_script = "uid://bkffcdjdqc65g"
+script = ExtResource("3_pfue5")
+parent = NodePath("../../..")
 
 [node name="MeshEditor" type="Node2D" parent="Modifier1/Modifier" index="3" node_paths=PackedStringArray("mesh")]
 unique_name_in_owner = true
