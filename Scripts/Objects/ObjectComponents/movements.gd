@@ -8,6 +8,7 @@ var sprite_node: Node
 
 var parent_node: Node
 var parent_movements: Node
+@export var mesh : CustomMesh = null
 
 # --- State ---
 var applied_pos: Vector2 = Vector2.ZERO
@@ -151,6 +152,11 @@ func wobble(_delta: float) -> void:
 		last_wobble_pos.x = sin((tick - paused_wobble.x) * actor.get_value("xFrq")) * actor.get_value("xAmp")
 		last_wobble_pos.y = sin((tick - paused_wobble.y) * actor.get_value("yFrq")) * actor.get_value("yAmp")
 	applied_pos += last_wobble_pos
+	
+	if mesh != null:
+		if !mesh.editable:
+			var safe_deform_pos = mesh.apply_wobble_to_deformer(Vector2(mesh.deform_x, mesh.deform_y), applied_pos, Vector2(0.01,0.01))
+			mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
 
 func rotationalDrag(length, delta: float):
 	if actor.is_default("rot_frq"):

@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://dhbslhxbk7nya"]
+
+[ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_mho80"]
+[ext_resource type="Script" uid="uid://c2cvkimlig3bp" path="res://Scripts/Misc/mesh_object.gd" id="2_i8o0q"]
+[ext_resource type="Script" uid="uid://bkffcdjdqc65g" path="res://Scripts/Objects/custom_mesh_base.gd" id="3_6vnt7"]
+[ext_resource type="Shader" uid="uid://di5vad1bc51ed" path="res://Scripts/Shaders/SpriteSelectionWA.gdshader" id="4_6vnt7"]
+[ext_resource type="Script" uid="uid://cur4yqw18532d" path="res://Scripts/Objects/mesh_editor.gd" id="4_pfue5"]
+
+[sub_resource type="Gradient" id="Gradient_uswo1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pfue5"]
+gradient = SubResource("Gradient_uswo1")
+width = 120
+height = 120
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mivi3"]
+shader = ExtResource("4_6vnt7")
+shader_parameter/ant_color_1 = Color(1, 1, 1, 1)
+shader_parameter/ant_color_2 = Color(0, 0, 0, 1)
+shader_parameter/ant_width = 1.5
+shader_parameter/ant_length = 10.0
+shader_parameter/ant_speed = 30.0
+
+[sub_resource type="Gradient" id="Gradient_31wc5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dwesf"]
+gradient = SubResource("Gradient_31wc5")
+
+[node name="MeshObject" node_paths=PackedStringArray("mesh", "sprite_object", "grab_object") groups=["Meshes"] instance=ExtResource("1_mho80")]
+script = ExtResource("2_i8o0q")
+mesh = NodePath("Modifier1/Modifier/Sprite2D")
+sprite_object = NodePath("Modifier1/Modifier/placeholder")
+grab_object = NodePath("Modifier1/Modifier/Grab")
+sprite_type = "Mesh"
+
+[node name="placeholder" type="Sprite2D" parent="Modifier1/Modifier" index="0"]
+visible = false
+
+[node name="Sprite2D" type="Node2D" parent="Modifier1/Modifier" index="2" node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("3_6vnt7")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://bkffcdjdqc65g"
+
+[node name="MeshEditor" type="Node2D" parent="Modifier1/Modifier" index="3" node_paths=PackedStringArray("mesh")]
+unique_name_in_owner = true
+script = ExtResource("4_pfue5")
+mesh = NodePath("../Sprite2D")
+
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" index="4"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+texture_normal = SubResource("GradientTexture2D_pfue5")
+
+[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Grab" index="0"]
+unique_name_in_owner = true
+visible = false
+z_index = 4096
+z_as_relative = false
+material = SubResource("ShaderMaterial_mivi3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_dwesf")
+expand_mode = 1
+
+[node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="Movements" parent="." index="4" node_paths=PackedStringArray("actor", "mesh")]
+actor = NodePath("..")
+mesh = NodePath("../Modifier1/Modifier/Sprite2D")
+
+[node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
+sprite_node = NodePath("../Modifier1/Modifier/placeholder")

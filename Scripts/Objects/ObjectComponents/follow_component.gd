@@ -73,7 +73,6 @@ func process_follow(delta: float) -> void:
 	update_position(dir, dist, delta)
 	update_rotation(dir, delta)
 	update_scale(dir, delta)
-	
 
 func follow_calculation(_delta = 0.0):
 	var main_marker = Global.main.get_node("%Marker")

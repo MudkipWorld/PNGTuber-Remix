@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b28gjkefgi5bs"]
+[gd_scene load_steps=19 format=3 uid="uid://b28gjkefgi5bs"]
 
 [ext_resource type="Script" uid="uid://bn6wdd2hwqxfp" path="res://Main/Scripts/main.gd" id="1_6pthk"]
 [ext_resource type="Script" uid="uid://u4rstm0uk8wb" path="res://Scripts/Misc/file_importer.gd" id="2_j4lix"]
@@ -10,6 +10,7 @@
 [ext_resource type="Shader" uid="uid://bc5tbhguskdv2" path="res://Scripts/Shaders/ModelEffects.gdshader" id="3_rj11h"]
 [ext_resource type="Script" uid="uid://by4pbr6yeut1c" path="res://Main/Scripts/monitor_tracking.gd" id="5_rj11h"]
 [ext_resource type="PackedScene" uid="uid://bpmlfhv30o08l" path="res://UI/EditorUI/TopUI/top_ui.tscn" id="7_qwnpc"]
+[ext_resource type="Script" uid="uid://cl5ylmnvn6ncm" path="res://Scripts/Objects/mesh_poiner.gd" id="8_rix8b"]
 [ext_resource type="Script" uid="uid://bixd1q38me8go" path="res://Scripts/Misc/pointerTests.gd" id="12_f3gf5"]
 [ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="12_rix8b"]
 
@@ -154,6 +155,12 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="MeshPointer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos"]
+unique_name_in_owner = true
+z_index = 4096
+z_as_relative = false
+script = ExtResource("8_rix8b")
 
 [node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
 z_index = 4

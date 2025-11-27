@@ -2,6 +2,7 @@ extends Node
 
 var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn")
 var comment_obj = preload("res://Misc/CommentObject/comment_object.tscn")
+var mesh_obj = preload("res://Misc/MeshObject/mesh_object.tscn")
 var append_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn")
 
 var has_folder : bool = false
@@ -134,6 +135,8 @@ func _instantiate_by_type(type):
 		return append_obj.instantiate()
 	if type == "Comment":
 		return comment_obj.instantiate()
+	if type == "Mesh":
+		return mesh_obj.instantiate()
 	return sprite_obj.instantiate()
 
 
@@ -152,7 +155,7 @@ func _copy_images(src, dst):
 	dst.used_image_id_normal = src.used_image_id_normal
 	dst.referenced_data = src.referenced_data
 	dst.referenced_data_normal = src.referenced_data_normal
-	if src.sprite_type != "Comment":
+	if src.sprite_type != "Comment" or src.sprite_type != "Mesh":
 		if !src.get_value("folder"):
 			var canv = CanvasTexture.new()
 			var diff = ImageTextureLoaderManager.check_flips(dst.referenced_data.runtime_texture, dst)
@@ -186,7 +189,7 @@ func _copy_common(src, dst):
 	dst.layer_color = src.layer_color
 	Global.sprite_container.add_child(dst)
 	dst.sprite_type = src.sprite_type
-	if src.sprite_type != "Comment":
+	if src.sprite_type != "Comment" or src.sprite_type != "Mesh":
 		dst.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 	Global.update_layers.emit(0, dst, dst.sprite_type)
 	dst.get_state(Global.current_state)
@@ -315,4 +318,17 @@ func _on_comments_button_pressed() -> void:
 	for i in states:
 		sprte_obj.states.append({})
 	Global.update_layers.emit(0, sprte_obj, "Comment")
+	sprte_obj.sprite_id = sprte_obj.get_instance_id()
+
+
+func _on_mesh_button_pressed() -> void:
+	var sprte_obj = mesh_obj.instantiate()
+	Global.sprite_container.add_child(sprte_obj)
+	sprte_obj.sprite_type = "Mesh"
+	sprte_obj.sprite_name = str("Mesh")
+	sprte_obj.sprite_data.folder = true
+	var states = get_tree().get_nodes_in_group("StateButtons").size()
+	for i in states:
+		sprte_obj.states.append({})
+	Global.update_layers.emit(0, sprte_obj, "Mesh")
 	sprte_obj.sprite_id = sprte_obj.get_instance_id()

@@ -117,12 +117,14 @@ var file_dialog : FileDialog = null
 var light = null
 var camera : Camera2D = null
 var camera_pos : Node2D = null
+var mesh_pointer : Node2D = null
 
 var frame_counter : int = 0
 const FRAME_INTERVAL : int = 3  # Run every 5 frames
 var swtich_session_popup : Node = null
 var over_tex : bool = false
 var over_normal_tex : bool = false
+
 
 var save_path : String = ""
 var is_editor : bool = true:

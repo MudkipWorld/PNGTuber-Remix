@@ -79,6 +79,19 @@ mouse_default_cursor_shape = 2
 icon = ExtResource("3_rijo6")
 expand_icon = true
 
+[node name="MeshButton" type="Button" parent="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "Comment Block Object."
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = ExtResource("3_rijo6")
+expand_icon = true
+
 [node name="FlipH" type="Button" parent="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
@@ -313,6 +326,7 @@ script = ExtResource("11_hewhr")
 
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/UnlinkButton" to="LayersPanelScripts" method="_on_unlink_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/CommentsButton" to="LayersPanelScripts" method="_on_comments_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/MeshButton" to="LayersPanelScripts" method="_on_mesh_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/FlipH" to="LayersPanelScripts" method="_on_flip_h_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/FlipV" to="LayersPanelScripts" method="_on_flip_v_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer/RotateImage" to="LayersPanelScripts" method="_on_rotate_image_pressed"]

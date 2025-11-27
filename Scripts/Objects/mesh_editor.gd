@@ -1,0 +1,306 @@
+extends Node2D
+class_name MeshEditor
+
+@export var mesh : CustomMesh = null
+static var draw_internal_web : bool = true
+static var influence_radius : float = 150.0
+static var influence_strength : float = 1.0
+static var ring_grid : bool = false
+static var square_grid : bool = false
+static var grid_size : float = 90
+static var ring_spacing : float = 90
+static var threshold = 0.1
+static var internal_point_count : int = 50
+static var eplision : float = 1
+static var merge_close : float = 25
+
+func regenerate_mesh():
+	if mesh == null or !is_instance_valid(mesh):
+		push_error("Mesh is null or invalid!")
+		return
+	if not mesh.texture:
+		push_error("Please assign a texture!")
+		return
+
+	_generate_mesh_from_texture(mesh.texture)
+	mesh.deformed_vertices = mesh.original_vertices.duplicate() 
+	mesh.interpolated_vertices.clear() 
+	mesh.deform_top_left.clear() 
+	mesh.deform_top_middle.clear() 
+	mesh.deform_top_right.clear() 
+	mesh.deform_middle_left.clear() 
+	mesh.deform_center.clear() 
+	mesh.deform_middle_right.clear() 
+	mesh.deform_bottom_left.clear() 
+	mesh.deform_bottom_middle.clear() 
+	mesh.deform_bottom_right.clear() 
+	mesh.sync_deformation_arrays() 
+	
+	queue_redraw()
+	mesh.queue_redraw()
+
+
+func _draw() -> void:
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	if mesh.editable:
+		var texture = mesh.texture
+		var triangles = mesh.triangles
+		var base_vertices = mesh.base_vertices
+		var original_vertices = mesh.original_vertices
+		if mesh.original_vertices.is_empty() or mesh.triangles.is_empty() or not mesh.texture:
+			return
+		var vertices_to_draw: Array
+		if mesh.show_deformed_mesh:
+			if !mesh.interpolated_vertices.is_empty():
+				vertices_to_draw = mesh.interpolated_vertices
+			else:
+				vertices_to_draw = mesh.deformed_vertices
+		else:
+			vertices_to_draw = mesh.original_vertices
+		var tex_size = mesh.texture.get_size()
+		var offset = -tex_size / 2.0
+		if draw_internal_web:
+			var drawn_edges = {}
+			var base_count = base_vertices.size()
+			for t_idx in range(0, triangles.size(), 3):
+				var ids = [
+					triangles[t_idx],
+					triangles[t_idx + 1],
+					triangles[t_idx + 2]
+				]
+				var edges = [
+					[ids[0], ids[1]],
+					[ids[1], ids[2]],
+					[ids[2], ids[0]]
+				]
+				for e in edges:
+					var i = e[0]
+					var j = e[1]
+					if i < base_count and j < base_count:
+						continue
+					var low = min(i, j)
+					var high = max(i, j)
+					var key = str(low) + "_" + str(high)
+					if drawn_edges.has(key):
+						continue
+					drawn_edges[key] = true
+					draw_line(vertices_to_draw[i] + offset, vertices_to_draw[j] + offset, Color(0.7, 0.7, 0.7, 0.8), 1.0)
+		for i in range(vertices_to_draw.size()):
+			var v = vertices_to_draw[i] + offset
+			if i < base_vertices.size():
+				draw_circle(v, 2.0, Color(0, 0.8, 0))
+			else:
+				draw_circle(v, 2.0, Color(1, 0, 0))
+
+func _input(event):
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	if mesh.editable:
+		var mouse_pos = get_local_mouse_position()
+		if event is InputEventMouseButton:
+			if Input.is_action_pressed("lmb"):
+				mesh.selected_vertex = -1
+				var closest_dist = influence_radius
+				for i in range(mesh.deformed_vertices.size()):
+					var vert_pos = mesh.deformed_vertices[i] - mesh.texture.get_size() / 2
+					var d = vert_pos.distance_to(mouse_pos)
+					if d < closest_dist:
+						closest_dist = d
+						mesh.selected_vertex = i
+			elif Input.is_action_just_released("lmb"):
+				save_deformation_3x3()
+				mesh.selected_vertex = -1
+
+			elif Input.is_action_pressed("rmb"):
+				if !mesh.texture:
+					return
+				var img_space = mouse_pos + mesh.texture.get_size() / 2
+				if Input.is_action_pressed("alt"):
+					mesh.remove_nearest_internal_point(img_space)
+				elif Input.is_action_pressed("ctrl"):
+					mesh.add_internal_point(img_space)
+		elif event is InputEventMouseMotion:
+			if mesh.selected_vertex != -1 and Input.is_action_pressed("lmb"):
+				deform_vertex(mesh.selected_vertex, event.relative)
+
+func toggle_mesh_view():
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	mesh.show_deformed_mesh = !mesh.show_deformed_mesh
+	queue_redraw()
+
+func save_deformation_3x3():
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	if mesh.deform_x == 0 && mesh.deform_y == 1:
+		mesh.deform_top_left = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 0.5 && mesh.deform_y == 1:
+		mesh.deform_top_middle = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 1 && mesh.deform_y == 1:
+		mesh.deform_top_right = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 0 && mesh.deform_y == 0.5:
+		mesh.deform_middle_left = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 0.5 && mesh.deform_y == 0.5:
+		mesh.deform_center = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 1 && mesh.deform_y == 0.5:
+		mesh.deform_middle_right = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 0 && mesh.deform_y == 0:
+		mesh.deform_bottom_left = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 0.5 && mesh.deform_y == 0:
+		mesh.deform_bottom_middle = mesh.deformed_vertices.duplicate()
+	elif mesh.deform_x == 1 && mesh.deform_y == 0:
+		mesh.deform_bottom_right = mesh.deformed_vertices.duplicate()
+
+func is_triangle_valid(a: Vector2, b: Vector2, c: Vector2) -> bool:
+	var area = (b - a).cross(c - a) * 0.5
+	return abs(area) > 0.001
+
+func deform_vertex(index: int, drag: Vector2) -> void:
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	if index < 0:
+		return
+	var target_vertices = mesh.deformed_vertices
+	if !mesh.interpolated_vertices.is_empty():
+		target_vertices = mesh.interpolated_vertices
+	if index >= target_vertices.size():
+		return
+	var origin_pos = target_vertices[index]
+	for i in range(target_vertices.size()):
+		var dist = target_vertices[i].distance_to(origin_pos)
+		if dist > influence_radius:
+			continue
+		var influence = pow(1.0 - dist / influence_radius, 1.0) * influence_strength
+		target_vertices[i] += drag * influence
+	if !mesh.interpolated_vertices.is_empty():
+		for i in range(target_vertices.size()):
+			mesh.deformed_vertices[i] = target_vertices[i]
+	queue_redraw()
+	mesh.queue_redraw()
+
+func smooth_and_even_poly(poly: Array, iterations: int, spacing: float = 5) -> Array:
+	if mesh == null  or !is_instance_valid(mesh):
+		return []
+	for i in range(iterations):
+		var new_poly: Array = []
+		for j in range(poly.size()):
+			var p0 = poly[j]
+			var p1 = poly[(j + 1) % poly.size()]
+			new_poly.append(p0.lerp(p1, 0.25))
+			new_poly.append(p0.lerp(p1, 0.75))
+		poly = new_poly
+
+	var evenly_spaced: Array = []
+	for i in range(poly.size()):
+		var start_point = poly[i]
+		var end_point = poly[(i + 1) % poly.size()]
+		var edge_vector = end_point - start_point
+		var edge_length = edge_vector.length()
+		if edge_length == 0:
+			continue
+		var segments = max(1, int(round(edge_length / spacing)))
+		for s in range(segments):
+			var t = float(s) / float(segments)
+			evenly_spaced.append(start_point.lerp(end_point, t))
+	return evenly_spaced
+
+func merge_close_points(points: PackedVector2Array, min_dist: float = 10.0) -> PackedVector2Array:
+	if mesh == null  or !is_instance_valid(mesh):
+		return []
+	if points.size() < 2:
+		return points.duplicate()
+	var merged := PackedVector2Array()
+	merged.append(points[0])
+	for i in range(1, points.size()):
+		var prev = merged[merged.size() - 1]
+		var curr = points[i]
+		if prev.distance_to(curr) < min_dist:
+			continue
+		merged.append(curr)
+	return merged
+
+func generate_internal_points_grid(polygon: Array) -> Array:
+	if mesh == null  or !is_instance_valid(mesh):
+		return []
+	var points = []
+	var min_x = INF
+	var max_x = -INF
+	var min_y = INF
+	var max_y = -INF
+	for v in polygon:
+		min_x = min(min_x, v.x)
+		max_x = max(max_x, v.x)
+		min_y = min(min_y, v.y)
+		max_y = max(max_y, v.y)
+	var x = min_x + grid_size * 0.5
+	while x <= max_x:
+		var y = min_y + grid_size * 0.5
+		while y <= max_y:
+			var p = Vector2(x, y)
+			if Geometry2D.is_point_in_polygon(p, polygon):
+				points.append(p)
+			y += grid_size
+		x += grid_size
+	return points
+
+func generate_internal_points_rings_grid(polygon: Array) -> Array:
+	if mesh == null  or !is_instance_valid(mesh):
+		return []
+	var points = []
+	var min_x = INF
+	var max_x = -INF
+	var min_y = INF
+	var max_y = -INF
+	for v in polygon:
+		min_x = min(min_x, v.x)
+		max_x = max(max_x, v.x)
+		min_y = min(min_y, v.y)
+		max_y = max(max_y, v.y)
+
+	var center = Vector2((min_x + max_x) * 0.5, (min_y + max_y) * 0.5)
+	var max_radius = max(center.distance_to(Vector2(min_x, min_y)),
+						 center.distance_to(Vector2(min_x, max_y)),
+						 center.distance_to(Vector2(max_x, min_y)),
+						 center.distance_to(Vector2(max_x, max_y)))
+	var r = ring_spacing
+	while r <= max_radius:
+		for angle in range(0, 360, 10):
+			var rad = deg_to_rad(angle)
+			var p = center + Vector2(cos(rad), sin(rad)) * r
+			if Geometry2D.is_point_in_polygon(p, polygon):
+				points.append(p)
+		r += ring_spacing
+	if Geometry2D.is_point_in_polygon(center, polygon):
+		points.append(center)
+	return points
+
+func _generate_mesh_from_texture(tex: Texture2D) -> void:
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	var img: Image = tex.get_image()
+	var w = img.get_width()
+	var h = img.get_height()
+	var bitmap = BitMap.new()
+	bitmap.create_from_image_alpha(img, threshold)
+	var polys = bitmap.opaque_to_polygons(Rect2(Vector2.ZERO, Vector2(w, h)), eplision)
+	if polys.is_empty():
+		push_error("No polygons generated!")
+		return
+	var base = polys[0]
+	base = smooth_and_even_poly(base, 2)
+	base = merge_close_points(base, merge_close)
+	mesh.base_vertices = base.duplicate()
+	mesh.internal_vertices.clear()
+	if ring_grid:
+		mesh.internal_vertices.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
+	if square_grid:
+		mesh.internal_vertices.append_array(generate_internal_points_grid(mesh.base_vertices))
+
+	rebuild_triangulation()
+
+func rebuild_triangulation() -> void:
+	mesh.original_vertices = mesh.base_vertices.duplicate()
+	mesh.original_vertices += mesh.internal_vertices.duplicate()
+	mesh.deformed_vertices = mesh.original_vertices.duplicate()
+	mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)

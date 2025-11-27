@@ -33,6 +33,7 @@ func _ready():
 	Global.light = %LightSource
 	Global.camera = %Camera2D
 	Global.camera_pos = %CamPos
+	Global.mesh_pointer = %MeshPointer
 	Global.update_camera_smoothing()
 	
 	Global.theme_update.connect(update_theme)
