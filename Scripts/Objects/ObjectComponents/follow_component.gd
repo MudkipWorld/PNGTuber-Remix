@@ -37,7 +37,7 @@ var current_dist : float = 0.0
 
 
 func _physics_process(delta: float) -> void:
-	if Global.static_view and actor.rest_mode == 5:
+	if Global.static_view or actor.rest_mode == 5:
 		return
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()

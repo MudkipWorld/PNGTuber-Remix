@@ -17,6 +17,8 @@ static var eplision : float = 1
 static var merge_close : float = 25
 static var flip_x: bool = false
 static var flip_y: bool = false
+static var outer_padding: bool = false
+static var padding : float = 4
 
 
 func regenerate_mesh():
@@ -64,6 +66,11 @@ func _draw() -> void:
 		var tex_size = mesh.texture.get_size()
 		var offset = -tex_size / 2.0
 		if draw_internal_web:
+			for i in range(base_vertices.size()):
+				var start_v = base_vertices[i] + offset
+				var end_v = base_vertices[(i + 1) % base_vertices.size()] + offset 
+				draw_line(start_v, end_v, Color(0.7, 0.7, 0.7, 0.8), 1.0)
+			
 			var drawn_edges = {}
 			var base_count = base_vertices.size()
 			for t_idx in range(0, triangles.size(), 3):
@@ -128,7 +135,6 @@ func _input(event):
 		elif event is InputEventMouseMotion:
 			if mesh.selected_vertex != -1 and Input.is_action_pressed("lmb"):
 				deform_vertex(mesh.selected_vertex, event.relative)
-
 
 func toggle_mesh_view():
 	if mesh == null  or !is_instance_valid(mesh):
@@ -346,6 +352,31 @@ func generate_internal_points_radial_hex(polygon: Array) -> Array:
 	
 	return points
 
+func add_outer_padding(poly: Array) -> Array:
+	if padding <= 0:
+		return poly.duplicate()
+
+	var padded_poly = []
+	var n = poly.size()
+	for i in range(n):
+		var prev = poly[(i - 1 + n) % n]
+		var curr = poly[i]
+		var next = poly[(i + 1) % n]
+
+		# Edge directions
+		var dir1 = (curr - prev).normalized()
+		var dir2 = (next - curr).normalized()
+
+		# Normals (perpendicular vectors)
+		var n1 = Vector2(-dir1.y, dir1.x)
+		var n2 = Vector2(-dir2.y, dir2.x)
+
+		# Average normal
+		var normal = (n1 + n2).normalized()
+		padded_poly.append(curr + normal * padding)
+	
+	return padded_poly
+
 func _generate_mesh_from_texture(tex: Texture2D) -> void:
 	if mesh == null  or !is_instance_valid(mesh):
 		return
@@ -355,15 +386,15 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 	var bitmap = BitMap.new()
 	bitmap.create_from_image_alpha(img, threshold)
 	var polys = bitmap.opaque_to_polygons(Rect2(Vector2.ZERO, Vector2(w, h)), eplision)
-	
 	if polys.is_empty():
 		push_error("No polygons generated!")
 		return
-
 	var base_vertices: Array = []
 	for poly in polys:
 		var smoothed = smooth_and_even_poly(poly, 2)
 		smoothed = merge_close_points(smoothed, merge_close)
+		if outer_padding:
+			smoothed = add_outer_padding(smoothed)
 		base_vertices.append_array(smoothed)
 	if polys.size() > 1:
 		for i in range(polys.size()):
@@ -378,19 +409,16 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 						if d < min_dist:
 							min_dist = d
 							_closest_pair = [va, vb]
-		
 	mesh.base_vertices = base_vertices.duplicate()
 	mesh.internal_vertices = []
 	if ring_grid:
 		var arr = mesh.internal_vertices.duplicate()
 		arr.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
 		mesh.internal_vertices = arr 
-
 	if square_grid:
 		var arr = mesh.internal_vertices.duplicate() 
 		arr.append_array(generate_internal_points_grid(mesh.base_vertices))
 		mesh.internal_vertices = arr 
-	
 	if tri_grid:
 		var arr = mesh.internal_vertices.duplicate() 
 		arr.append_array(generate_internal_points_triangular_grid(mesh.base_vertices))
@@ -405,7 +433,6 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 	all_vertices += mesh.internal_vertices.duplicate()
 	mesh.original_vertices = all_vertices
 	mesh.deformed_vertices = []
-	
 	mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
 
 func reinforce_mesh_from_existing(_mesh: CustomMesh = mesh) -> void:

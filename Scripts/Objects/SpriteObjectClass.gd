@@ -285,7 +285,6 @@ func reparent_obj(parent):
 			i.get_parent().remove_child(i)
 			%Sprite2D.add_child(i)
 			i.global_position = og_pos
-			break
 
 func image_replaced(image_date : ImageData):
 	if !get_value("folder"):

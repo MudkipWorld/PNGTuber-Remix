@@ -202,6 +202,22 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Hex Radial"
 
+[node name="OuterPadding" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Outer Padding"
+
+[node name="Padding" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 50.0
+step = 0.1
+value = 4.0
+
 [node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -300,6 +316,8 @@ value = 1.0
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/RingGrid" to="MeshGenScript" method="_on_ring_grid_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/TriGrid" to="MeshGenScript" method="_on_tri_grid_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/TriRadial" to="MeshGenScript" method="_on_tri_radial_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/OuterPadding" to="MeshGenScript" method="_on_outer_padding_toggled"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Padding" to="MeshGenScript" method="_on_padding_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/GridSize" to="MeshGenScript" method="_on_grid_size_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/RingSpacing" to="MeshGenScript" method="_on_ring_spacing_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Threshold" to="MeshGenScript" method="_on_threshold_value_changed"]

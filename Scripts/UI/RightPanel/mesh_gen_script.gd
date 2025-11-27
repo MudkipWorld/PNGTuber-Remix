@@ -176,3 +176,11 @@ func _on_flip_pressed() -> void:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").create_mirrored_mesh()
+
+
+func _on_outer_padding_toggled(toggled_on: bool) -> void:
+	MeshEditor.outer_padding = toggled_on
+
+
+func _on_padding_value_changed(value: float) -> void:
+	MeshEditor.padding = value
