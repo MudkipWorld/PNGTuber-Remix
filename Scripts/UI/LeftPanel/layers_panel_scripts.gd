@@ -111,7 +111,6 @@ func _on_duplicate_button_pressed():
 	Global.reparent_layers.emit(sprites)
 	Global.reparent_objects.emit(sprites)
 
-
 func _duplicate_single(sprite, id_map):
 	var obj = _instantiate_by_type(sprite.sprite_type)
 	_copy_transform(sprite, obj)
@@ -120,7 +119,6 @@ func _duplicate_single(sprite, id_map):
 	_finalize_duplicate(sprite, obj, id_map)
 	return obj
 
-
 func _duplicate_child(parent, t, id_map):
 	var obj = _instantiate_by_type(t.sprite_type)
 	_copy_transform(t, obj)
@@ -128,7 +126,6 @@ func _duplicate_child(parent, t, id_map):
 	_copy_common(t, obj)
 	_finalize_child_duplicate(parent, t, obj, id_map)
 	return obj
-
 
 func _instantiate_by_type(type):
 	if type == "WiggleApp":
@@ -139,16 +136,13 @@ func _instantiate_by_type(type):
 		return mesh_obj.instantiate()
 	return sprite_obj.instantiate()
 
-
 func _copy_transform(src, dst):
 	if src.sprite_type != "Comment" or src.sprite_type != "Mesh":
 		dst.rotated = src.rotated
 		dst.flipped_h = src.flipped_h
 		dst.flipped_v = src.flipped_v
-		
 	if src.sprite_type == "Mesh":
 		duplicate_mesh_data(src.get_node("%Sprite2D"), dst.get_node("%Sprite2D"))
-		
 	dst.position = src.position
 	dst.scale = src.scale
 	dst.sprite_data.scale = src.scale

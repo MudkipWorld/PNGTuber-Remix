@@ -7,12 +7,17 @@ static var influence_radius : float = 150.0
 static var influence_strength : float = 1.0
 static var ring_grid : bool = false
 static var square_grid : bool = false
-static var grid_size : float = 90
-static var ring_spacing : float = 90
+static var radial_hex : bool = false
+static var tri_grid : bool = false
+static var grid_size : float = 50
+static var radial_spacing : float = 35
 static var threshold = 0.1
 static var internal_point_count : int = 50
 static var eplision : float = 1
 static var merge_close : float = 25
+static var flip_x: bool = false
+static var flip_y: bool = false
+
 
 func regenerate_mesh():
 	if mesh == null or !is_instance_valid(mesh):
@@ -116,11 +121,14 @@ func _input(event):
 				var img_space = mouse_pos + mesh.texture.get_size() / 2
 				if Input.is_action_pressed("alt"):
 					mesh.remove_nearest_internal_point(img_space, 5)
+					queue_redraw()
 				elif Input.is_action_pressed("ctrl"):
 					mesh.add_internal_point(img_space)
+					queue_redraw()
 		elif event is InputEventMouseMotion:
 			if mesh.selected_vertex != -1 and Input.is_action_pressed("lmb"):
 				deform_vertex(mesh.selected_vertex, event.relative)
+
 
 func toggle_mesh_view():
 	if mesh == null  or !is_instance_valid(mesh):
@@ -267,16 +275,75 @@ func generate_internal_points_rings_grid(polygon: Array) -> Array:
 						 center.distance_to(Vector2(min_x, max_y)),
 						 center.distance_to(Vector2(max_x, min_y)),
 						 center.distance_to(Vector2(max_x, max_y)))
-	var r = ring_spacing
+	var r = radial_spacing
 	while r <= max_radius:
-		for angle in range(0, 360, 10):
+		for angle in range(0, 360, internal_point_count):
 			var rad = deg_to_rad(angle)
 			var p = center + Vector2(cos(rad), sin(rad)) * r
 			if Geometry2D.is_point_in_polygon(p, polygon):
 				points.append(p)
-		r += ring_spacing
+		r += radial_spacing
 	if Geometry2D.is_point_in_polygon(center, polygon):
 		points.append(center)
+	return points
+
+func generate_internal_points_triangular_grid(polygon: Array) -> Array:
+	var points = []
+	var min_x = INF
+	var max_x = -INF
+	var min_y = INF
+	var max_y = -INF
+	for v in polygon:
+		min_x = min(min_x, v.x)
+		max_x = max(max_x, v.x)
+		min_y = min(min_y, v.y)
+		max_y = max(max_y, v.y)
+	var row_offset = 0.0
+	var y = min_y + grid_size * 0.5
+	while y <= max_y:
+		var x = min_x + row_offset
+		while x <= max_x:
+			var p = Vector2(x, y)
+			if Geometry2D.is_point_in_polygon(p, polygon):
+				points.append(p)
+			x += grid_size
+		row_offset = grid_size * 0.5 - row_offset 
+		y += grid_size * 0.866 
+	return points
+
+func generate_internal_points_radial_hex(polygon: Array) -> Array:
+	if mesh == null or !is_instance_valid(mesh):
+		return []
+	var points: Array = []
+	var min_x = INF
+	var max_x = -INF
+	var min_y = INF
+	var max_y = -INF
+	for v in polygon:
+		min_x = min(min_x, v.x)
+		max_x = max(max_x, v.x)
+		min_y = min(min_y, v.y)
+		max_y = max(max_y, v.y)
+	var center = Vector2((min_x + max_x) * 0.5, (min_y + max_y) * 0.5)
+	var hex_radius = radial_spacing
+	var sqrt3 = sqrt(3)
+	var r = 0.0
+
+	while r <= max(max_x - min_x, max_y - min_y):
+		var ring_count = int(round(2.0 * PI * r / (hex_radius * sqrt3)))
+		if ring_count == 0:
+			if Geometry2D.is_point_in_polygon(center, polygon):
+				points.append(center)
+			r += hex_radius
+			continue
+
+		for i in range(ring_count):
+			var angle = i * 2.0 * PI / ring_count
+			var p = center + Vector2(cos(angle), sin(angle)) * r
+			if Geometry2D.is_point_in_polygon(p, polygon):
+				points.append(p)
+		r += hex_radius * 0.866 
+	
 	return points
 
 func _generate_mesh_from_texture(tex: Texture2D) -> void:
@@ -313,7 +380,7 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 							_closest_pair = [va, vb]
 		
 	mesh.base_vertices = base_vertices.duplicate()
-	mesh.internal_vertices.clear()
+	mesh.internal_vertices = []
 	if ring_grid:
 		var arr = mesh.internal_vertices.duplicate()
 		arr.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
@@ -323,10 +390,21 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 		var arr = mesh.internal_vertices.duplicate() 
 		arr.append_array(generate_internal_points_grid(mesh.base_vertices))
 		mesh.internal_vertices = arr 
+	
+	if tri_grid:
+		var arr = mesh.internal_vertices.duplicate() 
+		arr.append_array(generate_internal_points_triangular_grid(mesh.base_vertices))
+		mesh.internal_vertices = arr 
+		
+	if radial_hex:
+		var arr = mesh.internal_vertices.duplicate() 
+		arr.append_array(generate_internal_points_radial_hex(mesh.base_vertices))
+		mesh.internal_vertices = arr 
+	
 	var all_vertices = mesh.base_vertices.duplicate()
 	all_vertices += mesh.internal_vertices.duplicate()
 	mesh.original_vertices = all_vertices
-	mesh.deformed_vertices = all_vertices.duplicate()
+	mesh.deformed_vertices = []
 	
 	mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
 
@@ -388,3 +466,60 @@ func reinforce_mesh_from_existing(_mesh: CustomMesh = mesh) -> void:
 
 	mesh.sync_deformation_arrays()
 	mesh.queue_redraw()
+
+func create_mirrored_mesh(to_right: bool = true) -> void:
+	if mesh == null or !is_instance_valid(mesh):
+		return
+	if mesh.original_vertices.is_empty():
+		return
+
+	var mesh_obj = load("res://Misc/MeshObject/mesh_object.tscn") as PackedScene
+	var sprte_obj = mesh_obj.instantiate()
+	Global.sprite_container.add_child(sprte_obj)
+	sprte_obj.sprite_type = "Mesh"
+	sprte_obj.sprite_name = str("Mesh")
+
+	# Duplicate states
+	var states = get_tree().get_nodes_in_group("StateButtons").size()
+	for i in states:
+		sprte_obj.states.append({})
+
+	# Compute bounding box for mirroring
+	var min_x = INF
+	var max_x = -INF
+	for v in sprte_obj.mesh.original_vertices:
+		min_x = min(min_x, v.x)
+		max_x = max(max_x, v.x)
+	var mirror_x = (min_x + max_x) * 0.5
+
+	sprte_obj.mesh.original_vertices = flip_side(mesh.original_vertices, mirror_x)
+	sprte_obj.mesh.deformed_vertices = flip_side(mesh.deformed_vertices, mirror_x)
+	sprte_obj.mesh.base_vertices = flip_side(mesh.base_vertices, mirror_x)
+	sprte_obj.mesh.internal_vertices = flip_side(mesh.internal_vertices, mirror_x)
+
+	sprte_obj.mesh.deform_top_left = flip_side(mesh.deform_top_left, mirror_x)
+	sprte_obj.mesh.deform_top_middle = flip_side(mesh.deform_top_middle, mirror_x)
+	sprte_obj.mesh.deform_top_right = flip_side(mesh.deform_top_right, mirror_x)
+	sprte_obj.mesh.deform_middle_left = flip_side(mesh.deform_middle_left, mirror_x)
+	sprte_obj.mesh.deform_center = flip_side(mesh.deform_center, mirror_x)
+	sprte_obj.mesh.deform_middle_right = flip_side(mesh.deform_middle_right, mirror_x)
+	sprte_obj.mesh.deform_bottom_left = flip_side(mesh.deform_bottom_left, mirror_x)
+	sprte_obj.mesh.deform_bottom_middle = flip_side(mesh.deform_bottom_middle, mirror_x)
+	sprte_obj.mesh.deform_bottom_right = flip_side(mesh.deform_bottom_right, mirror_x)
+
+	sprte_obj.mesh.interpolated_vertices = flip_side(mesh.interpolated_vertices, mirror_x)
+
+	sprte_obj.sprite_id = sprte_obj.get_instance_id()
+	sprte_obj.parent_id = mesh.actor.parent_id
+	Global.update_layers.emit(0, sprte_obj, "Mesh")
+	
+	sprte_obj.flipped_h = to_right
+	sprte_obj.mesh.texture = ImageTextureLoaderManager.check_flips(mesh.actor.referenced_data.runtime_texture, sprte_obj)
+	sprte_obj.mesh.sync_deformation_arrays()
+	sprte_obj.mesh.queue_redraw()
+
+func flip_side(arr: PackedVector2Array, mirror_x: float) -> PackedVector2Array:
+	var flipped := PackedVector2Array()
+	for v in arr:
+		flipped.append(Vector2(mirror_x + (mirror_x - v.x), v.y))
+	return flipped

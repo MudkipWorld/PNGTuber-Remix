@@ -45,13 +45,13 @@ unique_name_in_owner = true
 script = ExtResource("3_pfue5")
 parent = NodePath("../../..")
 
-[node name="MeshEditor" type="Node2D" parent="Modifier1/Modifier" index="3" node_paths=PackedStringArray("mesh")]
+[node name="MeshEditor" type="Node2D" parent="Modifier1/Modifier/Sprite2D" index="0" node_paths=PackedStringArray("mesh")]
 unique_name_in_owner = true
 z_index = 4093
 script = ExtResource("4_pfue5")
-mesh = NodePath("../Sprite2D")
+mesh = NodePath("..")
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" index="4"]
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" index="3"]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5

@@ -421,7 +421,7 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 		for i in Global.image_manager_data:
 			if i.id == sprite_obj.used_image_id:
 				sprite_obj.referenced_data = i
-				sprite_obj.get_node("%Sprite2D").texture = i.runtime_texture
+				sprite_obj.get_node("%Sprite2D").texture = ImageTextureLoaderManager.check_flips(i.runtime_texture, sprite_obj)
 	for st in sprite.states:
 		if not st.is_empty():
 			if import_trimmed and !Global.settings_dict.trimmed and sprite_obj.referenced_data != null:
@@ -440,23 +440,27 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 	if sprite.has("is_collapsed"):
 		sprite_obj.is_collapsed = sprite.is_collapsed
 	
-	var mesh = sprite_obj.get_node("%Sprite2D")
 	if sprite.has("original_vertices"):
+		var mesh = sprite_obj.get_node("%Sprite2D")
+		
+		# 1. Load main geometry
 		mesh.original_vertices = sprite.original_vertices.duplicate()
 		mesh.base_vertices = sprite.base_vertices.duplicate()
 		mesh.triangles = sprite.triangles.duplicate()
 		mesh.internal_vertices = sprite.internal_vertices.duplicate()
+
+		# 2. Load deformation grids
 		if sprite.has("deformation_3x3"):
-			mesh.deform_top_left = sprite["deformation_3x3"][0].duplicate()
-			mesh.deform_top_middle = sprite["deformation_3x3"][1].duplicate()
-			mesh.deform_top_right = sprite["deformation_3x3"][2].duplicate()
-			mesh.deform_middle_left = sprite["deformation_3x3"][3].duplicate()
-			mesh.deform_center = sprite["deformation_3x3"][4].duplicate()
-			mesh.deform_middle_right = sprite["deformation_3x3"][5].duplicate()
-			mesh.deform_bottom_left = sprite["deformation_3x3"][6].duplicate()
-			mesh.deform_bottom_middle = sprite["deformation_3x3"][7].duplicate()
-			mesh.deform_bottom_right = sprite["deformation_3x3"][8].duplicate()
-			
+			var d3 = sprite["deformation_3x3"]
+			mesh.deform_top_left = d3[0].duplicate()
+			mesh.deform_top_middle = d3[1].duplicate()
+			mesh.deform_top_right = d3[2].duplicate()
+			mesh.deform_middle_left = d3[3].duplicate()
+			mesh.deform_center = d3[4].duplicate()
+			mesh.deform_middle_right = d3[5].duplicate()
+			mesh.deform_bottom_left = d3[6].duplicate()
+			mesh.deform_bottom_middle = d3[7].duplicate()
+			mesh.deform_bottom_right = d3[8].duplicate()
 		else:
 			mesh.deform_top_left = sprite.deform_top_left.duplicate()
 			mesh.deform_top_middle = sprite.deform_top_middle.duplicate()
@@ -467,8 +471,15 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 			mesh.deform_bottom_left = sprite.deform_bottom_left.duplicate()
 			mesh.deform_bottom_middle = sprite.deform_bottom_middle.duplicate()
 			mesh.deform_bottom_right = sprite.deform_bottom_right.duplicate()
+
+		# 3. Set default deformation state
+		mesh.deform_x = 0.5
+		mesh.deform_y = 0.5
+
 		mesh.interpolated_vertices.clear()
+		mesh.deformed_vertices = mesh.original_vertices.duplicate()
 		mesh.sync_deformation_arrays()
+
 		
 	Global.sprite_container.add_child(sprite_obj)
 	sprite_obj.sprite_type = "Mesh"

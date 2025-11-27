@@ -66,7 +66,7 @@ func set_static_data():
 	%SquareGrid.button_pressed = MeshEditor.square_grid
 	%RingGrid.button_pressed = MeshEditor.ring_grid
 	%GridSize.value = MeshEditor.grid_size
-	%RingSpacing.value = MeshEditor.ring_spacing
+	%RingSpacing.value = MeshEditor.radial_spacing
 	%Threshold.value = MeshEditor.threshold
 	%InternalPoints.value = MeshEditor.internal_point_count
 	%Eplision.value = MeshEditor.eplision
@@ -88,7 +88,7 @@ func _on_grid_size_value_changed(value: float) -> void:
 	MeshEditor.grid_size = value
 
 func _on_ring_spacing_value_changed(value: float) -> void:
-	MeshEditor.ring_spacing = value
+	MeshEditor.radial_spacing = value
 
 func _on_threshold_value_changed(value: float) -> void:
 	MeshEditor.threshold = value
@@ -161,3 +161,18 @@ func _on_add_mesh_pressed() -> void:
 	Global.update_layers.emit(0, sprte_obj, "Mesh")
 	sprte_obj.sprite_id = sprte_obj.get_instance_id()
 	sprte_obj.get_node("%MeshEditor").regenerate_mesh()
+
+
+func _on_tri_grid_toggled(toggled_on: bool) -> void:
+	MeshEditor.tri_grid = toggled_on
+
+
+func _on_tri_radial_toggled(toggled_on: bool) -> void:
+	MeshEditor.radial_hex = toggled_on
+
+
+func _on_flip_pressed() -> void:
+	for i in Global.held_sprites:
+		if i != null && is_instance_valid(i):
+			if i.sprite_type == "Mesh":
+				i.get_node("%MeshEditor").create_mirrored_mesh()

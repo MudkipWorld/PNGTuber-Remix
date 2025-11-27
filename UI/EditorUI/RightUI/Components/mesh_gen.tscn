@@ -133,6 +133,43 @@ text = "Generation"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AddMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Mesh"
+
+[node name="GenerateMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Generate Mesh"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Mesh Texture "
+
+[node name="PanelContainer" type="PanelContainer" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="MeshTexture" type="TextureRect" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 0
+texture = ExtResource("2_dmk11")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="GridContainer2" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
 columns = 2
@@ -150,6 +187,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Ring Grid"
+
+[node name="TriGrid" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Tri Grid"
+
+[node name="TriRadial" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Hex Radial"
 
 [node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
@@ -169,13 +220,13 @@ value = 10.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Ring Spacing :"
+text = "Radial Spacing :"
 
 [node name="RingSpacing" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = 5.0
+min_value = 1.0
 value = 5.0
 
 [node name="Label3" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
@@ -217,9 +268,8 @@ text = "Eplision :"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = 0.01
 max_value = 10.0
-step = 0.01
+step = 0.001
 value = 0.01
 
 [node name="Label6" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
@@ -236,58 +286,23 @@ min_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 150)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "Mesh Texture "
-
-[node name="PanelContainer" type="PanelContainer" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-
-[node name="MeshTexture" type="TextureRect" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-mouse_filter = 0
-texture = ExtResource("2_dmk11")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="AddMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Add Mesh"
-
-[node name="GenerateMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Generate Mesh"
-
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer4/DeformMode" to="MeshGenScript" method="_on_deform_mode_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer4/WebMode" to="MeshGenScript" method="_on_web_mode_toggled"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer/InfluRad" to="MeshGenScript" method="_on_influ_rad_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer/InfluStrength" to="MeshGenScript" method="_on_influ_strength_value_changed"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowWobble" to="MeshGenScript" method="_on_follow_wobble_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/AddMesh" to="MeshGenScript" method="_on_add_mesh_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh" to="MeshGenScript" method="_on_generate_mesh_pressed"]
+[connection signal="mouse_entered" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_entered"]
+[connection signal="mouse_exited" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_exited"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/SquareGrid" to="MeshGenScript" method="_on_square_grid_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/RingGrid" to="MeshGenScript" method="_on_ring_grid_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/TriGrid" to="MeshGenScript" method="_on_tri_grid_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/TriRadial" to="MeshGenScript" method="_on_tri_radial_toggled"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/GridSize" to="MeshGenScript" method="_on_grid_size_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/RingSpacing" to="MeshGenScript" method="_on_ring_spacing_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Threshold" to="MeshGenScript" method="_on_threshold_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/InternalPoints" to="MeshGenScript" method="_on_internal_points_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Eplision" to="MeshGenScript" method="_on_eplision_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/MergeClose" to="MeshGenScript" method="_on_merge_close_value_changed"]
-[connection signal="mouse_entered" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_entered"]
-[connection signal="mouse_exited" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_exited"]
-[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/AddMesh" to="MeshGenScript" method="_on_add_mesh_pressed"]
-[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh" to="MeshGenScript" method="_on_generate_mesh_pressed"]
