@@ -125,6 +125,8 @@ var swtich_session_popup : Node = null
 var over_tex : bool = false
 var over_normal_tex : bool = false
 
+var over_mesh_tex : bool = false
+var mesh_text_node : Node = null
 
 var save_path : String = ""
 var is_editor : bool = true:
@@ -225,7 +227,7 @@ func _input(_event : InputEvent):
 
 
 func offset(i):
-	i.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+	i.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 	i.sprite_data.position = i.position
 	i.sprite_data.offset = i.get_node("%Sprite2D").position
 	i.save_state(current_state)

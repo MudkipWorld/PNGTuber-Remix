@@ -14,6 +14,7 @@ static var internal_point_count : int = 50
 static var eplision : float = 1
 static var merge_close : float = 25
 
+
 func regenerate_mesh():
 	if mesh == null or !is_instance_valid(mesh):
 		push_error("Mesh is null or invalid!")
@@ -35,10 +36,8 @@ func regenerate_mesh():
 	mesh.deform_bottom_middle.clear() 
 	mesh.deform_bottom_right.clear() 
 	mesh.sync_deformation_arrays() 
-	
 	queue_redraw()
 	mesh.queue_redraw()
-
 
 func _draw() -> void:
 	if mesh == null  or !is_instance_valid(mesh):
@@ -151,6 +150,8 @@ func save_deformation_3x3():
 		mesh.deform_bottom_middle = mesh.deformed_vertices.duplicate()
 	elif mesh.deform_x == 1 && mesh.deform_y == 0:
 		mesh.deform_bottom_right = mesh.deformed_vertices.duplicate()
+	
+	mesh.sync_deformation_arrays()
 
 func is_triangle_valid(a: Vector2, b: Vector2, c: Vector2) -> bool:
 	var area = (b - a).cross(c - a) * 0.5
@@ -284,23 +285,98 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 	var bitmap = BitMap.new()
 	bitmap.create_from_image_alpha(img, threshold)
 	var polys = bitmap.opaque_to_polygons(Rect2(Vector2.ZERO, Vector2(w, h)), eplision)
+	
 	if polys.is_empty():
 		push_error("No polygons generated!")
 		return
-	var base = polys[0]
-	base = smooth_and_even_poly(base, 2)
-	base = merge_close_points(base, merge_close)
-	mesh.base_vertices = base.duplicate()
+
+	var base_vertices: Array = []
+	for poly in polys:
+		var smoothed = smooth_and_even_poly(poly, 2)
+		smoothed = merge_close_points(smoothed, merge_close)
+		base_vertices.append_array(smoothed)
+	if polys.size() > 1:
+		for i in range(polys.size()):
+			for j in range(i + 1, polys.size()):
+				var poly_a = polys[i]
+				var poly_b = polys[j]
+				var min_dist = INF
+				var _closest_pair = null
+				for va in poly_a:
+					for vb in poly_b:
+						var d = va.distance_to(vb)
+						if d < min_dist:
+							min_dist = d
+							_closest_pair = [va, vb]
+		
+	mesh.base_vertices = base_vertices.duplicate()
 	mesh.internal_vertices.clear()
 	if ring_grid:
 		mesh.internal_vertices.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
 	if square_grid:
 		mesh.internal_vertices.append_array(generate_internal_points_grid(mesh.base_vertices))
-
-	rebuild_triangulation()
-
-func rebuild_triangulation() -> void:
-	mesh.original_vertices = mesh.base_vertices.duplicate()
-	mesh.original_vertices += mesh.internal_vertices.duplicate()
-	mesh.deformed_vertices = mesh.original_vertices.duplicate()
+	var all_vertices = mesh.base_vertices.duplicate()
+	all_vertices += mesh.internal_vertices.duplicate()
+	mesh.original_vertices = all_vertices
+	mesh.deformed_vertices = all_vertices.duplicate()
+	
 	mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
+
+func reinforce_mesh_from_existing(_mesh: CustomMesh = mesh) -> void:
+	if mesh == null or !is_instance_valid(mesh):
+		push_error("Mesh is null or invalid!")
+		return
+	if mesh.original_vertices.is_empty():
+		push_error("Mesh has no original vertices!")
+		return
+
+	# Ensure base_vertices exist
+	if mesh.base_vertices.is_empty():
+		mesh.base_vertices = mesh.original_vertices.duplicate()
+
+	# Internal vertices
+	if mesh.internal_vertices.is_empty():
+		if ring_grid:
+			mesh.internal_vertices.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
+		if square_grid:
+			mesh.internal_vertices.append_array(generate_internal_points_grid(mesh.base_vertices))
+
+	# Rebuild all_vertices
+	var all_vertices = mesh.base_vertices.duplicate()
+	all_vertices += mesh.internal_vertices.duplicate()
+	# Also include original vertices if somehow missing
+	for v in mesh.original_vertices:
+		if v not in all_vertices:
+			all_vertices.append(v)
+
+	mesh.original_vertices = all_vertices
+	mesh.deformed_vertices = all_vertices.duplicate()
+	mesh.interpolated_vertices.clear()
+
+	# Rebuild triangles
+	if mesh.triangles.is_empty():
+		mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
+	else:
+		# Filter out invalid triangles
+		var valid_tris: PackedInt32Array = PackedInt32Array()
+		for i in range(0, mesh.triangles.size(), 3):
+			var a = mesh.triangles[i]
+			var b = mesh.triangles[i+1]
+			var c = mesh.triangles[i+2]
+			if a < mesh.original_vertices.size() and b < mesh.original_vertices.size() and c < mesh.original_vertices.size():
+				valid_tris.append_array([a, b, c])
+		mesh.triangles = valid_tris
+
+	# Rebuild 3x3 deformation grids if missing
+	if mesh.deform_top_left.is_empty(): mesh.deform_top_left = mesh.deformed_vertices.duplicate()
+	if mesh.deform_top_middle.is_empty(): mesh.deform_top_middle = mesh.deformed_vertices.duplicate()
+	if mesh.deform_top_right.is_empty(): mesh.deform_top_right = mesh.deformed_vertices.duplicate()
+	if mesh.deform_middle_left.is_empty(): mesh.deform_middle_left = mesh.deformed_vertices.duplicate()
+	if mesh.deform_center.is_empty(): mesh.deform_center = mesh.deformed_vertices.duplicate()
+	if mesh.deform_middle_right.is_empty(): mesh.deform_middle_right = mesh.deformed_vertices.duplicate()
+	if mesh.deform_bottom_left.is_empty(): mesh.deform_bottom_left = mesh.deformed_vertices.duplicate()
+	if mesh.deform_bottom_middle.is_empty(): mesh.deform_bottom_middle = mesh.deformed_vertices.duplicate()
+	if mesh.deform_bottom_right.is_empty(): mesh.deform_bottom_right = mesh.deformed_vertices.duplicate()
+
+	mesh.sync_deformation_arrays()
+	mesh.queue_redraw()

@@ -41,7 +41,11 @@ func drop_all_data():
 			
 		elif Global.over_normal_tex:
 			replace_texture_image(true)
-		
+		elif Global.over_mesh_tex:
+			var meta : ImageData = held_item[0].get_metadata(0)
+			Global.mesh_text_node.held_image_data = meta
+			Global.mesh_text_node.get_node("%MeshTexture").texture = meta.runtime_texture
+			
 	drop_mode_flags = 0
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	hovered = false

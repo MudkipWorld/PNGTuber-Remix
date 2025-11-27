@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://7r3v4vohf4at"]
+[gd_scene load_steps=18 format=3 uid="uid://7r3v4vohf4at"]
 
 [ext_resource type="Script" uid="uid://sipcpctah7rf" path="res://Scripts/UI/LeftPanel/layers_panel_scripts.gd" id="1_jg6ph"]
 [ext_resource type="Texture2D" uid="uid://b1mau3t40axff" path="res://UI/Assets/FlipHButton.png" id="2_1ikkj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bdn1lqcsryehy" path="res://UI/Assets/FlipVButton.png" id="3_bwdjw"]
 [ext_resource type="Texture2D" uid="uid://cy7f2n2248fnu" path="res://UI/Assets/TextButton.png" id="3_rijo6"]
 [ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/Assets/ReplaceButton.png" id="4_fs6qq"]
+[ext_resource type="Texture2D" uid="uid://bkehoihv30in3" path="res://UI/Assets/CircleButton.png" id="4_r1mgf"]
 [ext_resource type="Texture2D" uid="uid://db71o0x7h6duq" path="res://UI/Assets/RotateClockWiseButton.png" id="4_rijo6"]
 [ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/Assets/DupButton.png" id="5_rccg0"]
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/Assets/DeleteButton.png" id="6_jo6pm"]
@@ -86,10 +87,10 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
-tooltip_text = "Comment Block Object."
+tooltip_text = "Mesh Object."
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("3_rijo6")
+icon = ExtResource("4_r1mgf")
 expand_icon = true
 
 [node name="FlipH" type="Button" parent="VBoxContainer/ButtonsPanel/VBoxContainer/HBoxContainer"]

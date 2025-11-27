@@ -280,10 +280,11 @@ func set_blend(blend):
 
 func reparent_obj(parent):
 	for i in parent:
-		if i.sprite_id == parent_id:
-			var og_pos = global_position
-			reparent(i.sprite_object)
-			global_position = og_pos
+		if i.parent_id == sprite_id:
+			var og_pos = i.global_position
+			i.get_parent().remove_child(i)
+			%Sprite2D.add_child(i)
+			i.global_position = og_pos
 			break
 
 func image_replaced(image_date : ImageData):

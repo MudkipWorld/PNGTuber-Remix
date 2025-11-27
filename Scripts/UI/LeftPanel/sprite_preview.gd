@@ -15,8 +15,13 @@ func nullfy():
 func enable():
 	if Global.held_sprites.size() > 0:
 		if not Global.held_sprites[0].get_value("folder"):
-			%CurrentSelectedNormal.texture = Global.held_sprites[0].get_node("%Sprite2D").texture.normal_texture
-			%CurrentSelected.texture = Global.held_sprites[0].get_node("%Sprite2D").texture.diffuse_texture
+			if Global.held_sprites[0].get_node("%Sprite2D") is CustomMesh:
+				%CurrentSelectedNormal.texture = null
+				%CurrentSelected.texture = Global.held_sprites[0].get_node("%Sprite2D").texture
+				
+			else:
+				%CurrentSelectedNormal.texture = Global.held_sprites[0].get_node("%Sprite2D").texture.normal_texture
+				%CurrentSelected.texture = Global.held_sprites[0].get_node("%Sprite2D").texture.diffuse_texture
 		else:
 			%CurrentSelected.texture = null
 			%CurrentSelectedNormal.texture = null

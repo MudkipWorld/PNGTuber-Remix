@@ -45,15 +45,30 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Editing"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Mesh Control"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DeformMode" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer"]
+[node name="GridContainer4" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
+columns = 2
+
+[node name="DeformMode" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
 text = "Deform Mode"
+
+[node name="WebMode" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+button_pressed = true
+text = "Show Web"
 
 [node name="GridContainer" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -86,6 +101,32 @@ max_value = 1.0
 step = 0.001
 value = 0.01
 
+[node name="GridContainer3" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="FollowWobble" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Wobble Movement"
+
+[node name="FollowMovements" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Follow Movements"
+
+[node name="MeshDeformGrid" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("3_dmk11")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HSeparator2" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="Label2" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Generation"
@@ -100,19 +141,21 @@ columns = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "square_grid"
+theme_override_font_sizes/font_size = 14
+text = "Square Grid"
 
 [node name="RingGrid" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "ring_grid"
+theme_override_font_sizes/font_size = 14
+text = "Ring Grid"
 
 [node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "grid_size"
+text = "Grid Size :"
 
 [node name="GridSize" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
@@ -126,7 +169,7 @@ value = 10.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "ring_spacing"
+text = "Ring Spacing :"
 
 [node name="RingSpacing" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
@@ -139,18 +182,22 @@ value = 5.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "threshold"
+text = "Alpha Threshold : "
 
 [node name="Threshold" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.0
 
 [node name="Label4" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "internal_point_count"
+text = "Inner Points :"
 
 [node name="InternalPoints" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
@@ -164,7 +211,7 @@ value = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "eplision"
+text = "Eplision :"
 
 [node name="Eplision" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
@@ -179,7 +226,7 @@ value = 0.01
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "merge_close"
+text = "Merge Points Space :"
 
 [node name="MergeClose" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
 unique_name_in_owner = true
@@ -211,23 +258,27 @@ custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
+mouse_filter = 0
 texture = ExtResource("2_dmk11")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="AddMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Mesh"
 
 [node name="GenerateMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Generate Mesh"
 
-[node name="MeshDeformGrid" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("3_dmk11")]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-
-[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/DeformMode" to="MeshGenScript" method="_on_deform_mode_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer4/DeformMode" to="MeshGenScript" method="_on_deform_mode_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer4/WebMode" to="MeshGenScript" method="_on_web_mode_toggled"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer/InfluRad" to="MeshGenScript" method="_on_influ_rad_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer/InfluStrength" to="MeshGenScript" method="_on_influ_strength_value_changed"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowWobble" to="MeshGenScript" method="_on_follow_wobble_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/SquareGrid" to="MeshGenScript" method="_on_square_grid_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/RingGrid" to="MeshGenScript" method="_on_ring_grid_toggled"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/GridSize" to="MeshGenScript" method="_on_grid_size_value_changed"]
@@ -236,4 +287,7 @@ size_flags_horizontal = 4
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/InternalPoints" to="MeshGenScript" method="_on_internal_points_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Eplision" to="MeshGenScript" method="_on_eplision_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/MergeClose" to="MeshGenScript" method="_on_merge_close_value_changed"]
+[connection signal="mouse_entered" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_entered"]
+[connection signal="mouse_exited" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_exited"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/AddMesh" to="MeshGenScript" method="_on_add_mesh_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh" to="MeshGenScript" method="_on_generate_mesh_pressed"]

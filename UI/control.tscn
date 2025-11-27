@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene load_steps=22 format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Script" uid="uid://dvpyywoct4riy" path="res://Scripts/UI/control.gd" id="1_1r6xj"]
 [ext_resource type="Script" uid="uid://bpegrg5a15v2v" path="res://Scripts/UI/UIInput.gd" id="3_1eur5"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bk2xbsvlmq0or" path="res://UI/StateButton/state_panel.tscn" id="10_1r6xj"]
 [ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="14_y3a4k"]
 [ext_resource type="PackedScene" uid="uid://cfuiw0rtt54fn" path="res://UI/StreamUI/web_socket_config.tscn" id="17_le2wr"]
+[ext_resource type="PackedScene" uid="uid://b33l6030k8a8p" path="res://UI/EditorUI/RightUI/Components/mesh_gen.tscn" id="18_kv61l"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y3a4k"]
 blend_mode = 1
@@ -316,7 +317,23 @@ justification_flags = 169
 max_lines_visible = 3
 visible_characters_behavior = 2
 
+[node name="HSeparator2" type="HSeparator" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" instance=ExtResource("17_le2wr")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="HSeparator" type="HSeparator" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Meshes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MeshGen" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" instance=ExtResource("18_kv61l")]
 layout_mode = 2
 
 [node name="StatePanel" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" instance=ExtResource("10_1r6xj")]

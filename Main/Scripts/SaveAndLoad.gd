@@ -54,29 +54,75 @@ func save_data():
 		if InputMap.has_action(sprt.disappear_keys):
 			for key in InputMap.action_get_events(sprt.disappear_keys):
 				saved_events.append(key)
-		var base = {
-			"states": cleaned_array,
-			"sprite_name": sprt.sprite_name,
-			"sprite_id": sprt.sprite_id,
-			"parent_id": sprt.parent_id,
-			"sprite_type": sprt.sprite_type,
-			"is_asset": sprt.is_asset,
-			"saved_event": sprt.saved_event,
-			"was_active_before": sprt.was_active_before,
-			"should_disappear": sprt.should_disappear,
-			"show_only": sprt.show_only,
-			"saved_disappear": saved_events,
-			"hold_to_show":sprt.hold_to_show,
-			"is_collapsed": sprt.is_collapsed,
-			"is_premultiplied": true,
-			"layer_color": sprt.layer_color,
-			"image_id": sprt.used_image_id,
-			"normal_id": sprt.used_image_id_normal,
-			"rotated":sprt.rotated,
-			"flipped_h":sprt.flipped_h,
-			"flipped_v":sprt.flipped_v,
-			"rest_mode": sprt.rest_mode
-		}
+		
+		var base = {}
+		if sprt.sprite_type == "Mesh":
+			var mesh = sprt.get_node("%Sprite2D")
+			base = {
+				"original_vertices": mesh.original_vertices,
+				"base_vertices": mesh.base_vertices,
+				"deformed_vertices": mesh.deformed_vertices,
+				"internal_vertices": mesh.internal_vertices,
+				"triangles": mesh.triangles,
+
+				"deform_top_left": mesh.deform_top_left,
+				"deform_top_middle": mesh.deform_top_middle,
+				"deform_top_right": mesh.deform_top_right,
+				"deform_middle_left": mesh.deform_middle_left,
+				"deform_center": mesh.deform_center,
+				"deform_middle_right": mesh.deform_middle_right,
+				"deform_bottom_left": mesh.deform_bottom_left,
+				"deform_bottom_middle": mesh.deform_bottom_middle,
+				"deform_bottom_right": mesh.deform_bottom_right,
+
+				"states": cleaned_array,
+				"sprite_name": sprt.sprite_name,
+				"sprite_id": sprt.sprite_id,
+				"parent_id": sprt.parent_id,
+				"sprite_type": sprt.sprite_type,
+				"is_asset": sprt.is_asset,
+				"saved_event": sprt.saved_event,
+				"was_active_before": sprt.was_active_before,
+				"should_disappear": sprt.should_disappear,
+				"show_only": sprt.show_only,
+				"saved_disappear": saved_events,
+				"hold_to_show":sprt.hold_to_show,
+				"is_collapsed": sprt.is_collapsed,
+				"is_premultiplied": true,
+				"layer_color": sprt.layer_color,
+				"image_id": sprt.used_image_id,
+				"normal_id": sprt.used_image_id_normal,
+				"rotated":sprt.rotated,
+				"flipped_h":sprt.flipped_h,
+				"flipped_v":sprt.flipped_v,
+				"rest_mode": sprt.rest_mode
+			}
+
+		else:
+			base = {
+				"states": cleaned_array,
+				"sprite_name": sprt.sprite_name,
+				"sprite_id": sprt.sprite_id,
+				"parent_id": sprt.parent_id,
+				"sprite_type": sprt.sprite_type,
+				"is_asset": sprt.is_asset,
+				"saved_event": sprt.saved_event,
+				"was_active_before": sprt.was_active_before,
+				"should_disappear": sprt.should_disappear,
+				"show_only": sprt.show_only,
+				"saved_disappear": saved_events,
+				"hold_to_show":sprt.hold_to_show,
+				"is_collapsed": sprt.is_collapsed,
+				"is_premultiplied": true,
+				"layer_color": sprt.layer_color,
+				"image_id": sprt.used_image_id,
+				"normal_id": sprt.used_image_id_normal,
+				"rotated":sprt.rotated,
+				"flipped_h":sprt.flipped_h,
+				"flipped_v":sprt.flipped_v,
+				"rest_mode": sprt.rest_mode
+			}
+		
 
 		sprites_array.append(base)
 	save_dict = {
@@ -210,6 +256,8 @@ func load_model(path: String) -> void:
 	Global.load_model.emit()
 	Global.load_sprite_states(0)
 
+
+
 func _resize_image_data(image_data: ImageData, sprite_node: Node2D, percent: float) -> void:
 	if percent == 100.0 or image_data.runtime_texture == null:
 		return
@@ -246,7 +294,6 @@ func _resize_apng_frames(image_data: ImageData, percent: float) -> void:
 	var exporter := AImgIOAPNGExporter.new()
 	var apng_bytes := exporter.export_animation(image_data.frames, 24, null, null, [])
 	image_data.anim_texture = apng_bytes
-
 
 func load_objects(load_dict: Dictionary) -> void:
 	Global.image_manager_data.clear()
@@ -302,12 +349,16 @@ func load_objects(load_dict: Dictionary) -> void:
 			sprite_obj = preload("res://Misc/CommentObject/comment_object.tscn").instantiate()
 			set_common_data(sprite, sprite_obj)
 			load_comment_block_object(load_dict, sprite, sprite_obj)
+		elif sprite.has("sprite_type") and sprite.sprite_type == "Mesh":
+			sprite_obj = preload("res://Misc/MeshObject/mesh_object.tscn").instantiate()
+			set_common_data(sprite, sprite_obj)
+			load_mesh_object(load_dict, sprite, sprite_obj)
+			
 			
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 			set_common_data(sprite, sprite_obj)
 			load_normal_objects(load_dict, sprite, sprite_obj)
-
 
 func set_common_data(sprite, sprite_obj):
 	sprite_obj.layer_color = sprite.get("layer_color", Color.BLACK)
@@ -366,6 +417,54 @@ func load_comment_block_object(_load_dict : Dictionary, sprite, sprite_obj):
 		sprite_obj.is_collapsed = sprite.is_collapsed
 	Global.sprite_container.add_child(sprite_obj)
 	sprite_obj.sprite_type = "Comment"
+
+func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
+	var cleaned_array := []
+	if !sprite.states[0].get("folder"):
+		for i in Global.image_manager_data:
+			if i.id == sprite_obj.used_image_id:
+				sprite_obj.referenced_data = i
+				sprite_obj.get_node("%Sprite2D").texture = i.runtime_texture
+	for st in sprite.states:
+		if not st.is_empty():
+			if import_trimmed and !Global.settings_dict.trimmed and sprite_obj.referenced_data != null:
+				st["offset"] += sprite_obj.referenced_data.offset
+			if import_resized and import_percent != 100.0:
+				var scale := import_percent / 100.0
+				st["offset"] *= scale
+				if st.has("position"):
+					st["position"] *= scale
+			cleaned_array.append(st)
+	for st in cleaned_array:
+		var new_dict = sprite_obj.sprite_data.duplicate()
+		new_dict.merge(st, true)
+		st = new_dict
+	sprite_obj.states = cleaned_array
+	if sprite.has("is_collapsed"):
+		sprite_obj.is_collapsed = sprite.is_collapsed
+	
+	var mesh = sprite_obj.get_node("%Sprite2D")
+	if sprite.has("original_vertices"):
+		mesh.original_vertices = sprite.original_vertices.duplicate()
+		mesh.base_vertices = sprite.base_vertices.duplicate()
+		mesh.deformed_vertices = sprite.deformed_vertices.duplicate()
+		mesh.triangles = sprite.triangles.duplicate()
+		mesh.internal_vertices = sprite.internal_vertices.duplicate()
+
+		mesh.deform_top_left = sprite.deform_top_left.duplicate()
+		mesh.deform_top_middle = sprite.deform_top_middle.duplicate()
+		mesh.deform_top_right = sprite.deform_top_right.duplicate()
+		mesh.deform_middle_left = sprite.deform_middle_left.duplicate()
+		mesh.deform_center = sprite.deform_center.duplicate()
+		mesh.deform_middle_right = sprite.deform_middle_right.duplicate()
+		mesh.deform_bottom_left = sprite.deform_bottom_left.duplicate()
+		mesh.deform_bottom_middle = sprite.deform_bottom_middle.duplicate()
+		mesh.deform_bottom_right = sprite.deform_bottom_right.duplicate()
+		mesh.interpolated_vertices.clear()
+		mesh.sync_deformation_arrays()
+		
+	Global.sprite_container.add_child(sprite_obj)
+	sprite_obj.sprite_type = "Mesh"
 
 func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 		var canv: CanvasTexture = CanvasTexture.new()

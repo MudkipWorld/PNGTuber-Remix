@@ -2,6 +2,7 @@ extends Node
 
 @export var actor: SpriteObject
 @export var modifier: Node2D
+@export var mesh : CustomMesh = null
 
 var last_mouse_position : Vector2 = Vector2(0,0)
 var last_dist : Vector2 = Vector2(0,0)
@@ -229,6 +230,20 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			modifier.position.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.x, 0.0, actor.get_value("mouse_delay")))
 			modifier.position.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.y, 0.0, actor.get_value("mouse_delay")))
 			return
+	if actor.sprite_type == "Mesh" and mesh != null:
+		var can_deform : bool = false
+		if Global.mesh_text_node != null && is_instance_valid(Global.mesh_text_node):
+			can_deform = Global.mesh_text_node.deform
+		if !mesh.editable && !can_deform:
+			var raw_offset = target_pos
+			var amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			var safe_deform_pos = mesh.apply_wobble_to_deformer(raw_offset, _delta, amp)
+			if !safe_deform_pos.is_equal_approx(Vector2(mesh.deform_x, mesh.deform_y)):
+				mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
+		if !actor.get_value("move_with_follow"):
+			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
+			return
+
 	modifier.position.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.x, target_pos.x, actor.get_value("mouse_delay")))
 	modifier.position.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.y, target_pos.y, actor.get_value("mouse_delay")))
 

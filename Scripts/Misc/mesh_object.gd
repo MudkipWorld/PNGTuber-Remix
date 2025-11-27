@@ -5,10 +5,12 @@ extends SpriteObject
 
 func get_default_object_data() -> Dictionary:
 	return {
+		move_with_wobble = true,
+		move_with_follow= true
 	}
 
-
 func _init() -> void:
+	referenced_data = Global.image_data
 	cached_defaults = DEFAULT_DATA.merged(get_default_object_data(), true)
 	sprite_data = cached_defaults.duplicate(true)
 
@@ -89,26 +91,19 @@ func get_state(id):
 	if !states[id].is_empty():
 		var dict = states[id]
 		sprite_data.merge(dict, true)
-		if get_value("should_reset_state"):
-			%ReactionConfig.reset_anim()
-		
 		var old_glob = global_position
 		position = get_value("position")
 		%Sprite2D.position = get_value("offset") 
 		%Sprite2D.scale = Vector2(1,1)
-		%Sprite2D.text = get_value("text_data") 
 		
 		%Modifier1.z_index = get_value("z_index")
 		modulate = get_value("colored")
 		scale = get_value("scale")
-
 		if (global_position - old_glob).length() > get_value("drag_snap") && get_value("drag_snap") != 999999.0:
 			%Modifier.global_position = %Modifier1.global_position
-		
 		%Sprite2D.set_clip_children_mode(get_value("clip"))
+		
 		rotation = get_value("rotation")
-
-
 		if !get_value("should_blink"):
 			%Modifier1.show()
 		else:
@@ -122,6 +117,7 @@ func get_state(id):
 		
 	elif states[id].is_empty():
 		states[id] = sprite_data.duplicate(true)
+
 
 func check_talk():
 	if get_value("should_talk"):

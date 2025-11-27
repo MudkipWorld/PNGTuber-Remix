@@ -156,12 +156,6 @@ unique_name_in_owner = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
-[node name="MeshPointer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos"]
-unique_name_in_owner = true
-z_index = 4096
-z_as_relative = false
-script = ExtResource("8_rix8b")
-
 [node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
 z_index = 4
 texture_filter = 4
@@ -179,6 +173,12 @@ z_index = 4096
 z_as_relative = false
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.92549)
+
+[node name="MeshPointer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+unique_name_in_owner = true
+z_index = 4096
+z_as_relative = false
+script = ExtResource("8_rix8b")
 
 [node name="Effects" type="TextureRect" parent="."]
 unique_name_in_owner = true

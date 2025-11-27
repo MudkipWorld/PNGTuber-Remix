@@ -151,12 +151,22 @@ func wobble(_delta: float) -> void:
 		var tick = Global.tick
 		last_wobble_pos.x = sin((tick - paused_wobble.x) * actor.get_value("xFrq")) * actor.get_value("xAmp")
 		last_wobble_pos.y = sin((tick - paused_wobble.y) * actor.get_value("yFrq")) * actor.get_value("yAmp")
-	applied_pos += last_wobble_pos
-	
-	if mesh != null:
-		if !mesh.editable:
-			var safe_deform_pos = mesh.apply_wobble_to_deformer(Vector2(mesh.deform_x, mesh.deform_y), applied_pos, Vector2(0.01,0.01))
-			mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
+
+	var final = applied_pos + last_wobble_pos
+	if actor.sprite_type == "Mesh" and mesh != null:
+		var can_deform : bool = false
+		if Global.mesh_text_node != null && is_instance_valid(Global.mesh_text_node):
+			can_deform = Global.mesh_text_node.deform
+		if  !mesh.editable && !can_deform:
+			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
+			if amp != Vector2.ZERO && Vector2(actor.get_value("xFrq"), actor.get_value("yFrq")) != Vector2.ZERO:
+				var safe_deform_pos = mesh.apply_wobble_to_deformer(last_wobble_pos, _delta, amp)
+				if !safe_deform_pos.is_equal_approx(Vector2(mesh.deform_x, mesh.deform_y)):
+					mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
+			if !actor.get_value("move_with_wobble"):
+				return
+	applied_pos = final
+
 
 func rotationalDrag(length, delta: float):
 	if actor.is_default("rot_frq"):
