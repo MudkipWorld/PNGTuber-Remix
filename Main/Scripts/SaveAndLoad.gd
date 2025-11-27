@@ -57,24 +57,23 @@ func save_data():
 		
 		var base = {}
 		if sprt.sprite_type == "Mesh":
-			var mesh = sprt.get_node("%Sprite2D")
+			var mesh : CustomMesh = sprt.get_node("%Sprite2D")
 			base = {
-				"original_vertices": mesh.original_vertices,
-				"base_vertices": mesh.base_vertices,
-				"deformed_vertices": mesh.deformed_vertices,
-				"internal_vertices": mesh.internal_vertices,
-				"triangles": mesh.triangles,
-
-				"deform_top_left": mesh.deform_top_left,
-				"deform_top_middle": mesh.deform_top_middle,
-				"deform_top_right": mesh.deform_top_right,
-				"deform_middle_left": mesh.deform_middle_left,
-				"deform_center": mesh.deform_center,
-				"deform_middle_right": mesh.deform_middle_right,
-				"deform_bottom_left": mesh.deform_bottom_left,
-				"deform_bottom_middle": mesh.deform_bottom_middle,
-				"deform_bottom_right": mesh.deform_bottom_right,
-
+			"original_vertices": PackedVector2Array(mesh.original_vertices),
+			"internal_vertices": PackedVector2Array(mesh.internal_vertices),
+			"base_vertices": PackedVector2Array(mesh.base_vertices),
+			"triangles": mesh.triangles,
+			"deformation_3x3": [
+				PackedVector2Array(mesh.deform_top_left),
+				PackedVector2Array(mesh.deform_top_middle),
+				PackedVector2Array(mesh.deform_top_right),
+				PackedVector2Array(mesh.deform_middle_left),
+				PackedVector2Array(mesh.deform_center),
+				PackedVector2Array(mesh.deform_middle_right),
+				PackedVector2Array(mesh.deform_bottom_left),
+				PackedVector2Array(mesh.deform_bottom_middle),
+				PackedVector2Array(mesh.deform_bottom_right),
+			],
 				"states": cleaned_array,
 				"sprite_name": sprt.sprite_name,
 				"sprite_id": sprt.sprite_id,
@@ -122,8 +121,6 @@ func save_data():
 				"flipped_v":sprt.flipped_v,
 				"rest_mode": sprt.rest_mode
 			}
-		
-
 		sprites_array.append(base)
 	save_dict = {
 		"version": Global.version,
@@ -447,19 +444,29 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 	if sprite.has("original_vertices"):
 		mesh.original_vertices = sprite.original_vertices.duplicate()
 		mesh.base_vertices = sprite.base_vertices.duplicate()
-		mesh.deformed_vertices = sprite.deformed_vertices.duplicate()
 		mesh.triangles = sprite.triangles.duplicate()
 		mesh.internal_vertices = sprite.internal_vertices.duplicate()
-
-		mesh.deform_top_left = sprite.deform_top_left.duplicate()
-		mesh.deform_top_middle = sprite.deform_top_middle.duplicate()
-		mesh.deform_top_right = sprite.deform_top_right.duplicate()
-		mesh.deform_middle_left = sprite.deform_middle_left.duplicate()
-		mesh.deform_center = sprite.deform_center.duplicate()
-		mesh.deform_middle_right = sprite.deform_middle_right.duplicate()
-		mesh.deform_bottom_left = sprite.deform_bottom_left.duplicate()
-		mesh.deform_bottom_middle = sprite.deform_bottom_middle.duplicate()
-		mesh.deform_bottom_right = sprite.deform_bottom_right.duplicate()
+		if sprite.has("deformation_3x3"):
+			mesh.deform_top_left = sprite["deformation_3x3"].deform_top_left.duplicate()
+			mesh.deform_top_middle = sprite["deformation_3x3"].deform_top_middle.duplicate()
+			mesh.deform_top_right = sprite["deformation_3x3"].deform_top_right.duplicate()
+			mesh.deform_middle_left = sprite["deformation_3x3"].deform_middle_left.duplicate()
+			mesh.deform_center = sprite["deformation_3x3"].deform_center.duplicate()
+			mesh.deform_middle_right = sprite["deformation_3x3"].deform_middle_right.duplicate()
+			mesh.deform_bottom_left = sprite["deformation_3x3"].deform_bottom_left.duplicate()
+			mesh.deform_bottom_middle = sprite["deformation_3x3"].deform_bottom_middle.duplicate()
+			mesh.deform_bottom_right = sprite["deformation_3x3"].deform_bottom_right.duplicate()
+			
+		else:
+			mesh.deform_top_left = sprite.deform_top_left.duplicate()
+			mesh.deform_top_middle = sprite.deform_top_middle.duplicate()
+			mesh.deform_top_right = sprite.deform_top_right.duplicate()
+			mesh.deform_middle_left = sprite.deform_middle_left.duplicate()
+			mesh.deform_center = sprite.deform_center.duplicate()
+			mesh.deform_middle_right = sprite.deform_middle_right.duplicate()
+			mesh.deform_bottom_left = sprite.deform_bottom_left.duplicate()
+			mesh.deform_bottom_middle = sprite.deform_bottom_middle.duplicate()
+			mesh.deform_bottom_right = sprite.deform_bottom_right.duplicate()
 		mesh.interpolated_vertices.clear()
 		mesh.sync_deformation_arrays()
 		
