@@ -258,11 +258,16 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
+[node name="Mesh" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("18_kv61l")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 6
+
 [node name="Tests" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector"]
 visible = false
 y_sort_enabled = true
 layout_mode = 2
-metadata/_tab_index = 6
+metadata/_tab_index = 7
 
 [node name="ScrollContainer6" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests"]
 layout_mode = 1
@@ -323,18 +328,6 @@ layout_mode = 2
 [node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" instance=ExtResource("17_le2wr")]
 layout_mode = 2
 size_flags_vertical = 1
-
-[node name="HSeparator" type="HSeparator" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Meshes"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MeshGen" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" instance=ExtResource("18_kv61l")]
-layout_mode = 2
 
 [node name="StatePanel" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" instance=ExtResource("10_1r6xj")]
 layout_mode = 2
