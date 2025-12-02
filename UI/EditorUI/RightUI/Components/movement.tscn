@@ -206,6 +206,28 @@ step = 0.01
 value_to_update = "stretchAmount"
 has_alt_values = true
 
+[node name="IndexBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Index Change X :"
+mini_value = -100.0
+max_value = 100.0
+step = 1.0
+value_to_update = "index_change"
+has_alt_values = true
+
+[node name="IndexBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Index Change Y :"
+mini_value = -100.0
+max_value = 100.0
+step = 1.0
+value_to_update = "index_change_y"
+has_alt_values = true
+
 [node name="Sp3" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5

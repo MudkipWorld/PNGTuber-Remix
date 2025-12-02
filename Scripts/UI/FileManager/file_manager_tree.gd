@@ -90,7 +90,11 @@ func replace_texture_image(normal : bool = false):
 					i.used_image_id_normal = meta.id
 					i.referenced_data_normal = meta
 					var norm = ImageTextureLoaderManager.check_flips(meta.runtime_texture, i)
-					i.get_node("%Sprite2D").texture.normal_texture = norm
+					if i.get_node("%Sprite2D") is CustomMesh:
+						pass
+					else:
+						i.get_node("%Sprite2D").texture.normal_texture = norm
+					
 					ImageTrimmer.set_thumbnail(i.treeitem)
 		else:
 			for i in Global.held_sprites:
@@ -98,6 +102,11 @@ func replace_texture_image(normal : bool = false):
 					i.used_image_id = meta.id
 					i.referenced_data = meta
 					var diff = ImageTextureLoaderManager.check_flips(meta.runtime_texture, i)
-					i.get_node("%Sprite2D").texture.diffuse_texture = diff
+					if i.get_node("%Sprite2D") is CustomMesh:
+						i.get_node("%Sprite2D").texture = diff
+					else:
+						i.get_node("%Sprite2D").texture.diffuse_texture = diff
+					
+					
 					ImageTrimmer.set_thumbnail(i.treeitem)
 		Global.reinfo.emit()

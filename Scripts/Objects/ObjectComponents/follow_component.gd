@@ -275,7 +275,7 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 			var safe_rot_min = clamp(actor.sprite_data.rLimitMin, -360, 360)
 			var safe_rot_max = clamp(actor.sprite_data.rLimitMax, -360, 360)
 			var rotation_factor = lerp(actor.sprite_data.mouse_rotation, actor.sprite_data.mouse_rotation_max, max((normalized_mouse + 1) / 2, 0.001))
-			target_rot = clamp(rotation_factor, deg_to_rad(safe_rot_min), deg_to_rad(safe_rot_max))
+			target_rot = GlobalCalculations.is_nan_or_inf(clamp(rotation_factor, deg_to_rad(safe_rot_min), deg_to_rad(safe_rot_max)))
 
 	elif follow_type2 == 1: target_rot = axis_left.x
 	elif follow_type2 == 2: target_rot = axis_right.x
@@ -330,8 +330,8 @@ func update_scale(dir: Vector2, delta: float) -> void:
 	var target_sy = lerp(1.0, 1.0 - actor.get_value("mouse_scale_y"), max(y_val, 0.01))
 	var t = actor.get_value("mouse_delay") * delta * 60.0
 	t = clamp(t, 0.0, 1.0)
-	modifier.scale.x = lerp(modifier.scale.x, target_sx, t)
-	modifier.scale.y = lerp(modifier.scale.y, target_sy, t)
+	modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_sx, t))
+	modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_sy, t))
 
 func follow_mouse_vel_rotation():
 	var t = Vector2(-dir_vel_anim.x, 0).normalized()

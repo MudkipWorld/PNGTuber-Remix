@@ -29,6 +29,8 @@ var paused_rotation: float = 0.0
 var last_rot: float = 0.0
 var should_rot_rotation: float = 0.0
 var rest: bool = false
+var index_change_len : float = 0
+var index_change_len_y : float = 0
 
 
 var glob: Vector2 = Vector2.ZERO
@@ -85,6 +87,17 @@ func _physics_process(delta: float) -> void:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
 		modifier_node.global_position = GlobalCalculations.is_nan_or_inf(applied_pos)
+	
+	var test = (modifier_node.global_position - actor.global_position).normalized()
+	var signed_len_x = (test.x)
+	var signed_len_y = (test.y)
+	index_change_len = lerp(index_change_len, signed_len_x, 0.95)
+	index_change_len_y = lerp(index_change_len_y, signed_len_y, 0.95)
+	index_change_len = index_change_len * actor.get_value("index_change")
+	index_change_len_y = index_change_len_y * actor.get_value("index_change_y")
+	modifier_node.z_index = floori(index_change_len + index_change_len_y)
+
+
 
 func static_prev():
 	%Modifier.position = Vector2(0,0)
@@ -94,6 +107,8 @@ func static_prev():
 	%Modifier1.position = Vector2.ZERO
 	%Modifier1.rotation = 0.0
 	%Modifier1.scale = Vector2(1,1)
+	modifier_node.z_index = 0
+	
 	dragger_global = %Modifier.global_position
 
 func movements(delta):
@@ -113,7 +128,6 @@ func movements(delta):
 		var c_len_y = parent_movements.glob.y - parent_node.get_node("%Modifier1").global_position.y
 		var c_len_x = parent_movements.glob.x - parent_node.get_node("%Modifier1").global_position.x
 		length += c_len_y + c_len_x
-
 	rotationalDrag(length, delta)
 	stretch(length, delta)
 

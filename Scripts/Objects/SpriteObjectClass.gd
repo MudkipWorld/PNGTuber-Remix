@@ -29,6 +29,8 @@ const DEFAULT_DATA := {
 	mouse_scale_x = 0.0,
 	mouse_scale_y = 0.0,
 	drag_snap = 0.0,
+	index_change = 0,
+	index_change_y = 0,
 	
 	# Movement when mouth open
 	mo_xAmp = 0,
@@ -51,6 +53,8 @@ const DEFAULT_DATA := {
 	mo_mouse_scale_x = 0.0,
 	mo_mouse_scale_y = 0.0,
 	mo_drag_snap = 0.0,
+	mo_index_change = 0,
+	mo_index_change_y = 0,
 	
 	# Movement when screaming
 	scream_xAmp = 0,
@@ -73,6 +77,10 @@ const DEFAULT_DATA := {
 	scream_mouse_scale_x = 0.0,
 	scream_mouse_scale_y = 0.0,
 	scream_drag_snap = 0.0,
+	scream_index_change = 0,
+	scream_index_change_y = 0,
+	
+	
 	# Other stuff idk
 	blend_mode = "Normal",
 	visible = true,
