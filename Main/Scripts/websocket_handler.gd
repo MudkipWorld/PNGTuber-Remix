@@ -454,150 +454,160 @@ func _on_message(peer_id: int, message: String):
 	var error = json.parse(message)
 	if error != OK:
 		print("Error parsing message as JSON: %s" % message)
+		send(peer_id, JSON.stringify({"event": "error", "message": "Invalid JSON format", "error_line": json.get_error_line(), "error_message": json.get_error_message()}))
+		return
+	
 	json_data = json.data
+	
+	# Validate that json_data is a dictionary
+	if typeof(json_data) != TYPE_DICTIONARY:
+		print("Invalid message format: expected dictionary, got %s" % typeof(json_data))
+		send(peer_id, JSON.stringify({"event": "error", "message": "Invalid message format: expected JSON object"}))
+		return
+	
 	print(json_data)
 	if json_data.has("event"):
-		match json_data["event"]:
-			"ping":
-				#print("Received ping from peer %d" % peer_id)
-				send(peer_id,'{"event":"pong"}')
-			"state":
-				#print("Change state received from peer %d " % peer_id)
-				#print(json_data["state_id"])
-				
-				# Support both state_name and state_id parameters
-				var identifier = str(json_data.get("state_name", json_data.get("state_id", "")))
-				var state_index = find_state_by_name_or_id(identifier)
-				
-				if state_index >= 0:
-					var state_buttons = get_tree().get_nodes_in_group("StateButtons")
-					var state_button = state_buttons[state_index]
-					Global.current_state = state_index
-					Global.load_sprite_states(Global.current_state)
-					send(peer_id,'{"event":"state", "result":"success", "state_id":' + str(state_index + 1) + ', "state_name":"' + state_button.state_name + '"}')
-				else:
-					send(peer_id,'{"event":"state", "result":"failed", "error":"state not found", "identifier":"' + identifier + '", "available_states":' + str(Global.settings_dict.get("states").size()) + '}')
-			"general":
-				var key = str(json_data["key"])
-				Global.key_pressed.emit(key)
-				send(peer_id,'{"event":"state", result:"success"}')
-			"hide_sprite":
-				var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-				var result = hide_sprite_by_identifier(identifier)
-				if result:
-					send(peer_id,'{"event":"hide_sprite", "result":"success", "identifier":"' + identifier + '"}')
-				else:
-					send(peer_id,'{"event":"hide_sprite", "result":"failed", "identifier":"' + identifier + '", "error":"sprite not found"}')
-			"show_sprite":
-				var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-				var result = show_sprite_by_identifier(identifier)
-				if result:
-					send(peer_id,'{"event":"show_sprite", "result":"success", "identifier":"' + identifier + '"}')
-				else:
-					send(peer_id,'{"event":"show_sprite", "result":"failed", "identifier":"' + identifier + '", "error":"sprite not found"}')
-			"toggle_sprite":
-				var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-				var result = toggle_sprite_by_identifier(identifier)
-				if result.has("success"):
-					var visibility_state = "visible" if result.visible else "hidden"
-					send(peer_id,'{"event":"toggle_sprite", "result":"success", "identifier":"' + identifier + '", "visibility":"' + visibility_state + '"}')
-				else:
-					send(peer_id,'{"event":"toggle_sprite", "result":"failed", "identifier":"' + identifier + '", "error":"sprite not found"}')
-			"list_sprites":
-				var sprite_list = get_all_sprite_names()
-				var sprites_json = JSON.stringify(sprite_list)
-				send(peer_id,'{"event":"list_sprites", "result":"success", "sprites":' + sprites_json + '}')
-			"list_states":
-				print("Debug: list_states command received")
-				var state_buttons = get_tree().get_nodes_in_group("StateButtons")
-				print("Debug: Found ", state_buttons.size(), " state buttons")
-				
-				if state_buttons.size() == 0:
-					send(peer_id,'{"event":"list_states", "result":"failed", "error":"no state buttons found"}')
-				else:
-					var state_list = get_all_state_names()
-					print("Debug: State list: ", state_list)
-					var states_json = JSON.stringify(state_list)
-					send(peer_id,'{"event":"list_states", "result":"success", "states":' + states_json + '}')
-			"load_model":
-				var file_path = json_data.get("file_path", "")
-				if file_path == "":
-					send(peer_id,'{"event":"load_model", "result":"failed", "error":"file_path is required"}')
-				else:
-					var result = load_model_by_path(file_path)
-					if result:
-						send(peer_id,'{"event":"load_model", "result":"success", "file_path":"' + file_path + '"}')
+			match json_data["event"]:
+				"ping":
+					#print("Received ping from peer %d" % peer_id)
+					send(peer_id, JSON.stringify({"event": "pong"}))
+				"state":
+					#print("Change state received from peer %d " % peer_id)
+					#print(json_data["state_id"])
+					
+					# Support both state_name and state_id parameters
+					var identifier = str(json_data.get("state_name", json_data.get("state_id", "")))
+					var state_index = find_state_by_name_or_id(identifier)
+					
+					if state_index >= 0:
+						var state_buttons = get_tree().get_nodes_in_group("StateButtons")
+						var state_button = state_buttons[state_index]
+						Global.current_state = state_index
+						Global.load_sprite_states(Global.current_state)
+						send(peer_id, JSON.stringify({"event": "state", "result": "success", "state_id": state_index + 1, "state_name": state_button.state_name}))
 					else:
-						send(peer_id,'{"event":"load_model", "result":"failed", "file_path":"' + file_path + '", "error":"failed to load model"}')
-			"list_groups":
-				var groups = get_all_groups()
-				var groups_json = JSON.stringify(groups)
-				send(peer_id,'{"event":"list_groups", "result":"success", "groups":' + groups_json + '}')
-			"hide_group":
-				var identifier = str(json_data.get("group_name", json_data.get("group_id", json_data.get("id", ""))))
-				var result = hide_sprite_by_identifier(identifier)
-				if result:
-					send(peer_id,'{"event":"hide_group", "result":"success", "identifier":"' + identifier + '"}')
-				else:
-					send(peer_id,'{"event":"hide_group", "result":"failed", "identifier":"' + identifier + '", "error":"group not found"}')
-			"show_group":
-				var identifier = str(json_data.get("group_name", json_data.get("group_id", json_data.get("id", ""))))
-				var result = show_sprite_by_identifier(identifier)
-				if result:
-					send(peer_id,'{"event":"show_group", "result":"success", "identifier":"' + identifier + '"}')
-				else:
-					send(peer_id,'{"event":"show_group", "result":"failed", "identifier":"' + identifier + '", "error":"group not found"}')
-			"toggle_group":
-				var identifier = str(json_data.get("group_name", json_data.get("group_id", json_data.get("id", ""))))
-				var result = toggle_sprite_by_identifier(identifier)
-				if result.has("success"):
-					var visibility_state = "visible" if result.visible else "hidden"
-					send(peer_id,'{"event":"toggle_group", "result":"success", "identifier":"' + identifier + '", "visibility":"' + visibility_state + '"}')
-				else:
-					send(peer_id,'{"event":"toggle_group", "result":"failed", "identifier":"' + identifier + '", "error":"group not found"}')
-			"move_sprite":
-				var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-				var x = json_data.get("x", 0.0)
-				var y = json_data.get("y", 0.0)
-				var duration = json_data.get("duration", 1.0)
-				var reset = json_data.get("reset", false)
-				var reset_delay = json_data.get("reset_delay", 0.0)
-				var result = move_sprite_by_identifier(identifier, Vector2(x, y), duration, reset, reset_delay)
-				if result:
-					send(peer_id,'{"event":"move_sprite", "result":"success", "identifier":"' + identifier + '", "x":' + str(x) + ', "y":' + str(y) + ', "duration":' + str(duration) + ', "reset":' + str(reset).to_lower() + '}')
-				else:
-					send(peer_id,'{"event":"move_sprite", "result":"failed", "identifier":"' + identifier + '", "error":"sprite not found"}')
-			"animate_sprite":
-				var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-				var scale_x = json_data.get("scale_x", json_data.get("scale", 1.0))
-				var scale_y = json_data.get("scale_y", scale_x)
-				var rotation = json_data.get("rotation", 0.0)
-				var duration = json_data.get("duration", 1.0)
-				var reset = json_data.get("reset", false)
-				var reset_delay = json_data.get("reset_delay", 0.0)
-				var result = animate_sprite_by_identifier(identifier, Vector2(scale_x, scale_y), rotation, duration, reset, reset_delay)
-				if result:
-					send(peer_id,'{"event":"animate_sprite", "result":"success", "identifier":"' + identifier + '", "scale_x":' + str(scale_x) + ', "scale_y":' + str(scale_y) + ', "rotation":' + str(rotation) + ', "duration":' + str(duration) + ', "reset":' + str(reset).to_lower() + '}')
-				else:
-					send(peer_id,'{"event":"animate_sprite", "result":"failed", "identifier":"' + identifier + '", "error":"sprite not found"}')
-			"shake_sprite":
-				var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-				var intensity = json_data.get("intensity", 10.0)
-				var duration = json_data.get("duration", 1.0)
-				var result = shake_sprite_by_identifier(identifier, intensity, duration)
-				if result:
-					send(peer_id,'{"event":"shake_sprite", "result":"success", "identifier":"' + identifier + '", "intensity":' + str(intensity) + ', "duration":' + str(duration) + '}')
-				else:
-					send(peer_id,'{"event":"shake_sprite", "result":"failed", "identifier":"' + identifier + '", "error":"sprite not found"}')
-			"bounce_sprite":
-				var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-				var height = json_data.get("height", 20.0)
-				var duration = json_data.get("duration", 0.5)
-				var result = bounce_sprite_by_identifier(identifier, height, duration)
-				if result:
-					send(peer_id,'{"event":"bounce_sprite", "result":"success", "identifier":"' + identifier + '", "height":' + str(height) + ', "duration":' + str(duration) + '}')
-				else:
-					send(peer_id,'{"event":"bounce_sprite", "result":"failed", "identifier":"' + identifier + '", "error":"sprite not found"}')
-			_:
-				send(peer_id,'{"event":"error", "message":"Unknown event: ' + str(json_data.get("event", "unknown")) + '"}')
-				#print(Global.current_state)
+						send(peer_id, JSON.stringify({"event": "state", "result": "failed", "error": "state not found", "identifier": identifier, "available_states": Global.settings_dict.get("states").size()}))
+				"general":
+					var key = str(json_data["key"])
+					Global.key_pressed.emit(key)
+					send(peer_id, JSON.stringify({"event": "general", "result": "success"}))
+				"hide_sprite":
+					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
+					var result = hide_sprite_by_identifier(identifier)
+					if result:
+						send(peer_id, JSON.stringify({"event": "hide_sprite", "result": "success", "identifier": identifier}))
+					else:
+						send(peer_id, JSON.stringify({"event": "hide_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				"show_sprite":
+					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
+					var result = show_sprite_by_identifier(identifier)
+					if result:
+						send(peer_id, JSON.stringify({"event": "show_sprite", "result": "success", "identifier": identifier}))
+					else:
+						send(peer_id, JSON.stringify({"event": "show_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				"toggle_sprite":
+					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
+					var result = toggle_sprite_by_identifier(identifier)
+					if result.has("success"):
+						var visibility_state = "visible" if result.visible else "hidden"
+						send(peer_id, JSON.stringify({"event": "toggle_sprite", "result": "success", "identifier": identifier, "visibility": visibility_state}))
+					else:
+						send(peer_id, JSON.stringify({"event": "toggle_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				"list_sprites":
+					var sprite_list = get_all_sprite_names()
+					send(peer_id, JSON.stringify({"event": "list_sprites", "result": "success", "sprites": sprite_list}))
+				"list_states":
+					print("Debug: list_states command received")
+					var state_buttons = get_tree().get_nodes_in_group("StateButtons")
+					print("Debug: Found ", state_buttons.size(), " state buttons")
+					
+					if state_buttons.size() == 0:
+						send(peer_id, JSON.stringify({"event": "list_states", "result": "failed", "error": "no state buttons found"}))
+					else:
+						var state_list = get_all_state_names()
+						print("Debug: State list: ", state_list)
+						send(peer_id, JSON.stringify({"event": "list_states", "result": "success", "states": state_list}))
+				"load_model":
+					var file_path = json_data.get("file_path", "")
+					if file_path == "":
+						send(peer_id, JSON.stringify({"event": "load_model", "result": "failed", "error": "file_path is required"}))
+					else:
+						var result = load_model_by_path(file_path)
+						if result:
+							send(peer_id, JSON.stringify({"event": "load_model", "result": "success", "file_path": file_path}))
+						else:
+							send(peer_id, JSON.stringify({"event": "load_model", "result": "failed", "file_path": file_path, "error": "failed to load model"}))
+				"list_groups":
+					var groups = get_all_groups()
+					send(peer_id, JSON.stringify({"event": "list_groups", "result": "success", "groups": groups}))
+				"hide_group":
+					var identifier = str(json_data.get("group_name", json_data.get("group_id", json_data.get("id", ""))))
+					var result = hide_sprite_by_identifier(identifier)
+					if result:
+						send(peer_id, JSON.stringify({"event": "hide_group", "result": "success", "identifier": identifier}))
+					else:
+						send(peer_id, JSON.stringify({"event": "hide_group", "result": "failed", "identifier": identifier, "error": "group not found"}))
+				"show_group":
+					var identifier = str(json_data.get("group_name", json_data.get("group_id", json_data.get("id", ""))))
+					var result = show_sprite_by_identifier(identifier)
+					if result:
+						send(peer_id, JSON.stringify({"event": "show_group", "result": "success", "identifier": identifier}))
+					else:
+						send(peer_id, JSON.stringify({"event": "show_group", "result": "failed", "identifier": identifier, "error": "group not found"}))
+				"toggle_group":
+					var identifier = str(json_data.get("group_name", json_data.get("group_id", json_data.get("id", ""))))
+					var result = toggle_sprite_by_identifier(identifier)
+					if result.has("success"):
+						var visibility_state = "visible" if result.visible else "hidden"
+						send(peer_id, JSON.stringify({"event": "toggle_group", "result": "success", "identifier": identifier, "visibility": visibility_state}))
+					else:
+						send(peer_id, JSON.stringify({"event": "toggle_group", "result": "failed", "identifier": identifier, "error": "group not found"}))
+				"move_sprite":
+					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
+					var x = json_data.get("x", 0.0)
+					var y = json_data.get("y", 0.0)
+					var duration = json_data.get("duration", 1.0)
+					var reset = json_data.get("reset", false)
+					var reset_delay = json_data.get("reset_delay", 0.0)
+					var result = move_sprite_by_identifier(identifier, Vector2(x, y), duration, reset, reset_delay)
+					if result:
+						send(peer_id, JSON.stringify({"event": "move_sprite", "result": "success", "identifier": identifier, "x": x, "y": y, "duration": duration, "reset": reset}))
+					else:
+						send(peer_id, JSON.stringify({"event": "move_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				"animate_sprite":
+					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
+					var scale_x = json_data.get("scale_x", json_data.get("scale", 1.0))
+					var scale_y = json_data.get("scale_y", scale_x)
+					var rotation = json_data.get("rotation", 0.0)
+					var duration = json_data.get("duration", 1.0)
+					var reset = json_data.get("reset", false)
+					var reset_delay = json_data.get("reset_delay", 0.0)
+					var result = animate_sprite_by_identifier(identifier, Vector2(scale_x, scale_y), rotation, duration, reset, reset_delay)
+					if result:
+						send(peer_id, JSON.stringify({"event": "animate_sprite", "result": "success", "identifier": identifier, "scale_x": scale_x, "scale_y": scale_y, "rotation": rotation, "duration": duration, "reset": reset}))
+					else:
+						send(peer_id, JSON.stringify({"event": "animate_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				"shake_sprite":
+					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
+					var intensity = json_data.get("intensity", 10.0)
+					var duration = json_data.get("duration", 1.0)
+					var result = shake_sprite_by_identifier(identifier, intensity, duration)
+					if result:
+						send(peer_id, JSON.stringify({"event": "shake_sprite", "result": "success", "identifier": identifier, "intensity": intensity, "duration": duration}))
+					else:
+						send(peer_id, JSON.stringify({"event": "shake_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				"bounce_sprite":
+					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
+					var height = json_data.get("height", 20.0)
+					var duration = json_data.get("duration", 0.5)
+					var result = bounce_sprite_by_identifier(identifier, height, duration)
+					if result:
+						send(peer_id, JSON.stringify({"event": "bounce_sprite", "result": "success", "identifier": identifier, "height": height, "duration": duration}))
+					else:
+						send(peer_id, JSON.stringify({"event": "bounce_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				_:
+					send(peer_id, JSON.stringify({"event": "error", "message": "Unknown event: " + str(json_data.get("event", "unknown"))}))
+					#print(Global.current_state)
+	else:
+		# No "event" key found in the message
+		send(peer_id, JSON.stringify({"event": "error", "message": "Missing 'event' field in message"}))
