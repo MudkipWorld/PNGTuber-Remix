@@ -1,10 +1,25 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://q6qgkkkq85wv"]
+[gd_resource type="Theme" load_steps=24 format=3 uid="uid://q6qgkkkq85wv"]
 
 [ext_resource type="StyleBox" uid="uid://2heiibuale7i" path="res://Themes/OrangeTheme/ButtonPressed.tres" id="1_xvjsm"]
 [ext_resource type="StyleBox" uid="uid://bw3ktrq5jd70u" path="res://Themes/OrangeTheme/Buttonbase.tres" id="2_roxmy"]
 [ext_resource type="Texture2D" uid="uid://cs5x5k14vxaqv" path="res://Misc/TestAssets/SliderGrabber.png" id="3_xbj1o"]
 [ext_resource type="Texture2D" uid="uid://cd54dgvet0k2m" path="res://Misc/TestAssets/SliderGrabberDisabled.png" id="4_4o36y"]
 [ext_resource type="Texture2D" uid="uid://dahd6x51nj0iv" path="res://Misc/TestAssets/SliderGrabberHeld.png" id="5_kevkk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4o36y"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.875926, 0.616205, 0.373526, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.270588, 0.156863, 0.0235294, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbj1o"]
 content_margin_left = 4.0
@@ -64,6 +79,21 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kevkk"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.875926, 0.616205, 0.373526, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.270588, 0.156863, 0.0235294, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ri8kk"]
 content_margin_left = 7.0
@@ -175,7 +205,7 @@ expand_margin_bottom = 10.0
 [resource]
 Button/styles/disabled = ExtResource("1_xvjsm")
 Button/styles/focus = ExtResource("1_xvjsm")
-Button/styles/hover = ExtResource("2_roxmy")
+Button/styles/hover = SubResource("StyleBoxFlat_4o36y")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_xbj1o")
 Button/styles/normal = ExtResource("2_roxmy")
 Button/styles/pressed = ExtResource("1_xvjsm")
@@ -189,7 +219,7 @@ LineEdit/styles/normal = SubResource("StyleBoxFlat_5urst")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_qsg80")
 MenuButton/styles/disabled = ExtResource("1_xvjsm")
 MenuButton/styles/focus = ExtResource("1_xvjsm")
-MenuButton/styles/hover = ExtResource("2_roxmy")
+MenuButton/styles/hover = SubResource("StyleBoxFlat_kevkk")
 MenuButton/styles/normal = ExtResource("2_roxmy")
 MenuButton/styles/pressed = ExtResource("1_xvjsm")
 Panel/styles/panel = SubResource("StyleBoxFlat_ri8kk")

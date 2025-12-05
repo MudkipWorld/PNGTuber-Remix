@@ -79,7 +79,6 @@ animations = [{
 }]
 
 [node name="LipsyncConfigurationPopup" type="Window"]
-oversampling_override = 1.0
 title = "LipSync Configuration"
 initial_position = 2
 size = Vector2i(1000, 600)
@@ -116,9 +115,11 @@ layout_mode = 2
 
 [node name="FilesButton" type="MenuButton" parent="VBoxContainer/TopMenu/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Files"
+flat = false
 item_count = 3
 popup/item_0/text = "New File"
 popup/item_0/id = 0
