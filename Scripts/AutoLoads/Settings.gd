@@ -164,6 +164,7 @@ func _ready():
 			AudioServer.input_device = theme_settings.microphone
 	
 	change_cursor()
+	
 	update_tracking_backend()
 	# Load language
 	var locale = Util.get_locale(theme_settings.language)
@@ -186,7 +187,10 @@ func _ready():
 func update_tracking_backend():
 	match theme_settings.backend_type:
 		"default":
-			GlobInput.backend = "default"
+			if OS.has_feature("windows"):
+				GlobInput.backend = "windows"
+			else:
+				GlobInput.backend = "default"
 		"uiohook":
 			GlobInput.backend = "uiohook"
 		"windows":
