@@ -239,6 +239,8 @@ func reset_animations(_place_holder : int = 0):
 		reset_anim()
 
 func reset_anim():
+	if actor.referenced_data == null or !is_instance_valid(actor.referenced_data):
+		return
 	if actor.referenced_data.is_apng or actor.referenced_data.img_animated:
 		animation_handler.index = 0
 		animation_handler.proper_apng_one_shot()
