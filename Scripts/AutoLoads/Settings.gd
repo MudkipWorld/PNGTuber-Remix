@@ -187,17 +187,27 @@ func _ready():
 func update_tracking_backend():
 	match theme_settings.backend_type:
 		"default":
-			if OS.has_feature("windows"):
-				GlobInput.backend = "windows"
-			else:
-				GlobInput.backend = "default"
+			set_backed_default()
 		"uiohook":
 			GlobInput.backend = "uiohook"
 		"windows":
 			if OS.has_feature("windows"):
 				GlobInput.backend = "windows"
 			else:
-				GlobInput.backend = "default"
+				set_backed_default()
+		"x11":
+			if OS.has_feature("linux"):
+				GlobInput.backend = "x11"
+			else:
+				set_backed_default()
+
+func set_backed_default():
+	if OS.has_feature("windows"):
+		GlobInput.backend = "windows"
+	elif OS.has_feature("linux"):
+		GlobInput.backend = "x11"
+	else:
+		GlobInput.backend = "uiohook"
 
 func lipsync_set_up():
 	var parent_path = Util.get_parent_path(save_location);

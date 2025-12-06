@@ -62,6 +62,19 @@ func check_data():
 			%AudioBackendOption.select(1)
 	
 	
+	if OS.has_feature("linux"):
+		%BackendOption.set_item_disabled(3, false)
+	else:
+		%BackendOption.set_item_disabled(3, true)
+		%BackendOption.select(0)
+	
+	if OS.has_feature("windows"):
+		%BackendOption.set_item_disabled(2, false)
+	else:
+		%BackendOption.set_item_disabled(2, true)
+		%BackendOption.select(0)
+		
+		
 	match Settings.theme_settings.backend_type:
 		"default":
 			%BackendOption.select(0)
@@ -73,6 +86,13 @@ func check_data():
 			else:
 				%BackendOption.set_item_disabled(2, true)
 				%BackendOption.select(0)
+		"x11":
+			if OS.has_feature("linux"):
+				%BackendOption.select(3)
+			else:
+				%BackendOption.set_item_disabled(3, true)
+				%BackendOption.select(0)
+	
 	
 	change_setting = true
 
@@ -261,15 +281,17 @@ func _on_save_unused_images_toggled(toggled_on: bool) -> void:
 func _on_backend_option_item_selected(index: int) -> void:
 	match index:
 		0:
-			GlobInput.backend = "default"
 			Settings.theme_settings.backend_type = "default"
 		1:
-			GlobInput.backend = "uiohook"
 			Settings.theme_settings.backend_type = "uiohook"
 		2:
-			GlobInput.backend = "windows"
 			Settings.theme_settings.backend_type = "windows"
+		3:
+			Settings.theme_settings.backend_type = "x11"
+			
+			
 	Settings.save()
+	Settings.update_tracking_backend()
 
 func _on_audio_backend_option_item_selected(index: int) -> void:
 	match index:
