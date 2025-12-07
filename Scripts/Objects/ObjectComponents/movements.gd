@@ -118,9 +118,7 @@ func movements(delta):
 					var c_len_y = c_parent.get_node("%Movements").glob.y - c_parent.get_node("%Modifier1").global_position.y
 					var c_len_x = c_parent.get_node("%Movements").glob.x - c_parent.get_node("%Modifier1").global_position.x
 					length += c_len_y + c_len_x
-	rotationalDrag(length, delta)
-	stretch(length, delta)
-
+					
 	if actor.sprite_type == "Mesh" and mesh != null:
 		var can_deform : bool = false
 		if Global.mesh_text_node != null && is_instance_valid(Global.mesh_text_node):
@@ -132,9 +130,13 @@ func movements(delta):
 				if c_parent != null && is_instance_valid(c_parent):
 					h = c_parent.get_node("%Movements").glob
 			var drag_amp = Vector2( max(abs(glob.x - h.x), 1.0), max(abs(glob.y - h.y), 1.0) )
-			var safe_deform_pos = mesh.apply_wobble_to_deformer(glob, delta, drag_amp, 0.05)
+			var safe_deform_pos = mesh.apply_wobble_to_deformer(glob, delta, drag_amp, 0.008)
 			if abs((safe_deform_pos - Vector2(mesh.deform_x, mesh.deform_y)).length()) > 0.01:
 				mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
+					
+	rotationalDrag(length, delta)
+	stretch(length, delta)
+
 
 func rest_mode_movements(delta):
 	if Global.static_view:
@@ -164,7 +166,7 @@ func drag(_delta):
 		applied_pos += shadow_dragger - placeholder_position
 		
 	else:
-		shadow_dragger = shadow_dragger.lerp(target, 0.08)
+		shadow_dragger = shadow_dragger.lerp(target, 0.15)
 
 func wobble(_delta: float) -> void:
 	if actor.get_value("pause_movement"):

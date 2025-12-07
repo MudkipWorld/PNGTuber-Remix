@@ -86,7 +86,6 @@ texture = SubResource("GradientTexture2D_dwesf")
 expand_mode = 1
 
 [node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor", "mesh")]
-unique_name_in_owner = true
 actor = NodePath("..")
 mesh = NodePath("../Modifier1/Modifier/Sprite2D")
 
