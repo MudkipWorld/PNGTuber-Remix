@@ -29,6 +29,7 @@ unique_name_in_owner = true
 one_shot = true
 
 [node name="FollowComponent" type="Node" parent="." node_paths=PackedStringArray("modifier")]
+unique_name_in_owner = true
 script = ExtResource("3_7v2q7")
 modifier = NodePath("../Modifier1")
 

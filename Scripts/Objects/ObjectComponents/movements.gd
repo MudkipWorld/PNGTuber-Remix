@@ -31,6 +31,7 @@ var index_change_len_y : float = 0
 var shadow_dragger : Vector2 = Vector2(0,0)
 var glob: Vector2 = Vector2.ZERO
 var rdrag_rad: float = 0.0
+var shadow_target : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	modifier_node = %Modifier
@@ -76,7 +77,8 @@ func _physics_process(delta: float) -> void:
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
 		modifier_node.global_position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
-	var test = (modifier_node.global_position - actor.global_position).normalized()
+	shadow_target = modifier_node.global_position + %FollowComponent.target_pos
+	var test = (shadow_target - actor.global_position).normalized()
 	var signed_len_x = (test.x)
 	var signed_len_y = (test.y)
 	index_change_len = lerp(index_change_len, signed_len_x, 0.95)
@@ -131,7 +133,6 @@ func movements(delta):
 					h = c_parent.get_node("%Movements").glob
 			var drag_amp = Vector2( max(abs(glob.x - h.x), 1.0), max(abs(glob.y - h.y), 1.0) )
 			var safe_deform_pos = mesh.apply_wobble_to_deformer(glob, delta, drag_amp, 0.05)
-			print(safe_deform_pos)
 			if abs((safe_deform_pos - Vector2(mesh.deform_x, mesh.deform_y)).length()) > 0.01:
 				mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
 
