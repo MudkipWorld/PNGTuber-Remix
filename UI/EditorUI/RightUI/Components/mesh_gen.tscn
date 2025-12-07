@@ -26,7 +26,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Scroll"]
 layout_mode = 2
@@ -142,6 +141,16 @@ text = "Add Mesh"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Generate Mesh"
+
+[node name="GenerateMesh2" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Generate Mesh Preserved"
+
+[node name="GenerateMesh3" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Generate Corners"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Scroll/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 150)
@@ -310,6 +319,8 @@ value = 1.0
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/AddMesh" to="MeshGenScript" method="_on_add_mesh_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh" to="MeshGenScript" method="_on_generate_mesh_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh2" to="MeshGenScript" method="_on_generate_mesh_2_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh3" to="MeshGenScript" method="_on_generate_mesh_3_pressed"]
 [connection signal="mouse_entered" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_entered"]
 [connection signal="mouse_exited" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_exited"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/SquareGrid" to="MeshGenScript" method="_on_square_grid_toggled"]

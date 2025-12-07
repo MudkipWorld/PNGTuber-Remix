@@ -184,3 +184,17 @@ func _on_outer_padding_toggled(toggled_on: bool) -> void:
 
 func _on_padding_value_changed(value: float) -> void:
 	MeshEditor.padding = value
+
+
+func _on_generate_mesh_2_pressed() -> void:
+	for i in Global.held_sprites:
+		if i != null && is_instance_valid(i):
+			if i.sprite_type == "Mesh":
+				i.get_node("%MeshEditor").regenerate_preserve_deformation()
+
+
+func _on_generate_mesh_3_pressed() -> void:
+	for i in Global.held_sprites:
+		if i != null && is_instance_valid(i):
+			if i.sprite_type == "Mesh":
+				i.get_node("%MeshEditor").auto_gen_corners()
