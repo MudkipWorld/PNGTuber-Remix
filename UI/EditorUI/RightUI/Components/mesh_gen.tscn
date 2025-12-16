@@ -145,6 +145,7 @@ text = "Generate Mesh"
 [node name="GenerateMesh2" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Doesn't take padding in account yet."
 text = "Generate Mesh Preserved"
 
 [node name="GenerateMesh3" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]

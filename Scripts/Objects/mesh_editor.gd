@@ -43,63 +43,59 @@ func regenerate_mesh():
 	queue_redraw()
 	mesh.queue_redraw()
 
+
 func _draw() -> void:
-	if mesh == null  or !is_instance_valid(mesh):
+	if mesh == null or !is_instance_valid(mesh):
 		return
-	if mesh.editable:
-		var texture = mesh.texture
-		var triangles = mesh.triangles
-		var base_vertices = mesh.base_vertices
-		var original_vertices = mesh.original_vertices
-		if mesh.original_vertices.is_empty() or mesh.triangles.is_empty() or not mesh.texture:
-			return
-		var vertices_to_draw: Array
-		if mesh.show_deformed_mesh:
-			if !mesh.interpolated_vertices.is_empty():
-				vertices_to_draw = mesh.interpolated_vertices
-			else:
-				vertices_to_draw = mesh.deformed_vertices
-		else:
-			vertices_to_draw = mesh.original_vertices
-		var tex_size = mesh.texture.get_size()
-		var offset = -tex_size / 2.0
-		if draw_internal_web:
-			for i in range(base_vertices.size()):
-				var start_v = base_vertices[i] + offset
-				var end_v = base_vertices[(i + 1) % base_vertices.size()] + offset 
-				draw_line(start_v, end_v, Color(0.7, 0.7, 0.7, 0.8), 1.0)
-			
-			var drawn_edges = {}
-			var base_count = base_vertices.size()
-			for t_idx in range(0, triangles.size(), 3):
-				var ids = [
-					triangles[t_idx],
-					triangles[t_idx + 1],
-					triangles[t_idx + 2]
-				]
-				var edges = [
-					[ids[0], ids[1]],
-					[ids[1], ids[2]],
-					[ids[2], ids[0]]
-				]
-				for e in edges:
-					var i = e[0]
-					var j = e[1]
-					if i < base_count and j < base_count:
-						continue
-					var low = min(i, j)
-					var high = max(i, j)
-					var key = str(low) + "_" + str(high)
-					if drawn_edges.has(key):
-						continue
-					drawn_edges[key] = true
-					draw_line(vertices_to_draw[i] + offset, vertices_to_draw[j] + offset, Color(0.7, 0.7, 0.7, 0.8), 1.0)
-		for i in range(vertices_to_draw.size()):
-			var v = vertices_to_draw[i] + offset
-			if i < base_vertices.size():
-				draw_circle(v, 2.0, Color(0, 0.8, 0))
-			else:
-				draw_circle(v, 2.0, Color(1, 0, 0))
+	if !mesh.editable:
+		return
+	if mesh.original_vertices.is_empty() or mesh.triangles.is_empty() or mesh.texture == null:
+		return
+
+	var vertices_to_draw: PackedVector2Array
+	if mesh.show_deformed_mesh and !mesh.interpolated_vertices.is_empty():
+		vertices_to_draw = mesh.interpolated_vertices
+	elif mesh.show_deformed_mesh:
+		vertices_to_draw = mesh.deformed_vertices
+	else:
+		vertices_to_draw = mesh.original_vertices
+
+	var base_count := mesh.base_vertices.size()
+	var offset := -mesh.texture.get_size() / 2.0
+	if draw_internal_web:
+		var drawn_edges := {}
+		for t_idx in range(0, mesh.triangles.size(), 3):
+			var a := mesh.triangles[t_idx]
+			var b := mesh.triangles[t_idx + 1]
+			var c := mesh.triangles[t_idx + 2]
+			var edges = [[a, b], [b, c], [c, a]]
+			for e in edges:
+				var i = e[0] 
+				var j = e[1]
+				if i < base_count and j < base_count:
+					continue
+				var low = min(i, j)
+				var high = max(i, j)
+				var key := str(low) + "_" + str(high)
+				if drawn_edges.has(key):
+					continue
+				drawn_edges[key] = true
+				draw_line(vertices_to_draw[i] + offset,
+						  vertices_to_draw[j] + offset,
+						  Color(0.7, 0.7, 0.7, 0.8),
+						  1.0)
+	for i in range(base_count):
+		var v = vertices_to_draw[i] + offset
+		draw_circle(v, 2.0, Color(0, 0.8, 0))
+	for i in range(base_count):
+		var a = vertices_to_draw[i] + offset
+		var b = vertices_to_draw[(i + 1) % base_count] + offset
+		draw_line(a, b, Color(1, 1, 1, 0.35), 2.0)
+
+	for i in range(base_count, vertices_to_draw.size()):
+		var v = vertices_to_draw[i] + offset
+		draw_circle(v, 2.0, Color(1, 0, 0))
+
 
 func _input(event):
 	if mesh == null  or !is_instance_valid(mesh):
@@ -551,71 +547,71 @@ func flip_side(arr: PackedVector2Array, mirror_x: float) -> PackedVector2Array:
 
 func regenerate_preserve_deformation():
 	if mesh == null or !is_instance_valid(mesh):
-		push_error("Mesh is null or invalid!")
 		return
 	if mesh.texture == null:
-		push_error("Please assign a texture!")
 		return
 	if mesh.original_vertices.is_empty():
-		push_error("No original vertices to preserve from!")
 		return
-	var old_original := mesh.original_vertices.duplicate()
-	var old_deformed := mesh.deformed_vertices.duplicate()
-	var old_triangles := mesh.triangles.duplicate()
-	if mesh.base_vertices.is_empty():
-		mesh.base_vertices = old_original.duplicate()
 
-	var new_internal : PackedVector2Array = []
+	var old_original = mesh.original_vertices.duplicate()
+	var old_deformed = mesh.deformed_vertices.duplicate()
+	var old_triangles = mesh.triangles.duplicate()
+
+	var base_vertices = mesh.base_vertices.duplicate()
+
+	var new_internal := PackedVector2Array()
 	if ring_grid:
-		new_internal.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
+		new_internal.append_array(generate_internal_points_rings_grid(base_vertices))
 	if square_grid:
-		new_internal.append_array(generate_internal_points_grid(mesh.base_vertices))
+		new_internal.append_array(generate_internal_points_grid(base_vertices))
 	if tri_grid:
-		new_internal.append_array(generate_internal_points_triangular_grid(mesh.base_vertices))
+		new_internal.append_array(generate_internal_points_triangular_grid(base_vertices))
 	if radial_hex:
-		new_internal.append_array(generate_internal_points_radial_hex(mesh.base_vertices))
+		new_internal.append_array(generate_internal_points_radial_hex(base_vertices))
 
-	var new_all : PackedVector2Array = mesh.base_vertices.duplicate()
+	var padding_vertices := PackedVector2Array()
+	if outer_padding and padding > 0:
+		padding_vertices = add_outer_padding(base_vertices)
+
+	var new_all := base_vertices.duplicate()
 	new_all += new_internal.duplicate()
-	new_all = _unique_vector2_array(new_all, 0.0001)
+	new_all += padding_vertices.duplicate()
+	new_all = _unique_vector2_array(new_all, padding * 0.5)
+
 	var new_deformed := PackedVector2Array()
 	for p in new_all:
-		var exact_idx = _find_vector_index_approx(old_original, p, 0.0001)
-		if exact_idx >= 0:
-			new_deformed.append(old_deformed[exact_idx])
+		var mapped := false
+		var idx = _find_vector_index_approx(old_original, p, padding * 0.25)
+		if idx >= 0:
+			new_deformed.append(old_deformed[idx])
 			continue
-		var mapped = false
 		for i in range(0, old_triangles.size(), 3):
-			var a_i = old_triangles[i]
-			var b_i = old_triangles[i+1]
-			var c_i = old_triangles[i+2]
+			var a_i = old_triangles[i]; var b_i = old_triangles[i+1]; var c_i = old_triangles[i+2]
 			if a_i >= old_original.size() or b_i >= old_original.size() or c_i >= old_original.size():
 				continue
-			var a = old_original[a_i]
-			var b = old_original[b_i]
-			var c = old_original[c_i]
+			var a = old_original[a_i]; var b = old_original[b_i]; var c = old_original[c_i]
 			if _point_in_triangle(p, a, b, c):
 				var w = _barycentric_weights(p, a, b, c)
-				var da = old_deformed[a_i]
-				var db = old_deformed[b_i]
-				var dc = old_deformed[c_i]
-				var estimated = da * w.x + db * w.y + dc * w.z
-				new_deformed.append(estimated)
+				w.x = clamp(w.x, 0, 1); w.y = clamp(w.y, 0, 1); w.z = clamp(w.z, 0, 1)
+				var da = old_deformed[a_i]; var db = old_deformed[b_i]; var dc = old_deformed[c_i]
+				new_deformed.append(da * w.x + db * w.y + dc * w.z)
 				mapped = true
 				break
 		if mapped:
 			continue
 		var nearest_idx = _find_nearest_index(old_original, p)
 		if nearest_idx >= 0:
-			new_deformed.append(old_deformed[nearest_idx])
+			new_deformed.append(old_deformed[nearest_idx] * 0.9 + p * 0.1)
 		else:
 			new_deformed.append(p)
 
+	mesh.base_vertices = base_vertices
+	mesh.internal_vertices = new_internal.duplicate()
 	mesh.original_vertices = new_all
 	mesh.deformed_vertices = new_deformed
-	mesh.internal_vertices = new_internal.duplicate()
 	mesh.interpolated_vertices.clear()
 	mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
+
 	var deform_names = [
 		"deform_top_left","deform_top_middle","deform_top_right",
 		"deform_middle_left","deform_center","deform_middle_right",
@@ -626,7 +622,18 @@ func regenerate_preserve_deformation():
 			continue
 		var arr = mesh.get(def_name)
 		if arr is Array or arr is PackedVector2Array:
-			mesh.set(def_name, _remap_deformation_array(arr, old_original, old_deformed, old_triangles, mesh.original_vertices, 0.0001))
+			var padded_arr = arr.duplicate()
+			if outer_padding and padding > 0:
+				padded_arr += PackedVector2Array(add_outer_padding(arr) )
+			mesh.set(def_name, _remap_deformation_array(
+				padded_arr,
+				old_original,
+				old_deformed,
+				old_triangles,
+				mesh.original_vertices,
+				padding
+			))
+
 	mesh.sync_deformation_arrays()
 	mesh.queue_redraw()
 	queue_redraw()
@@ -718,7 +725,6 @@ func _remap_deformation_array(deform_arr, old_orig, old_deformed, old_triangles,
 func generate_corner(a: PackedVector2Array, b: PackedVector2Array) -> PackedVector2Array:
 	var result : PackedVector2Array = PackedVector2Array()
 	var size_a : int = a.size()
-	var size_b : int = b.size()
 	result.resize(size_a)
 	for i in size_a:
 		result[i] = (a[i] + b[i]) * 0.5

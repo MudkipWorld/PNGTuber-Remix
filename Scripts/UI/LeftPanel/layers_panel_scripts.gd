@@ -321,7 +321,10 @@ func _on_unlink_button_pressed() -> void:
 func check_flips(obj):
 	var sprite = obj.get_node("%Sprite2D")
 	var diffused = ImageTextureLoaderManager.check_flips(obj.referenced_data.runtime_texture,obj )
-	sprite.texture.diffuse_texture = diffused
+	if sprite is CustomMesh:
+		sprite.texture = diffused
+	else:
+		sprite.texture.diffuse_texture = diffused
 	if obj.used_image_id_normal != 0:
 		var normal = ImageTextureLoaderManager.check_flips(obj.referenced_data_normal.runtime_texture, obj)
 		sprite.texture.normal_texture = normal

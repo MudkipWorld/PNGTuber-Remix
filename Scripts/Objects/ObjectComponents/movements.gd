@@ -104,6 +104,22 @@ func movements(delta):
 		return
 	glob =  shadow_dragger
 	drag(delta)
+	'''
+	if actor.sprite_type == "Mesh" and mesh != null:
+		var can_deform : bool = false
+		if Global.mesh_text_node != null && is_instance_valid(Global.mesh_text_node):
+			can_deform = Global.mesh_text_node.deform
+		if !mesh.editable && !can_deform && actor.get_value("physics"):
+			var h = shadow_dragger
+			if (actor.get_parent() is Sprite2D && is_instance_valid(actor.get_parent())) or (actor.get_parent() is WigglyAppendage2D && is_instance_valid(actor.get_parent())):
+				var c_parent = actor.get_parent().owner
+				if c_parent != null && is_instance_valid(c_parent):
+					h = c_parent.get_node("%Movements").glob
+			var drag_amp = Vector2( max(abs(glob.x - h.x), 1.0), max(abs(glob.y - h.y), 1.0) )
+			var safe_deform_pos = mesh.apply_wobble_to_deformer(glob, delta, drag_amp, 0.008)
+			if abs((safe_deform_pos - Vector2(mesh.deform_x, mesh.deform_y)).length()) > 0.01:
+				mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)'''
+	
 	wobble(delta)
 
 	if !actor.get_value("ignore_bounce"):
@@ -118,22 +134,6 @@ func movements(delta):
 					var c_len_y = c_parent.get_node("%Movements").glob.y - c_parent.get_node("%Modifier1").global_position.y
 					var c_len_x = c_parent.get_node("%Movements").glob.x - c_parent.get_node("%Modifier1").global_position.x
 					length += c_len_y + c_len_x
-					
-	if actor.sprite_type == "Mesh" and mesh != null:
-		var can_deform : bool = false
-		if Global.mesh_text_node != null && is_instance_valid(Global.mesh_text_node):
-			can_deform = Global.mesh_text_node.deform
-		if !mesh.editable && !can_deform && actor.get_value("physics"):
-			var h = shadow_dragger
-			if (actor.get_parent() is Sprite2D && is_instance_valid(actor.get_parent())) or (actor.get_parent() is WigglyAppendage2D && is_instance_valid(actor.get_parent())):
-				var c_parent = actor.get_parent().owner
-				if c_parent != null && is_instance_valid(c_parent):
-					h = c_parent.get_node("%Movements").glob
-			var drag_amp = Vector2( max(abs(glob.x - h.x), 1.0), max(abs(glob.y - h.y), 1.0) )
-			var safe_deform_pos = mesh.apply_wobble_to_deformer(glob, delta, drag_amp, 0.008)
-			if abs((safe_deform_pos - Vector2(mesh.deform_x, mesh.deform_y)).length()) > 0.01:
-				mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
-					
 	rotationalDrag(length, delta)
 	stretch(length, delta)
 
@@ -185,7 +185,7 @@ func wobble(_delta: float) -> void:
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
 			if amp != Vector2.ZERO or Vector2(actor.get_value("xFrq"), actor.get_value("yFrq")) != Vector2.ZERO:
 				var safe_deform_pos = mesh.apply_wobble_to_deformer(last_wobble_pos, _delta, amp, 0.08)
-				if abs((safe_deform_pos - Vector2(mesh.deform_x, mesh.deform_y)).length()) > 0.01:
+				if abs((safe_deform_pos - Vector2(mesh.deform_x, mesh.deform_y)).length()) > 0.001:
 					mesh.deformations_3x3(safe_deform_pos.x, safe_deform_pos.y)
 		if !actor.get_value("move_with_wobble"):
 			return
