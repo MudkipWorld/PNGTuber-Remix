@@ -213,6 +213,16 @@ step = 0.01
 value = 1.0
 value_to_update = "animate_to_mouse_speed"
 
+[node name="Sp7" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SheetControls2" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="GridContainer3" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
 columns = 2
