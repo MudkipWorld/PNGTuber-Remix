@@ -16,6 +16,11 @@ func _ready() -> void:
 
 func nullfy():
 	%GenerateMesh.disabled = true
+	%GenerateMesh2.disabled = true
+	%GenerateMesh3.disabled = true
+	%GenerateMesh4.disabled = true
+	%GenerateMesh5.disabled = true
+	
 	if Global.mesh_pointer != null && is_instance_valid(Global.mesh_pointer):
 		Global.mesh_pointer.enabled = false
 		
@@ -32,6 +37,10 @@ func enable():
 				nullfy()
 				break
 			%GenerateMesh.disabled = false
+			%GenerateMesh2.disabled = false
+			%GenerateMesh3.disabled = false
+			%GenerateMesh4.disabled = false
+			%GenerateMesh5.disabled = false
 			if Global.mesh_pointer != null && is_instance_valid(Global.mesh_pointer):
 				Global.mesh_pointer.enabled = true
 			set_data()
