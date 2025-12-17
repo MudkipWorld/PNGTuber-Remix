@@ -2,7 +2,6 @@ extends SpriteObject
 
 @export var mesh : CustomMesh
 
-
 func get_default_object_data() -> Dictionary:
 	return {
 		move_with_wobble = true,
@@ -40,6 +39,7 @@ func sel():
 
 func desel():
 	%Sprite2D.editable = false
+	%MeshEditor.queue_redraw()
 	%Origin.hide()
 	selected = false
 
@@ -117,6 +117,8 @@ func get_state(id):
 		
 	elif states[id].is_empty():
 		states[id] = sprite_data.duplicate(true)
+	
+	%Sprite2D.deformations_3x3(%Sprite2D.deform_x,%Sprite2D.deform_y)
 
 
 func check_talk():

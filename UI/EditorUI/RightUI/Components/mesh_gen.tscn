@@ -146,12 +146,23 @@ text = "Generate Mesh"
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Doesn't take padding in account yet."
-text = "Generate Mesh Preserved"
+text = "Regenerate Mesh Preserved"
 
 [node name="GenerateMesh3" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Generate Corners"
+
+[node name="GenerateMesh4" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Generate Flipped"
+
+[node name="GenerateMesh5" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Generate Symmetrical"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Scroll/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 150)
@@ -322,6 +333,8 @@ value = 1.0
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh" to="MeshGenScript" method="_on_generate_mesh_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh2" to="MeshGenScript" method="_on_generate_mesh_2_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh3" to="MeshGenScript" method="_on_generate_mesh_3_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh4" to="MeshGenScript" method="_on_generate_mesh_4_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh5" to="MeshGenScript" method="_on_generate_mesh_5_pressed"]
 [connection signal="mouse_entered" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_entered"]
 [connection signal="mouse_exited" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_exited"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/SquareGrid" to="MeshGenScript" method="_on_square_grid_toggled"]

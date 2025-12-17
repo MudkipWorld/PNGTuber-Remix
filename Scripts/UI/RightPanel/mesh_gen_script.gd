@@ -198,3 +198,17 @@ func _on_generate_mesh_3_pressed() -> void:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").auto_gen_corners()
+
+
+func _on_generate_mesh_4_pressed() -> void:
+	for i in Global.held_sprites:
+		if i != null && is_instance_valid(i):
+			if i.sprite_type == "Mesh":
+				i.get_node("%MeshEditor").flip_3x3_grid_horizontally()
+
+
+func _on_generate_mesh_5_pressed() -> void:
+	for i in Global.held_sprites:
+		if i != null && is_instance_valid(i):
+			if i.sprite_type == "Mesh":
+				i.get_node("%MeshEditor").mirror_right_to_left()

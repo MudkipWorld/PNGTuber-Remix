@@ -2,6 +2,7 @@ extends Node2D
 class_name MeshEditor
 
 @export var mesh : CustomMesh = null
+@export var actor : SpriteObject
 static var draw_internal_web : bool = true
 static var influence_radius : float = 150.0
 static var influence_strength : float = 1.0
@@ -694,7 +695,7 @@ func _barycentric_weights(p: Vector2, a: Vector2, b: Vector2, c: Vector2) -> Vec
 	var u = 1.0 - v - w
 	return Vector3(u, v, w)
 
-func _remap_deformation_array(deform_arr, old_orig, old_deformed, old_triangles, new_originals, tol):
+func _remap_deformation_array(deform_arr, old_orig, _old_deformed, old_triangles, new_originals, tol):
 	var new_out : PackedVector2Array = PackedVector2Array()
 	for p in new_originals:
 		var exact_idx = _find_vector_index_approx(old_orig, p, tol)
@@ -740,4 +741,80 @@ func auto_gen_corners():
 	mesh.deform_top_right = top_right_corner.duplicate() 
 	mesh.deform_bottom_left = bottom_left_corner.duplicate() 
 	mesh.deform_bottom_right = bottom_right_corner.duplicate() 
+
+func flip_3x3_grid_horizontally():
+	if mesh == null:
+		return
+	var min_x = INF
+	var max_x = -INF
+	for v in mesh.original_vertices:
+		min_x = min(min_x, v.x)
+		max_x = max(max_x, v.x)
+	var center_x = (min_x + max_x) * 0.5
+
+	var top_left_flipped = flip_deformation_horizontally(mesh.deform_top_left, center_x)
+	var top_middle_flipped = flip_deformation_horizontally(mesh.deform_top_middle, center_x)
+	var top_right_flipped = flip_deformation_horizontally(mesh.deform_top_right, center_x)
+	var middle_left_flipped = flip_deformation_horizontally(mesh.deform_middle_left, center_x)
+	var center_flipped = flip_deformation_horizontally(mesh.deform_center, center_x)
+	var middle_right_flipped = flip_deformation_horizontally(mesh.deform_middle_right, center_x)
+	var bottom_left_flipped = flip_deformation_horizontally(mesh.deform_bottom_left, center_x)
+	var bottom_middle_flipped = flip_deformation_horizontally(mesh.deform_bottom_middle, center_x)
+	var bottom_right_flipped = flip_deformation_horizontally(mesh.deform_bottom_right, center_x)
+	mesh.deform_top_left = top_right_flipped
+	mesh.deform_top_middle = top_middle_flipped
+	mesh.deform_top_right = top_left_flipped
+	mesh.deform_middle_left = middle_right_flipped
+	mesh.deform_center = center_flipped
+	mesh.deform_middle_right = middle_left_flipped
+	mesh.deform_bottom_left = bottom_right_flipped
+	mesh.deform_bottom_middle = bottom_middle_flipped
+	mesh.deform_bottom_right = bottom_left_flipped
+	mesh.sync_deformation_arrays()
+	mesh.deformations_3x3(mesh.deform_x,mesh.deform_y)
+
+
+func mirror_left_to_right_ear():
+	if mesh == null:
+		return
+	mirror_corner(mesh.deform_top_left, mesh.deform_top_right)
+	mesh.sync_deformation_arrays()
+	mesh.queue_redraw()
+
+func mirror_corner(left_corner: PackedVector2Array, right_corner_ref: PackedVector2Array):
+	if mesh == null:
+		return
+	var min_x = INF
+	var max_x = -INF
+	for v in mesh.original_vertices:
+		min_x = min(min_x, v.x)
+		max_x = max(max_x, v.x)
+	var center_x = (min_x + max_x) * 0.5
 	
+	var mirrored = flip_deformation_horizontally(left_corner, center_x)
+	for i in range(min(mirrored.size(), right_corner_ref.size())):
+		right_corner_ref[i] = mirrored[i]
+	mesh.queue_redraw()
+
+func flip_deformation_horizontally(src: PackedVector2Array, axis_x: float) -> PackedVector2Array:
+	var flipped := PackedVector2Array()
+	for v in src:
+		flipped.append(Vector2(axis_x + (axis_x - v.x), v.y))
+	return flipped
+
+func mirror_right_to_left():
+	if mesh == null:
+		return
+
+	var original = mesh.original_vertices
+	var left = mesh.deform_middle_left
+	var right = mesh.deform_middle_right
+
+	var count = min(left.size(), right.size(), original.size())
+	for i in range(count):
+		var offset_y = left[i].y - original[i].y
+		right[i].x = original[i].x - (left[i].x - original[i].x)
+		right[i].y = original[i].y + offset_y
+
+	mesh.deform_middle_right = right
+	mesh.queue_redraw()
