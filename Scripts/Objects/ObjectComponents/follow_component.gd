@@ -108,6 +108,9 @@ func update_controller_inputs() -> void:
 	axis_lr_3 = Input.get_vector("L3", "R3", "L3", "R3")
 
 func update_position(dir: Vector2, dist: float, _delta: float) -> void:
+	if actor.get_value("follow_type") == 15:
+		%Modifier1.position = Vector2(0,0)
+		return
 	
 	var follow_type = actor.get_value("follow_type")
 	var keyboard_axis := Vector2.ZERO
@@ -248,6 +251,8 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	modifier.position.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.y, target_pos.y, actor.get_value("mouse_delay")))
 
 func update_rotation(_dir: Vector2, delta: float) -> void:
+	if actor.get_value("follow_type2") == 15:
+		return
 	var follow_type2 = actor.get_value("follow_type2")
 	var target_rot = 0.0
 	var keyboard_axis := Vector2.ZERO
@@ -290,6 +295,8 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 	modifier.rotation = lerp_angle(modifier.rotation, target_rot, t)
 
 func update_scale(dir: Vector2, delta: float) -> void:
+	if actor.get_value("follow_type3") == 15:
+		return
 	var follow_type3 = actor.get_value("follow_type3")
 	var keyboard_axis := Vector2.ZERO
 	if follow_type3 in [3,4,5,6,7,8]:

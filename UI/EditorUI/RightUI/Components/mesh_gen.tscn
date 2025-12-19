@@ -60,14 +60,14 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Deform Mode"
+text = "TR_DEFORM"
 
 [node name="WebMode" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 button_pressed = true
-text = "Show Web"
+text = "TR_SHOW_WEB"
 
 [node name="GridContainer" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -77,7 +77,7 @@ columns = 4
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Influence :"
+text = "TR_INFLUENCE"
 
 [node name="InfluRad" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
@@ -89,7 +89,7 @@ max_value = 2500.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Strength : "
+text = "TR_STRENGTH"
 
 [node name="InfluStrength" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
@@ -109,14 +109,14 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Wobble Movement"
+text = "TR_FOLLOW_WOBBLE"
 
 [node name="FollowMovements" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Follow Movements"
+text = "TR_FOLLOW_MOVEMENT"
 
 [node name="MeshDeformGrid" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("3_dmk11")]
 unique_name_in_owner = true
@@ -135,28 +135,28 @@ vertical_alignment = 1
 [node name="AddMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Add Mesh"
+text = "TR_ADD_MESH"
 
 [node name="GenerateMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Generate Mesh"
+text = "TR_GEN_MESH"
 
 [node name="GenerateMesh2" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Doesn't take padding in account yet."
-text = "Regenerate Mesh Preserved"
+text = "TR_GEN_PRESERVED"
 
 [node name="GenerateMesh3" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Generate Corners"
+text = "TR_GEN_CORNERS"
 
 [node name="GenerateMesh4" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Generate Flipped"
+text = "TR_GEN_FLIPPED"
 
 [node name="GenerateMesh5" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -172,7 +172,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Mesh Texture "
+text = "TR_MESH_TEXTURE"
 
 [node name="PanelContainer" type="PanelContainer" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
