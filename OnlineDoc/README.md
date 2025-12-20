@@ -85,9 +85,12 @@ There are few different way to import your assets in PNGTube-Remix. one of the e
 
 Another quick way is from the buttons on top of the layers tree in the Left Panel.
 
+
 ![LayersButtons](assets/Tutorial_image_11.PNG)
 
+
 ![ImportObjects](assets/Tutorial_image_12.PNG)
+
 
 #### Right Panel : 
 ##### Properties : 
@@ -204,7 +207,7 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Squish X and Y : Same as the rotation, but for the scale.
 - Snaps : Position, Rotation and Scale snapping is for tracking like keyboard/ controller movement where it stays in place after the input stopped.
 
-![FollowApp](assets/Tutorial_image_9.PNG)
+![FollowMove](assets/Tutorial_image_9.PNG)
 
 ---
 ### Wiggle
@@ -214,7 +217,8 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Strength : The follow strength of the object (affects how harshly it rotates.)
 - Rot-Threshold : The threshold of movement needed by the object to start following the rotation again.
 
-![FollowMove](assets/Tutorial_image_5.PNG)
+![FollowApp](assets/Tutorial_image_5.PNG)
+
 ---
 **<center>Wiggle Sprite</center>**
 - Wiggle Sprite : Enables the sprites wiggling/ wobbling feature.
