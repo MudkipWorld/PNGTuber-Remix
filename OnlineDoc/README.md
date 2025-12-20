@@ -285,7 +285,7 @@ This section is for controlling the Sprite-Sheet, Gif and APNG animations and fe
 In V1.4 onwards, assigning Input Keys/ renaming States is done from the Remap button ontop of the states as shown here, not from settings. Don't forget to press enter after renaming your State.
 
 ![Input](assets/Tutorial_image_1.PNG)
-![Input2](assets/Tutorial_image_2.PNG)
+![Input2](assets/Tutorial_image_2.png)
 
 
 ### Settings
