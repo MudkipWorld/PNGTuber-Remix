@@ -152,12 +152,12 @@ If this is on, the object’s movement gets affected by the parent’s Y-axis mo
 #### Ignore Bounce Example:
 |Ignore Bounce On|Ignore Bounce Off|
 
-[IgnoreBounce](assets/IgnoreBounce.gif)
+![IgnoreBounce](assets/IgnoreBounce.gif)
 
 #### Physics Example:
 |Physics On|Physics Off|
 
-[Physics](assets/Physics.gif)
+![Physics](assets/Physics.gif)
 
 #### Clip Children:
 Sadly I am unable to find a good way to implement Clipping Masks.  
