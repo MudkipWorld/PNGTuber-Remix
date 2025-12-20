@@ -10,7 +10,7 @@
   - [Basic UI information](#basic-ui-information)
   - [Assets](#assets)
   - [Basic movement concepts](#basic-movement-concepts)
-  - [Wiggle Appendages](#wiggle-appendages)
+  - [Wiggle](#wiggle)
   - [Settings](#settings)
   - [Assigning Input keys](#assigning-input-keys)
   - [Save and Load](#save-and-load)
@@ -79,6 +79,16 @@ If not… well, other platforms exist.
 
 ## Interface
 ### Basic UI information
+#### Left Panel : 
+##### Importing Assets: 
+There are few different way to import your assets in PNGTube-Remix. one of the easiest way is from Files>Import then select the Object type you need.
+
+Another quick way is from the buttons on top of the layers tree in the Left Panel.
+
+![LayersButtons](assets/Tutorial_image_11.PNG)
+
+![ImportObjects](assets/Tutorial_image_12.PNG)
+
 #### Right Panel : 
 ##### Properties : 
 
@@ -141,13 +151,13 @@ If this is on, the object’s movement gets affected by the parent’s Y-axis mo
 
 #### Ignore Bounce Example:
 |Ignore Bounce On|Ignore Bounce Off|
-| --- | --- |
-|PicA|PicB|
+
+[IgnoreBounce](assets/IgnoreBounce.gif)
 
 #### Physics Example:
 |Physics On|Physics Off|
-| --- | --- |
-|PicA|PicB|
+
+[Physics](assets/Physics.gif)
 
 #### Clip Children:
 Sadly I am unable to find a good way to implement Clipping Masks.  
@@ -164,7 +174,7 @@ Lets talk about Assets/ Asset Toggles. Assets can be used on any Object Type. Th
 - Show on Hold : This features make your asset only show as long as your toggle key is held. When released, the asset gets hidden again.
 - Disappear key(s) : This feature is for assets that might need to be hidden by other assets being shown or for any general reason. the Key(s) is because you can assign more than one Disappear key to the same Asset Toggle(s).
 
-![FollowApp](assets/Tutorial_image_3.PNG)
+![Properties](assets/Tutorial_image_3.PNG)
 
 ### Basic movement concepts
 Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
@@ -184,7 +194,7 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Rot-Speed : the speed by which the Auto Rotation rotates in.
 - Auto Rotate : Self explanitory..
 
-![FollowApp](assets/Tutorial_image_4.PNG)
+![BasicMovement](assets/Tutorial_image_4.PNG)
 ---
 **<center>Follow Section</center>**
 - Follow Options : For the position, rotation and scale, you can choose different tracking options. Mouse, keyboard, etc..
@@ -204,7 +214,7 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Strength : The follow strength of the object (affects how harshly it rotates.)
 - Rot-Threshold : The threshold of movement needed by the object to start following the rotation again.
 
-![FollowApp](assets/Tutorial_image_5.PNG)
+![FollowMove](assets/Tutorial_image_5.PNG)
 ---
 **<center>Wiggle Sprite</center>**
 - Wiggle Sprite : Enables the sprites wiggling/ wobbling feature.
@@ -212,7 +222,7 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - X and Y Offset : the offset position on the wiggling UV map (since this feature uses Shaders.)
 - Wiggle Amp and Freq : Similar to the X and Y Amp/ Freq, but be careful since it is a bit more sensitive.
 
-![FollowApp](assets/Tutorial_image_7.PNG)
+![WiggleSprite](assets/Tutorial_image_7.PNG)
 
 ---
 **<center>Wiggle Appendages</center>**
@@ -234,7 +244,9 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Texture mode :  Either stretch the texture onto the appendage or tile it, tiling can be useful for something like chains.
 - Mirror Reaction H : Honestly, don't remember, need to check the code again. I think it was a test feature I forgot to remove.
 
-![FollowApp](assets/Tutorial_image_6.PNG)
+<br>Remember to check [Original Wiggle Appendage](https://github.com/Tameno-01/GodotWigglyAppendage2D). Check this [Basic Appendage Parameters for Artists](https://github.com/Tameno-01/GodotWigglyAppendage2D/blob/main/docs/parameter_decriptions.md)</br>
+
+![Appendages](assets/Tutorial_image_6.PNG)
 
 ### Animation
 This section is for controlling the Sprite-Sheet, Gif and APNG animations and few misc stuff.
@@ -263,21 +275,24 @@ This section is for controlling the Sprite-Sheet, Gif and APNG animations and fe
 - Fade (Slider) : The Speed of the fade.
 - Fade Asset (Slider) : The Speed of the Asset Fade.
 
-![FollowApp](assets/Tutorial_image_8.PNG)
+![Fades](assets/Tutorial_image_8.PNG)
 
 ### Assigning Input keys and Naming States
 In V1.4 onwards, assigning Input Keys/ renaming States is done from the Remap button ontop of the states as shown here, not from settings. Don't forget to press enter after renaming your State.
 
-![FollowApp](assets/Tutorial_image_1.PNG)
-![FollowApp](assets/Tutorial_image_2.PNG)
-
-### Save and Load
-To Save and Load your model, you go to Files > Save/ Files > Save As and for loading, you go to File > Open.
-<br>
+![Input](assets/Tutorial_image_1.PNG)
+![Input2](assets/Tutorial_image_2.PNG)
 
 
 ### Settings
+For better info about the Websocket, check this [Websocket Documentation](https://github.com/vj4sothername/PNGTuber-websocket-documentation/blob/main/WebSocket_API_Documentation.md)
 
+Special thanks for vj4 for the feature!
+
+### Save and Load
+To Save and Load your model, you go to Files > Save/ Files > Save As and for loading, you go to File > Open.
+
+### Settings
 
 ### Streamer Session
 (Still Work in progress, not recommended to use if you have a version with the feature enabled. It is currently Disabled.)

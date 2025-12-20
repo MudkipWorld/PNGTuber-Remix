@@ -100,9 +100,11 @@ func static_prev():
 func movements(delta):
 	if Global.static_view:
 		return
-	glob =  shadow_dragger
-	drag(delta)
+	
+	glob = %Modifier.global_position
 	wobble(delta)
+	drag(delta)
+	
 
 	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
@@ -129,23 +131,26 @@ func rest_mode_movements(delta):
 	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var length = (glob.x - shadow_dragger.x) + (glob.y - shadow_dragger.y)
-	if actor.get_value("physics") and parent_movements:
-		var c_len_y = parent_movements.glob.y - parent_movements.get_node("%Movements").shadow_dragger.y
-		var c_len_x = parent_movements.glob.x - parent_movements.get_node("%Movements").shadow_dragger.x
-		length += c_len_y + c_len_x
+	if actor.get_value("physics"):
+		if (actor.get_parent() is Sprite2D && is_instance_valid(actor.get_parent())) or (actor.get_parent() is WigglyAppendage2D && is_instance_valid(actor.get_parent())):
+				var c_parent = actor.get_parent().owner
+				if c_parent != null && is_instance_valid(c_parent):
+					var c_len_y = c_parent.get_node("%Movements").glob.y - c_parent.get_node("%Movements").shadow_dragger.y
+					var c_len_x = c_parent.get_node("%Movements").glob.x - c_parent.get_node("%Movements").shadow_dragger.x
+					length += c_len_y + c_len_x
 	rotationalDrag(length, delta)
 	stretch(length, delta)
 
 func drag(delta):
 	var drag_speed = actor.get_value("dragSpeed")
-	var target = %Modifier.global_position
+	var target = applied_pos
 	if drag_speed > 0:
 		
 		var t = 1.0/drag_speed
 		shadow_dragger = shadow_dragger.lerp(target, t)
 		applied_pos = shadow_dragger
 	else:
-		shadow_dragger = shadow_dragger.lerp(target, 0.95)
+		shadow_dragger =  shadow_dragger.lerp(target, 0.95)
 
 func wobble(_delta: float) -> void:
 	if actor.get_value("pause_movement"):
