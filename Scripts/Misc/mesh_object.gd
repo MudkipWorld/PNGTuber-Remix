@@ -5,7 +5,9 @@ extends SpriteObject
 func get_default_object_data() -> Dictionary:
 	return {
 		move_with_wobble = true,
-		move_with_follow= true
+		move_with_follow= true,
+		phys_strength = 0.025,
+		phys_amp = 100,
 	}
 
 func _init() -> void:

@@ -769,7 +769,6 @@ func load_pngplus_file(path):
 	Global.reparent_objects.emit(get_tree().get_nodes_in_group("Sprites"))
 
 	for spr in get_tree().get_nodes_in_group("Sprites"):
-		spr.set_dragger_pos()
 		spr.zazaza(get_tree().get_nodes_in_group("Sprites"))
 
 	Global.settings_dict.should_delta = false

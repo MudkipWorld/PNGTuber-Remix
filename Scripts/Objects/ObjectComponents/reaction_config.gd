@@ -26,7 +26,6 @@ func _physics_process(_delta: float) -> void:
 	if GlobInput.is_action_just_pressed(str(actor.sprite_id)):
 		if actor.show_only:
 			%Sprite2D.visible = true
-
 		else:
 			if actor.get_value("fade_asset"):
 				var new_vis = await actor.fade_asset(actor.was_active_before, actor, %Sprite2D)
@@ -35,16 +34,12 @@ func _physics_process(_delta: float) -> void:
 			else:
 				%Sprite2D.visible = !%Sprite2D.visible
 				actor.was_active_before = %Sprite2D.visible
-
-
-	if GlobInput.is_action_pressed(str(actor.sprite_id)) and actor.hold_to_show and !actor.was_active_before:
+	if GlobInput.is_action_pressed(str(actor.sprite_id)) && actor.hold_to_show && !actor.was_active_before:
 		is_trying_to_appear = true
 	if GlobInput.is_action_just_pressed(actor.disappear_keys):
 		is_trying_to_disappear = true
-	if !GlobInput.is_action_pressed(str(actor.sprite_id)) and actor.hold_to_show and actor.was_active_before:
+	if GlobInput.is_action_just_released(str(actor.sprite_id)) && actor.hold_to_show && actor.was_active_before:
 		is_trying_to_disappear = true
-	if is_trying_to_appear:
-		%Sprite2D.visible = true
 	if is_trying_to_disappear:
 		if actor.get_value("fade_asset"):
 			var new_visibility = await actor.fade_asset(false, actor, %Sprite2D)
@@ -55,6 +50,10 @@ func _physics_process(_delta: float) -> void:
 			actor.was_active_before = %Sprite2D.visible
 		if !actor.is_asset && !%Sprite2D.visible:
 			%Sprite2D.visible = true
+			actor.was_active_before = true
+	elif is_trying_to_appear:
+		%Sprite2D.visible = true
+		actor.was_active_before = %Sprite2D.visible
 	
 	'''
 	if actor.sprite_data.is_cycle and actor.sprite_data.cycle > 0:
@@ -90,7 +89,8 @@ func _physics_process(_delta: float) -> void:
 		actor.was_active_before = false
 		if !actor.is_asset && !%Sprite2D.visible:
 			%Sprite2D.visible = true
-			actor.was_active_before = true'''
+			actor.was_active_before = true
+	'''
 
 func update_to_mode_change(mode : int):
 	match mode:

@@ -161,6 +161,34 @@ func save_deformation_3x3():
 	
 	mesh.sync_deformation_arrays()
 
+
+func reset_point():
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	if mesh.deform_x == 0 && mesh.deform_y == 1:
+		mesh.deform_top_left = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 0.5 && mesh.deform_y == 1:
+		mesh.deform_top_middle = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 1 && mesh.deform_y == 1:
+		mesh.deform_top_right = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 0 && mesh.deform_y == 0.5:
+		mesh.deform_middle_left = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 0.5 && mesh.deform_y == 0.5:
+		mesh.deform_center = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 1 && mesh.deform_y == 0.5:
+		mesh.deform_middle_right = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 0 && mesh.deform_y == 0:
+		mesh.deform_bottom_left = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 0.5 && mesh.deform_y == 0:
+		mesh.deform_bottom_middle = mesh.original_vertices.duplicate()
+	elif mesh.deform_x == 1 && mesh.deform_y == 0:
+		mesh.deform_bottom_right = mesh.original_vertices.duplicate()
+	mesh.sync_deformation_arrays()
+	mesh.deformations_3x3(mesh.deform_x, mesh.deform_y)
+	queue_redraw()
+
+
+
 func is_triangle_valid(a: Vector2, b: Vector2, c: Vector2) -> bool:
 	var area = (b - a).cross(c - a) * 0.5
 	return abs(area) > 0.001
@@ -772,7 +800,6 @@ func flip_3x3_grid_horizontally():
 	mesh.deform_bottom_right = bottom_left_flipped
 	mesh.sync_deformation_arrays()
 	mesh.deformations_3x3(mesh.deform_x,mesh.deform_y)
-
 
 func mirror_left_to_right_ear():
 	if mesh == null:

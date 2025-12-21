@@ -71,7 +71,7 @@ func add_new_layer_item(new_item, type, recolor = false, layer_color = Color.TRA
 			new_layer_item.set_icon(0,preload("res://UI/Assets/FolderButton.png"))
 		else:
 			ImageTrimmer.set_thumbnail(new_layer_item)
-	elif type == "WiggleApp":
+	elif type == "WiggleApp" or type == "Mesh" :
 		ImageTrimmer.set_thumbnail(new_layer_item)
 	
 	elif type == "Comment":

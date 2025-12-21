@@ -118,6 +118,29 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "TR_FOLLOW_MOVEMENT"
 
+[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Physics Strength :"
+
+[node name="PhysicsStrength" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="Label2" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Physics Amp :"
+
+[node name="PhysicsAmp" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -500.0
+max_value = 500.0
+step = 0.1
+
 [node name="MeshDeformGrid" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("3_dmk11")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -157,6 +180,11 @@ text = "TR_GEN_CORNERS"
 unique_name_in_owner = true
 layout_mode = 2
 text = "TR_GEN_FLIPPED"
+
+[node name="GenerateMesh6" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset Deform Point"
 
 [node name="GenerateMesh5" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -329,11 +357,14 @@ value = 1.0
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer/InfluStrength" to="MeshGenScript" method="_on_influ_strength_value_changed"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowWobble" to="MeshGenScript" method="_on_follow_wobble_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/PhysicsStrength" to="MeshGenScript" method="_on_physics_strength_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/PhysicsAmp" to="MeshGenScript" method="_on_physics_amp_value_changed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/AddMesh" to="MeshGenScript" method="_on_add_mesh_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh" to="MeshGenScript" method="_on_generate_mesh_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh2" to="MeshGenScript" method="_on_generate_mesh_2_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh3" to="MeshGenScript" method="_on_generate_mesh_3_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh4" to="MeshGenScript" method="_on_generate_mesh_4_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh6" to="MeshGenScript" method="_on_generate_mesh_6_pressed"]
 [connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh5" to="MeshGenScript" method="_on_generate_mesh_5_pressed"]
 [connection signal="mouse_entered" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_entered"]
 [connection signal="mouse_exited" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_exited"]
