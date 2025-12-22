@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>io.github.mudkipworld.pngtuber-remix</id>
+  <name>PNGTuber-Remix</name>
+  <summary>Start PNGTubing in a more interesting and alive way</summary>
+  <developer id="io.github.MudkipWorld">
+    <name>MudkipWorld</name>
+  </developer>
+  <launchable type="desktop-id">io.github.mudkipworld.pngtuber-remix.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <description>
+    <p>Ever wanted to expand your PNGtubing to the next level? Well, you came to the right place!</p>
+    <p>This is PNGTubeRemix, a software with a fleshed out editor and interesting features!</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Main application</caption>
+      <image type="source">https://img.itch.zone/aW1hZ2UvMjUyODcxOS8xNzczMDIzMC5naWY=/347x500/eXUWHp.gif</image>
+    </screenshot>
+    <screenshot>
+      <caption>Light</caption>
+      <image type="source">https://img.itch.zone/aW1hZ2UvMjUyODcxOS8xNzczMDIyOS5naWY=/original/tsENJR.gif</image>
+    </screenshot>
+    <screenshot>
+      <caption>No UI Mode</caption>
+      <image type="source">https://img.itch.zone/aW1hZ2UvMjUyODcxOS8xNTUxODI4OS5naWY=/original/UXgsxL.gif</image>
+    </screenshot>
+    <screenshot>
+      <caption>Color Themes</caption>
+      <image type="source">https://img.itch.zone/aW1hZ2UvMjUyODcxOS8xNzczMDIzMS5naWY=/original/pt%2BC6N.gif</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="release"/>
+  </releases>
+  <url type="homepage">https://mudkipworld.itch.io/pngremix</url>
+  <url type="bugtracker">https://github.com/MudkipWorld/PNGTuber-Remix/issues</url>
+  <url type="help">https://docs.google.com/document/d/1p5CSKFrBaDk-bDVbm13CNPw3AkUdGX1o_BnKcr2oi40/edit?usp=sharing</url>
+  <url type="donation">https://ko-fi.com/themime2111</url>
+  <url type="vcs-browser">https://github.com/MudkipWorld/PNGTuber-Remix</url>
+  <url type="contribute">https://github.com/MudkipWorld/PNGTuber-Remix</url>
+  <categories>
+    <category>Graphics</category>
+  </categories>
+  <recommends>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </recommends>
+  <branding>
+    <color type="primary" scheme_preference="light">#786d80</color>
+    <color type="primary" scheme_preference="dark">#61556a</color>
+  </branding>
+  <content_rating type="oars-1.1"/>
+</component>
