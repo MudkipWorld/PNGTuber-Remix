@@ -61,7 +61,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: linux
-          path: 'build/linux/'
+          path: '.'
+      
+      - name: Extract tar
+        run: |
+          tar -xvf ./linux.tar
 
       - name: Archive Zip
         uses: thedoctor0/zip-release@main
