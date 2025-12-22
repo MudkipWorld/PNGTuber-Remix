@@ -41,10 +41,15 @@ func nullfy():
 	%OffsetYSpinBox.editable = false
 	%FlipSpriteH.disabled = true
 	%FlipSpriteV.disabled = true
+	%RestModeOption.disabled = true
 
 func enable():
+	var seen_comment : bool = false
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
+			if i.sprite_type == "Comment":
+				seen_comment = true
+			
 			%TintPickerButton.disabled = false
 			%ColorPickerButton.disabled = false
 			%EyeOption.disabled = false
@@ -65,8 +70,13 @@ func enable():
 			
 			%OffsetXSpinBox.editable = true
 			%OffsetYSpinBox.editable = true
-			%FlipSpriteH.disabled = false
-			%FlipSpriteV.disabled = false
+			if !seen_comment:
+				%FlipSpriteH.disabled = false
+				%FlipSpriteV.disabled = false
+			else:
+				%FlipSpriteH.disabled = true
+				%FlipSpriteV.disabled = true
+			%RestModeOption.disabled = false
 			
 			set_data()
 
@@ -114,6 +124,8 @@ func set_data():
 		else:
 			%MouthOption.select(0)
 		
+		
+		%RestModeOption.select(i.rest_mode)
 		if i.sprite_type == "Sprite2D":
 			%FlipSpriteH.button_pressed = i.get_value("flip_sprite_h")
 			%FlipSpriteV.button_pressed = i.get_value("flip_sprite_v")
@@ -276,7 +288,7 @@ func _on_z_order_spinbox_value_changed(value):
 				var og_val = i.sprite_data.duplicate()
 				i.sprite_data.z_index = value
 				StateButton.multi_edit(value, "z_index", i, i.states)
-				i.get_node("%Rotation").z_index = value
+				i.get_node("%Modifier1").z_index = value
 				i.save_state(Global.current_state)
 				undo_redo_data.append({sprite_object = i, 
 				data = i.sprite_data.duplicate(), 
@@ -500,3 +512,8 @@ func _on_mouth_option_item_selected(index: int) -> void:
 			
 		
 		Global.not_speaking.emit()
+
+
+func _on_rest_mode_option_item_selected(index: int) -> void:
+	for i in Global.held_sprites:
+		i.rest_mode = index

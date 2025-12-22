@@ -17,11 +17,21 @@ func nullfy():
 	%FrameSpinbox.editable = false
 
 func enable():
+	var seen_comment : bool = false
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
-			%AnimationOneShot.disabled = false
-			%AnimationReset.disabled = false
-			%ResetonStateChange.disabled = false
+			if i.sprite_type == "Comment":
+				seen_comment = true
+				
+			if !seen_comment:
+				%AnimationOneShot.disabled = false
+				%AnimationReset.disabled = false
+				%ResetonStateChange.disabled = false
+			else:
+				%AnimationOneShot.disabled = true
+				%AnimationReset.disabled = true
+				%ResetonStateChange.disabled = true
+				
 			%RSSlider.editable = true
 			if i.sprite_type == "Sprite2D":
 				%NonAnimatedSheetCheck.disabled = false

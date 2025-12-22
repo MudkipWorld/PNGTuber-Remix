@@ -99,7 +99,7 @@ func _physics_process(delta):
 		return
 	if anchor_target != null && is_instance_valid(anchor_target):
 		var root_pos = get_global_position()
-		var anchor_pos = anchor_target.position
+		var anchor_pos = anchor_target.get_node("%Origin").global_position
 		var total_length = root_pos.distance_to(anchor_pos)
 	current_segment_length = _get_true_segment_length()
 	
@@ -135,8 +135,8 @@ func _apply_verlet_anchor(delta):
 	root[POSITION] = global_position
 	physics_points[0] = root
 	if anchor_target != null and is_instance_valid(anchor_target):
-		physics_points[-1][POSITION] = anchor_target.global_position
-		var anchor = anchor_target.global_position
+		physics_points[-1][POSITION] = anchor_target.get_node("%Origin").global_position
+		var anchor = anchor_target.get_node("%Origin").global_position
 		var root_pos = global_position
 		var max_reach = segment_length * (physics_points.size() - 1)
 		var max_stretch_reached = max_length_stretch * (physics_points.size() - 1)
@@ -162,54 +162,54 @@ func _apply_verlet_anchor(delta):
 	apply_constraints_merged()
 	
 func apply_constraints_merged():
-	var min_angle = deg_to_rad(actor.get_value("follow_wa_mini"))
-	var max_angle = deg_to_rad(actor.get_value("follow_wa_max"))
-	var rest_dir = _rest_direction_angle
-	if physics_points.size() < 1:
-		return
-	var root_pos = physics_points[0][POSITION]
-	var anchor_pos = anchor_target.global_position
-	for l in range(5):
-		for i in range(physics_points.size() - 1):
-			var p1 = physics_points[i]
-			var p2 = physics_points[i + 1]
-			var delta_vec = p2[POSITION] - p1[POSITION]
-			var dist = delta_vec.length()
-			var to_p2 = p2[POSITION] - root_pos
-			if to_p2 == Vector2.ZERO:
-				continue
-			var seg_angle = to_p2.angle()
-			var rel_angle = wrapf(seg_angle - rest_dir, -PI, PI)
-			if mirror_anchor_movement_h:
-				var to_anchor = anchor_pos - p2[POSITION]
-				if to_anchor.length() > 0.25:
-					var local_anchor = to_anchor.rotated(-rest_dir)
-					local_anchor.x = abs(local_anchor.x)
-					var anchor_angle = wrapf(local_anchor.angle(), -PI, PI)
-					var norm = clamp(anchor_angle / max_angle, -1.0, 1.0)
-					var mapped_angle = lerp(min_angle, max_angle, max((norm + 1.0) / 2.0, 0))
-					rel_angle = (rel_angle + mapped_angle) * 0.5
-				
-			var clamped_angle = rel_angle
-			var target_angle = rest_dir + clamped_angle
-			var dir_vec = Vector2(cos(target_angle), sin(target_angle)).normalized()
-			var new_pos = root_pos + dir_vec * to_p2.length()
-			p2[POSITION] = new_pos
-			if dist < current_segment_length:
-				var correction = (delta_vec.normalized() * (current_segment_length - dist)) * 0.5
-				if i != 0:
-					p1[POSITION] -= correction
-				if i + 1 != physics_points.size() - 1:
-					p2[POSITION] += correction
-			elif dist > segment_length:
-				var correction = (delta_vec.normalized() * (dist - segment_length)) * 0.5
-				if i != 0:
-					p1[POSITION] += correction
-				if i + 1 != physics_points.size() - 1:
-					p2[POSITION] -= correction
-			physics_points[i] = p1
-			physics_points[i + 1] = p2
-
+	if actor != null && is_instance_valid(actor):
+		var min_angle = deg_to_rad(actor.get_value("follow_wa_mini"))
+		var max_angle = deg_to_rad(actor.get_value("follow_wa_max"))
+		var rest_dir = _rest_direction_angle
+		if physics_points.size() < 1:
+			return
+		var root_pos = physics_points[0][POSITION]
+		var anchor_pos = anchor_target.global_position
+		for l in range(5):
+			for i in range(physics_points.size() - 1):
+				var p1 = physics_points[i]
+				var p2 = physics_points[i + 1]
+				var delta_vec = p2[POSITION] - p1[POSITION]
+				var dist = delta_vec.length()
+				var to_p2 = p2[POSITION] - root_pos
+				if to_p2 == Vector2.ZERO:
+					continue
+				var seg_angle = to_p2.angle()
+				var rel_angle = wrapf(seg_angle - rest_dir, -PI, PI)
+				if mirror_anchor_movement_h:
+					var to_anchor = anchor_pos - p2[POSITION]
+					if to_anchor.length() > 0.25:
+						var local_anchor = to_anchor.rotated(-rest_dir)
+						local_anchor.x = abs(local_anchor.x)
+						var anchor_angle = wrapf(local_anchor.angle(), -PI, PI)
+						var norm = clamp(anchor_angle / max_angle, -1.0, 1.0)
+						var mapped_angle = lerp(min_angle, max_angle, max((norm + 1.0) / 2.0, 0))
+						rel_angle = (rel_angle + mapped_angle) * 0.5
+					
+				var clamped_angle = rel_angle
+				var target_angle = rest_dir + clamped_angle
+				var dir_vec = Vector2(cos(target_angle), sin(target_angle)).normalized()
+				var new_pos = root_pos + dir_vec * to_p2.length()
+				p2[POSITION] = new_pos
+				if dist < current_segment_length:
+					var correction = (delta_vec.normalized() * (current_segment_length - dist)) * 0.5
+					if i != 0:
+						p1[POSITION] -= correction
+					if i + 1 != physics_points.size() - 1:
+						p2[POSITION] += correction
+				elif dist > segment_length:
+					var correction = (delta_vec.normalized() * (dist - segment_length)) * 0.5
+					if i != 0:
+						p1[POSITION] += correction
+					if i + 1 != physics_points.size() - 1:
+						p2[POSITION] -= correction
+				physics_points[i] = p1
+				physics_points[i + 1] = p2
 
 
 func reset(point_count: int = segment_count + 1) -> void:

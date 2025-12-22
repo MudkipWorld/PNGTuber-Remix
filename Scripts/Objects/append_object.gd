@@ -32,11 +32,15 @@ func get_default_object_data() -> Dictionary:
 		anchor_id = null,
 		keep_length_anchor = false,
 		appendage_angle = 0.0,
-		max_anchor_stretch = 500,
+		max_anchor_stretch = 999999.0,
 		mirror_anchor_movement_h = false,
 		mirror_anchor_movement_v = false,
 	}
-# Called when the node enters the scene tree for the first time.
+
+func _init() -> void:
+	cached_defaults = DEFAULT_DATA.merged(get_default_object_data(), true)
+	sprite_data = cached_defaults.duplicate(true)
+
 func _ready():
 	Global.image_replaced.connect(image_replaced)
 	Global.reparent_objects.connect(reparent_obj)
@@ -46,12 +50,6 @@ func _ready():
 	Global.deselect.connect(desel)
 	grab_object.button_down.connect(_on_grab_button_down)
 	grab_object.button_up.connect(_on_grab_button_up)
-
-
-func set_dragger_pos():
-	%Dragger.top_level = true
-	%Dragger.global_position = %Pos.global_position
-
 
 func sel():
 	if self in Global.held_sprites:
@@ -88,10 +86,11 @@ func _physics_process(_delta: float) -> void:
 		%Selection.hide()
 	#	%Origin.mouse_filter = 2
 	if dragging:
-		var mpos = get_parent().to_local(get_global_mouse_position())
-		position = mpos - of
-		sprite_data.position = position
-		save_state(Global.current_state)
+		var mouse_pos = get_parent().to_local(get_global_mouse_position())
+		for s in Global.held_sprites:
+			s.position = mouse_pos - drag_offsets[s]
+			s.sprite_data.position = s.position
+			s.save_state(Global.current_state)
 		Global.update_pos_spins.emit()
 	
 	
@@ -123,9 +122,8 @@ func get_state(id):
 	if not states[id].is_empty():
 		var dict = states[id]
 		sprite_data.merge(dict, true)
-		%Rotation.z_index = get_value("z_index")
+		%Modifier1.z_index = get_value("z_index")
 		modulate = get_value("colored")
-		visible = get_value("visible")
 		scale = get_value("scale")
 	#	global_position = get_value("global_position")
 		if get_value("should_reset_state"):
@@ -134,7 +132,7 @@ func get_state(id):
 		var old_glob = global_position
 		position = get_value("position")
 		if (global_position - old_glob).length() > get_value("drag_snap") && get_value("drag_snap") != 999999.0:
-			%Dragger.global_position = %Pos.global_position
+			%Modifier.global_position = %Modifier1.global_position
 		
 		
 		%Sprite2D.position = get_value("offset") 
@@ -160,9 +158,15 @@ func get_state(id):
 			%Sprite2D.scale.y = 1
 		
 		if !get_value("should_blink"):
-			%Pos.show()
+			%Modifier1.show()
 		else:
 			%ReactionConfig.update_to_mode_change(Global.mode)
+			
+		if get_value("fade"):
+			trigger_fade(visible)
+		else:
+			modulate.a = 1.0
+			visible = get_value("visible")
 			
 		update_wiggle_parts()
 		set_anchor_sprite()
@@ -172,7 +176,7 @@ func get_state(id):
 				%AnimatedSpriteTexture.index = 0
 				%AnimatedSpriteTexture.proper_apng_one_shot()
 				
-		if !get_value("cycle") in range(Global.settings_dict.cycles.size()):
+		if !get_value("cycle") in range(Global.settings_dict.cycles.size() + 1):
 			sprite_data.cycle = 0
 				
 	elif states[id].is_empty():
@@ -236,8 +240,13 @@ func check_talk():
 
 func _on_grab_button_down():
 	if selected:
-		of = get_parent().to_local(get_global_mouse_position()) - position
-		dragging = true
+		if not Input.is_action_pressed("ctrl"):
+			dragging = true
+			drag_offsets.clear()
+			var mouse_pos = get_parent().to_local(get_global_mouse_position())
+			for s in Global.held_sprites:
+				drag_offsets[s] = mouse_pos - s.position
+
 
 func _on_grab_button_up():
 	if selected:

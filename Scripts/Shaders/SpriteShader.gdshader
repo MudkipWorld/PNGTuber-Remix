@@ -2,7 +2,7 @@ shader_type canvas_item;
 //render_mode blend_premul_alpha;
 uniform bool enabled;
 
-uniform sampler2D Blend;  //Blending mode texture
+uniform sampler2D Blend;
 uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
 
 uniform bool wiggle;

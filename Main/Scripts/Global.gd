@@ -87,7 +87,7 @@ var settings_dict : Dictionary = {
 	
 	saved_inputs = [],
 	zoom = Vector2(1,1),
-	pan = Vector2(640, 360),
+	pan = Vector2(0, 0),
 	
 	should_delta = true,
 	max_fps = 60,
@@ -102,10 +102,8 @@ var settings_dict : Dictionary = {
 
 var image_manager_data : Array = []
 
-
 var mode: int = 0: set = set_mode
 
-#var undo_redo : UndoRedo = UndoRedo.new()
 var new_rot = 0
 var static_view : bool = false
 var spinbox_held : bool = false
@@ -118,12 +116,17 @@ var top_ui = null
 var file_dialog : FileDialog = null
 var light = null
 var camera : Camera2D = null
+var camera_pos : Node2D = null
+var mesh_pointer : Node2D = null
 
 var frame_counter : int = 0
 const FRAME_INTERVAL : int = 3  # Run every 5 frames
 var swtich_session_popup : Node = null
 var over_tex : bool = false
 var over_normal_tex : bool = false
+
+var over_mesh_tex : bool = false
+var mesh_text_node : Node = null
 
 var save_path : String = ""
 var is_editor : bool = true:
@@ -145,13 +148,10 @@ func _ready():
 	blinking()
 	get_window().title = "PNGTuber-Remix V" + version
 	current_state = 0
-	key_pressed.connect(update_cycles)
-
 
 func create_placeholders():
 	image_data.runtime_texture = preload("res://Misc/TestAssets/Placeholder.png")
 	image_data_normal.runtime_texture = preload("res://Misc/TestAssets/Placeholder_n.png")
-
 
 func set_mode(new_mode) -> void:
 	if new_mode == mode: return
@@ -225,8 +225,9 @@ func _input(_event : InputEvent):
 					i.sprite_data.rotation += 0.05
 					rot(i)
 
+
 func offset(i):
-	i.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
+	i.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 	i.sprite_data.position = i.position
 	i.sprite_data.offset = i.get_node("%Sprite2D").position
 	i.save_state(current_state)
@@ -242,7 +243,6 @@ func _process(delta):
 	if !spinbox_held:
 		moving_origin(delta)
 		moving_sprite(delta)
-		
 
 func moving_origin(delta):
 	for i in held_sprites:
@@ -310,7 +310,9 @@ func update_spins():
 
 func _physics_process(_delta: float) -> void:
 	mouse_delay()
-
+	if Input.is_action_just_pressed("debug_rep"):
+		print_orphan_nodes()
+	
 
 func mouse_delay():
 	frame_counter += 1
@@ -318,62 +320,6 @@ func mouse_delay():
 		update_mouse_vel_pos.emit()
 		frame_counter = 0
 
-
-func update_cycles(key):
-	for cycle in settings_dict.cycles:
-		if cycle.sprites.size() > 0:
-			if cycle.toggle.as_text() == key:
-				cycle.active = !cycle.active
-				
-				if cycle.active:
-					var array = cycle.sprites.duplicate()
-					if array.has(cycle.last_sprite):
-						array.remove_at(array.find(cycle.last_sprite))
-
-					var rand = array.pick_random()
-					cycle.last_sprite = rand
-					cycle.pos = cycle.sprites.find(rand)
-					for sprite in get_tree().get_nodes_in_group("Sprites"):
-						if sprite.sprite_id in cycle.sprites && sprite.get_value("is_cycle"):
-							sprite.get_node("%Drag").hide()
-							sprite.was_active_before = sprite.get_node("%Drag").visible
-						
-						if sprite.sprite_id == rand && sprite.get_value("is_cycle"):
-							sprite.get_node("%Drag").show()
-							sprite.was_active_before = sprite.get_node("%Drag").visible
-					
-					
-				elif !cycle.active:
-					for sprite in get_tree().get_nodes_in_group("Sprites"):
-						if sprite.sprite_id in cycle.sprites && sprite.get_value("is_cycle"):
-							sprite.get_node("%Drag").hide()
-							sprite.was_active_before = sprite.get_node("%Drag").visible
-						
-					#print(rand)
-					
-			elif cycle.forward.as_text() == key:
-				cycle.pos = wrap(cycle.pos +1,0 ,  cycle.sprites.size() - 1)
-				cycle.last_sprite = cycle.sprites[cycle.pos]
-				for sprite in get_tree().get_nodes_in_group("Sprites"):
-					if sprite.sprite_id in cycle.sprites && sprite.get_value("is_cycle"):
-						sprite.get_node("%Drag").hide()
-						sprite.was_active_before = sprite.get_node("%Drag").visible
-					
-					if sprite.sprite_id == cycle.last_sprite && sprite.get_value("is_cycle"):
-						sprite.get_node("%Drag").show()
-						sprite.was_active_before = sprite.get_node("%Drag").visible
-				
-			elif cycle.backward.as_text() == key:
-				cycle.pos = wrap(cycle.pos -1,0 ,  cycle.sprites.size() - 1)
-				cycle.last_sprite = cycle.sprites[cycle.pos]
-				for sprite in get_tree().get_nodes_in_group("Sprites"):
-					if sprite.sprite_id in cycle.sprites && sprite.get_value("is_cycle"):
-						sprite.get_node("%Drag").hide()
-						sprite.was_active_before = sprite.get_node("%Drag").visible
-					
-					if sprite.sprite_id == cycle.last_sprite && sprite.get_value("is_cycle"):
-						sprite.get_node("%Drag").show()
-						sprite.was_active_before = sprite.get_node("%Drag").visible
 
 func update_camera_smoothing() -> void:
 	if !is_instance_valid(camera): return

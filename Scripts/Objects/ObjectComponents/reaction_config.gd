@@ -4,14 +4,13 @@ extends Node
 @export var animation_handler : Node
 var currently_speaking : bool = false
 var blinking : bool = false
+var tween : Tween
 
 
 func _ready() -> void:
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	Global.blink.connect(blink)
-	Global.key_pressed.connect(asset)
-	Global.key_pressed.connect(should_disappear)
 	Global.mode_changed.connect(update_to_mode_change)
 	Global.blink.connect(editor_blink)
 	Global.animation_state.connect(reset_animations)
@@ -19,109 +18,155 @@ func _ready() -> void:
 	not_speaking()
 
 func _physics_process(_delta: float) -> void:
-	if actor.saved_event is InputEventJoypadButton or actor.saved_event is InputEventJoypadMotion:
-		if actor.is_asset && InputMap.action_get_events(str(actor.sprite_id)).size() > 0:
-			if Input.is_action_just_pressed(str(actor.sprite_id)):
-				if actor.saved_event == InputMap.action_get_events(str(actor.sprite_id))[0]:
-					if actor.show_only:
-						%Drag.visible = true
-					else:
-						%Drag.visible = !%Drag.visible
-					actor.was_active_before = %Drag.visible
-
-func asset(key):
-	if actor.is_asset && InputMap.action_get_events(str(actor.sprite_id)).size() > 0:
-		if actor.saved_event.as_text() == key:
-			if actor.show_only:
-				%Drag.visible = true
+	if Global.settings_dict.checkinput != true:
+		return
+		
+	var is_trying_to_appear = false
+	var is_trying_to_disappear = false
+	if GlobInput.is_action_just_pressed(str(actor.sprite_id)):
+		if actor.show_only:
+			%Sprite2D.visible = true
+		else:
+			if actor.get_value("fade_asset"):
+				var new_vis = await actor.fade_asset(actor.was_active_before, actor, %Sprite2D)
+				actor.was_active_before = new_vis
+				%Sprite2D.visible = new_vis
 			else:
-				%Drag.visible = !%Drag.visible
-			actor.was_active_before = %Drag.visible
-
-func should_disappear(key):
-	if actor.should_disappear:
-		if key in actor.saved_keys:
-			%Drag.visible = false
-			actor.was_active_before = false
-			if !actor.is_asset && !%Drag.visible:
-				%Drag.visible = true
-				actor.was_active_before = true
+				%Sprite2D.visible = !%Sprite2D.visible
+				actor.was_active_before = %Sprite2D.visible
+	if GlobInput.is_action_pressed(str(actor.sprite_id)) && actor.hold_to_show && !actor.was_active_before:
+		is_trying_to_appear = true
+	if GlobInput.is_action_just_pressed(actor.disappear_keys):
+		is_trying_to_disappear = true
+	if GlobInput.is_action_just_released(str(actor.sprite_id)) && actor.hold_to_show && actor.was_active_before:
+		is_trying_to_disappear = true
+	if is_trying_to_disappear:
+		if actor.get_value("fade_asset"):
+			var new_visibility = await actor.fade_asset(false, actor, %Sprite2D)
+			%Sprite2D.visible = new_visibility
+			actor.was_active_before = new_visibility
+		else:
+			%Sprite2D.visible = false
+			actor.was_active_before = %Sprite2D.visible
+		if !actor.is_asset && !%Sprite2D.visible:
+			%Sprite2D.visible = true
+			actor.was_active_before = true
+	elif is_trying_to_appear:
+		%Sprite2D.visible = true
+		actor.was_active_before = %Sprite2D.visible
+	
+	'''
+	if actor.sprite_data.is_cycle and actor.sprite_data.cycle > 0:
+		var cycle = Global.settings_dict.cycles[actor.sprite_data.cycle - 1]
+		var sprite_pos = cycle.sprites.find(actor.sprite_id)
+		
+		if is_trying_to_appear:
+			cycle.active = true
+			cycle.pos = sprite_pos
+			cycle.last_sprite = actor.sprite_id
+			
+			for sprite in get_tree().get_nodes_in_group("Sprites"):
+				if sprite.sprite_id in cycle.sprites and sprite.get_value("is_cycle"):
+					sprite.get_node("%Sprite2D").hide()
+					sprite.was_active_before = sprite.get_node("%Sprite2D").visible
+				if sprite.sprite_id == cycle.last_sprite and sprite.get_value("is_cycle"):
+					sprite.get_node("%Sprite2D").show()
+					sprite.was_active_before = sprite.get_node("%Sprite2D").visible
+					
+		if is_trying_to_disappear:
+			cycle.active = true
+			cycle.pos = 0
+			cycle.last_sprite = cycle.sprites[0]
+			
+			for sprite in get_tree().get_nodes_in_group("Sprites"):
+				if sprite.sprite_id in cycle.sprites and sprite.get_value("is_cycle"):
+					sprite.get_node("%Sprite2D").hide()
+					sprite.was_active_before = sprite.get_node("%Sprite2D").visible
+				if sprite.sprite_id == cycle.last_sprite and sprite.get_value("is_cycle"):
+					sprite.get_node("%Sprite2D").show()
+					sprite.was_active_before = sprite.get_node("%Sprite2D").visible
+		
+		actor.was_active_before = false
+		if !actor.is_asset && !%Sprite2D.visible:
+			%Sprite2D.visible = true
+			actor.was_active_before = true
+	'''
 
 func update_to_mode_change(mode : int):
 	match mode:
 		0:
-			%Pos.show()
+			%Modifier1.show()
 			if actor.get_value("should_blink"):
 				if actor.get_value("open_eyes"):
 					if !blinking:
-						%Pos.modulate.a = 1
+						%Modifier1.modulate.a = 1
 					elif blinking:
-						%Pos.modulate.a = 0.2
+						%Modifier1.modulate.a = 0.2
 
 				elif !actor.get_value("open_eyes"):
 					if blinking:
-						%Pos.modulate.a = 1
+						%Modifier1.modulate.a = 1
 					elif !blinking:
-						%Pos.modulate.a = 0.2
+						%Modifier1.modulate.a = 0.2
 
 			
-			%Rotation.show()
+			%Modifier.show()
 			if actor.get_value("should_talk"):
 				if actor.get_value("open_mouth"):
 					if currently_speaking:
-						%Rotation.modulate.a = 1
+						%Modifier.modulate.a = 1
 					else:
-						%Rotation.modulate.a = 0.2
+						%Modifier.modulate.a = 0.2
 
 				elif !actor.get_value("open_mouth"):
 					if !currently_speaking:
-						%Rotation.modulate.a = 1
+						%Modifier.modulate.a = 1
 					else:
-						%Rotation.modulate.a = 0.2
+						%Modifier.modulate.a = 0.2
 			else:
-				%Rotation.show()
-				%Rotation.modulate.a = 1
+				%Modifier.show()
+				%Modifier.modulate.a = 1
 		1:
-			%Pos.modulate.a = 1
+			%Modifier1.modulate.a = 1
 			if actor.get_value("should_blink"):
 				if actor.get_value("open_eyes"):
 					if !blinking:
-						%Pos.show()
+						%Modifier1.show()
 					elif blinking:
-						%Pos.hide()
+						%Modifier1.hide()
 
 				elif !actor.get_value("open_eyes"):
 					if blinking:
-						%Pos.show()
+						%Modifier1.show()
 					elif !blinking:
-						%Pos.hide()
+						%Modifier1.hide()
 
-			%Rotation.modulate.a = 1
+			%Modifier.modulate.a = 1
 			if actor.get_value("should_talk"):
 				if actor.get_value("open_mouth"):
 					if currently_speaking:
-						%Rotation.show()
+						%Modifier.show()
 					else:
-						%Rotation.hide()
+						%Modifier.hide()
 
 				elif !actor.get_value("open_mouth"):
 					if !currently_speaking:
-						%Rotation.show()
+						%Modifier.show()
 					else:
-						%Rotation.hide()
+						%Modifier.hide()
 			else:
-				%Rotation.show()
-				%Rotation.modulate.a = 1
+				%Modifier.show()
+				%Modifier.modulate.a = 1
 
 func editor_blink():
 	if Global.mode == 0:
 		if actor.get_value("should_blink"):
-			%Pos.show()
+			%Modifier1.show()
 			if not actor.get_value("open_eyes"):
-				%Pos.modulate.a = 1
+				%Modifier1.modulate.a = 1
 				reset_animations()
 			else:
-				%Pos.modulate.a = 0.2
+				%Modifier1.modulate.a = 0.2
 		
 		blinking = true
 		%Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
@@ -129,23 +174,23 @@ func editor_blink():
 		await %Blink.timeout
 		if actor.get_value("should_blink"):
 			if not actor.get_value("open_eyes"):
-				%Pos.modulate.a = 0.2
+				%Modifier1.modulate.a = 0.2
 			else:
-				%Pos.modulate.a = 1
+				%Modifier1.modulate.a = 1
 				reset_animations()
 		else:
-			%Pos.modulate.a = 1
+			%Modifier1.modulate.a = 1
 		blinking = false
 
 func blink():
 	if Global.mode != 0:
 		if actor.get_value("should_blink"):
-			%Pos.modulate.a = 1
+			%Modifier1.modulate.a = 1
 			if not actor.get_value("open_eyes"):
-				%Pos.show()
+				%Modifier1.show()
 				reset_animations()
 			else:
-				%Pos.hide()
+				%Modifier1.hide()
 		
 		blinking = true
 		%Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
@@ -153,37 +198,37 @@ func blink():
 		await %Blink.timeout
 		if actor.get_value("should_blink"):
 			if not actor.get_value("open_eyes"):
-				%Pos.hide()
+				%Modifier1.hide()
 			else:
-				%Pos.show()
+				%Modifier1.show()
 				reset_animations()
 		else:
-			%Pos.show()
+			%Modifier1.show()
 		blinking = false
 
 func speaking():
 	if Global.mode != 0:
-		%Rotation.modulate.a = 1
+		%Modifier.modulate.a = 1
 		if actor.get_value("should_talk"):
 			if actor.get_value("open_mouth"):
 				reset_animations()
-				%Rotation.show()
+				%Modifier.show()
 					
 			else:
-				%Rotation.hide()
+				%Modifier.hide()
 		else:
-			%Rotation.show()
+			%Modifier.show()
 			
 	elif Global.mode == 0:
-		%Rotation.show()
+		%Modifier.show()
 		if actor.get_value("should_talk"):
 			if actor.get_value("open_mouth"):
-				%Rotation.modulate.a = 1
+				%Modifier.modulate.a = 1
 				reset_animations()
 			else:
-				%Rotation.modulate.a = 0.2
+				%Modifier.modulate.a = 0.2
 		else:
-			%Rotation.modulate.a = 1
+			%Modifier.modulate.a = 1
 	currently_speaking = true
 
 func reset_animations(_place_holder : int = 0):
@@ -194,6 +239,8 @@ func reset_animations(_place_holder : int = 0):
 		reset_anim()
 
 func reset_anim():
+	if actor.referenced_data == null or !is_instance_valid(actor.referenced_data):
+		return
 	if actor.referenced_data.is_apng or actor.referenced_data.img_animated:
 		animation_handler.index = 0
 		animation_handler.proper_apng_one_shot()
@@ -204,25 +251,25 @@ func reset_anim():
 
 func not_speaking():
 	if Global.mode != 0:
-		%Rotation.modulate.a = 1
+		%Modifier.modulate.a = 1
 		if actor.get_value("should_talk"):
 			if actor.get_value("open_mouth"):
-				%Rotation.hide()
+				%Modifier.hide()
 			else:
 				reset_animations()
-				%Rotation.show()
+				%Modifier.show()
 		else:
-			%Rotation.show()
+			%Modifier.show()
 			
 	elif Global.mode == 0:
-		%Rotation.show()
+		%Modifier.show()
 		if actor.get_value("should_talk"):
 			if actor.get_value("open_mouth"):
-				%Rotation.modulate.a = 0.2
+				%Modifier.modulate.a = 0.2
 			else:
 				reset_animations()
-				%Rotation.modulate.a = 1
+				%Modifier.modulate.a = 1
 		else:
-			%Rotation.modulate.a = 1
+			%Modifier.modulate.a = 1
 			
 	currently_speaking = false

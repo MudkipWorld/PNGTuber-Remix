@@ -1,10 +1,25 @@
-[gd_resource type="Theme" load_steps=36 format=4 uid="uid://c5v4ocnimqa4i"]
+[gd_resource type="Theme" load_steps=38 format=4 uid="uid://c5v4ocnimqa4i"]
 
 [ext_resource type="StyleBox" uid="uid://dt6ohhswi3vpx" path="res://Themes/WhiteTheme/ButtonPressed.tres" id="1_eajkr"]
 [ext_resource type="StyleBox" uid="uid://musbk38v1ou4" path="res://Themes/WhiteTheme/Buttonbase.tres" id="2_3ggix"]
 [ext_resource type="Texture2D" uid="uid://cs5x5k14vxaqv" path="res://Misc/TestAssets/SliderGrabber.png" id="3_ibm4p"]
 [ext_resource type="Texture2D" uid="uid://cd54dgvet0k2m" path="res://Misc/TestAssets/SliderGrabberDisabled.png" id="4_vhxpk"]
 [ext_resource type="Texture2D" uid="uid://dahd6x51nj0iv" path="res://Misc/TestAssets/SliderGrabberHeld.png" id="5_ey3cu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhxpk"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.741385, 0.741385, 0.741385, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.321569, 0.321569, 0.321569, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibm4p"]
 content_margin_left = 4.0
@@ -3293,6 +3308,21 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 corner_detail = 12
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ey3cu"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.741385, 0.741385, 0.741385, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.321569, 0.321569, 0.321569, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvksv"]
 content_margin_left = 7.0
 bg_color = Color(0.509804, 0.509804, 0.509804, 1)
@@ -3404,7 +3434,7 @@ Button/colors/font_color = Color(0, 0, 0, 1)
 Button/constants/h_separation = 5
 Button/styles/disabled = ExtResource("1_eajkr")
 Button/styles/focus = ExtResource("1_eajkr")
-Button/styles/hover = ExtResource("2_3ggix")
+Button/styles/hover = SubResource("StyleBoxFlat_vhxpk")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_ibm4p")
 Button/styles/normal = ExtResource("2_3ggix")
 Button/styles/pressed = ExtResource("1_eajkr")
@@ -3433,7 +3463,7 @@ LineEdit/styles/normal = SubResource("StyleBoxFlat_mo8oh")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_rtj40")
 MenuButton/styles/disabled = ExtResource("1_eajkr")
 MenuButton/styles/focus = ExtResource("1_eajkr")
-MenuButton/styles/hover = ExtResource("2_3ggix")
+MenuButton/styles/hover = SubResource("StyleBoxFlat_ey3cu")
 MenuButton/styles/normal = ExtResource("2_3ggix")
 MenuButton/styles/pressed = ExtResource("1_eajkr")
 Panel/styles/panel = SubResource("StyleBoxFlat_jvksv")

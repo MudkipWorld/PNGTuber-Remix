@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+
+  build:
+    uses: ./.github/workflows/_build.yml
+    with:
+      target_ref: '${{ github.ref_name }}'
+
+  publish-gh:
+    needs: [build]
+    uses: ./.github/workflows/_publish-gh.yml
+    secrets: inherit
+    with:
+      generate-notes: true
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [publish-gh]
+    steps:
+      - uses: GeekyEggo/delete-artifact@v5
+        with: 
+          name: |
+            *

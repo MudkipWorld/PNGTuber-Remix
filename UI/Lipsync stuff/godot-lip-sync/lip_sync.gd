@@ -268,44 +268,43 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	# Calculate absolute energy
-	var energy := BANDS_DEF.duplicate()
 	var energy_sum := 0.0
 	for i in BANDS_COUNT:
-		var center_hz: float = BANDS_RANGE[i][0]
-		var width_hz: float = BANDS_RANGE[i][1]
-		var magnitude := _effect.get_magnitude_for_frequency_range(center_hz - width_hz, center_hz + width_hz, 0)
-		var e := magnitude.length() * center_hz
-		energy[i] = e
+		var c = BANDS_RANGE[i][0]
+		var w = BANDS_RANGE[i][1]
+		var mag = _effect.get_magnitude_for_frequency_range(c - w, c + w, 0)
+		var e = mag.length() * c
+		fingerprint[i] = e  # temporarily store raw energy
 		energy_sum += e
-
-	# Calculate fingerprint
-	var energy_avg := energy_sum / BANDS_COUNT
-	var energy_scale := 0.0 if energy_avg <= silence else 1.0 / energy_avg
+	
+	# Normalize fingerprint
+	var energy_avg = energy_sum / BANDS_COUNT
+	var energy_scale = 0.0 if energy_avg <= silence else 1.0 / energy_avg
 	for i in BANDS_COUNT:
-		fingerprint[i] = energy[i] * energy_scale
-
-	# Construct new visemes scores
-	var scores := VISEMES_DEF.duplicate()
-	var score_sum := precision
-	for shape in REFERENCES:
-		# Calculate the shortest distance from the fingerprint to the mouth-shape
-		var distance := 1000.0
-		for reference in REFERENCES[shape]:
-			distance = min(distance, _fingerprint_distance(fingerprint, reference))
-
-		# Save the distance
+		fingerprint[i] *= energy_scale
+	
+	# Compute viseme scores
+	var score_sum = precision
+	var scores = VISEMES_DEF.duplicate()
+	
+	for shape in REFERENCES.keys():
+		var distance = 1000.0
+		for ref in REFERENCES[shape]:
+			var d = 0.0
+			for i in BANDS_COUNT:
+				var err = fingerprint[i] - ref[i]
+				d += err * err
+			distance = min(distance, d)
 		var score = 1.0 / max(0.01, distance)
 		scores[shape] = score
 		score_sum += score
-
-	# Update viseme scores
-	var score_scale := 1.0 / score_sum
+	
+	var score_scale = 1.0 / score_sum
 	var slew_scale = slew * _delta
+	
 	for i in VISEME.COUNT:
-		var old_weight: float = visemes[i]
-		var new_weight: float = scores[i] * score_scale
-		visemes[i] = lerp(old_weight, new_weight, slew_scale)
+		visemes[i] = lerp(visemes[i], scores[i] * score_scale, slew_scale)
+
 
 # Get or create an audio bus with the specified name
 static func _get_or_create_audio_bus(name: String) -> int:

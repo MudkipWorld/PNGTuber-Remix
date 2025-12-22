@@ -31,10 +31,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/side_margin = 1
-current_tab = 3
+current_tab = 0
 
 [node name="Model Settings" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -381,6 +380,7 @@ button_pressed = true
 text = "Keep Data Before Trim"
 
 [node name="Remix Settings" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
@@ -514,6 +514,50 @@ popup/item_0/id = 0
 popup/item_1/text = "English (US)"
 popup/item_1/id = 1
 
+[node name="BackendContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Tracking Backend : "
+
+[node name="BackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 4
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+popup/item_1/text = "UIOHook"
+popup/item_1/id = 1
+popup/item_2/text = "Windows"
+popup/item_2/id = 2
+popup/item_3/text = "x11"
+popup/item_3/id = 3
+
+[node name="BackendContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Audio Backend : "
+
+[node name="AudioBackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "Record"
+popup/item_0/id = 0
+popup/item_1/text = "Capture"
+popup/item_1/id = 1
+
 [node name="Grid2" type="GridContainer" parent="SettingVbox"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -579,3 +623,5 @@ popup/item_7/id = 7
 [connection signal="toggled" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid/UseThreads" to="SettingsScript" method="_on_use_threads_toggled"]
 [connection signal="toggled" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid/SaveUnusedImages" to="SettingsScript" method="_on_save_unused_images_toggled"]
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/LanguageContainer/LanguageOptions" to="SettingsScript" method="_on_remix_language_set"]
+[connection signal="item_selected" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer/BackendOption" to="SettingsScript" method="_on_backend_option_item_selected"]
+[connection signal="item_selected" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2/AudioBackendOption" to="SettingsScript" method="_on_audio_backend_option_item_selected"]

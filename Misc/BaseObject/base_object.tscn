@@ -9,30 +9,13 @@
 [node name="SpriteObject" type="Node2D" groups=["Sprites"]]
 physics_interpolation_mode = 1
 
-[node name="Pos" type="Node2D" parent="."]
-unique_name_in_owner = true
-physics_interpolation_mode = 1
-use_parent_material = true
-
-[node name="Dragger" type="Node2D" parent="Pos"]
-unique_name_in_owner = true
-physics_interpolation_mode = 1
-top_level = true
-
-[node name="MouseRot" type="Node2D" parent="Pos"]
+[node name="Modifier1" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Drag" type="Node2D" parent="Pos/MouseRot"]
+[node name="Modifier" type="Node2D" parent="Modifier1"]
 unique_name_in_owner = true
-physics_interpolation_mode = 1
-use_parent_material = true
 
-[node name="Rotation" type="Node2D" parent="Pos/MouseRot/Drag"]
-unique_name_in_owner = true
-physics_interpolation_mode = 1
-use_parent_material = true
-
-[node name="Origin" type="Sprite2D" parent="Pos/MouseRot/Drag/Rotation"]
+[node name="Origin" type="Sprite2D" parent="Modifier1/Modifier"]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -45,8 +28,10 @@ texture = ExtResource("2_xotqk")
 unique_name_in_owner = true
 one_shot = true
 
-[node name="FollowComponent" type="Node" parent="."]
+[node name="FollowComponent" type="Node" parent="." node_paths=PackedStringArray("modifier")]
+unique_name_in_owner = true
 script = ExtResource("3_7v2q7")
+modifier = NodePath("../Modifier1")
 
 [node name="Movements" type="Node" parent="."]
 unique_name_in_owner = true
@@ -64,5 +49,5 @@ script = ExtResource("10_lrffp")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://dfyvj4w18tr1"
 
-[connection signal="visibility_changed" from="." to="Movements" method="_on_sprite_object_visibility_changed"]
 [connection signal="visibility_changed" from="." to="FollowComponent" method="_on_sprite_object_visibility_changed"]
+[connection signal="visibility_changed" from="." to="Movements" method="_on_sprite_object_visibility_changed"]

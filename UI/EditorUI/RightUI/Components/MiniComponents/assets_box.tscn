@@ -80,9 +80,16 @@ size_flags_horizontal = 3
 tooltip_text = "TR_SHOULD_DISAPPEAR_TOOLTIP"
 text = "TR_DISAPPEAR_KEYS"
 
+[node name="HoldToShowCheck" type="CheckBox" parent="Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_HOLD_TO_SHOW_TOOLTIP"
+text = "TR_HOLD_TO_SHOW"
+
 [node name="ShouldDisListContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -205,7 +212,6 @@ expand_icon = true
 
 [node name="CycleMargin" type="MarginContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 5
@@ -246,6 +252,7 @@ size_flags_horizontal = 3
 focus_mode = 0
 theme_override_font_sizes/font_size = 14
 toggle_mode = true
+text = "TR_BIND_KEY"
 script = ExtResource("7_hf4n0")
 
 [node name="CycleDel" type="Button" parent="CycleMargin/CycleData/Margin2/Grid/HBoxAsset"]
@@ -328,6 +335,7 @@ expand_icon = true
 [connection signal="pressed" from="Buttons/HBoxAsset/RemoveAssetButton" to="Buttons/HBoxAsset/IsAssetButton" method="_on_remove_asset_button_pressed"]
 [connection signal="toggled" from="Buttons/DontHideOnToggleCheck" to="Buttons/HBoxAsset/IsAssetButton" method="_on_dont_hide_on_toggle_check_toggled"]
 [connection signal="toggled" from="Buttons/ShouldDisappearCheck" to="Buttons/HBoxAsset/IsAssetButton" method="_on_should_disappear_check_toggled"]
+[connection signal="toggled" from="Buttons/HoldToShowCheck" to="Buttons/HBoxAsset/IsAssetButton" method="_on_hold_to_show_on_toggle_check_toggled"]
 [connection signal="pressed" from="ShouldDisListContainer/HBoxContainer/ShouldDisAddButton" to="Buttons/HBoxAsset/IsAssetButton" method="_on_should_dis_add_button_pressed"]
 [connection signal="pressed" from="ShouldDisListContainer/HBoxContainer/ShouldDisDelButton" to="Buttons/HBoxAsset/IsAssetButton" method="_on_should_dis_del_button_pressed"]
 [connection signal="toggled" from="ShouldDisListContainer/HBoxContainer/ShouldDisRemapButton" to="Buttons/HBoxAsset/IsAssetButton" method="_on_should_dis_remap_button_toggled"]
@@ -338,6 +346,6 @@ expand_icon = true
 [connection signal="item_selected" from="HBoxContainer/HBox/CycleChoice" to="." method="_on_cycle_choice_item_selected"]
 [connection signal="pressed" from="HBoxContainer/HBox/AddCycle" to="." method="_on_add_cycle_pressed"]
 [connection signal="pressed" from="HBoxContainer/HBox/DeleteCycle" to="." method="_on_delete_cycle_pressed"]
-[connection signal="pressed" from="CycleMargin/CycleData/Margin2/Grid/HBoxAsset/CycleDel" to="CycleMargin/CycleData/Margin2/Grid/HBoxAsset2/CycleForward" method="_on_cycle_del_pressed"]
+[connection signal="pressed" from="CycleMargin/CycleData/Margin2/Grid/HBoxAsset/CycleDel" to="CycleMargin/CycleData/Margin2/Grid/HBoxAsset/CycleKey" method="_on_cycle_del_pressed"]
 [connection signal="pressed" from="CycleMargin/CycleData/Margin2/Grid/HBoxAsset2/CycleForDel" to="CycleMargin/CycleData/Margin2/Grid/HBoxAsset2/CycleForward" method="_on_cycle_del_pressed"]
 [connection signal="pressed" from="CycleMargin/CycleData/Margin2/Grid/HBoxAsset3/CycleBackDel" to="CycleMargin/CycleData/Margin2/Grid/HBoxAsset3/CycleBackward" method="_on_cycle_del_pressed"]

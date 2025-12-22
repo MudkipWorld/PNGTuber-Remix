@@ -29,6 +29,8 @@ const DEFAULT_DATA := {
 	mouse_scale_x = 0.0,
 	mouse_scale_y = 0.0,
 	drag_snap = 0.0,
+	index_change = 0,
+	index_change_y = 0,
 	
 	# Movement when mouth open
 	mo_xAmp = 0,
@@ -51,6 +53,8 @@ const DEFAULT_DATA := {
 	mo_mouse_scale_x = 0.0,
 	mo_mouse_scale_y = 0.0,
 	mo_drag_snap = 0.0,
+	mo_index_change = 0,
+	mo_index_change_y = 0,
 	
 	# Movement when screaming
 	scream_xAmp = 0,
@@ -73,6 +77,10 @@ const DEFAULT_DATA := {
 	scream_mouse_scale_x = 0.0,
 	scream_mouse_scale_y = 0.0,
 	scream_drag_snap = 0.0,
+	scream_index_change = 0,
+	scream_index_change_y = 0,
+	
+	
 	# Other stuff idk
 	blend_mode = "Normal",
 	visible = true,
@@ -92,6 +100,10 @@ const DEFAULT_DATA := {
 	offset = Vector2(0,0),
 	ignore_bounce = false,
 	clip = 0,
+	fade = false,
+	fade_asset = false,
+	fade_speed = 1.0,
+	fade_speed_asset = 1.0,
 	physics = true,
 	advanced_lipsync = false,
 	should_reset = false,
@@ -127,9 +139,10 @@ const DEFAULT_DATA := {
 @export var grab_object : BaseButton
 var used_image_id : int = 0
 var used_image_id_normal : int = 0
-var referenced_data  = null
-var referenced_data_normal = null
+var referenced_data : ImageData  = null
+var referenced_data_normal : ImageData = null
 
+var tween : Tween
 #Movement
 var heldTicks = 0
 #Wobble
@@ -168,7 +181,10 @@ var is_asset : bool = false
 var was_active_before : bool = true
 var show_only : bool = false
 var should_disappear : bool = false
+var hold_to_show : bool = false
 var saved_keys : Array = []
+var disappear_keys : String = str(sprite_id) + "Disappear"
+var rest_mode : int = 1
 
 var last_mouse_position : Vector2 = Vector2(0,0)
 var last_dist : Vector2 = Vector2(0,0)
@@ -177,12 +193,13 @@ var old_global: Vector2 = Vector2(-999999999999,-9999999999)
 
 var selected : bool = false
 
+var drag_offsets = {} 
+
+
 func get_default_object_data() -> Dictionary:
 	return {}
 
-func _init() -> void:
-	cached_defaults = DEFAULT_DATA.merged(get_default_object_data(), true)
-	sprite_data = cached_defaults.duplicate()
+
 
 func does_value_match_default(value: Variant, key: String) -> bool:
 	if value is float:
@@ -271,11 +288,11 @@ func set_blend(blend):
 
 func reparent_obj(parent):
 	for i in parent:
-		if i.sprite_id == parent_id:
-			var new_parent = i.sprite_object
-			reparent(new_parent)
-			break
-	
+		if i.parent_id == sprite_id:
+			var og_pos = i.global_position
+			i.get_parent().remove_child(i)
+			%Sprite2D.add_child(i)
+			i.global_position = og_pos
 
 func image_replaced(image_date : ImageData):
 	if !get_value("folder"):
@@ -298,6 +315,56 @@ func zazaza_reposition(parent):
 				if !state.is_empty():
 					var contain = i
 					var desired_global = contain.to_global(state.position)
-					var desired_local = contain.to_local(desired_global) +Vector2(640, 360)
+					var desired_local = contain.to_local(desired_global)
 					state.position = get_parent().to_local(desired_local)
-				
+			break
+
+
+func old_reposition():
+	var parent = get_parent().owner
+	if parent is not SpriteObject:
+		parent = Global.sprite_container
+
+	for state in states:
+		if state.has("global_position"):
+			var gl = state.global_position
+			state.position = parent.to_local(gl)
+			state.erase("global_position")
+
+func trigger_fade(was_visible: bool):
+	if tween:
+		tween.kill()
+	var target = get_value("visible")
+	if target:
+		visible = true
+		if !was_visible:
+			modulate.a = 0.0
+		tween = get_tree().create_tween()
+		tween.tween_property(self, "modulate:a", 1.0, get_value("fade_speed"))
+	else:
+		if was_visible:
+			modulate.a = 1.0
+		tween = get_tree().create_tween()
+		tween.tween_property(self, "modulate:a", 0.0, get_value("fade_speed"))
+		await tween.finished
+		visible = false
+
+func fade_asset(was_visible: bool, node: Node, node_hide: Node) -> bool:
+	if tween:
+		tween.kill()
+	var target = !was_visible
+	node_hide.visible = true  
+	if target:
+		node.modulate.a = 0.0
+		tween = get_tree().create_tween()
+		tween.tween_property(node, "modulate:a", 1.0, get_value("fade_speed_asset"))
+		await tween.finished
+		node.modulate.a = 1.0
+		return true
+	else:
+		node.modulate.a = 1.0
+		tween = get_tree().create_tween()
+		tween.tween_property(node, "modulate:a", 0.0, get_value("fade_speed_asset"))
+		await tween.finished
+		node_hide.visible = false
+		return false

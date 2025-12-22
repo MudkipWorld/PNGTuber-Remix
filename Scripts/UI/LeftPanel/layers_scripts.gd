@@ -53,7 +53,7 @@ func choosing_layers_popup(id):
 		9:
 			SaveAndLoad.export_images(Global.held_sprites)
 
-func update_layers(update_type : int, new_item = null, type : String = "Sprite"):
+func update_layers(update_type : int, new_item = null, type : String = ""):
 	match update_type:
 		0:
 			if new_item != null:
@@ -71,8 +71,12 @@ func add_new_layer_item(new_item, type, recolor = false, layer_color = Color.TRA
 			new_layer_item.set_icon(0,preload("res://UI/Assets/FolderButton.png"))
 		else:
 			ImageTrimmer.set_thumbnail(new_layer_item)
-	elif type == "WiggleApp":
+	elif type == "WiggleApp" or type == "Mesh" :
 		ImageTrimmer.set_thumbnail(new_layer_item)
+	
+	elif type == "Comment":
+		new_layer_item.set_icon(0,preload("res://UI/Assets/TextButton.png"))
+		
 	new_layer_item.set_text(0, new_item.sprite_name)
 	new_layer_item.add_button(0, preload("res://UI/EditorUI/LeftUI/Components/LayerView/Assets/New folder/EyeButton.png"))
 	if recolor && layer_color != Color.BLACK:

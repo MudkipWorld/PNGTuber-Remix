@@ -7,9 +7,7 @@ func _ready():
 	Global.reinfo.connect(info_held)
 	Global.slider_values.connect(sliders_revalue)
 	Global.deselect.connect(info_desel)
-	%CreditLabel.text = "PNGTuber Remix by TheMime (MudkipWorld)
-	Original PNGTuber+ Code by kaiakairos. Better UI by LeoRson.
-	V" + Global.version
+	%CreditLabel.text = "PNGTuber Remix by TheMime (MudkipWorld). Better UI by LeoRson. Websocket code by vj4. V" + Global.version
 	get_window().size_changed.connect(update_size_label)
 
 func info_held():
@@ -21,7 +19,6 @@ func info_desel():
 func sliders_revalue(settings_dict):
 	%BGColorPicker.color = settings_dict.bg_color
 	$TopBarInput.origin_alias()
-
 	if Global.camera != null && is_instance_valid(Global.camera):
 		Global.camera.zoom = settings_dict.zoom
 		Global.camera.get_parent().global_position = settings_dict.pan
@@ -33,7 +30,6 @@ func update_fps(value):
 	if value == 241:
 		Engine.max_fps = 0
 		return
-	
 	Engine.max_fps = value
 
 func update_size_label():

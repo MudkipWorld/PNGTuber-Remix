@@ -30,7 +30,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 
 
 func move_stuff(item: TreeItem, other_item: TreeItem, at_position: Vector2) -> void:
-	var true_pos := get_drop_section_at_position(at_position)
+	var true_pos = get_drop_section_at_position(at_position)
 	var all_children := get_all_layeritems(item, true)
 
 	if other_item in all_children or other_item == item:
@@ -70,22 +70,28 @@ func _move_into(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -
 
 
 func _move_above(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -> void:
-	var other_parent := other_item.get_parent()
-	var old_parent := item.get_parent()
+	var other_parent = other_item.get_parent()
+	var old_parent = item.get_parent()
+	if other_item == get_root():
+		old_parent.remove_child(item)
+		get_root().add_child(item)
+		item.move_before(other_item.get_child(0))
+		sprite.parent_id = 0
+		if sprite.get_parent() != Global.sprite_container:
+			sprite.get_parent().remove_child(sprite)
+			Global.sprite_container.add_child(sprite)
+			Global.sprite_container.move_child(sprite, item.get_index())
 	
-	# Case 1: Different parents — must reparent first
-	if other_parent != old_parent:
+	elif other_parent != old_parent:
 		old_parent.remove_child(item)
 		other_parent.add_child(item)
 		item.move_before(other_item)
-
-		# Sync sprite parent
 		var new_sprite_parent = other_item.get_metadata(0).sprite_object.get_parent()
 		if sprite.get_parent() != new_sprite_parent:
 			sprite.get_parent().remove_child(sprite)
 			new_sprite_parent.add_child(sprite)
 			new_sprite_parent.move_child(sprite, item.get_index())
-		sprite.parent_id = new_sprite_parent.get_instance_id()
+		sprite.parent_id = other_item.get_metadata(0).sprite_object.parent_id
 	else:
 		item.move_before(other_item)
 		sprite.get_parent().move_child(sprite, item.get_index())
@@ -94,10 +100,18 @@ func _move_above(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) 
 	recolor_layer()
 
 func _move_below(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -> void:
-	var other_parent := other_item.get_parent()
-	var old_parent := item.get_parent()
-
-	if other_parent != old_parent:
+	var other_parent = other_item.get_parent()
+	var old_parent = item.get_parent()
+	if other_item == get_root():
+		old_parent.remove_child(item)
+		get_root().add_child(item)
+		item.move_after(other_item.get_child(0))
+		sprite.parent_id = 0
+		if sprite.get_parent() != Global.sprite_container:
+			sprite.get_parent().remove_child(sprite)
+			Global.sprite_container.add_child(sprite)
+			Global.sprite_container.move_child(sprite, item.get_index())
+	elif other_parent != old_parent:
 		old_parent.remove_child(item)
 		other_parent.add_child(item)
 		item.move_after(other_item)
@@ -106,7 +120,7 @@ func _move_below(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) 
 			sprite.get_parent().remove_child(sprite)
 			new_sprite_parent.add_child(sprite)
 			new_sprite_parent.move_child(sprite, item.get_index())
-		sprite.parent_id = new_sprite_parent.get_instance_id()
+		sprite.parent_id = other_item.get_metadata(0).sprite_object.parent_id
 	else:
 		item.move_after(other_item)
 		sprite.get_parent().move_child(sprite, item.get_index())
@@ -137,9 +151,6 @@ func _finalize_move(sprite, og_pos: Vector2) -> void:
 	sprite.sprite_data.position = sprite.position
 	sprite.save_state(Global.current_state)
 	await get_tree().physics_frame
-	var dragger = sprite.get_node("%Dragger")
-	if dragger:
-		dragger.global_position = og_pos
 	recolor_layer()
 
 func recolor_layer() -> void:

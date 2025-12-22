@@ -8,7 +8,6 @@ var bg_color = Color.DIM_GRAY
 var is_transparent : bool
 var last_path : String = ""
 var settings = preload("res://UI/EditorUI/TopUI/Components/Settings_popup.tscn")
-
 var tutorial = preload("res://UI/EditorUI/TopUI/Components/tutorial_pop_up.tscn")
 
 var file_submenu_item : PopupMenu = PopupMenu.new()
@@ -29,8 +28,6 @@ func _ready():
 	%EditButton.get_popup().connect("id_pressed",choosing_edit)
 	Global.mode_changed.connect(on_mode_changed)
 	update_window_button()
-	
-	#print(OS.get_executable_path().get_base_dir() + "/autosaves")
 	check_auto_saves()
 		
 	await get_tree().physics_frame
@@ -51,8 +48,8 @@ func update_window_button() -> void:
 		break
 
 func check_auto_saves():
-	if !DirAccess.dir_exists_absolute(OS.get_executable_path().get_base_dir() + "/autosaves"):
-		DirAccess.make_dir_absolute(OS.get_executable_path().get_base_dir() + "/autosaves")
+	if !DirAccess.dir_exists_absolute(Settings.autosave_location):
+		DirAccess.make_dir_absolute(Settings.autosave_location)
 
 func choosing_edit(_id : int):
 	pass
@@ -114,6 +111,7 @@ func choosing_files(id):
 			if Global.swtich_session_popup != null && is_instance_valid(Global.swtich_session_popup):
 				Global.swtich_session_popup.popup()
 		12:
+			SaveAndLoad.import_trimmed = false
 			if Global.save_path == null or Global.save_path == "" :
 				check_auto_saves()
 				var save_location = Settings.autosave_location + "ReloadedFileBackup" + "/" + str(randi())
@@ -263,13 +261,11 @@ func desel_everything():
 func _on_preview_mode_check_toggled(toggled_on: bool) -> void:
 	Global.static_view = toggled_on
 
-
 func _on_background_focus_entered() -> void:
 	Global.spinbox_held = true
 
 func _on_background_focus_exited() -> void:
 	Global.spinbox_held = false
-
 
 func add_a_lipsync_config():
 	var lipsync = preload("res://UI/Lipsync stuff/lipsync_configuration_popup.tscn").instantiate()

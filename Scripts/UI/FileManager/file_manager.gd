@@ -17,7 +17,6 @@ func _ready() -> void:
 	Global.add_new_image.connect(add_file)
 	create_default()
 
-
 func create_default():
 	%Tree.clear()
 	var root : TreeItem = %Tree.create_item()
@@ -63,7 +62,7 @@ func add_file(file : ImageData):
 
 func _on_add_image_button_pressed() -> void:
 	load_type = LoadType.Images
-	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.apng"]
+	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png","*.svg", "*.apng"]
 	$FileDialog.file_mode = 1
 	%OffsetSprite.button_pressed = ImageTextureLoaderManager.should_offset
 	%FileDialog.popup()
@@ -109,6 +108,8 @@ func delete_items():
 				sprite.used_image_id_normal = -1
 				sprite.referenced_data_normal = Global.image_data_normal
 		asset.free()
+	var assets : TreeItem = %Tree.get_root().get_child(0)
+	assets.set_text(0, "Images " + "(" + str(assets.get_child_count()) + ")")
 
 func _on_tree_multi_selected(_item: TreeItem, _column: int, _selected: bool) -> void:
 	var cleaned_array : Array = []
@@ -182,3 +183,5 @@ func load_images():
 		var new_image : ImageData = ImageData.new()
 		check_type(path, new_image)
 	paths_placeholder = []
+	var assets : TreeItem = %Tree.get_root().get_child(0)
+	assets.set_text(0, "Images " + "(" + str(assets.get_child_count()) + ")")

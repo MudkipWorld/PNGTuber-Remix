@@ -70,8 +70,8 @@ text = "TR_POS_X"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -1000000000.0
-max_value = 1000000000.0
+min_value = -1e+09
+max_value = 1e+09
 step = 0.1
 script = ExtResource("1_tcd20")
 
@@ -89,8 +89,8 @@ text = "TR_POS_Y"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -1000000000.0
-max_value = 1000000000.0
+min_value = -1e+09
+max_value = 1e+09
 step = 0.1
 script = ExtResource("1_tcd20")
 
@@ -321,17 +321,6 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "TR_CLIP_CHILDREN"
 
-[node name="HiddenItem" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/Visibilty"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "If toggled, the current Object will be hidden when viewed outside the editor."
-theme_override_font_sizes/font_size = 16
-text = "TR_HIDDEN_ITEM"
-script = ExtResource("2_7ymxr")
-sp_type = ""
-value_to_update = "hidden_item"
-
 [node name="HSeparator" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -424,6 +413,64 @@ theme_override_constants/separation = 5
 
 [node name="AssetsBox" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("4_recil")]
 layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Sp7" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label4" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "TR_DEBUG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="HiddenItem" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "If toggled, the current Object will be hidden when viewed outside the editor."
+theme_override_font_sizes/font_size = 16
+text = "TR_HIDDEN_ITEM"
+script = ExtResource("2_7ymxr")
+sp_type = ""
+value_to_update = "hidden_item"
+
+[node name="Control" type="Control" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="RestModelLabel" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "TR_REST_MODE_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+text = "TR_REST_MODE"
+
+[node name="RestModeOption" type="OptionButton" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_REST_MODE_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+selected = 0
+item_count = 6
+popup/item_0/text = "TR_DISABLED"
+popup/item_0/id = 0
+popup/item_1/text = "TR_REST_FOLLOW"
+popup/item_1/id = 1
+popup/item_2/text = "TR_REST_MOVE"
+popup/item_2/id = 2
+popup/item_3/text = "TR_REST_BOTH"
+popup/item_3/id = 3
+popup/item_4/text = "TR_DISABLE_MOVE"
+popup/item_4/id = 4
+popup/item_5/text = "TR_DISABLE_FOLLOW"
+popup/item_5/id = 5
 
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/Layouts/HBox3/PosXSpinBox" to="PropertiesScript" method="_on_pos_x_spin_box_value_changed"]
 [connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/Layouts/HBox/PosYSpinBox" to="PropertiesScript" method="_on_pos_y_spin_box_value_changed"]
@@ -443,3 +490,4 @@ layout_mode = 2
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/Visibilty/ClipChildren" to="PropertiesScript" method="_on_clip_children_toggled"]
 [connection signal="item_selected" from="Scroll/MarginContainer/VBoxContainer/Reactions/EyeOption" to="PropertiesScript" method="_on_eye_option_item_selected"]
 [connection signal="item_selected" from="Scroll/MarginContainer/VBoxContainer/Reactions/MouthOption" to="PropertiesScript" method="_on_mouth_option_item_selected"]
+[connection signal="item_selected" from="Scroll/MarginContainer/VBoxContainer/GridContainer/RestModeOption" to="PropertiesScript" method="_on_rest_mode_option_item_selected"]

@@ -27,4 +27,4 @@ bus/2/effect/0/enabled = false
 bus/2/effect/1/effect = SubResource("AudioEffectSpectrumAnalyzer_1ksyd")
 bus/2/effect/1/enabled = true
 bus/2/effect/2/effect = SubResource("AudioEffectCapture_j3pel")
-bus/2/effect/2/enabled = true
+bus/2/effect/2/enabled = false

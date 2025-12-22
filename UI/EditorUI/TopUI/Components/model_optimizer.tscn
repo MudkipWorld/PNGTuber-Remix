@@ -5,7 +5,7 @@
 [node name="ModelOptimizer" type="Window"]
 transparent_bg = true
 initial_position = 1
-size = Vector2i(500, 200)
+size = Vector2i(500, 300)
 script = ExtResource("1_x5vtu")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -45,10 +45,33 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Resize Model :"
+
+[node name="ImageResize" type="CheckBox" parent="MarginContainer/VBoxContainer/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Resize Percentage :"
+
+[node name="ResizePrecent" type="SpinBox" parent="MarginContainer/VBoxContainer/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 10.0
+value = 50.0
+suffix = "%"
+
 [node name="Warning" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Note : Due to this being a destructive action, this will save a new Model with \"Optimized\" next to the original file."
+text = "Note : Due to this being a destructive action, this will save a new Model with \"Optimized\" next to the original file.
+GIF optimization isn't supported."
 autowrap_mode = 2
 
 [node name="ApplyOptimization" type="Button" parent="MarginContainer/VBoxContainer"]
@@ -59,4 +82,6 @@ text = "Apply"
 [connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/Grid/ImageTrim" to="." method="_on_image_trim_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/Grid/ImageResize" to="." method="_on_image_resize_toggled"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Grid/ResizePrecent" to="." method="_on_spin_box_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ApplyOptimization" to="." method="_on_apply_optimization_pressed"]

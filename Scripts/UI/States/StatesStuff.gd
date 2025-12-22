@@ -25,8 +25,7 @@ func _on_delete_state_pressed():
 		
 		
 		state_btn[Global.current_state].queue_free()
-		
-		Global.settings_dict.saved_inputs.remove_at(Global.current_state)
+
 		Global.settings_dict.states.remove_at(Global.current_state)
 		Global.settings_dict.light_states.remove_at(Global.current_state)
 		

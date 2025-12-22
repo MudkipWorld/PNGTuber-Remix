@@ -26,12 +26,13 @@ texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 modulate_color = Color(0.450681, 0.31262, 0.577302, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_73ydv"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8bobq"]
 texture = ExtResource("1_d35nj")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
+modulate_color = Color(0.450681, 0.31262, 0.577302, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kavif"]
 texture = ExtResource("1_d35nj")
@@ -56,13 +57,13 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_26fhs"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wl36d"]
 texture = ExtResource("1_d35nj")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
-modulate_color = Color(0.757613, 0.652265, 0.866882, 1)
+modulate_color = Color(0.545098, 0.403922, 0.647059, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_vn4vb"]
 color = Color(0.25098, 0.25098, 0.25098, 1)
@@ -3327,12 +3328,13 @@ texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 modulate_color = Color(0.450681, 0.31262, 0.577302, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_375lr"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pgtdg"]
 texture = ExtResource("1_d35nj")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
+modulate_color = Color(0.450681, 0.31262, 0.577302, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l18j1"]
 texture = ExtResource("1_d35nj")
@@ -3349,13 +3351,13 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8bobq"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_stahd"]
 texture = ExtResource("1_d35nj")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
-modulate_color = Color(0.757613, 0.652265, 0.866882, 1)
+modulate_color = Color(0.545098, 0.403922, 0.647059, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ykug"]
 texture = ExtResource("5_np3lo")
@@ -3552,11 +3554,11 @@ AcceptDialog/styles/panel = SubResource("StyleBoxTexture_j8txy")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/constants/h_separation = 5
 Button/styles/disabled = SubResource("StyleBoxTexture_d1w6k")
-Button/styles/focus = SubResource("StyleBoxTexture_73ydv")
+Button/styles/focus = SubResource("StyleBoxTexture_8bobq")
 Button/styles/hover = SubResource("StyleBoxTexture_kavif")
 Button/styles/hover_pressed = SubResource("StyleBoxTexture_43a4b")
 Button/styles/normal = SubResource("StyleBoxTexture_xcop2")
-Button/styles/pressed = SubResource("StyleBoxTexture_26fhs")
+Button/styles/pressed = SubResource("StyleBoxTexture_wl36d")
 HSeparator/constants/separation = 6
 HSeparator/styles/separator = SubResource("StyleBoxLine_vn4vb")
 HSlider/icons/grabber = ExtResource("2_m24h7")
@@ -3584,10 +3586,10 @@ LineEdit/styles/focus = SubResource("StyleBoxTexture_d35nj")
 LineEdit/styles/normal = SubResource("StyleBoxTexture_yboym")
 LineEdit/styles/read_only = SubResource("StyleBoxTexture_2bs7g")
 MenuButton/styles/disabled = SubResource("StyleBoxTexture_adrmq")
-MenuButton/styles/focus = SubResource("StyleBoxTexture_375lr")
+MenuButton/styles/focus = SubResource("StyleBoxTexture_pgtdg")
 MenuButton/styles/hover = SubResource("StyleBoxTexture_l18j1")
 MenuButton/styles/normal = SubResource("StyleBoxTexture_np3lo")
-MenuButton/styles/pressed = SubResource("StyleBoxTexture_8bobq")
+MenuButton/styles/pressed = SubResource("StyleBoxTexture_stahd")
 Panel/styles/panel = SubResource("StyleBoxTexture_1ykug")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_f2x4u")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_oq7mi")

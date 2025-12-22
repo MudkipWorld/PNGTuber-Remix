@@ -7,6 +7,12 @@ var index : int = 0
 var dt : float = 0
 var played_once : bool = false
 
+func _ready() -> void:
+	if actor.sprite_type == "Comment" or actor.sprite_type == "Mesh" :
+		set_physics_process(false)
+		set_process(false)
+
+
 func _physics_process(delta):
 	var cframe2
 	if actor.referenced_data == null:
@@ -45,6 +51,8 @@ func _physics_process(delta):
 
 
 func proper_apng_one_shot():
+	if actor.sprite_type == "Comment" or actor.sprite_type == "Mesh":
+		return
 	if actor.referenced_data == null:
 		return
 	var ref_data = actor.referenced_data.animated_frames

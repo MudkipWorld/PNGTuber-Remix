@@ -1,0 +1,382 @@
+[gd_scene load_steps=4 format=3 uid="uid://b33l6030k8a8p"]
+
+[ext_resource type="Script" uid="uid://d00gbdg4nfc6l" path="res://Scripts/UI/RightPanel/mesh_gen_script.gd" id="1_dqb1t"]
+[ext_resource type="Texture2D" uid="uid://c7poyj5s0pd1v" path="res://PicklesIdle.png" id="2_dmk11"]
+[ext_resource type="PackedScene" uid="uid://b4c4pf3i2y2be" path="res://UI/EditorUI/RightUI/Components/MiniComponents/mesh_deform_grid.tscn" id="3_dmk11"]
+
+[node name="MeshGen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_tab_index = 0
+
+[node name="MeshGenScript" type="Node" parent="."]
+script = ExtResource("1_dqb1t")
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Scroll/MarginContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Mesh Control"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer4" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="DeformMode" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_DEFORM"
+
+[node name="WebMode" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+button_pressed = true
+text = "TR_SHOW_WEB"
+
+[node name="GridContainer" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_INFLUENCE"
+
+[node name="InfluRad" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 2500.0
+
+[node name="Label2" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_STRENGTH"
+
+[node name="InfluStrength" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.01
+max_value = 1.0
+step = 0.001
+value = 0.01
+
+[node name="GridContainer3" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="FollowWobble" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_FOLLOW_WOBBLE"
+
+[node name="FollowMovements" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_FOLLOW_MOVEMENT"
+
+[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Physics Strength :"
+
+[node name="PhysicsStrength" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="Label2" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Physics Amp :"
+
+[node name="PhysicsAmp" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -500.0
+max_value = 500.0
+step = 0.1
+
+[node name="MeshDeformGrid" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("3_dmk11")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HSeparator2" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Generation"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AddMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TR_ADD_MESH"
+
+[node name="GenerateMesh" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TR_GEN_MESH"
+
+[node name="GenerateMesh2" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Doesn't take padding in account yet."
+text = "TR_GEN_PRESERVED"
+
+[node name="GenerateMesh3" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TR_GEN_CORNERS"
+
+[node name="GenerateMesh4" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TR_GEN_FLIPPED"
+
+[node name="GenerateMesh6" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset Deform Point"
+
+[node name="GenerateMesh5" type="Button" parent="Scroll/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Generate Symmetrical"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_MESH_TEXTURE"
+
+[node name="PanelContainer" type="PanelContainer" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="MeshTexture" type="TextureRect" parent="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 0
+texture = ExtResource("2_dmk11")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GridContainer2" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="SquareGrid" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Square Grid"
+
+[node name="RingGrid" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Ring Grid"
+
+[node name="TriGrid" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Tri Grid"
+
+[node name="TriRadial" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Hex Radial"
+
+[node name="OuterPadding" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Outer Padding"
+
+[node name="Padding" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 50.0
+step = 0.1
+value = 4.0
+
+[node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Grid Size :"
+
+[node name="GridSize" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 10.0
+max_value = 200.0
+value = 10.0
+
+[node name="Label2" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Radial Spacing :"
+
+[node name="RingSpacing" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+value = 5.0
+
+[node name="Label3" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Alpha Threshold : "
+
+[node name="Threshold" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 1.0
+step = 0.001
+value = 0.1
+
+[node name="Label4" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Inner Points :"
+
+[node name="InternalPoints" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 250.0
+value = 1.0
+
+[node name="Label5" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Eplision :"
+
+[node name="Eplision" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.001
+value = 0.01
+
+[node name="Label6" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Merge Points Space :"
+
+[node name="MergeClose" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+step = 0.1
+value = 1.0
+
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer4/DeformMode" to="MeshGenScript" method="_on_deform_mode_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer4/WebMode" to="MeshGenScript" method="_on_web_mode_toggled"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer/InfluRad" to="MeshGenScript" method="_on_influ_rad_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer/InfluStrength" to="MeshGenScript" method="_on_influ_strength_value_changed"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowWobble" to="MeshGenScript" method="_on_follow_wobble_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/PhysicsStrength" to="MeshGenScript" method="_on_physics_strength_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer3/PhysicsAmp" to="MeshGenScript" method="_on_physics_amp_value_changed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/AddMesh" to="MeshGenScript" method="_on_add_mesh_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh" to="MeshGenScript" method="_on_generate_mesh_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh2" to="MeshGenScript" method="_on_generate_mesh_2_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh3" to="MeshGenScript" method="_on_generate_mesh_3_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh4" to="MeshGenScript" method="_on_generate_mesh_4_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh6" to="MeshGenScript" method="_on_generate_mesh_6_pressed"]
+[connection signal="pressed" from="Scroll/MarginContainer/VBoxContainer/GenerateMesh5" to="MeshGenScript" method="_on_generate_mesh_5_pressed"]
+[connection signal="mouse_entered" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_entered"]
+[connection signal="mouse_exited" from="Scroll/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MeshTexture" to="MeshGenScript" method="_on_mesh_texture_mouse_exited"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/SquareGrid" to="MeshGenScript" method="_on_square_grid_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/RingGrid" to="MeshGenScript" method="_on_ring_grid_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/TriGrid" to="MeshGenScript" method="_on_tri_grid_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/TriRadial" to="MeshGenScript" method="_on_tri_radial_toggled"]
+[connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/OuterPadding" to="MeshGenScript" method="_on_outer_padding_toggled"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Padding" to="MeshGenScript" method="_on_padding_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/GridSize" to="MeshGenScript" method="_on_grid_size_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/RingSpacing" to="MeshGenScript" method="_on_ring_spacing_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Threshold" to="MeshGenScript" method="_on_threshold_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/InternalPoints" to="MeshGenScript" method="_on_internal_points_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/Eplision" to="MeshGenScript" method="_on_eplision_value_changed"]
+[connection signal="value_changed" from="Scroll/MarginContainer/VBoxContainer/GridContainer2/MergeClose" to="MeshGenScript" method="_on_merge_close_value_changed"]

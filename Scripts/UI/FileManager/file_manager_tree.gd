@@ -41,7 +41,11 @@ func drop_all_data():
 			
 		elif Global.over_normal_tex:
 			replace_texture_image(true)
-		
+		elif Global.over_mesh_tex:
+			var meta : ImageData = held_item[0].get_metadata(0)
+			Global.mesh_text_node.held_image_data = meta
+			Global.mesh_text_node.get_node("%MeshTexture").texture = meta.runtime_texture
+			
 	drop_mode_flags = 0
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	hovered = false
@@ -86,7 +90,11 @@ func replace_texture_image(normal : bool = false):
 					i.used_image_id_normal = meta.id
 					i.referenced_data_normal = meta
 					var norm = ImageTextureLoaderManager.check_flips(meta.runtime_texture, i)
-					i.get_node("%Sprite2D").texture.normal_texture = norm
+					if i.get_node("%Sprite2D") is CustomMesh:
+						pass
+					else:
+						i.get_node("%Sprite2D").texture.normal_texture = norm
+					
 					ImageTrimmer.set_thumbnail(i.treeitem)
 		else:
 			for i in Global.held_sprites:
@@ -94,6 +102,11 @@ func replace_texture_image(normal : bool = false):
 					i.used_image_id = meta.id
 					i.referenced_data = meta
 					var diff = ImageTextureLoaderManager.check_flips(meta.runtime_texture, i)
-					i.get_node("%Sprite2D").texture.diffuse_texture = diff
+					if i.get_node("%Sprite2D") is CustomMesh:
+						i.get_node("%Sprite2D").texture = diff
+					else:
+						i.get_node("%Sprite2D").texture.diffuse_texture = diff
+					
+					
 					ImageTrimmer.set_thumbnail(i.treeitem)
 		Global.reinfo.emit()

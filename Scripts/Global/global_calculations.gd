@@ -36,13 +36,13 @@ static func some_keyboard_calc_wasd(type_name: String = "follow_type", actor: No
 	if actor.get_value(type_name) in [3, 4, 5]:
 		var ws: Vector2 = Vector2.ZERO
 		var ad: Vector2 = Vector2.ZERO
-		if InputMap.action_get_events("KeyMovementW")[0].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("KeyMovementW"):
 			ws.y = 1.0
-		if InputMap.action_get_events("KeyMovementS")[0].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("KeyMovementS"):
 			ws.x = 1.0
-		if InputMap.action_get_events("KeyMovementA")[0].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("KeyMovementA"):
 			ad.y = 1.0
-		if InputMap.action_get_events("KeyMovementD")[0].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("KeyMovementD"):
 			ad.x = 1.0
 
 		if actor.get_value(type_name) == 3:
@@ -55,13 +55,13 @@ static func some_keyboard_calc_wasd(type_name: String = "follow_type", actor: No
 	elif actor.get_value(type_name) in [6, 7, 8]:
 		var ws: Vector2 = Vector2.ZERO
 		var ad: Vector2 = Vector2.ZERO
-		if InputMap.action_get_events("KeyMovementW")[1].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("Up"):
 			ws.y = 1.0
-		if InputMap.action_get_events("KeyMovementS")[1].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("Down"):
 			ws.x = 1.0
-		if InputMap.action_get_events("KeyMovementA")[1].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("Left"):
 			ad.y = 1.0
-		if InputMap.action_get_events("KeyMovementD")[1].as_text() in GlobalInputCapture.already_input_keys:
+		if GlobInput.is_action_pressed("Right"):
 			ad.x = 1.0
 
 		if actor.get_value(type_name) == 6:
@@ -86,13 +86,13 @@ static func follow_type_helper(type_name : String = "follow_type", actor : Node 
 	if type == "position":
 		if actor.get_value("snap_pos"):
 			if selected_axis.x != 0:
-				move.target_x = lerp(move.target_x, selected_axis.x * actor.get_value("look_at_mouse_pos"),actor.get_value("mouse_delay"))
+				move.tracked.target_x = lerp(move.tracked.target_x, selected_axis.x * actor.get_value("look_at_mouse_pos"),actor.get_value("mouse_delay"))
 			if selected_axis.y != 0 && actor.get_value("snap_pos"):
-				move.target_y = lerp(move.target_y, selected_axis.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
+				move.tracked.target_y = lerp(move.tracked.target_y, selected_axis.y * actor.get_value("look_at_mouse_pos_y"), actor.get_value("mouse_delay"))
 		else:
-			move.target_x = selected_axis.x * actor.get_value("look_at_mouse_pos")
-			move.target_y = selected_axis.y * actor.get_value("look_at_mouse_pos_y")
-		dist = Vector2(move.target_x, move.target_y).length()
+			move.tracked.target_x = selected_axis.x * actor.get_value("look_at_mouse_pos")
+			move.tracked.target_y = selected_axis.y * actor.get_value("look_at_mouse_pos_y")
+		dist = Vector2(move.tracked.target_x, move.tracked.target_y).length()
 		return {axis = selected_axis, dist = dist}
 
 	if type == "angle":
@@ -100,13 +100,13 @@ static func follow_type_helper(type_name : String = "follow_type", actor : Node 
 			if !selected_axis.is_zero_approx():
 				move.target_rotation_axis = move.target_rotation_axis.lerp(axis_left, 0.15)
 		else:
-			move.target_rotation_axis = selected_axis
+			move.tracked.target_rotation_axis = selected_axis
 		return {axis = selected_axis}
 	
 	if type == "scale":
 		if actor.get_value("snap_scale"):
 			if selected_axis.is_zero_approx():
-				move.target_scale_axis = move.target_scale_axis.lerp(selected_axis, 0.15)
+				move.tracked.target_scale_axis = move.tracked.target_scale_axis.lerp(selected_axis, 0.15)
 		else:
-			move.target_scale_axis = selected_axis
+			move.tracked.target_scale_axis = selected_axis
 		return {axis = selected_axis}

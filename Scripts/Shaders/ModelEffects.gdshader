@@ -31,6 +31,7 @@ uniform float line_scale : hint_range(0, 20) = 1.2;    // thickness of the line
 uniform float frequency : hint_range(0.0, 2.0) = 0.5;  // frequency of the rainbow
 uniform float light_offset : hint_range(0.00001, 1.0) = 0.5;   // this offsets all color channels;
 uniform float alpha : hint_range(0.0, 1.0) = 1.0;
+uniform int edge_subdivision = 64; // time of edge subdivision. high subdivision will make edge more rounded.
 
 
 
@@ -276,21 +277,44 @@ vec4 multiply(vec4 base, vec4 blend){
 	return base * blend;
 }
 
+// using polar coordinate rays to detect edges.
+// thicker outline require more rays for detection, which can make it more rounded.
+// to avoid unexpected calculating bugs, 4 directions of detection at least are required.
+float checkOutline(vec2 uv, sampler2D OriginTexTure, vec2 TexturePixelSize){
+	float outline = 0.0;
+	float angle_count = (4.0 + line_scale * 3.0);
+	float angle_step = 360.0 / angle_count;
+	for(float angle = 0.0; angle < 360.0; angle += angle_step)
+	{
+		for(float sub_step = 1.0; sub_step < line_scale + 0.01; sub_step += 1.0)
+		{	
+			float radian = angle * 2.0 * 3.14 / 360.0;
+			vec2 offset = vec2(cos(radian), sin(radian)) * TexturePixelSize * sub_step;
+			outline += texture(OriginTexTure, uv + offset).a;
+			}
+	}
+	
+	// easy anti-alias. the transparency within 2.5 pixels of the edge will decrease
+	outline = outline / 2.5;
+	return outline;
+}
+
 
 
 void fragment() {
 	if (effect == 1){
 		vec2 size = TEXTURE_PIXEL_SIZE;
-		float outline = 0.0;
-
-		for (int x = -int(line_scale); x <= int(line_scale); x++) {
-			for (int y = -int(line_scale); y <= int(line_scale); y++) {
-				if (x == 0 && y == 0) continue;
-				vec2 offset = vec2(float(x), float(y)) * size;
-				outline += texture(TEXTURE, UV + offset).a;
-			}
-		}
-
+		float outline = checkOutline(UV, TEXTURE, size);
+		
+		//fast mode
+		//for (int x = -int(line_scale); x <= int(line_scale); x++) {
+			//for (int y = -int(line_scale); y <= int(line_scale); y++) {
+				//if (x == 0 && y == 0) continue;
+				//vec2 offset = vec2(float(x), float(y)) * size;
+				//outline += texture(TEXTURE, UV + offset).a;
+			//}
+		//}
+		
 		outline = clamp(outline, 0.0, 1.0);
 		
 		vec4 animated_line_color = vec4(light_offset + sin(2.0*3.14*frequency*TIME),
@@ -308,15 +332,16 @@ void fragment() {
 	}
 	else if (effect == 2) {
 		vec2 size = TEXTURE_PIXEL_SIZE;
-		float outline = 0.0;
-
-		for (int x = -int(line_scale); x <= int(line_scale); x++) {
-			for (int y = -int(line_scale); y <= int(line_scale); y++) {
-				if (x == 0 && y == 0) continue;
-				vec2 offset = vec2(float(x), float(y)) * size;
-				outline += texture(TEXTURE, UV + offset).a;
-			}
-		}
+		float outline = checkOutline(UV, TEXTURE, size);
+		
+		//fast mode
+		//for (int x = -int(line_scale); x <= int(line_scale); x++) {
+			//for (int y = -int(line_scale); y <= int(line_scale); y++) {
+				//if (x == 0 && y == 0) continue;
+				//vec2 offset = vec2(float(x), float(y)) * size;
+				//outline += texture(TEXTURE, UV + offset).a;
+			//}
+		//}
 
 		outline = clamp(outline, 0.0, 1.0);
 

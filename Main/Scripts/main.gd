@@ -32,6 +32,8 @@ func _ready():
 	Global.top_ui = %TopUI
 	Global.light = %LightSource
 	Global.camera = %Camera2D
+	Global.camera_pos = %CamPos
+	Global.mesh_pointer = %MeshPointer
 	Global.update_camera_smoothing()
 	
 	Global.theme_update.connect(update_theme)
@@ -78,7 +80,7 @@ func save_as_file():
 	%FileDialog.show()
 
 func load_sprites():
-	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.apng"]
+	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.svg", "*.apng"]
 	$FileDialog.file_mode = 1
 	current_state = State.LoadSprites
 	%FileDialog.show()
@@ -90,7 +92,7 @@ func import_psd():
 	%FileDialog.show()
 
 func load_append_sprites():
-	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.apng"]
+	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.svg", "*.apng"]
 	$FileDialog.file_mode = 1
 	current_state = State.AddAppend
 	%FileDialog.show()
@@ -99,7 +101,7 @@ func replacing_sprite():
 	if Global.held_sprites.size() == 1:
 		if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 			if not Global.held_sprites[0].get_value("folder"):
-				%FileDialog.filters = ["*.png, *.apng, *.gif", "*.jpeg", "*.jpg", "*.svg", "*.apng"]
+				%FileDialog.filters = ["*.png, *.apng, *.gif", "*.svg", "*.apng"]
 				$FileDialog.file_mode = 0
 				current_state = State.ReplaceSprite
 				%FileDialog.show()
@@ -113,7 +115,7 @@ func add_normal_sprite():
 				elif Global.held_sprites[0].referenced_data.is_apng:
 					%FileDialog.filters = ["*.png","*.apng"]
 				else:
-					%FileDialog.filters = ["*.png", "*.jpeg", "*.jpg", "*.svg"]
+					%FileDialog.filters = ["*.png", "*.svg"]
 				$FileDialog.file_mode = 0
 				current_state = State.AddNormal
 				%FileDialog.show()
@@ -122,6 +124,7 @@ func _on_file_dialog_file_selected(path):
 	match current_state:
 		State.LoadFile:
 			ImageTextureLoaderManager.trim = false
+			SaveAndLoad.import_trimmed = false
 			if path.get_extension().to_lower() == "save":
 				if Settings.theme_settings.enable_trimmer:
 					model_path = path
@@ -169,7 +172,6 @@ func _on_file_dialog_files_selected(paths):
 			import_objects()
 
 func import_objects():
-	#	var sprite_nodes = []
 		for path in sprite_paths:
 			var sprte_obj
 			if current_state == State.LoadSprites:
@@ -180,6 +182,8 @@ func import_objects():
 			sprte_obj.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
 			sprte_obj.sprite_id = sprte_obj.get_instance_id()
+			sprte_obj.disappear_keys = str(sprte_obj.sprite_id) + "Disappear"
+			
 			sprte_obj.states = []
 			var states = get_tree().get_nodes_in_group("StateButtons").size()
 			for i in states:
@@ -212,16 +216,18 @@ func clear_sprites():
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		if InputMap.has_action(str(i.sprite_id)):
 			InputMap.erase_action(str(i.sprite_id))
+		if InputMap.has_action(i.disappear_keys):
+			InputMap.erase_action(i.disappear_keys)
 
-	for i in %SpritesContainer.get_children():
+	for i in Global.sprite_container.get_children():
 		i.queue_free()
 	
 	Global.delete_states.emit()
 	Global.reset_states.emit()
-	%Camera2D.zoom = Vector2(1,1)
-	%CamPos.global_position = Vector2(640, 360)
+	Global.camera.zoom = Vector2(1,1)
+	%CamPos.global_position = Vector2(0, 0)
 	Global.settings_dict.zoom = Vector2(1,1)
-	Global.settings_dict.pan = Vector2(640, 360)
+	Global.settings_dict.pan = Vector2(0, 0)
 
 func set_zoom(new_zoom: Vector2) -> void:
 	var mouse_pos := %Node2D.get_local_mouse_position() as Vector2

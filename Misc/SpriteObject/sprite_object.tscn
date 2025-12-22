@@ -55,17 +55,17 @@ height = 32
 
 [node name="SpriteObject" node_paths=PackedStringArray("sprite_object", "grab_object") instance=ExtResource("1_nxel7")]
 script = ExtResource("1_i7wd5")
-sprite_object = NodePath("Pos/MouseRot/Drag/Rotation/Sprite2D")
-grab_object = NodePath("Pos/MouseRot/Drag/Rotation/Sprite2D/Grab")
+sprite_object = NodePath("Modifier1/Modifier/Sprite2D")
+grab_object = NodePath("Modifier1/Modifier/Sprite2D/Grab")
 sprite_type = "Sprite2D"
 
-[node name="Sprite2D" type="Sprite2D" parent="Pos/MouseRot/Drag/Rotation" index="1"]
+[node name="Sprite2D" type="Sprite2D" parent="Modifier1/Modifier" index="1"]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 material = SubResource("ShaderMaterial_4cvp6")
 texture = SubResource("CanvasTexture_4xt5n")
 
-[node name="Selection" type="Sprite2D" parent="Pos/MouseRot/Drag/Rotation/Sprite2D" index="0"]
+[node name="Selection" type="Sprite2D" parent="Modifier1/Modifier/Sprite2D" index="0"]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -73,7 +73,7 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_5cd6y")
 texture = SubResource("CanvasTexture_4xt5n")
 
-[node name="Grab" type="TextureButton" parent="Pos/MouseRot/Drag/Rotation/Sprite2D" index="1"]
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier/Sprite2D" index="1"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 z_index = 4096
@@ -94,7 +94,7 @@ mouse_filter = 2
 texture_normal = SubResource("GradientTexture2D_relpp")
 stretch_mode = 0
 
-[node name="WiggleOrigin" type="Sprite2D" parent="Pos/MouseRot/Drag/Rotation/Sprite2D" index="2"]
+[node name="WiggleOrigin" type="Sprite2D" parent="Modifier1/Modifier/Sprite2D" index="2"]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 0, 0, 1)
@@ -109,6 +109,6 @@ actor = NodePath("..")
 actor = NodePath("..")
 
 [node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
-sprite_node = NodePath("../Pos/MouseRot/Drag/Rotation/Sprite2D")
+sprite_node = NodePath("../Modifier1/Modifier/Sprite2D")
 
 [connection signal="timeout" from="Animation" to="." method="animation"]

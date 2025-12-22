@@ -206,6 +206,28 @@ step = 0.01
 value_to_update = "stretchAmount"
 has_alt_values = true
 
+[node name="IndexBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Index X :"
+mini_value = -100.0
+max_value = 100.0
+step = 1.0
+value_to_update = "index_change"
+has_alt_values = true
+
+[node name="IndexBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Index Y :"
+mini_value = -100.0
+max_value = 100.0
+step = 1.0
+value_to_update = "index_change_y"
+has_alt_values = true
+
 [node name="Sp3" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
@@ -215,6 +237,26 @@ layout_mode = 2
 text = "TR_ROTATION"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RotationMinRotBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_MIN_ROT"
+mini_value = -360.0
+step = 0.1
+value_to_update = "rLimitMin"
+has_alt_values = true
+
+[node name="RotationMaxRotBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_MAX_ROT"
+max_value = 360.0
+step = 0.1
+value_to_update = "rLimitMax"
+has_alt_values = true
 
 [node name="RotationLevelBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
@@ -236,26 +278,6 @@ mini_value = -35.0
 max_value = 35.0
 step = 0.01
 value_to_update = "rot_frq"
-has_alt_values = true
-
-[node name="MiniRotationLevelBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
-unique_name_in_owner = true
-layout_mode = 2
-sp_type = ""
-label_text = "TR_ROT_MIN_ROT"
-mini_value = -360.0
-step = 0.01
-value_to_update = "rLimitMin"
-has_alt_values = true
-
-[node name="MaxRotationLevelBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]
-unique_name_in_owner = true
-layout_mode = 2
-sp_type = ""
-label_text = "TR_ROT_MAX_ROT"
-max_value = 360.0
-step = 0.01
-value_to_update = "rLimitMax"
 has_alt_values = true
 
 [node name="RotationSpeedBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" instance=ExtResource("1_h5u6y")]

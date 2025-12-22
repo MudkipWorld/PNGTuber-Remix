@@ -146,7 +146,7 @@ size_flags_vertical = 1
 min_value = -1.0
 max_value = 1.0
 step = 0.001
-value = 0.001000000000000112
+value = 0.001
 
 [node name="Sp6" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -212,6 +212,58 @@ max_value = 250.0
 step = 0.01
 value = 1.0
 value_to_update = "animate_to_mouse_speed"
+
+[node name="Sp7" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SheetControls2" type="Label" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "TR_FADES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer3" type="GridContainer" parent="Scroll/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Fade" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_MOVE_WITH_MOUSE_TOOLTIP"
+text = "TR_FADE"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "fade"
+
+[node name="Fade2" type="CheckBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_MOVE_WITH_MOUSE_TOOLTIP"
+text = "TR_FADE_ASSET"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "fade_asset"
+
+[node name="BetterSlider2" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("4_3iye5")]
+layout_mode = 2
+sp_type = ""
+label_text = "TR_FADE_PARAM"
+mini_value = 0.01
+max_value = 10.0
+step = 0.01
+value = 1.0
+value_to_update = "fade_speed"
+
+[node name="BetterSlider3" parent="Scroll/MarginContainer/VBoxContainer" instance=ExtResource("4_3iye5")]
+layout_mode = 2
+sp_type = ""
+label_text = "TR_FADE_ASSET_PARAM"
+mini_value = 0.01
+max_value = 10.0
+step = 0.01
+value = 1.0
+value_to_update = "fade_speed_asset"
 
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer/AnimationReset" to="." method="_on_animation_reset_toggled"]
 [connection signal="toggled" from="Scroll/MarginContainer/VBoxContainer/GridContainer/AnimationOneShot" to="." method="_on_animation_one_shot_toggled"]

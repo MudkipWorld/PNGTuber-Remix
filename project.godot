@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PNGTube-Remix"
-config/version="1.4"
+config/version="1.4.1"
 run/main_scene="uid://ckgt30cxu04dj"
 run/print_header=false
 config/auto_accept_quit=false
@@ -34,12 +34,13 @@ driver/enable_input=true
 VersionConverter="*res://Scripts/AutoLoads/VersionConversion/VersionConverter.tscn"
 Global="*res://Main/Scripts/Global.gd"
 SaveAndLoad="*res://Main/Scripts/SaveAndLoad.gd"
-GlobalAudioStreamPlayer="*res://Scripts/AutoLoads/audio_stream_player.tscn"
 Settings="*res://Scripts/AutoLoads/Settings.gd"
+GlobalAudioStreamPlayer="*res://Scripts/AutoLoads/audio_stream_player.tscn"
 LipSyncGlobals="*res://UI/Lipsync stuff/godot-lip-sync/lip_sync_globals.gd"
 GlobalMicAudio="*res://Main/Scripts/GlobalMicAudio.gd"
-GlobalInputCapture="*res://Scripts/AutoLoads/GlobalInputCapture.gd"
 WebsocketHandler="*res://Main/Scripts/websocket_handler.gd"
+GlobInput="*res://Scripts/AutoLoads/global_input.tscn"
+CommandLine="*res://Scripts/AutoLoads/CommandLine.gd"
 
 [debug]
 
@@ -53,6 +54,7 @@ gdscript/warnings/get_node_default_without_onready=0
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/transparent=true
 window/energy_saving/keep_screen_on=false
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true
@@ -61,7 +63,7 @@ window/enable_file_logging=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/aimg_io/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
+enabled=PackedStringArray("res://addons/Double_HSlider_gd/plugin.cfg", "res://addons/aimg_io/plugin.cfg", "res://addons/wiggly_appendage_2d/plugin.cfg")
 
 [global_group]
 
@@ -69,6 +71,8 @@ Layers=""
 InputsUIs=""
 StateRemapButton=""
 Dockables=""
+Meshes=""
+Mehses=""
 
 [gui]
 
@@ -239,25 +243,21 @@ ControllerFour={
 KeyMovementW={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":87,"physical_keycode":0,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194320,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 KeyMovementS={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":83,"physical_keycode":0,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194322,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 KeyMovementA={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":65,"physical_keycode":0,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194319,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 KeyMovementD={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":68,"physical_keycode":0,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194321,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 shift={
@@ -295,10 +295,36 @@ L3={
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":7,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+Up={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194320,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+Down={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194322,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+Left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194319,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+Right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194321,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+debug_rep={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"key_label":0,"unicode":104,"location":0,"echo":false,"script":null)
+]
+}
 
 [input_devices]
 
 pen_tablet/driver.windows="auto"
+buffering/agile_event_flushing=true
 
 [internationalization]
 

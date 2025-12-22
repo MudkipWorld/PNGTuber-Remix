@@ -18,8 +18,8 @@ func enable() -> void:
 	%FollowOption.disabled = false
 	%FollowOption3.disabled = false
 	
-	%FollowOption2.select(sp.get_value("follow_type2"))
 	%FollowOption.select(sp.get_value("follow_type"))
+	%FollowOption2.select(sp.get_value("follow_type2"))
 	%FollowOption3.select(sp.get_value("follow_type3"))
 
 func nullify() -> void:

@@ -19,7 +19,12 @@ func get_default_object_data() -> Dictionary:
 	}
 
 var wiggle_val : float = 0
-# Called when the node enters the scene tree for the first time.
+
+
+func _init() -> void:
+	cached_defaults = DEFAULT_DATA.merged(get_default_object_data(), true)
+	sprite_data = cached_defaults.duplicate(true)
+
 func _ready():
 	sprite_type = "Sprite2D"
 	Global.image_replaced.connect(image_replaced)
@@ -30,11 +35,6 @@ func _ready():
 	Global.deselect.connect(desel)
 	grab_object.button_down.connect(_on_grab_button_down)
 	grab_object.button_up.connect(_on_grab_button_up)
-
-
-func set_dragger_pos():
-	%Dragger.top_level = true
-	%Dragger.global_position = %Pos.global_position
 
 func sel():
 	if self in Global.held_sprites:
@@ -74,8 +74,9 @@ func animation():
 			if !get_value("animate_to_mouse"):
 				%Sprite2D.frame = get_value("frame")
 	
-	$Animation.wait_time = 1.0/get_value("animation_speed") 
-	$Animation.start()
+	if is_inside_tree():
+		$Animation.wait_time = 1.0/get_value("animation_speed") 
+		$Animation.start()
 
 func _process(_delta):
 	if selected:
@@ -106,10 +107,11 @@ func _process(_delta):
 		%WiggleOrigin.hide()
 	
 	if dragging:
-		var mpos = get_parent().to_local(get_global_mouse_position())
-		position = mpos - of
-		sprite_data.position = position
-		save_state(Global.current_state)
+		var mouse_pos = get_parent().to_local(get_global_mouse_position())
+		for s in Global.held_sprites:
+			s.position = mouse_pos - drag_offsets[s]
+			s.sprite_data.position = s.position
+			s.save_state(Global.current_state)
 		Global.update_pos_spins.emit()
 		
 	if !Global.static_view:
@@ -120,6 +122,27 @@ func _process(_delta):
 			%Sprite2D.material.set_shader_parameter("rotation", 0)
 		
 	advanced_lipsyc()
+
+func _on_grab_button_down():
+	if selected:
+		if not Input.is_action_pressed("ctrl"):
+			# Start dragging for all selected sprites
+			dragging = true
+			drag_offsets.clear()
+			var mouse_pos = get_parent().to_local(get_global_mouse_position())
+			for s in Global.held_sprites:
+				drag_offsets[s] = mouse_pos - s.position
+
+func _on_grab_button_up():
+	if selected && dragging:
+		save_state(Global.current_state)
+		dragging = false
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_released("lmb"):
+		if selected && dragging:
+			save_state(Global.current_state)
+			dragging = false
 
 func wiggle_sprite():
 	var length : float = 0.0
@@ -164,21 +187,22 @@ func get_state(id):
 	if !states[id].is_empty():
 		var dict = states[id]
 		sprite_data.merge(dict, true)
-		
-		
 		if get_value("should_reset_state"):
 			%ReactionConfig.reset_anim()
-			
+		
+		var old_glob = global_position
 		position = get_value("position")
 		%Sprite2D.position = get_value("offset") 
 		%Sprite2D.scale = Vector2(1,1)
 		
-		%Rotation.z_index = get_value("z_index")
+		%Modifier1.z_index = get_value("z_index")
 		modulate = get_value("colored")
 		scale = get_value("scale")
-		var old_glob = global_position
+	#	global_position = get_value("global_position")
+		
+		
 		if (global_position - old_glob).length() > get_value("drag_snap") && get_value("drag_snap") != 999999.0:
-			%Dragger.global_position = %Pos.global_position
+			%Modifier.global_position = %Modifier1.global_position
 		
 		%Sprite2D.set_clip_children_mode(get_value("clip"))
 		rotation = get_value("rotation")
@@ -199,17 +223,22 @@ func get_state(id):
 			%Sprite2D.hframes = 6
 		
 		if !get_value("should_blink"):
-			%Pos.show()
+			%Modifier1.show()
 		else:
 			%ReactionConfig.update_to_mode_change(Global.mode)
 
-		visible = get_value("visible")
+		if get_value("fade"):
+			trigger_fade(visible)
+		else:
+			modulate.a = 1.0
+			visible = get_value("visible")
 		
+			
 		animation()
 		set_blend(get_value("blend_mode"))
 		advanced_lipsyc()
 			
-		if !get_value("cycle") in range(Global.settings_dict.cycles.size()):
+		if !get_value("cycle") in range(Global.settings_dict.cycles.size() + 1):
 			sprite_data.cycle = 0
 		
 		
@@ -225,23 +254,6 @@ func check_talk():
 	else:
 		%Rotation.show()
 
-func _on_grab_button_down():
-	if selected:
-		if not Input.is_action_pressed("ctrl"):
-			of = get_parent().to_local(get_global_mouse_position()) - position
-			dragging = true
-
-func _on_grab_button_up():
-	if selected && dragging:
-		save_state(Global.current_state)
-		dragging = false
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_released("lmb"):
-		if selected && dragging:
-			save_state(Global.current_state)
-			dragging = false
-
 func zazaza(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
@@ -251,4 +263,3 @@ func zazaza(parent):
 					if !state.is_empty():
 						global = global_position
 						state.position = get_value("position")
-						

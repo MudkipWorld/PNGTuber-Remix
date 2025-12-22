@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cb6sos2p8qbrr"]
+[gd_scene load_steps=15 format=3 uid="uid://cb6sos2p8qbrr"]
 
 [ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_31wc5"]
 [ext_resource type="Script" uid="uid://cpxma1104nmwe" path="res://Scripts/Objects/append_object.gd" id="1_yuqos"]
@@ -21,12 +21,12 @@ shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 [sub_resource type="CanvasTexture" id="CanvasTexture_6684t"]
 diffuse_texture = ExtResource("5_mwqm8")
 
-[sub_resource type="Gradient" id="Gradient_uswo1"]
+[sub_resource type="Gradient" id="Gradient_31wc5"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_wmc63"]
-gradient = SubResource("Gradient_uswo1")
+gradient = SubResource("Gradient_31wc5")
 width = 120
 height = 120
 
@@ -38,23 +38,28 @@ shader_parameter/ant_width = 1.5
 shader_parameter/ant_length = 10.0
 shader_parameter/ant_speed = 30.0
 
+[sub_resource type="Gradient" id="Gradient_lijf4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i82gq"]
-gradient = SubResource("Gradient_uswo1")
+gradient = SubResource("Gradient_lijf4")
 
 [node name="SpriteObject" node_paths=PackedStringArray("sprite_object", "grab_object") instance=ExtResource("1_31wc5")]
 script = ExtResource("1_yuqos")
-sprite_object = NodePath("Pos/MouseRot/Drag/Rotation/Sprite2D")
-grab_object = NodePath("Pos/MouseRot/Drag/Rotation/Sprite2D/Grab")
+sprite_object = NodePath("Modifier1/Modifier/Sprite2D")
+grab_object = NodePath("Modifier1/Modifier/Sprite2D/Grab")
 
-[node name="Sprite2D" type="Line2D" parent="Pos/MouseRot/Drag/Rotation" index="1"]
+[node name="Sprite2D" type="Line2D" parent="Modifier1/Modifier" index="1" node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, 1.32901e-05, 64.8, 5.31603e-05, 79.2, 0.000119611, 93.6, 0.000212641, 108, 0.000332252, 122.4, 0.000542317, 136.8, 0.000906711, 151.2, 0.00142543, 165.6, 0.00209848, 180, 0.00292586, 194.4, 0.00375288, 208.8, 0.00442484, 223.2, 0.00494175, 237.6, 0.0053036, 252, 0.0055104, 266.4, 0.00498016, 280.8, 0.0031309, 295.2, -3.73651e-05, 309.6, -0.00452465, 324, -0.0103309, 338.4, -0.0174563, 352.8, -0.0259006)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, -6.53488e-05, 64.8, -0.000261395, 79.2, -0.000588139, 93.6, -0.00104558, 108, -0.00163372, 122.4, -0.0039486, 136.8, -0.00958627, 151.2, -0.0185467, 165.6, -0.03083, 180, -0.046436, 194.4, -0.0505893, 208.8, -0.0285143, 223.2, 0.019789, 237.599, 0.0943205, 251.999, 0.19508, 266.389, 0.131538, 280.76, -0.286835, 295.111, -1.06004, 309.444, -2.18808, 323.758, -3.67094, 338.03, -5.50612, 352.24, -7.69107)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
+actor = NodePath("../../..")
 segment_length = 72.0
 max_angle = 0.523599
 comeback_speed = 0.419
@@ -63,7 +68,7 @@ max_angular_momentum = 20.0
 subdivision = 5
 additional_start_segment = true
 
-[node name="Grab" type="TextureButton" parent="Pos/MouseRot/Drag/Rotation/Sprite2D" index="0"]
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier/Sprite2D" index="0"]
 unique_name_in_owner = true
 z_index = 4096
 anchors_preset = 15
@@ -76,7 +81,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 texture_normal = SubResource("GradientTexture2D_wmc63")
 
-[node name="Selection" type="TextureRect" parent="Pos/MouseRot/Drag/Rotation/Sprite2D/Grab" index="0"]
+[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Sprite2D/Grab" index="0"]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -99,4 +104,4 @@ actor = NodePath("..")
 actor = NodePath("..")
 
 [node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
-sprite_node = NodePath("../Pos/MouseRot/Drag/Rotation/Sprite2D")
+sprite_node = NodePath("../Modifier1/Modifier/Sprite2D")
