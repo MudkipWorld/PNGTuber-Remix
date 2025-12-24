@@ -81,7 +81,6 @@ func add_new_layer_item(new_item, type, recolor = false, layer_color = Color.TRA
 	new_layer_item.add_button(0, preload("res://UI/EditorUI/LeftUI/Components/LayerView/Assets/New folder/EyeButton.png"))
 	if recolor && layer_color != Color.BLACK:
 		new_layer_item.set_custom_bg_color(0, Color(layer_color.r, layer_color.g, layer_color.b, 0.45))
-	
 	new_item.treeitem = new_layer_item
 
 func delete_layers():
@@ -123,7 +122,8 @@ func collapsing(sprites):
 			i.treeitem.collapsed = i.is_collapsed
 
 func _on_layers_tree_item_collapsed(item: TreeItem) -> void:
-	item.get_metadata(0).sprite_object.is_collapsed = item.collapsed
+	if item.get_metadata(0) != null:
+		item.get_metadata(0).sprite_object.is_collapsed = item.collapsed
 
 func _on_layers_tree_empty_clicked(_click_position: Vector2, _mouse_button_index: int) -> void:
 	if Global.held_sprite != null && is_instance_valid(Global.held_sprite):

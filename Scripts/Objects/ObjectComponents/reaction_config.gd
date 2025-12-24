@@ -6,7 +6,6 @@ var currently_speaking : bool = false
 var blinking : bool = false
 var tween : Tween
 
-
 func _ready() -> void:
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
@@ -17,13 +16,18 @@ func _ready() -> void:
 	await  get_tree().physics_frame
 	not_speaking()
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Global.settings_dict.checkinput != true:
 		return
-		
 	var is_trying_to_appear = false
 	var is_trying_to_disappear = false
-	if GlobInput.is_action_just_pressed(str(actor.sprite_id)):
+	if GlobInput.is_action_just_pressed(str(actor.sprite_id)) && actor.hold_to_show:
+		is_trying_to_appear = true
+	elif GlobInput.is_action_just_released(str(actor.sprite_id)) && actor.hold_to_show:
+		is_trying_to_disappear = true
+	elif GlobInput.is_action_just_pressed(actor.disappear_keys) && !actor.hold_to_show:
+		is_trying_to_disappear = true
+	elif GlobInput.is_action_just_pressed(str(actor.sprite_id)) && !actor.hold_to_show:
 		if actor.show_only:
 			%Sprite2D.visible = true
 		else:
@@ -34,12 +38,7 @@ func _physics_process(_delta: float) -> void:
 			else:
 				%Sprite2D.visible = !%Sprite2D.visible
 				actor.was_active_before = %Sprite2D.visible
-	if GlobInput.is_action_pressed(str(actor.sprite_id)) && actor.hold_to_show && !actor.was_active_before:
-		is_trying_to_appear = true
-	if GlobInput.is_action_just_pressed(actor.disappear_keys):
-		is_trying_to_disappear = true
-	if GlobInput.is_action_just_released(str(actor.sprite_id)) && actor.hold_to_show && actor.was_active_before:
-		is_trying_to_disappear = true
+
 	if is_trying_to_disappear:
 		if actor.get_value("fade_asset"):
 			var new_visibility = await actor.fade_asset(false, actor, %Sprite2D)

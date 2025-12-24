@@ -180,6 +180,48 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Grid5" type="GridContainer" parent="PanelContainer/Margin/TabContainer"]
+visible = false
+layout_mode = 2
+columns = 2
+metadata/_tab_index = 3
+
+[node name="Label" type="Label" parent="PanelContainer/Margin/TabContainer/Grid5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Roll Speed"
+
+[node name="RollSpeed" type="SpinBox" parent="PanelContainer/Margin/TabContainer/Grid5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.01
+
+[node name="Label2" type="Label" parent="PanelContainer/Margin/TabContainer/Grid5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Roll Size"
+
+[node name="RollSize" type="SpinBox" parent="PanelContainer/Margin/TabContainer/Grid5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.01
+
+[node name="Label3" type="Label" parent="PanelContainer/Margin/TabContainer/Grid5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Aberration"
+
+[node name="Aberration" type="SpinBox" parent="PanelContainer/Margin/TabContainer/Grid5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+
 [connection signal="item_selected" from="Grid/ColorBlindnessHelperOptions" to="." method="_on_color_blindness_helper_options_item_selected"]
 [connection signal="item_selected" from="Grid/EffectType" to="." method="_on_option_button_item_selected"]
 [connection signal="color_changed" from="PanelContainer/Margin/TabContainer/Grid2/EffectColor" to="." method="_on_effect_color_color_changed"]
@@ -187,3 +229,6 @@ size_flags_horizontal = 3
 [connection signal="toggled" from="PanelContainer/Margin/TabContainer/Grid2/RainbowCheck" to="." method="_on_rainbow_check_toggled"]
 [connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid3/SizeSlider2" to="." method="_on_size_slider_2_value_changed"]
 [connection signal="color_changed" from="PanelContainer/Margin/TabContainer/Grid4/EffectColor2" to="." method="_on_effect_color_2_color_changed"]
+[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid5/RollSpeed" to="." method="_on_roll_speed_value_changed"]
+[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid5/RollSize" to="." method="_on_roll_size_value_changed"]
+[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid5/Aberration" to="." method="_on_roll_size_value_changed"]

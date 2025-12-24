@@ -28,6 +28,9 @@ var default_model_effects : Dictionary = {
 	effect_type = 0,
 	effect_size = 1,
 	effect_color = Color.WHITE,
+	roll_speed = 0.8,
+	roll_size = 15.0,
+	aberration = 0.03,
 }
 
 var state_param_mc : Dictionary = state_parameters_default.duplicate()
@@ -285,3 +288,8 @@ func set_effects():
 		# outline, auro
 		Global.viewer.material.set_shader_parameter("line_scale", model_effects.effect_size)
 		Global.viewer.material.set_shader_parameter("line_color", model_effects.effect_color)
+		
+		Global.viewer.material.set_shader_parameter("roll_speed", model_effects.roll_speed)
+		Global.viewer.material.set_shader_parameter("roll_size", model_effects.roll_size)
+		Global.viewer.material.set_shader_parameter("aberration", model_effects.aberration)
+		

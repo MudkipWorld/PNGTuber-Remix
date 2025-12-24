@@ -62,7 +62,6 @@ text = "TR_X_FREQUENCY_WOBBLE"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 10.0
 step = 0.01
 
 [node name="VBox2" type="VBoxContainer" parent="."]
@@ -102,7 +101,6 @@ text = "TR_Y_FREQUENCY_WOBBLE"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 10.0
 step = 0.01
 
 [node name="VBox4" type="VBoxContainer" parent="."]

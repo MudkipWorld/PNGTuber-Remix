@@ -9,7 +9,6 @@ func _ready() -> void:
 	Global.deselect.connect(nullify)
 	nullify()
 
-
 func enable() -> void:
 	var sp: SpriteObject = null
 	if Global.held_sprites:

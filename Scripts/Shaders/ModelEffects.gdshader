@@ -1,4 +1,4 @@
-/* 
+/*
 Rainbow outline by @Farfalk and @ThePadDev, And Edit for @LURGX in 2022
 
 Apply to canvas items with transparent backgrounds.
@@ -6,7 +6,7 @@ Check that there is sufficient transparent background space for the outline!
 
 CC0 License (but citation is welcome <3)
 All code is property of @Farfalk and @ThePadDev
-Thanks for shader and I'm a newbie with shaders 
+Thanks for shader and I'm a newbie with shaders
 */
 
 
@@ -169,7 +169,7 @@ bool is_progressed(vec2 uv)
     float theta = radians(hatch_angle);
     float d1 = abs(sin(theta) - cos(theta));
     float duv = abs(uv.x * sin(theta) - uv.y * cos(theta));
-    return duv <= d1 * progress; 
+    return duv <= d1 * progress;
 }
 
 
@@ -233,7 +233,7 @@ float noise2(vec2 uv) {
     vec2 uv_index = floor(uv);
     vec2 uv_fract = fract(uv);
     vec2 blur = smoothstep(0.0, 1.0, uv_fract);
-    
+
     return mix(
         mix(
             dot(random(uv_index + vec2(0.0, 0.0)), uv_fract - vec2(0.0, 0.0)),
@@ -287,13 +287,13 @@ float checkOutline(vec2 uv, sampler2D OriginTexTure, vec2 TexturePixelSize){
 	for(float angle = 0.0; angle < 360.0; angle += angle_step)
 	{
 		for(float sub_step = 1.0; sub_step < line_scale + 0.01; sub_step += 1.0)
-		{	
+		{
 			float radian = angle * 2.0 * 3.14 / 360.0;
 			vec2 offset = vec2(cos(radian), sin(radian)) * TexturePixelSize * sub_step;
 			outline += texture(OriginTexTure, uv + offset).a;
 			}
 	}
-	
+
 	// easy anti-alias. the transparency within 2.5 pixels of the edge will decrease
 	outline = outline / 2.5;
 	return outline;
@@ -305,7 +305,7 @@ void fragment() {
 	if (effect == 1){
 		vec2 size = TEXTURE_PIXEL_SIZE;
 		float outline = checkOutline(UV, TEXTURE, size);
-		
+
 		//fast mode
 		//for (int x = -int(line_scale); x <= int(line_scale); x++) {
 			//for (int y = -int(line_scale); y <= int(line_scale); y++) {
@@ -314,14 +314,14 @@ void fragment() {
 				//outline += texture(TEXTURE, UV + offset).a;
 			//}
 		//}
-		
+
 		outline = clamp(outline, 0.0, 1.0);
-		
+
 		vec4 animated_line_color = vec4(light_offset + sin(2.0*3.14*frequency*TIME),
 								   light_offset + sin(2.0*3.14*frequency*TIME + radians(120.0)),
 								   light_offset + sin(2.0*3.14*frequency*TIME + radians(240.0)),
 								   alpha);
-		
+
 		vec4 color = texture(TEXTURE, UV);
 		if (rainbow == true){//if rainbow is activated
 			COLOR = mix(color, animated_line_color, outline - color.a)- color;
@@ -333,7 +333,7 @@ void fragment() {
 	else if (effect == 2) {
 		vec2 size = TEXTURE_PIXEL_SIZE;
 		float outline = checkOutline(UV, TEXTURE, size);
-		
+
 		//fast mode
 		//for (int x = -int(line_scale); x <= int(line_scale); x++) {
 			//for (int y = -int(line_scale); y <= int(line_scale); y++) {
@@ -346,7 +346,7 @@ void fragment() {
 		outline = clamp(outline, 0.0, 1.0);
 
 		vec4 color = texture(TEXTURE, UV);
-		
+
 		vec4 t = vec4(color.r, color.g, color.b, color.a - outline+0.55);
 		COLOR = AuraEffect(UV, t, TEXTURE) - color;
 	}
@@ -452,21 +452,21 @@ void fragment() {
 		vec4 color = texture(TEXTURE, UV);
 	    vec3 bg = line_color.rgb;
 	    vec3 fg = vec3(0.0);
-	   
+
 	    if (is_progressed(uv))
 	    {
 			vec4 t = vec4(mix(bg, fg, 0.5), alp);
 			float al = (color.a -t.a)*line_color.a;
 			vec4 mult = multiply(color, t);
 			mult.a = al;
-			
+
 	        COLOR = mult;
 	    }
 	    else
 	    {
 			vec4 t = vec4(mix(bg, fg, cont), (color.a -alp)*line_color.a);
 			vec4 mult = multiply(color, t);
-			
+
 	        COLOR = mult;
 	    }
 	}
@@ -474,16 +474,16 @@ void fragment() {
 		vec2 size = TEXTURE_PIXEL_SIZE;
 
 		vec4 color = texture(TEXTURE, UV);
-		
+
 	//	vec4 t = vec4(color.r, color.g, color.b, color.a - outline);
 		COLOR = AuraEffect2(UV, color, TEXTURE);
 	}
-	
+
 
 	else {
-		
+
 		COLOR = vec4(0.0);
-		
+
 	}
 
 

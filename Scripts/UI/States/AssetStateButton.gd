@@ -67,8 +67,8 @@ func update_other_assets():
 		if i != Global.held_sprites[0]:
 			if i.saved_event != null:
 				if Global.held_sprites[0].saved_event.as_text() == i.saved_event.as_text():
-					i.get_node("%Drag").visible = Global.held_sprites[0].get_node("%Drag").visible
-					i.was_active_before = Global.held_sprites[0].get_node("%Drag").visible
+					i.get_node("%Sprite2D").visible = Global.held_sprites[0].get_node("%Sprite2D").visible
+					i.was_active_before = Global.held_sprites[0].get_node("%Sprite2D").visible
 
 func update_key_text():
 	if InputMap.action_get_events(action).size() != 0:
