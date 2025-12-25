@@ -33,11 +33,11 @@ size_flags_vertical = 3
 theme_override_constants/side_margin = 1
 current_tab = 0
 
-[node name="Model Settings" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
+[node name="Model" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingVbox/SettingsTab/Model Settings"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingVbox/SettingsTab/Model"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -46,17 +46,17 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="GridContainer" type="GridContainer" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(428, 0)
 layout_mode = 2
 size_flags_vertical = 0
 columns = 2
 
-[node name="InputCheckButton" type="CheckBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer"]
+[node name="InputCheckButton" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -66,7 +66,7 @@ tooltip_text = "TR_DETECT_HOTKEYS_TOOLTIP"
 button_pressed = true
 text = "TR_DETECT_HOTKEYS"
 
-[node name="AntiAlCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer"]
+[node name="AntiAlCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -75,7 +75,7 @@ size_flags_vertical = 2
 button_pressed = true
 text = "TR_ANTI_ALIASING"
 
-[node name="AutoLoadCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer"]
+[node name="AutoLoadCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -83,7 +83,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 2
 text = "TR_AUTO_LOAD_MODEL"
 
-[node name="DeltaTimeCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer"]
+[node name="DeltaTimeCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -92,10 +92,10 @@ tooltip_text = "TR_USE_DELTA_TIME_TOOLTIP"
 text = "TR_USE_DELTA_TIME"
 autowrap_mode = 3
 
-[node name="HBox2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer"]
+[node name="HBox2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SaveOnExitCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBox2"]
+[node name="SaveOnExitCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -103,18 +103,18 @@ size_flags_horizontal = 3
 size_flags_vertical = 2
 text = "TR_SAVE_ON_EXIT"
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBox2"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "TR_SAVE_ON_EXIT_NOTE"
 vertical_alignment = 1
 
-[node name="HBox" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer"]
+[node name="HBox" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="AutoSaveCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBox"]
+[node name="AutoSaveCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -122,7 +122,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "TR_AUTO_SAVE"
 
-[node name="AutoSaveSpin" type="SpinBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBox"]
+[node name="AutoSaveSpin" type="SpinBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -131,11 +131,11 @@ alignment = 1
 suffix = "min."
 script = ExtResource("2_s0wg0")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MaxFPSLabel" type="Label" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxFPSLabel" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
@@ -143,7 +143,7 @@ text = "{0} : "
 script = ExtResource("3_s0wg0")
 localizations = Array[String](["TR_MAX_FPS"])
 
-[node name="MaxFPSlider" type="HSlider" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxFPSlider" type="HSlider" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -151,23 +151,23 @@ min_value = 8.0
 max_value = 241.0
 value = 241.0
 
-[node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer"]
+[node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "TR_FOLLOW_MOUSE_SCREEN_LABEL"
 
-[node name="SelectedScreen" type="OptionButton" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="SelectedScreen" type="OptionButton" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OutOfBounds" type="CheckBox" parent="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer"]
+[node name="OutOfBounds" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "If a screen is selected and the cursor is out of it. The mouse is no longer tracked."
@@ -344,12 +344,12 @@ focus_mode = 0
 text = "Restart Mic"
 alignment = 0
 
-[node name="Import Settings" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
+[node name="Import" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Margin" type="MarginContainer" parent="SettingVbox/SettingsTab/Import Settings"]
+[node name="Margin" type="MarginContainer" parent="SettingVbox/SettingsTab/Import"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -358,10 +358,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Import Settings/Margin"]
+[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Import/Margin"]
 layout_mode = 2
 
-[node name="ImportTrim" type="CheckBox" parent="SettingVbox/SettingsTab/Import Settings/Margin/VBox"]
+[node name="ImportTrim" type="CheckBox" parent="SettingVbox/SettingsTab/Import/Margin/VBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(262, 0)
 layout_mode = 2
@@ -370,7 +370,7 @@ tooltip_text = "Automatically crop away any empty space
 surrounding an image when the image is opened."
 text = "Crop Images to Content"
 
-[node name="KeepOldTrimData" type="CheckBox" parent="SettingVbox/SettingsTab/Import Settings/Margin/VBox"]
+[node name="KeepOldTrimData" type="CheckBox" parent="SettingVbox/SettingsTab/Import/Margin/VBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(262, 0)
 layout_mode = 2
@@ -593,25 +593,25 @@ popup/item_6/id = 6
 popup/item_7/text = "Frutiger Aero"
 popup/item_7/id = 7
 
-[connection signal="toggled" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer/InputCheckButton" to="SettingsScript" method="_on_input_check_button_toggled"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer/AntiAlCheck" to="SettingsScript" method="_on_anti_al_check_toggled"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer/AutoLoadCheck" to="SettingsScript" method="_on_auto_load_check_toggled"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/GridContainer/DeltaTimeCheck" to="SettingsScript" method="_on_delta_time_check_toggled"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBox2/SaveOnExitCheck" to="SettingsScript" method="_on_save_on_exit_check_toggled"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBox/AutoSaveCheck" to="SettingsScript" method="_on_auto_save_check_toggled"]
-[connection signal="value_changed" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBox/AutoSaveSpin" to="SettingsScript" method="_on_auto_save_spin_value_changed"]
-[connection signal="drag_ended" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBoxContainer/MaxFPSlider" to="SettingsScript" method="_on_max_fp_slider_drag_ended"]
-[connection signal="value_changed" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBoxContainer/MaxFPSlider" to="SettingsScript" method="_on_max_fp_slider_value_changed"]
-[connection signal="item_selected" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/HBoxContainer2/SelectedScreen" to="SettingsScript" method="_on_selected_screen_item_selected"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Model Settings/MarginContainer/VBoxContainer/OutOfBounds" to="SettingsScript" method="_on_out_of_bounds_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer/InputCheckButton" to="SettingsScript" method="_on_input_check_button_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer/AntiAlCheck" to="SettingsScript" method="_on_anti_al_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer/AutoLoadCheck" to="SettingsScript" method="_on_auto_load_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer/DeltaTimeCheck" to="SettingsScript" method="_on_delta_time_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox2/SaveOnExitCheck" to="SettingsScript" method="_on_save_on_exit_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox/AutoSaveCheck" to="SettingsScript" method="_on_auto_save_check_toggled"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox/AutoSaveSpin" to="SettingsScript" method="_on_auto_save_spin_value_changed"]
+[connection signal="drag_ended" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer/MaxFPSlider" to="SettingsScript" method="_on_max_fp_slider_drag_ended"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer/MaxFPSlider" to="SettingsScript" method="_on_max_fp_slider_value_changed"]
+[connection signal="item_selected" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer2/SelectedScreen" to="SettingsScript" method="_on_selected_screen_item_selected"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/OutOfBounds" to="SettingsScript" method="_on_out_of_bounds_toggled"]
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/VolumeBar/VolumeSlider" to="SettingsScript" method="_on_volume_slider_drag_ended"]
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/DelayBar/DelaySlider" to="SettingsScript" method="_on_delay_slider_drag_ended"]
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="SettingsScript" method="_on_sensitivity_slider_drag_ended"]
 [connection signal="value_changed" from="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="SettingsScript" method="_on_sensitivity_slider_value_changed"]
 [connection signal="pressed" from="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/HBoxContainer/ResetMicButton" to="SettingsScript" method="_on_reset_mic_button_pressed"]
 [connection signal="pressed" from="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/FixMicDelay" to="SettingsScript" method="_on_fix_mic_delay_pressed"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Import Settings/Margin/VBox/ImportTrim" to="SettingsScript" method="_on_import_trim_toggled"]
-[connection signal="toggled" from="SettingVbox/SettingsTab/Import Settings/Margin/VBox/KeepOldTrimData" to="SettingsScript" method="_on_keep_old_trim_data_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Import/Margin/VBox/ImportTrim" to="SettingsScript" method="_on_import_trim_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Import/Margin/VBox/KeepOldTrimData" to="SettingsScript" method="_on_keep_old_trim_data_toggled"]
 [connection signal="value_changed" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer/UIScalingSpinBox" to="SettingsScript" method="_on_ui_scaling_spin_box_value_changed"]
 [connection signal="value_changed" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer/UIScalingSlider" to="SettingsScript" method="_on_ui_scaling_slider_value_changed"]
 [connection signal="toggled" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/FloatyPanning" to="SettingsScript" method="_on_floaty_panning_toggled"]

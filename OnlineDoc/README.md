@@ -91,6 +91,23 @@ Another quick way is from the buttons on top of the layers tree in the Left Pane
 
 ![ImportObjects](assets/Tutorial_image_12.png)
 
+##### Image Preview:
+You can Drag and Drop from your File Manager/ Images onto the Previews to set the Objects's Image or Normal Map to one of the Images you have imported there.
+- Image : Previews your current selected Object.
+- Normal Map : Previews the Normal Map of your selected Object.
+
+![BasicMovement](assets/Tutorial_image_17.PNG)
+
+
+
+##### Layers Tools:
+
+
+##### Layers:
+
+
+##### File Manager:
+
 
 #### Right Panel : 
 ##### Properties : 
@@ -126,13 +143,16 @@ Another quick way is from the buttons on top of the layers tree in the Left Pane
 ---
 **<center>Debug section</center>**
 
-<br>This section is designed for more test and general model optimization.
-<br>Some users reported their models getting laggy and that is due to the amount of calculations running.
-<br>The fix for that is being able to disable/ set the feature to rest mode.
-<br>You can also use this section to toggle on something like Hidden Item, which makes it invisible in Preview mode, but its effects on children Objects still apply, etc.
+This section is designed for more test and general model optimization.  
+  
+Some users reported their models getting laggy and that is due to the amount of calculations running.  
+  
+The fix for that is being able to disable/ set the feature to rest mode.  
+  
+You can also use this section to toggle on something like Hidden Item, which makes it invisible in Preview mode, but its effects on children Objects still apply, etc.  
 
 ---
-<br>
+  
 Now here is where things get interesting!
 - Should Blink:
   if the Toggle is true, the object would be considered to be a part  
@@ -163,14 +183,14 @@ If this is on, the object’s movement gets affected by the parent’s Y-axis mo
 ![Physics](assets/Physics.gif)
 
 #### Clip Children:
-Sadly I am unable to find a good way to implement Clipping Masks.  
+> Sadly I am unable to find a good way to implement Clipping Masks.  
 The only current way to clip stuff is to make the object a child of  
 what you want to clip the object to and enable Clip Children on  
 the parent object.  
 This is a limitation I hope to be able to solve in the future 😇 
 
 ### Assets
-Lets talk about Assets/ Asset Toggles. Assets can be used on any Object Type. They are completely separate from States too. You need to keep in mind that an asset's toggle key and data is shared between all States.
+Assets and Asset Toggles. Assets can be used on any Object Type. They are completely separate from States too. You need to keep in mind that an asset's toggle key and data is shared between all States.
 
 - Is Asset : This is where you can make the Object an asset. Next to it is the keybind corresponding to this asset.
 - Don't Hide : Asset toggles.. are toggles, but sometimes you don't want the asset to hide again by pressing the same toggle button.
@@ -185,12 +205,12 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - X-Freq : The frequency of movement on the object per second on the x-axis.
 - Y-Amp : The amound of amplitude the object moves to on the y-axis.
 - Y-Freq : The frequency of movement on the object per second on the y-axis.
----
+
 - Drag : The amount of Weight/ drag you want to add to an object. The higher the Drag, the move weighted it feels.
 - Drag Snap : Sometimes your object may move a lot between states which could lead to the Drag breaking your model due to the sudden position jump, this parameter fixes it by defining the max distance of the Drag before snapping to the current Object position.
 - Stretch : the amound of stretch/ squish your object would have.
 - Index X and Index Y : The dynamic change of the object's index depends on how close/ far the movement is from the origin.
----
+
 - Min and Max Rot : the minimum and maximum rotation threshold the object can reach before stopping.
 - Rot-Degree : The amount of rotation applied on the object.
 - Rot-Freq : similar to Freq X and Y, but for rotation.
@@ -198,7 +218,7 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Auto Rotate : Self explanitory..
 
 ![BasicMovement](assets/Tutorial_image_4.PNG)
----
+
 **<center>Follow Section</center>**
 - Follow Options : For the position, rotation and scale, you can choose different tracking options. Mouse, keyboard, etc..
 - Delay : The amount of delay you want between your tracking and object reaching its target position.
@@ -219,7 +239,7 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 
 ![FollowApp](assets/Tutorial_image_5.PNG)
 
----
+
 **<center>Wiggle Sprite</center>**
 - Wiggle Sprite : Enables the sprites wiggling/ wobbling feature.
 - Wiggle Physics : Enables physics on wobble sprites where the parent movement affects the wobbling.
@@ -228,7 +248,7 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 
 ![WiggleSprite](assets/Tutorial_image_7.PNG)
 
----
+
 **<center>Wiggle Appendages</center>**
 - Auto Wag : Enables auto wagging, this feature, however disables the Curvature. 
 - Curvature : The amount of curve applied on your appendage, good for curly hair pieces or tails.
@@ -247,32 +267,33 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Anchor : The target anchor for the appendage turning it into a rope. Note : if two target objects share the same name, only the first one will appear on the list, keep that in mind..
 - Texture mode :  Either stretch the texture onto the appendage or tile it, tiling can be useful for something like chains.
 - Mirror Reaction H : Honestly, don't remember, need to check the code again. I think it was a test feature I forgot to remove.
-
-<br>Remember to check [Original Wiggle Appendage](https://github.com/Tameno-01/GodotWigglyAppendage2D). Check this [Basic Appendage Parameters for Artists](https://github.com/Tameno-01/GodotWigglyAppendage2D/blob/main/docs/parameter_decriptions.md)</br>
+  
+Remember to check [Original Wiggle Appendage](https://github.com/Tameno-01/GodotWigglyAppendage2D).  
+Check this [Basic Appendage Parameters for Artists](https://github.com/Tameno-01/GodotWigglyAppendage2D/blob/main/docs/parameter_decriptions.md)  
 
 ![Appendages](assets/Tutorial_image_6.PNG)
-
+---
 ### Animation
 This section is for controlling the Sprite-Sheet, Gif and APNG animations and few misc stuff.
 - Horizontal and Vertical Animation Frames : these are used for Sprite-Sheets, can be used on horizonal, vertical or grid sheets.
 - Animation Speed : The speed in which your animated sheet plays.
----
+
 - Reset Animation : Resets the animation if it was hidden then shown again.
 - One shot : Makes the animation only plays once if hidden then shown again.
 - Reset on State Change : Similar to Reset Animation, but only if the State is changed.
----
+
 - Rainbow : Enables the RGB/ Rainbow Effect
 - Self Rainbow : Only makes the effect work on the Object and not its children.
 - Rainbow Speed : The speed of the RGB cycling.
 
----
+
 **<center>Sprite-Sheet Specifics</center>**
 - None Animated Sheet : This feature freezes the Sheet, so you can pick which frame you want to show. Useful for customizable models.
 - Frame : The frame of the frozen sheet you want to show.
 - Animate to mouse : You may want to animate your sheet to the mouse/ Tracking X/ Y movements.
 - Move with Mouse : You can disable the movement with the tracking which makes the sheet stay in place, but still cycles through its animations with the movement.
 - Animation Speed : How fast the frame cycles to the tracked movement.
----
+
 **<center>Misc Animations</center>**
 - Fade : Makes the Object fade in/ out whe being hidden/ shown.
 - Fade Asset : Same as Fade, but only on Assets.
@@ -280,28 +301,125 @@ This section is for controlling the Sprite-Sheet, Gif and APNG animations and fe
 - Fade Asset (Slider) : The Speed of the Asset Fade.
 
 ![Fades](assets/Tutorial_image_8.PNG)
+---
+### Model
+**<center>Model Animations</center>**
+- Mouth Closed/ Open : Either of these lets you choose the animations you want to apply on the model when talking/ not talking.
 
+- Bounce Amount  : The amount of force your model jumps when the Bounce or Bounce Once are used.
+- Bounce Gravity : The amount of gravity/ pull force that the model falls by after bouncing.
+
+- X-Frequency Wobble : The Frequency of the Model Shaking on the x-axis.
+- X-Amplitude Wobble : The Amplitude/ Height of the Model Shaking on the x-axis.
+- Y-Frequency Wobble : The Frequency of the Model Shaking on the y-axis.
+- Y-Amplitude Wobble : The Amplitude/ Height of the Model Shaking on the y-axis.
+
+- Bounce When State Changes : Makes your model bounce on changing states. Completely dependent from the Model Animations.
+
+**<center>Eye Animations</center>**
+- Blink Speed  : The Speed of the Model blinking.
+- Blink Chance : The Blink chance (1 in x chance for blinking)
+
+- Squish Amount   : The amount of squish applied to your model at the center of the Sprite Holder.
+- Squish on Blink : Enables the Squishing feature when the model blinks.
+
+**<center>Effects</center>**
+- Color-Blindness Helper : This was a feature requested to help make your model visually friendly to people with color-blindness.
+- Model Effects : Some effects to you apply on your entire Model, not per Object.
+
+![Model](assets/Tutorial_image_13.PNG)
+
+---
+### Light
+Light can be used with the Normal Maps feature to give your model a dynamic light effect. Lights can still be used without Normal Maps, however.
+
+- Light Visible : Enables/ disables the Light feature.
+- Light Shape Visible : Shows where the Light is coming from using a small light indicator.
+
+- Light Color : The color of the Light source.
+- Darken : Darkens your model when not talking. When speaking, your model becoming lighter again then fades back to darkened.
+- Darken Color : Next to the toggle, you change the darkening color.
+
+- Pos-X : The position of the light source on the x-axis.
+- Pos-Y : The position of the light source on the y-axis.
+
+- Blend : The blend mode of the Light source (Mix, Add, Subtract).
+
+- Light Energy : The energy of the emitted light from the source.
+- Light Size : The size of the Light source.
+
+![Light](assets/Tutorial_image_14.PNG)
+
+---
+### Mesh
+Sorry, I broke it. Just kidding, I am still working on it.
+
+![Meshes](assets/Tutorial_image_15.PNG)
+
+---
+### Test
+Here, new features are usually added for testing before becoming official. Honorable mention : Advanced Lipsync.
+
+---
 ### Assigning Input keys and Naming States
 In V1.4 onwards, assigning Input Keys/ renaming States is done from the Remap button ontop of the states as shown here, not from settings. Don't forget to press enter after renaming your State.
 
 ![Input](assets/Tutorial_image_1.PNG)
 ![Input2](assets/Tutorial_image_2.png)
 
-
-### Settings
+---
+### Websocket
 For better info about the Websocket, check this [Websocket Documentation](https://github.com/vj4sothername/PNGTuber-websocket-documentation/blob/main/WebSocket_API_Documentation.md)
 
 Special thanks for vj4 for the feature!
 
+![Webs](assets/Tutorial_image_16.PNG)
+
+---
+### Settings
+- UI Theme : Changes the theme/ UI colors.
+
+#### Model
+- Detect Hotkeys : Enables/ Disable the Hotkeys detection.
+- Anti-Aliasing : Enables/ Disables the anti-aliasing on the entire model.
+- Auto-load Model : Auto loads your model between sessions.
+- Use DeltaTime : Uses physics ticks instead of advancing the physics by 1 per frame.
+- Save on Exit : Auto saves your model when closing the software.
+- Auto-Save : Auto saves your model after x amount of mins.
+- Max-FPS : The max FPS that the software can run on, by default, the software uses 60 FPS.
+- Follow Mouse Screen : The Screen which the follow mouse mainly focuses on when detecting the mouse position.
+- Snap Out of Bounds : Disables the mouse position detection if it is out of the selected screen.
+
+#### Audio
+- Volume : The threshold for the volume for detecting your speech.
+- Delay : The threshold/ delay of your mouth
+- Volume Sensitivity : Increases the sensitivity of the microphone detection.
+- Microphone : This is where you can select your microphone of choice.
+- Restart Microphone : This was added to restart the microphone if it stopped working.
+
+#### Import
+- Crop Images to Content : Trims/ Crops the transparent area around the images you import.
+- Keep Data Before Trim/ Crop : 
+
+#### Remix Settings
+- UI Scale : Scales up or down your UI depending on your needs.
+- Floaty Panning : Enables/ Disables floaty/ Snappy camera panning using the middle mouse button.
+- Fancy Cursor in Editor/ Preview : Custom cursors for editor or preview.
+- Save Unused Files : In the File Manager, you may have unused assets, you can enable this toggle to still save the unused data in the save file.
+- Language : Language.
+- Tracking Backend : The Global Input/ Shortcut backends system, choose what fits you (Note : Wayland can be a pain to use with this).
+- Audio Backend : Two different Audio input methods, use what feels better for your use.
+
+---
 ### Save and Load
 To Save and Load your model, you go to Files > Save/ Files > Save As and for loading, you go to File > Open.
 
-### Settings
 
+---
 ### Streamer Session
 (Still Work in progress, not recommended to use if you have a version with the feature enabled. It is currently Disabled.)
 
-
+---
 ## FAQ
 
 - I don’t know how to use this with OBS!  

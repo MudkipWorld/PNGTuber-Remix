@@ -263,11 +263,20 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 6
 
+[node name="Websocket" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 7
+
+[node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Websocket" instance=ExtResource("17_le2wr")]
+layout_mode = 1
+size_flags_vertical = 1
+
 [node name="Tests" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector"]
 visible = false
 y_sort_enabled = true
 layout_mode = 2
-metadata/_tab_index = 7
+metadata/_tab_index = 8
 
 [node name="ScrollContainer6" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests"]
 layout_mode = 1
@@ -324,10 +333,6 @@ visible_characters_behavior = 2
 
 [node name="HSeparator2" type="HSeparator" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" instance=ExtResource("17_le2wr")]
-layout_mode = 2
-size_flags_vertical = 1
 
 [node name="StatePanel" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" instance=ExtResource("10_1r6xj")]
 layout_mode = 2

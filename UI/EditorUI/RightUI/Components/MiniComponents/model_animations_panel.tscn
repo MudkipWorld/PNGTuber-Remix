@@ -170,13 +170,6 @@ max_value = 200.0
 value = 9.0
 rounded = true
 
-[node name="ShouldSquish" type="CheckBox" parent="Grid"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(116, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "TR_SQUISH_ON_BLINK"
-
 [node name="SquishAmount" parent="." instance=ExtResource("2_wkbb7")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -185,6 +178,13 @@ mini_value = 1.001
 max_value = 10.0
 step = 0.001
 value_to_update = ""
+
+[node name="ShouldSquish" type="CheckBox" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_SQUISH_ON_BLINK"
 
 [node name="HSeparator3" type="HSeparator" parent="."]
 layout_mode = 2
@@ -195,4 +195,4 @@ layout_mode = 2
 [connection signal="toggled" from="BounceStateCheck" to="ModelAnimations" method="_on_bounce_state_check_toggled"]
 [connection signal="value_changed" from="Grid/BlinkSpeedSlider" to="ModelAnimations" method="_on_blink_speed_slider_value_changed"]
 [connection signal="value_changed" from="Grid/BlinkChanceSlider" to="ModelAnimations" method="_on_blink_chance_slider_value_changed"]
-[connection signal="toggled" from="Grid/ShouldSquish" to="ModelAnimations" method="_on_should_squish_toggled"]
+[connection signal="toggled" from="ShouldSquish" to="ModelAnimations" method="_on_should_squish_toggled"]
