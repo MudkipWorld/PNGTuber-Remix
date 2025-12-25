@@ -231,21 +231,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			modifier.position.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.y, 0.0, actor.get_value("mouse_delay")))
 			return
 		
-	if actor.sprite_type == "Mesh" and mesh != null:
-		var can_deform : bool = true
-		if mesh != null && is_instance_valid(mesh):
-			can_deform = Global.mesh_text_node.deform
-		if !mesh.editable && !can_deform:
-			var raw_offset = target_pos
-			var amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
-			if amp.abs() != Vector2.ZERO:
-				var safe_deform_pos = mesh.apply_wobble_to_deformer(raw_offset, _delta, amp, 0.08)
-				if abs(safe_deform_pos.x) > 0:
-					mesh.deform_x = safe_deform_pos.x
-					mesh.deformations_3x3(mesh.deform_x, mesh.deform_y)
-				if abs(safe_deform_pos.y) > 0:
-					mesh.deform_y = safe_deform_pos.y
-					mesh.deformations_3x3(mesh.deform_x, mesh.deform_y)
+	if actor.sprite_type == "Mesh" and mesh != null && is_instance_valid(mesh):
 		if !actor.get_value("move_with_follow"):
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return

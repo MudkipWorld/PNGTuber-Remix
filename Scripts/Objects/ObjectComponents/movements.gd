@@ -86,18 +86,26 @@ func _physics_process(delta: float) -> void:
 	index_change_len_y = index_change_len_y * actor.get_value("index_change_y")
 	modifier_node.z_index = floori(index_change_len + index_change_len_y)
 	
-	if actor.sprite_type == "Mesh" and mesh != null:
+	if actor.sprite_type == "Mesh" and mesh != null && is_instance_valid(mesh):
 		var can_deform : bool = false
 		if is_instance_valid(Global.mesh_text_node):
-			if actor.get_value("phys_amp") != 0:
-				can_deform = Global.mesh_text_node.deform
-				if !mesh.editable && !can_deform:
-					var mesh_len = sprite_node.global_position
-					var safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, Vector2(actor.get_value("phys_amp"),actor.get_value("phys_amp")), actor.get_value("phys_strength"))
-					if abs(safe_deform_pos.x) != 0:
-						mesh.deformations_3x3(safe_deform_pos.x, mesh.deform_y)
-					if abs(safe_deform_pos.y) != 0:
-						mesh.deformations_3x3(mesh.deform_x, safe_deform_pos.y)
+			can_deform = Global.mesh_text_node.deform
+		if !mesh.editable && !can_deform:
+			var mesh_len = last_wobble_pos + %FollowComponent.target_pos
+			var physics_amp = Vector2.ZERO
+			if Vector2(actor.get_value("phys_amp"),actor.get_value("phys_amp")) != Vector2.ZERO:
+				mesh_len += sprite_node.global_position 
+				physics_amp = Vector2(actor.get_value("phys_amp"),actor.get_value("phys_amp"))
+			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
+			
+			var follow_amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
+			var final_amp = amp + physics_amp + follow_amp
+			var safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, actor.get_value("phys_strength"))
+			if abs(safe_deform_pos.x) != 0:
+				mesh.deformations_3x3(safe_deform_pos.x, mesh.deform_y)
+			if abs(safe_deform_pos.y) != 0:
+				mesh.deformations_3x3(mesh.deform_x, safe_deform_pos.y)
+
 
 func _process(_delta: float) -> void:
 	if actor.get_value("static_obj"):
@@ -116,18 +124,12 @@ func static_prev():
 func movements(delta):
 	if Global.static_view:
 		return
-
 	glob = %Modifier.global_position
 	wobble(delta)
 	drag(delta)
-	
-
 	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
-
 	var length = (glob.x - shadow_dragger.x) + (glob.y - shadow_dragger.y)
-	
-
 	if actor.get_value("physics"):
 		if (actor.get_parent() is Sprite2D && is_instance_valid(actor.get_parent())) or (actor.get_parent() is WigglyAppendage2D && is_instance_valid(actor.get_parent())):
 				var c_parent = actor.get_parent().owner
@@ -191,19 +193,7 @@ func wobble(delta: float) -> void:
 	else:
 		last_wobble_pos.y = sin((Global.tick-paused_wobble.y)*actor.get_value("yFrq"))*actor.get_value("yAmp")
 		
-	if actor.sprite_type == "Mesh" and mesh != null:
-		var can_deform : bool = false
-		if is_instance_valid(mesh):
-			can_deform = Global.mesh_text_node.deform
-		if  !mesh.editable && !can_deform:
-			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
-			if amp.abs() != Vector2.ZERO:
-				var safe_deform_pos = mesh.apply_wobble_to_deformer(last_wobble_pos, delta, amp, 0.08)
-				if abs(safe_deform_pos.x) > 0:
-					mesh.deformations_3x3(safe_deform_pos.x, mesh.deform_y)
-				if abs(safe_deform_pos.y) > 0:
-					mesh.deformations_3x3(mesh.deform_x, safe_deform_pos.y)
-
+	if actor.sprite_type == "Mesh" and mesh != null && is_instance_valid(mesh):
 		if !actor.get_value("move_with_wobble"):
 			return
 	applied_pos += last_wobble_pos

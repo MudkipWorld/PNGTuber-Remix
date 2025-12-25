@@ -6,8 +6,8 @@ func get_default_object_data() -> Dictionary:
 	return {
 		move_with_wobble = true,
 		move_with_follow= true,
-		phys_strength = 0.025,
-		phys_amp = 100,
+		phys_strength = 0.1,
+		phys_amp = 0,
 	}
 
 func _init() -> void:
