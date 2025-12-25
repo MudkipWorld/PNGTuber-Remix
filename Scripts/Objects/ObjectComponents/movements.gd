@@ -99,7 +99,9 @@ func _physics_process(delta: float) -> void:
 					if abs(safe_deform_pos.y) != 0:
 						mesh.deformations_3x3(mesh.deform_x, safe_deform_pos.y)
 
-
+func _process(_delta: float) -> void:
+	if actor.get_value("static_obj"):
+		actor.global_position = Global.sprite_container.get_parent().get_parent().to_global(actor.get_value("position"))
 
 func static_prev():
 	%Modifier.position = Vector2(0,0)
@@ -110,12 +112,11 @@ func static_prev():
 	%Modifier1.rotation = 0.0
 	%Modifier1.scale = Vector2(1,1)
 	modifier_node.z_index = 0
-	
 
 func movements(delta):
 	if Global.static_view:
 		return
-	
+
 	glob = %Modifier.global_position
 	wobble(delta)
 	drag(delta)
@@ -136,10 +137,6 @@ func movements(delta):
 					length += c_len_y + c_len_x
 	rotationalDrag(length, delta)
 	stretch(length, delta)
-
-
-
-
 
 func rest_mode_movements(delta):
 	if Global.static_view:

@@ -50,7 +50,6 @@ func _on_effect_color_color_changed(color: Color) -> void:
 	Global.sprite_container.model_effects.effect_color = color
 	Global.sprite_container.save_state(Global.current_state)
 
-
 func _on_size_slider_value_changed(value: float) -> void:
 	if !should_change: return
 	%SizeSlider2.value = value

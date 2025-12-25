@@ -13,7 +13,6 @@ static func open_photoshop_file(path: String) -> Array:
 		return []
 	psd_file.big_endian = true
 
-	# HEADER
 	if psd_file.get_buffer(4).get_string_from_utf8() != "8BPS":
 		return []
 	var version := psd_file.get_16()
@@ -29,11 +28,11 @@ static func open_photoshop_file(path: String) -> Array:
 
 	var color_data_length := psd_file.get_32()
 	if color_data_length > 0:
-		psd_file.seek(psd_file.get_position() + color_data_length)
+		safe_seek(psd_file, color_data_length)
 
 	var image_resources_length := psd_file.get_32()
 	if image_resources_length > 0:
-		psd_file.seek(psd_file.get_position() + image_resources_length)
+		safe_seek(psd_file, image_resources_length)
 
 	if is_psb:
 		psd_file.get_64()
@@ -82,7 +81,7 @@ static func open_photoshop_file(path: String) -> Array:
 				ch["length"] = psd_file.get_32()
 			layer["channels"].append(ch)
 
-		psd_file.seek(psd_file.get_position() + 8)
+		safe_seek(psd_file, 8)
 
 		layer["opacity"] = psd_file.get_8() / 255.0
 		psd_file.get_8()
@@ -97,12 +96,12 @@ static func open_photoshop_file(path: String) -> Array:
 		if psd_file.get_position() + 4 <= extra_end:
 			var mask_len := psd_file.get_32()
 			if mask_len > 0:
-				psd_file.seek(psd_file.get_position() + mask_len)
+				safe_seek(psd_file, mask_len)
 
 		if psd_file.get_position() + 4 <= extra_end:
 			var blend_len := psd_file.get_32()
 			if blend_len > 0:
-				psd_file.seek(psd_file.get_position() + blend_len)
+				safe_seek(psd_file, blend_len)
 
 		if psd_file.get_position() < extra_end:
 			var name_length := psd_file.get_8()
@@ -137,7 +136,7 @@ static func open_photoshop_file(path: String) -> Array:
 
 			var to_seek := block_start + ((length + 1) & ~1)
 			if to_seek > extra_end:
-				psd_file.seek(extra_end)
+				safe_seek(psd_file, extra_end)
 				break
 			else:
 				psd_file.seek(to_seek)
@@ -172,7 +171,7 @@ static func open_photoshop_file(path: String) -> Array:
 				channel["length"] = 0
 			if channel["length"] < 0 or channel["length"] > file_len:
 				channel["length"] = max(0, file_len - psd_file.get_position())
-			psd_file.seek(psd_file.get_position() + channel["length"])
+			safe_seek(psd_file, channel["length"])
 
 	for layer in psd_layers:
 		if layer["type"] != "layer":
@@ -206,21 +205,33 @@ static func open_photoshop_file(path: String) -> Array:
 		entry["opacity"] = layer["opacity"]
 		entry["offset"] = offset
 		result.append(entry)
-
 	return result
 
+static func safe_seek(file: FileAccess, offset: int) -> bool:
+	var pos := file.get_position()
+	var end := pos + offset
+	if offset < 0 or end > file.get_length():
+		return false
+	file.seek(end)
+	return true
 
 static func get_signed_16(file: FileAccess) -> int:
-	var buffer := file.get_buffer(2)
-	if file.big_endian:
-		buffer.reverse()
-	return buffer.decode_s16(0)
+	if file.get_length() >= 2:
+		var buffer := file.get_buffer(2)
+		if file.big_endian:
+			buffer.reverse()
+		return buffer.decode_s16(0)
+	else:
+		return -1
 
 static func get_signed_32(file: FileAccess) -> int:
-	var buffer := file.get_buffer(4)
-	if file.big_endian:
-		buffer.reverse()
-	return buffer.decode_s32(0)
+	if file.get_length() >= 4:
+		var buffer := file.get_buffer(4)
+		if file.big_endian:
+			buffer.reverse()
+		return buffer.decode_s32(0)
+	else:
+		return -1
 
 static func decode_psd_layer(psd_file: FileAccess, layer: Dictionary, is_psb: bool) -> Image:
 	var img_channels := {}

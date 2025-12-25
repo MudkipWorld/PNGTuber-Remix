@@ -98,15 +98,17 @@ You can Drag and Drop from your File Manager/ Images onto the Previews to set th
 
 ![BasicMovement](assets/Tutorial_image_17.PNG)
 
-
-
 ##### Layers Tools:
 
+![BasicMovement](assets/Tutorial_image_18.PNG)
 
 ##### Layers:
 
+![BasicMovement](assets/Tutorial_image_19.PNG)
 
 ##### File Manager:
+
+![BasicMovement](assets/Tutorial_image_20.PNG)
 
 
 #### Right Panel : 
@@ -355,6 +357,8 @@ Light can be used with the Normal Maps feature to give your model a dynamic ligh
 Sorry, I broke it. Just kidding, I am still working on it.
 
 ![Meshes](assets/Tutorial_image_15.PNG)
+
+![Model](assets/AddingMeshes.gif)
 
 ---
 ### Test

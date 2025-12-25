@@ -16,7 +16,7 @@ func _ready() -> void:
 	await  get_tree().physics_frame
 	not_speaking()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Global.settings_dict.checkinput != true:
 		return
 	var is_trying_to_appear = false
