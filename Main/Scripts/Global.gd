@@ -139,6 +139,7 @@ var is_editor : bool = true:
 
 var image_data = ImageData.new()
 var image_data_normal = ImageData.new()
+var selected_mesh_inx : int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

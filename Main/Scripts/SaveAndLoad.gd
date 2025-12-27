@@ -55,46 +55,64 @@ func save_data():
 			for key in InputMap.action_get_events(sprt.disappear_keys):
 				saved_events.append(key)
 		
+		
 		var base = {}
 		if sprt.sprite_type == "Mesh":
 			var mesh : CustomMesh = sprt.get_node("%Sprite2D")
+			var saved_layers : Array = []
+			
+			for layer in mesh.get_layers():
+				var data : Dictionary = {
+					top_left = layer.top_left,
+					top_middle = layer.top_middle,
+					top_right = layer.top_right,
+					middle_left = layer.middle_left,
+					center = layer.center,
+					middle_right = layer.middle_right,
+					bottom_left = layer.bottom_left,
+					bottom_middle = layer.bottom_middle,
+					bottom_right = layer.bottom_right,
+					external_velocity = layer.external_velocity,
+					stiffness = layer.stiffness,
+					damping = layer.damping,
+					mass = layer.mass,
+					follow_lerp = layer.follow_lerp,
+					noise_speed = layer.noise_speed,
+					noise_scale = layer.noise_scale,
+					sine_speed = layer.sine_speed,
+					sine_amplitude = layer.sine_amplitude,
+					target_strength = layer.target_strength,
+					motion = layer.motion
+				}
+				saved_layers.append(data)
+			
 			base = {
 			"original_vertices": PackedVector2Array(mesh.original_vertices),
 			"internal_vertices": PackedVector2Array(mesh.internal_vertices),
 			"base_vertices": PackedVector2Array(mesh.base_vertices),
 			"triangles": mesh.triangles,
-			"deformation_3x3": [
-				PackedVector2Array(mesh.deform_top_left),
-				PackedVector2Array(mesh.deform_top_middle),
-				PackedVector2Array(mesh.deform_top_right),
-				PackedVector2Array(mesh.deform_middle_left),
-				PackedVector2Array(mesh.deform_center),
-				PackedVector2Array(mesh.deform_middle_right),
-				PackedVector2Array(mesh.deform_bottom_left),
-				PackedVector2Array(mesh.deform_bottom_middle),
-				PackedVector2Array(mesh.deform_bottom_right),
-			],
-				"states": cleaned_array,
-				"sprite_name": sprt.sprite_name,
-				"sprite_id": sprt.sprite_id,
-				"parent_id": sprt.parent_id,
-				"sprite_type": sprt.sprite_type,
-				"is_asset": sprt.is_asset,
-				"saved_event": sprt.saved_event,
-				"was_active_before": sprt.was_active_before,
-				"should_disappear": sprt.should_disappear,
-				"show_only": sprt.show_only,
-				"saved_disappear": saved_events,
-				"hold_to_show":sprt.hold_to_show,
-				"is_collapsed": sprt.is_collapsed,
-				"is_premultiplied": true,
-				"layer_color": sprt.layer_color,
-				"image_id": sprt.used_image_id,
-				"normal_id": sprt.used_image_id_normal,
-				"rotated":sprt.rotated,
-				"flipped_h":sprt.flipped_h,
-				"flipped_v":sprt.flipped_v,
-				"rest_mode": sprt.rest_mode
+			"states": cleaned_array,
+			"deform_layers" : saved_layers,
+			"sprite_name": sprt.sprite_name,
+			"sprite_id": sprt.sprite_id,
+			"parent_id": sprt.parent_id,
+			"sprite_type": sprt.sprite_type,
+			"is_asset": sprt.is_asset,
+			"saved_event": sprt.saved_event,
+			"was_active_before": sprt.was_active_before,
+			"should_disappear": sprt.should_disappear,
+			"show_only": sprt.show_only,
+			"saved_disappear": saved_events,
+			"hold_to_show":sprt.hold_to_show,
+			"is_collapsed": sprt.is_collapsed,
+			"is_premultiplied": true,
+			"layer_color": sprt.layer_color,
+			"image_id": sprt.used_image_id,
+			"normal_id": sprt.used_image_id_normal,
+			"rotated":sprt.rotated,
+			"flipped_h":sprt.flipped_h,
+			"flipped_v":sprt.flipped_v,
+			"rest_mode": sprt.rest_mode
 			}
 
 		else:
@@ -446,41 +464,65 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 		mesh.base_vertices = sprite.base_vertices.duplicate()
 		mesh.triangles = sprite.triangles.duplicate()
 		mesh.internal_vertices = sprite.internal_vertices.duplicate()
-
-		# 2. Load deformation grids
 		if sprite.has("deformation_3x3"):
 			var d3 = sprite["deformation_3x3"]
-			mesh.deform_top_left = d3[0].duplicate()
-			mesh.deform_top_middle = d3[1].duplicate()
-			mesh.deform_top_right = d3[2].duplicate()
-			mesh.deform_middle_left = d3[3].duplicate()
-			mesh.deform_center = d3[4].duplicate()
-			mesh.deform_middle_right = d3[5].duplicate()
-			mesh.deform_bottom_left = d3[6].duplicate()
-			mesh.deform_bottom_middle = d3[7].duplicate()
-			mesh.deform_bottom_right = d3[8].duplicate()
-		else:
-			mesh.deform_top_left = sprite.deform_top_left.duplicate()
-			mesh.deform_top_middle = sprite.deform_top_middle.duplicate()
-			mesh.deform_top_right = sprite.deform_top_right.duplicate()
-			mesh.deform_middle_left = sprite.deform_middle_left.duplicate()
-			mesh.deform_center = sprite.deform_center.duplicate()
-			mesh.deform_middle_right = sprite.deform_middle_right.duplicate()
-			mesh.deform_bottom_left = sprite.deform_bottom_left.duplicate()
-			mesh.deform_bottom_middle = sprite.deform_bottom_middle.duplicate()
-			mesh.deform_bottom_right = sprite.deform_bottom_right.duplicate()
-
-		# 3. Set default deformation state
+			sprite_obj.get_node("%MeshEditor").add_layer()
+			sprite_obj.get_node("%MeshEditor").add_layer()
+			mesh.get_layer(1).top_left = _make_delta(d3[0].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).top_middle = _make_delta(d3[1].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).top_right = _make_delta(d3[2].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).middle_left = _make_delta(d3[3].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).center = _make_delta(d3[4].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).middle_right = _make_delta(d3[5].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).bottom_left = _make_delta(d3[6].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).bottom_middle =_make_delta(d3[7].duplicate(), mesh.original_vertices)
+			mesh.get_layer(1).bottom_right = _make_delta(d3[8].duplicate(), mesh.original_vertices)
+		
+		elif sprite.has("deform_layers"):
+			var layers = sprite["deform_layers"]
+			for idx in layers.size():
+				sprite_obj.get_node("%MeshEditor").add_layer()
+				mesh.get_layer(idx).top_left = layers[idx].top_left
+				mesh.get_layer(idx).top_middle = layers[idx].top_middle
+				mesh.get_layer(idx).top_right = layers[idx].top_right
+				mesh.get_layer(idx).middle_left = layers[idx].middle_left
+				mesh.get_layer(idx).center = layers[idx].center
+				mesh.get_layer(idx).middle_right = layers[idx].middle_right
+				mesh.get_layer(idx).bottom_left = layers[idx].bottom_left
+				mesh.get_layer(idx).bottom_middle = layers[idx].bottom_middle
+				mesh.get_layer(idx).bottom_right = layers[idx].bottom_right
+				mesh.get_layer(idx).external_velocity = layers[idx].external_velocity
+				mesh.get_layer(idx).stiffness = layers[idx].stiffness
+				mesh.get_layer(idx).damping = layers[idx].damping
+				mesh.get_layer(idx).mass = layers[idx].mass
+				mesh.get_layer(idx).damping = layers[idx].damping
+				mesh.get_layer(idx).mass = layers[idx].mass
+				mesh.get_layer(idx).follow_lerp = layers[idx].follow_lerp
+				mesh.get_layer(idx).noise_speed = layers[idx].noise_speed
+				mesh.get_layer(idx).noise_scale = layers[idx].noise_scale
+				mesh.get_layer(idx).sine_speed = layers[idx].sine_speed
+				mesh.get_layer(idx).sine_amplitude = layers[idx].sine_amplitude
+				mesh.get_layer(idx).target_strength = layers[idx].target_strength
+				mesh.get_layer(idx).motion = layers[idx].motion
+				
 		mesh.deform_x = 0.5
 		mesh.deform_y = 0.5
+		
 
 		mesh.interpolated_vertices.clear()
 		mesh.deformed_vertices = mesh.original_vertices.duplicate()
 		mesh.sync_deformation_arrays()
 
-		
 	Global.sprite_container.add_child(sprite_obj)
 	sprite_obj.sprite_type = "Mesh"
+
+func _make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> PackedVector2Array:
+	var delta := PackedVector2Array()
+	delta.resize(verts.size())
+	for i in range(verts.size()):
+		delta[i] = verts[i] - original[i]
+	return delta
+
 
 func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 		var canv: CanvasTexture = CanvasTexture.new()

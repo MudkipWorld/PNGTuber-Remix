@@ -15,6 +15,7 @@ class_name BetterSpinboxes
 var should_change: bool = false
 var held_spinbox = null
 var val = []
+@export var update_mesh : bool = false
 
 func _ready():
 	Global.reinfo.connect(enable)
@@ -82,18 +83,34 @@ func _apply_value_to_selected(nvalue: float, push_undo: bool):
 	for sprite in Global.held_sprites:
 		if sprite == null or not is_instance_valid(sprite) or sp_type == "Null":
 			continue
-		if is_x.is_empty():
-			sprite.sprite_data[value_to_update] = nvalue
-		elif is_x.to_lower()  == "x":
-			sprite.sprite_data[value_to_update].x = nvalue
-		elif is_x.to_lower() == "y":
-			sprite.sprite_data[value_to_update].y = nvalue
-		if sprite.sprite_type == "WiggleApp" and sp_type == "WiggleApp":
-			sprite.update_wiggle_parts()
-		sprite.save_state(Global.current_state)
+		
+		if update_mesh:
+			if is_x.is_empty():
+				sprite.mesh.set(value_to_update, nvalue)
+			elif is_x.to_lower()  == "x":
+				var test = sprite.mesh.get(value_to_update)
+				test.x = nvalue
+				sprite.mesh.set(value_to_update, test)
+			elif is_x.to_lower() == "y":
+				var test = sprite.mesh.get(value_to_update)
+				test.y = nvalue
+				sprite.mesh.set(value_to_update, test)
+
+		else:
+			if is_x.is_empty():
+				sprite.sprite_data[value_to_update] = nvalue
+			elif is_x.to_lower()  == "x":
+				sprite.sprite_data[value_to_update].x = nvalue
+			elif is_x.to_lower() == "y":
+				sprite.sprite_data[value_to_update].y = nvalue
+			if sprite.sprite_type == "WiggleApp" and sp_type == "WiggleApp":
+				sprite.update_wiggle_parts()
+				
+			sprite.save_state(Global.current_state)
 		
 		for i in val:
 			i.merge({new_val = sprite.sprite_data[value_to_update]}, true)
+		
 	if push_undo:
 		UndoRedoManager.push_data(val)
 

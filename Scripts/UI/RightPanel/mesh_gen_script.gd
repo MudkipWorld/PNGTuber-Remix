@@ -20,8 +20,7 @@ func nullfy():
 	%GenerateMesh3.disabled = true
 	%GenerateMesh4.disabled = true
 	%GenerateMesh5.disabled = true
-	%PhysicsStrength.editable = false
-	%PhysicsAmp.editable = false
+	%GenerateMesh6.disabled = true
 	
 		
 	for i in Global.get_tree().get_nodes_in_group("Meshes"):
@@ -41,8 +40,7 @@ func enable():
 			%GenerateMesh3.disabled = false
 			%GenerateMesh4.disabled = false
 			%GenerateMesh5.disabled = false
-			%PhysicsStrength.editable = true
-			%PhysicsAmp.editable = true
+			%GenerateMesh6.disabled = false
 			set_data()
 
 func set_data():
@@ -55,8 +53,6 @@ func set_data():
 					i.get_node("%MeshEditor").queue_redraw()
 				%FollowWobble.button_pressed = i.get_value("move_with_wobble")
 				%FollowMovements.button_pressed = i.get_value("move_with_follow")
-				%PhysicsStrength.value = i.get_value("phys_strength")
-				%PhysicsAmp.value = i.get_value("phys_amp")
 					
 	should_change = true
 
@@ -180,21 +176,17 @@ func _on_tri_grid_toggled(toggled_on: bool) -> void:
 func _on_tri_radial_toggled(toggled_on: bool) -> void:
 	MeshEditor.radial_hex = toggled_on
 
-
 func _on_flip_pressed() -> void:
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").create_mirrored_mesh()
 
-
 func _on_outer_padding_toggled(toggled_on: bool) -> void:
 	MeshEditor.outer_padding = toggled_on
 
-
 func _on_padding_value_changed(value: float) -> void:
 	MeshEditor.padding = value
-
 
 func _on_generate_mesh_2_pressed() -> void:
 	for i in Global.held_sprites:
@@ -202,13 +194,11 @@ func _on_generate_mesh_2_pressed() -> void:
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").regenerate_preserve_deformation()
 
-
 func _on_generate_mesh_3_pressed() -> void:
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").auto_gen_corners()
-
 
 func _on_generate_mesh_4_pressed() -> void:
 	for i in Global.held_sprites:
@@ -216,35 +206,14 @@ func _on_generate_mesh_4_pressed() -> void:
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").flip_3x3_grid_horizontally()
 
-
 func _on_generate_mesh_5_pressed() -> void:
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").mirror_right_to_left()
 
-
 func _on_generate_mesh_6_pressed() -> void:
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").reset_point()
-
-
-
-func _on_physics_strength_value_changed(value: float) -> void:
-	if should_change:
-		for i in Global.held_sprites:
-			if i.sprite_type == "Mesh":
-				i.sprite_data.phys_strength = value
-				StateButton.multi_edit(value, "phys_strength", i, i.states)
-				i.save_state(Global.current_state)
-
-
-func _on_physics_amp_value_changed(value: float) -> void:
-	if should_change:
-		for i in Global.held_sprites:
-			if i.sprite_type == "Mesh":
-				i.sprite_data.phys_amp = value
-				StateButton.multi_edit(value, "phys_amp", i, i.states)
-				i.save_state(Global.current_state)

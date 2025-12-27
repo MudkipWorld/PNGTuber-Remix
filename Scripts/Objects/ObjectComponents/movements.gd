@@ -32,6 +32,7 @@ var shadow_dragger : Vector2 = Vector2(0,0)
 var glob: Vector2 = Vector2.ZERO
 var rdrag_rad: float = 0.0
 var shadow_target : Vector2 = Vector2.ZERO
+var last_modifier_position = Vector2(0,0)
 
 func _ready() -> void:
 	modifier_node = %Modifier
@@ -91,20 +92,20 @@ func _physics_process(delta: float) -> void:
 		if is_instance_valid(Global.mesh_text_node):
 			can_deform = Global.mesh_text_node.deform
 		if !mesh.editable && !can_deform:
-			var mesh_len = last_wobble_pos + %FollowComponent.target_pos
-			var physics_amp = Vector2.ZERO
-			if Vector2(actor.get_value("phys_amp"),actor.get_value("phys_amp")) != Vector2.ZERO:
-				mesh_len += sprite_node.global_position 
-				physics_amp = Vector2(actor.get_value("phys_amp"),actor.get_value("phys_amp"))
+			var mesh_len = last_wobble_pos + %FollowComponent.target_pos + (%Modifier1.global_position - last_modifier_position )
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
-			
 			var follow_amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
-			var final_amp = amp + physics_amp + follow_amp
-			var safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, actor.get_value("phys_strength"))
+			var final_amp = amp  + follow_amp + Vector2(25,25)
+			var safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, final_amp.length())
 			if abs(safe_deform_pos.x) != 0:
-				mesh.deformations_3x3(safe_deform_pos.x, mesh.deform_y)
+				mesh.deform_x = safe_deform_pos.x
+				mesh.update_physics(delta, false)
 			if abs(safe_deform_pos.y) != 0:
-				mesh.deformations_3x3(mesh.deform_x, safe_deform_pos.y)
+				mesh.deform_y = safe_deform_pos.y
+				mesh.update_physics(delta, false)
+			
+		last_modifier_position.lerp(%Modifier1.global_position, 0.08)
+
 
 
 func _process(_delta: float) -> void:

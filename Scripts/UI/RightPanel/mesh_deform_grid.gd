@@ -17,13 +17,13 @@ func enable():
 				nullfy()
 				break
 			enabled = true
-			update_all_meshes_points()
+			update_all_meshes_points(0.08)
 
 func nullfy():
 	enabled = false
 	dragging = false
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if dragging:
 		var local_pos = %PointerHolder.get_local_mouse_position()
 		var _size = %PointerHolder.size
@@ -33,7 +33,7 @@ func _physics_process(_delta: float) -> void:
 		%Pointer.position = local_pos - pointer_offset
 		deform_x = clamp(local_pos.x / _size.x, 0.0, 1.0)
 		deform_y = clamp(local_pos.y / _size.y, 0.0, 1.0)
-		update_all_meshes_points()
+		update_all_meshes_points(delta)
 	if Input.is_action_just_released("lmb") && dragging:
 		var _size = %PointerHolder.size
 		var pointer_offset = Vector2(20, 20)
@@ -55,15 +55,15 @@ func _physics_process(_delta: float) -> void:
 		%Pointer.position = closest - pointer_offset
 		deform_x = clamp(closest.x / _size.x, 0.0, 1.0)
 		deform_y = clamp(closest.y / _size.y, 0.0, 1.0)
-		update_all_meshes_points()
+		update_all_meshes_points(delta)
 		dragging = false
 
-func update_all_meshes_points():
+func update_all_meshes_points(delta):
 	for i in Global.get_tree().get_nodes_in_group("Meshes"):
-		var sprite = i.get_node("%Sprite2D")
+		var sprite : CustomMesh = i.get_node("%Sprite2D")
 		sprite.deform_x = deform_x
 		sprite.deform_y = deform_y
-		sprite.deformations_3x3(deform_x, deform_y)
+		sprite.update_physics(delta, true)
 		i.get_node("%MeshEditor").queue_redraw()
 
 func _on_texture_rect_gui_input(event: InputEvent) -> void:

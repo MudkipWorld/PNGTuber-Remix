@@ -6,8 +6,6 @@ func get_default_object_data() -> Dictionary:
 	return {
 		move_with_wobble = true,
 		move_with_follow= true,
-		phys_strength = 0.1,
-		phys_amp = 0,
 	}
 
 func _init() -> void:
@@ -119,8 +117,7 @@ func get_state(id):
 		
 	elif states[id].is_empty():
 		states[id] = sprite_data.duplicate(true)
-	
-	%Sprite2D.deformations_3x3(%Sprite2D.deform_x,%Sprite2D.deform_y)
+
 
 
 func check_talk():
@@ -146,3 +143,10 @@ func zazaza(parent):
 func _on_sprite_2d_text_changed() -> void:
 	sprite_data.text_data = %Sprite2D.text
 	save_state(Global.current_state)
+
+func update_mesh_data():
+	if mesh.get_layer_count() < Global.selected_mesh_inx:
+		return
+	
+	var _layer = mesh.get_layer(Global.selected_mesh_inx)
+	pass
