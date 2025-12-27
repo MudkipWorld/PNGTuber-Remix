@@ -57,6 +57,8 @@ func move_stuff(item: TreeItem, other_item: TreeItem, at_position: Vector2) -> v
 
 
 func _move_into(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -> void:
+	var old_parent = item.get_parent()
+	var old_index = item.get_index()
 	item.get_parent().remove_child(item)
 	other_item.add_child(item)
 
@@ -64,6 +66,16 @@ func _move_into(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -
 		_move_sprite_to_root(sprite)
 	else:
 		_attach_sprite_to_parent(sprite, other_item)
+	var undo_data = {
+		tree = self,
+		item = item,
+		old_parent = old_parent,
+		new_parent = other_item,
+		old_index = old_index,
+		new_index = item.get_index()
+	}
+	
+	UndoRedoManager.push_data(undo_data)
 
 	await _finalize_move(sprite, og_pos)
 	recolor_layer()
@@ -72,6 +84,8 @@ func _move_into(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -
 func _move_above(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -> void:
 	var other_parent = other_item.get_parent()
 	var old_parent = item.get_parent()
+	var old_index = item.get_index()
+	var undo_data = {}
 	if other_item == get_root():
 		old_parent.remove_child(item)
 		get_root().add_child(item)
@@ -81,6 +95,15 @@ func _move_above(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) 
 			sprite.get_parent().remove_child(sprite)
 			Global.sprite_container.add_child(sprite)
 			Global.sprite_container.move_child(sprite, item.get_index())
+			
+		undo_data = {
+			tree = self,
+			item = item,
+			old_parent = old_parent,
+			new_parent = other_item,
+			old_index = old_index,
+			new_index = item.get_index()
+		}
 	
 	elif other_parent != old_parent:
 		old_parent.remove_child(item)
@@ -92,9 +115,28 @@ func _move_above(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) 
 			new_sprite_parent.add_child(sprite)
 			new_sprite_parent.move_child(sprite, item.get_index())
 		sprite.parent_id = other_item.get_metadata(0).sprite_object.parent_id
+		undo_data = {
+			tree = self,
+			item = item,
+			old_parent = old_parent,
+			new_parent = other_parent,
+			old_index = old_index,
+			new_index = item.get_index()
+		}
+		
 	else:
 		item.move_before(other_item)
 		sprite.get_parent().move_child(sprite, item.get_index())
+		undo_data = {
+			tree = self,
+			item = item,
+			old_parent = old_parent,
+			new_parent = other_parent,
+			old_index = old_index,
+			new_index = item.get_index()
+		}
+
+	UndoRedoManager.push_data(undo_data)
 
 	await _finalize_move(sprite, og_pos)
 	recolor_layer()
@@ -102,6 +144,8 @@ func _move_above(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) 
 func _move_below(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) -> void:
 	var other_parent = other_item.get_parent()
 	var old_parent = item.get_parent()
+	var old_index = item.get_index()
+	var undo_data = {}
 	if other_item == get_root():
 		old_parent.remove_child(item)
 		get_root().add_child(item)
@@ -111,6 +155,15 @@ func _move_below(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) 
 			sprite.get_parent().remove_child(sprite)
 			Global.sprite_container.add_child(sprite)
 			Global.sprite_container.move_child(sprite, item.get_index())
+		undo_data = {
+			tree = self,
+			item = item,
+			old_parent = old_parent,
+			new_parent = other_item,
+			old_index = old_index,
+			new_index = item.get_index()
+		}
+			
 	elif other_parent != old_parent:
 		old_parent.remove_child(item)
 		other_parent.add_child(item)
@@ -121,9 +174,32 @@ func _move_below(item: TreeItem, other_item: TreeItem, sprite, og_pos: Vector2) 
 			new_sprite_parent.add_child(sprite)
 			new_sprite_parent.move_child(sprite, item.get_index())
 		sprite.parent_id = other_item.get_metadata(0).sprite_object.parent_id
+		undo_data = {
+			tree = self,
+			item = item,
+			old_parent = old_parent,
+			new_parent = other_parent,
+			old_index = old_index,
+			new_index = item.get_index()
+		}
+		
+		
 	else:
 		item.move_after(other_item)
 		sprite.get_parent().move_child(sprite, item.get_index())
+		undo_data = {
+			tree = self,
+			item = item,
+			old_parent = old_parent,
+			new_parent = other_parent,
+			old_index = old_index,
+			new_index = item.get_index()
+		}
+		
+
+	
+	UndoRedoManager.push_data(undo_data)
+	
 	await _finalize_move(sprite, og_pos)
 	recolor_layer()
 

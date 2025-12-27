@@ -7,7 +7,7 @@ func _ready():
 	Global.reinfo.connect(info_held)
 	Global.slider_values.connect(sliders_revalue)
 	Global.deselect.connect(info_desel)
-	%CreditLabel.text = "PNGTuber Remix by TheMime (MudkipWorld). Better UI by LeoRson. Websocket code by vj4. V" + Global.version
+	%CreditLabel.text = "PNGTuber Remix by TheMime. Better UI by LeoRson. Websocket code by vj4. V" + Global.version
 	get_window().size_changed.connect(update_size_label)
 
 func info_held():
