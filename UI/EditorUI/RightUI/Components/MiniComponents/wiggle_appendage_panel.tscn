@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://0pdcrfa5cxci"]
+[gd_scene load_steps=5 format=3 uid="uid://0pdcrfa5cxci"]
 
 [ext_resource type="Script" uid="uid://cfb1omm82mv67" path="res://Scripts/UI/RightPanel/wiggle_appendage.gd" id="1_txqgg"]
 [ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="2_cimjc"]
+[ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="3_cimjc"]
+[ext_resource type="PackedScene" uid="uid://b15lo00q8fe1j" path="res://UI/BetterSlider/better_spinboxes.tscn" id="3_smak3"]
 
 [node name="WiggleAppendagePanel" type="VBoxContainer"]
 anchors_preset = 15
@@ -159,101 +161,52 @@ step = 0.01
 ui_type = 1
 value_to_update = "damping"
 
-[node name="HBox30" type="HBoxContainer" parent="WiggleAppStuff/GridContainer"]
-unique_name_in_owner = true
+[node name="WiggleWidthSpin" parent="WiggleAppStuff/GridContainer" instance=ExtResource("3_smak3")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 4
-
-[node name="WiggleWidthLabel" type="Label" parent="WiggleAppStuff/GridContainer/HBox30"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(89, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "TR_WIDTH"
-
-[node name="WiggleWidthSpin" type="SpinBox" parent="WiggleAppStuff/GridContainer/HBox30"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
+sp_type = "WiggleApp"
+label_text = "TR_WIDTH"
+mini_value = 1.0
 max_value = 10000.0
+step = 0.5
+value_to_update = "width"
 
-[node name="HBox31" type="HBoxContainer" parent="WiggleAppStuff/GridContainer"]
-unique_name_in_owner = true
+[node name="WiggleLengthSpin" parent="WiggleAppStuff/GridContainer" instance=ExtResource("3_smak3")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 4
-
-[node name="WiggleLengthLabel" type="Label" parent="WiggleAppStuff/GridContainer/HBox31"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(89, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "TR_LENGTH_LABEL"
-
-[node name="WiggleLengthSpin" type="SpinBox" parent="WiggleAppStuff/GridContainer/HBox31"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
+sp_type = "WiggleApp"
+label_text = "TR_LENGTH_LABEL"
+mini_value = 1.0
 max_value = 10000.0
+step = 0.5
+value_to_update = "segm_length"
 
-[node name="HBox" type="HBoxContainer" parent="WiggleAppStuff/GridContainer"]
+[node name="WiggleGravityXSpin" parent="WiggleAppStuff/GridContainer" instance=ExtResource("3_smak3")]
 layout_mode = 2
-size_flags_horizontal = 3
+sp_type = "WiggleApp"
+label_text = "TR_GRAVITY_X_LABEL"
+mini_value = 1.0
+max_value = 10000.0
+step = 0.5
+value_to_update = "wiggle_gravity"
+is_x = "x"
 
-[node name="X" type="Label" parent="WiggleAppStuff/GridContainer/HBox"]
-custom_minimum_size = Vector2(93, 0)
+[node name="WiggleGravityYSpin" parent="WiggleAppStuff/GridContainer" instance=ExtResource("3_smak3")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "TR_GRAVITY_X_LABEL"
+sp_type = "WiggleApp"
+label_text = "TR_GRAVITY_Y_LABEL"
+mini_value = 1.0
+max_value = 10000.0
+step = 0.5
+value_to_update = "wiggle_gravity"
+is_x = "y"
 
-[node name="WAGravityX" type="SpinBox" parent="WiggleAppStuff/GridContainer/HBox"]
-unique_name_in_owner = true
+[node name="WiggleGravityYSpin2" parent="WiggleAppStuff/GridContainer" instance=ExtResource("3_smak3")]
 layout_mode = 2
-size_flags_horizontal = 3
-min_value = -3000.0
-max_value = 3000.0
-step = 0.1
-
-[node name="HBox33" type="HBoxContainer" parent="WiggleAppStuff/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 4
-
-[node name="Y" type="Label" parent="WiggleAppStuff/GridContainer/HBox33"]
-custom_minimum_size = Vector2(89, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "TR_GRAVITY_Y_LABEL"
-
-[node name="WAGravityY" type="SpinBox" parent="WiggleAppStuff/GridContainer/HBox33"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -3000.0
-max_value = 3000.0
-step = 0.1
-
-[node name="HBox32" type="HBoxContainer" parent="WiggleAppStuff/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 4
-
-[node name="WiggleSubDLabel" type="Label" parent="WiggleAppStuff/GridContainer/HBox32"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(89, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "TR_SUB_DIVISION_LABEL"
-
-[node name="WiggleSubDSpin" type="SpinBox" parent="WiggleAppStuff/GridContainer/HBox32"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 1.0
-value = 1.0
+sp_type = "WiggleApp"
+label_text = "TR_SUB_DIVISION_LABEL"
+mini_value = 1.0
+max_value = 100.0
+step = 1.0
+value_to_update = "subdivision"
 
 [node name="AppendRoationBSlider" parent="WiggleAppStuff/GridContainer" instance=ExtResource("2_cimjc")]
 layout_mode = 2
@@ -270,6 +223,9 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_CLOSED_LOOP"
+script = ExtResource("3_cimjc")
+sp_type = "WiggleApp"
+value_to_update = "wiggle_closed_loop"
 
 [node name="Grid" type="GridContainer" parent="WiggleAppStuff"]
 layout_mode = 2
@@ -283,6 +239,9 @@ size_flags_horizontal = 3
 tooltip_text = "Keeps its length when linked to an anchor."
 theme_override_font_sizes/font_size = 14
 text = "TR_KEEP_LENGTH"
+script = ExtResource("3_cimjc")
+sp_type = "WiggleApp"
+value_to_update = "keep_length_anchor"
 
 [node name="MaxStretchBSlider3" parent="WiggleAppStuff/Grid" instance=ExtResource("2_cimjc")]
 unique_name_in_owner = true
@@ -329,22 +288,6 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_TILE"
 popup/item_1/id = 1
 
-[node name="MirrorMovementAnchor" type="CheckBox" parent="WiggleAppStuff/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Keeps its length when linked to an anchor."
-theme_override_font_sizes/font_size = 14
-text = "TR_MIRROR_REACTION_H"
-
 [connection signal="toggled" from="WiggleAppStuff/AutoWagCheck" to="WiggleAppendage" method="_on_auto_wag_check_toggled"]
-[connection signal="value_changed" from="WiggleAppStuff/GridContainer/HBox30/WiggleWidthSpin" to="WiggleAppendage" method="_on_wiggle_width_spin_value_changed"]
-[connection signal="value_changed" from="WiggleAppStuff/GridContainer/HBox31/WiggleLengthSpin" to="WiggleAppendage" method="_on_wiggle_length_spin_value_changed"]
-[connection signal="value_changed" from="WiggleAppStuff/GridContainer/HBox/WAGravityX" to="WiggleAppendage" method="_on_wa_gravity_x_value_changed"]
-[connection signal="value_changed" from="WiggleAppStuff/GridContainer/HBox33/WAGravityY" to="WiggleAppendage" method="_on_wa_gravity_y_value_changed"]
-[connection signal="value_changed" from="WiggleAppStuff/GridContainer/HBox32/WiggleSubDSpin" to="WiggleAppendage" method="_on_wiggle_sub_d_spin_value_changed"]
-[connection signal="toggled" from="WiggleAppStuff/GridContainer/ClosedLoopCheck" to="WiggleAppendage" method="_on_closed_loop_check_toggled"]
-[connection signal="toggled" from="WiggleAppStuff/Grid/StretchToAnchor" to="WiggleAppendage" method="_on_stretch_to_anchor_toggled"]
 [connection signal="item_selected" from="WiggleAppStuff/Grid/AnchorSprite" to="WiggleAppendage" method="_on_anchor_sprite_item_selected"]
 [connection signal="item_selected" from="WiggleAppStuff/Grid/TextureModeOption" to="WiggleAppendage" method="_on_texture_mode_option_item_selected"]
-[connection signal="toggled" from="WiggleAppStuff/Grid/MirrorMovementAnchor" to="WiggleAppendage" method="_on_mirror_movement_anchor_toggled"]

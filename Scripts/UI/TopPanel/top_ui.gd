@@ -34,3 +34,10 @@ func update_fps(value):
 
 func update_size_label():
 	%WindowSize.text = "Window Size " + str(get_window().size)
+
+func _input(event: InputEvent) -> void:
+	if Global.mode == 0:
+		if event.is_action_pressed("ui_undo"):
+			UndoRedoManager.undo()
+		if event.is_action_pressed("ui_redo"):
+			UndoRedoManager.redo()

@@ -1,8 +1,6 @@
 @icon("res://UI/BetterSlider/BetSIcon .png")
 extends HBoxContainer
-class_name BetterSlider
-
-enum Type { Both, Spin, Slide, NoLabel, NoLabelSpin }
+class_name BetterSpinboxes
 
 @export var sp_type: String = "Null"
 @export var label_text: String = "placeholder"
@@ -10,9 +8,9 @@ enum Type { Both, Spin, Slide, NoLabel, NoLabelSpin }
 @export var max_value: float
 @export var step: float
 @export var value: float
-@export var ui_type: Type
 @export var value_to_update: String = "position": get = get_value
 @export var has_alt_values := false
+@export var is_x : String = ""
 
 var should_change: bool = false
 var held_spinbox = null
@@ -24,9 +22,7 @@ func _ready():
 	Global.editing_for_changed.connect(enable)
 	
 	_setup_spinbox()
-	_setup_slider()
 	_setup_label()
-	ready_type(ui_type)
 
 func _setup_spinbox():
 	%SpinBoxValue.get_line_edit().focus_mode = 1
@@ -36,36 +32,9 @@ func _setup_spinbox():
 	%SpinBoxValue.get_line_edit().focus_entered.connect(_on_spinbox_focused)
 	%SpinBoxValue.get_line_edit().focus_exited.connect(_on_spinbox_unfocused)
 
-func _setup_slider():
-	%SliderValue.min_value = mini_value
-	%SliderValue.max_value = max_value
-	%SliderValue.step = step
-
 func _setup_label():
 	%BetterSliderLabel.text = label_text
 
-func ready_type(typ):
-	match typ:
-		Type.Spin:
-			_hide_slider()
-			_expand_spinbox()
-		Type.Slide:
-			_hide_spinbox()
-		Type.NoLabel:
-			%BetterSliderLabel.hide()
-		Type.NoLabelSpin:
-			_hide_spinbox()
-			_expand_spinbox()
-			%BetterSliderLabel.hide()
-		_: pass
-
-func _hide_spinbox():
-	%SpinBoxValue.hide()
-	%SpinBoxValue.editable = false
-
-func _hide_slider():
-	%SliderValue.hide()
-	%SliderValue.editable = false
 
 func _expand_spinbox():
 	%SpinBoxValue.set_h_size_flags(Control.SIZE_EXPAND_FILL)
@@ -105,30 +74,7 @@ func _on_spin_box_value_value_changed(nvalue):
 			_apply_value_to_selected(nvalue, true)
 		held_spinbox = null
 		Global.spinbox_held = false
-		%SliderValue.value = nvalue
 		%SpinBoxValue.get_line_edit().release_focus()
-
-func _on_slider_value_drag_started() -> void:
-	if Global.held_sprites.is_empty(): return
-	val = []
-	if Global.held_sprites.is_empty(): return
-	for obj in Global.held_sprites:
-		var d = {
-				node = obj,
-				action = value_to_update,
-				state = Global.current_state,
-				value = obj.sprite_data[value_to_update]
-			}
-		val.append(d)
-
-func _on_slider_value_value_changed(nvalue):
-	if should_change:
-		%SpinBoxValue.value = nvalue
-		_apply_value_to_selected(nvalue, false)
-
-func _on_slider_value_drag_ended(value_changed: bool):
-	if value_changed and sp_type != "Null":
-		_apply_value_to_selected(%SliderValue.value, true)
 
 func _apply_value_to_selected(nvalue: float, push_undo: bool):
 	if not should_change:
@@ -136,7 +82,12 @@ func _apply_value_to_selected(nvalue: float, push_undo: bool):
 	for sprite in Global.held_sprites:
 		if sprite == null or not is_instance_valid(sprite) or sp_type == "Null":
 			continue
-		sprite.sprite_data[value_to_update] = nvalue
+		if is_x.is_empty():
+			sprite.sprite_data[value_to_update] = nvalue
+		elif is_x.to_lower()  == "x":
+			sprite.sprite_data[value_to_update].x = nvalue
+		elif is_x.to_lower() == "y":
+			sprite.sprite_data[value_to_update].y = nvalue
 		if sprite.sprite_type == "WiggleApp" and sp_type == "WiggleApp":
 			sprite.update_wiggle_parts()
 		sprite.save_state(Global.current_state)
@@ -148,15 +99,18 @@ func _apply_value_to_selected(nvalue: float, push_undo: bool):
 
 func nullfy():
 	%SpinBoxValue.editable = false
-	%SliderValue.editable = false
 
 func enable():
 	should_change = false
 	for sprite in Global.held_sprites:
 		if sprite.sprite_type == sp_type or sp_type == "":
 			%SpinBoxValue.editable = true
-			%SliderValue.editable = true
 			var _val = sprite.sprite_data[value_to_update]
-			%SpinBoxValue.value = _val
-			%SliderValue.value = _val
+			
+			if is_x.is_empty():
+				%SpinBoxValue.value  = _val
+			elif is_x.to_lower()  == "x":
+				%SpinBoxValue.value  =  _val.x
+			elif is_x.to_lower() == "y":
+				%SpinBoxValue.value = _val.y
 	should_change = true

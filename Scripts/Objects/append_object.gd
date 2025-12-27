@@ -50,6 +50,7 @@ func _ready():
 	Global.deselect.connect(desel)
 	grab_object.button_down.connect(_on_grab_button_down)
 	grab_object.button_up.connect(_on_grab_button_up)
+	Global.reinfo.connect(update_wiggle_parts)
 
 func sel():
 	if self in Global.held_sprites:
@@ -230,6 +231,18 @@ func update_wiggle_parts():
 		
 	if %Sprite2D.mirror_anchor_movement_v!= get_value("mirror_anchor_movement_v"):
 		%Sprite2D.mirror_anchor_movement_v = get_value("mirror_anchor_movement_v")
+
+	if %Sprite2D.keep_length!= get_value("keep_length_anchor"):
+		%Sprite2D.keep_length = get_value("keep_length_anchor")
+		
+	if %Sprite2D.closed!= get_value("wiggle_closed_loop"):
+		%Sprite2D.closed = get_value("wiggle_closed_loop")
+
+	if %Sprite2D.texture_mode!= get_value("tile"):
+		%Sprite2D.texture_mode = get_value("tile")
+	if %Sprite2D.gravity!= get_value("wiggle_gravity"):
+		%Sprite2D.gravity = get_value("wiggle_gravity")
+
 
 func check_talk():
 	if get_value("should_talk"):

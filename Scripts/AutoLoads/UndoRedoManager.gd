@@ -1,61 +1,63 @@
-extends Node
+extends RefCounted
+class_name UndoRedoManager
 
-var undo_redo_data : Array = []
-var undo_redo_id : int = 0
+static var undo_data : Array = []
+static var redo_data : Array = []
 
-func _input(event: InputEvent) -> void:
-	if Global.mode == 0:
-		if event.is_action_pressed("ui_undo"):
-			undo_info()
-		if event.is_action_pressed("ui_redo"):
-			redo_info()
+static func push_data(data : Variant = null):
+	if data == null: return
+	undo_data.append(data)
 
-func undo_info():
-	undo_redo_id = max(0, undo_redo_id - 1)
-	#printt("undo id : ", undo_redo_id)
-	if undo_redo_data.size() > 0:
-		match_data_type(undo_redo_data[max(undo_redo_id - 1, 0)], "undo")
-
-func redo_info():
-	undo_redo_id = min(undo_redo_data.size(), undo_redo_id+1)
-	#printt("redo id : ", undo_redo_id)
-	if undo_redo_data.size() > 0:
-		match_data_type(undo_redo_data[max(undo_redo_id - 1, 0)], "redo")
-
-func add_data_to_manager(data : Array):
-	if undo_redo_id != undo_redo_data.size():
-		undo_redo_data.resize(undo_redo_id)
-	undo_redo_data.append(data)
-	undo_redo_id = undo_redo_data.size()
-	#printt("undo redo data : ", undo_redo_data.size())
-
-func match_data_type(data, un_re):
-	if data is Array:
-		for i in data:
-			match_object_data_type(i, un_re)
-		
-	elif data is Dictionary:
-		pass
-
-func match_object_data_type(object, un_re):
-	match object.data_type:
-		"sprite_data":
-			if un_re == "undo":
-				update_sprite_data(object.sprite_object, object.og_data, object.state)
-			if un_re == "redo":
-				update_sprite_data(object.sprite_object, object.data, object.state)
-
-func update_sprite_data(object ,sprite_data, state):
-	object.states[state] = sprite_data.duplicate()
+static func undo():
+	if undo_data.size() == 0:
+		print("no data to undo")
+		return
 	
-	if Global.current_state == state:
-		object.get_state(Global.current_state)
-		Global.reinfo.emit()
+	var data = undo_data.pop_back()
+	if data is Array:
+		if data[0].has("node"):
+			undo_action_object(data)
+	elif data is Dictionary:
+		if data.has("sprite_holder"):
+			pass
 
+static func redo():
+	if redo_data.size() == 0:
+		print("no data to redo")
+		return
+	
+	var data = redo_data.pop_back() 
+	if data is Array:
+		if data[0].has("node"):
+			redo_action_object(data)
+	elif data is Dictionary:
+		if data.has("sprite_holder"):
+			pass
 
-'''
-undo_redo_data.append({sprite_object = i, 
-data = i.sprite_data, 
-og_data = og_val,
-data_type = "sprite_data", 
-state = Global.current_state})'''
+static func undo_action_object(data):
+	for dt in data:
+		if dt.node == null or !is_instance_valid(dt.node): continue
+		if dt.node.get_value(dt.action) == null: continue
+		if  dt.node.states.size() >  dt.state:
+			if Global.current_state ==  dt.state:
+				dt.node.sprite_data[ dt.action] = dt.value
+				dt.node.save_state( dt.state)
+				dt.get_state(dt.state)
+				Global.reinfo.emit()
+			else:
+				dt.node.states[dt.state][dt.action] = dt.value
+	redo_data.append(data) 
+
+static func redo_action_object(data):
+	for dt in data:
+		if dt.node == null or !is_instance_valid(dt.node): continue
+		if dt.node.get_value(dt.action) == null: continue
+		if  dt.node.states.size() >  dt.state:
+			if Global.current_state ==  dt.state:
+				dt.node.sprite_data[ dt.action] = dt.new_val
+				dt.node.save_state( dt.state)
+				dt.get_state(dt.state)
+				Global.reinfo.emit()
+			else:
+				dt.node.states[dt.state][dt.action] = dt.new_val
+	undo_data.append(data) 

@@ -15,17 +15,9 @@ func enable():
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "WiggleApp" && !sprite_selected:
-				%WiggleWidthSpin.editable = true
-				%WiggleLengthSpin.editable = true
-				%WiggleSubDSpin.editable = true
-				%WAGravityX.editable = true
-				%WAGravityY.editable = true
-				%ClosedLoopCheck.disabled = false
 				%AutoWagCheck.disabled = false
 				%TextureModeOption.disabled = false
 				%AnchorSprite.disabled = false
-				%StretchToAnchor.disabled = false
-				%MirrorMovementAnchor.disabled = false
 				
 			else:
 				sprite_selected = true
@@ -35,16 +27,8 @@ func enable():
 
 func nullfy():
 	%AutoWagCheck.disabled = true
-	%WiggleWidthSpin.editable = false
-	%WiggleLengthSpin.editable = false
-	%WiggleSubDSpin.editable = false
-	%WAGravityX.editable = false
-	%WAGravityY.editable = false
-	%ClosedLoopCheck.disabled = true
 	%TextureModeOption.disabled = true
 	%AnchorSprite.disabled = true
-	%StretchToAnchor.disabled = true
-	%MirrorMovementAnchor.disabled = true
 
 func set_data():
 	should_change = false
@@ -53,15 +37,7 @@ func set_data():
 			if i != null && is_instance_valid(i):
 				if i.sprite_type == "WiggleApp":
 					%WiggleAppStuff.show()
-					%WiggleWidthSpin.value = i.get_value("width")
-					%WiggleLengthSpin.value = i.get_value("segm_length")
-					%WiggleSubDSpin.value = i.get_value("subdivision")
-					%WAGravityX.value = i.get_value("wiggle_gravity").x
-					%WAGravityY.value = i.get_value("wiggle_gravity").y
-					%ClosedLoopCheck.button_pressed = i.get_value("wiggle_closed_loop")
 					%AutoWagCheck.button_pressed = i.get_value("auto_wag")
-					%StretchToAnchor.button_pressed = i.get_value("keep_length_anchor")
-					%MirrorMovementAnchor.button_pressed = i.get_value("mirror_anchor_movement_h")
 					
 					populate_anchor_data()
 					match i.get_value("tile"):
@@ -89,64 +65,6 @@ func _on_auto_wag_check_toggled(toggled_on):
 				
 				StateButton.multi_edit(toggled_on, "auto_wag", i, i.states)
 				i.save_state(Global.current_state)
-
-func _on_wa_gravity_x_value_changed(value):
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				if i.sprite_type == "WiggleApp":
-					i.sprite_data.wiggle_gravity.x = value
-					StateButton.multi_edit(value, "wiggle_gravity", i, i.states, true, "x")
-					i.get_node("%Sprite2D").gravity.x = value
-					i.save_state(Global.current_state)
-
-func _on_wa_gravity_y_value_changed(value):
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				if i.sprite_type == "WiggleApp":
-					i.sprite_data.wiggle_gravity.y = value
-					StateButton.multi_edit(value, "wiggle_gravity", i, i.states, true, "y")
-					i.get_node("%Sprite2D").gravity.y = value
-					i.save_state(Global.current_state)
-
-func _on_closed_loop_check_toggled(toggled_on):
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				if i.sprite_type == "WiggleApp":
-					i.sprite_data.wiggle_closed_loop = toggled_on
-					StateButton.multi_edit(toggled_on, "wiggle_closed_loop", i, i.states)
-					i.get_node("%Sprite2D").closed = toggled_on
-					i.save_state(Global.current_state)
-
-func _on_wiggle_width_spin_value_changed(value):
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				i.sprite_data.width = value
-				StateButton.multi_edit(value, "width", i, i.states)
-				i.get_node("%Sprite2D").width = value
-				i.save_state(Global.current_state)
-
-func _on_wiggle_length_spin_value_changed(value):
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				i.sprite_data.segm_length = value
-				StateButton.multi_edit(value, "segm_length", i, i.states)
-				i.get_node("%Sprite2D").segment_length = value
-				i.save_state(Global.current_state)
-
-func _on_wiggle_sub_d_spin_value_changed(value):
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				i.sprite_data.subdivision = value
-				StateButton.multi_edit(value, "subdivision", i, i.states)
-				i.get_node("%Sprite2D").subdivision = value
-				i.save_state(Global.current_state)
-
 
 func _on_texture_mode_option_item_selected(index: int) -> void:
 	match index:
@@ -197,37 +115,4 @@ func _on_anchor_sprite_item_selected(index: int) -> void:
 					i.sprite_data.anchor_id = %AnchorSprite.get_item_metadata(index).sprite_id
 					StateButton.multi_edit(i.sprite_data.anchor_id, "anchor_id", i, i.states)
 					i.get_node("%Sprite2D").anchor_target = %AnchorSprite.get_item_metadata(index).get_node("%Sprite2D")
-					i.save_state(Global.current_state)
-
-
-func _on_stretch_to_anchor_toggled(toggled_on: bool) -> void:
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				if i.sprite_type == "WiggleApp":
-					i.sprite_data.keep_length_anchor = toggled_on
-					StateButton.multi_edit(i.sprite_data.keep_length_anchor , "keep_length_anchor", i, i.states)
-					i.get_node("%Sprite2D").keep_length = i.sprite_data.keep_length_anchor 
-					i.save_state(Global.current_state)
-
-
-func _on_mirror_movement_anchor_toggled(toggled_on: bool) -> void:
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				if i.sprite_type == "WiggleApp":
-					i.sprite_data.mirror_anchor_movement_h = toggled_on
-					StateButton.multi_edit(i.sprite_data.mirror_anchor_movement_h , "mirror_anchor_movement_h", i, i.states)
-					i.get_node("%Sprite2D").mirror_anchor_movement_h = i.sprite_data.mirror_anchor_movement_h 
-					i.save_state(Global.current_state)
-
-
-func _on_mirror_movement_v_anchor_2_toggled(toggled_on: bool) -> void:
-	if should_change:
-		for i in Global.held_sprites:
-			if i != null && is_instance_valid(i):
-				if i.sprite_type == "WiggleApp":
-					i.sprite_data.mirror_anchor_movement_v = toggled_on
-					StateButton.multi_edit(i.sprite_data.mirror_anchor_movement_v , "mirror_anchor_movement_v", i, i.states)
-					i.get_node("%Sprite2D").mirror_anchor_movement_v = i.sprite_data.mirror_anchor_movement_v 
 					i.save_state(Global.current_state)
