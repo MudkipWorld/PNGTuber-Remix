@@ -253,8 +253,6 @@ func load_model(path: String) -> void:
 	Global.load_model.emit()
 	Global.load_sprite_states(0)
 
-
-
 func _resize_image_data(image_data: ImageData, sprite_node: Node2D, percent: float) -> void:
 	if percent == 100.0 or image_data.runtime_texture == null:
 		return

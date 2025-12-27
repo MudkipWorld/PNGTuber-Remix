@@ -151,6 +151,7 @@ func save_state(id):
 	else:
 		not_speaking()
 
+
 func get_state(state):
 	if !Global.settings_dict.states.is_empty():
 		if not Global.settings_dict.states[state].is_empty():

@@ -228,6 +228,8 @@ func clear_sprites():
 	%CamPos.global_position = Vector2(0, 0)
 	Global.settings_dict.zoom = Vector2(1,1)
 	Global.settings_dict.pan = Vector2(0, 0)
+	UndoRedoManager.undo_data.clear()
+	UndoRedoManager.redo_data.clear()
 
 func set_zoom(new_zoom: Vector2) -> void:
 	var mouse_pos := %Node2D.get_local_mouse_position() as Vector2

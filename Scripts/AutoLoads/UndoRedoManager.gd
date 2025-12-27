@@ -7,6 +7,7 @@ static var redo_data : Array = []
 static func push_data(data : Variant = null):
 	if data == null: return
 	undo_data.append(data)
+	print(data)
 
 static func undo():
 	if undo_data.size() == 0:
@@ -20,6 +21,8 @@ static func undo():
 	elif data is Dictionary:
 		if data.has("tree"):
 			undo_tree(data)
+		elif data.has("sprite_container"):
+			undo_sprite_container(data)
 
 static func redo():
 	if redo_data.size() == 0:
@@ -33,6 +36,8 @@ static func redo():
 	elif data is Dictionary:
 		if data.has("tree"):
 			redo_tree(data)
+		elif data.has("sprite_container"):
+			redo_sprite_container(data)
 
 static func undo_action_object(data):
 	for dt in data:
@@ -112,3 +117,125 @@ static func redo_tree(data):
 		
 	undo_data.append(data)
 	Global.reinfo.emit()
+
+static func undo_sprite_container(data):
+	match data.action:
+		"bounce_state":
+			if Global.current_state == data.state:
+				data.sprite_container.bounce_state = data.value
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].bounce_state =  data.value
+			
+		"blink_chance":
+			if Global.current_state == data.state:
+				data.sprite_container.blink_chance = data.value
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].blink_chance =  data.value
+			
+		"should_squish":
+			if Global.current_state == data.state:
+				data.sprite_container.should_squish = data.value
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].should_squish =  data.value
+		"blink_speed":
+			Global.settings_dict.blink_speed = data.value
+		"squish_amount":
+			if Global.current_state == data.state:
+				data.sprite_container.squish_amount = data.value
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].squish_amount =  data.value
+		"current_mc_anim":
+			if Global.current_state == data.state:
+				data.sprite_container.current_mc_anim = data.value
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].current_mc_anim =  data.value
+		"current_mo_anim":
+			if Global.current_state == data.state:
+				data.sprite_container.current_mo_anim = data.value
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].current_mo_anim =  data.value
+
+static func redo_sprite_container(data):
+	match data.action:
+		"bounce_state":
+			if Global.current_state == data.state:
+				data.sprite_container.bounce_state = data.new_val
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].bounce_state =  data.new_val
+			
+		"blink_chance":
+			if Global.current_state == data.state:
+				data.sprite_container.blink_chance = data.new_val
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].blink_chance =  data.new_val
+			
+		"should_squish":
+			if Global.current_state == data.state:
+				data.sprite_container.should_squish = data.new_val
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].should_squish =  data.new_val
+		"blink_speed":
+			Global.settings_dict.blink_speed = data.new_val
+		"squish_amount":
+			if Global.current_state == data.state:
+				data.sprite_container.squish_amount = data.new_val
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].squish_amount =  data.new_val
+		"current_mc_anim":
+			if Global.current_state == data.state:
+				data.sprite_container.current_mc_anim = data.new_val
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].current_mc_anim =  data.new_val
+		"current_mo_anim":
+			if Global.current_state == data.state:
+				data.sprite_container.current_mo_anim = data.new_val
+				Global.sprite_container.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.states.is_empty():
+					if Global.settings_dict.states.size() > data.state:
+						Global.settings_dict.states[data.state].current_mo_anim =  data.new_val

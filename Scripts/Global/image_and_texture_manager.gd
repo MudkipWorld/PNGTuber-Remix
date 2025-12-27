@@ -7,6 +7,8 @@ static var should_offset : bool = true
 static var import_flippd : bool = false
 static var appendage_scene = load("res://Misc/AppendageObject/Appendage_object.tscn") as PackedScene
 static var sprite_scene = load("res://Misc/SpriteObject/sprite_object.tscn") as PackedScene
+static var mesh_scene = load("res://Misc/MeshObject/mesh_object.tscn") as PackedScene
+static var comment_scene = load("res://Misc/CommentObject/comment_object.tscn") as PackedScene
 
 static func load_apng(sprite , image_data = null, normal = false):
 	var buffer = []
