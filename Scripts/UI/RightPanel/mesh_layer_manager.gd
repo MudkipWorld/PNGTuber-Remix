@@ -69,24 +69,27 @@ func set_data():
 				if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 					continue
 				var layer = i.mesh.get_layer(Global.selected_mesh_inx)
-				%Velx.value = layer.external_velocity.x
-				%Vely.value = layer.external_velocity.y
-				%Stiffnessx.value = layer.stiffness.x
-				%Stiffnessy.value = layer.stiffness.x
-				%Dampingx.value = layer.damping.x
-				%Dampingy.value = layer.damping.x
-				%Massx.value = layer.mass.x
-				%Massy.value = layer.mass.x
-				%FollowSpeed.value = layer.follow_lerp
-				%NoiseSpeed.value = layer.noise_speed
-				%NoiseScale.value = layer.noise_scale
-				%SineSpeed.value = layer.sine_speed
-				%SineAmp.value = layer.sine_amplitude * 100
-				%TargetStrength.value = layer.target_strength
-				%MotionType.select(layer.motion)
+				if layer != null:
+					%Velx.value = layer.external_velocity.x
+					%Vely.value = layer.external_velocity.y
+					%Stiffnessx.value = layer.stiffness.x
+					%Stiffnessy.value = layer.stiffness.x
+					%Dampingx.value = layer.damping.x
+					%Dampingy.value = layer.damping.x
+					%Massx.value = layer.mass.x
+					%Massy.value = layer.mass.x
+					%FollowSpeed.value = layer.follow_lerp
+					%NoiseSpeed.value = layer.noise_speed
+					%NoiseScale.value = layer.noise_scale
+					%SineSpeed.value = layer.sine_speed
+					%SineAmp.value = layer.sine_amplitude * 100
+					%TargetStrength.value = layer.target_strength
+					%MotionType.select(layer.motion)
 	if Global.held_sprites.size() > 0:
 		for i in Global.held_sprites[0].mesh.get_layer_count():
 			%SelectedLayer.add_item(str(i))
+		
+		%SelectedLayer.select(Global.selected_mesh_inx)
 	should_change = true
 
 func _on_velx_value_changed(value: float) -> void:
@@ -241,3 +244,4 @@ func _on_add_layer_pressed() -> void:
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			i.get_node("%MeshEditor").add_layer()
+			%SelectedLayer.add_item(str(max(1, i.mesh.get_layer_count() - 1)))

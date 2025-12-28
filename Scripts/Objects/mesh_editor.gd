@@ -215,23 +215,23 @@ func reset_point():
 		
 	var layer = mesh.get_layer(Global.selected_mesh_inx) 
 	if mesh.deform_x == 0 && mesh.deform_y == 1:
-		layer.deform_top_left = zero.duplicate()
+		layer.top_left = zero.duplicate()
 	elif mesh.deform_x == 0.5 && mesh.deform_y == 1:
-		layer.deform_top_middle = zero.duplicate()
+		layer.top_middle = zero.duplicate()
 	elif mesh.deform_x == 1 && mesh.deform_y == 1:
-		layer.deform_top_right = zero.duplicate()
+		layer.top_right = zero.duplicate()
 	elif mesh.deform_x == 0 && mesh.deform_y == 0.5:
-		layer.deform_middle_left = zero.duplicate()
+		layer.middle_left = zero.duplicate()
 	elif mesh.deform_x == 0.5 && mesh.deform_y == 0.5:
-		layer.deform_center = zero.duplicate()
+		layer.center = zero.duplicate()
 	elif mesh.deform_x == 1 && mesh.deform_y == 0.5:
-		layer.deform_middle_right = zero.duplicate()
+		layer.middle_right = zero.duplicate()
 	elif mesh.deform_x == 0 && mesh.deform_y == 0:
-		layer.deform_bottom_left = zero.duplicate()
+		layer.bottom_left = zero.duplicate()
 	elif mesh.deform_x == 0.5 && mesh.deform_y == 0:
-		layer.deform_bottom_middle = zero.duplicate()
+		layer.bottom_middle = zero.duplicate()
 	elif mesh.deform_x == 1 && mesh.deform_y == 0:
-		layer.deform_bottom_right = zero.duplicate()
+		layer.bottom_right = zero.duplicate()
 	mesh.sync_deformation_arrays()
 
 	queue_redraw()

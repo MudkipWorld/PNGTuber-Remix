@@ -137,6 +137,7 @@ func _apply_value_to_selected(nvalue: float, push_undo: bool):
 		if sprite == null or not is_instance_valid(sprite) or sp_type == "Null":
 			continue
 		sprite.sprite_data[value_to_update] = nvalue
+		StateButton.multi_edit(sprite.sprite_data[value_to_update], value_to_update, sprite, sprite.states)
 		if sprite.sprite_type == "WiggleApp" and sp_type == "WiggleApp":
 			sprite.update_wiggle_parts()
 		sprite.save_state(Global.current_state)

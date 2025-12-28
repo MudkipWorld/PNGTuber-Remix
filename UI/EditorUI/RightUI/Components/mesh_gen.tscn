@@ -184,12 +184,14 @@ step = 0.01
 value = 0.01
 
 [node name="Label" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer5"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Velocity X :"
 
 [node name="Velx" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer5"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
@@ -197,12 +199,14 @@ min_value = -100.0
 step = 0.01
 
 [node name="Label2" type="Label" parent="Scroll/MarginContainer/VBoxContainer/GridContainer5"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Velocity Y :"
 
 [node name="Vely" type="SpinBox" parent="Scroll/MarginContainer/VBoxContainer/GridContainer5"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
@@ -380,7 +384,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 4
-item_count = 5
+item_count = 6
 popup/item_0/text = "Spring"
 popup/item_0/id = 0
 popup/item_1/text = "Sine"
@@ -389,8 +393,10 @@ popup/item_2/text = "Noise"
 popup/item_2/id = 2
 popup/item_3/text = "Follow"
 popup/item_3/id = 3
-popup/item_4/text = "None"
+popup/item_4/text = "Bouncy"
 popup/item_4/id = 4
+popup/item_5/text = "None"
+popup/item_5/id = 5
 
 [node name="HSeparator2" type="HSeparator" parent="Scroll/MarginContainer/VBoxContainer"]
 layout_mode = 2
