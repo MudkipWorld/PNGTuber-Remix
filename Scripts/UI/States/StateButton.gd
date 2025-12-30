@@ -85,6 +85,6 @@ static func multi_edit(value, value_name, _obj : SpriteObject, states : Array, s
 				else:
 					states[i.state][value_name] = value
 			
-			print(value_name)
+			#print(value_name)
 	else:
 		return

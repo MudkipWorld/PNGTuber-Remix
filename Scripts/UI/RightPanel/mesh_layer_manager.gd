@@ -9,8 +9,6 @@ func _ready() -> void:
 	Global.mesh_text_node = self
 
 func nullfy():
-	%Velx.editable = false
-	%Vely.editable = false
 	%Stiffnessx.editable = false
 	%Stiffnessy.editable = false
 	%Dampingx.editable = false
@@ -39,8 +37,6 @@ func enable():
 				break
 
 	if !_disable:
-		%Velx.editable = true
-		%Vely.editable = true
 		%Stiffnessx.editable = true
 		%Stiffnessy.editable = true
 		%Dampingx.editable = true
@@ -70,8 +66,6 @@ func set_data():
 					continue
 				var layer = i.mesh.get_layer(Global.selected_mesh_inx)
 				if layer != null:
-					%Velx.value = layer.external_velocity.x
-					%Vely.value = layer.external_velocity.y
 					%Stiffnessx.value = layer.stiffness.x
 					%Stiffnessy.value = layer.stiffness.x
 					%Dampingx.value = layer.damping.x
@@ -92,131 +86,249 @@ func set_data():
 		%SelectedLayer.select(Global.selected_mesh_inx)
 	should_change = true
 
-func _on_velx_value_changed(value: float) -> void:
-	if !should_change : return
-	for i in Global.held_sprites:
-		if i != null && is_instance_valid(i):
-			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
-				continue
-			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.external_velocity.x = value
-
-func _on_vely_value_changed(value: float) -> void:
-	if !should_change : return
-	for i in Global.held_sprites:
-		if i != null && is_instance_valid(i):
-			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
-				continue
-			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.external_velocity.y = value
-
 func _on_stiffnessx_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
+			
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.stiffness.x = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "stiffness",
+						value = layer.stiffness,
+						new_val = Vector2(value, layer.stiffness.y)
+					}
+				undo_redo_data.append(d)
+				layer.stiffness.x = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_stiffnessy_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
+			
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.stiffness.y = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "stiffness",
+						value = layer.stiffness,
+						new_val = Vector2(layer.stiffness.x, value)
+					}
+				undo_redo_data.append(d)
+				layer.stiffness.y = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_dampingx_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
+			
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.damping.x = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "damping",
+						value = layer.damping,
+						new_val = Vector2(value, layer.damping.y)
+					}
+				undo_redo_data.append(d)
+				layer.damping.x = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_dampingy_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
+			
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.damping.y = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "damping",
+						value = layer.damping,
+						new_val = Vector2(layer.damping.x, value)
+					}
+				undo_redo_data.append(d)
+				layer.damping.y = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_massx_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.mass.x = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "mass",
+						value = layer.damping,
+						new_val = Vector2(value, layer.mass.y)
+					}
+				undo_redo_data.append(d)
+				layer.mass.x = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_massy_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.mass.y = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "mass",
+						value = layer.damping,
+						new_val = Vector2(layer.mass.x, value)
+					}
+				undo_redo_data.append(d)
+				layer.mass.y = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_follow_speed_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.follow_lerp = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "follow_lerp",
+						value = layer.follow_lerp,
+						new_val = value
+					}
+				undo_redo_data.append(d)
+				layer.follow_lerp = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_noise_speed_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.noise_speed = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "noise_speed",
+						value = layer.noise_speed,
+						new_val = value
+					}
+				undo_redo_data.append(d)
+				layer.noise_speed = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_noise_scale_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.noise_scale = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "noise_scale",
+						value = layer.noise_scale,
+						new_val = value
+					}
+				undo_redo_data.append(d)
+				layer.noise_scale = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_sine_speed_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.sine_speed = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "sine_speed",
+						value = layer.sine_speed,
+						new_val = value
+					}
+				undo_redo_data.append(d)
+				layer.sine_speed = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_sine_amp_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.sine_amplitude = value * 0.01
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "sine_amp",
+						value = layer.sine_amplitude,
+						new_val = value * 0.1
+					}
+				undo_redo_data.append(d)
+				layer.sine_amplitude = value * 0.1
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_motion_type_item_selected(index: int) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.motion = index
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "motion",
+						value = layer.motion,
+						new_val = index
+					}
+				undo_redo_data.append(d)
+				layer.motion = index
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_selected_layer_item_selected(index: int) -> void:
 	if !should_change : return
@@ -225,12 +337,23 @@ func _on_selected_layer_item_selected(index: int) -> void:
 
 func _on_target_strength_value_changed(value: float) -> void:
 	if !should_change : return
+	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
+
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
-			layer.target_strength = value
+			if layer != null && is_instance_valid(layer):
+				var d = {
+						layer = layer,
+						action = "target_strength",
+						value = layer.target_strength,
+						new_val = value
+					}
+				undo_redo_data.append(d)
+				layer.target_strength = value
+	submit_to_undo_redo(undo_redo_data)
 
 func _on_delete_layer_pressed() -> void:
 	for i in Global.held_sprites:
@@ -245,3 +368,6 @@ func _on_add_layer_pressed() -> void:
 		if i != null && is_instance_valid(i):
 			i.get_node("%MeshEditor").add_layer()
 			%SelectedLayer.add_item(str(max(1, i.mesh.get_layer_count() - 1)))
+
+func submit_to_undo_redo(data):
+	UndoRedoManager.push_data(data)

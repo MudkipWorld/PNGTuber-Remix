@@ -49,6 +49,10 @@ func _ready() -> void:
 	if parent_node and parent_node.has_node("%Movements"):
 		parent_movements = parent_node.get_node("%Movements")
 	rdrag_rad = deg_to_rad(actor.get_value("rdragStr"))
+	
+	await get_tree().create_timer(0.5).timeout
+
+	last_modifier_position = %Modifier1.global_position
 
 func _physics_process(delta: float) -> void:
 	follow_wiggle(delta)
@@ -87,12 +91,14 @@ func _physics_process(delta: float) -> void:
 	index_change_len_y = index_change_len_y * actor.get_value("index_change_y")
 	modifier_node.z_index = floori(index_change_len + index_change_len_y)
 	
+	
 	if actor.sprite_type == "Mesh" and mesh != null && is_instance_valid(mesh):
 		var can_deform : bool = false
 		if is_instance_valid(Global.mesh_text_node):
 			can_deform = Global.mesh_text_node.deform
 		if !mesh.editable && !can_deform:
-			var mesh_len = last_wobble_pos + %FollowComponent.target_pos + (%Modifier1.global_position - last_modifier_position )
+			var t : Vector2 = (last_modifier_position - %Modifier1.global_position).snappedf(0.01)
+			var mesh_len = last_wobble_pos + %FollowComponent.target_pos - t
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
 			var follow_amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
 			var final_amp = amp  + follow_amp + Vector2(25,25)
@@ -103,8 +109,8 @@ func _physics_process(delta: float) -> void:
 			if abs(safe_deform_pos.y) != 0:
 				mesh.deform_y = safe_deform_pos.y
 				mesh.update_physics(delta, false)
-			
-		last_modifier_position.lerp(%Modifier1.global_position, 0.08)
+	
+	last_modifier_position = last_modifier_position.move_toward(%Modifier1.global_position, 25*delta).snappedf(0.01)
 
 
 

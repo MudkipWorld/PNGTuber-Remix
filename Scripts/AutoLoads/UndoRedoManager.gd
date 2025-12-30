@@ -7,7 +7,7 @@ static var redo_data : Array = []
 static func push_data(data : Variant = null):
 	if data == null: return
 	undo_data.append(data)
-	print(data)
+	#print(data)
 
 static func undo():
 	if undo_data.size() == 0:
@@ -18,6 +18,9 @@ static func undo():
 	if data is Array:
 		if data[0].has("node"):
 			undo_action_object(data)
+		elif data[0].has("layer"):
+			undo_mesh_layer(data)
+			
 	elif data is Dictionary:
 		if data.has("tree"):
 			undo_tree(data)
@@ -33,6 +36,8 @@ static func redo():
 	if data is Array:
 		if data[0].has("node"):
 			redo_action_object(data)
+		elif data[0].has("layer"):
+			redo_mesh_layer(data)
 	elif data is Dictionary:
 		if data.has("tree"):
 			redo_tree(data)
@@ -239,3 +244,61 @@ static func redo_sprite_container(data):
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
 						Global.settings_dict.states[data.state].current_mo_anim =  data.new_val
+
+static func undo_mesh_layer(data):
+	for lyr in data:
+		if lyr.layer == null or !is_instance_valid(lyr.layer):
+			continue
+		
+		match lyr.action:
+			"stiffness":
+				lyr.layer.stiffness = lyr.value
+			"damping":
+				lyr.layer.damping = lyr.value
+			"mass":
+				lyr.layer.mass = lyr.value
+			"follow_lerp":
+				lyr.layer.follow_lerp = lyr.value
+			"noise_speed":
+				lyr.layer.noise_speed = lyr.value
+			"noise_scale":
+				lyr.layer.noise_scale = lyr.value
+			"sine_speed":
+				lyr.layer.sine_speed = lyr.value
+			"sine_amp":
+				lyr.layer.sine_amplitude = lyr.value
+			"motion":
+				lyr.layer.motion = lyr.value
+			"target_strength":
+				lyr.layer.target_strength = lyr.value
+			
+	Global.reinfo.emit()
+
+static func redo_mesh_layer(data):
+	for lyr in data:
+		if lyr.layer == null or !is_instance_valid(lyr.layer):
+			continue
+		
+		match lyr.action:
+			"stiffness":
+				lyr.layer.stiffness = lyr.new_val
+			"damping":
+				lyr.layer.damping = lyr.new_val
+			"mass":
+				lyr.layer.mass = lyr.new_val
+			"follow_lerp":
+				lyr.layer.follow_lerp = lyr.new_val
+			"noise_speed":
+				lyr.layer.noise_speed = lyr.new_val
+			"noise_scale":
+				lyr.layer.noise_scale = lyr.new_val
+			"sine_speed":
+				lyr.layer.sine_speed = lyr.new_val
+			"sine_amp":
+				lyr.layer.sine_amplitude = lyr.new_val
+			"motion":
+				lyr.layer.motion = lyr.new_val
+			"target_strength":
+				lyr.layer.target_strength = lyr.new_val
+			
+	Global.reinfo.emit()

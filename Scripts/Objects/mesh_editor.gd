@@ -808,17 +808,18 @@ func generate_corner(a: PackedVector2Array, b: PackedVector2Array) -> PackedVect
 func auto_gen_corners():
 	if mesh.get_layer_count() < Global.selected_mesh_inx:
 		return
-	var layer : DeformLayer = mesh.get_layer(Global.selected_mesh_inx)
-	
-	var top_left_corner = generate_corner(layer.top_middle, layer.middle_left)
-	var top_right_corner = generate_corner(layer.top_middle, layer.middle_right)
-	var bottom_left_corner = generate_corner(layer.bottom_middle, layer.middle_left)
-	var bottom_right_corner = generate_corner(layer.bottom_middle, layer.middle_right)
 
-	layer.top_left = top_left_corner.duplicate()
-	layer.top_right = top_right_corner.duplicate() 
-	layer.bottom_left = bottom_left_corner.duplicate() 
-	layer.bottom_right = bottom_right_corner.duplicate() 
+	var layer : DeformLayer = mesh.get_layer(Global.selected_mesh_inx)
+	if layer != null && is_instance_valid(layer):
+		var top_left_corner = generate_corner(layer.top_middle, layer.middle_left)
+		var top_right_corner = generate_corner(layer.top_middle, layer.middle_right)
+		var bottom_left_corner = generate_corner(layer.bottom_middle, layer.middle_left)
+		var bottom_right_corner = generate_corner(layer.bottom_middle, layer.middle_right)
+
+		layer.top_left = top_left_corner.duplicate()
+		layer.top_right = top_right_corner.duplicate() 
+		layer.bottom_left = bottom_left_corner.duplicate() 
+		layer.bottom_right = bottom_right_corner.duplicate() 
 
 func flip_3x3_grid_horizontally():
 	if mesh == null:
@@ -829,26 +830,29 @@ func flip_3x3_grid_horizontally():
 		min_x = min(min_x, v.x)
 		max_x = max(max_x, v.x)
 	var center_x = (min_x + max_x) * 0.5
+	
+	var layer : DeformLayer = mesh.get_layer(Global.selected_mesh_inx)
+	if layer != null && is_instance_valid(layer):
 
-	var top_left_flipped = flip_deformation_horizontally(mesh.deform_top_left, center_x)
-	var top_middle_flipped = flip_deformation_horizontally(mesh.deform_top_middle, center_x)
-	var top_right_flipped = flip_deformation_horizontally(mesh.deform_top_right, center_x)
-	var middle_left_flipped = flip_deformation_horizontally(mesh.deform_middle_left, center_x)
-	var center_flipped = flip_deformation_horizontally(mesh.deform_center, center_x)
-	var middle_right_flipped = flip_deformation_horizontally(mesh.deform_middle_right, center_x)
-	var bottom_left_flipped = flip_deformation_horizontally(mesh.deform_bottom_left, center_x)
-	var bottom_middle_flipped = flip_deformation_horizontally(mesh.deform_bottom_middle, center_x)
-	var bottom_right_flipped = flip_deformation_horizontally(mesh.deform_bottom_right, center_x)
-	mesh.deform_top_left = top_right_flipped
-	mesh.deform_top_middle = top_middle_flipped
-	mesh.deform_top_right = top_left_flipped
-	mesh.deform_middle_left = middle_right_flipped
-	mesh.deform_center = center_flipped
-	mesh.deform_middle_right = middle_left_flipped
-	mesh.deform_bottom_left = bottom_right_flipped
-	mesh.deform_bottom_middle = bottom_middle_flipped
-	mesh.deform_bottom_right = bottom_left_flipped
-	mesh.sync_deformation_arrays()
+		var top_left_flipped = flip_deformation_horizontally(layer.top_left, center_x)
+		var top_middle_flipped = flip_deformation_horizontally(layer.top_middle, center_x)
+		var top_right_flipped = flip_deformation_horizontally(layer.top_right, center_x)
+		var middle_left_flipped = flip_deformation_horizontally(layer.middle_left, center_x)
+		var center_flipped = flip_deformation_horizontally(layer.center, center_x)
+		var middle_right_flipped = flip_deformation_horizontally(layer.middle_right, center_x)
+		var bottom_left_flipped = flip_deformation_horizontally(layer.bottom_left, center_x)
+		var bottom_middle_flipped = flip_deformation_horizontally(layer.bottom_middle, center_x)
+		var bottom_right_flipped = flip_deformation_horizontally(layer.bottom_right, center_x)
+		layer.top_left = top_right_flipped
+		layer.top_middle = top_middle_flipped
+		layer.top_right = top_left_flipped
+		layer.middle_left = middle_right_flipped
+		layer.center = center_flipped
+		layer.middle_right = middle_left_flipped
+		layer.bottom_left = bottom_right_flipped
+		layer.bottom_middle = bottom_middle_flipped
+		layer.bottom_right = bottom_left_flipped
+		mesh.sync_deformation_arrays()
 
 
 func mirror_left_to_right_ear():
