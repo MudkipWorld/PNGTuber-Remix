@@ -48,11 +48,12 @@ static func undo_action_object(data):
 	for dt in data:
 		if dt.node == null or !is_instance_valid(dt.node): continue
 		if dt.node.get_value(dt.action) == null: continue
+		if  dt.node.states.is_empty() : continue
 		if  dt.node.states.size() >  dt.state:
 			if Global.current_state ==  dt.state:
 				dt.node.sprite_data[ dt.action] = dt.value
 				dt.node.save_state( dt.state)
-				dt.get_state(dt.state)
+				dt.node.get_state(dt.state)
 				Global.reinfo.emit()
 			else:
 				dt.node.states[dt.state][dt.action] = dt.value
@@ -62,11 +63,12 @@ static func redo_action_object(data):
 	for dt in data:
 		if dt.node == null or !is_instance_valid(dt.node): continue
 		if dt.node.get_value(dt.action) == null: continue
+		if  dt.node.states.is_empty() : continue
 		if  dt.node.states.size() >  dt.state:
 			if Global.current_state ==  dt.state:
 				dt.node.sprite_data[ dt.action] = dt.new_val
 				dt.node.save_state( dt.state)
-				dt.get_state(dt.state)
+				dt.node.get_state(dt.state)
 				Global.reinfo.emit()
 			else:
 				dt.node.states[dt.state][dt.action] = dt.new_val
