@@ -52,6 +52,7 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	save_unused_files = false,
 	backend_type = "default",
 	audio_capturer = 2,
+	osf_pos_stren = 10,
 }
 var save_location = ""
 var autosave_location = ""

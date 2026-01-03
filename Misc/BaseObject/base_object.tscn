@@ -33,15 +33,15 @@ unique_name_in_owner = true
 script = ExtResource("3_7v2q7")
 modifier = NodePath("../Modifier1")
 
-[node name="Movements" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("8_617re")
-
 [node name="ReactionConfig" type="Node" parent="." node_paths=PackedStringArray("actor", "animation_handler")]
 unique_name_in_owner = true
 script = ExtResource("9_fpp0d")
 actor = NodePath("..")
 animation_handler = NodePath("../AnimatedSpriteTexture")
+
+[node name="Movements" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("8_617re")
 
 [node name="AnimatedSpriteTexture" type="Node" parent="." node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true

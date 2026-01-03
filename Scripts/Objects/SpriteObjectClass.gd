@@ -132,8 +132,17 @@ const DEFAULT_DATA := {
 	follow_strength = 0.155,
 	rotation_threshold = 0.01,
 	hidden_item = false,
+	
+	
+	follow_eye = 0,
+	gaze_eye = 0,
+	style_eye = 0,
+	
+	udp_pos = 0,
+	udp_rot = 0,
+	udp_scale = 0,
+	
 	}
-
 
 @export var sprite_object : Node2D
 @export var grab_object : BaseButton

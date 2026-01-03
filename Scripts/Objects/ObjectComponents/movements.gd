@@ -33,6 +33,8 @@ var glob: Vector2 = Vector2.ZERO
 var rdrag_rad: float = 0.0
 var shadow_target : Vector2 = Vector2.ZERO
 var last_modifier_position = Vector2(0,0)
+var last_deform_pos = Vector2.ZERO
+
 
 func _ready() -> void:
 	modifier_node = %Modifier
@@ -50,9 +52,9 @@ func _ready() -> void:
 		parent_movements = parent_node.get_node("%Movements")
 	rdrag_rad = deg_to_rad(actor.get_value("rdragStr"))
 	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.025).timeout
 
-	last_modifier_position = %Modifier1.global_position
+	last_modifier_position = sprite_node.global_position
 
 func _physics_process(delta: float) -> void:
 	follow_wiggle(delta)
@@ -97,22 +99,28 @@ func _physics_process(delta: float) -> void:
 		if is_instance_valid(Global.mesh_text_node):
 			can_deform = Global.mesh_text_node.deform
 		if !mesh.editable && !can_deform:
-			var t : Vector2 = (last_modifier_position - %Modifier1.global_position).snappedf(0.01)
-			var mesh_len = last_wobble_pos + %FollowComponent.target_pos - t
+			var t : Vector2 = (last_modifier_position - sprite_node.global_position).snappedf(0.00001)
+			var mesh_len = (last_wobble_pos + %FollowComponent.target_pos )
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
 			var follow_amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
-			var final_amp = amp  + follow_amp + Vector2(25,25)
-			var safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, final_amp.length())
+			var final_amp = amp  + follow_amp 
+			if actor.get_value("physics"):
+				mesh_len -=   t
+				final_amp += Vector2(25,25)
+				
+			var safe_deform_pos
+			if Tracker.working:
+				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.25)
+			else:
+				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, final_amp.normalized().length())
 			if abs(safe_deform_pos.x) != 0:
 				mesh.deform_x = safe_deform_pos.x
-				mesh.update_physics(delta, false)
 			if abs(safe_deform_pos.y) != 0:
 				mesh.deform_y = safe_deform_pos.y
-				mesh.update_physics(delta, false)
+			
+			mesh.call_deferred("update_physics", delta, false)
 	
-	last_modifier_position = last_modifier_position.move_toward(%Modifier1.global_position, 25*delta).snappedf(0.01)
-
-
+	last_modifier_position = last_modifier_position.move_toward(sprite_node.global_position, 30*delta).snappedf(0.00001)
 
 func _process(_delta: float) -> void:
 	if actor.get_value("static_obj"):
@@ -229,7 +237,7 @@ func stretch(length,_delta):
 	var yvel = (length * actor.get_value("stretchAmount") * 0.01)
 	var target = Vector2(1.0-yvel,1.0+yvel)
 	
-	modifier_node.scale = lerp(modifier_node.scale,target,0.1)
+	%Modifier1.scale = lerp(%Modifier1.scale,target,0.1)
 
 var points_cache: Array = []
 var points_dirty: bool = true

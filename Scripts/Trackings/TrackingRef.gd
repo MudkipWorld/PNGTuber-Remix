@@ -1,0 +1,2 @@
+extends RefCounted
+class_name TrackingRef

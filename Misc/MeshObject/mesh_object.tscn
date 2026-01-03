@@ -90,7 +90,7 @@ expand_mode = 1
 actor = NodePath("..")
 mesh = NodePath("../Modifier1/Modifier/Sprite2D")
 
-[node name="Movements" parent="." index="4" node_paths=PackedStringArray("actor", "mesh")]
+[node name="Movements" parent="." index="5" node_paths=PackedStringArray("actor", "mesh")]
 actor = NodePath("..")
 mesh = NodePath("../Modifier1/Modifier/Sprite2D")
 
