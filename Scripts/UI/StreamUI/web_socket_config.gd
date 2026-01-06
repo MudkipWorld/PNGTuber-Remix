@@ -32,6 +32,7 @@ func check_websocket():
 	WebsocketHandler.port = int(Settings.theme_settings.websocket_id)
 	%AutoStartWebsocket.button_pressed = Settings.theme_settings.auto_activate_websocket
 	%OSFPosStrength.value = Settings.theme_settings.osf_pos_stren
+	%OSFPosMouth.value = Settings.theme_settings.osf_mouth_strength
 	if Settings.theme_settings.auto_activate_websocket:
 		WebsocketHandler.start_websocket_server()
 		disable_spinbox(true)
@@ -65,4 +66,11 @@ func _on_spin_box_value_changed(value: float) -> void:
 	TrackingBackend.osf_pos_strength = value
 	if can_change:
 		Settings.theme_settings.osf_pos_stren = value
+		Settings.save()
+
+
+func _on_osf_pos_mouth_value_changed(value: float) -> void:
+	TrackingBackend.osf_mouth_strength = value
+	if can_change:
+		Settings.theme_settings.osf_mouth_strength = value
 		Settings.save()

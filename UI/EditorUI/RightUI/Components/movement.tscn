@@ -772,6 +772,24 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_FT_STRETCH"
 popup/item_1/id = 1
 
+[node name="Label4" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mouth :"
+
+[node name="MouthFollow" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "TR_OPEN"
+popup/item_1/id = 1
+popup/item_2/text = "TR_CLOSED"
+popup/item_2/id = 2
+
 [connection signal="changed" from="ScrollContainer3/MarginContainer/VBoxContainer/SharedMovement" to="MovementTab" method="_on_shared_movement_changed"]
 [connection signal="changed" from="ScrollContainer3/MarginContainer/VBoxContainer/SharedMovement" to="ScrollContainer3/MarginContainer/VBoxContainer/EditValuesFor" method="set_visible"]
 [connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer/FollowOption" to="Whyisntthisworking" method="_on_follow_option_item_selected"]
@@ -783,3 +801,4 @@ popup/item_1/id = 1
 [connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
 [connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
 [connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
+[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]

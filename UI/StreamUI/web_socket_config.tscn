@@ -167,6 +167,21 @@ min_value = 1.0
 max_value = 1000.0
 value = 10.0
 
+[node name="Label2" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Mouth Tracking Strength : "
+
+[node name="OSFPosMouth" type="SpinBox" parent="VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10.0
+max_value = 10.0
+step = 0.001
+value = -0.05
+
 [connection signal="toggled" from="VBoxContainer2/AutoStartWebsocket" to="." method="_on_auto_start_websocket_toggled"]
 [connection signal="value_changed" from="VBoxContainer2/Grid/PortValue" to="." method="_on_port_value_value_changed"]
 [connection signal="pressed" from="VBoxContainer2/Grid/StartButton" to="." method="_on_start_button_pressed"]
@@ -175,3 +190,4 @@ value = 10.0
 [connection signal="pressed" from="VBoxContainer/Grid2/UDPStartButton" to="." method="_on_udp_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Grid2/UDPStopButton" to="." method="_on_udp_stop_button_pressed"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer/OSFPosStrength" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer/OSFPosMouth" to="." method="_on_osf_pos_mouth_value_changed"]

@@ -53,6 +53,20 @@ func _physics_process(_delta: float) -> void:
 		2:
 			%Sprite2D.position = %Sprite2D.position.lerp(actor.get_value("offset") + gazing_r, 0.25)
 
+	if Tracker.working && actor.sprite_data.follow_mouth != 0:
+		%Modifier.modulate.a = 1
+		if actor.sprite_data.should_talk:
+			if Tracker.is_mouth_open:
+				if actor.sprite_data.open_mouth:
+					%Modifier.show()
+				else:
+					%Modifier.hide()
+			elif !Tracker.is_mouth_open:
+				if actor.sprite_data.open_mouth:
+					%Modifier.hide()
+				else:
+					%Modifier.show()
+
 	
 	
 	if Global.settings_dict.checkinput != true:
@@ -246,6 +260,7 @@ func blink():
 		blinking = false
 
 func speaking():
+	if Tracker.working && actor.sprite_data.follow_mouth != 0: return
 	if Global.mode != 0:
 		%Modifier.modulate.a = 1
 		if actor.get_value("should_talk"):
@@ -289,6 +304,7 @@ func reset_anim():
 		actor.animation()
 
 func not_speaking():
+	if Tracker.working && actor.sprite_data.follow_mouth != 0: return
 	if Global.mode != 0:
 		%Modifier.modulate.a = 1
 		if actor.get_value("should_talk"):

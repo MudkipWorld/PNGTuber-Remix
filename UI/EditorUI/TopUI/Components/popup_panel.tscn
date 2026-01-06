@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c7vywv1ffskvg" path="res://Scripts/UI/Others/popup_panel.gd" id="1_wqjpb"]
 
 [node name="PopupPanel" type="PopupPanel"]
-oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(308, 200)
 visible = true

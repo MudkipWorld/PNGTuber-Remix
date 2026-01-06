@@ -12,7 +12,7 @@ signal eyes_blink
 @export var points: int = 68
 @export var blink_close_threshold := 0.5
 @export var blink_open_threshold := 0.5
-@export var mouth_smooth_speed := 10.0
+@export var mouth_smooth_speed := 25.0
 @export var brow_smooth_speed := 5.0
 @export var gaze_smooth_speed := 10.0
 @export var capture_fps : float = 60
@@ -66,9 +66,11 @@ var eye_smile_avg: float = 0.0
 var track_pupil_left: Vector2 = Vector2.ZERO
 var track_pupil_right: Vector2 = Vector2.ZERO
 
+var is_mouth_open := false
 
 var current_tracker : TrackingRef = OpenSeeFaceBackend.new()
 static var osf_pos_strength : float = 10
+static var osf_mouth_strength : float = -0.05
 var working : bool = false
 
 func start_backend():
@@ -95,7 +97,6 @@ func _exit_tree():
 		udp.close()
 	working = false
 
-
 func _udp_receive_loop():
 	while udp.get_available_packet_count() > 0:
 		var packet = udp.get_packet()
@@ -113,7 +114,7 @@ func smooth_value(current: float, target: float, delta: float, speed: float) -> 
 func smooth_value_vec2(current: Vector2, target: Vector2, delta: float, speed: float) -> Vector2:
 	return current.lerp(target, 1.0 - exp(-speed * delta))
 
-func get_mouth_frame_8(form, open, wide, smile) -> float:
+func get_mouth_frame_8(form, open, _wide, smile) -> float:
 	match form:
 		MouthForm.CLOSED:
 			return 7

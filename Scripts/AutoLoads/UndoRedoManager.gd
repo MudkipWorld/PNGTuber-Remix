@@ -26,6 +26,8 @@ static func undo():
 			undo_tree(data)
 		elif data.has("sprite_container"):
 			undo_sprite_container(data)
+		elif data.has("light"):
+			undo_light(data)
 
 static func redo():
 	if redo_data.size() == 0:
@@ -43,6 +45,8 @@ static func redo():
 			redo_tree(data)
 		elif data.has("sprite_container"):
 			redo_sprite_container(data)
+		elif data.has("light"):
+			redo_light(data)
 
 static func undo_action_object(data):
 	for dt in data:
@@ -304,3 +308,117 @@ static func redo_mesh_layer(data):
 				lyr.layer.target_strength = lyr.new_val
 			
 	Global.reinfo.emit()
+
+static func undo_light(data):
+	match data.action:
+		"visible":
+			if Global.current_state == data.state:
+				data.light.visible = data.value
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].visible =  data.value
+		"energy":
+			if Global.current_state == data.state:
+				data.light.energy = data.value
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].energy =  data.value
+		"color":
+			if Global.current_state == data.state:
+				data.light.color = data.value
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].color =  data.value
+		"global_position":
+			if Global.current_state == data.state:
+				data.light.global_position = data.value
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].global_position =  data.value
+		"scale":
+			if Global.current_state == data.state:
+				data.light.scale = data.value
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].scale =  data.value
+		"blend":
+			if Global.current_state == data.state:
+				data.light.blend = data.value
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].blend =  data.value
+
+static func redo_light(data):
+	match data.action:
+		"visible":
+			if Global.current_state == data.state:
+				data.light.visible = data.new_val
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].visible =  data.new_val
+		"energy":
+			if Global.current_state == data.state:
+				data.light.energy = data.new_val
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].energy =  data.new_val
+		"color":
+			if Global.current_state == data.state:
+				data.light.color = data.new_val
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].color =  data.new_val
+		"global_position":
+			if Global.current_state == data.state:
+				data.light.global_position = data.new_val
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].global_position =  data.new_val
+		"scale":
+			if Global.current_state == data.state:
+				data.light.scale = data.new_val
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].scale =  data.new_val
+		"blend":
+			if Global.current_state == data.state:
+				data.light.blend = data.new_val
+				data.light.save_state(Global.current_state)
+				Global.reinfoanim.emit()
+			else:
+				if !Global.settings_dict.light_states.is_empty():
+					if Global.settings_dict.light_states.size() > data.state:
+						Global.settings_dict.light_states[data.state].blend =  data.new_val

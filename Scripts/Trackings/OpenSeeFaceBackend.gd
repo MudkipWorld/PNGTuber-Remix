@@ -41,18 +41,13 @@ func update(delta : float, backend : TrackingBackend = null):
 	var wide = backend.smooth_mouth_wide
 	var corner_up_left  = backend.track_features.get("MouthCornerUpDownLeft", 0.0)
 	var corner_up_right = backend.track_features.get("MouthCornerUpDownRight", 0.0)
-	var corner_up = (corner_up_left + corner_up_right) * 0.75
-	
-	if open < 0.15:
+	var _corner_up = (corner_up_left + corner_up_right) * 0.75
+	if open < TrackingBackend.osf_mouth_strength :
 		backend.mouth_form = TrackingBackend.MouthForm.CLOSED
-	elif open > 0.6 and wide < 0.5:
-		backend.mouth_form = TrackingBackend.MouthForm.O_SHAPE
-	elif open > 0.6 and wide > 0.6:
-		backend.mouth_form = TrackingBackend.MouthForm.WIDE
-	elif corner_up > 0.4:
-		backend.mouth_form = TrackingBackend.MouthForm.SMILE
+		backend.is_mouth_open = false
 	else:
 		backend.mouth_form = TrackingBackend.MouthForm.OPEN
+		backend.is_mouth_open = true
 
 	var head_quat = backend.track_quat
 
@@ -103,8 +98,8 @@ func update(delta : float, backend : TrackingBackend = null):
 	
 	var mouth_inout_left  = backend.track_features.get("MouthCornerInOutLeft", 0.0)
 	var mouth_inout_right = backend.track_features.get("MouthCornerInOutRight", 0.0)
-	var mouth_asymmetry = mouth_inout_right - mouth_inout_left
-	var mouth_pucker = (1.0 - wide) * 0.5
+	var _mouth_asymmetry = mouth_inout_right - mouth_inout_left
+	var _mouth_pucker = (1.0 - wide) * 0.5
 
 func parse_packet(data: PackedByteArray, backend : TrackingBackend) -> Dictionary:
 	var pkg: Dictionary = {

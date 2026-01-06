@@ -105,7 +105,7 @@ texture = ExtResource("2_1i6gu")
 [node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="Movements" parent="." index="4" node_paths=PackedStringArray("actor")]
+[node name="Movements" parent="." index="5" node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
 [node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]

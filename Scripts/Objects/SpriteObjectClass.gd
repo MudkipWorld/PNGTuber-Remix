@@ -141,6 +141,7 @@ const DEFAULT_DATA := {
 	udp_pos = 0,
 	udp_rot = 0,
 	udp_scale = 0,
+	follow_mouth = 0,
 	
 	}
 

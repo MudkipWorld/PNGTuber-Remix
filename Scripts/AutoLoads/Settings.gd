@@ -53,6 +53,7 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	backend_type = "default",
 	audio_capturer = 2,
 	osf_pos_stren = 10,
+	osf_mouth_strength = -0.05,
 }
 var save_location = ""
 var autosave_location = ""
@@ -76,8 +77,7 @@ func save_before_closing():
 			DirAccess.make_dir_absolute(autosave_location)
 			SaveAndLoad.save_file(autosave_location + "/" + str(randi()))
 		window_size_changed()
-	save()
-	await get_tree().create_timer(0.1).timeout
+	await save()
 	get_tree().quit()
 
 func save():
