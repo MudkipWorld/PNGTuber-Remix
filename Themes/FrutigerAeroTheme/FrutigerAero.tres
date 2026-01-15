@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=67 format=4 uid="uid://tnhi5mwski6n"]
+[gd_resource type="Theme" format=4 uid="uid://tnhi5mwski6n"]
 
 [ext_resource type="Texture2D" uid="uid://diem26sgg42vr" path="res://Misc/TestAssets/Panels/AeroPanel2.svg" id="1_d35nj"]
 [ext_resource type="Texture2D" uid="uid://be04yv0nl81oc" path="res://Misc/TestAssets/Panels/AeroPanel4.svg" id="2_2bs7g"]
@@ -208,6 +208,15 @@ font_weight = 600
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 18.0
 cache/0/16/0/descent = 5.0
 cache/0/16/0/underline_position = 1.60938

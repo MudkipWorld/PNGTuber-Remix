@@ -55,6 +55,10 @@ func check_data():
 	%KeepOldTrimData.button_pressed = Settings.theme_settings.save_raw_sprite
 	%SaveUnusedImages.button_pressed = Settings.theme_settings.save_unused_files
 	
+	%PhysicsTick.value = Settings.theme_settings.phys_tick_per_frame
+	%PhysicsSteps.value = Settings.theme_settings.phys_steps
+	%JitterFix.value = Settings.theme_settings.phys_jitter
+	
 	match Settings.theme_settings.audio_capturer:
 		0:
 			%AudioBackendOption.select(0)
@@ -112,6 +116,7 @@ func sliders_revalue(settings_dict):
 	%DeltaTimeCheck.button_pressed = settings_dict.should_delta
 	%MaxFPSlider.value = settings_dict.max_fps
 	%OutOfBounds.button_pressed = settings_dict.snap_out_of_bounds
+	
 
 func _on_volume_slider_drag_ended(value_changed: bool) -> void:
 	if value_changed:
@@ -311,3 +316,23 @@ func _on_audio_backend_option_item_selected(index: int) -> void:
 			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 2, true)
 			await GlobalAudioStreamPlayer.mic_restart_timer_timeout()
 			Settings.save()
+
+func _on_physics_tick_value_changed(value: float) -> void:
+	if !change_setting: return
+	Settings.theme_settings.phys_tick_per_frame = value
+	Engine.physics_ticks_per_second = int(value)
+	Settings.save()
+
+func _on_physics_steps_value_changed(value: float) -> void:
+	if !change_setting: return
+	Settings.theme_settings.phys_steps = value
+	Engine.max_physics_steps_per_frame = int(value)
+	Settings.save()
+
+func _on_jitter_fix_drag_ended(value_changed: bool) -> void:
+	if !change_setting: return
+	if !value_changed: return
+	Settings.theme_settings.phys_jitter = %JitterFix.value
+	Engine.physics_jitter_fix = %JitterFix.value
+	Settings.save()
+	

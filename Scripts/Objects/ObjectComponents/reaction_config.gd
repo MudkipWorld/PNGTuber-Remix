@@ -15,9 +15,8 @@ func _ready() -> void:
 	Global.animation_state.connect(reset_animations)
 	await  get_tree().physics_frame
 	not_speaking()
-	
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	var gazing_l = Vector2(0, 0)
 	var gazing_r = Vector2(0, 0)
 	if Tracker.working && actor.sprite_data.follow_eye != 0:

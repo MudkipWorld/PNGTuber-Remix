@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://5ju7ih768ysd"]
+[gd_scene format=3 uid="uid://5ju7ih768ysd"]
 
 [ext_resource type="Script" uid="uid://b2cf035nd4pj7" path="res://Scripts/UI/TopPanel/Components/settings_script.gd" id="1_j2o6a"]
 [ext_resource type="Script" uid="uid://181yhrus3jhb" path="res://Scripts/UI/Others/Spinboxes.gd" id="2_s0wg0"]
@@ -8,36 +8,37 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iakd"]
 
-[node name="InputsPopup" type="Window"]
+[node name="InputsPopup" type="Window" unique_id=896111795]
 auto_translate_mode = 1
 transparent_bg = true
 gui_snap_controls_to_pixels = false
+oversampling_override = 1.0
 initial_position = 4
 size = Vector2i(500, 600)
 transient = true
 exclusive = true
 
-[node name="SettingsScript" type="Node" parent="."]
+[node name="SettingsScript" type="Node" parent="." unique_id=322513077]
 script = ExtResource("1_j2o6a")
 
-[node name="SettingVbox" type="VBoxContainer" parent="."]
+[node name="SettingVbox" type="VBoxContainer" parent="." unique_id=127944035]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 496.0
 offset_bottom = 596.0
 
-[node name="SettingsTab" type="TabContainer" parent="SettingVbox"]
+[node name="SettingsTab" type="TabContainer" parent="SettingVbox" unique_id=581917032]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/side_margin = 1
 current_tab = 0
 
-[node name="Model" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
+[node name="Model" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=1361405047]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingVbox/SettingsTab/Model"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingVbox/SettingsTab/Model" unique_id=1846144288]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -46,17 +47,17 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer" unique_id=755952008]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="GridContainer" type="GridContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer" unique_id=114206316]
 custom_minimum_size = Vector2(428, 0)
 layout_mode = 2
 size_flags_vertical = 0
 columns = 2
 
-[node name="InputCheckButton" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
+[node name="InputCheckButton" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer" unique_id=20136830]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -66,7 +67,7 @@ tooltip_text = "TR_DETECT_HOTKEYS_TOOLTIP"
 button_pressed = true
 text = "TR_DETECT_HOTKEYS"
 
-[node name="AntiAlCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
+[node name="AntiAlCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer" unique_id=41408281]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -75,7 +76,7 @@ size_flags_vertical = 2
 button_pressed = true
 text = "TR_ANTI_ALIASING"
 
-[node name="AutoLoadCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
+[node name="AutoLoadCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer" unique_id=818109200]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -83,7 +84,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 2
 text = "TR_AUTO_LOAD_MODEL"
 
-[node name="DeltaTimeCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer"]
+[node name="DeltaTimeCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/GridContainer" unique_id=232802802]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -92,10 +93,10 @@ tooltip_text = "TR_USE_DELTA_TIME_TOOLTIP"
 text = "TR_USE_DELTA_TIME"
 autowrap_mode = 3
 
-[node name="HBox2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
+[node name="HBox2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer" unique_id=185250106]
 layout_mode = 2
 
-[node name="SaveOnExitCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox2"]
+[node name="SaveOnExitCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox2" unique_id=575020467]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
@@ -103,18 +104,18 @@ size_flags_horizontal = 3
 size_flags_vertical = 2
 text = "TR_SAVE_ON_EXIT"
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox2"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox2" unique_id=1330979037]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "TR_SAVE_ON_EXIT_NOTE"
 vertical_alignment = 1
 
-[node name="HBox" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
+[node name="HBox" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer" unique_id=719882852]
 layout_mode = 2
 alignment = 1
 
-[node name="AutoSaveCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox"]
+[node name="AutoSaveCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox" unique_id=1382951206]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -122,7 +123,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "TR_AUTO_SAVE"
 
-[node name="AutoSaveSpin" type="SpinBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox"]
+[node name="AutoSaveSpin" type="SpinBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBox" unique_id=1556609013]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
@@ -131,11 +132,11 @@ alignment = 1
 suffix = "min."
 script = ExtResource("2_s0wg0")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer" unique_id=1482868542]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MaxFPSLabel" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxFPSLabel" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer" unique_id=202779395]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
@@ -143,7 +144,7 @@ text = "{0} : "
 script = ExtResource("3_s0wg0")
 localizations = Array[String](["TR_MAX_FPS"])
 
-[node name="MaxFPSlider" type="HSlider" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxFPSlider" type="HSlider" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer" unique_id=150570947]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -151,34 +152,34 @@ min_value = 8.0
 max_value = 241.0
 value = 241.0
 
-[node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
+[node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer" unique_id=2113793876]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer" unique_id=269206432]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2053661428]
 layout_mode = 2
 text = "TR_FOLLOW_MOUSE_SCREEN_LABEL"
 
-[node name="SelectedScreen" type="OptionButton" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="SelectedScreen" type="OptionButton" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1726646595]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="OutOfBounds" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer"]
+[node name="OutOfBounds" type="CheckBox" parent="SettingVbox/SettingsTab/Model/MarginContainer/VBoxContainer" unique_id=1096919297]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "If a screen is selected and the cursor is out of it. The mouse is no longer tracked."
 text = "Snap Out of Bounds"
 
-[node name="Audio" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
+[node name="Audio" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=743431230]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingVbox/SettingsTab/Audio"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingVbox/SettingsTab/Audio" unique_id=135324723]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -187,13 +188,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Audio/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Audio/MarginContainer" unique_id=1871972551]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="GridContainer2" type="GridContainer" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer"]
+[node name="GridContainer2" type="GridContainer" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer" unique_id=561195807]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 8
@@ -201,13 +202,13 @@ theme_override_constants/v_separation = 10
 columns = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VolumeLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="VolumeLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2" unique_id=2006972541]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 20
 text = "TR_VOLUME"
 
-[node name="VolumeBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="VolumeBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2" unique_id=1418220909]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
@@ -217,7 +218,7 @@ theme_override_font_sizes/font_size = 12
 max_value = 1.0
 step = 0.0
 
-[node name="VolumeSlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/VolumeBar"]
+[node name="VolumeSlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/VolumeBar" unique_id=1674393419]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
@@ -234,13 +235,13 @@ max_value = 1.0
 step = 0.01
 value = 0.1
 
-[node name="DelayLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="DelayLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2" unique_id=1977129532]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 20
 text = "TR_DELAY"
 
-[node name="DelayBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="DelayBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2" unique_id=316444458]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
@@ -249,7 +250,7 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 12
 max_value = 1.0
 
-[node name="DelaySlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/DelayBar"]
+[node name="DelaySlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/DelayBar" unique_id=248635559]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
@@ -266,13 +267,13 @@ max_value = 1.0
 step = 0.01
 value = 0.1
 
-[node name="SensitivityLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="SensitivityLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2" unique_id=1574725021]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 20
 text = "TR_VOLUME_SENSITIVITY"
 
-[node name="SensitivityBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="SensitivityBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2" unique_id=1888951151]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
@@ -283,7 +284,7 @@ min_value = 1.0
 max_value = 10.0
 value = 1.0
 
-[node name="SensitivitySlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/SensitivityBar"]
+[node name="SensitivitySlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/GridContainer2/SensitivityBar" unique_id=1003197298]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
@@ -301,21 +302,21 @@ max_value = 10.0
 step = 0.01
 value = 1.0
 
-[node name="Sp2" type="HSeparator" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer"]
+[node name="Sp2" type="HSeparator" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer" unique_id=299353505]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer" unique_id=2131955455]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 7
 
-[node name="MicLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MicLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/HBoxContainer" unique_id=124681711]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_MICROPHONE_LABEL"
 
-[node name="MicroPhoneMenu" type="OptionButton" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MicroPhoneMenu" type="OptionButton" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2123152638]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(230, 0)
 layout_mode = 2
@@ -323,7 +324,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 17
 text_overrun_behavior = 3
 
-[node name="ResetMicButton" type="Button" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ResetMicButton" type="Button" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer/HBoxContainer" unique_id=848951750]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -333,7 +334,7 @@ icon = ExtResource("4_fsnh4")
 icon_alignment = 1
 expand_icon = true
 
-[node name="FixMicDelay" type="Button" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer"]
+[node name="FixMicDelay" type="Button" parent="SettingVbox/SettingsTab/Audio/MarginContainer/VBoxContainer" unique_id=1142554596]
 custom_minimum_size = Vector2(262, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -344,12 +345,12 @@ focus_mode = 0
 text = "Restart Mic"
 alignment = 0
 
-[node name="Import" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
+[node name="Import" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=163327294]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Margin" type="MarginContainer" parent="SettingVbox/SettingsTab/Import"]
+[node name="Margin" type="MarginContainer" parent="SettingVbox/SettingsTab/Import" unique_id=1053855657]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -358,10 +359,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Import/Margin"]
+[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Import/Margin" unique_id=1219727415]
 layout_mode = 2
 
-[node name="ImportTrim" type="CheckBox" parent="SettingVbox/SettingsTab/Import/Margin/VBox"]
+[node name="ImportTrim" type="CheckBox" parent="SettingVbox/SettingsTab/Import/Margin/VBox" unique_id=644736798]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(262, 0)
 layout_mode = 2
@@ -370,7 +371,7 @@ tooltip_text = "Automatically crop away any empty space
 surrounding an image when the image is opened."
 text = "Crop Images to Content"
 
-[node name="KeepOldTrimData" type="CheckBox" parent="SettingVbox/SettingsTab/Import/Margin/VBox"]
+[node name="KeepOldTrimData" type="CheckBox" parent="SettingVbox/SettingsTab/Import/Margin/VBox" unique_id=2002752470]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(262, 0)
 layout_mode = 2
@@ -379,12 +380,12 @@ tooltip_text = "Keeps a save of the Sprites before trimming. If toggled off, the
 button_pressed = true
 text = "Keep Data Before Trim"
 
-[node name="Remix Settings" type="ScrollContainer" parent="SettingVbox/SettingsTab"]
+[node name="Remix Settings" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=123285878]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="Margin" type="MarginContainer" parent="SettingVbox/SettingsTab/Remix Settings"]
+[node name="Margin" type="MarginContainer" parent="SettingVbox/SettingsTab/Remix Settings" unique_id=1520053965]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -393,19 +394,19 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin"]
+[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin" unique_id=801633339]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=614837334]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer" unique_id=285956353]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "TR_UI_SCALE_LABEL"
 
-[node name="UIScalingSpinBox" type="SpinBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer"]
+[node name="UIScalingSpinBox" type="SpinBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer" unique_id=369517190]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -414,7 +415,7 @@ max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="UIScalingSlider" type="HSlider" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer"]
+[node name="UIScalingSlider" type="HSlider" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/HBoxContainer" unique_id=1488818702]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -425,7 +426,7 @@ max_value = 2.0
 step = 0.001
 value = 1.0
 
-[node name="FloatyPanning" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+[node name="FloatyPanning" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=746036601]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -434,22 +435,22 @@ will be smooth instead of snappy."
 focus_mode = 0
 text = "Floaty Panning"
 
-[node name="Sp2" type="HSeparator" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+[node name="Sp2" type="HSeparator" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=497713413]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Grid" type="GridContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+[node name="Grid" type="GridContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=130729981]
 layout_mode = 2
 columns = 2
 
-[node name="CustomCursorEditor" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid"]
+[node name="CustomCursorEditor" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid" unique_id=2093424681]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 text = "Fancy Cursor in Editor"
 
-[node name="SelectCursorButton" type="Button" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid"]
+[node name="SelectCursorButton" type="Button" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid" unique_id=264480528]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Select a custom image for the cursor.
@@ -458,7 +459,7 @@ Sizes larger than 128x128 may cause rendering issues."
 focus_mode = 0
 text = "Select Custom Cursor"
 
-[node name="SelectCursor" type="FileDialog" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid/SelectCursorButton"]
+[node name="SelectCursor" type="FileDialog" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid/SelectCursorButton" unique_id=1141539453]
 title = "Open a File"
 ok_button_text = "Open"
 file_mode = 0
@@ -466,20 +467,20 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
 use_native_dialog = true
 
-[node name="CustomCursorPreview" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid"]
+[node name="CustomCursorPreview" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid" unique_id=376152734]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 text = "Fancy Cursor in Preview"
 
-[node name="RemoveCustomCursor" type="Button" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid"]
+[node name="RemoveCustomCursor" type="Button" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid" unique_id=1880504786]
 layout_mode = 2
 tooltip_text = "Remove the custom cursor image and use the default cursor."
 focus_mode = 0
 text = "Remove Custom Cursor"
 
-[node name="UseThreads" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid"]
+[node name="UseThreads" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid" unique_id=861261677]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -487,23 +488,23 @@ size_flags_horizontal = 3
 tooltip_text = "Use multi-threading for actions like saving and loading."
 text = "Use Threads"
 
-[node name="SaveUnusedImages" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid"]
+[node name="SaveUnusedImages" type="CheckBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/Grid" unique_id=127149651]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Use multi-threading for actions like saving and loading."
 text = "Save Unused Files"
 
-[node name="LanguageContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+[node name="LanguageContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=1764926773]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/LanguageContainer"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/LanguageContainer" unique_id=1956993419]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "TR_LANGUAGE_LABEL"
 
-[node name="LanguageOptions" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/LanguageContainer"]
+[node name="LanguageOptions" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/LanguageContainer" unique_id=1345685206]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -514,16 +515,16 @@ popup/item_0/id = 0
 popup/item_1/text = "English (US)"
 popup/item_1/id = 1
 
-[node name="BackendContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+[node name="BackendContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=965896055]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer" unique_id=2045659029]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Tracking Backend : "
 
-[node name="BackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer"]
+[node name="BackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer" unique_id=1144415451]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -538,16 +539,16 @@ popup/item_2/id = 2
 popup/item_3/text = "x11"
 popup/item_3/id = 3
 
-[node name="BackendContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox"]
+[node name="BackendContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=1136366619]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2"]
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2" unique_id=153810656]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Audio Backend : "
 
-[node name="AudioBackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2"]
+[node name="AudioBackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2" unique_id=930950752]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -558,12 +559,64 @@ popup/item_0/id = 0
 popup/item_1/text = "Capture"
 popup/item_1/id = 1
 
-[node name="Grid2" type="GridContainer" parent="SettingVbox"]
+[node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=1262964452]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label4" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=1311021416]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_DEBUG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox" unique_id=1980667632]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer" unique_id=168985847]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Physics Tick :"
+
+[node name="PhysicsTick" type="SpinBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer" unique_id=1731003949]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 6.0
+max_value = 144.0
+value = 6.0
+
+[node name="Label2" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer" unique_id=1780077417]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Physics Steps :"
+
+[node name="PhysicsSteps" type="SpinBox" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer" unique_id=1285362417]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 2.0
+value = 2.0
+
+[node name="Label3" type="Label" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer" unique_id=1071155850]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Jitter Fix :"
+
+[node name="JitterFix" type="HSlider" parent="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer" unique_id=2078598602]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="Grid2" type="GridContainer" parent="SettingVbox" unique_id=818639693]
 layout_mode = 2
 size_flags_horizontal = 0
 columns = 2
 
-[node name="ThemeLabel" type="Label" parent="SettingVbox/Grid2"]
+[node name="ThemeLabel" type="Label" parent="SettingVbox/Grid2" unique_id=271398659]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 20
@@ -571,7 +624,7 @@ text = "UI Theme : "
 vertical_alignment = 2
 max_lines_visible = 5
 
-[node name="UIThemeButton" type="OptionButton" parent="SettingVbox/Grid2"]
+[node name="UIThemeButton" type="OptionButton" parent="SettingVbox/Grid2" unique_id=1145562123]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
@@ -625,3 +678,7 @@ popup/item_7/id = 7
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/LanguageContainer/LanguageOptions" to="SettingsScript" method="_on_remix_language_set"]
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer/BackendOption" to="SettingsScript" method="_on_backend_option_item_selected"]
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/BackendContainer2/AudioBackendOption" to="SettingsScript" method="_on_audio_backend_option_item_selected"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer/PhysicsTick" to="SettingsScript" method="_on_physics_tick_value_changed"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer/PhysicsSteps" to="SettingsScript" method="_on_physics_steps_value_changed"]
+[connection signal="drag_ended" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer/JitterFix" to="SettingsScript" method="_on_jitter_fix_drag_ended"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Remix Settings/Margin/VBox/GridContainer/JitterFix" to="SettingsScript" method="_on_jitter_fix_value_changed"]

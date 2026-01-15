@@ -5,7 +5,6 @@ signal file_error
 
 var top_bar = null
 var ui_theme
-var popup = preload("res://UI/EditorUI/TopUI/Components/popup_panel.tscn").instantiate()
 var save_timer : Timer = Timer.new()
 var current_theme : Theme = preload("res://Themes/PurpleTheme/GUITheme.tres")
 const SAVED_LAYOUT_PATH := "user://layout.tres"
@@ -54,20 +53,18 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	audio_capturer = 2,
 	osf_pos_stren = 10,
 	osf_mouth_strength = -0.05,
+	phys_tick_per_frame = 60,
+	phys_steps = 10,
+	phys_jitter = 0.5,
 }
 var save_location = ""
 var autosave_location = ""
 var websocket_api = ""
 
-
 func _enter_tree() -> void:
 	save_location = path_helper(OS.get_executable_path().get_base_dir(), "/Preferences.pRDat")
 	autosave_location = path_helper(OS.get_executable_path().get_base_dir(), "/autosaves")
 	websocket_api = path_helper(OS.get_executable_path().get_base_dir(), "/WebsocketDocumentation.txt")
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		popup.popup_centered()
 
 func save_before_closing():
 	if theme_settings.save_on_exit:
@@ -156,8 +153,6 @@ func _ready():
 
 	if top_bar != null && is_instance_valid(top_bar):
 		top_bar.sliders_revalue(Global.settings_dict)
-	add_child(popup)
-	popup.hide()
 	scale_window()
 	lipsync_set_up()
 	if theme_settings.microphone != null:
@@ -184,6 +179,11 @@ func _ready():
 			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 0, false)
 			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 2, true)
 			GlobalAudioStreamPlayer.mic_restart_timer_timeout()
+
+	Engine.physics_jitter_fix = theme_settings.phys_jitter
+	Engine.physics_ticks_per_second = theme_settings.phys_tick_per_frame
+	Engine.max_physics_steps_per_frame = theme_settings.phys_steps
+
 
 func update_tracking_backend():
 	match theme_settings.backend_type:
@@ -271,7 +271,6 @@ func _on_ui_theme_button_item_selected(index):
 		7:
 			current_theme = preload("res://Themes/FrutigerAeroTheme/FrutigerAero.tres")
 	
-	popup.theme = current_theme
 	Settings.theme_settings.theme_id = index
 	Global.theme_update.emit(current_theme)
 	save()

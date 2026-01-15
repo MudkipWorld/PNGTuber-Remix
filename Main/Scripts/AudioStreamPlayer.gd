@@ -23,7 +23,7 @@ var _fingerprint := LipSyncFingerprint.new()
 var _matches := []
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	mic_restart_timer.timeout.connect(mic_restart_timer_timeout)
+	#mic_restart_timer.timeout.connect(mic_restart_timer_timeout)
 	mic_restart_timer.one_shot = false
 	add_child(mic_restart_timer)
 	record_bus_index = AudioServer.get_bus_index("Mic")

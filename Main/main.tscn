@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b28gjkefgi5bs"]
+[gd_scene format=3 uid="uid://b28gjkefgi5bs"]
 
 [ext_resource type="Script" uid="uid://bn6wdd2hwqxfp" path="res://Main/Scripts/main.gd" id="1_6pthk"]
 [ext_resource type="Script" uid="uid://u4rstm0uk8wb" path="res://Scripts/Misc/file_importer.gd" id="2_j4lix"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://by4pbr6yeut1c" path="res://Main/Scripts/monitor_tracking.gd" id="5_rj11h"]
 [ext_resource type="PackedScene" uid="uid://bpmlfhv30o08l" path="res://UI/EditorUI/TopUI/top_ui.tscn" id="7_qwnpc"]
 [ext_resource type="Script" uid="uid://cl5ylmnvn6ncm" path="res://Scripts/Objects/mesh_poiner.gd" id="8_rix8b"]
-[ext_resource type="Script" uid="uid://bixd1q38me8go" path="res://Scripts/Misc/pointerTests.gd" id="12_f3gf5"]
 [ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="12_rix8b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f3gf5"]
@@ -78,7 +77,7 @@ shader_parameter/uv_scale = Vector2(2, 2)
 [sub_resource type="ViewportTexture" id="ViewportTexture_rj11h"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=851310579]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -88,14 +87,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6pthk")
 
-[node name="WindowHandler" type="Node" parent="."]
+[node name="WindowHandler" type="Node" parent="." unique_id=440670658]
 script = ExtResource("2_o60nc")
 
-[node name="FileImporter" type="Node" parent="."]
+[node name="FileImporter" type="Node" parent="." unique_id=886724899]
 unique_name_in_owner = true
 script = ExtResource("2_j4lix")
 
-[node name="ConfirmTrim" type="ConfirmationDialog" parent="FileImporter"]
+[node name="ConfirmTrim" type="ConfirmationDialog" parent="FileImporter" unique_id=1828680810]
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
@@ -106,9 +105,9 @@ dialog_text = "Would you like to have your Sprites Trimmed?
 (Removes all unused area around your image.)"
 cancel_button_text = "No"
 
-[node name="Node" type="Node" parent="FileImporter/ConfirmTrim"]
+[node name="Node" type="Node" parent="FileImporter/ConfirmTrim" unique_id=793551975]
 
-[node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim/Node"]
+[node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim/Node" unique_id=1917826308]
 unique_name_in_owner = true
 anchors_preset = -1
 anchor_top = 0.735
@@ -124,7 +123,7 @@ button_pressed = true
 text = "Offset Imported Sprite"
 metadata/_edit_use_anchors_ = true
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=313316778]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_f3gf5")
 layout_mode = 1
@@ -138,33 +137,36 @@ mouse_filter = 0
 stretch = true
 mouse_target = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1631552527]
 unique_name_in_owner = true
 transparent_bg = true
-handle_input_locally = false
+gui_snap_controls_to_pixels = false
+sdf_oversize = 0
+sdf_scale = 2
+oversampling = false
 size = Vector2i(1280, 720)
-render_target_update_mode = 4
+render_target_update_mode = 3
 
-[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1740936232]
 unique_name_in_owner = true
 
-[node name="CamPos" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+[node name="CamPos" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=703986065]
 unique_name_in_owner = true
 
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos"]
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos" unique_id=450027901]
 unique_name_in_owner = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
-[node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+[node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=1268053977]
 z_index = 4
 texture_filter = 4
 
-[node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin"]
+[node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=1728498822]
 unique_name_in_owner = true
 script = ExtResource("2_lv028")
 
-[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" instance=ExtResource("3_eo07p")]
+[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" unique_id=2074649847 instance=ExtResource("3_eo07p")]
 unique_name_in_owner = true
 visible = false
 light_mask = 7
@@ -174,13 +176,13 @@ z_as_relative = false
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.92549)
 
-[node name="MeshPointer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+[node name="MeshPointer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=267766965]
 unique_name_in_owner = true
 z_index = 4096
 z_as_relative = false
 script = ExtResource("8_rix8b")
 
-[node name="Effects" type="TextureRect" parent="."]
+[node name="Effects" type="TextureRect" parent="." unique_id=1951697743]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_qac2q")
 layout_mode = 1
@@ -192,10 +194,10 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("ViewportTexture_rj11h")
 
-[node name="UICanvas" type="CanvasLayer" parent="."]
+[node name="UICanvas" type="CanvasLayer" parent="." unique_id=231648525]
 layer = 2
 
-[node name="Marker" type="Control" parent="UICanvas"]
+[node name="Marker" type="Control" parent="UICanvas" unique_id=1271689922]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 8
@@ -211,7 +213,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("5_rj11h")
 
-[node name="UIHold" type="VBoxContainer" parent="UICanvas"]
+[node name="UIHold" type="VBoxContainer" parent="UICanvas" unique_id=918698920]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -221,7 +223,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="UIHolder" type="VBoxContainer" parent="UICanvas/UIHold"]
+[node name="UIHolder" type="VBoxContainer" parent="UICanvas/UIHold" unique_id=1210955179]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -229,22 +231,22 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = -1
 
-[node name="TopUI" parent="UICanvas/UIHold/UIHolder" instance=ExtResource("7_qwnpc")]
+[node name="TopUI" parent="UICanvas/UIHold/UIHolder" unique_id=1603455844 instance=ExtResource("7_qwnpc")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Control" parent="UICanvas/UIHold/UIHolder" instance=ExtResource("2_micm1")]
+[node name="Control" parent="UICanvas/UIHold/UIHolder" unique_id=1859817720 instance=ExtResource("2_micm1")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ProjectNamePanel" type="Panel" parent="UICanvas/UIHold"]
+[node name="ProjectNamePanel" type="Panel" parent="UICanvas/UIHold" unique_id=821142979]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="ProjectNameLabel" type="Label" parent="UICanvas/UIHold/ProjectNamePanel"]
+[node name="ProjectNameLabel" type="Label" parent="UICanvas/UIHold/ProjectNamePanel" unique_id=1399472450]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -256,7 +258,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 11
 text = "Welcome!"
 
-[node name="WindowSize" type="Label" parent="UICanvas/UIHold/ProjectNamePanel"]
+[node name="WindowSize" type="Label" parent="UICanvas/UIHold/ProjectNamePanel" unique_id=1093128964]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
@@ -279,17 +281,7 @@ vertical_alignment = 1
 script = ExtResource("12_rix8b")
 localizations = Array[String](["TR_WINDOW_SIZE"])
 
-[node name="Pointer" type="ColorRect" parent="UICanvas"]
-visible = false
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-script = ExtResource("12_f3gf5")
-
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1802261511]
 unique_name_in_owner = true
 title = "TR_PLEASE_CONFIRM"
 initial_position = 2
@@ -299,7 +291,7 @@ dialog_hide_on_ok = false
 dialog_autowrap = true
 cancel_button_text = "TR_CANCEL"
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1398432278]
 unique_name_in_owner = true
 title = "Open File(s)"
 initial_position = 2
@@ -313,7 +305,7 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpeg", "*.jpg", "*.svg")
 use_native_dialog = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1814323488]
 wait_time = 0.05
 
 [connection signal="canceled" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_canceled"]

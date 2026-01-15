@@ -8,17 +8,21 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="PNGTube-Remix"
 config/version="1.4.1"
 run/main_scene="uid://ckgt30cxu04dj"
 run/print_header=false
-config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/features=PackedStringArray("4.4")
+config/features=PackedStringArray("4.6")
+run/max_fps=60
 boot_splash/bg_color=Color(0.1118, 0.135361, 0.218212, 1)
-boot_splash/fullsize=false
+boot_splash/stretch_mode=0
 boot_splash/use_filter=false
 boot_splash/image="res://SplashImage.png"
 config/icon="res://PicklesSurprised.png"
@@ -27,6 +31,8 @@ config/windows_native_icon="res://PicklesSurprised.ico"
 
 [audio]
 
+buses/default_bus_layout="uid://b2xlc2esq3cvw"
+driver/output_latency=100
 driver/enable_input=true
 
 [autoload]
@@ -59,6 +65,7 @@ window/size/transparent=true
 window/energy_saving/keep_screen_on=false
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true
+window/vsync/vsync_mode=2
 window/enable_file_logging.pc=true
 window/enable_file_logging=false
 
@@ -77,9 +84,8 @@ Mehses=""
 
 [gui]
 
-theme/custom_font="uid://2jnndjm4c7yc"
 theme/default_font_antialiasing=0
-theme/default_font_subpixel_positioning=2
+theme/custom_font="uid://2jnndjm4c7yc"
 
 [input]
 
@@ -331,9 +337,31 @@ buffering/agile_event_flushing=true
 
 locale/translations=PackedStringArray("res://Localization/en/us/en_us.en.translation")
 
+[physics]
+
+2d/run_on_separate_thread=true
+common/physics_ticks_per_second=30
+common/max_physics_steps_per_frame=30
+common/physics_jitter_fix=0.1
+2d/physics_engine="Dummy"
+3d/physics_engine="Dummy"
+3d/solver/solver_iterations=2
+2d/solver/solver_iterations=2
+common/physics_interpolation=true
+common/enable_object_picking=false
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
+textures/vram_compression/cache_gpu_compressor=false
+lights_and_shadows/directional_shadow/size=512
+lights_and_shadows/directional_shadow/size.mobile=512
+lights_and_shadows/directional_shadow/16_bits=false
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=1
+2d/shadow_atlas/size=460
+shading/overrides/force_lambert_over_burley=true
+2d/sdf/oversize=0
+2d/sdf/scale=2

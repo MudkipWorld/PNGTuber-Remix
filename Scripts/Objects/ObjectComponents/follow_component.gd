@@ -12,21 +12,21 @@ var distance : Vector2 = Vector2.ZERO
 var mouse_moving
 var last_dist_smoothed := Vector2.ZERO
 
-var smoothed_dir := Vector2.ZERO
-var dir_vel_anim := Vector2.ZERO
-var dist_vel_anim := 0.0
+var smoothed_dir : Vector2 = Vector2.ZERO
+var dir_vel_anim : Vector2 = Vector2.ZERO
+var dist_vel_anim : float = 0.0
 
-var frame_h := 0.0
-var frame_v := 0.0
+var frame_h : float = 0.0
+var frame_v : float = 0.0
 
-var target_x := 0.0
-var target_y := 0.0
+var target_x : float = 0.0
+var target_y : float = 0.0
 var target_rotation :Vector2 = Vector2.ZERO
 var target_scale :Vector2 = Vector2.ONE
 var target_pos = Vector2.ZERO
 
 var mouse_delta :Vector2 = Vector2.ZERO
-var rest := false
+var rest : bool = false
 var axis_left :Vector2 = Vector2.ZERO
 var axis_right :Vector2 = Vector2.ZERO
 var axis_shoulderl :Vector2 = Vector2.ZERO
@@ -70,6 +70,7 @@ func process_follow(delta: float) -> void:
 	var dir = (mouse_coords - Vector2.ZERO).normalized() if mouse_coords.length() > 0.0001 else Vector2.ZERO
 	var dist = mouse_coords.length()
 	update_controller_inputs()
+
 	update_position(dir, dist, delta)
 	update_rotation(dir, delta)
 	update_scale(dir, delta)
@@ -110,8 +111,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	if actor.get_value("follow_type") == 15:
 		target_pos = Vector2(0,0)
 		%Modifier1.position = Vector2(0,0)
-		return
-	
+
 	var follow_type = actor.get_value("follow_type")
 	var keyboard_axis := Vector2.ZERO
 	if follow_type in [3,4,5,6,7,8]:

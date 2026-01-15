@@ -1,4 +1,4 @@
-extends Node
+extends AudioStreamPlayer
 
 
 var audio = AudioServer
@@ -35,7 +35,7 @@ var speech_delay : float :
 				has_delayed = false
 
 
-func _physics_process(_delta):
+func _process(_delta):
 	sample = audio.get_bus_peak_volume_left_db(2, 0)
 	linear_sampler = db_to_linear(sample) 
 	volume = lerp(volume, linear_sampler * Global.settings_dict.sensitivity_limit, 0.1)

@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi0ts50s5a0m0"]
+[gd_scene format=3 uid="uid://bi0ts50s5a0m0"]
 
 [ext_resource type="Script" uid="uid://c8cslwt4pkj56" path="res://Scripts/UI/RightPanel/wiggle_sprite.gd" id="1_00ydi"]
 [ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="2_dcw28"]
 [ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="3_ru4gk"]
 
-[node name="WiggleSpritePanel" type="VBoxContainer"]
+[node name="WiggleSpritePanel" type="VBoxContainer" unique_id=2083292082]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,42 +13,42 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="WiggleSprite" type="Node" parent="."]
+[node name="WiggleSprite" type="Node" parent="." unique_id=1482195824]
 script = ExtResource("1_00ydi")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1415645196]
 layout_mode = 2
 text = "TR_FOLLOW_APPENDAGE_TIP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Grid" type="GridContainer" parent="."]
+[node name="Grid" type="GridContainer" parent="." unique_id=565955281]
 layout_mode = 2
 columns = 2
 
-[node name="FollowWiggleAppTip" type="CheckBox" parent="Grid"]
+[node name="FollowWiggleAppTip" type="CheckBox" parent="Grid" unique_id=267866427]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "TR_FOLLOW_APPENDAGE"
 
-[node name="HBox34" type="HBoxContainer" parent="Grid"]
+[node name="HBox34" type="HBoxContainer" parent="Grid" unique_id=480631271]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TipLabel" type="Label" parent="Grid/HBox34"]
+[node name="TipLabel" type="Label" parent="Grid/HBox34" unique_id=1345334189]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_FAT_POINT"
 
-[node name="TipSpin" type="SpinBox" parent="Grid/HBox34"]
+[node name="TipSpin" type="SpinBox" parent="Grid/HBox34" unique_id=1775674182]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FollowAllRange" type="CheckBox" parent="Grid"]
+[node name="FollowAllRange" type="CheckBox" parent="Grid" unique_id=1040733580]
 layout_mode = 2
 tooltip_text = "Follows the Appendage movement direction no matter its current base Angle."
 theme_override_font_sizes/font_size = 14
@@ -57,7 +57,7 @@ script = ExtResource("3_ru4gk")
 sp_type = ""
 value_to_update = "follow_range"
 
-[node name="StrngthBSlider" parent="Grid" instance=ExtResource("2_dcw28")]
+[node name="StrngthBSlider" parent="Grid" unique_id=944599251 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -68,7 +68,7 @@ step = 0.001
 ui_type = 1
 value_to_update = "follow_strength"
 
-[node name="ThresholdBSlider" parent="Grid" instance=ExtResource("2_dcw28")]
+[node name="ThresholdBSlider" parent="Grid" unique_id=154239754 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -77,7 +77,7 @@ max_value = 10.0
 ui_type = 1
 value_to_update = "rotation_threshold"
 
-[node name="MiniFWBSlider" parent="." instance=ExtResource("2_dcw28")]
+[node name="MiniFWBSlider" parent="." unique_id=1179521601 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -87,7 +87,7 @@ mini_value = -360.0
 step = 0.5
 value_to_update = "follow_wa_mini"
 
-[node name="MaxFWBSlider" parent="." instance=ExtResource("2_dcw28")]
+[node name="MaxFWBSlider" parent="." unique_id=773777112 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -97,10 +97,10 @@ max_value = 360.0
 step = 0.5
 value_to_update = "follow_wa_max"
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="." unique_id=1406197858]
 layout_mode = 2
 
-[node name="MaxFWBSlider2" parent="." instance=ExtResource("2_dcw28")]
+[node name="MaxFWBSlider2" parent="." unique_id=1704005492 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -110,29 +110,29 @@ max_value = 360.0
 step = 0.5
 value_to_update = "follow_wa_max"
 
-[node name="WiggleStuff" type="VBoxContainer" parent="."]
+[node name="WiggleStuff" type="VBoxContainer" parent="." unique_id=2024793870]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="Label2" type="Label" parent="WiggleStuff"]
+[node name="Label2" type="Label" parent="WiggleStuff" unique_id=434644882]
 layout_mode = 2
 text = "TR_WIGGLE_SPRITE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Grid" type="GridContainer" parent="WiggleStuff"]
+[node name="Grid" type="GridContainer" parent="WiggleStuff" unique_id=455066947]
 layout_mode = 2
 columns = 2
 
-[node name="WiggleCheck" type="CheckBox" parent="WiggleStuff/Grid"]
+[node name="WiggleCheck" type="CheckBox" parent="WiggleStuff/Grid" unique_id=1556622322]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "TR_WIGGLE_SPRITE"
 
-[node name="WigglePhysicsCheck" type="CheckBox" parent="WiggleStuff/Grid"]
+[node name="WigglePhysicsCheck" type="CheckBox" parent="WiggleStuff/Grid" unique_id=1238076417]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -142,7 +142,7 @@ script = ExtResource("3_ru4gk")
 sp_type = "Sprite2D"
 value_to_update = "wiggle_physics"
 
-[node name="FollowParentEffect" type="CheckBox" parent="WiggleStuff/Grid"]
+[node name="FollowParentEffect" type="CheckBox" parent="WiggleStuff/Grid" unique_id=426239117]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -150,22 +150,18 @@ tooltip_text = "TR_WS_SYNC_EFFECT_TOOLTIP"
 theme_override_font_sizes/font_size = 16
 text = "TR_SYNC_EFFECT"
 
-[node name="Grid2" type="GridContainer" parent="WiggleStuff"]
+[node name="Grid2" type="GridContainer" parent="WiggleStuff" unique_id=422741978]
 layout_mode = 2
 columns = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WiggleStuff/Grid2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="XoffsetLabel" type="Label" parent="WiggleStuff/Grid2/HBoxContainer"]
+[node name="XoffsetLabel" type="Label" parent="WiggleStuff/Grid2" unique_id=504484707]
 custom_minimum_size = Vector2(93, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_X_OFFSET"
 
-[node name="XoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid2/HBoxContainer"]
+[node name="XoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid2" unique_id=144986517]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -173,20 +169,14 @@ min_value = -999999.0
 max_value = 999999.0
 step = 0.1
 
-[node name="HBox" type="HBoxContainer" parent="WiggleStuff/Grid2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 4
-
-[node name="YoffsetLabel" type="Label" parent="WiggleStuff/Grid2/HBox"]
+[node name="YoffsetLabel" type="Label" parent="WiggleStuff/Grid2" unique_id=1512099064]
 custom_minimum_size = Vector2(93, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_Y_OFFSET"
 
-[node name="YoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid2/HBox"]
+[node name="YoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid2" unique_id=47070834]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -194,7 +184,7 @@ min_value = -999999.0
 max_value = 999999.0
 step = 0.1
 
-[node name="WiggleAmpBSlider" parent="WiggleStuff" instance=ExtResource("2_dcw28")]
+[node name="WiggleAmpBSlider" parent="WiggleStuff" unique_id=1356906269 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = "Sprite2D"
@@ -204,7 +194,7 @@ max_value = 50.0
 step = 0.01
 value_to_update = "wiggle_amp"
 
-[node name="WiggleFreqBSlider" parent="WiggleStuff" instance=ExtResource("2_dcw28")]
+[node name="WiggleFreqBSlider" parent="WiggleStuff" unique_id=454088936 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = "Sprite2D"
@@ -218,5 +208,5 @@ value_to_update = "wiggle_freq"
 [connection signal="value_changed" from="Grid/HBox34/TipSpin" to="WiggleSprite" method="_on_tip_spin_value_changed"]
 [connection signal="toggled" from="WiggleStuff/Grid/WiggleCheck" to="WiggleSprite" method="_on_wiggle_check_toggled"]
 [connection signal="toggled" from="WiggleStuff/Grid/FollowParentEffect" to="WiggleSprite" method="_on_follow_parent_effect_toggled"]
-[connection signal="value_changed" from="WiggleStuff/Grid2/HBoxContainer/XoffsetSpinBox" to="WiggleSprite" method="_on_xoffset_spin_box_value_changed"]
-[connection signal="value_changed" from="WiggleStuff/Grid2/HBox/YoffsetSpinBox" to="WiggleSprite" method="_on_yoffset_spin_box_value_changed"]
+[connection signal="value_changed" from="WiggleStuff/Grid2/XoffsetSpinBox" to="WiggleSprite" method="_on_xoffset_spin_box_value_changed"]
+[connection signal="value_changed" from="WiggleStuff/Grid2/YoffsetSpinBox" to="WiggleSprite" method="_on_yoffset_spin_box_value_changed"]

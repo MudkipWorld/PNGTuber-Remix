@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=38 format=4 uid="uid://c5v4ocnimqa4i"]
+[gd_resource type="Theme" format=4 uid="uid://c5v4ocnimqa4i"]
 
 [ext_resource type="StyleBox" uid="uid://dt6ohhswi3vpx" path="res://Themes/WhiteTheme/ButtonPressed.tres" id="1_eajkr"]
 [ext_resource type="StyleBox" uid="uid://musbk38v1ou4" path="res://Themes/WhiteTheme/Buttonbase.tres" id="2_3ggix"]
@@ -146,6 +146,15 @@ font_weight = 600
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 18.0
 cache/0/16/0/descent = 5.0
 cache/0/16/0/underline_position = 1.60938

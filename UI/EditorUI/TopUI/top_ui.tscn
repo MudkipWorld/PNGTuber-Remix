@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bpmlfhv30o08l"]
+[gd_scene format=3 uid="uid://bpmlfhv30o08l"]
 
 [ext_resource type="Script" uid="uid://buog53mcsao0g" path="res://Scripts/UI/TopPanel/top_ui.gd" id="2_fpnkx"]
 [ext_resource type="Script" uid="uid://bafvsv0wf438w" path="res://Scripts/Misc/OnlineLinks.gd" id="3_tep3f"]
@@ -8,12 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dafcfpors4fb6" path="res://UI/EditorUI/TopUI/Components/model_optimizer.tscn" id="6_mle18"]
 [ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/Assets/LinksButtonImages/RedditLogo.png" id="8_3p41m"]
 [ext_resource type="Texture2D" uid="uid://dt530lalergk0" path="res://DemoModels/Icons/BasicIcon.png" id="9_hrvuv"]
-[ext_resource type="Texture2D" uid="uid://bhidrbb01hfmq" path="res://DemoModels/Icons/BGIcon.png" id="10_apeyf"]
 [ext_resource type="Texture2D" uid="uid://fmhwpxa4hlo7" path="res://DemoModels/Icons/NormalIcon.png" id="11_bgxcq"]
 [ext_resource type="Texture2D" uid="uid://bjxmdyue5pp2x" path="res://DemoModels/Icons/FollowMouseIcon.png" id="12_bmktp"]
 [ext_resource type="Texture2D" uid="uid://dm7ppdlhye1ji" path="res://DemoModels/Icons/AssetIcon.png" id="13_f2y74"]
 
-[node name="TopUI" type="Control"]
+[node name="TopUI" type="Control" unique_id=878130328]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 3
 anchors_preset = 10
@@ -24,14 +23,14 @@ size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("2_fpnkx")
 
-[node name="OnlineLinks" type="Node" parent="."]
+[node name="OnlineLinks" type="Node" parent="." unique_id=1045284249]
 script = ExtResource("3_tep3f")
 
-[node name="TopBarInput" type="Node" parent="."]
+[node name="TopBarInput" type="Node" parent="." unique_id=213824532]
 unique_name_in_owner = true
 script = ExtResource("4_r6evh")
 
-[node name="TopBar" type="Panel" parent="."]
+[node name="TopBar" type="Panel" parent="." unique_id=1487302855]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -40,21 +39,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TopBar"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 2
-
-[node name="HBox" type="HBoxContainer" parent="TopBar/MarginContainer"]
-layout_mode = 2
+[node name="HBox" type="HBoxContainer" parent="TopBar" unique_id=1317051371]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 1280.0
+offset_bottom = 35.0
 theme_override_constants/separation = 4
 
-[node name="FilesButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="FilesButton" type="MenuButton" parent="TopBar/HBox" unique_id=1069814083]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -82,7 +74,7 @@ popup/item_8/id = 13
 popup/item_9/text = "TR_EXPORT_MODEL_PARTS"
 popup/item_9/id = 9
 
-[node name="EditButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="EditButton" type="MenuButton" parent="TopBar/HBox" unique_id=1471822601]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -95,7 +87,7 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_REDO"
 popup/item_1/id = 1
 
-[node name="ModeButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="ModeButton" type="MenuButton" parent="TopBar/HBox" unique_id=1113398874]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -107,7 +99,7 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_PREVIEW"
 popup/item_1/id = 1
 
-[node name="BGButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="BGButton" type="MenuButton" parent="TopBar/HBox" unique_id=932008042]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -129,7 +121,7 @@ popup/item_5/id = 5
 popup/item_6/text = "TR_CUSTOM"
 popup/item_6/id = 6
 
-[node name="BounceControlButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="BounceControlButton" type="MenuButton" parent="TopBar/HBox" unique_id=1613266894]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -137,14 +129,14 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
 text = "TR_BOUNCE"
 
-[node name="InputsButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="InputsButton" type="MenuButton" parent="TopBar/HBox" unique_id=1690784609]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
 text = "TR_SETTINGS"
 
-[node name="CollabButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="CollabButton" type="MenuButton" parent="TopBar/HBox" unique_id=313356856]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(79, 0)
@@ -153,7 +145,7 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
 text = "TR_COLLAB"
 
-[node name="WindowButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="WindowButton" type="MenuButton" parent="TopBar/HBox" unique_id=669576063]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -186,7 +178,7 @@ popup/item_8/checkable = 1
 popup/item_8/checked = true
 popup/item_8/id = 7
 
-[node name="AboutButton" type="MenuButton" parent="TopBar/MarginContainer/HBox"]
+[node name="AboutButton" type="MenuButton" parent="TopBar/HBox" unique_id=1689104778]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -200,7 +192,7 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_MINI_TUTORIAL"
 popup/item_2/id = 2
 
-[node name="PreviewModeCheck" type="CheckBox" parent="TopBar/MarginContainer/HBox"]
+[node name="PreviewModeCheck" type="CheckBox" parent="TopBar/HBox" unique_id=628060667]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
@@ -210,7 +202,7 @@ theme_override_font_sizes/font_size = 12
 text = "TR_PAUSE_MOVEMENT"
 flat = true
 
-[node name="HideUIButton" type="CheckBox" parent="TopBar/MarginContainer/HBox"]
+[node name="HideUIButton" type="CheckBox" parent="TopBar/HBox" unique_id=1733210374]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
@@ -220,36 +212,36 @@ button_pressed = true
 text = "TR_SHOW_UI"
 flat = true
 
-[node name="DeselectButton" type="Button" parent="TopBar/MarginContainer/HBox"]
+[node name="DeselectButton" type="Button" parent="TopBar/HBox" unique_id=25173029]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(79, 0)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-theme_override_colors/font_outline_color = Color(0.74558, 0.74558, 0.74558, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.74558, 0.74558, 0.74558, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 12
 text = "TR_DESELECT"
 flat = true
 icon_alignment = 1
 
-[node name="CreditPopUp" type="PopupPanel" parent="."]
+[node name="CreditPopUp" type="PopupPanel" parent="." unique_id=779625607]
 unique_name_in_owner = true
 auto_translate_mode = 1
 initial_position = 2
 size = Vector2i(400, 300)
 wrap_controls = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CreditPopUp"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditPopUp" unique_id=1385156869]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 396.0
 offset_bottom = 296.0
 
-[node name="CreditLabel" type="Label" parent="CreditPopUp/VBoxContainer"]
+[node name="CreditLabel" type="Label" parent="CreditPopUp/VBoxContainer" unique_id=1043528646]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 10)
 layout_mode = 2
@@ -257,15 +249,15 @@ text = "TR_FULL_CREDITS"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="CreditPopUp/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="CreditPopUp/VBoxContainer" unique_id=238567003]
 layout_mode = 2
 columns = 3
 
-[node name="SourceLabel" type="Label" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="SourceLabel" type="Label" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=1762968326]
 layout_mode = 2
 text = "TR_SOURCE_CODE"
 
-[node name="GitHubButton" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="GitHubButton" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=49676119]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture_normal = ExtResource("6_0f73e")
@@ -275,14 +267,14 @@ texture_disabled = ExtResource("6_0f73e")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="EmptySpace" type="Control" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="EmptySpace" type="Control" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=188691098]
 layout_mode = 2
 
-[node name="SocialLabel" type="Label" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="SocialLabel" type="Label" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=564842637]
 layout_mode = 2
 text = "TR_SOCIALS"
 
-[node name="RedditButton" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="RedditButton" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=1358555024]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture_normal = ExtResource("8_3p41m")
@@ -292,14 +284,14 @@ texture_disabled = ExtResource("8_3p41m")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="EmptySpace2" type="Control" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="EmptySpace2" type="Control" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=1722104258]
 layout_mode = 2
 
-[node name="SocialLabel2" type="Label" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="SocialLabel2" type="Label" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=171873942]
 layout_mode = 2
 text = "Websocket Doc"
 
-[node name="WebsocketDoc" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer"]
+[node name="WebsocketDoc" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=635151567]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture_normal = ExtResource("6_0f73e")
@@ -309,32 +301,32 @@ texture_disabled = ExtResource("6_0f73e")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="ModelOptimizer" parent="." instance=ExtResource("6_mle18")]
+[node name="ModelOptimizer" parent="." unique_id=672169033 instance=ExtResource("6_mle18")]
 unique_name_in_owner = true
 visible = false
 
-[node name="TempPopUp" type="PopupPanel" parent="."]
+[node name="TempPopUp" type="PopupPanel" parent="." unique_id=1100371581]
 unique_name_in_owner = true
 auto_translate_mode = 1
 initial_position = 2
 size = Vector2i(571, 195)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TempPopUp"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TempPopUp" unique_id=1739187645]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 567.0
 offset_bottom = 191.0
 
-[node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer"]
+[node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer" unique_id=338260317]
 layout_mode = 2
 text = "TR_CHOOSE_DEMO"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="TempPopUp/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="TempPopUp/VBoxContainer" unique_id=802031862]
 layout_mode = 2
 columns = 2
 
-[node name="BasicTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+[node name="BasicTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=746850307]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -342,16 +334,7 @@ text = "TR_BASIC_DEMO"
 icon = ExtResource("9_hrvuv")
 expand_icon = true
 
-[node name="BGTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(320, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "TR_BG_TEMP_BUTTON"
-icon = ExtResource("10_apeyf")
-expand_icon = true
-
-[node name="NormalmTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+[node name="NormalmTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=1852444694]
 custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -359,7 +342,7 @@ text = "TR_NORMAL_MAP_DEMO"
 icon = ExtResource("11_bgxcq")
 expand_icon = true
 
-[node name="FollowMouseTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+[node name="FollowMouseTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=890649304]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -367,7 +350,7 @@ text = "TR_FOLLOW_MOUSE_DEMO"
 icon = ExtResource("12_bmktp")
 expand_icon = true
 
-[node name="AssetTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer"]
+[node name="AssetTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=1592997077]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -375,19 +358,19 @@ theme_override_constants/icon_max_width = 37
 text = "TR_ASSET_MODEL_DEMO"
 icon = ExtResource("13_f2y74")
 
-[node name="AboutPopUp" type="PopupPanel" parent="."]
+[node name="AboutPopUp" type="PopupPanel" parent="." unique_id=1931600827]
 unique_name_in_owner = true
 auto_translate_mode = 1
 initial_position = 2
 size = Vector2i(438, 249)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp"]
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp" unique_id=191552235]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 434.0
 offset_bottom = 245.0
 
-[node name="AboutLabel" type="Label" parent="AboutPopUp/VBoxContainer"]
+[node name="AboutLabel" type="Label" parent="AboutPopUp/VBoxContainer" unique_id=1232881664]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "{0}
@@ -396,19 +379,19 @@ horizontal_alignment = 1
 script = ExtResource("4_mle18")
 localizations = Array[String](["TR_ABOUT"])
 
-[node name="Label" type="Label" parent="AboutPopUp/VBoxContainer"]
+[node name="Label" type="Label" parent="AboutPopUp/VBoxContainer" unique_id=847670846]
 custom_minimum_size = Vector2(430, 150)
 layout_mode = 2
 text = "TR_ABOUT_FULL"
 autowrap_mode = 3
 
-[node name="Background" type="PopupPanel" parent="."]
+[node name="Background" type="PopupPanel" parent="." unique_id=1032501821]
 unique_name_in_owner = true
 auto_translate_mode = 1
 initial_position = 2
 size = Vector2i(284, 416)
 
-[node name="BGColorPicker" type="ColorPicker" parent="Background"]
+[node name="BGColorPicker" type="ColorPicker" parent="Background" unique_id=1361919135]
 unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
@@ -423,16 +406,15 @@ sampler_visible = false
 color_modes_visible = false
 presets_visible = false
 
-[connection signal="pressed" from="TopBar/MarginContainer/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
-[connection signal="about_to_popup" from="TopBar/MarginContainer/HBox/WindowButton" to="TopBarInput" method="_on_window_button_about_to_popup"]
-[connection signal="toggled" from="TopBar/MarginContainer/HBox/PreviewModeCheck" to="TopBarInput" method="_on_preview_mode_check_toggled"]
-[connection signal="toggled" from="TopBar/MarginContainer/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
-[connection signal="pressed" from="TopBar/MarginContainer/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
+[connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
+[connection signal="about_to_popup" from="TopBar/HBox/WindowButton" to="TopBarInput" method="_on_window_button_about_to_popup"]
+[connection signal="toggled" from="TopBar/HBox/PreviewModeCheck" to="TopBarInput" method="_on_preview_mode_check_toggled"]
+[connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]
+[connection signal="pressed" from="TopBar/HBox/DeselectButton" to="TopBarInput" method="_on_deselect_button_pressed"]
 [connection signal="pressed" from="CreditPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
 [connection signal="pressed" from="CreditPopUp/VBoxContainer/GridContainer/RedditButton" to="OnlineLinks" method="_on_reddit_button_pressed"]
 [connection signal="pressed" from="CreditPopUp/VBoxContainer/GridContainer/WebsocketDoc" to="OnlineLinks" method="_on_websocket_doc_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BasicTempButton" to="TopBarInput" method="_on_basic_temp_button_pressed"]
-[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BGTempButton" to="TopBarInput" method="_on_bg_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/NormalmTempButton" to="TopBarInput" method="_on_normalm_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/FollowMouseTempButton" to="TopBarInput" method="_on_follow_mouse_temp_button_pressed"]
 [connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/AssetTempButton" to="TopBarInput" method="_on_asset_temp_button_pressed"]

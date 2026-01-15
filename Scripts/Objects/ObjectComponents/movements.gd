@@ -57,7 +57,10 @@ func _ready() -> void:
 	last_modifier_position = sprite_node.global_position
 
 func _physics_process(delta: float) -> void:
-	follow_wiggle(delta)
+	if !actor.get_value("follow_wa_tip"):
+		follow_point_rot = 0.0
+	else:
+		follow_wiggle(delta)
 	placeholder_position = %Modifier1.global_position
 	applied_pos =  placeholder_position
 	
@@ -120,7 +123,7 @@ func _physics_process(delta: float) -> void:
 			
 			mesh.call_deferred("update_physics", delta, false)
 	
-	last_modifier_position = last_modifier_position.move_toward(sprite_node.global_position, 30*delta).snappedf(0.00001)
+		last_modifier_position = last_modifier_position.move_toward(sprite_node.global_position, 30*delta).snappedf(0.00001)
 
 func _process(_delta: float) -> void:
 	if actor.get_value("static_obj"):
@@ -243,9 +246,6 @@ var points_cache: Array = []
 var points_dirty: bool = true
 
 func follow_wiggle(_delta):
-	if not actor.get_value("follow_wa_tip"):
-		follow_point_rot = 0.0
-		return
 	var parent = actor.get_parent()
 	if not is_instance_valid(parent) or not (parent is WigglyAppendage2D):
 		follow_point_rot = 0.0

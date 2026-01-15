@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=26 format=3 uid="uid://c3qcvnoy1b7x8"]
+[gd_resource type="Theme" format=3 uid="uid://c3qcvnoy1b7x8"]
 
 [ext_resource type="Texture2D" uid="uid://cs5x5k14vxaqv" path="res://Misc/TestAssets/SliderGrabber.png" id="1_en1um"]
 [ext_resource type="StyleBox" uid="uid://dayf2gx72sev3" path="res://Themes/BlueTheme/ButtonBase.tres" id="1_vj17i"]

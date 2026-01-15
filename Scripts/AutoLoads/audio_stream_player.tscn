@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbb5yj5luepnb"]
+[gd_scene format=3 uid="uid://dbb5yj5luepnb"]
 
 [ext_resource type="Script" uid="uid://c5idljtng82vs" path="res://Main/Scripts/AudioStreamPlayer.gd" id="1_1tutj"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_xfo8l"]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=234882763]
 stream = SubResource("AudioStreamMicrophone_xfo8l")
 autoplay = true
 bus = &"Mic"
 script = ExtResource("1_1tutj")
 
-[node name="MicTimer" type="Timer" parent="."]
+[node name="MicTimer" type="Timer" parent="." unique_id=739128888]
 wait_time = 30.0
 autostart = true

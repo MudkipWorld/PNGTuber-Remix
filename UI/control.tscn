@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ngta1o5yiqxs"]
+[gd_scene format=3 uid="uid://ngta1o5yiqxs"]
 
 [ext_resource type="Script" uid="uid://dvpyywoct4riy" path="res://Scripts/UI/control.gd" id="1_1r6xj"]
 [ext_resource type="Script" uid="uid://bpegrg5a15v2v" path="res://Scripts/UI/UIInput.gd" id="3_1eur5"]
@@ -26,7 +26,7 @@ blend_mode = 1
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1r6xj"]
 blend_mode = 1
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1962591690]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,11 +38,11 @@ size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_1r6xj")
 
-[node name="UIInput" type="Node" parent="."]
+[node name="UIInput" type="Node" parent="." unique_id=50855305]
 unique_name_in_owner = true
 script = ExtResource("3_1eur5")
 
-[node name="MainSplit" type="HSplitContainer" parent="."]
+[node name="MainSplit" type="HSplitContainer" parent="." unique_id=1694568670]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -52,27 +52,29 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
+split_offsets = PackedInt32Array(-2000)
 split_offset = -2000
 
-[node name="LeftPanel" parent="MainSplit" instance=ExtResource("5_0cvxm")]
+[node name="LeftPanel" parent="MainSplit" unique_id=264589613 instance=ExtResource("5_0cvxm")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SecondarySplit" type="HSplitContainer" parent="MainSplit"]
+[node name="SecondarySplit" type="HSplitContainer" parent="MainSplit" unique_id=1773253518]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
+split_offsets = PackedInt32Array(2500)
 split_offset = 2500
 
-[node name="AspectRatioContainer" type="Control" parent="MainSplit/SecondarySplit"]
+[node name="AspectRatioContainer" type="Control" parent="MainSplit/SecondarySplit" unique_id=1181481441]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="CamZoom" type="HBoxContainer" parent="MainSplit/SecondarySplit/AspectRatioContainer"]
+[node name="CamZoom" type="HBoxContainer" parent="MainSplit/SecondarySplit/AspectRatioContainer" unique_id=1689271344]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(107, 20)
 layout_mode = 1
@@ -89,7 +91,7 @@ theme_override_constants/separation = 10
 alignment = 2
 script = ExtResource("4_epu7g")
 
-[node name="ZoomInButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom"]
+[node name="ZoomInButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" unique_id=525538463]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -99,7 +101,7 @@ icon = ExtResource("4_in571")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ZoomOutButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom"]
+[node name="ZoomOutButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" unique_id=350393960]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -109,7 +111,7 @@ icon = ExtResource("5_epu7g")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ZoomMainResetButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom"]
+[node name="ZoomMainResetButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" unique_id=607687450]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -119,7 +121,7 @@ icon = ExtResource("6_seimj")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ProjectSavedLabel" type="Label" parent="MainSplit/SecondarySplit/AspectRatioContainer"]
+[node name="ProjectSavedLabel" type="Label" parent="MainSplit/SecondarySplit/AspectRatioContainer" unique_id=1405730346]
 unique_name_in_owner = true
 visible = false
 material = SubResource("CanvasItemMaterial_y3a4k")
@@ -136,14 +138,14 @@ text = "Project Saved!"
 vertical_alignment = 2
 script = ExtResource("8_y3a4k")
 
-[node name="RightPanel" type="Panel" parent="MainSplit/SecondarySplit"]
+[node name="RightPanel" type="Panel" parent="MainSplit/SecondarySplit" unique_id=1046476417]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(410, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
-[node name="Margin" type="MarginContainer" parent="MainSplit/SecondarySplit/RightPanel"]
+[node name="Margin" type="MarginContainer" parent="MainSplit/SecondarySplit/RightPanel" unique_id=548977456]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -155,17 +157,10 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin" unique_id=949041806]
 layout_mode = 2
 
-[node name="Properties" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 0
-mouse_filter = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Name" type="LineEdit" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties"]
+[node name="Name" type="LineEdit" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer" unique_id=1112915694]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
@@ -174,7 +169,7 @@ theme_override_font_sizes/font_size = 20
 placeholder_text = "TR_NAME"
 alignment = 1
 
-[node name="RenameTexture" type="TextureRect" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties/Name"]
+[node name="RenameTexture" type="TextureRect" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Name" unique_id=1876022138]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -188,7 +183,7 @@ texture = ExtResource("8_seimj")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="MultistateEditingCue" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties"]
+[node name="MultistateEditingCue" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer" unique_id=1868032380]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.686275)
@@ -197,10 +192,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "TR_MULTISTATE_EDITING_CUE_LABEL"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer" unique_id=1357578065]
 layout_mode = 2
 
-[node name="SpriteID" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties/HBoxContainer"]
+[node name="SpriteID" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/HBoxContainer" unique_id=1164282466]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -208,7 +203,7 @@ theme_override_font_sizes/font_size = 10
 text = "TR_SPRITE_ID_LABEL{0}"
 script = ExtResource("14_y3a4k")
 
-[node name="ParentID" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties/HBoxContainer"]
+[node name="ParentID" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/HBoxContainer" unique_id=230162573]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -216,14 +211,14 @@ theme_override_font_sizes/font_size = 10
 text = "TR_PARENT_ID_LABEL{0}"
 script = ExtResource("14_y3a4k")
 
-[node name="VSplit" type="VSplitContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer"]
+[node name="VSplit" type="VSplitContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer" unique_id=2047378406]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="Inspector" type="TabContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit"]
+[node name="Inspector" type="TabContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" unique_id=1099070921]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(350, 400)
@@ -233,52 +228,52 @@ theme_override_constants/side_margin = 1
 theme_override_font_sizes/font_size = 13
 current_tab = 0
 
-[node name="Properties" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("8_i4djb")]
+[node name="Properties" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 layout_mode = 2
 
-[node name="Movement" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("9_fwbkq")]
+[node name="Movement" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=269024386 instance=ExtResource("9_fwbkq")]
 visible = false
 layout_mode = 2
 
-[node name="Wiggle" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("6_63lps")]
+[node name="Wiggle" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1568898990 instance=ExtResource("6_63lps")]
 layout_mode = 2
 
-[node name="Animation" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("7_1r6xj")]
+[node name="Animation" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1805843008 instance=ExtResource("7_1r6xj")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="Model" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("8_1r6xj")]
+[node name="Model" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1895797174 instance=ExtResource("8_1r6xj")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="Light" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("7_4jud0")]
+[node name="Light" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=310893493 instance=ExtResource("7_4jud0")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
-[node name="Mesh" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" instance=ExtResource("18_kv61l")]
+[node name="Mesh" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1132558088 instance=ExtResource("18_kv61l")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 6
 
-[node name="Websocket" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector"]
+[node name="Websocket" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=962613607]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 7
 
-[node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Websocket" instance=ExtResource("17_le2wr")]
+[node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Websocket" unique_id=1789427237 instance=ExtResource("17_le2wr")]
 layout_mode = 1
 size_flags_vertical = 1
 
-[node name="Tests" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector"]
+[node name="Tests" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=7707392]
 visible = false
 y_sort_enabled = true
 layout_mode = 2
 metadata/_tab_index = 8
 
-[node name="ScrollContainer6" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests"]
+[node name="ScrollContainer6" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests" unique_id=1993124440]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.014
@@ -293,7 +288,7 @@ grow_vertical = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6"]
+[node name="MarginContainer" type="MarginContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6" unique_id=148281983]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -302,14 +297,14 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer" unique_id=727006526]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 6
 
-[node name="AdvancedLipSync" type="CheckBox" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
+[node name="AdvancedLipSync" type="CheckBox" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" unique_id=685824800]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -317,7 +312,7 @@ size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_ADVANCED_LIP_SYNC"
 
-[node name="AdvancedLipSyncLabel" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
+[node name="AdvancedLipSyncLabel" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" unique_id=562756730]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(340, 0)
@@ -331,10 +326,7 @@ justification_flags = 169
 max_lines_visible = 3
 visible_characters_behavior = 2
 
-[node name="HSeparator2" type="HSeparator" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="StatePanel" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" instance=ExtResource("10_1r6xj")]
+[node name="StatePanel" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" unique_id=1298455309 instance=ExtResource("10_1r6xj")]
 layout_mode = 2
 size_flags_vertical = 1
 
@@ -343,9 +335,9 @@ size_flags_vertical = 1
 [connection signal="pressed" from="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom/ZoomInButton" to="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom/ZoomOutButton" to="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" method="_on_zoom_out_button_pressed"]
 [connection signal="pressed" from="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom/ZoomMainResetButton" to="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" method="_on_zoom_main_reset_button_pressed"]
-[connection signal="focus_entered" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties/Name" to="UIInput" method="_on_name_focus_entered"]
-[connection signal="focus_exited" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties/Name" to="UIInput" method="_on_name_focus_exited"]
-[connection signal="text_submitted" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Properties/Name" to="UIInput" method="_on_name_text_submitted"]
+[connection signal="focus_entered" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_focus_entered"]
+[connection signal="focus_exited" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_focus_exited"]
+[connection signal="text_submitted" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_text_submitted"]
 [connection signal="dragged" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" to="." method="_on_v_split_dragged"]
 [connection signal="mouse_entered" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_entered"]
 [connection signal="mouse_exited" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
