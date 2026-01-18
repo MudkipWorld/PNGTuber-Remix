@@ -26,7 +26,7 @@ func _on_editor_mode_pressed() -> void:
 		Settings.save()
 		current_mode = 0
 		auto_load_model()
-
+		Global.mode_changed.emit(Global.mode)
 
 func _on_steamer_mode_pressed() -> void:
 	if current_mode != 1:
@@ -40,14 +40,13 @@ func _on_steamer_mode_pressed() -> void:
 		Settings.save()
 		current_mode = 1
 		auto_load_model()
-
+		Global.mode_changed.emit(Global.mode)
 
 func auto_load_model():
 	if Settings.theme_settings.auto_load:
 		if FileAccess.file_exists(Settings.theme_settings.path):
 			await get_tree().create_timer(0.15).timeout
 			SaveAndLoad.load_file(Settings.theme_settings.path)
-
 
 func save_between_sessions():
 	if Settings.theme_settings.session == 0:
@@ -62,8 +61,6 @@ func save_between_sessions():
 		else:
 			DirAccess.make_dir_absolute(Settings.autosave_location)
 			SaveAndLoad.save_file(Settings.autosave_location + "/" + str(randi()))
-
-
 
 func update_theme(new_theme : Theme = preload("res://Themes/PurpleTheme/GUITheme.tres")):
 	theme = new_theme

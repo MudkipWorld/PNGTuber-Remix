@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ictpm6d87pn6"]
+[gd_scene format=3 uid="uid://ictpm6d87pn6"]
 
 [ext_resource type="Script" uid="uid://dbfefnukhijvj" path="res://Scripts/UI/Menu/menu_screen_popup.gd" id="1_y2bhp"]
 
-[node name="MenuScreenPopup" type="AcceptDialog"]
+[node name="MenuScreenPopup" type="AcceptDialog" unique_id=67902145]
 oversampling_override = 1.0
 title = "TR_SWITCH_SESSION"
 initial_position = 1
@@ -13,7 +13,7 @@ ok_button_text = "TR_CANCEL"
 dialog_hide_on_ok = false
 script = ExtResource("1_y2bhp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1463375253]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,21 +24,23 @@ offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=867966195]
+custom_minimum_size = Vector2(504, 23)
 layout_mode = 2
 text = "TR_SWITCH_SESSION_FULL"
+autowrap_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1546873991]
 layout_mode = 2
 size_flags_vertical = 6
 alignment = 1
 
-[node name="EditorMode" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="EditorMode" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1857644298]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "TR_EDITOR"
 
-[node name="SteamerMode" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="SteamerMode" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=220532355]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "TR_STREAMER_WIP"

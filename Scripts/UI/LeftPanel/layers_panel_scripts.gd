@@ -181,7 +181,7 @@ func _copy_images(src, dst):
 			dst.get_node("%Sprite2D").texture = canv
 		else:
 			var canv = CanvasTexture.new()
-			canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
+			canv.diffuse_texture = Global.folder_texture
 			dst.get_node("%Sprite2D").texture = canv
 
 
@@ -242,7 +242,7 @@ func _on_folder_button_pressed():
 	var sprte_obj = sprite_obj.instantiate()
 	Global.sprite_container.add_child(sprte_obj)
 	var canv = CanvasTexture.new()
-	canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
+	canv.diffuse_texture = Global.folder_texture
 	sprte_obj.get_node("%Sprite2D").texture =  canv
 	sprte_obj.sprite_name = str("Folder")
 	sprte_obj.sprite_data.folder = true

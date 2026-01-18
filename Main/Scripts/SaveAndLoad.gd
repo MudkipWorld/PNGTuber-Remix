@@ -526,7 +526,7 @@ func _make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> Pa
 
 func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 		var canv: CanvasTexture = CanvasTexture.new()
-		canv.diffuse_texture = preload("res://Misc/SpriteObject/Folder.png")
+		canv.diffuse_texture = Global.folder_texture
 		sprite_obj.get_node("%Sprite2D").texture = canv
 
 		var image_data: ImageData = null

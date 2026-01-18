@@ -3,7 +3,7 @@ extends Control
 func _ready() -> void:
 	Global.swtich_session_popup = %MenuScreenPopup
 	await get_tree().create_timer(0.1).timeout
-	#init_switch_session()
+	init_switch_session()
 	auto_load_model()
 
 func init_switch_session():

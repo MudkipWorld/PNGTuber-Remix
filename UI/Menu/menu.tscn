@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckgt30cxu04dj"]
+[gd_scene format=3 uid="uid://ckgt30cxu04dj"]
 
 [ext_resource type="Theme" uid="uid://c5v4ocnimqa4i" path="res://Themes/WhiteTheme/WhiteTheme.tres" id="1_7rfvp"]
 [ext_resource type="PackedScene" uid="uid://b28gjkefgi5bs" path="res://Main/main.tscn" id="1_gqyth"]
 [ext_resource type="Script" uid="uid://bu4x5kkbran8t" path="res://Scripts/UI/Menu/menu.gd" id="1_orlfr"]
 [ext_resource type="PackedScene" uid="uid://ictpm6d87pn6" path="res://UI/Menu/menu_screen_popup.tscn" id="3_ls8lc"]
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" unique_id=1457794996]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,11 +15,12 @@ grow_vertical = 2
 theme = ExtResource("1_7rfvp")
 script = ExtResource("1_orlfr")
 
-[node name="Scene" type="Node" parent="."]
+[node name="Scene" type="Node" parent="." unique_id=1052037471]
 unique_name_in_owner = true
 
-[node name="Main" parent="Scene" instance=ExtResource("1_gqyth")]
+[node name="Main" parent="Scene" unique_id=159255742 instance=ExtResource("1_gqyth")]
 
-[node name="MenuScreenPopup" parent="." instance=ExtResource("3_ls8lc")]
+[node name="MenuScreenPopup" parent="." unique_id=1799177003 node_paths=PackedStringArray("container") instance=ExtResource("3_ls8lc")]
 unique_name_in_owner = true
 visible = false
+container = NodePath("../Scene")

@@ -84,7 +84,6 @@ Mehses=""
 
 [gui]
 
-theme/default_font_antialiasing=0
 theme/custom_font="uid://2jnndjm4c7yc"
 
 [input]
@@ -347,7 +346,6 @@ common/physics_jitter_fix=0.1
 3d/physics_engine="Dummy"
 3d/solver/solver_iterations=2
 2d/solver/solver_iterations=2
-common/physics_interpolation=true
 common/enable_object_picking=false
 
 [rendering]

@@ -7,7 +7,6 @@ enum Mouth {
 }
 
 signal key_pressed
-
 signal blink
 
 signal reinfo
@@ -140,9 +139,11 @@ var is_editor : bool = true:
 var image_data = ImageData.new()
 var image_data_normal = ImageData.new()
 var selected_mesh_inx : int = 1
+var folder_texture : Texture2D = null
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	var img = Image.create_empty(32,32, false, Image.FORMAT_RGBA8)
+	folder_texture = ImageTexture.create_from_image(img)
 	create_placeholders()
 	get_window().min_size = Vector2(720,720)
 	add_child(blink_timer)

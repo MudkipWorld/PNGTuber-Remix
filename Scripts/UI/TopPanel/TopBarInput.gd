@@ -94,23 +94,22 @@ func choosing_files(id):
 			main.new_file()
 		1:
 			main.load_file()
-		3:
-			main.save_as_file()
-		5:
-			%TempPopUp.popup()
-		8:
+			
+		2:
 			if Global.save_path:
 				SaveAndLoad.save_file(Global.save_path)
 			else:
 				main.save_as_file()
-		9:
-			SaveAndLoad.export_images(get_tree().get_nodes_in_group("Sprites"))
-		10:
+		3:
+			main.save_as_file()
+
+		4:
+			%TempPopUp.popup()
+			
+		5:
 			add_a_lipsync_config()
-		11:
-			if Global.swtich_session_popup != null && is_instance_valid(Global.swtich_session_popup):
-				Global.swtich_session_popup.popup()
-		12:
+			
+		6:
 			SaveAndLoad.import_trimmed = false
 			if Global.save_path == null or Global.save_path == "" :
 				check_auto_saves()
@@ -122,6 +121,14 @@ func choosing_files(id):
 				SaveAndLoad.save_file(Global.save_path)
 				await get_tree().physics_frame
 				SaveAndLoad.load_file(Global.save_path)
+			
+		7:
+			SaveAndLoad.export_images(get_tree().get_nodes_in_group("Sprites"))
+
+		11:
+			if Global.swtich_session_popup != null && is_instance_valid(Global.swtich_session_popup):
+				Global.swtich_session_popup.popup()
+
 				
 		13:
 			%ModelOptimizer.show()
