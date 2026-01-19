@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://buog53mcsao0g" path="res://Scripts/UI/TopPanel/top_ui.gd" id="2_fpnkx"]
 [ext_resource type="Script" uid="uid://bafvsv0wf438w" path="res://Scripts/Misc/OnlineLinks.gd" id="3_tep3f"]
-[ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="4_mle18"]
 [ext_resource type="Script" uid="uid://qy3riyrj7tll" path="res://Scripts/UI/TopPanel/TopBarInput.gd" id="4_r6evh"]
 [ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/Assets/LinksButtonImages/GithubLogo.png" id="6_0f73e"]
 [ext_resource type="PackedScene" uid="uid://dafcfpors4fb6" path="res://UI/EditorUI/TopUI/Components/model_optimizer.tscn" id="6_mle18"]
@@ -187,13 +186,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
 text = "TR_ABOUT"
-item_count = 3
-popup/item_0/text = "TR_CREDITS"
-popup/item_0/id = 0
-popup/item_1/text = "TR_ABOUT"
-popup/item_1/id = 1
-popup/item_2/text = "TR_MINI_TUTORIAL"
-popup/item_2/id = 2
+item_count = 2
+popup/item_0/text = "TR_ABOUT"
+popup/item_0/id = 1
+popup/item_1/text = "TR_MINI_TUTORIAL"
+popup/item_1/id = 2
 
 [node name="PreviewModeCheck" type="CheckBox" parent="TopBar/HBox" unique_id=628060667]
 unique_name_in_owner = true
@@ -236,14 +233,16 @@ unique_name_in_owner = true
 auto_translate_mode = 1
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(400, 300)
+size = Vector2i(500, 250)
 wrap_controls = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CreditPopUp" unique_id=1385156869]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 396.0
-offset_bottom = 296.0
+offset_right = 496.0
+offset_bottom = 246.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="CreditLabel" type="Label" parent="CreditPopUp/VBoxContainer" unique_id=1043528646]
 unique_name_in_owner = true
@@ -362,33 +361,6 @@ theme_override_constants/icon_max_width = 37
 text = "TR_ASSET_MODEL_DEMO"
 icon = ExtResource("13_f2y74")
 
-[node name="AboutPopUp" type="PopupPanel" parent="." unique_id=1931600827]
-unique_name_in_owner = true
-auto_translate_mode = 1
-initial_position = 2
-size = Vector2i(438, 249)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="AboutPopUp" unique_id=191552235]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 434.0
-offset_bottom = 245.0
-
-[node name="AboutLabel" type="Label" parent="AboutPopUp/VBoxContainer" unique_id=1232881664]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "{0}
-"
-horizontal_alignment = 1
-script = ExtResource("4_mle18")
-localizations = Array[String](["TR_ABOUT"])
-
-[node name="Label" type="Label" parent="AboutPopUp/VBoxContainer" unique_id=847670846]
-custom_minimum_size = Vector2(430, 150)
-layout_mode = 2
-text = "TR_ABOUT_FULL"
-autowrap_mode = 3
-
 [node name="Background" type="PopupPanel" parent="." unique_id=1032501821]
 unique_name_in_owner = true
 auto_translate_mode = 1
@@ -400,7 +372,7 @@ unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 280.0
-offset_bottom = 443.0
+offset_bottom = 412.0
 mouse_filter = 0
 edit_alpha = false
 color_mode = 1

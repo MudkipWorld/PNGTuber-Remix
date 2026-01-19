@@ -1,16 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://duk3smjtw111j"]
+[gd_scene format=3 uid="uid://duk3smjtw111j"]
 
 [ext_resource type="PackedScene" uid="uid://bi0ts50s5a0m0" path="res://UI/EditorUI/RightUI/Components/MiniComponents/wiggle_sprite_panel.tscn" id="1_34527"]
 [ext_resource type="PackedScene" uid="uid://0pdcrfa5cxci" path="res://UI/EditorUI/RightUI/Components/MiniComponents/wiggle_appendage_panel.tscn" id="2_35g5m"]
 
-[node name="Wiggle" type="Control"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-metadata/_tab_index = 2
-
-[node name="ScrollContainer4" type="ScrollContainer" parent="."]
-layout_mode = 1
+[node name="Wiggle" type="ScrollContainer" unique_id=1000856462]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,23 +11,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer4/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1666949414]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="WiggleSpritePanel" parent="ScrollContainer4/MarginContainer/VBoxContainer" instance=ExtResource("1_34527")]
+[node name="WiggleSpritePanel" parent="VBoxContainer" unique_id=324979777 instance=ExtResource("1_34527")]
 layout_mode = 2
 
-[node name="WiggleAppendagePanel" parent="ScrollContainer4/MarginContainer/VBoxContainer" instance=ExtResource("2_35g5m")]
+[node name="WiggleAppendagePanel" parent="VBoxContainer" unique_id=161113126 instance=ExtResource("2_35g5m")]
+visible = false
 layout_mode = 2

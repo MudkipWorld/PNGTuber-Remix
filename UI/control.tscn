@@ -165,23 +165,11 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
 mouse_force_pass_scroll_events = false
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 placeholder_text = "TR_NAME"
 alignment = 1
-
-[node name="RenameTexture" type="TextureRect" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Name" unique_id=1876022138]
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_seimj")
-expand_mode = 1
-stretch_mode = 5
+right_icon = ExtResource("8_seimj")
+icon_expand_mode = 1
 
 [node name="MultistateEditingCue" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer" unique_id=1868032380]
 unique_name_in_owner = true
@@ -229,82 +217,70 @@ theme_override_font_sizes/font_size = 13
 current_tab = 0
 
 [node name="Properties" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
+light_mask = 0
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Movement" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=269024386 instance=ExtResource("9_fwbkq")]
 visible = false
+light_mask = 0
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Wiggle" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1568898990 instance=ExtResource("6_63lps")]
+visible = false
+light_mask = 0
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="Animation" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1805843008 instance=ExtResource("7_1r6xj")]
 visible = false
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 3
 
 [node name="Model" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1895797174 instance=ExtResource("8_1r6xj")]
 visible = false
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 4
 
 [node name="Light" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=310893493 instance=ExtResource("7_4jud0")]
 visible = false
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 5
 
-[node name="Mesh" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1132558088 instance=ExtResource("18_kv61l")]
+[node name="Meshes" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1132558088 instance=ExtResource("18_kv61l")]
 visible = false
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 6
 
-[node name="Websocket" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=962613607]
+[node name="Websocket" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1031500172]
 visible = false
+light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 7
 
 [node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Websocket" unique_id=1789427237 instance=ExtResource("17_le2wr")]
-layout_mode = 1
-size_flags_vertical = 1
-
-[node name="Tests" type="Control" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=7707392]
-visible = false
-y_sort_enabled = true
 layout_mode = 2
-metadata/_tab_index = 8
 
-[node name="ScrollContainer6" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests" unique_id=1993124440]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.014
-anchor_top = 0.011
-anchor_right = 1.014
-anchor_bottom = 1.0
-offset_left = 6.152
-offset_top = 0.698
-offset_right = -7.15201
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Tests" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1993124440]
+visible = false
+layout_mode = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
+metadata/_tab_index = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6" unique_id=148281983]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer" unique_id=727006526]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests" unique_id=727006526]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 6
 
-[node name="AdvancedLipSync" type="CheckBox" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" unique_id=685824800]
+[node name="AdvancedLipSync" type="CheckBox" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=685824800]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -312,7 +288,7 @@ size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_ADVANCED_LIP_SYNC"
 
-[node name="AdvancedLipSyncLabel" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer" unique_id=562756730]
+[node name="AdvancedLipSyncLabel" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=562756730]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(340, 0)
@@ -339,6 +315,6 @@ size_flags_vertical = 1
 [connection signal="focus_exited" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_focus_exited"]
 [connection signal="text_submitted" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_text_submitted"]
 [connection signal="dragged" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" to="." method="_on_v_split_dragged"]
-[connection signal="mouse_entered" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_entered"]
-[connection signal="mouse_exited" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
-[connection signal="toggled" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/ScrollContainer6/MarginContainer/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_toggled"]
+[connection signal="mouse_entered" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_entered"]
+[connection signal="mouse_exited" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
+[connection signal="toggled" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_toggled"]

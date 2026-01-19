@@ -33,29 +33,18 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "TR_FOLLOW_APPENDAGE"
 
-[node name="HBox34" type="HBoxContainer" parent="Grid" unique_id=480631271]
-unique_name_in_owner = true
+[node name="Control" type="Control" parent="Grid" unique_id=1798488680]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="TipLabel" type="Label" parent="Grid/HBox34" unique_id=1345334189]
+[node name="TipLabel" type="Label" parent="Grid" unique_id=1345334189]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_FAT_POINT"
 
-[node name="TipSpin" type="SpinBox" parent="Grid/HBox34" unique_id=1775674182]
+[node name="TipSpin" type="SpinBox" parent="Grid" unique_id=1775674182]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="FollowAllRange" type="CheckBox" parent="Grid" unique_id=1040733580]
-layout_mode = 2
-tooltip_text = "Follows the Appendage movement direction no matter its current base Angle."
-theme_override_font_sizes/font_size = 14
-text = "Follow all Range"
-script = ExtResource("3_ru4gk")
-sp_type = ""
-value_to_update = "follow_range"
 
 [node name="StrngthBSlider" parent="Grid" unique_id=944599251 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
@@ -125,6 +114,36 @@ vertical_alignment = 1
 layout_mode = 2
 columns = 2
 
+[node name="XoffsetLabel" type="Label" parent="WiggleStuff/Grid" unique_id=504484707]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "TR_X_OFFSET"
+
+[node name="XoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid" unique_id=144986517]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -999999.0
+max_value = 999999.0
+step = 0.1
+
+[node name="YoffsetLabel" type="Label" parent="WiggleStuff/Grid" unique_id=1512099064]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "TR_Y_OFFSET"
+
+[node name="YoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid" unique_id=47070834]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -999999.0
+max_value = 999999.0
+step = 0.1
+
 [node name="WiggleCheck" type="CheckBox" parent="WiggleStuff/Grid" unique_id=1556622322]
 unique_name_in_owner = true
 layout_mode = 2
@@ -150,40 +169,6 @@ tooltip_text = "TR_WS_SYNC_EFFECT_TOOLTIP"
 theme_override_font_sizes/font_size = 16
 text = "TR_SYNC_EFFECT"
 
-[node name="Grid2" type="GridContainer" parent="WiggleStuff" unique_id=422741978]
-layout_mode = 2
-columns = 2
-
-[node name="XoffsetLabel" type="Label" parent="WiggleStuff/Grid2" unique_id=504484707]
-custom_minimum_size = Vector2(93, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_font_sizes/font_size = 16
-text = "TR_X_OFFSET"
-
-[node name="XoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid2" unique_id=144986517]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -999999.0
-max_value = 999999.0
-step = 0.1
-
-[node name="YoffsetLabel" type="Label" parent="WiggleStuff/Grid2" unique_id=1512099064]
-custom_minimum_size = Vector2(93, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_font_sizes/font_size = 16
-text = "TR_Y_OFFSET"
-
-[node name="YoffsetSpinBox" type="SpinBox" parent="WiggleStuff/Grid2" unique_id=47070834]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -999999.0
-max_value = 999999.0
-step = 0.1
-
 [node name="WiggleAmpBSlider" parent="WiggleStuff" unique_id=1356906269 instance=ExtResource("2_dcw28")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -205,8 +190,8 @@ step = 0.01
 value_to_update = "wiggle_freq"
 
 [connection signal="toggled" from="Grid/FollowWiggleAppTip" to="WiggleSprite" method="_on_follow_wiggle_app_tip_toggled"]
-[connection signal="value_changed" from="Grid/HBox34/TipSpin" to="WiggleSprite" method="_on_tip_spin_value_changed"]
+[connection signal="value_changed" from="Grid/TipSpin" to="WiggleSprite" method="_on_tip_spin_value_changed"]
+[connection signal="value_changed" from="WiggleStuff/Grid/XoffsetSpinBox" to="WiggleSprite" method="_on_xoffset_spin_box_value_changed"]
+[connection signal="value_changed" from="WiggleStuff/Grid/YoffsetSpinBox" to="WiggleSprite" method="_on_yoffset_spin_box_value_changed"]
 [connection signal="toggled" from="WiggleStuff/Grid/WiggleCheck" to="WiggleSprite" method="_on_wiggle_check_toggled"]
 [connection signal="toggled" from="WiggleStuff/Grid/FollowParentEffect" to="WiggleSprite" method="_on_follow_parent_effect_toggled"]
-[connection signal="value_changed" from="WiggleStuff/Grid2/XoffsetSpinBox" to="WiggleSprite" method="_on_xoffset_spin_box_value_changed"]
-[connection signal="value_changed" from="WiggleStuff/Grid2/YoffsetSpinBox" to="WiggleSprite" method="_on_yoffset_spin_box_value_changed"]

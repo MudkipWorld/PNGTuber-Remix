@@ -97,6 +97,7 @@ script = ExtResource("2_j4lix")
 [node name="ConfirmTrim" type="ConfirmationDialog" parent="FileImporter" unique_id=1828680810]
 unique_name_in_owner = true
 transparent_bg = true
+oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(375, 200)
 unresizable = true
@@ -105,15 +106,16 @@ dialog_text = "Would you like to have your Sprites Trimmed?
 (Removes all unused area around your image.)"
 cancel_button_text = "No"
 
-[node name="Node" type="Node" parent="FileImporter/ConfirmTrim" unique_id=793551975]
-
-[node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim/Node" unique_id=1917826308]
+[node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim" unique_id=1917826308]
 unique_name_in_owner = true
-anchors_preset = -1
-anchor_top = 0.735
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.735
-offset_top = -31.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -192.0
+offset_right = -8.0
+offset_bottom = -49.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
@@ -140,12 +142,13 @@ mouse_target = true
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1631552527]
 unique_name_in_owner = true
 transparent_bg = true
+handle_input_locally = false
 gui_snap_controls_to_pixels = false
 sdf_oversize = 0
 sdf_scale = 2
 oversampling = false
 size = Vector2i(1280, 720)
-render_target_update_mode = 3
+render_target_update_mode = 4
 
 [node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1740936232]
 unique_name_in_owner = true
@@ -168,7 +171,6 @@ script = ExtResource("2_lv028")
 
 [node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" unique_id=2074649847 instance=ExtResource("3_eo07p")]
 unique_name_in_owner = true
-visible = false
 light_mask = 7
 visibility_layer = 7
 z_index = 4096
@@ -311,7 +313,7 @@ wait_time = 0.05
 [connection signal="canceled" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_canceled"]
 [connection signal="close_requested" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_canceled"]
 [connection signal="confirmed" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_confirmed"]
-[connection signal="toggled" from="FileImporter/ConfirmTrim/Node/OffsetSprite" to="FileImporter" method="_on_offset_sprite_toggled"]
+[connection signal="toggled" from="FileImporter/ConfirmTrim/OffsetSprite" to="FileImporter" method="_on_offset_sprite_toggled"]
 [connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]
 [connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]

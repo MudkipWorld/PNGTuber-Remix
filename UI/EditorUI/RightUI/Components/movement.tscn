@@ -5,23 +5,7 @@
 [ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="2_qiucb"]
 [ext_resource type="Script" uid="uid://b75cjxwjdv1t3" path="res://Scripts/UI/RightPanel/whyisntthisworking.gd" id="2_t2p8h"]
 
-[node name="Movement" type="Control" unique_id=1999835978]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_tab_index = 1
-
-[node name="MovementTab" type="Node" parent="." unique_id=932160330]
-script = ExtResource("1_fsl5l")
-
-[node name="Whyisntthisworking" type="Node" parent="." unique_id=1613641438]
-script = ExtResource("2_t2p8h")
-
-[node name="ScrollContainer3" type="ScrollContainer" parent="." unique_id=2078813650]
-layout_mode = 1
+[node name="Movement" type="ScrollContainer" unique_id=2078813650]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,18 +15,13 @@ grow_vertical = 2
 mouse_filter = 2
 follow_focus = true
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer3" unique_id=1443659275]
-clip_contents = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 3
+[node name="MovementTab" type="Node" parent="." unique_id=932160330]
+script = ExtResource("1_fsl5l")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer3/MarginContainer" unique_id=530834915]
+[node name="Whyisntthisworking" type="Node" parent="." unique_id=1613641438]
+script = ExtResource("2_t2p8h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=530834915]
 clip_contents = true
 custom_minimum_size = Vector2(320, 0)
 layout_direction = 2
@@ -50,13 +29,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label5" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=335869060]
+[node name="Label5" type="Label" parent="VBoxContainer" unique_id=335869060]
 layout_mode = 2
 text = "TR_MOVEMENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SharedMovement" type="CheckBox" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=827652221]
+[node name="SharedMovement" type="CheckBox" parent="VBoxContainer" unique_id=827652221]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -68,16 +47,16 @@ sp_type = ""
 value_to_update = "shared_movement"
 inverted = true
 
-[node name="EditValuesFor" type="HBoxContainer" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1262731274]
+[node name="EditValuesFor" type="HBoxContainer" parent="VBoxContainer" unique_id=1262731274]
 layout_mode = 2
 
-[node name="EditValuesForLabel" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/EditValuesFor" unique_id=1278942599]
+[node name="EditValuesForLabel" type="Label" parent="VBoxContainer/EditValuesFor" unique_id=1278942599]
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "TR_EDIT_VALUES_FOR_LABEL"
 
-[node name="EditValuesForMenu" type="MenuButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/EditValuesFor" unique_id=1531443332]
+[node name="EditValuesForMenu" type="MenuButton" parent="VBoxContainer/EditValuesFor" unique_id=1531443332]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -95,7 +74,7 @@ popup/item_2/text = "TR_SCREAMING"
 popup/item_2/id = 2
 popup/item_2/disabled = true
 
-[node name="PauseMovement" type="CheckBox" parent="ScrollContainer3/MarginContainer/VBoxContainer/EditValuesFor" unique_id=1669228907]
+[node name="PauseMovement" type="CheckBox" parent="VBoxContainer/EditValuesFor" unique_id=1669228907]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_PAUSE_MOVEMENT_TOOLTIP_MOVEMENT_SECTION"
@@ -106,17 +85,17 @@ script = ExtResource("2_qiucb")
 sp_type = ""
 value_to_update = "pause_movement"
 
-[node name="Sp5" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=365940669]
+[node name="Sp5" type="HSeparator" parent="VBoxContainer" unique_id=365940669]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label4" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=828814423]
+[node name="Label4" type="Label" parent="VBoxContainer" unique_id=828814423]
 layout_mode = 2
 text = "TR_XY_MOVEMENTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="XAmpBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=951914775 instance=ExtResource("1_h5u6y")]
+[node name="XAmpBSlider" parent="VBoxContainer" unique_id=951914775 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -127,7 +106,7 @@ step = 0.01
 value_to_update = "xAmp"
 has_alt_values = true
 
-[node name="XFBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=726845942 instance=ExtResource("1_h5u6y")]
+[node name="XFBSlider" parent="VBoxContainer" unique_id=726845942 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -138,11 +117,11 @@ step = 0.01
 value_to_update = "xFrq"
 has_alt_values = true
 
-[node name="Sp" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=837968620]
+[node name="Sp" type="HSeparator" parent="VBoxContainer" unique_id=837968620]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="YAmpBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=32508790 instance=ExtResource("1_h5u6y")]
+[node name="YAmpBSlider" parent="VBoxContainer" unique_id=32508790 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -153,7 +132,7 @@ step = 0.01
 value_to_update = "yAmp"
 has_alt_values = true
 
-[node name="YFBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=803420314 instance=ExtResource("1_h5u6y")]
+[node name="YFBSlider" parent="VBoxContainer" unique_id=803420314 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -164,17 +143,17 @@ step = 0.01
 value_to_update = "yFrq"
 has_alt_values = true
 
-[node name="Sp4" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1019926723]
+[node name="Sp4" type="HSeparator" parent="VBoxContainer" unique_id=1019926723]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label3" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=887910459]
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=887910459]
 layout_mode = 2
 text = "TR_FOLLOW_THROUGH"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DragBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1867166898 instance=ExtResource("1_h5u6y")]
+[node name="DragBSlider" parent="VBoxContainer" unique_id=1867166898 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -184,7 +163,7 @@ step = 1.0
 value_to_update = "dragSpeed"
 has_alt_values = true
 
-[node name="DragSnapBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1828234531 instance=ExtResource("1_h5u6y")]
+[node name="DragSnapBSlider" parent="VBoxContainer" unique_id=1828234531 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -195,7 +174,7 @@ step = 1.0
 value_to_update = "drag_snap"
 has_alt_values = true
 
-[node name="StretchBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=2132906058 instance=ExtResource("1_h5u6y")]
+[node name="StretchBSlider" parent="VBoxContainer" unique_id=2132906058 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -206,7 +185,7 @@ step = 0.01
 value_to_update = "stretchAmount"
 has_alt_values = true
 
-[node name="IndexBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=116928037 instance=ExtResource("1_h5u6y")]
+[node name="IndexBSlider" parent="VBoxContainer" unique_id=116928037 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -217,7 +196,7 @@ step = 1.0
 value_to_update = "index_change"
 has_alt_values = true
 
-[node name="IndexBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=339463825 instance=ExtResource("1_h5u6y")]
+[node name="IndexBSlider2" parent="VBoxContainer" unique_id=339463825 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -228,17 +207,17 @@ step = 1.0
 value_to_update = "index_change_y"
 has_alt_values = true
 
-[node name="Sp3" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=2127176718]
+[node name="Sp3" type="HSeparator" parent="VBoxContainer" unique_id=2127176718]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label2" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=105866384]
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=105866384]
 layout_mode = 2
 text = "TR_ROTATION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RotationMinRotBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=152933116 instance=ExtResource("1_h5u6y")]
+[node name="RotationMinRotBSlider2" parent="VBoxContainer" unique_id=152933116 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -248,7 +227,7 @@ step = 0.1
 value_to_update = "rLimitMin"
 has_alt_values = true
 
-[node name="RotationMaxRotBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=451803759 instance=ExtResource("1_h5u6y")]
+[node name="RotationMaxRotBSlider2" parent="VBoxContainer" unique_id=451803759 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -258,7 +237,7 @@ step = 0.1
 value_to_update = "rLimitMax"
 has_alt_values = true
 
-[node name="RotationLevelBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=145584341 instance=ExtResource("1_h5u6y")]
+[node name="RotationLevelBSlider" parent="VBoxContainer" unique_id=145584341 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -269,7 +248,7 @@ step = 0.01
 value_to_update = "rdragStr"
 has_alt_values = true
 
-[node name="RotationFreqBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=425060054 instance=ExtResource("1_h5u6y")]
+[node name="RotationFreqBSlider" parent="VBoxContainer" unique_id=425060054 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -280,7 +259,7 @@ step = 0.01
 value_to_update = "rot_frq"
 has_alt_values = true
 
-[node name="RotationSpeedBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=36335289 instance=ExtResource("1_h5u6y")]
+[node name="RotationSpeedBSlider" parent="VBoxContainer" unique_id=36335289 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -291,7 +270,7 @@ step = 0.001
 value_to_update = "should_rot_speed"
 has_alt_values = true
 
-[node name="ShouldRotCheck" type="CheckBox" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=308590231]
+[node name="ShouldRotCheck" type="CheckBox" parent="VBoxContainer" unique_id=308590231]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -304,26 +283,26 @@ sp_type = ""
 value_to_update = "should_rotate"
 has_alt_values = true
 
-[node name="Sp2" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=207018950]
+[node name="Sp2" type="HSeparator" parent="VBoxContainer" unique_id=207018950]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="FMLable" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=2068026763]
+[node name="FMLable" type="Label" parent="VBoxContainer" unique_id=2068026763]
 layout_mode = 2
 text = "TR_FOLLOW_MOUSE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=271187820]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=271187820]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1674395298]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1674395298]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "TR_FOLLOW_POSITION_LABEL"
 
-[node name="FollowOption" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1111315970]
+[node name="FollowOption" type="OptionButton" parent="VBoxContainer/HBoxContainer" unique_id=1111315970]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -371,16 +350,16 @@ popup/item_16/separator = true
 popup/item_17/text = "UDP"
 popup/item_17/id = 17
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1712858666]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1712858666]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=819656312]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=819656312]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "TR_FOLLOW_ROTATION_LABEL"
 
-[node name="FollowOption2" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1187966444]
+[node name="FollowOption2" type="OptionButton" parent="VBoxContainer/HBoxContainer2" unique_id=1187966444]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -428,16 +407,16 @@ popup/item_16/separator = true
 popup/item_17/text = "UDP"
 popup/item_17/id = 16
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1466851355]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=1466851355]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1437101607]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=1437101607]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "TR_FOLLOW_SCALE_LABEL"
 
-[node name="FollowOption3" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1037296269]
+[node name="FollowOption3" type="OptionButton" parent="VBoxContainer/HBoxContainer3" unique_id=1037296269]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -485,7 +464,7 @@ popup/item_16/separator = true
 popup/item_17/text = "UDP"
 popup/item_17/id = 16
 
-[node name="FMDBSlider2" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1674292144 instance=ExtResource("1_h5u6y")]
+[node name="FMDBSlider2" parent="VBoxContainer" unique_id=1674292144 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -497,7 +476,7 @@ value = 0.1
 value_to_update = "mouse_delay"
 has_alt_values = true
 
-[node name="FMxBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1058539237 instance=ExtResource("1_h5u6y")]
+[node name="FMxBSlider" parent="VBoxContainer" unique_id=1058539237 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -508,7 +487,7 @@ step = 0.01
 value_to_update = "look_at_mouse_pos"
 has_alt_values = true
 
-[node name="FMYBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1837290219 instance=ExtResource("1_h5u6y")]
+[node name="FMYBSlider" parent="VBoxContainer" unique_id=1837290219 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -519,7 +498,7 @@ step = 0.01
 value_to_update = "look_at_mouse_pos_y"
 has_alt_values = true
 
-[node name="RMBSliderMin" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1182455484 instance=ExtResource("1_h5u6y")]
+[node name="RMBSliderMin" parent="VBoxContainer" unique_id=1182455484 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "TR_MIN_MOUSE_ROTATION"
@@ -531,7 +510,7 @@ step = 0.001
 value_to_update = "mouse_rotation"
 has_alt_values = true
 
-[node name="RMBSliderMax" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1833691123 instance=ExtResource("1_h5u6y")]
+[node name="RMBSliderMax" parent="VBoxContainer" unique_id=1833691123 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "TR_MAX_MOUSE_ROTATION"
@@ -543,7 +522,7 @@ step = 0.001
 value_to_update = "mouse_rotation_max"
 has_alt_values = true
 
-[node name="SMXBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=170828461 instance=ExtResource("1_h5u6y")]
+[node name="SMXBSlider" parent="VBoxContainer" unique_id=170828461 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -553,7 +532,7 @@ step = 0.001
 value_to_update = "mouse_scale_x"
 has_alt_values = true
 
-[node name="SMYBSlider" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=431025096 instance=ExtResource("1_h5u6y")]
+[node name="SMYBSlider" parent="VBoxContainer" unique_id=431025096 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
@@ -563,18 +542,18 @@ step = 0.001
 value_to_update = "mouse_scale_y"
 has_alt_values = true
 
-[node name="Label" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1047595467]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1047595467]
 visible = false
 self_modulate = Color(1, 1, 1, 0.686275)
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "TR_FOLLOW_SCALE_NOT"
 
-[node name="Grid" type="GridContainer" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=783457870]
+[node name="Grid" type="GridContainer" parent="VBoxContainer" unique_id=783457870]
 layout_mode = 2
 columns = 2
 
-[node name="ShouldSnap" type="CheckBox" parent="ScrollContainer3/MarginContainer/VBoxContainer/Grid" unique_id=1792140686]
+[node name="ShouldSnap" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1792140686]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -585,7 +564,7 @@ script = ExtResource("2_qiucb")
 sp_type = ""
 value_to_update = "snap_pos"
 
-[node name="ShouldSnap2" type="CheckBox" parent="ScrollContainer3/MarginContainer/VBoxContainer/Grid" unique_id=1728443735]
+[node name="ShouldSnap2" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1728443735]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -596,7 +575,7 @@ script = ExtResource("2_qiucb")
 sp_type = ""
 value_to_update = "snap_rot"
 
-[node name="ShouldSnap3" type="CheckBox" parent="ScrollContainer3/MarginContainer/VBoxContainer/Grid" unique_id=2025204603]
+[node name="ShouldSnap3" type="CheckBox" parent="VBoxContainer/Grid" unique_id=2025204603]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -607,25 +586,25 @@ script = ExtResource("2_qiucb")
 sp_type = ""
 value_to_update = "snap_scale"
 
-[node name="HSeparator" type="HSeparator" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=1918090969]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1918090969]
 layout_mode = 2
 
-[node name="Label6" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=337823781]
+[node name="Label6" type="Label" parent="VBoxContainer" unique_id=337823781]
 layout_mode = 2
 text = "UDP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=455125672]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=455125672]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer" unique_id=1316319265]
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer" unique_id=1316319265]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "UDP Position :"
 
-[node name="UDPPosOption" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer" unique_id=422300395]
+[node name="UDPPosOption" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=422300395]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -652,12 +631,12 @@ popup/item_8/id = 7
 popup/item_9/text = "Eyebrow Right"
 popup/item_9/id = 8
 
-[node name="Label2" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer" unique_id=1345450995]
+[node name="Label2" type="Label" parent="VBoxContainer/GridContainer" unique_id=1345450995]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "UDP Rotation :"
 
-[node name="UDPRotOption" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer" unique_id=1282721617]
+[node name="UDPRotOption" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=1282721617]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -684,12 +663,12 @@ popup/item_8/id = 7
 popup/item_9/text = "Eyebrow Right"
 popup/item_9/id = 8
 
-[node name="Label3" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer" unique_id=721885065]
+[node name="Label3" type="Label" parent="VBoxContainer/GridContainer" unique_id=721885065]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "UDP Scale :"
 
-[node name="UDPScaleOption" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer" unique_id=17328050]
+[node name="UDPScaleOption" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=17328050]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -716,16 +695,16 @@ popup/item_8/id = 7
 popup/item_9/text = "Eyebrow Right"
 popup/item_9/id = 8
 
-[node name="GridContainer2" type="GridContainer" parent="ScrollContainer3/MarginContainer/VBoxContainer" unique_id=486931544]
+[node name="GridContainer2" type="GridContainer" parent="VBoxContainer" unique_id=486931544]
 layout_mode = 2
 columns = 2
 
-[node name="Label3" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=1571333507]
+[node name="Label3" type="Label" parent="VBoxContainer/GridContainer2" unique_id=1571333507]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Follow Eye :"
 
-[node name="FollowEye" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=731042284]
+[node name="FollowEye" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=731042284]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -738,12 +717,12 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_RIGHT_EYE"
 popup/item_2/id = 2
 
-[node name="Label" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=459864713]
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer2" unique_id=459864713]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Follow Gaze :"
 
-[node name="FollowEyeGaze" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=616374916]
+[node name="FollowEyeGaze" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=616374916]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -756,12 +735,12 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_RIGHT_EYE"
 popup/item_2/id = 2
 
-[node name="Label2" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=186374472]
+[node name="Label2" type="Label" parent="VBoxContainer/GridContainer2" unique_id=186374472]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Eye Style :"
 
-[node name="EyeStyle" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=804741953]
+[node name="EyeStyle" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=804741953]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -772,12 +751,12 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_FT_STRETCH"
 popup/item_1/id = 1
 
-[node name="Label4" type="Label" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=1680052150]
+[node name="Label4" type="Label" parent="VBoxContainer/GridContainer2" unique_id=1680052150]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mouth :"
 
-[node name="MouthFollow" type="OptionButton" parent="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2" unique_id=1370536639]
+[node name="MouthFollow" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=1370536639]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -790,15 +769,15 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_CLOSED"
 popup/item_2/id = 2
 
-[connection signal="changed" from="ScrollContainer3/MarginContainer/VBoxContainer/SharedMovement" to="MovementTab" method="_on_shared_movement_changed"]
-[connection signal="changed" from="ScrollContainer3/MarginContainer/VBoxContainer/SharedMovement" to="ScrollContainer3/MarginContainer/VBoxContainer/EditValuesFor" method="set_visible"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer/FollowOption" to="Whyisntthisworking" method="_on_follow_option_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer2/FollowOption2" to="Whyisntthisworking" method="_on_follow_option_2_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/HBoxContainer3/FollowOption3" to="Whyisntthisworking" method="_on_follow_option_3_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer/UDPPosOption" to="Whyisntthisworking" method="_on_udp_pos_option_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer/UDPRotOption" to="Whyisntthisworking" method="_on_udp_rot_option_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer/UDPScaleOption" to="Whyisntthisworking" method="_on_udp_scale_option_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
-[connection signal="item_selected" from="ScrollContainer3/MarginContainer/VBoxContainer/GridContainer2/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]
+[connection signal="changed" from="VBoxContainer/SharedMovement" to="MovementTab" method="_on_shared_movement_changed"]
+[connection signal="changed" from="VBoxContainer/SharedMovement" to="VBoxContainer/EditValuesFor" method="set_visible"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/FollowOption" to="Whyisntthisworking" method="_on_follow_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/FollowOption2" to="Whyisntthisworking" method="_on_follow_option_2_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer3/FollowOption3" to="Whyisntthisworking" method="_on_follow_option_3_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/UDPPosOption" to="Whyisntthisworking" method="_on_udp_pos_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/UDPRotOption" to="Whyisntthisworking" method="_on_udp_rot_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/UDPScaleOption" to="Whyisntthisworking" method="_on_udp_scale_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer2/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer2/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer2/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer2/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]

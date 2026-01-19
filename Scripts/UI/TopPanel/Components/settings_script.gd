@@ -47,7 +47,6 @@ func check_data():
 	%ImportTrim.button_pressed = Settings.theme_settings.enable_trimmer
 	
 	%UIScalingSpinBox.value = Settings.theme_settings.ui_scaling
-	%UIScalingSlider.value = Settings.theme_settings.ui_scaling
 	%CustomCursorEditor.button_pressed = Settings.theme_settings.custom_cursor_editor
 	%CustomCursorPreview.button_pressed = Settings.theme_settings.custom_cursor_preview
 	%FloatyPanning.button_pressed = Settings.theme_settings.floaty_panning

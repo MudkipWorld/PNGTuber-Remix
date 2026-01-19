@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bidkgcxxq68n6"]
+[gd_scene format=3 uid="uid://bidkgcxxq68n6"]
 
 [ext_resource type="Script" uid="uid://wbmjkjgx7ndd" path="res://Scripts/UI/LeftPanel/ViewportControl.gd" id="1_f7gcc"]
 [ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/Assets/ZoominButton.png" id="2_ehuh8"]
@@ -14,19 +14,19 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.196078, 0.415686, 0.345098, 1)
 
-[node name="CameraPanel" type="VBoxContainer"]
+[node name="CameraPanel" type="VBoxContainer" unique_id=1959215724]
 
-[node name="VPPanel" type="Panel" parent="."]
+[node name="VPPanel" type="Panel" parent="." unique_id=1974108395]
 custom_minimum_size = Vector2(210, 105)
 layout_mode = 2
 tooltip_text = "TR_MINI_VIEW_TOOLTIP"
 theme_override_styles/panel = SubResource("StyleBoxFlat_gcgtm")
 metadata/_edit_use_anchors_ = true
 
-[node name="ViewportControl" type="Node" parent="VPPanel"]
+[node name="ViewportControl" type="Node" parent="VPPanel" unique_id=1415441487]
 script = ExtResource("1_f7gcc")
 
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="VPPanel"]
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="VPPanel" unique_id=773565137]
 custom_minimum_size = Vector2(160, 90)
 layout_mode = 1
 anchors_preset = 8
@@ -44,7 +44,7 @@ focus_mode = 0
 mouse_filter = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="VPPanel/SubViewportContainer2"]
+[node name="SubViewport" type="SubViewport" parent="VPPanel/SubViewportContainer2" unique_id=1657817029]
 unique_name_in_owner = true
 own_world_3d = true
 handle_input_locally = false
@@ -53,18 +53,17 @@ size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="Camera2D" type="Camera2D" parent="VPPanel/SubViewportContainer2/SubViewport"]
+[node name="Camera2D" type="Camera2D" parent="VPPanel/SubViewportContainer2/SubViewport" unique_id=1307834476]
 unique_name_in_owner = true
-position = Vector2(640, 360)
 
-[node name="ViewportCam" type="HBoxContainer" parent="."]
+[node name="ViewportCam" type="HBoxContainer" parent="." unique_id=226574651]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(210, 20)
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="ZoomInButton" type="Button" parent="ViewportCam"]
+[node name="ZoomInButton" type="Button" parent="ViewportCam" unique_id=1460570051]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -74,7 +73,7 @@ icon = ExtResource("2_ehuh8")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ZoomResetButton" type="Button" parent="ViewportCam"]
+[node name="ZoomResetButton" type="Button" parent="ViewportCam" unique_id=1260501281]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -84,7 +83,7 @@ icon = ExtResource("3_00355")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ZoomOutButton" type="Button" parent="ViewportCam"]
+[node name="ZoomOutButton" type="Button" parent="ViewportCam" unique_id=1159741798]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -94,7 +93,7 @@ icon = ExtResource("4_h7cy5")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ZoomMainResetButton" type="Button" parent="ViewportCam"]
+[node name="ZoomMainResetButton" type="Button" parent="ViewportCam" unique_id=301771754]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(28, 28)

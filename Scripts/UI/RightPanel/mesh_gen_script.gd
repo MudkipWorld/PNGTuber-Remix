@@ -16,7 +16,6 @@ func _ready() -> void:
 
 func nullfy():
 	%GenerateMesh.disabled = true
-	%GenerateMesh2.disabled = true
 	%GenerateMesh3.disabled = true
 	%GenerateMesh4.disabled = true
 	%GenerateMesh5.disabled = true
@@ -36,7 +35,6 @@ func enable():
 				nullfy()
 				break
 			%GenerateMesh.disabled = false
-			%GenerateMesh2.disabled = false
 			%GenerateMesh3.disabled = false
 			%GenerateMesh4.disabled = false
 			%GenerateMesh5.disabled = false

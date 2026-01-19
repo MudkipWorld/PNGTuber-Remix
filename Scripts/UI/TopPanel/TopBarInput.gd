@@ -198,8 +198,6 @@ func choosing_bg_color(id):
 
 func choosing_about(id):
 	match id:
-		0:
-			%AboutPopUp.popup()
 		1:
 			%CreditPopUp.popup()
 		2:

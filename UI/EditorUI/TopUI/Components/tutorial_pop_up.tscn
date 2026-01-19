@@ -7,7 +7,6 @@
 
 [sub_resource type="Animation" id="Animation_pbr64"]
 resource_name = "Anim"
-length = 0.8333417
 loop_mode = 1
 step = 0.083333336
 tracks/0/type = "value"
@@ -17,10 +16,10 @@ tracks/0/path = NodePath("TabContainer/Basic Concepts/GridContainer/FreqHigh:pos
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(384.5, 358.5), Vector2(384.5, 400), Vector2(384.5, 358.5), Vector2(384.5, 400)]
+"values": [Vector2(384.5, 358.5), Vector2(384.5, 400), Vector2(384.5, 358.5), Vector2(384.5, 400), Vector2(384.5, 358.5), Vector2(384.5, 400)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -29,7 +28,7 @@ tracks/1/path = NodePath("TabContainer/Basic Concepts/GridContainer/FrqLow:posit
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.41666666),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(245.5, 358.5), Vector2(245.5, 400)]
@@ -72,7 +71,7 @@ _data = {
 auto_translate_mode = 1
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(700, 500)
+size = Vector2i(700, 510)
 visible = true
 script = ExtResource("1_si4kh")
 
@@ -80,7 +79,7 @@ script = ExtResource("1_si4kh")
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 696.0
-offset_bottom = 496.0
+offset_bottom = 506.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/side_margin = 1
@@ -191,3 +190,4 @@ autowrap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=834234047]
 libraries/ = SubResource("AnimationLibrary_bl1o7")
+autoplay = &"Anim"

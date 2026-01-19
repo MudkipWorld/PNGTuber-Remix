@@ -5,9 +5,6 @@ var dragging: bool = false
 var deform_x = 0.0
 var deform_y = 0.0
 
-func _ready() -> void:
-	pass
-
 func enable():
 	var _disable: bool = false
 	for i in Global.held_sprites:

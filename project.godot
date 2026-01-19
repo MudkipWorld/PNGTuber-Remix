@@ -8,19 +8,16 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="PNGTube-Remix"
-config/version="1.4.1"
+config/version="1.4.2"
 run/main_scene="uid://ckgt30cxu04dj"
 run/print_header=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.6")
 run/max_fps=60
+run/low_processor_mode=true
 boot_splash/bg_color=Color(0.1118, 0.135361, 0.218212, 1)
 boot_splash/stretch_mode=0
 boot_splash/use_filter=false
@@ -330,11 +327,14 @@ debug_rep={
 [input_devices]
 
 pen_tablet/driver.windows="auto"
-buffering/agile_event_flushing=true
 
 [internationalization]
 
 locale/translations=PackedStringArray("res://Localization/en/us/en_us.en.translation")
+
+[memory]
+
+limits/message_queue/max_size_mb=64
 
 [physics]
 
@@ -360,6 +360,6 @@ lights_and_shadows/directional_shadow/size.mobile=512
 lights_and_shadows/directional_shadow/16_bits=false
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=1
 2d/shadow_atlas/size=460
-shading/overrides/force_lambert_over_burley=true
+environment/ssao/quality=1
 2d/sdf/oversize=0
 2d/sdf/scale=2

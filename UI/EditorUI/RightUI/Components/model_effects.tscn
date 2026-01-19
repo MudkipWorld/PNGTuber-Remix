@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckidjwx5bqwbj"]
+[gd_scene format=3 uid="uid://ckidjwx5bqwbj"]
 
 [ext_resource type="Script" uid="uid://bsg261xpkttel" path="res://Scripts/UI/RightPanel/model_effects.gd" id="1_1lmbe"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lmbe"]
 
-[node name="ModelEffects" type="VBoxContainer"]
+[node name="ModelEffects" type="VBoxContainer" unique_id=2103852420]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,18 +15,18 @@ size_flags_vertical = 3
 theme_override_constants/separation = 8
 script = ExtResource("1_1lmbe")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1640384671]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "TR_EFFECTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Grid" type="GridContainer" parent="."]
+[node name="Grid" type="GridContainer" parent="." unique_id=391992746]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="Grid"]
+[node name="Label" type="Label" parent="Grid" unique_id=858783820]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "TR_COLOR_BLINDNESS_HELPER_TOOLTIP"
@@ -35,7 +35,7 @@ theme_override_font_sizes/font_size = 14
 text = "TR_COLOR_BLINDNESS_HELPER"
 vertical_alignment = 1
 
-[node name="ColorBlindnessHelperOptions" type="OptionButton" parent="Grid"]
+[node name="ColorBlindnessHelperOptions" type="OptionButton" parent="Grid" unique_id=1596881478]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_COLOR_BLINDNESS_HELPER_TOOLTIP"
@@ -53,12 +53,12 @@ popup/item_3/id = 3
 popup/item_4/text = "TR_TRITANOPIA"
 popup/item_4/id = 4
 
-[node name="Label2" type="Label" parent="Grid"]
+[node name="Label2" type="Label" parent="Grid" unique_id=1587069648]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_MODEL_EFFECT"
 
-[node name="EffectType" type="OptionButton" parent="Grid"]
+[node name="EffectType" type="OptionButton" parent="Grid" unique_id=1166339640]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -78,51 +78,41 @@ popup/item_4/id = 4
 popup/item_5/text = "TR_EFFECT_HYPER"
 popup/item_5/id = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1510900952]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Margin" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 3
-
-[node name="TabContainer" type="TabContainer" parent="PanelContainer/Margin"]
+[node name="TabContainer" type="TabContainer" parent="PanelContainer" unique_id=406678157]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1lmbe")
 current_tab = 0
 tabs_visible = false
 
-[node name="Grid2" type="GridContainer" parent="PanelContainer/Margin/TabContainer"]
+[node name="Grid2" type="GridContainer" parent="PanelContainer/TabContainer" unique_id=1909525058]
 layout_mode = 2
 theme_override_constants/v_separation = 8
 columns = 2
 metadata/_tab_index = 0
 
-[node name="Label" type="Label" parent="PanelContainer/Margin/TabContainer/Grid2"]
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/Grid2" unique_id=1816255667]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_EFFECT_COLOR"
 
-[node name="EffectColor" type="ColorPickerButton" parent="PanelContainer/Margin/TabContainer/Grid2"]
+[node name="EffectColor" type="ColorPickerButton" parent="PanelContainer/TabContainer/Grid2" unique_id=2013033899]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="PanelContainer/Margin/TabContainer/Grid2"]
+[node name="Label2" type="Label" parent="PanelContainer/TabContainer/Grid2" unique_id=67433738]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_EFFECT_SIZE"
 
-[node name="SizeSlider" type="HSlider" parent="PanelContainer/Margin/TabContainer/Grid2"]
+[node name="SizeSlider" type="HSlider" parent="PanelContainer/TabContainer/Grid2" unique_id=733336093]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -131,30 +121,30 @@ max_value = 20.0
 step = 0.1
 value = 1.0
 
-[node name="RainbowCheck" type="CheckBox" parent="PanelContainer/Margin/TabContainer/Grid2"]
+[node name="RainbowCheck" type="CheckBox" parent="PanelContainer/TabContainer/Grid2" unique_id=1544882494]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 focus_mode = 0
 text = "TR_RAINBOW_EFFECT"
 
-[node name="Control" type="Control" parent="PanelContainer/Margin/TabContainer/Grid2"]
+[node name="Control" type="Control" parent="PanelContainer/TabContainer/Grid2" unique_id=157840293]
 visible = false
 layout_mode = 2
 
-[node name="Grid3" type="GridContainer" parent="PanelContainer/Margin/TabContainer"]
+[node name="Grid3" type="GridContainer" parent="PanelContainer/TabContainer" unique_id=429424793]
 visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 8
 columns = 2
 metadata/_tab_index = 1
 
-[node name="Label2" type="Label" parent="PanelContainer/Margin/TabContainer/Grid3"]
+[node name="Label2" type="Label" parent="PanelContainer/TabContainer/Grid3" unique_id=1743272266]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_EFFECT_SIZE_LABEL"
 
-[node name="SizeSlider2" type="HSlider" parent="PanelContainer/Margin/TabContainer/Grid3"]
+[node name="SizeSlider2" type="HSlider" parent="PanelContainer/TabContainer/Grid3" unique_id=451503973]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -163,58 +153,58 @@ max_value = 20.0
 step = 0.1
 value = 1.0
 
-[node name="Grid4" type="GridContainer" parent="PanelContainer/Margin/TabContainer"]
+[node name="Grid4" type="GridContainer" parent="PanelContainer/TabContainer" unique_id=1666154523]
 visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 8
 columns = 2
 metadata/_tab_index = 2
 
-[node name="Label" type="Label" parent="PanelContainer/Margin/TabContainer/Grid4"]
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/Grid4" unique_id=1896381915]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_EFFECT_COLOR_LABEL"
 
-[node name="EffectColor2" type="ColorPickerButton" parent="PanelContainer/Margin/TabContainer/Grid4"]
+[node name="EffectColor2" type="ColorPickerButton" parent="PanelContainer/TabContainer/Grid4" unique_id=1289636379]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Grid5" type="GridContainer" parent="PanelContainer/Margin/TabContainer"]
+[node name="Grid5" type="GridContainer" parent="PanelContainer/TabContainer" unique_id=851034712]
 visible = false
 layout_mode = 2
 columns = 2
 metadata/_tab_index = 3
 
-[node name="Label" type="Label" parent="PanelContainer/Margin/TabContainer/Grid5"]
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/Grid5" unique_id=441398966]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Roll Speed"
 
-[node name="RollSpeed" type="SpinBox" parent="PanelContainer/Margin/TabContainer/Grid5"]
+[node name="RollSpeed" type="SpinBox" parent="PanelContainer/TabContainer/Grid5" unique_id=1322241715]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 10.0
 step = 0.01
 
-[node name="Label2" type="Label" parent="PanelContainer/Margin/TabContainer/Grid5"]
+[node name="Label2" type="Label" parent="PanelContainer/TabContainer/Grid5" unique_id=809388012]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Roll Size"
 
-[node name="RollSize" type="SpinBox" parent="PanelContainer/Margin/TabContainer/Grid5"]
+[node name="RollSize" type="SpinBox" parent="PanelContainer/TabContainer/Grid5" unique_id=1944051770]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 step = 0.01
 
-[node name="Label3" type="Label" parent="PanelContainer/Margin/TabContainer/Grid5"]
+[node name="Label3" type="Label" parent="PanelContainer/TabContainer/Grid5" unique_id=238044238]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Aberration"
 
-[node name="Aberration" type="SpinBox" parent="PanelContainer/Margin/TabContainer/Grid5"]
+[node name="Aberration" type="SpinBox" parent="PanelContainer/TabContainer/Grid5" unique_id=888769068]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -224,11 +214,11 @@ step = 0.01
 
 [connection signal="item_selected" from="Grid/ColorBlindnessHelperOptions" to="." method="_on_color_blindness_helper_options_item_selected"]
 [connection signal="item_selected" from="Grid/EffectType" to="." method="_on_option_button_item_selected"]
-[connection signal="color_changed" from="PanelContainer/Margin/TabContainer/Grid2/EffectColor" to="." method="_on_effect_color_color_changed"]
-[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid2/SizeSlider" to="." method="_on_size_slider_value_changed"]
-[connection signal="toggled" from="PanelContainer/Margin/TabContainer/Grid2/RainbowCheck" to="." method="_on_rainbow_check_toggled"]
-[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid3/SizeSlider2" to="." method="_on_size_slider_2_value_changed"]
-[connection signal="color_changed" from="PanelContainer/Margin/TabContainer/Grid4/EffectColor2" to="." method="_on_effect_color_2_color_changed"]
-[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid5/RollSpeed" to="." method="_on_roll_speed_value_changed"]
-[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid5/RollSize" to="." method="_on_roll_size_value_changed"]
-[connection signal="value_changed" from="PanelContainer/Margin/TabContainer/Grid5/Aberration" to="." method="_on_roll_size_value_changed"]
+[connection signal="color_changed" from="PanelContainer/TabContainer/Grid2/EffectColor" to="." method="_on_effect_color_color_changed"]
+[connection signal="value_changed" from="PanelContainer/TabContainer/Grid2/SizeSlider" to="." method="_on_size_slider_value_changed"]
+[connection signal="toggled" from="PanelContainer/TabContainer/Grid2/RainbowCheck" to="." method="_on_rainbow_check_toggled"]
+[connection signal="value_changed" from="PanelContainer/TabContainer/Grid3/SizeSlider2" to="." method="_on_size_slider_2_value_changed"]
+[connection signal="color_changed" from="PanelContainer/TabContainer/Grid4/EffectColor2" to="." method="_on_effect_color_2_color_changed"]
+[connection signal="value_changed" from="PanelContainer/TabContainer/Grid5/RollSpeed" to="." method="_on_roll_speed_value_changed"]
+[connection signal="value_changed" from="PanelContainer/TabContainer/Grid5/RollSize" to="." method="_on_roll_size_value_changed"]
+[connection signal="value_changed" from="PanelContainer/TabContainer/Grid5/Aberration" to="." method="_on_roll_size_value_changed"]

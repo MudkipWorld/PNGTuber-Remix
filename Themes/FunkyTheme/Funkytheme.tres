@@ -201,7 +201,9 @@ expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4s4pa"]
 content_margin_left = 10.0
+content_margin_top = 5.0
 content_margin_right = 10.0
+content_margin_bottom = 5.0
 bg_color = Color(0.24025, 0.521639, 0.407868, 1)
 border_width_left = 2
 border_width_right = 2

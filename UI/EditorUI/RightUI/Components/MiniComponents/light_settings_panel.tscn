@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfys3e12aapdo"]
+[gd_scene format=3 uid="uid://bfys3e12aapdo"]
 
 [ext_resource type="Script" uid="uid://1wvjbd0qwxir" path="res://Scripts/UI/Others/LightControl.gd" id="1_vb5lh"]
 [ext_resource type="Script" uid="uid://181yhrus3jhb" path="res://Scripts/UI/Others/Spinboxes.gd" id="2_fqqfc"]
 [ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="3_27oy3"]
 
-[node name="LightSettingsPanel" type="VBoxContainer"]
+[node name="LightSettingsPanel" type="VBoxContainer" unique_id=406482873]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,20 +12,20 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="LightControl" type="Node" parent="."]
+[node name="LightControl" type="Node" parent="." unique_id=1601525929]
 script = ExtResource("1_vb5lh")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1490143488]
 layout_mode = 2
 text = "TR_LIGHT_SETTINGS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Grid" type="GridContainer" parent="."]
+[node name="Grid" type="GridContainer" parent="." unique_id=1379189741]
 layout_mode = 2
 columns = 2
 
-[node name="LightSourceVis" type="CheckBox" parent="Grid"]
+[node name="LightSourceVis" type="CheckBox" parent="Grid" unique_id=2090214278]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
@@ -33,7 +33,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "TR_LIGHT_VISIBLE"
 
-[node name="LSShapeVis" type="CheckBox" parent="Grid"]
+[node name="LSShapeVis" type="CheckBox" parent="Grid" unique_id=726096042]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -41,7 +41,7 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "TR_LIGHT_SHAPE_VISIBLE"
 
-[node name="LSShapeVisLabel" type="Label" parent="Grid/LSShapeVis"]
+[node name="LSShapeVisLabel" type="Label" parent="Grid/LSShapeVis" unique_id=398605590]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
@@ -53,86 +53,12 @@ theme_override_font_sizes/font_size = 12
 text = "TR_FOR_TESTING_LABEL"
 horizontal_alignment = 1
 
-[node name="HBox17" type="HBoxContainer" parent="Grid"]
-layout_mode = 2
-
-[node name="LightColorLabel" type="Label" parent="Grid/HBox17"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "TR_LIGHT_COLOR"
-
-[node name="LightColor" type="ColorPickerButton" parent="Grid/HBox17"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(45, 27)
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 1, 1, 1)
-
-[node name="HBox20" type="HBoxContainer" parent="Grid"]
-layout_mode = 2
-
-[node name="DarkenCheck" type="CheckBox" parent="Grid/HBox20"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(93, 0)
-layout_mode = 2
-tooltip_text = "TR_LS_DARKEN_TOOLTIP"
-theme_override_font_sizes/font_size = 16
-text = "TR_DARKEN"
-
-[node name="DarkenColor" type="ColorPickerButton" parent="Grid/HBox20"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(45, 27)
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 1, 1, 1)
-
-[node name="HBox" type="HBoxContainer" parent="Grid"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PosXLabel" type="Label" parent="Grid/HBox"]
-custom_minimum_size = Vector2(93, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "TR_POS_X"
-
-[node name="LightPosXSpinBox" type="SpinBox" parent="Grid/HBox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -9999.0
-max_value = 9999.0
-step = 0.1
-script = ExtResource("2_fqqfc")
-
-[node name="HBox25" type="HBoxContainer" parent="Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 2
-
-[node name="PosYLabel" type="Label" parent="Grid/HBox25"]
-custom_minimum_size = Vector2(93, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 16
-text = "TR_POS_Y"
-
-[node name="LightPosYSpinBox" type="SpinBox" parent="Grid/HBox25"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -9999.0
-max_value = 9999.0
-step = 0.1
-script = ExtResource("2_fqqfc")
-
-[node name="Label" type="Label" parent="Grid"]
+[node name="Label" type="Label" parent="Grid" unique_id=1411545463]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_BLEND_LABEL"
 
-[node name="BlendMode" type="OptionButton" parent="Grid"]
+[node name="BlendMode" type="OptionButton" parent="Grid" unique_id=199069425]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -145,14 +71,74 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_BLEND_NORMAL"
 popup/item_2/id = 2
 
-[node name="LightEnergyBSlider" parent="." instance=ExtResource("3_27oy3")]
+[node name="DarkenCheck" type="CheckBox" parent="Grid" unique_id=713611726]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+tooltip_text = "TR_LS_DARKEN_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+text = "TR_DARKEN"
+
+[node name="DarkenColor" type="ColorPickerButton" parent="Grid" unique_id=670798660]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 1)
+
+[node name="LightColorLabel" type="Label" parent="Grid" unique_id=1802030877]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_LIGHT_COLOR"
+
+[node name="LightColor" type="ColorPickerButton" parent="Grid" unique_id=1930992497]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 1)
+
+[node name="PosXLabel" type="Label" parent="Grid" unique_id=630482852]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_POS_X"
+
+[node name="LightPosXSpinBox" type="SpinBox" parent="Grid" unique_id=1754496482]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -9999.0
+max_value = 9999.0
+step = 0.1
+script = ExtResource("2_fqqfc")
+
+[node name="PosYLabel" type="Label" parent="Grid" unique_id=563514526]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_POS_Y"
+
+[node name="LightPosYSpinBox" type="SpinBox" parent="Grid" unique_id=1213711795]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -9999.0
+max_value = 9999.0
+step = 0.1
+script = ExtResource("2_fqqfc")
+
+[node name="LightEnergyBSlider" parent="." unique_id=1816131894 instance=ExtResource("3_27oy3")]
 unique_name_in_owner = true
 layout_mode = 2
 label_text = "TR_LIGHT_ENERGY"
 max_value = 16.0
 step = 0.1
 
-[node name="LightSizeBSlider" parent="." instance=ExtResource("3_27oy3")]
+[node name="LightSizeBSlider" parent="." unique_id=2131827308 instance=ExtResource("3_27oy3")]
 unique_name_in_owner = true
 layout_mode = 2
 label_text = "TR_LIGHT_SIZE"
@@ -162,9 +148,9 @@ step = 0.1
 
 [connection signal="toggled" from="Grid/LightSourceVis" to="LightControl" method="_on_light_source_vis_toggled"]
 [connection signal="toggled" from="Grid/LSShapeVis" to="LightControl" method="_on_ls_shape_vis_toggled"]
-[connection signal="color_changed" from="Grid/HBox17/LightColor" to="LightControl" method="_on_light_color_color_changed"]
-[connection signal="toggled" from="Grid/HBox20/DarkenCheck" to="LightControl" method="_on_darken_check_toggled"]
-[connection signal="color_changed" from="Grid/HBox20/DarkenColor" to="LightControl" method="_on_darken_color_color_changed"]
-[connection signal="value_changed" from="Grid/HBox/LightPosXSpinBox" to="LightControl" method="_on_light_pos_x_spin_box_value_changed"]
-[connection signal="value_changed" from="Grid/HBox25/LightPosYSpinBox" to="LightControl" method="_on_light_pos_y_spin_box_value_changed"]
 [connection signal="item_selected" from="Grid/BlendMode" to="LightControl" method="_on_blend_mode_item_selected"]
+[connection signal="toggled" from="Grid/DarkenCheck" to="LightControl" method="_on_darken_check_toggled"]
+[connection signal="color_changed" from="Grid/DarkenColor" to="LightControl" method="_on_darken_color_color_changed"]
+[connection signal="color_changed" from="Grid/LightColor" to="LightControl" method="_on_light_color_color_changed"]
+[connection signal="value_changed" from="Grid/LightPosXSpinBox" to="LightControl" method="_on_light_pos_x_spin_box_value_changed"]
+[connection signal="value_changed" from="Grid/LightPosYSpinBox" to="LightControl" method="_on_light_pos_y_spin_box_value_changed"]

@@ -1,18 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwtfmnxmnl7h3"]
+[gd_scene format=3 uid="uid://cwtfmnxmnl7h3"]
 
 [ext_resource type="PackedScene" uid="uid://bfys3e12aapdo" path="res://UI/EditorUI/RightUI/Components/MiniComponents/light_settings_panel.tscn" id="2_j3n53"]
 
-[node name="Light" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_tab_index = 3
-
-[node name="ScrollContainer5" type="ScrollContainer" parent="."]
-layout_mode = 1
+[node name="Light" type="ScrollContainer" unique_id=840147195]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,21 +14,5 @@ grow_vertical = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer5"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer5/MarginContainer"]
-custom_minimum_size = Vector2(350, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-
-[node name="LightSettingsPanel" parent="ScrollContainer5/MarginContainer/VBoxContainer" instance=ExtResource("2_j3n53")]
+[node name="LightSettingsPanel" parent="." unique_id=524936842 instance=ExtResource("2_j3n53")]
 layout_mode = 2
