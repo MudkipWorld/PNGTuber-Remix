@@ -29,12 +29,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label5" type="Label" parent="VBoxContainer" unique_id=335869060]
-layout_mode = 2
-text = "TR_MOVEMENT"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="SharedMovement" type="CheckBox" parent="VBoxContainer" unique_id=827652221]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -542,13 +536,6 @@ step = 0.001
 value_to_update = "mouse_scale_y"
 has_alt_values = true
 
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1047595467]
-visible = false
-self_modulate = Color(1, 1, 1, 0.686275)
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "TR_FOLLOW_SCALE_NOT"
-
 [node name="Grid" type="GridContainer" parent="VBoxContainer" unique_id=783457870]
 layout_mode = 2
 columns = 2
@@ -695,16 +682,12 @@ popup/item_8/id = 7
 popup/item_9/text = "Eyebrow Right"
 popup/item_9/id = 8
 
-[node name="GridContainer2" type="GridContainer" parent="VBoxContainer" unique_id=486931544]
-layout_mode = 2
-columns = 2
-
-[node name="Label3" type="Label" parent="VBoxContainer/GridContainer2" unique_id=1571333507]
+[node name="Label4" type="Label" parent="VBoxContainer/GridContainer" unique_id=1571333507]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Follow Eye :"
 
-[node name="FollowEye" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=731042284]
+[node name="FollowEye" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=731042284]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -717,12 +700,12 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_RIGHT_EYE"
 popup/item_2/id = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/GridContainer2" unique_id=459864713]
+[node name="Label5" type="Label" parent="VBoxContainer/GridContainer" unique_id=459864713]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Follow Gaze :"
 
-[node name="FollowEyeGaze" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=616374916]
+[node name="FollowEyeGaze" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=616374916]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -735,12 +718,12 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_RIGHT_EYE"
 popup/item_2/id = 2
 
-[node name="Label2" type="Label" parent="VBoxContainer/GridContainer2" unique_id=186374472]
+[node name="Label6" type="Label" parent="VBoxContainer/GridContainer" unique_id=186374472]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Eye Style :"
 
-[node name="EyeStyle" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=804741953]
+[node name="EyeStyle" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=804741953]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -751,12 +734,12 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_FT_STRETCH"
 popup/item_1/id = 1
 
-[node name="Label4" type="Label" parent="VBoxContainer/GridContainer2" unique_id=1680052150]
+[node name="Label7" type="Label" parent="VBoxContainer/GridContainer" unique_id=1680052150]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mouth :"
 
-[node name="MouthFollow" type="OptionButton" parent="VBoxContainer/GridContainer2" unique_id=1370536639]
+[node name="MouthFollow" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=1370536639]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -777,7 +760,7 @@ popup/item_2/id = 2
 [connection signal="item_selected" from="VBoxContainer/GridContainer/UDPPosOption" to="Whyisntthisworking" method="_on_udp_pos_option_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/GridContainer/UDPRotOption" to="Whyisntthisworking" method="_on_udp_rot_option_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/GridContainer/UDPScaleOption" to="Whyisntthisworking" method="_on_udp_scale_option_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/GridContainer2/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/GridContainer2/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/GridContainer2/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/GridContainer2/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]

@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cs5x5k14vxaqv" path="res://Misc/TestAssets/SliderGrabber.png" id="3_ibm4p"]
 [ext_resource type="Texture2D" uid="uid://cd54dgvet0k2m" path="res://Misc/TestAssets/SliderGrabberDisabled.png" id="4_vhxpk"]
 [ext_resource type="Texture2D" uid="uid://dahd6x51nj0iv" path="res://Misc/TestAssets/SliderGrabberHeld.png" id="5_ey3cu"]
+[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Assets/Collapse1.png" id="6_ujomd"]
+[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Assets/Collapse2.png" id="7_4mhch"]
+[ext_resource type="Texture2D" uid="uid://hi8bi4gdyyrj" path="res://UI/Assets/Collapse3.png" id="8_eq3aq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhxpk"]
 content_margin_left = 4.0
@@ -3263,7 +3266,7 @@ cache/0/17/0/glyphs/75/size = Vector2(11, 14)
 cache/0/17/0/glyphs/75/uv_rect = Rect2(28, 17, 11, 14)
 cache/0/17/0/glyphs/75/texture_idx = 0
 
-[sub_resource type="Image" id="Image_ibm4p"]
+[sub_resource type="Image" id="Image_ujomd"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////YP///2H///8A////AP///wD///8A////AP///wD///8A////AP///2D///9h////AP///wD///8A////YP///7////+/////Yf///wD///8A////AP///wD///8A////AP///2D///+/////v////2H///8A////AP///2H///+/////v////7////9h////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////Yf///7////+/////v////2H///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///wD///9h////v////7////+/////Yf///2D///+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///2H///+/////v////7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////Yf///7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////Yf///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////v////7////9h////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////9g////Yf///7////+/////v////2H///8A////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///9h////v////7////+/////Yf///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///2H///+/////v////7////9h////AP///wD///9h////v////7////9g////AP///wD///8A////AP///wD///8A////Yf///7////+/////YP///wD///8A////AP///2H///9g////AP///wD///8A////AP///wD///8A////AP///wD///9h////YP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -3273,7 +3276,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_aovhr"]
-image = SubResource("Image_ibm4p")
+image = SubResource("Image_ujomd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5ms2"]
 content_margin_left = 4.0
@@ -3490,10 +3493,10 @@ TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_ghwgg")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_dhfhd")
 Tree/colors/drop_position_color = Color(0.20871, 0.20871, 0.20871, 1)
 Tree/colors/font_color = Color(0.105882, 0.105882, 0.105882, 1)
-Tree/icons/arrow = null
-Tree/icons/arrow_collapsed = null
-Tree/icons/arrow_collapsed_mirrored = null
-Tree/icons/select_arrow = null
+Tree/icons/arrow = ExtResource("6_ujomd")
+Tree/icons/arrow_collapsed = ExtResource("7_4mhch")
+Tree/icons/arrow_collapsed_mirrored = ExtResource("8_eq3aq")
+Tree/icons/select_arrow = ExtResource("6_ujomd")
 Tree/styles/focus = SubResource("StyleBoxEmpty_mgdks")
 Tree/styles/panel = SubResource("StyleBoxEmpty_jnojd")
 Window/styles/embedded_border = SubResource("StyleBoxFlat_2j43t")

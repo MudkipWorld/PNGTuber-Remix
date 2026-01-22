@@ -3,16 +3,14 @@
 [ext_resource type="Script" uid="uid://dvpyywoct4riy" path="res://Scripts/UI/control.gd" id="1_1r6xj"]
 [ext_resource type="Script" uid="uid://bpegrg5a15v2v" path="res://Scripts/UI/UIInput.gd" id="3_1eur5"]
 [ext_resource type="Script" uid="uid://74mv3eeev8pt" path="res://Scripts/UI/Others/cam_zoom.gd" id="4_epu7g"]
-[ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/Assets/ZoominButton.png" id="4_in571"]
 [ext_resource type="PackedScene" uid="uid://cpcj4o080w37m" path="res://UI/EditorUI/LeftUI/left_panel.tscn" id="5_0cvxm"]
-[ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/Assets/ZoomOutButton.png" id="5_epu7g"]
+[ext_resource type="Texture2D" uid="uid://dsvnkyrgho1xx" path="res://UI/Assets/ui_buttons.png" id="5_le2wr"]
 [ext_resource type="PackedScene" uid="uid://duk3smjtw111j" path="res://UI/EditorUI/RightUI/Components/wiggle.tscn" id="6_63lps"]
-[ext_resource type="Texture2D" uid="uid://cje55ikf44l63" path="res://UI/Assets/ZoomResetMainButton.png" id="6_seimj"]
 [ext_resource type="PackedScene" uid="uid://w2l13b1625f6" path="res://UI/EditorUI/RightUI/Components/animation_tab.tscn" id="7_1r6xj"]
 [ext_resource type="PackedScene" uid="uid://cwtfmnxmnl7h3" path="res://UI/EditorUI/RightUI/Components/light.tscn" id="7_4jud0"]
+[ext_resource type="Texture2D" uid="uid://q7kgj0j4rodd" path="res://UI/Assets/WarningCircle.png" id="7_seimj"]
 [ext_resource type="PackedScene" uid="uid://nh83ldjgbynt" path="res://UI/EditorUI/RightUI/Components/model_anim.tscn" id="8_1r6xj"]
 [ext_resource type="PackedScene" uid="uid://c3f86pv0can01" path="res://UI/EditorUI/RightUI/Components/properties.tscn" id="8_i4djb"]
-[ext_resource type="Texture2D" uid="uid://di8kyreps7pl0" path="res://UI/Assets/PencilButton.png" id="8_seimj"]
 [ext_resource type="Script" uid="uid://duopekbdlbjla" path="res://Scripts/UI/Others/project_updates_label.gd" id="8_y3a4k"]
 [ext_resource type="PackedScene" uid="uid://ccvo3k5t6lis6" path="res://UI/EditorUI/RightUI/Components/movement.tscn" id="9_fwbkq"]
 [ext_resource type="PackedScene" uid="uid://bk2xbsvlmq0or" path="res://UI/StateButton/state_panel.tscn" id="10_1r6xj"]
@@ -20,8 +18,24 @@
 [ext_resource type="PackedScene" uid="uid://cfuiw0rtt54fn" path="res://UI/StreamUI/web_socket_config.tscn" id="17_le2wr"]
 [ext_resource type="PackedScene" uid="uid://b33l6030k8a8p" path="res://UI/EditorUI/RightUI/Components/mesh_gen.tscn" id="18_kv61l"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv61l"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(495, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mi4uk"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(528, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seimj"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(594, 0, 33, 32)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y3a4k"]
 blend_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epu7g"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(297, 0, 33, 32)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1r6xj"]
 blend_mode = 1
@@ -97,7 +111,7 @@ custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 tooltip_text = "TR_MINI_VIEW_ZOOM_IN"
 focus_mode = 0
-icon = ExtResource("4_in571")
+icon = SubResource("AtlasTexture_kv61l")
 icon_alignment = 1
 expand_icon = true
 
@@ -107,7 +121,7 @@ custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 tooltip_text = "TR_MINI_VIEW_ZOOM_OUT"
 focus_mode = 0
-icon = ExtResource("5_epu7g")
+icon = SubResource("AtlasTexture_mi4uk")
 icon_alignment = 1
 expand_icon = true
 
@@ -117,7 +131,7 @@ custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 tooltip_text = "TR_MAIN_VIEW_ZOOM_RESET"
 focus_mode = 0
-icon = ExtResource("6_seimj")
+icon = SubResource("AtlasTexture_seimj")
 icon_alignment = 1
 expand_icon = true
 
@@ -137,6 +151,20 @@ theme_override_font_sizes/font_size = 12
 text = "Project Saved!"
 vertical_alignment = 2
 script = ExtResource("8_y3a4k")
+
+[node name="ModelSizeWarning" type="TextureRect" parent="MainSplit/SecondarySplit/AspectRatioContainer" unique_id=15208935]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+offset_top = 6.0
+offset_right = 33.0
+offset_bottom = 39.0
+tooltip_text = "One of your Images is over"
+texture = ExtResource("7_seimj")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="RightPanel" type="Panel" parent="MainSplit/SecondarySplit" unique_id=1046476417]
 unique_name_in_owner = true
@@ -168,7 +196,7 @@ mouse_force_pass_scroll_events = false
 theme_override_font_sizes/font_size = 18
 placeholder_text = "TR_NAME"
 alignment = 1
-right_icon = ExtResource("8_seimj")
+right_icon = SubResource("AtlasTexture_epu7g")
 icon_expand_mode = 1
 
 [node name="MultistateEditingCue" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer" unique_id=1868032380]
@@ -215,6 +243,8 @@ size_flags_vertical = 3
 theme_override_constants/side_margin = 1
 theme_override_font_sizes/font_size = 13
 current_tab = 0
+switch_on_drag_hover = false
+tab_focus_mode = 0
 
 [node name="Properties" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 light_mask = 0

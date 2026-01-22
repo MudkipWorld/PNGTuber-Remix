@@ -50,9 +50,13 @@ signal image_replaced
 signal add_new_image
 signal delete_image
 signal remake_image_manager
+signal show_model_warning
 
 # Remix version
 @onready var version: String = ProjectSettings.get_setting("application/config/version")
+
+
+
 
 var blink_timer : Timer = Timer.new()
 var held_sprite = null
@@ -102,6 +106,11 @@ var settings_dict : Dictionary = {
 var image_manager_data : Array = []
 
 var mode: int = 0: set = set_mode
+
+var show_warning: bool = false:
+	set(n_mode):
+		show_model_warning.emit(n_mode)
+		show_warning = n_mode
 
 var new_rot = 0
 var static_view : bool = false
@@ -227,7 +236,6 @@ func _input(_event : InputEvent):
 					i.sprite_data.rotation += 0.05
 					rot(i)
 
-
 func offset(i):
 	i.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 	i.sprite_data.position = i.position
@@ -314,14 +322,12 @@ func _physics_process(_delta: float) -> void:
 	mouse_delay()
 	if Input.is_action_just_pressed("debug_rep"):
 		print_orphan_nodes()
-	
 
 func mouse_delay():
 	frame_counter += 1
 	if frame_counter >= FRAME_INTERVAL:
 		update_mouse_vel_pos.emit()
 		frame_counter = 0
-
 
 func update_camera_smoothing() -> void:
 	if !is_instance_valid(camera): return

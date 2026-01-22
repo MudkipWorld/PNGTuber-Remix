@@ -18,7 +18,6 @@ func nullfy():
 	%GenerateMesh.disabled = true
 	%GenerateMesh3.disabled = true
 	%GenerateMesh4.disabled = true
-	%GenerateMesh5.disabled = true
 	%GenerateMesh6.disabled = true
 	
 		
@@ -37,7 +36,6 @@ func enable():
 			%GenerateMesh.disabled = false
 			%GenerateMesh3.disabled = false
 			%GenerateMesh4.disabled = false
-			%GenerateMesh5.disabled = false
 			%GenerateMesh6.disabled = false
 			set_data()
 

@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cs5x5k14vxaqv" path="res://Misc/TestAssets/SliderGrabber.png" id="3_xbj1o"]
 [ext_resource type="Texture2D" uid="uid://cd54dgvet0k2m" path="res://Misc/TestAssets/SliderGrabberDisabled.png" id="4_4o36y"]
 [ext_resource type="Texture2D" uid="uid://dahd6x51nj0iv" path="res://Misc/TestAssets/SliderGrabberHeld.png" id="5_kevkk"]
+[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Assets/Collapse1.png" id="6_73ui6"]
+[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Assets/Collapse2.png" id="7_lj7va"]
+[ext_resource type="Texture2D" uid="uid://hi8bi4gdyyrj" path="res://UI/Assets/Collapse3.png" id="8_fenga"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4o36y"]
 content_margin_left = 4.0
@@ -236,10 +239,10 @@ TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_q5lvh")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_cstdf")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_m6cv6")
 Tree/colors/font_color = Color(0.937255, 0.796078, 0.690196, 1)
-Tree/icons/arrow = null
-Tree/icons/arrow_collapsed = null
-Tree/icons/arrow_collapsed_mirrored = null
-Tree/icons/select_arrow = null
+Tree/icons/arrow = ExtResource("6_73ui6")
+Tree/icons/arrow_collapsed = ExtResource("7_lj7va")
+Tree/icons/arrow_collapsed_mirrored = ExtResource("8_fenga")
+Tree/icons/select_arrow = ExtResource("6_73ui6")
 Tree/styles/focus = SubResource("StyleBoxEmpty_d8s0b")
 Tree/styles/panel = SubResource("StyleBoxEmpty_7cuko")
 Window/styles/embedded_border = SubResource("StyleBoxFlat_x3wfm")

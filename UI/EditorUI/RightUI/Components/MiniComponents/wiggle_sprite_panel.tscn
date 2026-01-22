@@ -16,12 +16,6 @@ theme_override_constants/separation = 8
 [node name="WiggleSprite" type="Node" parent="." unique_id=1482195824]
 script = ExtResource("1_00ydi")
 
-[node name="Label" type="Label" parent="." unique_id=1415645196]
-layout_mode = 2
-text = "TR_FOLLOW_APPENDAGE_TIP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Grid" type="GridContainer" parent="." unique_id=565955281]
 layout_mode = 2
 columns = 2

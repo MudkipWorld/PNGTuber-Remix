@@ -2,7 +2,6 @@ extends Node
 
 var should_change : bool = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%ColorPickerButton.get_picker().picker_shape = 1
 	%ColorPickerButton.get_picker().presets_visible = false
@@ -197,7 +196,6 @@ func _on_color_picker_button_color_changed(color: Color) -> void:
 			undo_redo_data.append(d)
 		UndoRedoManager.push_data(undo_redo_data)
 
-
 func _on_color_picker_button_focus_entered() -> void:
 	Global.spinbox_held = true
 
@@ -216,7 +214,6 @@ func _on_tint_picker_button_color_changed(ncolor: Color) -> void:
 			undo_redo_data.append(d)
 		UndoRedoManager.push_data(undo_redo_data)
 
-
 func _on_pos_x_spin_box_value_changed(value):
 	if %PosXSpinBox.get_line_edit().has_focus():
 		if should_change:
@@ -230,7 +227,6 @@ func _on_pos_x_spin_box_value_changed(value):
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
 
-
 func _on_pos_y_spin_box_value_changed(value):
 	if %PosYSpinBox.get_line_edit().has_focus():
 		if should_change:
@@ -243,7 +239,6 @@ func _on_pos_y_spin_box_value_changed(value):
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
-			
 
 func _on_rot_spin_box_value_changed(value):
 	if %RotSpinBox.get_line_edit().has_focus():
@@ -266,11 +261,11 @@ func _on_visible_toggled(toggled_on):
 			if toggled_on:
 				i.sprite_data.visible = true
 				i.visible = true
-				i.treeitem.set_button(0, 0, preload("res://UI/EditorUI/LeftUI/Components/LayerView/Assets/New folder/EyeButton.png"))
+				i.treeitem.set_button(0, 0, preload("res://UI/Assets/EyeButton.png"))
 			else:
 				i.sprite_data.visible = false
 				i.visible = false
-				i.treeitem.set_button(0, 0, preload("res://UI/EditorUI/LeftUI/Components/LayerView/Assets/New folder/EyeButton2.png"))
+				i.treeitem.set_button(0, 0, preload("res://UI/Assets/EyeButton2.png"))
 			
 			StateButton.multi_edit(i.sprite_data.visible, "visible", i, i.states)
 			i.save_state(Global.current_state)
@@ -289,7 +284,6 @@ func _on_z_order_spinbox_value_changed(value):
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
-
 
 func _on_size_spin_y_box_value_changed(value):
 	if %SizeSpinYBox.get_line_edit().has_focus():
@@ -316,8 +310,6 @@ func _on_size_spin_box_value_changed(value):
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
-				
-			
 
 func _on_offset_y_spin_box_value_changed(value):
 	if %OffsetYSpinBox.get_line_edit().has_focus():
@@ -336,7 +328,6 @@ func _on_offset_y_spin_box_value_changed(value):
 				update_pos_spins()
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
-			
 
 func _on_offset_x_spin_box_value_changed(value):
 	if %OffsetXSpinBox.get_line_edit().has_focus():
@@ -384,7 +375,6 @@ func _on_flip_sprite_h_toggled(toggled_on: bool) -> void:
 				undo_redo_data.append(d)
 				i.save_state(Global.current_state)
 		UndoRedoManager.push_data(undo_redo_data)
-
 
 func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 	if should_change:
@@ -468,7 +458,6 @@ func _on_mouth_option_item_selected(index: int) -> void:
 			StateButton.multi_edit(i.sprite_data.should_talk, "should_talk", i, i.states)
 			StateButton.multi_edit(i.sprite_data.open_mouth, "open_mouth", i, i.states)
 		Global.not_speaking.emit()
-
 
 func _on_rest_mode_option_item_selected(index: int) -> void:
 	for i in Global.held_sprites:

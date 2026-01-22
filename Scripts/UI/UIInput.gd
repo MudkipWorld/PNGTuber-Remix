@@ -2,13 +2,16 @@ extends Node
 
 var should_change : bool = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	await get_tree().current_scene.ready
 #	%ScrollContainer.get_tab_bar().focus_mode = Control.FocusMode.FOCUS_NONE
 	held_sprite_is_null()
 	Global.connect("reinfo", reinfo)
 	Global.deselect.connect(held_sprite_is_null)
+	Global.show_model_warning.connect(show_model_warning)
+
+func show_model_warning(_warn : bool):
+	%ModelSizeWarning.visible = _warn
 
 #region Update Slider info
 func held_sprite_is_null():

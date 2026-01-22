@@ -366,8 +366,6 @@ func load_objects(load_dict: Dictionary) -> void:
 			sprite_obj = preload("res://Misc/MeshObject/mesh_object.tscn").instantiate()
 			set_common_data(sprite, sprite_obj)
 			load_mesh_object(load_dict, sprite, sprite_obj)
-			
-			
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 			set_common_data(sprite, sprite_obj)
@@ -523,7 +521,6 @@ func _make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> Pa
 		delta[i] = verts[i] - original[i]
 	return delta
 
-
 func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 		var canv: CanvasTexture = CanvasTexture.new()
 		canv.diffuse_texture = Global.folder_texture
@@ -532,6 +529,7 @@ func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 		var image_data: ImageData = null
 		var image_data_normal: ImageData = null
 
+		var warn : bool = false
 		if load_dict.get("image_manager_data", []) == [] and !sprite.states[0].get("folder"):
 			image_data = ImageData.new()
 			if sprite.has("normal") and sprite.normal != null:
@@ -554,6 +552,8 @@ func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 			sprite_obj.used_image_id = image_data.id
 			image_data.image_name = sprite_obj.sprite_name
 			Global.image_manager_data.append(image_data)
+			if image_data.runtime_texture.get_size().x > 1280 or image_data.runtime_texture.get_size().y > 1280:
+				warn = true 
 
 			if image_data_normal != null:
 				canv.normal_texture = image_data_normal.runtime_texture
@@ -595,6 +595,7 @@ func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 			new_dict.merge(st, true)
 			st = new_dict
 		sprite_obj.states = cleaned_array
+		Global.show_warning = warn
 
 		if sprite.has("is_collapsed"):
 			sprite_obj.is_collapsed = sprite.is_collapsed
@@ -678,6 +679,7 @@ func load_pngplus_file(path):
 			return 1
 		return 0
 	)
+	var warn : bool = false
 	for i in entries:
 		var data = i.data
 		var sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
@@ -730,6 +732,9 @@ func load_pngplus_file(path):
 		var canv = CanvasTexture.new()
 		canv.diffuse_texture = image_data.runtime_texture
 		sprite_obj.get_node("%Sprite2D").texture = canv
+		if image_data.runtime_texture.get_size().x > 1280 or image_data.runtime_texture.get_size().y > 1280:
+			warn = true 
+		
 
 		sprite_obj.referenced_data = image_data
 		sprite_obj.used_image_id = image_data.id
@@ -802,6 +807,7 @@ func load_pngplus_file(path):
 		sprite_obj.get_node("%Sprite2D/Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 		sprite_obj.get_state(0)
 
+	Global.show_warning = warn
 	Global.remake_for_plus.emit()
 	Global.load_sprite_states(0)
 	Global.remake_layers.emit()

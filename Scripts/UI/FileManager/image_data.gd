@@ -1,4 +1,4 @@
-extends Resource
+extends RefCounted
 class_name ImageData
 
 var runtime_texture = null
@@ -37,6 +37,8 @@ func set_data(_data : Dictionary):
 		img.load_png_from_buffer(_data.runtime_texture)
 		var texture = ImageTexture.create_from_image(img)
 		runtime_texture = texture
+		if runtime_texture.get_size().x > 1280 or runtime_texture.get_size().y > 1280:
+			Global.show_warning = true
 	
 	img_animated = _data.get("img_animated", false)
 	is_apng = _data.get("is_apng", false)

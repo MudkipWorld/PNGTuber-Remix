@@ -192,6 +192,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "TR_FLIP_H"
+icon_alignment = 1
+expand_icon = true
 
 [node name="FlipSpriteV" type="CheckBox" parent="VBoxContainer/Visibilty" unique_id=1179692931]
 unique_name_in_owner = true
@@ -363,20 +365,6 @@ vertical_alignment = 1
 layout_mode = 2
 columns = 2
 
-[node name="HiddenItem" type="CheckBox" parent="VBoxContainer/GridContainer" unique_id=203437404]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "If toggled, the current Object will be hidden when viewed outside the editor."
-theme_override_font_sizes/font_size = 16
-text = "TR_HIDDEN_ITEM"
-script = ExtResource("2_7ymxr")
-sp_type = ""
-value_to_update = "hidden_item"
-
-[node name="Control" type="Control" parent="VBoxContainer/GridContainer" unique_id=1680239178]
-layout_mode = 2
-
 [node name="RestModelLabel" type="Label" parent="VBoxContainer/GridContainer" unique_id=1558610700]
 custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
@@ -405,6 +393,17 @@ popup/item_4/text = "TR_DISABLE_MOVE"
 popup/item_4/id = 4
 popup/item_5/text = "TR_DISABLE_FOLLOW"
 popup/item_5/id = 5
+
+[node name="HiddenItem" type="CheckBox" parent="VBoxContainer/GridContainer" unique_id=203437404]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "If toggled, the current Object will be hidden when viewed outside the editor."
+theme_override_font_sizes/font_size = 16
+text = "TR_HIDDEN_ITEM"
+script = ExtResource("2_7ymxr")
+sp_type = ""
+value_to_update = "hidden_item"
 
 [connection signal="value_changed" from="VBoxContainer/Layouts/PosXSpinBox" to="PropertiesScript" method="_on_pos_x_spin_box_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Layouts/PosYSpinBox" to="PropertiesScript" method="_on_pos_y_spin_box_value_changed"]

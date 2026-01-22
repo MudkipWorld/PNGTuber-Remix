@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cb6sos2p8qbrr"]
+[gd_scene format=3 uid="uid://cb6sos2p8qbrr"]
 
 [ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_31wc5"]
 [ext_resource type="Script" uid="uid://cpxma1104nmwe" path="res://Scripts/Objects/append_object.gd" id="1_yuqos"]
@@ -45,17 +45,17 @@ colors = PackedColorArray(0, 0, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i82gq"]
 gradient = SubResource("Gradient_lijf4")
 
-[node name="SpriteObject" node_paths=PackedStringArray("sprite_object", "grab_object") instance=ExtResource("1_31wc5")]
+[node name="SpriteObject" unique_id=468878790 node_paths=PackedStringArray("sprite_object", "grab_object") instance=ExtResource("1_31wc5")]
 script = ExtResource("1_yuqos")
 sprite_object = NodePath("Modifier1/Modifier/Sprite2D")
 grab_object = NodePath("Modifier1/Modifier/Sprite2D/Grab")
 
-[node name="Sprite2D" type="Line2D" parent="Modifier1/Modifier" index="1" node_paths=PackedStringArray("actor")]
+[node name="Sprite2D" type="Line2D" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=290325673 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(-10, 0, -4.96, 0, 2.16, 0, 11.36, 0, 22.64, 0, 36, 0, 50.4, 0.000123727, 64.8, 0.000494907, 79.2, 0.00111354, 93.6, 0.00197963, 108, 0.00309317, 122.4, 0.00416483, 136.8, 0.00490527, 151.2, 0.00531449, 165.6, 0.0053925, 180, 0.00513929, 194.4, 0.00427425, 208.8, 0.00251677, 223.2, -0.000133136, 237.6, -0.00367548, 252, -0.00811026, 266.4, -0.0136768, 280.8, -0.0206143, 295.2, -0.0289228, 309.6, -0.0386024, 324, -0.0496529, 338.4, -0.0620745, 352.8, -0.075867)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.1600008, 0, 11.360001, 0, 22.640001, 0, 36, 0, 50.399998, 0.002053175, 64.799995, 0.0082127, 79.19998, 0.018478574, 93.599976, 0.0328508, 107.99996, 0.05132937, 122.39995, 0.07185392, 136.79993, 0.09236406, 151.19992, 0.1128598, 165.59988, 0.13334113, 179.99988, 0.15380807, 194.39987, 0.17569403, 208.79985, 0.20043242, 223.19981, 0.22802323, 237.59978, 0.25846648, 251.99974, 0.29176217, 266.3997, 0.32199022, 280.79965, 0.34323055, 295.19965, 0.3554831, 309.59964, 0.358748, 323.99963, 0.35302514, 338.39963, 0.3383146, 352.7996, 0.31461632)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
@@ -68,7 +68,7 @@ max_angular_momentum = 20.0
 subdivision = 5
 additional_start_segment = true
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Modifier/Sprite2D" index="0"]
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier/Sprite2D" index="0" unique_id=1348424283]
 unique_name_in_owner = true
 z_index = 4096
 anchors_preset = 15
@@ -81,7 +81,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 texture_normal = SubResource("GradientTexture2D_wmc63")
 
-[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Sprite2D/Grab" index="0"]
+[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Sprite2D/Grab" index="0" unique_id=424484525]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -97,11 +97,11 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_i82gq")
 expand_mode = 1
 
-[node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor")]
+[node name="FollowComponent" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="Movements" parent="." index="4" node_paths=PackedStringArray("actor")]
+[node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
+[node name="AnimatedSpriteTexture" parent="." index="6" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
 sprite_node = NodePath("../Modifier1/Modifier/Sprite2D")

@@ -31,16 +31,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Sp5" type="HSeparator" parent="VBoxContainer" unique_id=2074493586]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1021984242]
-layout_mode = 2
-text = "TR_ANIMATION_RESET"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=2098012137]
 layout_mode = 2
 theme_override_constants/v_separation = 8
@@ -83,60 +73,6 @@ seen_type = "Comment"
 value_to_update = "should_reset_state"
 
 [node name="Sp4" type="HSeparator" parent="VBoxContainer" unique_id=838824960]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Effects" type="Label" parent="VBoxContainer" unique_id=1907953548]
-layout_mode = 2
-text = "TR_EFFECTS"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EffectsGrid" type="GridContainer" parent="VBoxContainer" unique_id=704377612]
-layout_mode = 2
-theme_override_constants/v_separation = 8
-columns = 2
-
-[node name="Rainbow" type="CheckBox" parent="VBoxContainer/EffectsGrid" unique_id=1864826572]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
-text = "TR_RAINBOW"
-script = ExtResource("4_ryas8")
-sp_type = ""
-value_to_update = "rainbow"
-
-[node name="Self-Rainbow Only" type="CheckBox" parent="VBoxContainer/EffectsGrid" unique_id=179089331]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
-text = "TR_EFFECT_SELF_RAINBOW"
-script = ExtResource("4_ryas8")
-sp_type = ""
-value_to_update = "rainbow_self"
-
-[node name="RSLabel" type="Label" parent="VBoxContainer/EffectsGrid" unique_id=1709787498]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(140, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 12
-text = "TR_EFFECT_RAINBOW_SPEED"
-
-[node name="RSSlider" type="HSlider" parent="VBoxContainer/EffectsGrid" unique_id=1349404962]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-min_value = -1.0
-max_value = 1.0
-step = 0.001
-value = 0.0009999999999998899
-
-[node name="Sp6" type="HSeparator" parent="VBoxContainer" unique_id=1803455124]
 layout_mode = 2
 theme_override_constants/separation = 5
 
@@ -208,11 +144,55 @@ value_to_update = "animate_to_mouse_speed"
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="SheetControls2" type="Label" parent="VBoxContainer" unique_id=2825845]
+[node name="Effects" type="Label" parent="VBoxContainer" unique_id=1907953548]
 layout_mode = 2
-text = "TR_FADES"
+text = "TR_EFFECTS"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="EffectsGrid" type="GridContainer" parent="VBoxContainer" unique_id=704377612]
+layout_mode = 2
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Rainbow" type="CheckBox" parent="VBoxContainer/EffectsGrid" unique_id=1864826572]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_RAINBOW"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "rainbow"
+
+[node name="Self-Rainbow Only" type="CheckBox" parent="VBoxContainer/EffectsGrid" unique_id=179089331]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_EFFECT_SELF_RAINBOW"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "rainbow_self"
+
+[node name="RSLabel" type="Label" parent="VBoxContainer/EffectsGrid" unique_id=1709787498]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "TR_EFFECT_RAINBOW_SPEED"
+
+[node name="RSSlider" type="HSlider" parent="VBoxContainer/EffectsGrid" unique_id=1349404962]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -1.0
+max_value = 1.0
+step = 0.001
+value = 0.0009999999999998899
 
 [node name="GridContainer3" type="GridContainer" parent="VBoxContainer" unique_id=2044569143]
 layout_mode = 2

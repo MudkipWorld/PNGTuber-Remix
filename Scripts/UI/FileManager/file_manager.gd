@@ -27,19 +27,6 @@ func create_default():
 	assets.set_text(0, "TR_IMAGES")
 	assets.set_selectable(0, false)
 	
-	'''
-	var extensions : TreeItem = %Tree.create_item(root)
-	extensions.set_text(0, "Extensions")
-	extensions.set_selectable(0, false)'''
-
-func _on_collapse_button_toggled(toggled_on: bool) -> void:
-	if toggled_on:
-		%CollapseButton.icon = preload("res://UI/Assets/Collapse1.png")
-		
-	else:
-		%CollapseButton.icon = preload("res://UI/Assets/Collapse2.png")
-		
-	%ManageContain.visible = toggled_on
 
 func open_popup(node : Control):
 	held_button = node
@@ -95,6 +82,18 @@ func _on_confirmation_dialog_canceled() -> void:
 func _on_confirmation_dialog_confirmed() -> void:
 	delete_items()
 
+func check_all_image_data():
+	var warn : bool = false
+	for i in Global.image_manager_data:
+		if i == null:
+			Global.image_manager_data.erase(i)
+			continue
+		if i.runtime_texture.get_size().x > 1280 or i.runtime_texture.get_size().y > 1280:
+			warn = true 
+			break
+
+	Global.show_warning = warn
+
 func delete_items():
 	for asset in held_items_assets:
 		for sprite in checked_sprited:
@@ -107,9 +106,14 @@ func delete_items():
 				sprite.get_node("%Sprite2D").texture.normal_texture = Global.image_data_normal.runtime_texture
 				sprite.used_image_id_normal = -1
 				sprite.referenced_data_normal = Global.image_data_normal
+		
+		asset.get_metadata(0).unreference()
 		asset.free()
 	var assets : TreeItem = %Tree.get_root().get_child(0)
 	assets.set_text(0, "Images " + "(" + str(assets.get_child_count()) + ")")
+	
+	await get_tree().process_frame
+	check_all_image_data()
 
 func _on_tree_multi_selected(_item: TreeItem, _column: int, _selected: bool) -> void:
 	var cleaned_array : Array = []
@@ -147,6 +151,8 @@ func _on_confirm_trim_confirmed() -> void:
 		load_images()
 	elif load_type == LoadType.Replace:
 		replace_image(path_placeholder)
+	
+	check_all_image_data()
 
 func _on_confirm_trim_canceled() -> void:
 	ImageTextureLoaderManager.trim = false
@@ -162,6 +168,7 @@ func _on_file_dialog_files_selected(paths: PackedStringArray) -> void:
 	else:
 		load_images()
 		ImageTextureLoaderManager.trim = false
+		check_all_image_data()
 
 func _on_file_dialog_file_selected(path: String) -> void:
 	path_placeholder = path
@@ -170,6 +177,7 @@ func _on_file_dialog_file_selected(path: String) -> void:
 	else:
 		replace_image(path_placeholder)
 		ImageTextureLoaderManager.trim = false
+		check_all_image_data()
 
 func replace_image(path):
 	var image_data = held_items_assets[0]

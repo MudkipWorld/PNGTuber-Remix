@@ -1,25 +1,61 @@
 [gd_scene format=3 uid="uid://7r3v4vohf4at"]
 
 [ext_resource type="Script" uid="uid://sipcpctah7rf" path="res://Scripts/UI/LeftPanel/layers_panel_scripts.gd" id="1_jg6ph"]
-[ext_resource type="Texture2D" uid="uid://b1mau3t40axff" path="res://UI/Assets/FlipHButton.png" id="2_1ikkj"]
-[ext_resource type="Texture2D" uid="uid://c51ydpelhuyv2" path="res://UI/Assets/UnlinkButton.png" id="2_bwdjw"]
-[ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/Assets/ZoominButton.png" id="2_r48vs"]
-[ext_resource type="Texture2D" uid="uid://bobj6c6goa1d3" path="res://UI/Assets/FolderButton.png" id="3_4imd6"]
-[ext_resource type="Texture2D" uid="uid://bl0hqylj4sn5e" path="res://UI/Assets/AddAppendage.png" id="3_bjklo"]
-[ext_resource type="Texture2D" uid="uid://bdn1lqcsryehy" path="res://UI/Assets/FlipVButton.png" id="3_bwdjw"]
-[ext_resource type="Texture2D" uid="uid://cy7f2n2248fnu" path="res://UI/Assets/TextButton.png" id="3_rijo6"]
-[ext_resource type="Texture2D" uid="uid://dkly2qhfs7vd8" path="res://UI/Assets/ReplaceButton.png" id="4_fs6qq"]
-[ext_resource type="Texture2D" uid="uid://bkehoihv30in3" path="res://UI/Assets/CircleButton.png" id="4_r1mgf"]
-[ext_resource type="Texture2D" uid="uid://db71o0x7h6duq" path="res://UI/Assets/RotateClockWiseButton.png" id="4_rijo6"]
-[ext_resource type="Texture2D" uid="uid://bv1t65n5ha20j" path="res://UI/Assets/DupButton.png" id="5_rccg0"]
-[ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/Assets/DeleteButton.png" id="6_jo6pm"]
-[ext_resource type="Texture2D" uid="uid://diyx30a4yqalc" path="res://UI/Assets/NormalMapButton.png" id="7_q36il"]
-[ext_resource type="Texture2D" uid="uid://cxpsf8uoktwrd" path="res://UI/Assets/NormalMapDelButton.png" id="8_x22hm"]
+[ext_resource type="Texture2D" uid="uid://dsvnkyrgho1xx" path="res://UI/Assets/ui_buttons.png" id="2_rijo6"]
 [ext_resource type="Script" uid="uid://bq332dbu0r6wg" path="res://Scripts/UI/LeftPanel/layers_scripts.gd" id="9_bjklo"]
 [ext_resource type="Script" uid="uid://d4awuaovu50i2" path="res://Scripts/UI/LeftPanel/layers_tree.gd" id="11_hewhr"]
-[ext_resource type="Texture2D" uid="uid://b1g5br1kqebip" path="res://UI/Assets/Collapse1.png" id="17_6tmlp"]
-[ext_resource type="Texture2D" uid="uid://hi8bi4gdyyrj" path="res://UI/Assets/Collapse3.png" id="18_7dqxk"]
-[ext_resource type="Texture2D" uid="uid://c3enghpddaeg2" path="res://UI/Assets/Collapse2.png" id="19_g1tov"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1mgf"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(429, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j82xv"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(396, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwdjw"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(132, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ikkj"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(165, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emyof"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(363, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hewhr"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(495, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjklo"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(0, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3tnu"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(198, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxswe"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(330, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwoqh"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(99, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l08i4"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(66, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5yhp"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(231, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0oqso"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(264, 0, 33, 32)
 
 [node name="LayersPanel" type="VBoxContainer" unique_id=971474589]
 anchors_preset = 15
@@ -57,7 +93,7 @@ size_flags_vertical = 4
 tooltip_text = "Unlinks a child Object from Parent Object."
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("2_bwdjw")
+icon = SubResource("AtlasTexture_r1mgf")
 expand_icon = true
 
 [node name="CommentsButton" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=664159261]
@@ -69,20 +105,7 @@ size_flags_vertical = 4
 tooltip_text = "Comment Block Object."
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("3_rijo6")
-expand_icon = true
-
-[node name="MeshButton" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=1090320149]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-tooltip_text = "Mesh Object."
-focus_mode = 0
-mouse_default_cursor_shape = 2
-icon = ExtResource("4_r1mgf")
+icon = SubResource("AtlasTexture_j82xv")
 expand_icon = true
 
 [node name="FlipH" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=488402404]
@@ -94,7 +117,7 @@ size_flags_vertical = 4
 tooltip_text = "Flip Sprite Image Horizontally."
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("2_1ikkj")
+icon = SubResource("AtlasTexture_bwdjw")
 expand_icon = true
 
 [node name="FlipV" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=945975407]
@@ -105,7 +128,7 @@ size_flags_vertical = 4
 tooltip_text = "Flip Sprite Image Vertically."
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("3_bwdjw")
+icon = SubResource("AtlasTexture_1ikkj")
 expand_icon = true
 
 [node name="RotateImage" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=1923574810]
@@ -118,7 +141,7 @@ tooltip_text = "Rotate Sprite Image 90 (Degree)
 Note : This resets the Appendage Dimensions."
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("4_rijo6")
+icon = SubResource("AtlasTexture_emyof")
 expand_icon = true
 
 [node name="LayersButtons" type="HBoxContainer" parent="ButtonsPanel/VBoxContainer" unique_id=149504368]
@@ -136,7 +159,7 @@ size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_ADD_SPRITE"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("2_r48vs")
+icon = SubResource("AtlasTexture_hewhr")
 expand_icon = true
 
 [node name="AddAppendage" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=1148835489]
@@ -147,7 +170,7 @@ size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_ADD_APPENDAGE"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("3_bjklo")
+icon = SubResource("AtlasTexture_bjklo")
 expand_icon = true
 
 [node name="FolderButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=1915150108]
@@ -158,7 +181,7 @@ size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_ADD_FOLDER"
 focus_mode = 0
 mouse_default_cursor_shape = 2
-icon = ExtResource("3_4imd6")
+icon = SubResource("AtlasTexture_u3tnu")
 icon_alignment = 1
 expand_icon = true
 
@@ -170,7 +193,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_REPLACE_SPRITE"
 focus_mode = 0
-icon = ExtResource("4_fs6qq")
+icon = SubResource("AtlasTexture_oxswe")
 expand_icon = true
 
 [node name="DuplicateButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=187400136]
@@ -181,7 +204,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_DUPLICATE_SPRITE"
 focus_mode = 0
-icon = ExtResource("5_rccg0")
+icon = SubResource("AtlasTexture_cwoqh")
 expand_icon = true
 
 [node name="DeleteButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=79476424]
@@ -192,7 +215,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_DELETE_SPRITE"
 focus_mode = 0
-icon = ExtResource("6_jo6pm")
+icon = SubResource("AtlasTexture_l08i4")
 expand_icon = true
 
 [node name="AddNormalButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=2045385644]
@@ -203,7 +226,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_ADD_NORMAL_MAP"
 focus_mode = 0
-icon = ExtResource("7_q36il")
+icon = SubResource("AtlasTexture_j5yhp")
 expand_icon = true
 
 [node name="DelNormalButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=791008579]
@@ -214,7 +237,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "TR_TOOLTIP_DELETE_NORMAL_MAP"
 focus_mode = 0
-icon = ExtResource("8_x22hm")
+icon = SubResource("AtlasTexture_0oqso")
 expand_icon = true
 
 [node name="LabelPanel" type="Panel" parent="." unique_id=362077229]
@@ -282,7 +305,7 @@ unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 268.0
-offset_bottom = 408.0
+offset_bottom = 373.0
 edit_alpha = false
 color_mode = 1
 picker_shape = 1
@@ -318,17 +341,12 @@ theme_override_constants/children_hl_line_width = 2
 theme_override_constants/parent_hl_line_margin = 2
 theme_override_font_sizes/font_size = 14
 theme_override_font_sizes/title_button_font_size = 16
-theme_override_icons/arrow = ExtResource("17_6tmlp")
-theme_override_icons/arrow_collapsed = ExtResource("19_g1tov")
-theme_override_icons/arrow_collapsed_mirrored = ExtResource("18_7dqxk")
-theme_override_icons/select_arrow = ExtResource("17_6tmlp")
 allow_reselect = true
 select_mode = 2
 script = ExtResource("11_hewhr")
 
 [connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/UnlinkButton" to="LayersPanelScripts" method="_on_unlink_button_pressed"]
 [connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/CommentsButton" to="LayersPanelScripts" method="_on_comments_button_pressed"]
-[connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/MeshButton" to="LayersPanelScripts" method="_on_mesh_button_pressed"]
 [connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/FlipH" to="LayersPanelScripts" method="_on_flip_h_pressed"]
 [connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/FlipV" to="LayersPanelScripts" method="_on_flip_v_pressed"]
 [connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/RotateImage" to="LayersPanelScripts" method="_on_rotate_image_pressed"]

@@ -35,7 +35,13 @@ func check_type(path, image_data, spawn):
 	elif apng_test != ["No frames", null]:
 		ImageTextureLoaderManager.import_apng_sprite(path, image_data)
 	else:
+		var warn : bool = false
 		ImageTextureLoaderManager.import_png_from_file(path,spawn,image_data)
+		if image_data.runtime_texture.get_size().x > 1280 or image_data.runtime_texture.get_size().y > 1280:
+			warn = true 
+		if warn:
+			Global.show_warning = warn
+	
 	Global.image_manager_data.append(image_data)
 	Global.add_new_image.emit(image_data)
 

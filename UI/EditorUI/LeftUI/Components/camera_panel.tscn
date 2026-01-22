@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://bidkgcxxq68n6"]
 
 [ext_resource type="Script" uid="uid://wbmjkjgx7ndd" path="res://Scripts/UI/LeftPanel/ViewportControl.gd" id="1_f7gcc"]
-[ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/Assets/ZoominButton.png" id="2_ehuh8"]
-[ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/Assets/ZoomResetButton.png" id="3_00355"]
-[ext_resource type="Texture2D" uid="uid://bxuqwqa2tk5j8" path="res://UI/Assets/ZoomOutButton.png" id="4_h7cy5"]
-[ext_resource type="Texture2D" uid="uid://cje55ikf44l63" path="res://UI/Assets/ZoomResetMainButton.png" id="5_wth8k"]
+[ext_resource type="Texture2D" uid="uid://dsvnkyrgho1xx" path="res://UI/Assets/ui_buttons.png" id="2_ibmot"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcgtm"]
 bg_color = Color(0.227451, 0.580392, 0.431373, 1)
@@ -13,6 +10,18 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.196078, 0.415686, 0.345098, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31ein"]
+atlas = ExtResource("2_ibmot")
+region = Rect2(495, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sl2jj"]
+atlas = ExtResource("2_ibmot")
+region = Rect2(561, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cpwn"]
+atlas = ExtResource("2_ibmot")
+region = Rect2(528, 0, 33, 32)
 
 [node name="CameraPanel" type="VBoxContainer" unique_id=1959215724]
 
@@ -69,7 +78,7 @@ custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 tooltip_text = "TR_TOOLTIP_MINI_VIEW_ZOOM_IN"
 focus_mode = 0
-icon = ExtResource("2_ehuh8")
+icon = SubResource("AtlasTexture_31ein")
 icon_alignment = 1
 expand_icon = true
 
@@ -79,7 +88,7 @@ custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 tooltip_text = "TR_TOOLTIP_MINI_VIEW_ZOOM_RESET"
 focus_mode = 0
-icon = ExtResource("3_00355")
+icon = SubResource("AtlasTexture_sl2jj")
 icon_alignment = 1
 expand_icon = true
 
@@ -89,22 +98,10 @@ custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 tooltip_text = "TR_TOOLTIP_MINI_VIEW_ZOOM_OUT"
 focus_mode = 0
-icon = ExtResource("4_h7cy5")
-icon_alignment = 1
-expand_icon = true
-
-[node name="ZoomMainResetButton" type="Button" parent="ViewportCam" unique_id=301771754]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(28, 28)
-layout_mode = 2
-tooltip_text = "TR_TOOLTIP_MAIN_VIEW_ZOOM_RESET"
-focus_mode = 0
-icon = ExtResource("5_wth8k")
+icon = SubResource("AtlasTexture_5cpwn")
 icon_alignment = 1
 expand_icon = true
 
 [connection signal="pressed" from="ViewportCam/ZoomInButton" to="VPPanel/ViewportControl" method="_on_zoom_in_button_pressed"]
 [connection signal="pressed" from="ViewportCam/ZoomResetButton" to="VPPanel/ViewportControl" method="_on_zoom_reset_button_pressed"]
 [connection signal="pressed" from="ViewportCam/ZoomOutButton" to="VPPanel/ViewportControl" method="_on_zoom_out_button_pressed"]
-[connection signal="pressed" from="ViewportCam/ZoomMainResetButton" to="VPPanel/ViewportControl" method="_on_zoom_main_reset_button_pressed"]

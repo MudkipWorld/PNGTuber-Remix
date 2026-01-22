@@ -395,12 +395,6 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Reset Deform Point"
 
-[node name="GenerateMesh5" type="Button" parent="VBoxContainer" unique_id=884434332]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-text = "Generate Symmetrical"
-
 [node name="GridContainer2" type="GridContainer" parent="VBoxContainer" unique_id=922055022]
 layout_mode = 2
 columns = 2
@@ -562,7 +556,6 @@ value = 1.0
 [connection signal="pressed" from="VBoxContainer/GenerateMesh3" to="MeshGenScript" method="_on_generate_mesh_3_pressed"]
 [connection signal="pressed" from="VBoxContainer/GenerateMesh4" to="MeshGenScript" method="_on_generate_mesh_4_pressed"]
 [connection signal="pressed" from="VBoxContainer/GenerateMesh6" to="MeshGenScript" method="_on_generate_mesh_6_pressed"]
-[connection signal="pressed" from="VBoxContainer/GenerateMesh5" to="MeshGenScript" method="_on_generate_mesh_5_pressed"]
 [connection signal="toggled" from="VBoxContainer/GridContainer2/SquareGrid" to="MeshGenScript" method="_on_square_grid_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer2/RingGrid" to="MeshGenScript" method="_on_ring_grid_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer2/TriGrid" to="MeshGenScript" method="_on_tri_grid_toggled"]

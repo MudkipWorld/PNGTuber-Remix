@@ -26,6 +26,7 @@ func enable() -> void:
 	%UDPPosOption.disabled = false
 	%UDPRotOption.disabled = false
 	%UDPScaleOption.disabled = false
+	%MouthFollow.disabled = false
 	
 	
 	%FollowOption.select(sp.get_value("follow_type"))
@@ -37,6 +38,7 @@ func enable() -> void:
 	%UDPPosOption.select(sp.get_value("udp_pos"))
 	%UDPRotOption.select(sp.get_value("udp_rot"))
 	%UDPScaleOption.select(sp.get_value("udp_scale"))
+	%MouthFollow.select(sp.get_value("follow_mouth"))
 	should_change = true
 
 func nullify() -> void:
@@ -49,6 +51,7 @@ func nullify() -> void:
 	%UDPPosOption.disabled = true
 	%UDPRotOption.disabled = true
 	%UDPScaleOption.disabled = true
+	%MouthFollow.disabled = true
 
 func _on_follow_option_item_selected(index: int) -> void:
 	if !should_change: return

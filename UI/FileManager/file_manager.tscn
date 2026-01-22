@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdb2jod38fulx"]
+[gd_scene format=3 uid="uid://bdb2jod38fulx"]
 
 [ext_resource type="Script" uid="uid://dsyowj4lfxwto" path="res://Scripts/UI/FileManager/file_manager.gd" id="1_4banc"]
 [ext_resource type="Texture2D" uid="uid://dst8ervfhipkm" path="res://UI/Assets/ZoominButton.png" id="3_bkuq8"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/Assets/DeleteButton.png" id="5_43ct5"]
 [ext_resource type="Script" uid="uid://dpw44kfqgkx7q" path="res://Scripts/UI/FileManager/file_manager_tree.gd" id="6_h0um3"]
 
-[node name="FileManager" type="MarginContainer"]
+[node name="FileManager" type="MarginContainer" unique_id=81240775]
 clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,14 +17,14 @@ theme_override_constants/margin_left = 5
 theme_override_constants/margin_right = 5
 script = ExtResource("1_4banc")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=512373535]
 layout_mode = 2
 
-[node name="Vbox" type="VBoxContainer" parent="PanelContainer"]
+[node name="Vbox" type="VBoxContainer" parent="PanelContainer" unique_id=529329352]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="PanelContainer/Vbox"]
+[node name="Label" type="Label" parent="PanelContainer/Vbox" unique_id=856883238]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
@@ -32,18 +32,18 @@ text = "TR_FILE_MANAGER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ManageContain" type="VBoxContainer" parent="PanelContainer/Vbox"]
+[node name="ManageContain" type="VBoxContainer" parent="PanelContainer/Vbox" unique_id=545895005]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/Vbox/ManageContain"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/Vbox/ManageContain" unique_id=75270954]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="AddImageButton" type="Button" parent="PanelContainer/Vbox/ManageContain/HBoxContainer"]
+[node name="AddImageButton" type="Button" parent="PanelContainer/Vbox/ManageContain/HBoxContainer" unique_id=808050218]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -54,7 +54,7 @@ mouse_default_cursor_shape = 2
 icon = ExtResource("3_bkuq8")
 expand_icon = true
 
-[node name="ReplaceButton" type="Button" parent="PanelContainer/Vbox/ManageContain/HBoxContainer"]
+[node name="ReplaceButton" type="Button" parent="PanelContainer/Vbox/ManageContain/HBoxContainer" unique_id=448048421]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -66,7 +66,7 @@ disabled = true
 icon = ExtResource("4_v7138")
 expand_icon = true
 
-[node name="DeleteButton" type="Button" parent="PanelContainer/Vbox/ManageContain/HBoxContainer"]
+[node name="DeleteButton" type="Button" parent="PanelContainer/Vbox/ManageContain/HBoxContainer" unique_id=423591339]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -77,34 +77,29 @@ focus_mode = 0
 icon = ExtResource("5_43ct5")
 expand_icon = true
 
-[node name="Margin" type="MarginContainer" parent="PanelContainer/Vbox/ManageContain"]
+[node name="Margin" type="MarginContainer" parent="PanelContainer/Vbox/ManageContain" unique_id=1281557794]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/Vbox/ManageContain/Margin"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Tree" type="Tree" parent="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer"]
+[node name="Tree" type="Tree" parent="PanelContainer/Vbox/ManageContain/Margin" unique_id=1833215246]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 1
-theme_override_colors/relationship_line_color = Color(0, 0, 0, 0.392157)
 theme_override_colors/guide_color = Color(0, 0, 0, 0.196078)
-theme_override_constants/h_separation = 1
+theme_override_colors/relationship_line_color = Color(0, 0, 0, 0.392157)
 theme_override_constants/v_separation = 2
 theme_override_constants/inner_item_margin_bottom = 2
-theme_override_constants/inner_item_margin_left = 2
 theme_override_constants/inner_item_margin_right = 2
 theme_override_constants/inner_item_margin_top = 2
-theme_override_constants/item_margin = 6
+theme_override_constants/item_margin = 12
 theme_override_constants/icon_max_width = 25
 theme_override_constants/draw_guides = 2
 theme_override_constants/draw_relationship_lines = 2
@@ -118,7 +113,7 @@ allow_reselect = true
 select_mode = 2
 script = ExtResource("6_h0um3")
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1045271360]
 unique_name_in_owner = true
 initial_position = 2
 size = Vector2i(400, 200)
@@ -127,14 +122,14 @@ dialog_text = "Currently this image is being used by 0 sprites. Deleting it will
 (Can be Replaced later)"
 dialog_autowrap = true
 
-[node name="AsAppednage" type="ConfirmationDialog" parent="."]
+[node name="AsAppednage" type="ConfirmationDialog" parent="." unique_id=991838755]
 unique_name_in_owner = true
 title = "Please Confirm!"
 initial_position = 2
 size = Vector2i(338, 132)
 dialog_text = "Add Sprite as Appendage?"
 
-[node name="RememberOffset" type="ConfirmationDialog" parent="."]
+[node name="RememberOffset" type="ConfirmationDialog" parent="." unique_id=1200018560]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Please Confirm!"
@@ -143,7 +138,7 @@ size = Vector2i(338, 132)
 dialog_text = "Add Object with offset?
 (for Trimmed Images)"
 
-[node name="ConfirmTrim" type="ConfirmationDialog" parent="."]
+[node name="ConfirmTrim" type="ConfirmationDialog" parent="." unique_id=986463380]
 unique_name_in_owner = true
 auto_translate_mode = 1
 initial_position = 2
@@ -154,9 +149,9 @@ dialog_text = "Would you like to have your Sprites Trimmed?
 (Removes all unused area around your image.)"
 cancel_button_text = "No"
 
-[node name="Node" type="Node" parent="ConfirmTrim"]
+[node name="Node" type="Node" parent="ConfirmTrim" unique_id=140734537]
 
-[node name="OffsetSprite" type="CheckBox" parent="ConfirmTrim/Node"]
+[node name="OffsetSprite" type="CheckBox" parent="ConfirmTrim/Node" unique_id=705147320]
 unique_name_in_owner = true
 anchors_preset = -1
 anchor_top = 0.735
@@ -172,7 +167,7 @@ button_pressed = true
 text = "Offset Imported Sprite"
 metadata/_edit_use_anchors_ = true
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1993649178]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Open File(s)"
@@ -190,16 +185,16 @@ use_native_dialog = true
 [connection signal="pressed" from="PanelContainer/Vbox/ManageContain/HBoxContainer/AddImageButton" to="." method="_on_add_image_button_pressed"]
 [connection signal="pressed" from="PanelContainer/Vbox/ManageContain/HBoxContainer/ReplaceButton" to="." method="_on_replace_button_pressed"]
 [connection signal="pressed" from="PanelContainer/Vbox/ManageContain/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
-[connection signal="multi_selected" from="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer/Tree" to="." method="_on_tree_multi_selected"]
+[connection signal="multi_selected" from="PanelContainer/Vbox/ManageContain/Margin/Tree" to="." method="_on_tree_multi_selected"]
 [connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="close_requested" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
-[connection signal="canceled" from="AsAppednage" to="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer/Tree" method="_on_as_appednage_close_requested"]
-[connection signal="close_requested" from="AsAppednage" to="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer/Tree" method="_on_as_appednage_close_requested"]
-[connection signal="confirmed" from="AsAppednage" to="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer/Tree" method="_on_as_appednage_confirmed"]
-[connection signal="canceled" from="RememberOffset" to="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer/Tree" method="_on_remember_offset_canceled"]
-[connection signal="close_requested" from="RememberOffset" to="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer/Tree" method="_on_remember_offset_canceled"]
-[connection signal="confirmed" from="RememberOffset" to="PanelContainer/Vbox/ManageContain/Margin/ScrollContainer/Tree" method="_on_remember_offset_confirmed"]
+[connection signal="canceled" from="AsAppednage" to="PanelContainer/Vbox/ManageContain/Margin/Tree" method="_on_as_appednage_close_requested"]
+[connection signal="close_requested" from="AsAppednage" to="PanelContainer/Vbox/ManageContain/Margin/Tree" method="_on_as_appednage_close_requested"]
+[connection signal="confirmed" from="AsAppednage" to="PanelContainer/Vbox/ManageContain/Margin/Tree" method="_on_as_appednage_confirmed"]
+[connection signal="canceled" from="RememberOffset" to="PanelContainer/Vbox/ManageContain/Margin/Tree" method="_on_remember_offset_canceled"]
+[connection signal="close_requested" from="RememberOffset" to="PanelContainer/Vbox/ManageContain/Margin/Tree" method="_on_remember_offset_canceled"]
+[connection signal="confirmed" from="RememberOffset" to="PanelContainer/Vbox/ManageContain/Margin/Tree" method="_on_remember_offset_confirmed"]
 [connection signal="canceled" from="ConfirmTrim" to="." method="_on_confirm_trim_canceled"]
 [connection signal="close_requested" from="ConfirmTrim" to="." method="_on_confirm_trim_canceled"]
 [connection signal="confirmed" from="ConfirmTrim" to="." method="_on_confirm_trim_confirmed"]
