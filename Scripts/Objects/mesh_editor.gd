@@ -23,7 +23,6 @@ static var padding : float = 4
 var dragging : bool = false
 var deformed_layer : PackedVector2Array = []
 
-
 func regenerate_mesh():
 	if mesh == null or not is_instance_valid(mesh):
 		push_error("Mesh is null or invalid!")
@@ -170,31 +169,31 @@ func save_deformation_3x3(_delta):
 	if layer == null or !is_instance_valid(layer):
 		return
 	if mesh.deform_x == 0 && mesh.deform_y == 1:
-		var delta = _make_delta(layer.top_left,_delta)
+		var delta = make_delta(layer.top_left,_delta)
 		layer.top_left = delta
 	elif mesh.deform_x == 0.5 && mesh.deform_y == 1:
-		var delta = _make_delta(layer.top_middle,_delta)
+		var delta = make_delta(layer.top_middle,_delta)
 		layer.top_middle = delta
 	elif mesh.deform_x == 1 && mesh.deform_y == 1:
-		var delta = _make_delta(layer.top_right,_delta)
+		var delta = make_delta(layer.top_right,_delta)
 		layer.top_right = delta
 	elif mesh.deform_x == 0 && mesh.deform_y == 0.5:
-		var delta = _make_delta(layer.middle_left,_delta)
+		var delta = make_delta(layer.middle_left,_delta)
 		layer.middle_left = delta
 	elif mesh.deform_x == 0.5 && mesh.deform_y == 0.5:
-		var delta = _make_delta(layer.center,_delta)
+		var delta = make_delta(layer.center,_delta)
 		layer.center = delta
 	elif mesh.deform_x == 1 && mesh.deform_y == 0.5:
-		var delta = _make_delta(layer.middle_right,_delta)
+		var delta = make_delta(layer.middle_right,_delta)
 		layer.middle_right = delta
 	elif mesh.deform_x == 0 && mesh.deform_y == 0:
-		var delta = _make_delta(layer.bottom_left,_delta)
+		var delta = make_delta(layer.bottom_left,_delta)
 		layer.bottom_left = delta
 	elif mesh.deform_x == 0.5 && mesh.deform_y == 0:
-		var delta = _make_delta(layer.bottom_middle,_delta)
+		var delta = make_delta(layer.bottom_middle,_delta)
 		layer.bottom_middle = delta
 	elif mesh.deform_x == 1 && mesh.deform_y == 0:
-		var delta = _make_delta(layer.bottom_right,_delta)
+		var delta = make_delta(layer.bottom_right,_delta)
 		layer.bottom_right = delta
 		
 	var zero := PackedVector2Array()
@@ -507,298 +506,11 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 	mesh.deformed_vertices = []
 	mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
 
-func reinforce_mesh_from_existing(_mesh: CustomMesh = mesh) -> void:
-	if mesh == null or !is_instance_valid(mesh):
-		push_error("Mesh is null or invalid!")
-		return
-	if mesh.original_vertices.is_empty():
-		push_error("Mesh has no original vertices!")
-		return
-
-	# Ensure base_vertices exist
-	if mesh.base_vertices.is_empty():
-		mesh.base_vertices = mesh.original_vertices.duplicate()
-
-	# Internal vertices
-	if mesh.internal_vertices.is_empty():
-		if ring_grid:
-			mesh.internal_vertices.append_array(generate_internal_points_rings_grid(mesh.base_vertices))
-		if square_grid:
-			mesh.internal_vertices.append_array(generate_internal_points_grid(mesh.base_vertices))
-
-	# Rebuild all_vertices
-	var all_vertices = mesh.base_vertices.duplicate()
-	all_vertices += mesh.internal_vertices.duplicate()
-	# Also include original vertices if somehow missing
-	for v in mesh.original_vertices:
-		if v not in all_vertices:
-			all_vertices.append(v)
-
-	mesh.original_vertices = all_vertices
-	mesh.deformed_vertices = all_vertices.duplicate()
-	mesh.interpolated_vertices.clear()
-
-	# Rebuild triangles
-	if mesh.triangles.is_empty():
-		mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
-	else:
-		# Filter out invalid triangles
-		var valid_tris: PackedInt32Array = PackedInt32Array()
-		for i in range(0, mesh.triangles.size(), 3):
-			var a = mesh.triangles[i]
-			var b = mesh.triangles[i+1]
-			var c = mesh.triangles[i+2]
-			if a < mesh.original_vertices.size() and b < mesh.original_vertices.size() and c < mesh.original_vertices.size():
-				valid_tris.append_array([a, b, c])
-		mesh.triangles = valid_tris
-
-	# Rebuild 3x3 deformation grids if missing
-	if mesh.deform_top_left.is_empty(): mesh.deform_top_left = mesh.deformed_vertices.duplicate()
-	if mesh.deform_top_middle.is_empty(): mesh.deform_top_middle = mesh.deformed_vertices.duplicate()
-	if mesh.deform_top_right.is_empty(): mesh.deform_top_right = mesh.deformed_vertices.duplicate()
-	if mesh.deform_middle_left.is_empty(): mesh.deform_middle_left = mesh.deformed_vertices.duplicate()
-	if mesh.deform_center.is_empty(): mesh.deform_center = mesh.deformed_vertices.duplicate()
-	if mesh.deform_middle_right.is_empty(): mesh.deform_middle_right = mesh.deformed_vertices.duplicate()
-	if mesh.deform_bottom_left.is_empty(): mesh.deform_bottom_left = mesh.deformed_vertices.duplicate()
-	if mesh.deform_bottom_middle.is_empty(): mesh.deform_bottom_middle = mesh.deformed_vertices.duplicate()
-	if mesh.deform_bottom_right.is_empty(): mesh.deform_bottom_right = mesh.deformed_vertices.duplicate()
-
-	mesh.sync_deformation_arrays()
-	mesh.queue_redraw()
-
-func create_mirrored_mesh(to_right: bool = true) -> void:
-	if mesh == null or !is_instance_valid(mesh):
-		return
-	if mesh.original_vertices.is_empty():
-		return
-
-	var mesh_obj = load("res://Misc/MeshObject/mesh_object.tscn") as PackedScene
-	var sprte_obj = mesh_obj.instantiate()
-	Global.sprite_container.add_child(sprte_obj)
-	sprte_obj.sprite_type = "Mesh"
-	sprte_obj.sprite_name = str("Mesh")
-
-	# Duplicate states
-	var states = get_tree().get_nodes_in_group("StateButtons").size()
-	for i in states:
-		sprte_obj.states.append({})
-
-	# Compute bounding box for mirroring
-	var min_x = INF
-	var max_x = -INF
-	for v in sprte_obj.mesh.original_vertices:
-		min_x = min(min_x, v.x)
-		max_x = max(max_x, v.x)
-	var mirror_x = (min_x + max_x) * 0.5
-
-	sprte_obj.mesh.original_vertices = flip_side(mesh.original_vertices, mirror_x)
-	sprte_obj.mesh.deformed_vertices = flip_side(mesh.deformed_vertices, mirror_x)
-	sprte_obj.mesh.base_vertices = flip_side(mesh.base_vertices, mirror_x)
-	sprte_obj.mesh.internal_vertices = flip_side(mesh.internal_vertices, mirror_x)
-
-	sprte_obj.mesh.deform_top_left = flip_side(mesh.deform_top_left, mirror_x)
-	sprte_obj.mesh.deform_top_middle = flip_side(mesh.deform_top_middle, mirror_x)
-	sprte_obj.mesh.deform_top_right = flip_side(mesh.deform_top_right, mirror_x)
-	sprte_obj.mesh.deform_middle_left = flip_side(mesh.deform_middle_left, mirror_x)
-	sprte_obj.mesh.deform_center = flip_side(mesh.deform_center, mirror_x)
-	sprte_obj.mesh.deform_middle_right = flip_side(mesh.deform_middle_right, mirror_x)
-	sprte_obj.mesh.deform_bottom_left = flip_side(mesh.deform_bottom_left, mirror_x)
-	sprte_obj.mesh.deform_bottom_middle = flip_side(mesh.deform_bottom_middle, mirror_x)
-	sprte_obj.mesh.deform_bottom_right = flip_side(mesh.deform_bottom_right, mirror_x)
-
-	sprte_obj.mesh.interpolated_vertices = flip_side(mesh.interpolated_vertices, mirror_x)
-
-	sprte_obj.sprite_id = sprte_obj.get_instance_id()
-	sprte_obj.parent_id = mesh.actor.parent_id
-	Global.update_layers.emit(0, sprte_obj, "Mesh")
-	
-	sprte_obj.flipped_h = to_right
-	sprte_obj.mesh.texture = ImageTextureLoaderManager.check_flips(mesh.actor.referenced_data.runtime_texture, sprte_obj)
-	sprte_obj.mesh.sync_deformation_arrays()
-	sprte_obj.mesh.queue_redraw()
-
 func flip_side(arr: PackedVector2Array, mirror_x: float) -> PackedVector2Array:
 	var flipped := PackedVector2Array()
 	for v in arr:
 		flipped.append(Vector2(mirror_x + (mirror_x - v.x), v.y))
 	return flipped
-
-func regenerate_preserve_deformation():
-	if mesh == null or !is_instance_valid(mesh):
-		return
-	if mesh.texture == null:
-		return
-	if mesh.original_vertices.is_empty():
-		return
-
-	var old_original = mesh.original_vertices.duplicate()
-	var old_deformed = mesh.deformed_vertices.duplicate()
-	var old_triangles = mesh.triangles.duplicate()
-
-	var base_vertices = mesh.base_vertices.duplicate()
-
-	var new_internal := PackedVector2Array()
-	if ring_grid:
-		new_internal.append_array(generate_internal_points_rings_grid(base_vertices))
-	if square_grid:
-		new_internal.append_array(generate_internal_points_grid(base_vertices))
-	if tri_grid:
-		new_internal.append_array(generate_internal_points_triangular_grid(base_vertices))
-	if radial_hex:
-		new_internal.append_array(generate_internal_points_radial_hex(base_vertices))
-
-	var padding_vertices := PackedVector2Array()
-	if outer_padding and padding > 0:
-		padding_vertices = add_outer_padding(base_vertices)
-
-	var new_all := base_vertices.duplicate()
-	new_all += new_internal.duplicate()
-	new_all += padding_vertices.duplicate()
-	new_all = _unique_vector2_array(new_all, padding * 0.5)
-
-	var new_deformed := PackedVector2Array()
-	for p in new_all:
-		var mapped := false
-		var idx = _find_vector_index_approx(old_original, p, padding * 0.25)
-		if idx >= 0:
-			new_deformed.append(old_deformed[idx])
-			continue
-		for i in range(0, old_triangles.size(), 3):
-			var a_i = old_triangles[i]; var b_i = old_triangles[i+1]; var c_i = old_triangles[i+2]
-			if a_i >= old_original.size() or b_i >= old_original.size() or c_i >= old_original.size():
-				continue
-			var a = old_original[a_i]; var b = old_original[b_i]; var c = old_original[c_i]
-			if _point_in_triangle(p, a, b, c):
-				var w = _barycentric_weights(p, a, b, c)
-				w.x = clamp(w.x, 0, 1); w.y = clamp(w.y, 0, 1); w.z = clamp(w.z, 0, 1)
-				var da = old_deformed[a_i]; var db = old_deformed[b_i]; var dc = old_deformed[c_i]
-				new_deformed.append(da * w.x + db * w.y + dc * w.z)
-				mapped = true
-				break
-		if mapped:
-			continue
-		var nearest_idx = _find_nearest_index(old_original, p)
-		if nearest_idx >= 0:
-			new_deformed.append(old_deformed[nearest_idx] * 0.9 + p * 0.1)
-		else:
-			new_deformed.append(p)
-
-	mesh.base_vertices = base_vertices
-	mesh.internal_vertices = new_internal.duplicate()
-	mesh.original_vertices = new_all
-	mesh.deformed_vertices = new_deformed
-	mesh.interpolated_vertices.clear()
-	mesh.triangles = Geometry2D.triangulate_delaunay(mesh.original_vertices)
-
-	var deform_names = [
-		"deform_top_left","deform_top_middle","deform_top_right",
-		"deform_middle_left","deform_center","deform_middle_right",
-		"deform_bottom_left","deform_bottom_middle","deform_bottom_right"
-	]
-	for def_name in deform_names:
-		if not mesh.get(def_name):
-			continue
-		var arr = mesh.get(def_name)
-		if arr is Array or arr is PackedVector2Array:
-			var padded_arr = arr.duplicate()
-			if outer_padding and padding > 0:
-				padded_arr += PackedVector2Array(add_outer_padding(arr) )
-			mesh.set(def_name, _remap_deformation_array(
-				padded_arr,
-				old_original,
-				old_deformed,
-				old_triangles,
-				mesh.original_vertices,
-				padding
-			))
-
-	mesh.sync_deformation_arrays()
-	mesh.queue_redraw()
-	queue_redraw()
-
-func _unique_vector2_array(arr: Array, tol: float) -> PackedVector2Array:
-	var out := PackedVector2Array()
-	for v in arr:
-		if _find_vector_index_approx(out, v, tol) == -1:
-			out.append(v)
-	return out
-
-func _find_vector_index_approx(arr, vec: Vector2, tol: float) -> int:
-	for i in range(arr.size()):
-		if arr[i].distance_to(vec) <= tol:
-			return i
-	return -1
-
-func _find_nearest_index(arr, vec: Vector2) -> int:
-	var best = -1
-	var bestd = INF
-	for i in range(arr.size()):
-		var d = arr[i].distance_to(vec)
-		if d < bestd:
-			bestd = d
-			best = i
-	return best
-
-func _point_in_triangle(p: Vector2, a: Vector2, b: Vector2, c: Vector2) -> bool:
-	var v0 = c - a
-	var v1 = b - a
-	var v2 = p - a
-	var dot00 = v0.dot(v0)
-	var dot01 = v0.dot(v1)
-	var dot02 = v0.dot(v2)
-	var dot11 = v1.dot(v1)
-	var dot12 = v1.dot(v2)
-	var denom = dot00 * dot11 - dot01 * dot01
-	if abs(denom) < 0.0000001:
-		return false
-	var u = (dot11 * dot02 - dot01 * dot12) / denom
-	var v = (dot00 * dot12 - dot01 * dot02) / denom
-	return u >= -0.000001 and v >= -0.000001 and (u + v) <= 1.000001
-
-func _barycentric_weights(p: Vector2, a: Vector2, b: Vector2, c: Vector2) -> Vector3:
-	var v0 = b - a
-	var v1 = c - a
-	var v2 = p - a
-	var d00 = v0.dot(v0)
-	var d01 = v0.dot(v1)
-	var d11 = v1.dot(v1)
-	var d20 = v2.dot(v0)
-	var d21 = v2.dot(v1)
-	var denom = d00 * d11 - d01 * d01
-	if abs(denom) < 1e-12:
-		return Vector3(1, 0, 0)
-	var v = (d11 * d20 - d01 * d21) / denom
-	var w = (d00 * d21 - d01 * d20) / denom
-	var u = 1.0 - v - w
-	return Vector3(u, v, w)
-
-func _remap_deformation_array(deform_arr, old_orig, _old_deformed, old_triangles, new_originals, tol):
-	var new_out : PackedVector2Array = PackedVector2Array()
-	for p in new_originals:
-		var exact_idx = _find_vector_index_approx(old_orig, p, tol)
-		if exact_idx >= 0:
-			new_out.append(deform_arr[exact_idx])
-			continue
-		var mapped = false
-		for i in range(0, old_triangles.size(), 3):
-			var a_i = old_triangles[i]; var b_i = old_triangles[i+1]; var c_i = old_triangles[i+2]
-			if a_i >= old_orig.size() or b_i >= old_orig.size() or c_i >= old_orig.size():
-				continue
-			var a = old_orig[a_i]; var b = old_orig[b_i]; var c = old_orig[c_i]
-			if _point_in_triangle(p, a, b, c):
-				var w = _barycentric_weights(p, a, b, c)
-				var da = deform_arr[a_i]; var db = deform_arr[b_i]; var dc = deform_arr[c_i]
-				new_out.append(da * w.x + db * w.y + dc * w.z)
-				mapped = true
-				break
-		if mapped:
-			continue
-		var nearest_idx = _find_nearest_index(old_orig, p)
-		if nearest_idx >= 0:
-			new_out.append(deform_arr[nearest_idx])
-		else:
-			new_out.append(p)
-	return new_out
 
 func generate_corner(a: PackedVector2Array, b: PackedVector2Array) -> PackedVector2Array:
 	var result : PackedVector2Array = PackedVector2Array()
@@ -875,52 +587,13 @@ func flip_3x3_grid_horizontally():
 func flip_cell(cell):
 	return flip_deformation_horizontally(cell, 1)
 
-func mirror_left_to_right_ear():
-	if mesh == null:
-		return
-	mirror_corner(mesh.deform_top_left, mesh.deform_top_right)
-	mesh.sync_deformation_arrays()
-	mesh.queue_redraw()
-
-func mirror_corner(left_corner: PackedVector2Array, right_corner_ref: PackedVector2Array):
-	if mesh == null:
-		return
-	var min_x = INF
-	var max_x = -INF
-	for v in mesh.original_vertices:
-		min_x = min(min_x, v.x)
-		max_x = max(max_x, v.x)
-	var center_x = (min_x + max_x) * 0.5
-	
-	var mirrored = flip_deformation_horizontally(left_corner, center_x)
-	for i in range(min(mirrored.size(), right_corner_ref.size())):
-		right_corner_ref[i] = mirrored[i]
-	mesh.queue_redraw()
-
 func flip_deformation_horizontally(src: PackedVector2Array, axis_x: float) -> PackedVector2Array:
 	var flipped := PackedVector2Array()
 	for v in src:
 		flipped.append(Vector2(axis_x + (axis_x - v.x), v.y))
 	return flipped
 
-func mirror_right_to_left():
-	if mesh == null:
-		return
-
-	var original = mesh.original_vertices
-	var left = mesh.deform_middle_left
-	var right = mesh.deform_middle_right
-
-	var count = min(left.size(), right.size(), original.size())
-	for i in range(count):
-		var offset_y = left[i].y - original[i].y
-		right[i].x = original[i].x - (left[i].x - original[i].x)
-		right[i].y = original[i].y + offset_y
-
-	mesh.deform_middle_right = right
-	mesh.queue_redraw()
-
-func _make_delta(verts: PackedVector2Array, add : PackedVector2Array) -> PackedVector2Array:
+func make_delta(verts: PackedVector2Array, add : PackedVector2Array) -> PackedVector2Array:
 	var delta := PackedVector2Array()
 	delta.resize(verts.size())
 	for i in range(verts.size()):
