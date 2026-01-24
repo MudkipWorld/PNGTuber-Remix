@@ -188,7 +188,7 @@ func _on_color_picker_button_color_changed(color: Color) -> void:
 	if should_change:
 		var undo_redo_data : Array = []
 		for i in Global.held_sprites:
-			var d = submit_to_undo_redo_manager(i, "modulate", Global.current_state, i.modulate , color)
+			var d = submit_to_undo_redo_manager(i, "modulate", Global.current_state, i.sprite_data.colored , color)
 			i.modulate = color
 			i.sprite_data.colored = color
 			StateButton.multi_edit(color, "modulate", i, i.states)
@@ -206,7 +206,7 @@ func _on_tint_picker_button_color_changed(ncolor: Color) -> void:
 	if should_change:
 		var undo_redo_data : Array = []
 		for i in Global.held_sprites:
-			var d = submit_to_undo_redo_manager(i, "tint", Global.current_state, i.tint , ncolor)
+			var d = submit_to_undo_redo_manager(i, "tint", Global.current_state, i.sprite_data.tint , ncolor)
 			i.sprite_data.tint = ncolor
 			i.get_node("%Sprite2D").self_modulate = ncolor
 			StateButton.multi_edit(ncolor, "tint", i, i.states)

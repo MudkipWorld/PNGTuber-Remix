@@ -239,9 +239,9 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 	if follow_type2 in [3,4,5,6,7,8]:
 		keyboard_axis = GlobalCalculations.some_keyboard_calc_wasd("follow_type2", actor)
 		if actor.get_value("snap_rot") and not keyboard_axis.is_zero_approx():
-			target_rotation = target_rotation.lerp(keyboard_axis, 0.15)
+			target_rot = lerp(target_rot, follow_controller_rotation(keyboard_axis), 0.15)
 		else:
-			target_rotation = keyboard_axis
+			target_rot = follow_controller_rotation(keyboard_axis)
 	if follow_type2 == 0:
 		if actor.get_value("follow_mouse_velocity"):
 			follow_mouse_vel_rotation()
@@ -259,13 +259,11 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 			var rotation_factor = lerp(actor.sprite_data.mouse_rotation, actor.sprite_data.mouse_rotation_max, max((normalized_mouse + 1) / 2, 0.001))
 			target_rot = GlobalCalculations.is_nan_or_inf(clamp_rotations(rotation_factor))
 
-	elif follow_type2 == 1: target_rot = clamp_rotations(atan2(axis_left.y, axis_left.x))
-	elif follow_type2 == 2: target_rot =  clamp_rotations(atan2(axis_right.y, axis_right.x))
-	elif follow_type2 == 10: target_rot = clamp_rotations(atan2(axis_shoulderl.y, axis_shoulderl.x))
-	elif follow_type2 == 11: target_rot = clamp_rotations(atan2(axis_shoulderr.y, axis_shoulderr.x))
-	elif follow_type2 == 12: target_rot = clamp_rotations(atan2(axis_lr_3.y, axis_lr_3.x))
-	elif follow_type2 in [3,4,5,6,7,8]:
-		target_rot = clamp_rotations(atan2(target_rotation.y, target_rotation.x))
+	elif follow_type2 == 1: target_rot = follow_controller_rotation(axis_left)
+	elif follow_type2 == 2: target_rot =  follow_controller_rotation(axis_right)
+	elif follow_type2 == 10: target_rot = follow_controller_rotation(axis_shoulderl)
+	elif follow_type2 == 11: target_rot = follow_controller_rotation(axis_shoulderl)
+	elif follow_type2 == 12: target_rot = follow_controller_rotation(axis_lr_3)
 	elif follow_type2 == 17 && Tracker.working:
 		var clamped_rot = 0
 		match actor.get_value("udp_rot"):
@@ -301,6 +299,13 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 	var t = actor.get_value("mouse_delay") * delta * 60.0
 	t = clamp(t, 0.0, 1.0)
 	modifier.rotation = lerp_angle(modifier.rotation, target_rot, t)
+
+func follow_controller_rotation(axis) -> float:
+	var normalized = clamp(axis.x, -1.0, 1.0)
+	var rot_min = clamp(actor.get_value("rLimitMin"), -360, 360)
+	var rot_max = clamp(actor.get_value("rLimitMax"), -360, 360)
+	var rotation_factor = lerp(actor.get_value("mouse_rotation"), actor.get_value("mouse_rotation_max"), max((normalized + 1) / 2, 0.001))
+	return clamp(rotation_factor, deg_to_rad(rot_min), deg_to_rad(rot_max))
 
 func clamp_rotations(value) -> float :
 	var clamped = 0
