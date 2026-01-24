@@ -149,21 +149,39 @@ func _copy_transform(src, dst):
 	dst.scale = src.scale
 	dst.sprite_data.scale = src.scale
 
+
 func duplicate_mesh_data(src: CustomMesh, dst: CustomMesh) -> void:
 	dst.original_vertices = src.original_vertices.duplicate()
 	dst.base_vertices = src.base_vertices.duplicate()
 	dst.deformed_vertices = src.deformed_vertices.duplicate()
 	dst.internal_vertices = src.internal_vertices.duplicate()
 	dst.triangles = src.triangles.duplicate()
-	dst.deform_top_left = src.deform_top_left.duplicate()
-	dst.deform_top_middle = src.deform_top_middle.duplicate()
-	dst.deform_top_right = src.deform_top_right.duplicate()
-	dst.deform_middle_left = src.deform_middle_left.duplicate()
-	dst.deform_center = src.deform_center.duplicate()
-	dst.deform_middle_right = src.deform_middle_right.duplicate()
-	dst.deform_bottom_left = src.deform_bottom_left.duplicate()
-	dst.deform_bottom_middle = src.deform_bottom_middle.duplicate()
-	dst.deform_bottom_right = src.deform_bottom_right.duplicate()
+	dst.get_layers().clear()
+	for i in src.get_layers().size():
+		dst.add_deform_layer()
+		var layer = dst.get_layer(i)
+		layer.bottom_left = src.get_layer(i).bottom_left.duplicate()
+		layer.bottom_middle = src.get_layer(i).bottom_middle.duplicate()
+		layer.bottom_right = src.get_layer(i).bottom_right.duplicate()
+		
+		layer.middle_left = src.get_layer(i).middle_left.duplicate()
+		layer.middle_right = src.get_layer(i).middle_right.duplicate()
+		layer.center = src.get_layer(i).center.duplicate()
+	
+		layer.top_left = src.get_layer(i).top_left.duplicate()
+		layer.top_middle = src.get_layer(i).top_middle.duplicate()
+		layer.top_right = src.get_layer(i).top_right.duplicate()
+		
+		layer.damping = src.get_layer(i).damping
+		layer.stiffness = src.get_layer(i).stiffness
+		layer.mass = src.get_layer(i).mass
+		
+		layer.sine_speed = src.get_layer(i).sine_speed
+		layer.sine_amplitude = src.get_layer(i).sine_amplitude
+		layer.noise_scale = src.get_layer(i).noise_scale
+		layer.noise_speed = src.get_layer(i).noise_speed
+		
+	
 	dst.texture = src.texture
 
 
@@ -222,7 +240,6 @@ func _finalize_duplicate(src, obj, id_map):
 	obj.sprite_id = randi()
 	id_map[src.sprite_id] = obj.sprite_id
 	obj.parent_id = src.parent_id
-
 
 func _finalize_child_duplicate(parent, t, obj, id_map):
 	obj.sprite_id = randi()

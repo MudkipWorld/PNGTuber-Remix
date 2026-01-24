@@ -350,7 +350,6 @@ func load_objects(load_dict: Dictionary) -> void:
 			else:
 				_resize_image_data(image_data, null, import_percent)
 
-
 		Global.image_manager_data.append(image_data)
 	for sprite in load_dict.sprites_array:
 		var sprite_obj
@@ -377,6 +376,9 @@ func set_common_data(sprite, sprite_obj):
 	sprite_obj.used_image_id_normal = sprite.get("normal_id", 0)
 	sprite_obj.sprite_id = sprite.sprite_id
 	sprite_obj.rest_mode = sprite.get("rest_mode", 1)
+	sprite_obj.flipped_h = sprite.get("flipped_h", false)
+	sprite_obj.flipped_v = sprite.get("flipped_v", false)
+	sprite_obj.rotated = sprite.get("", 0)
 	if sprite.has("parent_id") and sprite.parent_id != null:
 		sprite_obj.parent_id = sprite.parent_id
 
@@ -431,6 +433,7 @@ func load_comment_block_object(_load_dict : Dictionary, sprite, sprite_obj):
 
 func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 	var cleaned_array := []
+
 	if !sprite.states[0].get("folder"):
 		for i in Global.image_manager_data:
 			if i.id == sprite_obj.used_image_id:

@@ -167,6 +167,8 @@ func save_deformation_3x3(_delta):
 		add_layer() 
 	
 	var layer = mesh.get_layer(Global.selected_mesh_inx) 
+	if layer == null or !is_instance_valid(layer):
+		return
 	if mesh.deform_x == 0 && mesh.deform_y == 1:
 		var delta = _make_delta(layer.top_left,_delta)
 		layer.top_left = delta
@@ -258,6 +260,7 @@ func deform_vertex(index: int, drag: Vector2):
 			continue
 		var influence = pow(1.0 - dist / influence_radius, 2.0) * influence_strength
 
+		if i >= deformed_layer.size():continue
 		vertices_ref[i] += drag * influence
 		deformed_layer[i] += drag * influence
 	mesh.interpolated_vertices = vertices_ref.duplicate()
@@ -824,36 +827,53 @@ func auto_gen_corners():
 func flip_3x3_grid_horizontally():
 	if mesh == null:
 		return
+	var original_copy = mesh.original_vertices.duplicate()
 	var min_x = INF
 	var max_x = -INF
-	for v in mesh.original_vertices:
-		min_x = min(min_x, v.x)
-		max_x = max(max_x, v.x)
+	for v in original_copy:
+		if v.x < min_x:
+			min_x = v.x
+		if v.x > max_x:
+			max_x = v.x
 	var center_x = (min_x + max_x) * 0.5
+	var vertex_arrays = ["original_vertices", "base_vertices", "deformed_vertices", "internal_vertices"]
+	for arr_name in vertex_arrays:
+		var arr = mesh.get(arr_name)
+		if arr != null and arr.size() > 0:
+			for i in range(arr.size()):
+				var v = arr[i]
+				v.x = center_x - (v.x - center_x)
+				arr[i] = v
+			mesh.set(arr_name, arr)
+
+	for layer in mesh.get_layers():
+		if layer == null or not is_instance_valid(layer):
+			continue  
+		var tl = flip_cell(layer.top_left)
+		var tm = flip_cell(layer.top_middle)
+		var _tr = flip_cell(layer.top_right)
+		var ml = flip_cell(layer.middle_left)
+		var c  = flip_cell(layer.center)
+		var mr = flip_cell(layer.middle_right)
+		var bl = flip_cell(layer.bottom_left)
+		var bm = flip_cell(layer.bottom_middle)
+		var br = flip_cell(layer.bottom_right)
+		layer.top_left     = _tr
+		layer.top_middle   = tm
+		layer.top_right    = tl
+		layer.middle_left  = mr
+		layer.center       = c
+		layer.middle_right = ml
+		layer.bottom_left  = br
+		layer.bottom_middle= bm
+		layer.bottom_right = bl
 	
-	var layer : DeformLayer = mesh.get_layer(Global.selected_mesh_inx)
-	if layer != null && is_instance_valid(layer):
+	mesh.sync_deformation_arrays()
+	actor.flipped_h = true
+	mesh.texture = ImageTextureLoaderManager.check_flips(actor.referenced_data.runtime_texture, actor)
 
-		var top_left_flipped = flip_deformation_horizontally(layer.top_left, center_x)
-		var top_middle_flipped = flip_deformation_horizontally(layer.top_middle, center_x)
-		var top_right_flipped = flip_deformation_horizontally(layer.top_right, center_x)
-		var middle_left_flipped = flip_deformation_horizontally(layer.middle_left, center_x)
-		var center_flipped = flip_deformation_horizontally(layer.center, center_x)
-		var middle_right_flipped = flip_deformation_horizontally(layer.middle_right, center_x)
-		var bottom_left_flipped = flip_deformation_horizontally(layer.bottom_left, center_x)
-		var bottom_middle_flipped = flip_deformation_horizontally(layer.bottom_middle, center_x)
-		var bottom_right_flipped = flip_deformation_horizontally(layer.bottom_right, center_x)
-		layer.top_left = top_right_flipped
-		layer.top_middle = top_middle_flipped
-		layer.top_right = top_left_flipped
-		layer.middle_left = middle_right_flipped
-		layer.center = center_flipped
-		layer.middle_right = middle_left_flipped
-		layer.bottom_left = bottom_right_flipped
-		layer.bottom_middle = bottom_middle_flipped
-		layer.bottom_right = bottom_left_flipped
-		mesh.sync_deformation_arrays()
-
+func flip_cell(cell):
+	return flip_deformation_horizontally(cell, 1)
 
 func mirror_left_to_right_ear():
 	if mesh == null:

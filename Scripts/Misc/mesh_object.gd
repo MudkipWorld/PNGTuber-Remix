@@ -117,6 +117,8 @@ func get_state(id):
 		
 	elif states[id].is_empty():
 		states[id] = sprite_data.duplicate(true)
+	
+	mesh.queue_redraw()
 
 
 
