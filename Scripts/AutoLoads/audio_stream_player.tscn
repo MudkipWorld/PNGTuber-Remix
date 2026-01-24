@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c5idljtng82vs" path="res://Main/Scripts/AudioStreamPlayer.gd" id="1_1tutj"]
 
-[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_xfo8l"]
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_1tutj"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=234882763]
-stream = SubResource("AudioStreamMicrophone_xfo8l")
+stream = SubResource("AudioStreamMicrophone_1tutj")
 autoplay = true
 bus = &"Mic"
 script = ExtResource("1_1tutj")

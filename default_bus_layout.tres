@@ -1,8 +1,5 @@
 [gd_resource type="AudioBusLayout" format=3 uid="uid://b2xlc2esq3cvw"]
 
-[sub_resource type="AudioEffectRecord" id="AudioEffectRecord_tvg3x"]
-resource_name = "Record"
-
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_1ksyd"]
 resource_name = "SpectrumAnalyzer"
 
@@ -22,9 +19,7 @@ bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
 bus/2/send = &"ShadowBus"
-bus/2/effect/0/effect = SubResource("AudioEffectRecord_tvg3x")
-bus/2/effect/0/enabled = false
-bus/2/effect/1/effect = SubResource("AudioEffectSpectrumAnalyzer_1ksyd")
+bus/2/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_1ksyd")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectCapture_j3pel")
 bus/2/effect/1/enabled = true
-bus/2/effect/2/effect = SubResource("AudioEffectCapture_j3pel")
-bus/2/effect/2/enabled = false

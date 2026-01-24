@@ -108,10 +108,8 @@ Phonemes.PHONEME.PHONEME_L:
 This phoneme is the L sound in Lot, chiLd, and Lay.""",
 }
 
-
 ## Calibration tree path
 @export var calibration_tree: NodePath
-
 
 ## Currently selected viseme
 var _selected_viseme: int
@@ -119,50 +117,30 @@ var _selected_viseme: int
 ## Calibration tree node
 @onready var _calibration_tree: CalibrationTree = get_node(calibration_tree)
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	_calibration_tree.connect("item_selected", Callable(self, "_on_CalibrationTree_item_selected"))
 	LipSyncGlobals.connect("file_data_changed", Callable(self, "_on_file_data_changed"))
 
-
-
 func _on_CalibrationTree_item_selected():
 	_update_inspector()
-
 
 func _on_file_data_changed(_cause):
 	if _cause != "inspector":
 		_update_inspector()
 
-
 func _on_weight_slider_value_changed(value: float):
 	LipSyncGlobals.file_data.weights[_selected_viseme] = value
 	LipSyncGlobals.set_modified("inspector")
 
-
 func _update_inspector():
-	# Get the selected item
 	var item: TreeItem = _calibration_tree.get_selected()
 	if not item:
 		return
-
-	# Get the phoneme and possibly fingerprint
-#	var viseme: int = item.get_metadata(0)[0]
-#	var phoneme: int = item.get_metadata(0)[1]
+	if item.get_metadata(0) == null or  item.get_metadata(1) == null: return
 	var fingerprint: LipSyncFingerprint = item.get_metadata(1)[0]
-
-	# Ensure the description is hidden
-
-	# Populate selected item
 	if fingerprint:
-		# Hide other inspectors
-
-		# Get scale to normalize volume
 		var max_value: float = fingerprint.values.max()
 		var max_scale = 0.0 if max_value <= 0.0 else 1.0 / max_value
-
-		# Populate bars
 		for i in LipSyncFingerprint.BANDS_COUNT:
 			var bar: ProgressBar = get_child(i)
 			bar.value = fingerprint.values[i] * max_scale

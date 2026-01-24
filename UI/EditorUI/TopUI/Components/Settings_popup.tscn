@@ -486,23 +486,6 @@ popup/item_2/id = 2
 popup/item_3/text = "x11"
 popup/item_3/id = 3
 
-[node name="Label3" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=153810656]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "Audio Backend : "
-
-[node name="AudioBackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=930950752]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-selected = 0
-item_count = 2
-popup/item_0/text = "Record"
-popup/item_0/id = 0
-popup/item_1/text = "Capture"
-popup/item_1/id = 1
-
 [node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1262964452]
 layout_mode = 2
 theme_override_constants/separation = 5
@@ -612,7 +595,6 @@ popup/item_7/id = 7
 [connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/Grid/SaveUnusedImages" to="SettingsScript" method="_on_save_unused_images_toggled"]
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Remix/VBox/Grid/LanguageOptions" to="SettingsScript" method="_on_remix_language_set"]
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Remix/VBox/Grid/BackendOption" to="SettingsScript" method="_on_backend_option_item_selected"]
-[connection signal="item_selected" from="SettingVbox/SettingsTab/Remix/VBox/Grid/AudioBackendOption" to="SettingsScript" method="_on_audio_backend_option_item_selected"]
 [connection signal="value_changed" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/PhysicsTick" to="SettingsScript" method="_on_physics_tick_value_changed"]
 [connection signal="value_changed" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/PhysicsSteps" to="SettingsScript" method="_on_physics_steps_value_changed"]
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/JitterFix" to="SettingsScript" method="_on_jitter_fix_drag_ended"]

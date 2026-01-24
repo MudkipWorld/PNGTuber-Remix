@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dvq0c1qpx2vo5"]
+[gd_scene format=3 uid="uid://dvq0c1qpx2vo5"]
 
 [ext_resource type="Texture2D" uid="uid://ci6qr5aaw55b4" path="res://Misc/TestAssets/MouthAssets/MouthTH.png" id="1_au3fa"]
 [ext_resource type="Script" uid="uid://b5dn8nbq7bfa1" path="res://Scripts/Lipsync Scripts/lipsync_configuration_popup.gd" id="1_hl02m"]
@@ -78,7 +78,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="LipsyncConfigurationPopup" type="Window"]
+[node name="LipsyncConfigurationPopup" type="Window" unique_id=142413981]
+oversampling_override = 1.0
 title = "LipSync Configuration"
 initial_position = 2
 size = Vector2i(1000, 600)
@@ -86,7 +87,7 @@ transient = true
 exclusive = true
 script = ExtResource("1_hl02m")
 
-[node name="BG" type="TextureRect" parent="."]
+[node name="BG" type="TextureRect" parent="." unique_id=22260863]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -96,7 +97,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_2arc7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=187127947]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -106,14 +107,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="TopMenu" type="PanelContainer" parent="VBoxContainer"]
+[node name="TopMenu" type="PanelContainer" parent="VBoxContainer" unique_id=1759024405]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopMenu" unique_id=1356919549]
 layout_mode = 2
 
-[node name="FilesButton" type="MenuButton" parent="VBoxContainer/TopMenu/HBoxContainer"]
+[node name="FilesButton" type="MenuButton" parent="VBoxContainer/TopMenu/HBoxContainer" unique_id=501411280]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -128,17 +129,17 @@ popup/item_1/id = 1
 popup/item_2/text = "Save LipSync File"
 popup/item_2/id = 2
 
-[node name="UIContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="UIContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=847340530]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="TreePanel" type="Panel" parent="VBoxContainer/UIContainer"]
+[node name="TreePanel" type="Panel" parent="VBoxContainer/UIContainer" unique_id=440899763]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/UIContainer/TreePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/UIContainer/TreePanel" unique_id=550825057]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,21 +151,21 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="CalibrationTree" type="Tree" parent="VBoxContainer/UIContainer/TreePanel/MarginContainer"]
+[node name="CalibrationTree" type="Tree" parent="VBoxContainer/UIContainer/TreePanel/MarginContainer" unique_id=814942488]
 layout_mode = 2
 columns = 2
 script = ExtResource("2_yucjp")
 
-[node name="VBox" type="VBoxContainer" parent="VBoxContainer/UIContainer"]
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/UIContainer" unique_id=910083339]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PreviewBG" type="ColorRect" parent="VBoxContainer/UIContainer/VBox"]
+[node name="PreviewBG" type="ColorRect" parent="VBoxContainer/UIContainer/VBox" unique_id=1128800858]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 color = Color(0.435192, 0.435192, 0.435192, 1)
 
-[node name="Pos" type="Control" parent="VBoxContainer/UIContainer/VBox/PreviewBG"]
+[node name="Pos" type="Control" parent="VBoxContainer/UIContainer/VBox/PreviewBG" unique_id=829550489]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -178,17 +179,17 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Shapes" type="AnimatedSprite2D" parent="VBoxContainer/UIContainer/VBox/PreviewBG/Pos"]
+[node name="Shapes" type="AnimatedSprite2D" parent="VBoxContainer/UIContainer/VBox/PreviewBG/Pos" unique_id=1426929620]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_dktqj")
 animation = &"MouthAnimations"
 
-[node name="BottomPanel" type="Panel" parent="VBoxContainer/UIContainer/VBox"]
+[node name="BottomPanel" type="Panel" parent="VBoxContainer/UIContainer/VBox" unique_id=1104442992]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel" unique_id=568601463]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -196,18 +197,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer" unique_id=2048451871]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Label" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer" unique_id=1803801615]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Inspector"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Inspect" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer"]
+[node name="Inspect" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer" unique_id=203044130]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -215,7 +216,7 @@ theme_override_constants/separation = 0
 script = ExtResource("17_c25av")
 calibration_tree = NodePath("../../../../../TreePanel/MarginContainer/CalibrationTree")
 
-[node name="Insp1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=299221658]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -224,7 +225,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=2918379]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -233,7 +234,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=846368820]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -242,7 +243,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=2089613838]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -251,7 +252,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=742540305]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -260,7 +261,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=548349985]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -269,7 +270,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1744577089]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -278,7 +279,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1397059675]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -287,7 +288,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=320195377]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -296,7 +297,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1043187834]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -305,7 +306,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1108347128]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -314,7 +315,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1157513074]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -323,7 +324,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=203459615]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -332,7 +333,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp14" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp14" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1160132196]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -341,7 +342,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp15" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp15" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=177330869]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -350,7 +351,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp16" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp16" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1295143641]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -359,7 +360,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp17" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp17" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=928816543]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -368,7 +369,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp18" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp18" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=929984744]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -377,7 +378,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp19" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp19" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1247175192]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -386,7 +387,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Insp20" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect"]
+[node name="Insp20" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1621466610]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_vertical = 1
@@ -395,17 +396,17 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Stuff" type="TabContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer"]
+[node name="Stuff" type="TabContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer" unique_id=1135558577]
 layout_mode = 2
 size_flags_horizontal = 3
 current_tab = 0
 
-[node name="Spectrum" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff"]
+[node name="Spectrum" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff" unique_id=3251538]
 layout_mode = 2
 script = ExtResource("18_cl2hy")
 metadata/_tab_index = 0
 
-[node name="SpecBars" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum"]
+[node name="SpecBars" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum" unique_id=1745946648]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -414,7 +415,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="spec1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=408329351]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -423,7 +424,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1557216366]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -432,7 +433,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1864352547]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -441,7 +442,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1185112249]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -450,7 +451,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=686029978]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -459,7 +460,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1073204103]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -468,7 +469,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1847945144]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -477,7 +478,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1938547868]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -486,7 +487,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=813970418]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -495,7 +496,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=698087670]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -504,7 +505,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=945510652]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -513,7 +514,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=666571377]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -522,7 +523,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1890457112]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -531,7 +532,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec14" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec14" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=799951885]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -540,7 +541,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec15" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec15" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1968357520]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -549,7 +550,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec16" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec16" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1653862583]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -558,7 +559,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec17" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec17" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=2043066958]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -567,7 +568,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec18" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec18" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=2112912980]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -576,7 +577,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec19" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec19" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=2146341443]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -585,7 +586,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="spec20" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars"]
+[node name="spec20" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1456100159]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -594,14 +595,14 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phonemes" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff" node_paths=PackedStringArray("sprite")]
+[node name="Phonemes" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff" unique_id=951888576 node_paths=PackedStringArray("sprite")]
 visible = false
 layout_mode = 2
 script = ExtResource("19_uhohj")
 sprite = NodePath("../../../../PreviewBG/Pos/Shapes")
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes" unique_id=881113555]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -609,13 +610,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PhBox" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer"]
+[node name="PhBox" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer" unique_id=1778930098]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="Phoneme1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=675173489]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -625,7 +626,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=774917436]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -635,7 +636,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=161426777]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -645,7 +646,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=656191341]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -655,7 +656,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1761029408]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -665,7 +666,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1971324756]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -675,7 +676,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=737157377]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -685,7 +686,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1362988479]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -695,7 +696,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1545515039]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -705,7 +706,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1050136415]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -715,7 +716,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1456997717]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -725,7 +726,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1403729958]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -735,7 +736,7 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="Phoneme13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox"]
+[node name="Phoneme13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1995756878]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -745,89 +746,89 @@ step = 0.001
 fill_mode = 3
 show_percentage = false
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer" unique_id=420873080]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="TH" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="TH" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1182306486]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TH"
 horizontal_alignment = 1
 
-[node name="S" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="S" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=626922694]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "S"
 horizontal_alignment = 1
 
-[node name="T" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="T" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=315064475]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "T"
 horizontal_alignment = 1
 
-[node name="E" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="E" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=385853261]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "E"
 horizontal_alignment = 1
 
-[node name="F" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="F" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=957906948]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "F"
 horizontal_alignment = 1
 
-[node name="I" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="I" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=142088154]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "I"
 horizontal_alignment = 1
 
-[node name="O" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="O" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1120702819]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "O"
 horizontal_alignment = 1
 
-[node name="P" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="P" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=606483857]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "P"
 horizontal_alignment = 1
 
-[node name="R" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="R" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=500334386]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "R"
 horizontal_alignment = 1
 
-[node name="U" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="U" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1643512699]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "U"
 horizontal_alignment = 1
 
-[node name="A" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="A" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=2139494305]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "A"
 horizontal_alignment = 1
 
-[node name="G" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="G" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1043161653]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "G"
 horizontal_alignment = 1
 
-[node name="L" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2"]
+[node name="L" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=2048434634]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "L"
 horizontal_alignment = 1
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=461927007]
 unique_name_in_owner = true
 force_native = true
 mode_overrides_title = false

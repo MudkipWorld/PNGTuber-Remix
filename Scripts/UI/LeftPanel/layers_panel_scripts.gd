@@ -73,14 +73,16 @@ func enable():
 			%FlipH.disabled = true
 			%FlipV.disabled = true
 			continue
-		if (i.referenced_data.is_apng or i.referenced_data.img_animated):
-			%RotateImage.disabled = true
-			%FlipH.disabled = true
-			%FlipV.disabled = true
 		else:
-			%RotateImage.disabled = false
-			%FlipH.disabled = false
-			%FlipV.disabled = false
+			if i.referenced_data != null:
+				if (i.referenced_data.is_apng or i.referenced_data.img_animated):
+					%RotateImage.disabled = true
+					%FlipH.disabled = true
+					%FlipV.disabled = true
+				else:
+					%RotateImage.disabled = false
+					%FlipH.disabled = false
+					%FlipV.disabled = false
 
 func _on_delete_button_pressed():
 	for i in Global.held_sprites:

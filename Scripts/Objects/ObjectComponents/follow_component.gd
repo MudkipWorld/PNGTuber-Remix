@@ -256,18 +256,16 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 			var screen_width = screen_size.x
 			var normalized_mouse = (mouse_x) / (screen_width / 2)
 			normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)
-			var safe_rot_min = clamp(actor.sprite_data.rLimitMin, -360, 360)
-			var safe_rot_max = clamp(actor.sprite_data.rLimitMax, -360, 360)
 			var rotation_factor = lerp(actor.sprite_data.mouse_rotation, actor.sprite_data.mouse_rotation_max, max((normalized_mouse + 1) / 2, 0.001))
-			target_rot = GlobalCalculations.is_nan_or_inf(clamp(rotation_factor, deg_to_rad(safe_rot_min), deg_to_rad(safe_rot_max)))
+			target_rot = GlobalCalculations.is_nan_or_inf(clamp_rotations(rotation_factor))
 
-	elif follow_type2 == 1: target_rot = axis_left.x
-	elif follow_type2 == 2: target_rot = axis_right.x
-	elif follow_type2 == 10: target_rot = axis_shoulderl.x
-	elif follow_type2 == 11: target_rot = axis_shoulderr.x
-	elif follow_type2 == 12: target_rot = axis_lr_3.x
+	elif follow_type2 == 1: target_rot = clamp_rotations(atan2(axis_left.y, axis_left.x))
+	elif follow_type2 == 2: target_rot =  clamp_rotations(atan2(axis_right.y, axis_right.x))
+	elif follow_type2 == 10: target_rot = clamp_rotations(atan2(axis_shoulderl.y, axis_shoulderl.x))
+	elif follow_type2 == 11: target_rot = clamp_rotations(atan2(axis_shoulderr.y, axis_shoulderr.x))
+	elif follow_type2 == 12: target_rot = clamp_rotations(atan2(axis_lr_3.y, axis_lr_3.x))
 	elif follow_type2 in [3,4,5,6,7,8]:
-		target_rot = target_rotation.x
+		target_rot = clamp_rotations(atan2(target_rotation.y, target_rotation.x))
 	elif follow_type2 == 17 && Tracker.working:
 		var clamped_rot = 0
 		match actor.get_value("udp_rot"):

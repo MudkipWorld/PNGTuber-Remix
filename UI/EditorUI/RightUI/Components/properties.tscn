@@ -144,7 +144,7 @@ custom_minimum_size = Vector2(74, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 15
-text = "TR_SIZE_X"
+text = "TR_SIZE_Y"
 
 [node name="SizeSpinYBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=1813226611]
 unique_name_in_owner = true

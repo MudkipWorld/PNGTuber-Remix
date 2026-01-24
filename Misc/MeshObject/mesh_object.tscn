@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhbslhxbk7nya"]
+[gd_scene format=3 uid="uid://dhbslhxbk7nya"]
 
 [ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_mho80"]
 [ext_resource type="Script" uid="uid://c2cvkimlig3bp" path="res://Scripts/Misc/mesh_object.gd" id="2_i8o0q"]
@@ -30,29 +30,29 @@ colors = PackedColorArray(0, 0, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_dwesf"]
 gradient = SubResource("Gradient_31wc5")
 
-[node name="MeshObject" node_paths=PackedStringArray("mesh", "sprite_object", "grab_object") groups=["Meshes"] instance=ExtResource("1_mho80")]
+[node name="MeshObject" unique_id=1974029806 node_paths=PackedStringArray("mesh", "sprite_object", "grab_object") groups=["Meshes"] instance=ExtResource("1_mho80")]
 script = ExtResource("2_i8o0q")
 mesh = NodePath("Modifier1/Modifier/Sprite2D")
 sprite_object = NodePath("Modifier1/Modifier/placeholder")
 grab_object = NodePath("Modifier1/Modifier/Grab")
 sprite_type = "Mesh"
 
-[node name="placeholder" type="Sprite2D" parent="Modifier1/Modifier" index="0"]
+[node name="placeholder" type="Sprite2D" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="0" unique_id=238015401]
 visible = false
 
-[node name="Sprite2D" type="CustomMesh" parent="Modifier1/Modifier" index="2" node_paths=PackedStringArray("parent")]
+[node name="Sprite2D" type="CustomMesh" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="2" unique_id=1239280280 node_paths=PackedStringArray("parent")]
 unique_name_in_owner = true
 script = ExtResource("3_pfue5")
 parent = NodePath("../../..")
 
-[node name="MeshEditor" type="Node2D" parent="Modifier1/Modifier/Sprite2D" index="0" node_paths=PackedStringArray("mesh", "actor")]
+[node name="MeshEditor" type="Node2D" parent="Modifier1/Modifier/Sprite2D" index="0" unique_id=1524182583 node_paths=PackedStringArray("mesh", "actor")]
 unique_name_in_owner = true
 z_index = 4093
 script = ExtResource("4_pfue5")
 mesh = NodePath("..")
 actor = NodePath("../../../..")
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" index="3"]
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="3" unique_id=892850542]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
@@ -70,7 +70,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 texture_normal = SubResource("GradientTexture2D_pfue5")
 
-[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Grab" index="0"]
+[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Grab" index="0" unique_id=1801354021]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -86,13 +86,13 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_dwesf")
 expand_mode = 1
 
-[node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor", "mesh")]
+[node name="FollowComponent" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor", "mesh")]
 actor = NodePath("..")
 mesh = NodePath("../Modifier1/Modifier/Sprite2D")
 
-[node name="Movements" parent="." index="5" node_paths=PackedStringArray("actor", "mesh")]
+[node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor", "mesh")]
 actor = NodePath("..")
 mesh = NodePath("../Modifier1/Modifier/Sprite2D")
 
-[node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
+[node name="AnimatedSpriteTexture" parent="." index="6" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
 sprite_node = NodePath("../Modifier1/Modifier/placeholder")

@@ -56,7 +56,7 @@ func _on_add_image_button_pressed() -> void:
 
 func _on_replace_button_pressed() -> void:
 	load_type = LoadType.Replace
-	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.jpeg", "*.jpg", "*.svg", "*.apng"]
+	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.svg", "*.apng"]
 	$FileDialog.file_mode = 0
 	%FileDialog.popup()
 

@@ -24,7 +24,7 @@ var speech_bus : int
 var speech_spectrum: AudioEffectSpectrumAnalyzerInstance
 
 func _ready() -> void:
-	speech_spectrum = AudioServer.get_bus_effect_instance(2, 1)
+	speech_spectrum = AudioServer.get_bus_effect_instance(2, 0)
 
 ## Report the training data has been modified
 func set_modified(cause):

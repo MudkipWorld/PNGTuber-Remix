@@ -106,11 +106,11 @@ func _physics_process(delta: float) -> void:
 			var final_amp = amp  + follow_amp 
 			if actor.get_value("physics"):
 				mesh_len -=   t
-				final_amp += Vector2(25,25)
+				final_amp += Vector2(75,75)
 				
 			var safe_deform_pos
 			if Tracker.working:
-				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.25)
+				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.08)
 			else:
 				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, final_amp.normalized().length())
 			if abs(safe_deform_pos.x) != 0:

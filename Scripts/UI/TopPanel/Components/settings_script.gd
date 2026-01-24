@@ -58,13 +58,6 @@ func check_data():
 	%PhysicsSteps.value = Settings.theme_settings.phys_steps
 	%JitterFix.value = Settings.theme_settings.phys_jitter
 	
-	match Settings.theme_settings.audio_capturer:
-		0:
-			%AudioBackendOption.select(0)
-		2:
-			%AudioBackendOption.select(1)
-	
-	
 	if OS.has_feature("linux"):
 		%BackendOption.set_item_disabled(3, false)
 	else:
@@ -115,7 +108,6 @@ func sliders_revalue(settings_dict):
 	%DeltaTimeCheck.button_pressed = settings_dict.should_delta
 	%MaxFPSlider.value = settings_dict.max_fps
 	%OutOfBounds.button_pressed = settings_dict.snap_out_of_bounds
-	
 
 func _on_volume_slider_drag_ended(value_changed: bool) -> void:
 	if value_changed:
@@ -296,25 +288,6 @@ func _on_backend_option_item_selected(index: int) -> void:
 			
 	Settings.save()
 	Settings.update_tracking_backend()
-
-func _on_audio_backend_option_item_selected(index: int) -> void:
-	match index:
-		0:
-			await GlobalAudioStreamPlayer.mic_restart_timer_timeout()
-			Settings.theme_settings.audio_capturer = 0
-			GlobalAudioStreamPlayer.record_effect = AudioServer.get_bus_effect(GlobalAudioStreamPlayer.record_bus_index, Settings.theme_settings.get("audio_capturer", 0))
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 0, true)
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 2, false)
-			await GlobalAudioStreamPlayer.mic_restart_timer_timeout()
-			Settings.save()
-		1:
-			await GlobalAudioStreamPlayer.mic_restart_timer_timeout()
-			Settings.theme_settings.audio_capturer = 2
-			GlobalAudioStreamPlayer.record_effect = AudioServer.get_bus_effect(GlobalAudioStreamPlayer.record_bus_index, Settings.theme_settings.get("audio_capturer", 2))
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 0, false)
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 2, true)
-			await GlobalAudioStreamPlayer.mic_restart_timer_timeout()
-			Settings.save()
 
 func _on_physics_tick_value_changed(value: float) -> void:
 	if !change_setting: return

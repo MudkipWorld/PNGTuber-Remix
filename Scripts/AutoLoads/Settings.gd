@@ -168,18 +168,6 @@ func _ready():
 		TranslationServer.set_locale(OS.get_locale_language())
 	else:
 		TranslationServer.set_locale(locale)
-	
-	GlobalAudioStreamPlayer.record_effect = AudioServer.get_bus_effect(GlobalAudioStreamPlayer.record_bus_index, theme_settings.get("audio_capturer", 2))
-	match theme_settings.audio_capturer:
-		0:
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 0, true)
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 2, false)
-			GlobalAudioStreamPlayer.mic_restart_timer_timeout()
-		2:
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 0, false)
-			AudioServer.set_bus_effect_enabled(GlobalAudioStreamPlayer.record_bus_index, 2, true)
-			GlobalAudioStreamPlayer.mic_restart_timer_timeout()
-
 	Engine.physics_jitter_fix = theme_settings.phys_jitter
 	Engine.physics_ticks_per_second = theme_settings.phys_tick_per_frame
 	Engine.max_physics_steps_per_frame = theme_settings.phys_steps

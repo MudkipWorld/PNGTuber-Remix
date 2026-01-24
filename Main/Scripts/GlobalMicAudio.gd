@@ -12,6 +12,9 @@ var has_delayed : bool = true
 var volume = 0.0
 var delay = 0.0
 
+var input_mix_rate := AudioServer.get_input_mix_rate()
+var chunk_size := int(input_mix_rate * 0.02)
+
 var speech_value : float : 
 	set(value):
 		if value >= Global.settings_dict.volume_limit:
@@ -35,14 +38,21 @@ var speech_delay : float :
 				has_delayed = false
 
 
-func _process(_delta):
-	sample = audio.get_bus_peak_volume_left_db(2, 0)
-	linear_sampler = db_to_linear(sample) 
-	volume = lerp(volume, linear_sampler * Global.settings_dict.sensitivity_limit, 0.1)
+
+
+func _process(delta):
+	if AudioServer.get_input_frames_available() < chunk_size:
+		return
+	var frames: PackedVector2Array = AudioServer.get_input_frames(chunk_size)
+	if frames.is_empty():
+		return
+	var peak := 0.0
+	for f in frames:
+		peak = max(peak, abs(f.x), abs(f.y))
+	volume = lerp(volume, peak * Global.settings_dict.sensitivity_limit, 0.1)
 	speech_value = volume
 	speech_delay = delay
-	
-	if delay > Global.settings_dict.volume_limit && has_spoken:
+	if delay > Global.settings_dict.volume_limit and has_spoken:
 		delay = 1
 	elif volume < Global.settings_dict.volume_limit:
-		delay = move_toward(delay, 0, 0.5*_delta)
+		delay = move_toward(delay, 0, 0.5 * delta)

@@ -143,9 +143,7 @@ static func undo_sprite_container(data):
 			
 		"blink_chance":
 			if Global.current_state == data.state:
-				data.sprite_container.blink_chance = data.value
-				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.settings_dict.blink_chance = data.value
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
