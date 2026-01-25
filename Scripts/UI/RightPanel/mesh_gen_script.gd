@@ -168,7 +168,6 @@ func _on_add_mesh_pressed() -> void:
 func _on_tri_grid_toggled(toggled_on: bool) -> void:
 	MeshEditor.tri_grid = toggled_on
 
-
 func _on_tri_radial_toggled(toggled_on: bool) -> void:
 	MeshEditor.radial_hex = toggled_on
 
@@ -184,12 +183,6 @@ func _on_outer_padding_toggled(toggled_on: bool) -> void:
 func _on_padding_value_changed(value: float) -> void:
 	MeshEditor.padding = value
 
-func _on_generate_mesh_2_pressed() -> void:
-	for i in Global.held_sprites:
-		if i != null && is_instance_valid(i):
-			if i.sprite_type == "Mesh":
-				i.get_node("%MeshEditor").regenerate_preserve_deformation()
-
 func _on_generate_mesh_3_pressed() -> void:
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
@@ -201,12 +194,6 @@ func _on_generate_mesh_4_pressed() -> void:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").flip_3x3_grid_horizontally()
-
-func _on_generate_mesh_5_pressed() -> void:
-	for i in Global.held_sprites:
-		if i != null && is_instance_valid(i):
-			if i.sprite_type == "Mesh":
-				i.get_node("%MeshEditor").mirror_right_to_left()
 
 func _on_generate_mesh_6_pressed() -> void:
 	for i in Global.held_sprites:

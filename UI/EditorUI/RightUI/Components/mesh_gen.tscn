@@ -74,9 +74,30 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 0.01
-max_value = 1.0
+max_value = 10.0
 step = 0.001
 value = 0.01
+
+[node name="Label3" type="Label" parent="VBoxContainer/GridContainer4" unique_id=1087527850]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Brush"
+
+[node name="BrushType" type="OptionButton" parent="VBoxContainer/GridContainer4" unique_id=236600282]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 5
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+popup/item_1/text = "Rotation"
+popup/item_1/id = 1
+popup/item_2/text = "Inflate"
+popup/item_2/id = 2
+popup/item_3/text = "Deflate"
+popup/item_3/id = 3
+popup/item_4/text = "Restore"
+popup/item_4/id = 4
 
 [node name="FollowWobble" type="CheckBox" parent="VBoxContainer/GridContainer4" unique_id=1851026739]
 unique_name_in_owner = true
@@ -263,7 +284,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 min_value = 0.1
-max_value = 10.0
 step = 0.01
 value = 0.1
 
@@ -278,7 +298,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 min_value = 0.1
-max_value = 10.0
 step = 0.01
 value = 0.1
 
@@ -531,6 +550,7 @@ value = 1.0
 [connection signal="toggled" from="VBoxContainer/GridContainer4/WebMode" to="MeshGenScript" method="_on_web_mode_toggled"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer4/InfluRad" to="MeshGenScript" method="_on_influ_rad_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer4/InfluStrength" to="MeshGenScript" method="_on_influ_strength_value_changed"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer4/BrushType" to="MeshLayerManager" method="_on_brush_type_item_selected"]
 [connection signal="toggled" from="VBoxContainer/GridContainer4/FollowWobble" to="MeshGenScript" method="_on_follow_wobble_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer4/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
 [connection signal="pressed" from="VBoxContainer/GridContainer5/AddLayer" to="MeshLayerManager" method="_on_add_layer_pressed"]

@@ -20,6 +20,7 @@ static var flip_x: bool = false
 static var flip_y: bool = false
 static var outer_padding: bool = false
 static var padding : float = 4
+static var brush_type : int = 0
 var dragging : bool = false
 var deformed_layer : PackedVector2Array = []
 
@@ -149,22 +150,61 @@ func _input(event):
 				dragging = true
 				deform_vertex(mesh.selected_vertex, event.relative)
 
-func toggle_mesh_view():
-	if mesh == null  or !is_instance_valid(mesh):
+func deform_vertex(index: int, drag: Vector2):
+	if mesh == null or index < 0:
 		return
-	mesh.show_deformed_mesh = !mesh.show_deformed_mesh
+	var vertices_ref: PackedVector2Array
+	if mesh.interpolated_vertices.is_empty():
+		vertices_ref = mesh.deformed_vertices.duplicate()
+	else:
+		vertices_ref = mesh.interpolated_vertices.duplicate()
+	if index >= vertices_ref.size():
+		return
+	var origin_pos = vertices_ref[index]
+	for i in range(vertices_ref.size()):
+		var dist = vertices_ref[i].distance_to(origin_pos)
+		if dist > influence_radius:
+			continue
+		var influence = pow(1.0 - dist / influence_radius, 2.0) * influence_strength
+		if i >= deformed_layer.size(): continue
+		match brush_type:
+			0:
+				vertices_ref[i] += drag * influence
+				deformed_layer[i] += drag * influence
+			1:
+				var angle = drag.length() * 0.005 * influence 
+				var offset = vertices_ref[i] - origin_pos
+				offset = offset.rotated(angle)
+				var delta = offset - (vertices_ref[i] - origin_pos)
+				vertices_ref[i] += delta
+				deformed_layer[i] += delta
+			2:
+				var dir = (vertices_ref[i] - origin_pos).normalized()
+				var delta = dir * influence 
+				vertices_ref[i] += delta
+				deformed_layer[i] += delta
+			3:
+				var dir = (vertices_ref[i] - origin_pos).normalized()
+				var delta = -dir * influence
+				vertices_ref[i] += delta
+				deformed_layer[i] += delta
+			4:
+				var original_pos = mesh.original_vertices[i]
+				var delta = (original_pos - vertices_ref[i]) * influence * 0.25
+				vertices_ref[i] += delta
+				deformed_layer[i] += delta
+	mesh.interpolated_vertices = vertices_ref.duplicate()
+	mesh.deformed_vertices = vertices_ref.duplicate()
+	mesh.queue_redraw()
 	queue_redraw()
 
 func save_deformation_3x3(_delta):
 	if mesh == null or !is_instance_valid(mesh):
 		return
-
 	if mesh.get_layer_count() < Global.selected_mesh_inx:
 		return
-
 	if mesh.get_layer_count() <= 0:
 		add_layer() 
-	
 	var layer = mesh.get_layer(Global.selected_mesh_inx) 
 	if layer == null or !is_instance_valid(layer):
 		return
@@ -201,6 +241,12 @@ func save_deformation_3x3(_delta):
 	for i in range(zero.size()):
 		zero[i] = Vector2.ZERO
 	deformed_layer = zero.duplicate()
+
+func toggle_mesh_view():
+	if mesh == null  or !is_instance_valid(mesh):
+		return
+	mesh.show_deformed_mesh = !mesh.show_deformed_mesh
+	queue_redraw()
 
 func reset_point():
 	if mesh == null  or !is_instance_valid(mesh):
@@ -240,33 +286,6 @@ func reset_point():
 func is_triangle_valid(a: Vector2, b: Vector2, c: Vector2) -> bool:
 	var area = (b - a).cross(c - a) * 0.5
 	return abs(area) > 0.001
-
-func deform_vertex(index: int, drag: Vector2):
-	if mesh == null or index < 0:
-		return
-	var vertices_ref: PackedVector2Array
-	if mesh.interpolated_vertices.is_empty():
-		vertices_ref = mesh.deformed_vertices.duplicate()
-	else:
-		vertices_ref = mesh.interpolated_vertices.duplicate()
-
-	if index >= vertices_ref.size():
-		return
-	var origin_pos = vertices_ref[index]
-	for i in range(vertices_ref.size()):
-		var dist = vertices_ref[i].distance_to(origin_pos)
-		if dist > influence_radius:
-			continue
-		var influence = pow(1.0 - dist / influence_radius, 2.0) * influence_strength
-
-		if i >= deformed_layer.size():continue
-		vertices_ref[i] += drag * influence
-		deformed_layer[i] += drag * influence
-	mesh.interpolated_vertices = vertices_ref.duplicate()
-	mesh.deformed_vertices =  vertices_ref.duplicate()
-	
-	mesh.queue_redraw()
-	queue_redraw()
 
 func smooth_and_even_poly(poly: Array, iterations: int, spacing: float = 5) -> Array:
 	if mesh == null  or !is_instance_valid(mesh):

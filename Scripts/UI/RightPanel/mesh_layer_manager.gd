@@ -83,7 +83,7 @@ func set_data():
 		for i in Global.held_sprites[0].mesh.get_layer_count():
 			%SelectedLayer.add_item(str(i))
 		
-		%SelectedLayer.select(Global.selected_mesh_inx)
+	%SelectedLayer.select(Global.selected_mesh_inx)
 	should_change = true
 
 func _on_stiffnessx_value_changed(value: float) -> void:
@@ -371,3 +371,6 @@ func _on_add_layer_pressed() -> void:
 
 func submit_to_undo_redo(data):
 	UndoRedoManager.push_data(data)
+
+func _on_brush_type_item_selected(index: int) -> void:
+	MeshEditor.brush_type = index
