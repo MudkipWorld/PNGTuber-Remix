@@ -120,8 +120,6 @@ func get_state(id):
 	
 	mesh.queue_redraw()
 
-
-
 func check_talk():
 	if get_value("should_talk"):
 		if get_value("open_mouth"):
@@ -140,7 +138,6 @@ func zazaza(parent):
 					if !state.is_empty():
 						global = global_position
 						state.position = get_value("position")
-
 
 func _on_sprite_2d_text_changed() -> void:
 	sprite_data.text_data = %Sprite2D.text

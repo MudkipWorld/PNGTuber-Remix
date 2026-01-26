@@ -1,6 +1,16 @@
 extends Node2D
 class_name MeshEditor
 
+
+enum EditorMode {
+	DEFORM,
+	GLUE,
+	WARP
+}
+
+static var editor_mode : int = EditorMode.DEFORM
+
+
 @export var mesh : CustomMesh = null
 @export var actor : SpriteObject
 static var draw_internal_web : bool = true
@@ -23,6 +33,10 @@ static var padding : float = 4
 static var brush_type : int = 0
 var dragging : bool = false
 var deformed_layer : PackedVector2Array = []
+
+var active_glue_group : GlueGroup = null
+static var active_warp : DeformLayer = null
+
 
 func regenerate_mesh():
 	if mesh == null or not is_instance_valid(mesh):
@@ -124,31 +138,28 @@ func _draw():
 		draw_circle(v, 2.0, Color(1,0,0))
 
 func _input(event):
-	if mesh == null or not is_instance_valid(mesh):
+	if mesh == null or !is_instance_valid(mesh):
 		return
-
-	if mesh.editable:
-		var mouse_pos = mesh.get_local_mouse_position()
-		
-		if Input.is_action_pressed("lmb"):
-			mesh.selected_vertex = -1
-			var closest_dist = influence_radius
-			for i in range(mesh.interpolated_vertices.size()):
-				var vert_pos = mesh.interpolated_vertices[i] - mesh.texture.get_size() / 2
-				var d = vert_pos.distance_to(mouse_pos)
-				if d < closest_dist:
-					closest_dist = d
-					mesh.selected_vertex = i
-
-		elif Input.is_action_just_released("lmb") && dragging:
-			save_deformation_3x3(deformed_layer.duplicate())
-			mesh.selected_vertex = -1
-			dragging = false
-
-		if event is InputEventMouseMotion:
-			if mesh.selected_vertex != -1 and Input.is_action_pressed("lmb"):
-				dragging = true
-				deform_vertex(mesh.selected_vertex, event.relative)
+	if !mesh.editable:
+		return
+	var _mouse_pos := mesh.get_local_mouse_position()
+	match editor_mode:
+		EditorMode.DEFORM:
+			if event is InputEventMouseButton:
+				if event.button_index == MOUSE_BUTTON_LEFT:
+					if event.pressed:
+						mesh.selected_vertex = pick_vertex()
+						dragging = mesh.selected_vertex != -1
+					else:
+						if dragging:
+							save_deformation_3x3(deformed_layer.duplicate())
+						mesh.selected_vertex = -1
+						dragging = false
+			elif event is InputEventMouseMotion:
+				if dragging and mesh.selected_vertex != -1 and Input.is_action_pressed("lmb"):
+					deform_vertex(mesh.selected_vertex, event.relative)
+	queue_redraw()
+	mesh.queue_redraw()
 
 func deform_vertex(index: int, drag: Vector2):
 	if mesh == null or index < 0:
@@ -178,17 +189,25 @@ func deform_vertex(index: int, drag: Vector2):
 				var delta = offset - (vertices_ref[i] - origin_pos)
 				vertices_ref[i] += delta
 				deformed_layer[i] += delta
+				
 			2:
-				var dir = (vertices_ref[i] - origin_pos).normalized()
-				var delta = dir * influence 
+				var angle = drag.length() * 0.005 * influence 
+				var offset = vertices_ref[i] - origin_pos
+				offset = offset.rotated(-angle)
+				var delta = offset - (vertices_ref[i] - origin_pos)
 				vertices_ref[i] += delta
 				deformed_layer[i] += delta
 			3:
 				var dir = (vertices_ref[i] - origin_pos).normalized()
-				var delta = -dir * influence
+				var delta = dir * influence 
 				vertices_ref[i] += delta
 				deformed_layer[i] += delta
 			4:
+				var dir = (vertices_ref[i] - origin_pos).normalized()
+				var delta = -dir * influence
+				vertices_ref[i] += delta
+				deformed_layer[i] += delta
+			5:
 				var original_pos = mesh.original_vertices[i]
 				var delta = (original_pos - vertices_ref[i]) * influence * 0.25
 				vertices_ref[i] += delta
@@ -197,6 +216,18 @@ func deform_vertex(index: int, drag: Vector2):
 	mesh.deformed_vertices = vertices_ref.duplicate()
 	mesh.queue_redraw()
 	queue_redraw()
+
+func pick_vertex() -> int:
+	var mouse_pos = mesh.get_local_mouse_position()
+	var best := -1
+	var best_d := influence_radius
+	for i in mesh.interpolated_vertices.size():
+		var p = mesh.interpolated_vertices[i] - mesh.texture.get_size() / 2
+		var d = p.distance_to(mouse_pos)
+		if d < best_d:
+			best_d = d
+			best = i
+	return best
 
 func save_deformation_3x3(_delta):
 	if mesh == null or !is_instance_valid(mesh):

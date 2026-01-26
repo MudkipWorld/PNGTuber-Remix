@@ -87,17 +87,40 @@ text = "Brush"
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 5
+allow_reselect = true
+item_count = 6
 popup/item_0/text = "Default"
 popup/item_0/id = 0
-popup/item_1/text = "Rotation"
+popup/item_1/text = "Rotation (CW)"
 popup/item_1/id = 1
-popup/item_2/text = "Inflate"
+popup/item_2/text = "Rotation (CCW)"
 popup/item_2/id = 2
-popup/item_3/text = "Deflate"
+popup/item_3/text = "Inflate"
 popup/item_3/id = 3
-popup/item_4/text = "Restore"
+popup/item_4/text = "Deflate"
 popup/item_4/id = 4
+popup/item_5/text = "Restore"
+popup/item_5/id = 5
+
+[node name="Label4" type="Label" parent="VBoxContainer/GridContainer4" unique_id=766671556]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit Type"
+
+[node name="EditType" type="OptionButton" parent="VBoxContainer/GridContainer4" unique_id=1892740738]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Deform"
+popup/item_0/id = 0
+popup/item_1/text = "Glue"
+popup/item_1/id = 1
+popup/item_2/text = "Warp"
+popup/item_2/id = 2
 
 [node name="FollowWobble" type="CheckBox" parent="VBoxContainer/GridContainer4" unique_id=1851026739]
 unique_name_in_owner = true
@@ -117,6 +140,70 @@ text = "TR_FOLLOW_MOVEMENT"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer" unique_id=447921620]
+visible = false
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="VBoxContainer" unique_id=1913765614]
+visible = false
+layout_mode = 2
+text = "Groups"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=269732185]
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="AddGlue" type="Button" parent="VBoxContainer/GridContainer" unique_id=1509678525]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Add Glue"
+
+[node name="DeleteGlue" type="Button" parent="VBoxContainer/GridContainer" unique_id=1531174567]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Delete Glue"
+
+[node name="AddWarp" type="Button" parent="VBoxContainer/GridContainer" unique_id=269983308]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Add Warp"
+
+[node name="DeleteWarp" type="Button" parent="VBoxContainer/GridContainer" unique_id=1848206246]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Delete Warp"
+
+[node name="Label15" type="Label" parent="VBoxContainer/GridContainer" unique_id=1129379617]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Glue Group :"
+
+[node name="SelectedGlue" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=495044512]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+allow_reselect = true
+
+[node name="Label16" type="Label" parent="VBoxContainer/GridContainer" unique_id=616092621]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Warp Group :"
+
+[node name="SelectedWarp" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=1542929827]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+allow_reselect = true
 
 [node name="HSeparator3" type="HSeparator" parent="VBoxContainer" unique_id=332845945]
 layout_mode = 2
@@ -551,8 +638,15 @@ value = 1.0
 [connection signal="value_changed" from="VBoxContainer/GridContainer4/InfluRad" to="MeshGenScript" method="_on_influ_rad_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer4/InfluStrength" to="MeshGenScript" method="_on_influ_strength_value_changed"]
 [connection signal="item_selected" from="VBoxContainer/GridContainer4/BrushType" to="MeshLayerManager" method="_on_brush_type_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer4/EditType" to="MeshLayerManager" method="_on_edit_type_item_selected"]
 [connection signal="toggled" from="VBoxContainer/GridContainer4/FollowWobble" to="MeshGenScript" method="_on_follow_wobble_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer4/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/AddGlue" to="MeshLayerManager" method="_on_add_glue_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/DeleteGlue" to="MeshLayerManager" method="_on_delete_glue_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/AddWarp" to="MeshLayerManager" method="_on_add_warp_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/DeleteWarp" to="MeshLayerManager" method="_on_delete_warp_pressed"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/SelectedGlue" to="MeshLayerManager" method="_on_selected_glue_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/SelectedWarp" to="MeshLayerManager" method="_on_selected_warp_item_selected"]
 [connection signal="pressed" from="VBoxContainer/GridContainer5/AddLayer" to="MeshLayerManager" method="_on_add_layer_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer5/DeleteLayer" to="MeshLayerManager" method="_on_delete_layer_pressed"]
 [connection signal="item_selected" from="VBoxContainer/GridContainer5/SelectedLayer" to="MeshLayerManager" method="_on_selected_layer_item_selected"]
