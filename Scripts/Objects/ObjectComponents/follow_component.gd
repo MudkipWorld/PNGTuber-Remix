@@ -107,6 +107,14 @@ func update_controller_inputs() -> void:
 	axis_shoulderr = Input.get_vector("ShoulderL2", "ShoulderR2", "ShoulderL2", "ShoulderR2")
 	axis_lr_3 = Input.get_vector("L3", "R3", "L3", "R3")
 
+
+#Guuvita, look here, also before you send a message, i hate this function so much.... i need to find a better way..
+#mouse_pos_min = 0
+#mouse_pos_max = 0
+#mouse_pos_y_min = 0
+#mouse_pos_y_max = 0
+
+
 func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	if actor.get_value("follow_type") == 15:
 		target_pos = Vector2.ZERO

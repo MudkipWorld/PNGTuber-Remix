@@ -88,19 +88,19 @@ func set_data():
 		for i in Global.held_sprites[0].mesh.get_layer_count():
 			%SelectedLayer.add_item(str(i))
 		
-	%SelectedLayer.select(Global.selected_mesh_inx)
-	if Global.held_sprites[0].mesh.glues.size() > 0:
-		var selected_glue : GlueGroup = Global.held_sprites[0].mesh.glues[0]
-		%SelectedGlue.select(%SelectedGlue.get_item_index(selected_glue.id))
-	else:
-		%SelectedGlue.select(-1)
-		
-	if Global.held_sprites[0].mesh.warps.size() > 0:
-		var selected_warp : DeformLayer = Global.held_sprites[0].mesh.warps[0]
-		%SelectedWarp.select(%SelectedWarp.get_item_index(selected_warp.id))
-		MeshEditor.active_warp = selected_warp
-	else:
-		%SelectedWarp.select(-1)
+		%SelectedLayer.select(Global.selected_mesh_inx)
+		if Global.held_sprites[0].mesh.glues.size() > 0:
+			var selected_glue : GlueGroup = Global.held_sprites[0].mesh.glues[0]
+			%SelectedGlue.select(%SelectedGlue.get_item_index(selected_glue.id))
+		else:
+			%SelectedGlue.select(-1)
+			
+		if Global.held_sprites[0].mesh.warps.size() > 0:
+			var selected_warp : DeformLayer = Global.held_sprites[0].mesh.warps[0]
+			%SelectedWarp.select(%SelectedWarp.get_item_index(selected_warp.id))
+			MeshEditor.active_warp = selected_warp
+		else:
+			%SelectedWarp.select(-1)
 	
 	should_change = true
 
@@ -413,7 +413,7 @@ func _on_add_warp_pressed() -> void:
 	%SelectedWarp.add_item("None")
 	var index : int = 1
 	w.id = randi()
-	initialize_deform_layer_grid(w, Vector2.ZERO, 3)
+	initialize_deform_layer_grid(w, Vector2.ZERO, 100)
 	for i in CustomMesh.get_warp_groups():
 		%SelectedWarp.add_item("New Warp")
 		%SelectedWarp.set_item_id(index, i.id)
