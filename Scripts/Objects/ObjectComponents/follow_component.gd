@@ -107,6 +107,7 @@ func update_controller_inputs() -> void:
 	axis_shoulderr = Input.get_vector("ShoulderL2", "ShoulderR2", "ShoulderL2", "ShoulderR2")
 	axis_lr_3 = Input.get_vector("L3", "R3", "L3", "R3")
 
+
 func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	if actor.get_value("follow_type") == 15:
 		target_pos = Vector2.ZERO
@@ -171,7 +172,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		else:
 			target_pos = target_pos.lerp(keyboard_axis * Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y")), actor.get_value("mouse_delay"))
 			current_dir = keyboard_axis
-		current_dist = target_pos.length()
+		
 
 	elif follow_type == 17 and Tracker.working:
 		var clamped_x: float = 0.0
@@ -215,7 +216,8 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			target_y = lerp(target_y, target_pos.y, actor.get_value("mouse_delay"))
 		target_pos = Vector2(target_x, target_y)
 
-	if actor.sprite_type == "Sprite2D" and actor.get_value("non_animated_sheet") and actor.get_value("animate_to_mouse"):
+	current_dist = target_pos.length()
+	if actor.sprite_type == "Sprite2D" && actor.get_value("animate_to_mouse"):
 		update_sprite_animation(current_dir, current_dist, _delta)
 		if not actor.get_value("animate_to_mouse_track_pos"):
 			modifier.position.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.position.x, 0.0, actor.get_value("mouse_delay")))
@@ -242,7 +244,8 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 			target_rot = lerp(target_rot, follow_controller_rotation(keyboard_axis), 0.15)
 		else:
 			target_rot = follow_controller_rotation(keyboard_axis)
-	if follow_type2 == 0:
+
+	elif follow_type2 == 0:
 		if actor.get_value("follow_mouse_velocity"):
 			follow_mouse_vel_rotation()
 		else:
@@ -417,7 +420,7 @@ func follow_mouse_vel_scale():
 	modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_scale_y, actor.get_value("mouse_delay")), true)
 
 func update_sprite_animation(dir: Vector2, dist: float, _delta: float) -> void:
-	if actor.sprite_type != "Sprite2D" or not actor.get_value("non_animated_sheet") or not actor.get_value("animate_to_mouse"):
+	if actor.sprite_type != "Sprite2D":
 		return
 
 	var dist_x = dir.x * min(dist, actor.get_value("look_at_mouse_pos"))
