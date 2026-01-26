@@ -485,32 +485,6 @@ step = 0.01
 value_to_update = "look_at_mouse_pos"
 has_alt_values = true
 
-[node name="FMxMinBSlider" parent="VBoxContainer" unique_id=2035555829 instance=ExtResource("1_h5u6y")]
-unique_name_in_owner = true
-layout_mode = 2
-sp_type = ""
-label_text = "Range X Min"
-mini_value = -5000.0
-max_value = 5000.0
-step = 0.01
-value_to_update = "mouse_pos_min"
-has_alt_values = true
-
-[node name="FMxMaxBSlider" parent="VBoxContainer" unique_id=1047947311 instance=ExtResource("1_h5u6y")]
-unique_name_in_owner = true
-layout_mode = 2
-sp_type = ""
-label_text = "Range X Min"
-mini_value = -5000.0
-max_value = 5000.0
-step = 0.01
-value_to_update = "mouse_pos_max"
-has_alt_values = true
-
-[node name="Sp6" type="HSeparator" parent="VBoxContainer" unique_id=2118034896]
-layout_mode = 2
-theme_override_constants/separation = 5
-
 [node name="FMYBSlider" parent="VBoxContainer" unique_id=1837290219 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -520,28 +494,6 @@ mini_value = -5000.0
 max_value = 5000.0
 step = 0.01
 value_to_update = "look_at_mouse_pos_y"
-has_alt_values = true
-
-[node name="FMyMinBSlider" parent="VBoxContainer" unique_id=791197986 instance=ExtResource("1_h5u6y")]
-unique_name_in_owner = true
-layout_mode = 2
-sp_type = ""
-label_text = "Range X Min"
-mini_value = -5000.0
-max_value = 5000.0
-step = 0.01
-value_to_update = "mouse_pos_y_min"
-has_alt_values = true
-
-[node name="FMyMaxBSlider" parent="VBoxContainer" unique_id=1249004195 instance=ExtResource("1_h5u6y")]
-unique_name_in_owner = true
-layout_mode = 2
-sp_type = ""
-label_text = "Range X Min"
-mini_value = -5000.0
-max_value = 5000.0
-step = 0.01
-value_to_update = "mouse_pos_y_max"
 has_alt_values = true
 
 [node name="Sp8" type="HSeparator" parent="VBoxContainer" unique_id=1848555462]
