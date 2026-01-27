@@ -257,6 +257,22 @@ popup/item_5/id = 5
 popup/item_6/text = "TR_BLEND_CURSED"
 popup/item_6/id = 6
 
+[node name="IKTargetLabel" type="Label" parent="VBoxContainer/Visibilty" unique_id=520810944]
+visible = false
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "IK Target :"
+
+[node name="IKTarget" type="OptionButton" parent="VBoxContainer/Visibilty" unique_id=1899884928]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+allow_reselect = true
+
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1710119569]
 layout_mode = 2
 
@@ -421,6 +437,7 @@ value_to_update = "hidden_item"
 [connection signal="focus_entered" from="VBoxContainer/Visibilty/ColorPickerButton" to="PropertiesScript" method="_on_color_picker_button_focus_entered"]
 [connection signal="focus_exited" from="VBoxContainer/Visibilty/ColorPickerButton" to="PropertiesScript" method="_on_color_picker_button_focus_exited"]
 [connection signal="color_changed" from="VBoxContainer/Visibilty/TintPickerButton" to="PropertiesScript" method="_on_tint_picker_button_color_changed"]
+[connection signal="item_selected" from="VBoxContainer/Visibilty/IKTarget" to="PropertiesScript" method="_on_ik_target_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/Reactions/EyeOption" to="PropertiesScript" method="_on_eye_option_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/Reactions/MouthOption" to="PropertiesScript" method="_on_mouth_option_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/GridContainer/RestModeOption" to="PropertiesScript" method="_on_rest_mode_option_item_selected"]

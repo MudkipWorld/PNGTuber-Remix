@@ -220,11 +220,12 @@ var selected : bool = false
 
 var drag_offsets = {} 
 
+var anchor_offset : Vector2 = Vector2.ZERO
+
+var target_ik : SpriteObject = null
 
 func get_default_object_data() -> Dictionary:
 	return {}
-
-
 
 func does_value_match_default(value: Variant, key: String) -> bool:
 	if value is float:

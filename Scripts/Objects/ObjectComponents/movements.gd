@@ -42,6 +42,8 @@ var shadow_target : Vector2 = Vector2.ZERO
 
 var last_modifier_position : Vector2 = Vector2.ZERO
 
+var target_strength : float = 0.5
+
 func _ready() -> void:
 	placeholder_position = actor.global_position
 	applied_pos = placeholder_position
@@ -136,7 +138,8 @@ func static_prev() -> void:
 	sprite_node.self_modulate = actor.get_value("tint")
 	modifier_node.z_index = 0
 
-func movements(delta : float) -> void:
+func movements(delta: float) -> void:
+	apply_recursive_look_at_ik(actor, 1.0)
 	glob = shadow_dragger
 	wobble(delta)
 	drag()
@@ -144,10 +147,38 @@ func movements(delta : float) -> void:
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
-	var length : float = l.length() * (l_norm.x - abs(l_norm.y))
+	var length : float = l_norm.length() * (l.x - l.y)
 	length = add_parent_physics(length)
-	rotational_drag(length, delta)
 	stretch(length)
+	rotational_drag(length, delta)
+
+func apply_recursive_look_at_ik(actor_node: SpriteObject, blend: float = 1.0) -> void:
+	if actor_node == null or not is_instance_valid(actor_node):
+		return
+
+	if actor_node.target_ik != null and is_instance_valid(actor_node.target_ik):
+		var root = actor_node.get_node("%Modifier")
+		var target = actor_node.target_ik.get_node("%Modifier")
+		if root != null and target != null:
+			var target_pos = target.global_position + actor_node.target_ik.anchor_offset
+			apply_look_at_ik(target_pos, actor_node.target_ik)
+
+	if actor_node.has_node("%Sprite2D"):
+		var sprite_root = actor_node.get_node("%Sprite2D")
+		for child in sprite_root.get_children():
+			if child is SpriteObject and is_instance_valid(child):
+				apply_recursive_look_at_ik(child, blend)
+
+
+func apply_look_at_ik( target_pos: Vector2, ik : SpriteObject) -> void:
+	var add = target_pos
+	var target_angle_global = wrap(add.angle(), PI, -PI)
+	var blend : float = 1.0
+	var parent_global_rot = 0.0
+	parent_global_rot = ik.get_node("%Modifier").global_rotation
+	var target_angle_local = target_angle_global - parent_global_rot
+	applied_rotation = lerp_angle(applied_rotation, target_angle_local, blend)
+
 
 func rest_mode_movements(delta : float) -> void:
 	glob = shadow_dragger
@@ -155,7 +186,9 @@ func rest_mode_movements(delta : float) -> void:
 	if not actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 
-	var length : float = (glob - shadow_dragger).x + (glob - shadow_dragger).y
+	var l = Vector2(glob - shadow_dragger)
+	var l_norm = l.normalized()
+	var length : float = l_norm.length() * (l.x - l.y)
 	length = add_parent_physics(length)
 	rotational_drag(length, delta)
 	stretch(length)
@@ -219,7 +252,7 @@ func rotational_drag(length, delta: float):
 	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)*0.5
+	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.5
 	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
 	modifier1_node.scale = modifier1_node.scale.lerp(target, 0.15)
 
