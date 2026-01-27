@@ -19,3 +19,8 @@ func auto_load_model():
 		if FileAccess.file_exists(Settings.theme_settings.path):
 			await get_tree().create_timer(0.1).timeout
 			SaveAndLoad.load_file(Settings.theme_settings.path)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		get_tree().quit()
+		OS.kill(OS.get_process_id())

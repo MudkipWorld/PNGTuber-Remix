@@ -143,7 +143,8 @@ func movements(delta : float) -> void:
 	if not actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
-	var length : float = l.length() * (l.normalized().x - l.normalized().y)
+	var l_norm = l.normalized()
+	var length : float = l.length() * (l_norm.x - abs(l_norm.y))
 	length = add_parent_physics(length)
 	rotational_drag(length, delta)
 	stretch(length)
