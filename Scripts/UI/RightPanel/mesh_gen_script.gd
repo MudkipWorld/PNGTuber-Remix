@@ -202,3 +202,7 @@ func _on_generate_mesh_6_pressed() -> void:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
 				i.get_node("%MeshEditor").reset_point()
+
+
+func _on_smooth_iterations_value_changed(value: float) -> void:
+	MeshEditor.smooth_interations = int(value)

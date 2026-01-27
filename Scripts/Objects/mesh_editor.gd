@@ -25,6 +25,7 @@ static var radial_spacing : float = 35
 static var threshold = 0.1
 static var internal_point_count : int = 50
 static var eplision : float = 1
+static var smooth_interations : int = 2
 static var merge_close : float = 25
 static var flip_x: bool = false
 static var flip_y: bool = false
@@ -512,7 +513,7 @@ func _generate_mesh_from_texture(tex: Texture2D) -> void:
 		return
 	var base_vertices: Array = []
 	for poly in polys:
-		var smoothed = smooth_and_even_poly(poly, 2)
+		var smoothed = smooth_and_even_poly(poly, smooth_interations)
 		smoothed = merge_close_points(smoothed, merge_close)
 		if outer_padding:
 			smoothed = add_outer_padding(smoothed)

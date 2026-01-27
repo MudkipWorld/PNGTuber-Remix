@@ -70,7 +70,6 @@ func check_data():
 		%BackendOption.set_item_disabled(2, true)
 		%BackendOption.select(0)
 		
-		
 	match Settings.theme_settings.backend_type:
 		"default":
 			%BackendOption.select(0)

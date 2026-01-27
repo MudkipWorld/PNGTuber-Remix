@@ -25,6 +25,7 @@ func save_data():
 		if !Settings.theme_settings.save_unused_files:
 			var used : bool = false
 			for sp in sprites:
+				if sp == null or !is_instance_valid(sp): continue
 				if sp.used_image_id == i.id or sp.used_image_id_normal == i.id:
 					used = true
 					break

@@ -182,6 +182,7 @@ text = "Layer :"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+allow_reselect = true
 
 [node name="Label16" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1435018538]
 layout_mode = 2
@@ -501,7 +502,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 10.0
-max_value = 200.0
+max_value = 1000.0
 value = 10.0
 
 [node name="Label2" type="Label" parent="VBoxContainer/GridContainer2" unique_id=1289304132]
@@ -574,6 +575,19 @@ min_value = 1.0
 step = 0.1
 value = 1.0
 
+[node name="Label7" type="Label" parent="VBoxContainer/GridContainer2" unique_id=536891163]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Smooth Iterations :"
+
+[node name="SmoothIterations" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=1813395834]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+value = 2.0
+
 [connection signal="toggled" from="VBoxContainer/GridContainer4/DeformMode" to="MeshGenScript" method="_on_deform_mode_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer4/WebMode" to="MeshGenScript" method="_on_web_mode_toggled"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer4/InfluRad" to="MeshGenScript" method="_on_influ_rad_value_changed"]
@@ -617,3 +631,4 @@ value = 1.0
 [connection signal="value_changed" from="VBoxContainer/GridContainer2/InternalPoints" to="MeshGenScript" method="_on_internal_points_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer2/Eplision" to="MeshGenScript" method="_on_eplision_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer2/MergeClose" to="MeshGenScript" method="_on_merge_close_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer2/SmoothIterations" to="MeshGenScript" method="_on_smooth_iterations_value_changed"]
