@@ -158,12 +158,14 @@ func _on_add_mesh_pressed() -> void:
 	sprte_obj.referenced_data = held_image_data
 	sprte_obj.sprite_name = "(Mesh)" + held_image_data.image_name 
 	sprte_obj.sprite_type = "Mesh"
+	sprte_obj.get_node("%Sprite2D").set_mesh_id(sprte_obj.sprite_id)
 	var states = get_tree().get_nodes_in_group("StateButtons").size()
 	for i in states:
 		sprte_obj.states.append({})
 	Global.update_layers.emit(0, sprte_obj, "Mesh")
 	sprte_obj.sprite_id = sprte_obj.get_instance_id()
 	sprte_obj.get_node("%MeshEditor").regenerate_mesh()
+	%MeshLayerManager.populate_targets()
 
 func _on_tri_grid_toggled(toggled_on: bool) -> void:
 	MeshEditor.tri_grid = toggled_on

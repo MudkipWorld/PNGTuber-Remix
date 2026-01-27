@@ -2,6 +2,7 @@ extends SpriteObject
 
 @export var mesh : CustomMesh
 
+
 func get_default_object_data() -> Dictionary:
 	return {
 		move_with_wobble = true,
@@ -14,7 +15,6 @@ func _init() -> void:
 	sprite_data = cached_defaults.duplicate(true)
 
 func _ready():
-	sprite_type = "Sprite2D"
 	Global.image_replaced.connect(image_replaced)
 	Global.reparent_objects.connect(reparent_obj)
 	og_glob = get_value("position")

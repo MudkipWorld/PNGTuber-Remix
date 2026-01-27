@@ -54,10 +54,8 @@ func deform_global_layer(layer: DeformLayer, drag: Vector2, mouse_pos: Vector2):
 		var points = layer.get(grid_name)
 		if points.is_empty():
 			continue
-
-		# Deform only points within influence radius of the mouse
 		for i in range(points.size()):
-			var dist = points[i].distance_to(mouse_pos)  # distance from mouse, not origin
+			var dist = points[i].distance_to(mouse_pos) 
 			if dist > MeshEditor.influence_radius:
 				continue
 

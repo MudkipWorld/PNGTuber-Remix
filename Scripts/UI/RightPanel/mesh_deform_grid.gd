@@ -2,8 +2,8 @@ extends Control
 
 var enabled: bool = true
 var dragging: bool = false
-var deform_x = 0.0
-var deform_y = 0.0
+static var deform_x = 0.0
+static var deform_y = 0.0
 
 func enable():
 	var _disable: bool = false

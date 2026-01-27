@@ -90,6 +90,7 @@ func save_data():
 			"original_vertices": PackedVector2Array(mesh.original_vertices),
 			"internal_vertices": PackedVector2Array(mesh.internal_vertices),
 			"base_vertices": PackedVector2Array(mesh.base_vertices),
+			"warps" : mesh.warps,
 			"triangles": mesh.triangles,
 			"states": cleaned_array,
 			"deform_layers" : saved_layers,
@@ -508,14 +509,13 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 				
 		mesh.deform_x = 0.5
 		mesh.deform_y = 0.5
-		
-
 		mesh.interpolated_vertices.clear()
 		mesh.deformed_vertices = mesh.original_vertices.duplicate()
 		mesh.sync_deformation_arrays()
-
 	Global.sprite_container.add_child(sprite_obj)
 	sprite_obj.sprite_type = "Mesh"
+	sprite_obj.get_node("%Sprite2D").set_mesh_id(sprite.sprite_id)
+	sprite_obj.get_node("%Sprite2D").warps = sprite.get("warps", [])
 
 func _make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> PackedVector2Array:
 	var delta := PackedVector2Array()
