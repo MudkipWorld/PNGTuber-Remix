@@ -108,8 +108,6 @@ func _on_stiffnessx_value_changed(value: float) -> void:
 		if i != null && is_instance_valid(i):
 			if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 				continue
-
-			
 			var layer : DeformLayer = i.mesh.get_layer(Global.selected_mesh_inx)
 			if layer != null && is_instance_valid(layer):
 				var d = {
@@ -405,6 +403,6 @@ func _on_selected_warp_item_selected(index: int) -> void:
 			if i.sprite_type == "Mesh":
 				var id = %SelectedWarp.get_item_id(index)
 				if id == -1:
-					i.get_node("%Sprite2D").warps = []
+					i.get_node("%Sprite2D").warps.clear()
 				else:
 					i.get_node("%Sprite2D").warps = [id]
