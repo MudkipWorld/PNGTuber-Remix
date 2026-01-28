@@ -52,11 +52,10 @@ signal delete_image
 signal remake_image_manager
 signal show_model_warning
 
+signal dev_mode
+
 # Remix version
 @onready var version: String = ProjectSettings.get_setting("application/config/version")
-
-
-
 
 var blink_timer : Timer = Timer.new()
 var held_sprite = null

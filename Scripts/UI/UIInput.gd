@@ -9,6 +9,12 @@ func _ready():
 	Global.connect("reinfo", reinfo)
 	Global.deselect.connect(held_sprite_is_null)
 	Global.show_model_warning.connect(show_model_warning)
+	Global.dev_mode.connect(check_dev_mode)
+
+func check_dev_mode(check : bool = false):
+	%Inspector.set_tab_hidden(6, !check)
+	%Inspector.set_tab_hidden(7, !check)
+	%Inspector.set_tab_hidden(8, !check)
 
 func show_model_warning(_warn : bool):
 	%ModelSizeWarning.visible = _warn

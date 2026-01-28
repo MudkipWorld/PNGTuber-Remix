@@ -233,6 +233,8 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
+split_offsets = PackedInt32Array(-113)
+split_offset = -113
 
 [node name="Inspector" type="TabContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" unique_id=1099070921]
 unique_name_in_owner = true
@@ -245,6 +247,9 @@ theme_override_font_sizes/font_size = 13
 current_tab = 0
 switch_on_drag_hover = false
 tab_focus_mode = 0
+tab_6/hidden = true
+tab_7/hidden = true
+tab_8/hidden = true
 
 [node name="Properties" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 light_mask = 0

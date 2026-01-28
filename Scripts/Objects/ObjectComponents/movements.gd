@@ -43,8 +43,12 @@ var shadow_target : Vector2 = Vector2.ZERO
 var last_modifier_position : Vector2 = Vector2.ZERO
 
 var target_strength : float = 0.5
+var ik_smoothed_rot: float = 0.0
+
+var ik_angular_velocity := 0.0
 
 func _ready() -> void:
+	
 	placeholder_position = actor.global_position
 	applied_pos = placeholder_position
 	shadow_dragger = placeholder_position
@@ -53,6 +57,7 @@ func _ready() -> void:
 		parent_movements = parent_node.get_node("%Movements")
 	rdrag_rad = deg_to_rad(actor.get_value("rdragStr"))
 	await get_tree().create_timer(0.025).timeout
+	ik_smoothed_rot = modifier1_node.global_rotation
 	last_modifier_position = sprite_node.global_position
 
 func _physics_process(delta: float) -> void:
@@ -139,7 +144,7 @@ func static_prev() -> void:
 	modifier_node.z_index = 0
 
 func movements(delta: float) -> void:
-	apply_recursive_look_at_ik(actor, 1.0)
+	apply_recursive_look_at_ik(actor)
 	glob = shadow_dragger
 	wobble(delta)
 	drag()
@@ -152,32 +157,29 @@ func movements(delta: float) -> void:
 	stretch(length)
 	rotational_drag(length, delta)
 
-func apply_recursive_look_at_ik(actor_node: SpriteObject, blend: float = 1.0) -> void:
+func apply_recursive_look_at_ik(actor_node: SpriteObject) -> void:
 	if actor_node == null or not is_instance_valid(actor_node):
 		return
-
 	if actor_node.target_ik != null and is_instance_valid(actor_node.target_ik):
-		var root = actor_node.get_node("%Modifier")
-		var target = actor_node.target_ik.get_node("%Modifier")
+		var root = actor_node.get_node("%Modifier1")
+		var target = actor_node.target_ik.get_node("%Modifier1")
 		if root != null and target != null:
-			var target_pos = target.global_position + actor_node.target_ik.anchor_offset
-			apply_look_at_ik(target_pos, actor_node.target_ik)
+			var target_pos: Vector2 = Vector2(target.global_position - root.global_position).normalized()
+			apply_look_at_ik(target_pos)
 
-	if actor_node.has_node("%Sprite2D"):
-		var sprite_root = actor_node.get_node("%Sprite2D")
-		for child in sprite_root.get_children():
-			if child is SpriteObject and is_instance_valid(child):
-				apply_recursive_look_at_ik(child, blend)
-
-
-func apply_look_at_ik( target_pos: Vector2, ik : SpriteObject) -> void:
-	var add = target_pos
-	var target_angle_global = wrap(add.angle(), PI, -PI)
-	var blend : float = 1.0
-	var parent_global_rot = 0.0
-	parent_global_rot = ik.get_node("%Modifier").global_rotation
-	var target_angle_local = target_angle_global - parent_global_rot
-	applied_rotation = lerp_angle(applied_rotation, target_angle_local, blend)
+func apply_look_at_ik(to_target: Vector2) -> void:
+	var dist := to_target.length()
+	if dist < 0.05:
+		return
+	var dir := to_target / dist
+	var target_angle := dir.angle()
+	var distance_blend := smoothstep(0.1, 0.5, dist)
+	var lerp_amount := 0.25 * distance_blend 
+	var angle_delta := wrapf(target_angle - ik_smoothed_rot, -PI, PI)
+	if abs(angle_delta) < 0.001:
+		return
+	ik_smoothed_rot = wrapf(ik_smoothed_rot + angle_delta * lerp_amount, -PI, PI)
+	modifier1_node.global_rotation = ik_smoothed_rot
 
 
 func rest_mode_movements(delta : float) -> void:

@@ -59,7 +59,7 @@ sprite_object = NodePath("Modifier1/Modifier/Sprite2D")
 grab_object = NodePath("Modifier1/Modifier/Sprite2D/Grab")
 sprite_type = "Sprite2D"
 
-[node name="Sprite2D" type="Sprite2D" parent="Modifier1/Modifier" index="1" unique_id=1664576755]
+[node name="Sprite2D" type="Sprite2D" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=1664576755]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 material = SubResource("ShaderMaterial_4cvp6")
@@ -102,13 +102,13 @@ z_index = 4096
 z_as_relative = false
 texture = ExtResource("2_1i6gu")
 
-[node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor")]
+[node name="FollowComponent" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="Movements" parent="." index="5" node_paths=PackedStringArray("actor")]
+[node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
+[node name="AnimatedSpriteTexture" parent="." index="6" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
 sprite_node = NodePath("../Modifier1/Modifier/Sprite2D")
 
 [connection signal="timeout" from="Animation" to="." method="animation"]

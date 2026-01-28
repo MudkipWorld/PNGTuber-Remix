@@ -478,22 +478,44 @@ theme_override_constants/separation = 5
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
-label_text = "TR_FM_RANGE_X"
-mini_value = -5000.0
-max_value = 5000.0
+label_text = "Range X Min"
+mini_value = -4000.0
 step = 0.01
-value_to_update = "look_at_mouse_pos"
+value_to_update = "pos_x_min"
 has_alt_values = true
+
+[node name="FMxBSlider2" parent="VBoxContainer" unique_id=821130948 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Range X Max"
+max_value = 4000.0
+step = 0.01
+value_to_update = "pos_x_max"
+has_alt_values = true
+
+[node name="Sp11" type="HSeparator" parent="VBoxContainer" unique_id=608738752]
+layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="FMYBSlider" parent="VBoxContainer" unique_id=1837290219 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
-label_text = "TR_FM_RANGE_Y"
-mini_value = -5000.0
-max_value = 5000.0
+label_text = "Range Y Min"
+mini_value = -4000.0
 step = 0.01
-value_to_update = "look_at_mouse_pos_y"
+value_to_update = "pos_y_min"
+has_alt_values = true
+
+[node name="FMYBSlider2" parent="VBoxContainer" unique_id=409881856 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Range Y Max"
+max_value = 4000.0
+step = 0.01
+value_to_update = "pos_y_max"
 has_alt_values = true
 
 [node name="Sp8" type="HSeparator" parent="VBoxContainer" unique_id=1848555462]
@@ -509,7 +531,7 @@ label_text = "TR_FM_MIN_ROT"
 mini_value = -5.0
 max_value = 5.0
 step = 0.001
-value_to_update = "mouse_rotation"
+value_to_update = "rot_min"
 has_alt_values = true
 
 [node name="RMBSliderMax" parent="VBoxContainer" unique_id=1833691123 instance=ExtResource("1_h5u6y")]
@@ -521,7 +543,7 @@ label_text = "TR_FM_MAX_ROT"
 mini_value = -5.0
 max_value = 5.0
 step = 0.001
-value_to_update = "mouse_rotation_max"
+value_to_update = "rot_max"
 has_alt_values = true
 
 [node name="Sp9" type="HSeparator" parent="VBoxContainer" unique_id=527670951]
@@ -532,30 +554,105 @@ theme_override_constants/separation = 5
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
-label_text = "TR_FM_MAX_SQUISH_X"
+label_text = "Scale X Min"
+mini_value = -1.0
+step = 0.001
+value_to_update = "scale_x_min"
+has_alt_values = true
+
+[node name="SMXBSlider2" parent="VBoxContainer" unique_id=244348594 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Scale X Max"
 max_value = 1.0
 step = 0.001
-value_to_update = "mouse_scale_x"
+value_to_update = "scale_x_max"
 has_alt_values = true
+
+[node name="Sp10" type="HSeparator" parent="VBoxContainer" unique_id=344714167]
+layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="SMYBSlider" parent="VBoxContainer" unique_id=431025096 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
-label_text = "TR_FM_MAX_SQUISH_Y"
+label_text = "Scale Y Min"
+mini_value = -1.0
+step = 0.001
+value_to_update = "scale_y_min"
+has_alt_values = true
+
+[node name="SMYBSlider2" parent="VBoxContainer" unique_id=580154419 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "Scale X Max"
 max_value = 1.0
 step = 0.001
-value_to_update = "mouse_scale_y"
+value_to_update = "scale_y_max"
 has_alt_values = true
 
 [node name="Grid" type="GridContainer" parent="VBoxContainer" unique_id=783457870]
 layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
 columns = 2
+
+[node name="Swap" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1794916593]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "Swap Pos X"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "pos_swap_x"
+
+[node name="Swap2" type="CheckBox" parent="VBoxContainer/Grid" unique_id=345199797]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "Swap Pos Y"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "pos_swap_y"
+
+[node name="Swap3" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1231065094]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "Swap Scale X"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "scale_swap_x"
+
+[node name="Swap4" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1573660964]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "Swap Scale Y"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "scale_swap_y"
 
 [node name="ShouldSnap" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1792140686]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
 theme_override_font_sizes/font_size = 14
 text = "TR_POSITION_SNAP_BUTTON"
@@ -567,6 +664,7 @@ value_to_update = "snap_pos"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
 theme_override_font_sizes/font_size = 14
 text = "TR_SNAP_ROT"
@@ -578,6 +676,7 @@ value_to_update = "snap_rot"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "TR_SCL_SNAP_BUTTON_TOOLTIP"
 theme_override_font_sizes/font_size = 14
 text = "TR_SNAP_SCL"

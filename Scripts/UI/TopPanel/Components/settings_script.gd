@@ -2,7 +2,8 @@ extends Node
 
 var devices : Array = []
 var change_setting : bool = false
-# Called when the node enters the scene tree for the first time.
+var counter : int = 0
+
 func _ready() -> void:
 	%UIThemeButton.item_selected.connect(Settings._on_ui_theme_button_item_selected)
 	%UIThemeButton.select(Settings.theme_settings.theme_id)
@@ -57,6 +58,7 @@ func check_data():
 	%PhysicsTick.value = Settings.theme_settings.phys_tick_per_frame
 	%PhysicsSteps.value = Settings.theme_settings.phys_steps
 	%JitterFix.value = Settings.theme_settings.phys_jitter
+	%DevMode.button_pressed = Settings.theme_settings.dev_mode
 	
 	if OS.has_feature("linux"):
 		%BackendOption.set_item_disabled(3, false)
@@ -306,4 +308,19 @@ func _on_jitter_fix_drag_ended(value_changed: bool) -> void:
 	Settings.theme_settings.phys_jitter = %JitterFix.value
 	Engine.physics_jitter_fix = %JitterFix.value
 	Settings.save()
-	
+
+func _on_pickles_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("lmb"):
+		counter += 1
+		check_dev_mode()
+
+func check_dev_mode():
+	if counter >= 10:
+		%DevMode.show()
+		%DevWarning.show()
+
+func _on_dev_mode_toggled(toggled_on: bool) -> void:
+	if change_setting:
+		Settings.theme_settings.dev_mode = toggled_on
+		Global.dev_mode.emit(Settings.theme_settings.dev_mode)
+		Settings.save()

@@ -114,9 +114,12 @@ func save_data():
 			"rotated":sprt.rotated,
 			"flipped_h":sprt.flipped_h,
 			"flipped_v":sprt.flipped_v,
-			"rest_mode": sprt.rest_mode
+			"rest_mode": sprt.rest_mode,
+			"ik_target" : -1,
+			"updated_follow_movement" : true,
 			}
-
+			if sprt.target_ik != null && is_instance_valid(sprt.target_ik):
+				base.set("ik_target", sprt.target_ik.sprite_id)
 		else:
 			base = {
 				"states": cleaned_array,
@@ -139,8 +142,15 @@ func save_data():
 				"rotated":sprt.rotated,
 				"flipped_h":sprt.flipped_h,
 				"flipped_v":sprt.flipped_v,
-				"rest_mode": sprt.rest_mode
+				"rest_mode": sprt.rest_mode,
+				"ik_target" : -1,
+				"updated_follow_movement" : true,
+				
 			}
+			if sprt.target_ik != null && is_instance_valid(sprt.target_ik):
+				base.set("ik_target", sprt.target_ik.sprite_id)
+			
+			
 		sprites_array.append(base)
 	save_dict = {
 		"version": Global.version,
@@ -253,6 +263,8 @@ func load_model(path: String) -> void:
 
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		i.old_reposition()
+		i.reference_ik_target()
+		
 
 	Global.slider_values.emit(Global.settings_dict)
 	if Global.main.has_node("%Control"):
@@ -380,7 +392,8 @@ func set_common_data(sprite, sprite_obj):
 	sprite_obj.rest_mode = sprite.get("rest_mode", 1)
 	sprite_obj.flipped_h = sprite.get("flipped_h", false)
 	sprite_obj.flipped_v = sprite.get("flipped_v", false)
-	sprite_obj.rotated = sprite.get("", 0)
+	sprite_obj.rotated = sprite.get("rotated", 0)
+	sprite_obj.hidden_target_id_check = sprite.get("ik_target", -1)
 	if sprite.has("parent_id") and sprite.parent_id != null:
 		sprite_obj.parent_id = sprite.parent_id
 
@@ -422,6 +435,7 @@ func load_comment_block_object(_load_dict : Dictionary, sprite, sprite_obj):
 				st["offset"] *= scale
 				if st.has("position"):
 					st["position"] *= scale
+			st = updated_follow_check(sprite, st)
 			cleaned_array.append(st)
 	for st in cleaned_array:
 		var new_dict = sprite_obj.sprite_data.duplicate()
@@ -450,6 +464,7 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 				st["offset"] *= scale
 				if st.has("position"):
 					st["position"] *= scale
+			st = updated_follow_check(sprite, st)
 			cleaned_array.append(st)
 	for st in cleaned_array:
 		var new_dict = sprite_obj.sprite_data.duplicate()
@@ -585,7 +600,7 @@ func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 
 		var cleaned_array := []
 		for st in sprite.states:
-			if not st.is_empty():
+			if ! st.is_empty():
 				if import_trimmed and !Global.settings_dict.trimmed and sprite_obj.referenced_data != null:
 					st["offset"] += sprite_obj.referenced_data.offset
 				if import_resized and import_percent != 100.0:
@@ -593,11 +608,11 @@ func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 					st["offset"] *= scale
 					if st.has("position"):
 						st["position"] *= scale
+				st = updated_follow_check(sprite, st)
 				cleaned_array.append(st)
 		for st in cleaned_array:
-			var new_dict = sprite_obj.sprite_data.duplicate()
+			var new_dict = sprite_obj.sprite_data.duplicate(true)
 			new_dict.merge(st, true)
-			st = new_dict
 		sprite_obj.states = cleaned_array
 		Global.show_warning = warn
 
@@ -828,6 +843,24 @@ func load_pngplus_file(path):
 	Global.load_model.emit()
 	Global.load_sprite_states(0)
 	Global.project_updates.emit("Plus Project Loaded!")
+
+func updated_follow_check(sprite, st) -> Dictionary:
+	if !sprite.get("updated_follow_movement", false):
+		st["pos_x_min"] = -abs(st["look_at_mouse_pos"])
+		st["pos_x_max"] = abs(st["look_at_mouse_pos"])
+		st["pos_y_min"] = -abs(st["look_at_mouse_pos_y"])
+		st["pos_y_max"] = abs(st["look_at_mouse_pos_y"])
+		st["rot_min"] = st["mouse_rotation"]
+		st["rot_max"] = st["mouse_rotation_max"]
+		st["scale_x_min"] = -abs(st["mouse_scale_x"])
+		st["scale_x_max"] = abs(st["mouse_scale_x"])
+		st["scale_y_min"] = -abs(st["mouse_scale_y"])
+		st["scale_y_max"] = abs(st["mouse_scale_y"])
+		if signi(st["look_at_mouse_pos"]) < 0:
+			st["pos_swap_x"] = true
+		if signi(st["look_at_mouse_pos_y"]) < 0:
+			st["pos_swap_y"] = true
+	return st
 
 #----------------------------------------------------------------------------
 # Global Backups

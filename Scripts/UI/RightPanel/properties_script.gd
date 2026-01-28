@@ -135,6 +135,7 @@ func set_data():
 
 	
 	%IKTarget.clear()
+	%IKTarget.add_item("None", -1)
 	var index : int = 0
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		%IKTarget.add_item(i.sprite_name)
@@ -158,8 +159,9 @@ func _on_ik_target_item_selected(index: int) -> void:
 	if selected:
 		for i in Global.held_sprites:
 			i.target_ik = selected
-			print("f")
-
+	else:
+		for i in Global.held_sprites:
+			i.target_ik = null
 
 func _on_blend_state_pressed(id):
 	var undo_redo_data : Array = []

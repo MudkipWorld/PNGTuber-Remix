@@ -32,10 +32,23 @@ const DEFAULT_DATA := {
 	index_change = 0,
 	index_change_y = 0,
 	
-	mouse_pos_min = 0,
-	mouse_pos_max = 0,
-	mouse_pos_y_min = 0,
-	mouse_pos_y_max = 0,
+	pos_x_min = 0,
+	pos_x_max = 0,
+	pos_y_min = 0,
+	pos_y_max = 0,
+
+	rot_min = 0,
+	rot_max = 0,
+
+	scale_x_min = 0,
+	scale_x_max = 0,
+	scale_y_min = 0,
+	scale_y_max = 0,
+
+	pos_swap_x = false,
+	pos_swap_y = false,
+	scale_swap_x = false,
+	scale_swap_y = false,
 	
 	
 	# Movement when mouth open
@@ -62,10 +75,23 @@ const DEFAULT_DATA := {
 	mo_index_change = 0,
 	mo_index_change_y = 0,
 	
-	mo_mouse_pos_min = 0,
-	mo_mouse_pos_max = 0,
-	mo_mouse_pos_y_min = 0,
-	mo_mouse_pos_y_max = 0,
+	mo_pos_x_min = 0,
+	mo_pos_x_max = 0,
+	mo_pos_y_min = 0,
+	mo_pos_y_max = 0,
+
+	mo_rot_min = 0,
+	mo_rot_max = 0,
+
+	mo_scale_x_min = 0,
+	mo_scale_x_max = 0,
+	mo_scale_y_min = 0,
+	mo_scale_y_max = 0,
+
+	mo_pos_swap_x = false,
+	mo_pos_swap_y = false,
+	mo_scale_swap_x = false,
+	mo_scale_swap_y = false,
 
 	# Movement when screaming
 	scream_xAmp = 0,
@@ -95,6 +121,26 @@ const DEFAULT_DATA := {
 	scream_mouse_pos_max = 0,
 	scream_mouse_pos_y_min = 0,
 	scream_mouse_pos_y_max = 0,
+	
+	
+	scream_pos_x_min = 0,
+	scream_pos_x_max = 0,
+	scream_pos_y_min = 0,
+	scream_pos_y_max = 0,
+
+	scream_rot_min = 0,
+	scream_rot_max = 0,
+
+	scream_scale_x_min = 0,
+	scream_scale_x_max = 0,
+	scream_scale_y_min = 0,
+	scream_scale_y_max = 0,
+
+	scream_pos_swap_x = false,
+	scream_pos_swap_y = false,
+	scream_scale_swap_x = false,
+	scream_scale_swap_y = false,
+	
 	
 	# Other stuff idk
 	blend_mode = "Normal",
@@ -220,9 +266,9 @@ var selected : bool = false
 
 var drag_offsets = {} 
 
-var anchor_offset : Vector2 = Vector2.ZERO
-
 var target_ik : SpriteObject = null
+
+var hidden_target_id_check : float = -1
 
 func get_default_object_data() -> Dictionary:
 	return {}
@@ -332,8 +378,6 @@ func image_replaced(image_date : ImageData):
 	else:
 		return
 
-
-
 func zazaza_reposition(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
@@ -344,7 +388,6 @@ func zazaza_reposition(parent):
 					var desired_local = contain.to_local(desired_global)
 					state.position = get_parent().to_local(desired_local)
 			break
-
 
 func old_reposition():
 	var parent = get_parent().owner
@@ -394,3 +437,10 @@ func fade_asset(was_visible: bool, node: Node, node_hide: Node) -> bool:
 		await tween.finished
 		node_hide.visible = false
 		return false
+
+
+func reference_ik_target():
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		if i.sprite_id == hidden_target_id_check:
+			target_ik = i
+			break

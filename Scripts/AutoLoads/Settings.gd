@@ -56,6 +56,7 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	phys_tick_per_frame = 60,
 	phys_steps = 10,
 	phys_jitter = 0.5,
+	dev_mode = false,
 }
 var save_location = ""
 var autosave_location = ""
@@ -171,6 +172,7 @@ func _ready():
 	Engine.physics_jitter_fix = theme_settings.phys_jitter
 	Engine.physics_ticks_per_second = theme_settings.phys_tick_per_frame
 	Engine.max_physics_steps_per_frame = theme_settings.phys_steps
+	Global.dev_mode.emit(theme_settings.dev_mode)
 
 
 func update_tracking_backend():
