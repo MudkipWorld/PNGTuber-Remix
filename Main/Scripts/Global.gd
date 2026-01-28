@@ -173,6 +173,10 @@ func set_mode(new_mode) -> void:
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 			if main.has_node("%Control"):
 				main.get_node("%Control").show()
+				var control = main.get_node("%Control")
+				control.get_node("%RightPanel").show()
+				control.get_node("%MeshPanel").hide()
+				control.get_node("%BrushesPanel").hide()
 			is_editor = true
 		1:
 			RenderingServer.set_default_clear_color(settings_dict.bg_color)
@@ -184,6 +188,16 @@ func set_mode(new_mode) -> void:
 				light.get_node("Grab").hide()
 			deselect.emit()
 			static_view = false
+		2:
+			get_viewport().transparent_bg = false
+			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
+			if main.has_node("%Control"):
+				main.get_node("%Control").show()
+				var control = main.get_node("%Control")
+				control.get_node("%RightPanel").hide()
+				control.get_node("%MeshPanel").show()
+				control.get_node("%BrushesPanel").show()
+			is_editor = true
 	
 	Settings.theme_settings.mode = mode
 	Settings.save()

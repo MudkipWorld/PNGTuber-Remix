@@ -385,8 +385,7 @@ func _on_add_layer_pressed() -> void:
 func submit_to_undo_redo(data):
 	UndoRedoManager.push_data(data)
 
-func _on_brush_type_item_selected(index: int) -> void:
-	MeshEditor.brush_type = index
+
 
 func _on_edit_type_item_selected(index: int) -> void:
 	match index:

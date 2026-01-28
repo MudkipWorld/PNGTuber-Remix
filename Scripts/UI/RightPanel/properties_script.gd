@@ -133,35 +133,8 @@ func set_data():
 			%FlipSpriteH.button_pressed = i.get_value("flip_h")
 			%FlipSpriteV.button_pressed = i.get_value("flip_v")
 
-	
-	%IKTarget.clear()
-	%IKTarget.add_item("None", -1)
-	var index : int = 0
-	for i in get_tree().get_nodes_in_group("Sprites"):
-		%IKTarget.add_item(i.sprite_name)
-		%IKTarget.set_item_metadata(index, i)
-		index += 1
-	
-	if Global.held_sprites.size() > 0:
-		var i = Global.held_sprites[0]
-		if i.target_ik != null && is_instance_valid(i.target_ik):
-			for l in %IKTarget.item_count:
-				var item = %IKTarget.get_item_metadata(l)
-				if item == i.target_ik:
-					%IKTarget.select(l)
-		else:
-			%IKTarget.select(-1)
 	should_change = true
 
-
-func _on_ik_target_item_selected(index: int) -> void:
-	var selected = %IKTarget.get_item_metadata(index)
-	if selected:
-		for i in Global.held_sprites:
-			i.target_ik = selected
-	else:
-		for i in Global.held_sprites:
-			i.target_ik = null
 
 func _on_blend_state_pressed(id):
 	var undo_redo_data : Array = []

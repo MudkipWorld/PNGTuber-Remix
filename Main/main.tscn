@@ -10,7 +10,6 @@
 [ext_resource type="Shader" uid="uid://bc5tbhguskdv2" path="res://Scripts/Shaders/ModelEffects.gdshader" id="3_rj11h"]
 [ext_resource type="Script" uid="uid://by4pbr6yeut1c" path="res://Main/Scripts/monitor_tracking.gd" id="5_rj11h"]
 [ext_resource type="PackedScene" uid="uid://bpmlfhv30o08l" path="res://UI/EditorUI/TopUI/top_ui.tscn" id="7_qwnpc"]
-[ext_resource type="Script" uid="uid://bhcxlxk46kau7" path="res://Scripts/Objects/mesh_warps.gd" id="7_rix8b"]
 [ext_resource type="Script" uid="uid://cl5ylmnvn6ncm" path="res://Scripts/Objects/mesh_poiner.gd" id="8_rix8b"]
 [ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="12_rix8b"]
 
@@ -178,10 +177,6 @@ z_index = 4096
 z_as_relative = false
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.92549)
-
-[node name="MeshWarps" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=283023689]
-z_index = 4095
-script = ExtResource("7_rix8b")
 
 [node name="MeshPointer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=267766965]
 unique_name_in_owner = true

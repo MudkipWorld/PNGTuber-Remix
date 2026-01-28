@@ -11,12 +11,39 @@
 [ext_resource type="Texture2D" uid="uid://q7kgj0j4rodd" path="res://UI/Assets/WarningCircle.png" id="7_seimj"]
 [ext_resource type="PackedScene" uid="uid://nh83ldjgbynt" path="res://UI/EditorUI/RightUI/Components/model_anim.tscn" id="8_1r6xj"]
 [ext_resource type="PackedScene" uid="uid://c3f86pv0can01" path="res://UI/EditorUI/RightUI/Components/properties.tscn" id="8_i4djb"]
+[ext_resource type="Script" uid="uid://bbn3doj3yqf6w" path="res://Scripts/Misc/deform_brush.gd" id="8_le2wr"]
 [ext_resource type="Script" uid="uid://duopekbdlbjla" path="res://Scripts/UI/Others/project_updates_label.gd" id="8_y3a4k"]
 [ext_resource type="PackedScene" uid="uid://ccvo3k5t6lis6" path="res://UI/EditorUI/RightUI/Components/movement.tscn" id="9_fwbkq"]
 [ext_resource type="PackedScene" uid="uid://bk2xbsvlmq0or" path="res://UI/StateButton/state_panel.tscn" id="10_1r6xj"]
 [ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="14_y3a4k"]
+[ext_resource type="PackedScene" uid="uid://b15lo00q8fe1j" path="res://UI/BetterSlider/better_spinboxes.tscn" id="17_kv61l"]
 [ext_resource type="PackedScene" uid="uid://cfuiw0rtt54fn" path="res://UI/StreamUI/web_socket_config.tscn" id="17_le2wr"]
 [ext_resource type="PackedScene" uid="uid://b33l6030k8a8p" path="res://UI/EditorUI/RightUI/Components/mesh_gen.tscn" id="18_kv61l"]
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="18_mi4uk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le2wr"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(0, 32, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dn4of"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(33, 32, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dockn"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(66, 32, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vweu"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(132, 32, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3a4k"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(99, 32, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0brj"]
+atlas = ExtResource("5_le2wr")
+region = Rect2(165, 32, 33, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kv61l"]
 atlas = ExtResource("5_le2wr")
@@ -66,12 +93,94 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
-split_offsets = PackedInt32Array(-2000)
-split_offset = -2000
 
-[node name="LeftPanel" parent="MainSplit" unique_id=264589613 instance=ExtResource("5_0cvxm")]
+[node name="LeftSide" type="HBoxContainer" parent="MainSplit" unique_id=1282179463]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="LeftPanel" parent="MainSplit/LeftSide" unique_id=264589613 instance=ExtResource("5_0cvxm")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="BrushesPanel" type="Panel" parent="MainSplit/LeftSide" unique_id=787088602]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+
+[node name="VB" type="VBoxContainer" parent="MainSplit/LeftSide/BrushesPanel" unique_id=1307384245]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="DeformBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=842634988 groups=["DeformButtons"]]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Deform Brush"
+focus_mode = 1
+icon = SubResource("AtlasTexture_le2wr")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_le2wr")
+
+[node name="RotationCWBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=380077892 groups=["DeformButtons"]]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Rotation CW Brush"
+focus_mode = 1
+icon = SubResource("AtlasTexture_dn4of")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_le2wr")
+id = 1
+
+[node name="RotationCCWBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1771285192 groups=["DeformButtons"]]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Rotation CCW Brush"
+focus_mode = 1
+icon = SubResource("AtlasTexture_dockn")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_le2wr")
+id = 2
+
+[node name="RotationDeflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1490739781 groups=["DeformButtons"]]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Deflate Brush"
+focus_mode = 1
+icon = SubResource("AtlasTexture_3vweu")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_le2wr")
+id = 3
+
+[node name="RotationInflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1464763284 groups=["DeformButtons"]]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Inflate Brush"
+focus_mode = 1
+icon = SubResource("AtlasTexture_y3a4k")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_le2wr")
+id = 4
+
+[node name="RotationRestoreBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=249947340 groups=["DeformButtons"]]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+tooltip_text = "Restore Brush"
+focus_mode = 1
+icon = SubResource("AtlasTexture_o0brj")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_le2wr")
+id = 5
 
 [node name="SecondarySplit" type="HSplitContainer" parent="MainSplit" unique_id=1773253518]
 unique_name_in_owner = true
@@ -79,8 +188,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
-split_offsets = PackedInt32Array(2500)
-split_offset = 2500
+split_offsets = PackedInt32Array(87)
+split_offset = 87
 
 [node name="AspectRatioContainer" type="Control" parent="MainSplit/SecondarySplit" unique_id=1181481441]
 clip_contents = true
@@ -249,7 +358,6 @@ switch_on_drag_hover = false
 tab_focus_mode = 0
 tab_6/hidden = true
 tab_7/hidden = true
-tab_8/hidden = true
 
 [node name="Properties" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 light_mask = 0
@@ -286,17 +394,11 @@ light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 5
 
-[node name="Meshes" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1132558088 instance=ExtResource("18_kv61l")]
-visible = false
-light_mask = 0
-layout_mode = 2
-metadata/_tab_index = 6
-
 [node name="Websocket" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1031500172]
 visible = false
 light_mask = 0
 layout_mode = 2
-metadata/_tab_index = 7
+metadata/_tab_index = 6
 
 [node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Websocket" unique_id=1789427237 instance=ExtResource("17_le2wr")]
 layout_mode = 2
@@ -306,7 +408,7 @@ visible = false
 layout_mode = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
-metadata/_tab_index = 8
+metadata/_tab_index = 7
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests" unique_id=727006526]
 custom_minimum_size = Vector2(350, 0)
@@ -337,9 +439,88 @@ justification_flags = 169
 max_lines_visible = 3
 visible_characters_behavior = 2
 
+[node name="Grid" type="GridContainer" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=1300517498]
+layout_mode = 2
+columns = 2
+
+[node name="IKTargetLabel" type="Label" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid" unique_id=979221622]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Chain Target :"
+
+[node name="ChainTarget" type="OptionButton" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid" unique_id=127509399]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+allow_reselect = true
+
+[node name="Softness" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid" unique_id=2076704710 instance=ExtResource("17_kv61l")]
+layout_mode = 2
+sp_type = ""
+label_text = "Softness :"
+mini_value = 0.1
+max_value = 100.0
+step = 0.01
+value = 5.0
+value_to_update = "chain_softness"
+
+[node name="ChainRotMin" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=1124722970 instance=ExtResource("18_mi4uk")]
+layout_mode = 2
+sp_type = ""
+label_text = "Chain Rot Min :"
+mini_value = -3.14
+step = 0.01
+value_to_update = "chain_rot_min"
+
+[node name="ChainRotMin2" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=1821736143 instance=ExtResource("18_mi4uk")]
+layout_mode = 2
+sp_type = ""
+label_text = "Chain Rot Max :"
+max_value = 3.14
+step = 0.01
+value_to_update = "chain_rot_max"
+
 [node name="StatePanel" parent="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit" unique_id=1298455309 instance=ExtResource("10_1r6xj")]
 layout_mode = 2
 size_flags_vertical = 1
+
+[node name="MeshPanel" type="Panel" parent="MainSplit/SecondarySplit" unique_id=1258810069]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(410, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="Margin" type="MarginContainer" parent="MainSplit/SecondarySplit/MeshPanel" unique_id=1743623890]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 12
+
+[node name="PanelContainer" type="PanelContainer" parent="MainSplit/SecondarySplit/MeshPanel/Margin" unique_id=383983633]
+layout_mode = 2
+
+[node name="MeshMargin" type="MarginContainer" parent="MainSplit/SecondarySplit/MeshPanel/Margin/PanelContainer" unique_id=333647528]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Meshes" parent="MainSplit/SecondarySplit/MeshPanel/Margin/PanelContainer/MeshMargin" unique_id=1021892942 instance=ExtResource("18_kv61l")]
+light_mask = 0
+layout_mode = 2
+size_flags_vertical = 3
 
 [connection signal="dragged" from="MainSplit" to="." method="_on_main_split_dragged"]
 [connection signal="dragged" from="MainSplit/SecondarySplit" to="." method="_on_secondary_split_dragged"]
@@ -353,3 +534,4 @@ size_flags_vertical = 1
 [connection signal="mouse_entered" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_entered"]
 [connection signal="mouse_exited" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_mouse_exited"]
 [connection signal="toggled" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/AdvancedLipSync" to="UIInput" method="_on_advanced_lip_sync_toggled"]
+[connection signal="item_selected" from="MainSplit/SecondarySplit/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid/ChainTarget" to="UIInput" method="_on_chain_target_item_selected"]

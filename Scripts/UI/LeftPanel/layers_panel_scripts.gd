@@ -109,6 +109,7 @@ func _on_duplicate_button_pressed():
 				sprites.append(child)
 	if sprites.is_empty():
 		return
+	await get_tree().physics_frame
 	Global.get_sprite_states(Global.current_state)
 	Global.reparent_layers.emit(sprites)
 	Global.reparent_objects.emit(sprites)
@@ -214,6 +215,7 @@ func _copy_common(src, dst):
 	dst.saved_keys = src.saved_keys.duplicate(true)
 	dst.should_disappear = src.should_disappear
 	dst.show_only = src.show_only
+	dst.target_ik = src.target_ik
 	dst.hold_to_show = src.hold_to_show
 	dst.is_asset = src.is_asset
 	dst.saved_event = src.saved_event

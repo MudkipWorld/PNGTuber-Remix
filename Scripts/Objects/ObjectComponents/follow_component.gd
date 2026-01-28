@@ -112,7 +112,6 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		target_pos = Vector2.ZERO
 		modifier.position = Vector2.ZERO
 		return
-		
 	var swap_x: bool = actor.get_value("pos_swap_x")
 	var swap_y: bool = actor.get_value("pos_swap_y")
 	var follow_type: int = actor.get_value("follow_type")
@@ -166,13 +165,11 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		if !actor.get_value("move_with_follow"):
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return
-	
 	var final_target : Vector2 = target_pos
 	if swap_x:
 		final_target.x *= -1
 	if swap_y:
 		final_target.y *= -1
-	
 	modifier.position = modifier.position.lerp(final_target, actor.get_value("mouse_delay"))
 
 func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO):

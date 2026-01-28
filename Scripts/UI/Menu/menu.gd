@@ -5,6 +5,8 @@ func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
 	init_switch_session()
 	auto_load_model()
+	GlobInput.start_hook()
+	Settings.update_tracking_backend()
 
 func init_switch_session():
 	if Settings.theme_settings.session == 1:
@@ -22,5 +24,6 @@ func auto_load_model():
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		GlobInput.stop_hook()
 		get_tree().quit()
 		OS.kill(OS.get_process_id())

@@ -213,7 +213,6 @@ func _on_ui_scaling_spin_box_value_changed(value: float) -> void:
 		Settings.theme_settings.ui_scaling = value
 		Settings.scale_window()
 		Settings.save()
-		%UIScalingSlider.value = value
 		get_parent().move_to_center()
 
 func cursor_changed():

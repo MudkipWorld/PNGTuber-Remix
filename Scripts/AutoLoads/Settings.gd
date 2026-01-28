@@ -161,8 +161,6 @@ func _ready():
 			AudioServer.input_device = theme_settings.microphone
 	
 	change_cursor()
-	
-	update_tracking_backend()
 	# Load language
 	var locale = Util.get_locale(theme_settings.language)
 	if locale == "automatic":

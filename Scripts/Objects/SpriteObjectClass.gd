@@ -204,6 +204,11 @@ const DEFAULT_DATA := {
 	udp_scale = 0,
 	follow_mouth = 0,
 	
+	
+	chain_softness = 5,
+	chain_rot_min = -3.14,
+	chain_rot_max = 3.14,
+	
 	}
 
 @export var sprite_object : Node2D

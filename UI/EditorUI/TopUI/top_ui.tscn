@@ -94,11 +94,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
 text = "TR_MODE"
-item_count = 2
+item_count = 3
 popup/item_0/text = "TR_EDITOR"
 popup/item_0/id = 0
 popup/item_1/text = "TR_PREVIEW"
 popup/item_1/id = 1
+popup/item_2/text = "Meshes (WIP)"
+popup/item_2/id = 2
 
 [node name="BGButton" type="MenuButton" parent="TopBar/HBox" unique_id=932008042]
 unique_name_in_owner = true
@@ -372,7 +374,7 @@ unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 280.0
-offset_bottom = 412.0
+offset_bottom = 443.0
 mouse_filter = 0
 edit_alpha = false
 color_mode = 1
