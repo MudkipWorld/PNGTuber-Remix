@@ -2,14 +2,31 @@
 
 [ext_resource type="Script" uid="uid://buog53mcsao0g" path="res://Scripts/UI/TopPanel/top_ui.gd" id="2_fpnkx"]
 [ext_resource type="Script" uid="uid://bafvsv0wf438w" path="res://Scripts/Misc/OnlineLinks.gd" id="3_tep3f"]
+[ext_resource type="Texture2D" uid="uid://pyv85jhcl2dg" path="res://DemoModels/Icons/demo_icons.png" id="4_2ocar"]
 [ext_resource type="Script" uid="uid://qy3riyrj7tll" path="res://Scripts/UI/TopPanel/TopBarInput.gd" id="4_r6evh"]
 [ext_resource type="Texture2D" uid="uid://bq4tg8ia2crwh" path="res://UI/Assets/LinksButtonImages/GithubLogo.png" id="6_0f73e"]
 [ext_resource type="PackedScene" uid="uid://dafcfpors4fb6" path="res://UI/EditorUI/TopUI/Components/model_optimizer.tscn" id="6_mle18"]
 [ext_resource type="Texture2D" uid="uid://kmyr2ks7oil4" path="res://UI/Assets/LinksButtonImages/RedditLogo.png" id="8_3p41m"]
-[ext_resource type="Texture2D" uid="uid://dt530lalergk0" path="res://DemoModels/Icons/BasicIcon.png" id="9_hrvuv"]
-[ext_resource type="Texture2D" uid="uid://fmhwpxa4hlo7" path="res://DemoModels/Icons/NormalIcon.png" id="11_bgxcq"]
-[ext_resource type="Texture2D" uid="uid://bjxmdyue5pp2x" path="res://DemoModels/Icons/FollowMouseIcon.png" id="12_bmktp"]
-[ext_resource type="Texture2D" uid="uid://dm7ppdlhye1ji" path="res://DemoModels/Icons/AssetIcon.png" id="13_f2y74"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o10to"]
+atlas = ExtResource("4_2ocar")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohfih"]
+atlas = ExtResource("4_2ocar")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61rod"]
+atlas = ExtResource("4_2ocar")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybjpm"]
+atlas = ExtResource("4_2ocar")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mle18"]
+atlas = ExtResource("4_2ocar")
+region = Rect2(48, 0, 48, 48)
 
 [node name="TopUI" type="Control" unique_id=878130328]
 custom_minimum_size = Vector2(0, 35)
@@ -74,6 +91,25 @@ popup/item_9/text = "Streamer Session"
 popup/item_9/id = 11
 popup/item_10/text = "Model Optimizer"
 popup/item_10/id = 13
+
+[node name="Demos" type="PopupMenu" parent="TopBar/HBox/FilesButton" unique_id=445111357]
+unique_name_in_owner = true
+item_count = 5
+item_0/text = "TR_BASIC_DEMO"
+item_0/icon = SubResource("AtlasTexture_o10to")
+item_0/id = 0
+item_1/text = "TR_NORMAL_MAP_DEMO"
+item_1/icon = SubResource("AtlasTexture_ohfih")
+item_1/id = 1
+item_2/text = "TR_FOLLOW_MOUSE_DEMO"
+item_2/icon = SubResource("AtlasTexture_61rod")
+item_2/id = 2
+item_3/text = "TR_FOLLOW_JOYPAD_DEMO"
+item_3/icon = SubResource("AtlasTexture_ybjpm")
+item_3/id = 3
+item_4/text = "TR_ASSET_MODEL_DEMO"
+item_4/icon = SubResource("AtlasTexture_mle18")
+item_4/id = 4
 
 [node name="EditButton" type="MenuButton" parent="TopBar/HBox" unique_id=1471822601]
 unique_name_in_owner = true
@@ -310,59 +346,6 @@ stretch_mode = 0
 unique_name_in_owner = true
 visible = false
 
-[node name="TempPopUp" type="PopupPanel" parent="." unique_id=1100371581]
-unique_name_in_owner = true
-auto_translate_mode = 1
-initial_position = 2
-size = Vector2i(571, 195)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TempPopUp" unique_id=1739187645]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 567.0
-offset_bottom = 191.0
-
-[node name="TempLabel" type="Label" parent="TempPopUp/VBoxContainer" unique_id=338260317]
-layout_mode = 2
-text = "TR_CHOOSE_DEMO"
-horizontal_alignment = 1
-
-[node name="GridContainer" type="GridContainer" parent="TempPopUp/VBoxContainer" unique_id=802031862]
-layout_mode = 2
-columns = 2
-
-[node name="BasicTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=746850307]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "TR_BASIC_DEMO"
-icon = ExtResource("9_hrvuv")
-expand_icon = true
-
-[node name="NormalmTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=1852444694]
-custom_minimum_size = Vector2(220, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "TR_NORMAL_MAP_DEMO"
-icon = ExtResource("11_bgxcq")
-expand_icon = true
-
-[node name="FollowMouseTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=890649304]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "TR_FOLLOW_MOUSE_DEMO"
-icon = ExtResource("12_bmktp")
-expand_icon = true
-
-[node name="AssetTempButton" type="Button" parent="TempPopUp/VBoxContainer/GridContainer" unique_id=1592997077]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/icon_max_width = 37
-text = "TR_ASSET_MODEL_DEMO"
-icon = ExtResource("13_f2y74")
-
 [node name="Background" type="PopupPanel" parent="." unique_id=1032501821]
 unique_name_in_owner = true
 auto_translate_mode = 1
@@ -374,7 +357,7 @@ unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 280.0
-offset_bottom = 443.0
+offset_bottom = 412.0
 mouse_filter = 0
 edit_alpha = false
 color_mode = 1
@@ -392,10 +375,6 @@ presets_visible = false
 [connection signal="pressed" from="CreditPopUp/VBoxContainer/GridContainer/GitHubButton" to="OnlineLinks" method="_on_git_hub_button_pressed"]
 [connection signal="pressed" from="CreditPopUp/VBoxContainer/GridContainer/RedditButton" to="OnlineLinks" method="_on_reddit_button_pressed"]
 [connection signal="pressed" from="CreditPopUp/VBoxContainer/GridContainer/WebsocketDoc" to="OnlineLinks" method="_on_websocket_doc_pressed"]
-[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/BasicTempButton" to="TopBarInput" method="_on_basic_temp_button_pressed"]
-[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/NormalmTempButton" to="TopBarInput" method="_on_normalm_temp_button_pressed"]
-[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/FollowMouseTempButton" to="TopBarInput" method="_on_follow_mouse_temp_button_pressed"]
-[connection signal="pressed" from="TempPopUp/VBoxContainer/GridContainer/AssetTempButton" to="TopBarInput" method="_on_asset_temp_button_pressed"]
 [connection signal="focus_entered" from="Background" to="TopBarInput" method="_on_background_focus_entered"]
 [connection signal="focus_exited" from="Background" to="TopBarInput" method="_on_background_focus_exited"]
 [connection signal="color_changed" from="Background/BGColorPicker" to="TopBarInput" method="_on_color_picker_color_changed"]

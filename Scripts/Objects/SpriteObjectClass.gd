@@ -50,6 +50,11 @@ const DEFAULT_DATA := {
 	scale_swap_x = false,
 	scale_swap_y = false,
 	
+	pos_invert_x = false,
+	pos_invert_y = false,
+	scale_invert_x = false,
+	scale_invert_y = false,
+	
 	
 	# Movement when mouth open
 	mo_xAmp = 0,
@@ -92,6 +97,12 @@ const DEFAULT_DATA := {
 	mo_pos_swap_y = false,
 	mo_scale_swap_x = false,
 	mo_scale_swap_y = false,
+
+	mo_pos_invert_x = false,
+	mo_pos_invert_y = false,
+	mo_scale_invert_x = false,
+	mo_scale_invert_y = false,
+
 
 	# Movement when screaming
 	scream_xAmp = 0,
@@ -140,6 +151,12 @@ const DEFAULT_DATA := {
 	scream_pos_swap_y = false,
 	scream_scale_swap_x = false,
 	scream_scale_swap_y = false,
+	
+	
+	scream_pos_invert_x = false,
+	scream_pos_invert_y = false,
+	scream_scale_invert_x = false,
+	scream_scale_invert_y = false,
 	
 	
 	# Other stuff idk

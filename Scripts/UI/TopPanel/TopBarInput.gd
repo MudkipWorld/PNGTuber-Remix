@@ -12,6 +12,8 @@ var tutorial = preload("res://UI/EditorUI/TopUI/Components/tutorial_pop_up.tscn"
 
 var file_submenu_item : PopupMenu = PopupMenu.new()
 
+@onready var file_submenu_item_demos : PopupMenu = %Demos
+
 func _ready():
 	get_viewport().transparent_bg = false
 	RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
@@ -21,6 +23,11 @@ func _ready():
 		file_submenu_item.add_item(i)
 	files.get_popup().set_item_submenu_node(4, file_submenu_item)
 	file_submenu_item.connect("id_pressed",choosing_file_import)
+	
+	%Demos.get_parent().remove_child(%Demos)
+	files.get_popup().set_item_submenu_node(5, file_submenu_item_demos)
+	file_submenu_item_demos.connect("id_pressed",choosing_file_demos)
+	
 	mode.get_popup().connect("id_pressed",choosing_mode)
 	bgcolor.get_popup().connect("id_pressed",choosing_bg_color)
 	about.get_popup().connect("id_pressed",choosing_about)
@@ -32,6 +39,17 @@ func _ready():
 		
 	await get_tree().physics_frame
 	choosing_mode(Settings.theme_settings.mode)
+	Global.dev_mode.connect(check_dev_mode)
+
+func check_dev_mode(check : bool = false):
+	%ModeButton.get_popup().clear()
+	if !check:
+		%ModeButton.get_popup().add_item("TR_EDITOR")
+		%ModeButton.get_popup().add_item("TR_PREVIEW")
+	else:
+		%ModeButton.get_popup().add_item("TR_EDITOR")
+		%ModeButton.get_popup().add_item("TR_PREVIEW")
+		%ModeButton.get_popup().add_item("Meshes (WIP)")
 
 func update_window_button() -> void:
 	var menu := %WindowButton.get_popup() as PopupMenu
@@ -104,7 +122,8 @@ func choosing_files(id):
 			main.save_as_file()
 
 		4:
-			%TempPopUp.popup()
+			pass
+			#%TempPopUp.popup()
 			
 		5:
 			add_a_lipsync_config()
@@ -142,6 +161,20 @@ func choosing_file_import(id):
 			main.load_append_sprites()
 		2:
 			main.import_psd()
+
+func choosing_file_demos(id):
+	match id:
+		0:
+			SaveAndLoad.load_file("res://DemoModels/PickleModel.pngRemix")
+		1:
+			SaveAndLoad.load_file("res://DemoModels/PickleModelWithNormalMap.pngRemix")
+		2:
+			SaveAndLoad.load_file("res://DemoModels/PickleModelFollowMouse.pngRemix")
+		3:
+			SaveAndLoad.load_file("res://DemoModels/PicklesModelJoypad.pngRemix")
+		4:
+			SaveAndLoad.load_file("res://DemoModels/PickleModelAssets.pngRemix")
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("save"):
@@ -232,25 +265,6 @@ func origin_alias():
 func _on_hide_ui_button_toggled(toggled_on):
 	Global.main.get_node("%Control").visible = toggled_on
 
-func _on_basic_temp_button_pressed():
-	SaveAndLoad.load_file("res://DemoModels/PickleModel.pngRemix")
-	%TempPopUp.hide()
-
-func _on_bg_temp_button_pressed():
-	SaveAndLoad.load_file("res://DemoModels/PickleModelWithBackground.pngRemix")
-	%TempPopUp.hide()
-
-func _on_normalm_temp_button_pressed():
-	SaveAndLoad.load_file("res://DemoModels/PickleModelWithNormalMap.pngRemix")
-	%TempPopUp.hide()
-
-func _on_follow_mouse_temp_button_pressed():
-	SaveAndLoad.load_file("res://DemoModels/PickleModelFollowMouse.pngRemix")
-	%TempPopUp.hide()
-
-func _on_asset_temp_button_pressed():
-	SaveAndLoad.load_file("res://DemoModels/PickleModelAssets.pngRemix")
-	%TempPopUp.hide()
 
 func _on_deselect_button_pressed():
 	desel_everything()

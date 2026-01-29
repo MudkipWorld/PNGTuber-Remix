@@ -27,6 +27,7 @@ func _ready():
 	_setup_slider()
 	_setup_label()
 	ready_type(ui_type)
+	nullfy()
 
 func _setup_spinbox():
 	%SpinBoxValue.get_line_edit().focus_mode = 1
@@ -141,15 +142,15 @@ func _apply_value_to_selected(nvalue: float, push_undo: bool):
 		if sprite.sprite_type == "WiggleApp" and sp_type == "WiggleApp":
 			sprite.update_wiggle_parts()
 		sprite.save_state(Global.current_state)
-		
 		for i in val:
 			i.merge({new_val = sprite.sprite_data[value_to_update]}, true)
 	if push_undo:
 		UndoRedoManager.push_data(val)
 
 func nullfy():
-	%SpinBoxValue.editable = false
-	%SliderValue.editable = false
+	if sp_type != "Null":
+		%SpinBoxValue.editable = false
+		%SliderValue.editable = false
 
 func enable():
 	should_change = false

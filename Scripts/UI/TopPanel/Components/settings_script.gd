@@ -59,6 +59,7 @@ func check_data():
 	%PhysicsSteps.value = Settings.theme_settings.phys_steps
 	%JitterFix.value = Settings.theme_settings.phys_jitter
 	%DevMode.button_pressed = Settings.theme_settings.dev_mode
+	%FollowMouseGlobalInput.button_pressed = Settings.theme_settings.use_glob_input
 	
 	if OS.has_feature("linux"):
 		%BackendOption.set_item_disabled(3, false)
@@ -322,4 +323,10 @@ func _on_dev_mode_toggled(toggled_on: bool) -> void:
 	if change_setting:
 		Settings.theme_settings.dev_mode = toggled_on
 		Global.dev_mode.emit(Settings.theme_settings.dev_mode)
+		Settings.save()
+
+
+func _on_follow_mouse_global_input_toggled(toggled_on: bool) -> void:
+	if change_setting:
+		Settings.theme_settings.use_glob_input = toggled_on
 		Settings.save()

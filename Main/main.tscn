@@ -78,7 +78,6 @@ shader_parameter/uv_scale = Vector2(2, 2)
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [node name="Main" type="Control" unique_id=851310579]
-process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

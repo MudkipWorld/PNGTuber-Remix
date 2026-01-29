@@ -61,10 +61,6 @@ func _ready() -> void:
 	last_modifier_position = sprite_node.global_position
 
 func _physics_process(delta: float) -> void:
-	if !actor.get_value("follow_wa_tip"):
-		follow_point_rot = 0.0
-	else:
-		follow_wiggle(delta)
 	placeholder_position = modifier1_node.global_position
 	applied_pos =  placeholder_position
 	
@@ -85,6 +81,10 @@ func _physics_process(delta: float) -> void:
 		modifier_node.rotation = 0.0
 		modifier_node.scale = Vector2(1,1)
 		sprite_node.self_modulate = actor.get_value("tint")
+	if !actor.get_value("follow_wa_tip"):
+		follow_point_rot = 0.0
+	else:
+		follow_wiggle(delta)
 	if not Global.static_view:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
@@ -184,8 +184,6 @@ func apply_look_at_chain(to_target: Vector2) -> void:
 	#printt(test, )
 	modifier1_node.global_rotation = ik_smoothed_rot
 
-
-
 func rest_mode_movements(delta : float) -> void:
 	glob = shadow_dragger
 	drag()
@@ -269,24 +267,24 @@ func follow_wiggle(_delta : float) -> void:
 		return
 
 	var tip_index : int = clamp(actor.get_value("tip_point"), 0, parent.points.size() - 1)
-	var raw_tip : Vector2 = parent.points[tip_index]
-	var global_raw_tip : Vector2 = parent.to_global(raw_tip)
-
+	var raw_tip : Vector2 = parent.to_global(parent.points[tip_index])
+	var real_tip : Vector2 = parent.points[tip_index]
+	
 	if not has_prev:
-		prev_smoothed_pos = global_raw_tip
+		prev_smoothed_pos = raw_tip
 		has_prev = true
 
-	var d : float = prev_smoothed_pos.distance_to(global_raw_tip)
+	var d : float = prev_smoothed_pos.distance_to(raw_tip)
 	var w : float = clamp(d * actor.get_value("follow_strength"), 0.0, 1.0)
-	prev_smoothed_pos = prev_smoothed_pos.lerp(global_raw_tip, w)
+	prev_smoothed_pos = prev_smoothed_pos.lerp(raw_tip, w)
 
-	modifier1_node.global_position = prev_smoothed_pos.lerp(modifier1_node.global_position, actor.get_value("follow_strength"))
+	applied_pos = prev_smoothed_pos
 
 	var prev_point : Vector2 = raw_tip
 	if tip_index > 0:
 		prev_point = parent.points[tip_index - 1]
 
-	var dir : Vector2 = raw_tip - prev_point
+	var dir : Vector2 = real_tip - prev_point
 	if dir == Vector2.ZERO:
 		dir = Vector2(cos(parent._rest_direction_angle), sin(parent._rest_direction_angle))
 

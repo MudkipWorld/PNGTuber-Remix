@@ -35,13 +35,21 @@ var axis_lr_3 : Vector2 = Vector2.ZERO
 var current_dir : Vector2 = Vector2.ZERO
 var current_dist : float = 0.0
 
+var window : Window = null
+
+func _ready() -> void:
+	window = Global.get_tree().get_root().get_window()
+
 func _physics_process(delta: float) -> void:
 	if Global.static_view or actor.rest_mode == 5:
 		return
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()
 	else:
-		mouse_coords = follow_calculation() 
+		if Settings.theme_settings.use_glob_input:
+			mouse_coords = follow_calculation_glob() 
+		else:
+			mouse_coords = follow_calculation() 
 		process_follow(delta)
 		last_mouse_position = mouse_coords
 
@@ -77,27 +85,49 @@ func process_follow(delta: float) -> void:
 
 func follow_calculation(_delta = 0.0):
 	var main_marker = Global.main.get_node("%Marker")
-	
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO
 		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = DisplayServer.mouse_get_position()
-	
+			mouse_coords = actor.get_local_mouse_position()
 	elif main_marker.current_screen != Monitor.ALL_SCREENS:
-		if !main_marker.mouse_in_current_screen():
+		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
 		else:
 			var viewport_size = actor.get_viewport().size
 			var origin = actor.get_global_transform_with_canvas().origin
 			var x_per = 1.0 - origin.x/float(viewport_size.x)
 			var y_per = 1.0 - origin.y/float(viewport_size.y)
-			var display_size = DisplayServer.screen_get_size(main_marker.current_screen)
+			var display_size = Vector2(DisplayServer.screen_get_size(main_marker.current_screen))
 			var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
-			var mouse_pos = DisplayServer.mouse_get_position() - DisplayServer.screen_get_position(main_marker.current_screen)
+			var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
 			mouse_coords = Vector2(mouse_pos - display_size) + offset 
 	else:
 		mouse_coords = actor.get_local_mouse_position()
-	
+	return mouse_coords
+
+func follow_calculation_glob(_delta = 0.0):
+	var main_marker = Global.main.get_node("%Marker")
+
+	var delta_mouse = Vector2(window.get_position_with_decorations()) + Vector2((window.get_size_with_decorations())/2)
+	var test = actor.to_local(GlobInput.get_mouse_position()-Vector2(delta_mouse))
+	if WindowHandler.windows:
+		mouse_coords = Vector2.ZERO
+		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
+			mouse_coords = test
+	elif main_marker.current_screen != Monitor.ALL_SCREENS:
+		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
+			mouse_coords = Vector2.ZERO
+		else:
+			var viewport_size = actor.get_viewport().size
+			var origin = actor.get_global_transform_with_canvas().origin
+			var x_per = 1.0 - origin.x/float(viewport_size.x)
+			var y_per = 1.0 - origin.y/float(viewport_size.y)
+			var display_size = Vector2(DisplayServer.screen_get_size(main_marker.current_screen))
+			var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
+			var mouse_pos = GlobInput.get_mouse_position() - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
+			mouse_coords = Vector2(mouse_pos - display_size) + offset 
+	else:
+		mouse_coords = test
 	return mouse_coords
 
 func update_controller_inputs() -> void:
@@ -112,8 +142,8 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		target_pos = Vector2.ZERO
 		modifier.position = Vector2.ZERO
 		return
-	var swap_x: bool = actor.get_value("pos_swap_x")
-	var swap_y: bool = actor.get_value("pos_swap_y")
+	var invert_x: bool = actor.get_value("pos_invert_x")
+	var invert_y: bool = actor.get_value("pos_invert_y")
 	var follow_type: int = actor.get_value("follow_type")
 	var keyboard_axis: Vector2 = Vector2.ZERO
 	if follow_type == 0:
@@ -166,9 +196,9 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return
 	var final_target : Vector2 = target_pos
-	if swap_x:
+	if invert_x:
 		final_target.x *= -1
-	if swap_y:
+	if invert_y:
 		final_target.y *= -1
 	modifier.position = modifier.position.lerp(final_target, actor.get_value("mouse_delay"))
 
@@ -176,18 +206,36 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 	var dist = dir
 	if m_dist != Vector2.ZERO:
 		dist = m_dist
-	if actor.get_value("snap_pos"):
-		if dir.x != 0:
-			target_pos.x =  lerp(target_pos.x, float(clamp(dir.x *dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))), actor.get_value("mouse_delay"))
-			current_dir.x = dir.x
-		if dir.y != 0:
+		if actor.get_value("snap_pos"):
+			if dir.x != 0:
+				target_pos.x =  lerp(target_pos.x, float(clamp(dir.x *dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))), actor.get_value("mouse_delay"))
+				current_dir.x = dir.x
+			if dir.y != 0:
+				target_pos.y = lerp(target_pos.y,  float(clamp(dir.y *dist.y, actor.get_value("pos_y_min"), actor.get_value("pos_y_max"))), actor.get_value("mouse_delay"))
+				current_dir.y = dir.y
+		else:
+			target_pos.x = lerp(target_pos.x, float(clamp(dir.x *dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))), actor.get_value("mouse_delay"))
 			target_pos.y = lerp(target_pos.y,  float(clamp(dir.y *dist.y, actor.get_value("pos_y_min"), actor.get_value("pos_y_max"))), actor.get_value("mouse_delay"))
-			current_dir.y = dir.y
+			current_dir = dir
+			current_dist = target_pos.length()
 	else:
-		target_pos.x = lerp(target_pos.x, float(clamp(dir.x *dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))), actor.get_value("mouse_delay"))
-		target_pos.y = lerp(target_pos.y,  float(clamp(dir.y *dist.y, actor.get_value("pos_y_min"), actor.get_value("pos_y_max"))), actor.get_value("mouse_delay"))
-		current_dir = dir
-		current_dist = target_pos.length()
+		var _mouse_delay = actor.get_value("mouse_delay")
+		var pos_norm = dir.clamp(Vector2(-1.0, -1.0), Vector2(1.0, 1.0))
+		var pos_x = lerp(float(actor.get_value("pos_x_min")),float(actor.get_value("pos_x_max")),max(0.001, (pos_norm.x * 0.5) + 0.5))
+		var pos_y = lerp(float(actor.get_value("pos_y_min")),float(actor.get_value("pos_y_max")),max(0.001, (pos_norm.y * 0.5 )+ 0.5))
+		var _target_pos_final : Vector2 = Vector2(pos_x, pos_y)
+		if actor.get_value("snap_pos"):
+			if dir.x != 0:
+				target_pos.x = lerp(target_pos.x, _target_pos_final.x, _mouse_delay)
+				current_dir.x = dir.x
+			if dir.y != 0:
+				target_pos.y = lerp(target_pos.y, _target_pos_final.y, _mouse_delay)
+				current_dir.y = dir.y
+		else:
+			target_pos.x = lerp(target_pos.x, _target_pos_final.x, _mouse_delay)
+			target_pos.y = lerp(target_pos.y, _target_pos_final.y, _mouse_delay)
+			current_dir = dir
+			current_dist = target_pos.length()
 
 func update_rotation(_dir: Vector2, delta: float) -> void:
 	if actor.get_value("follow_type2") == 15:
@@ -285,8 +333,8 @@ func update_scale(dir: Vector2, delta: float) -> void:
 	var s_max_x = actor.get_value("scale_x_max")
 	var s_min_y = actor.get_value("scale_y_min")
 	var s_max_y = actor.get_value("scale_y_max")
-	var swap_x: bool = actor.get_value("scale_swap_x")
-	var swap_y: bool = actor.get_value("scale_swap_y")
+	var invert_x: bool = actor.get_value("scale_invert_x")
+	var invert_y: bool = actor.get_value("scale_invert_y")
 	var x_val: float = 0.0
 	var y_val: float = 0.0
 	var keyboard_axis: Vector2 = Vector2.ZERO
@@ -361,9 +409,9 @@ func update_scale(dir: Vector2, delta: float) -> void:
 		modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_scale.x, actor.get_value("mouse_delay")))
 		modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_scale.y, actor.get_value("mouse_delay")))
 	else:
-		if swap_x:
+		if invert_x:
 			x_val *= -1
-		if swap_y:
+		if invert_y:
 			y_val *= -1
 		var target_sx: float = 1.0 - clamp( x_val, s_min_x, s_max_x)
 		var target_sy: float = 1.0 - clamp( y_val, s_min_y, s_max_y)
@@ -375,7 +423,7 @@ func follow_mouse_vel_rotation() -> float:
 	var t = Vector2(dir_vel_anim.x, 0).normalized()
 	var normalized_mouse = t.x/2
 	normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)
-	var rotation_factor = lerp(float(actor.get_value("rot_min")), float(actor.get_value("rot_max")), max(0.01, (normalized_mouse) / 2))
+	var rotation_factor = lerp(float(actor.get_value("rot_min")), float(actor.get_value("rot_max")), max(0.01, (normalized_mouse *0.5)))
 	var safe_rot_min = clamp(actor.get_value("rLimitMin"), -360, 360)
 	var safe_rot_max = clamp(actor.get_value("rLimitMax"), -360, 360)
 	var _target_rotation = clamp(normalized_mouse * rotation_factor * deg_to_rad(90), deg_to_rad(safe_rot_min), deg_to_rad(safe_rot_max))

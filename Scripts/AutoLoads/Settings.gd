@@ -57,6 +57,7 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	phys_steps = 10,
 	phys_jitter = 0.5,
 	dev_mode = false,
+	use_glob_input = false,
 }
 var save_location = ""
 var autosave_location = ""

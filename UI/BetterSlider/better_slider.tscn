@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://clxl1gighe78l"]
+[gd_scene format=3 uid="uid://clxl1gighe78l"]
 
 [ext_resource type="Script" uid="uid://0xm3lpjke4lf" path="res://UI/BetterSlider/better_slider.gd" id="1_dnfx4"]
 
-[node name="BetterSlider" type="HBoxContainer" groups=["InputsUIs"]]
+[node name="BetterSlider" type="HBoxContainer" unique_id=1658009348 groups=["InputsUIs"]]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
@@ -10,21 +10,21 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_dnfx4")
 
-[node name="BetterSliderLabel" type="Label" parent="."]
+[node name="BetterSliderLabel" type="Label" parent="." unique_id=590295418]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Test : "
 
-[node name="SpinBoxValue" type="SpinBox" parent="."]
+[node name="SpinBoxValue" type="SpinBox" parent="." unique_id=1182001255]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
 
-[node name="SliderValue" type="HSlider" parent="."]
+[node name="SliderValue" type="HSlider" parent="." unique_id=1124451210]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

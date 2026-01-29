@@ -600,53 +600,53 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 2
 
-[node name="Swap" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1794916593]
+[node name="Invert" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1794916593]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
 theme_override_font_sizes/font_size = 14
-text = "Swap Pos X"
+text = "Invert Pos X"
 script = ExtResource("2_qiucb")
 sp_type = ""
-value_to_update = "pos_swap_x"
+value_to_update = "pos_invert_x"
 
-[node name="Swap2" type="CheckBox" parent="VBoxContainer/Grid" unique_id=345199797]
+[node name="Invert2" type="CheckBox" parent="VBoxContainer/Grid" unique_id=345199797]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
 theme_override_font_sizes/font_size = 14
-text = "Swap Pos Y"
+text = "Invert Pos Y"
 script = ExtResource("2_qiucb")
 sp_type = ""
-value_to_update = "pos_swap_y"
+value_to_update = "pos_invert_y"
 
-[node name="Swap3" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1231065094]
+[node name="Invert3" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1231065094]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
 theme_override_font_sizes/font_size = 14
-text = "Swap Scale X"
+text = "Invert Scale X"
 script = ExtResource("2_qiucb")
 sp_type = ""
-value_to_update = "scale_swap_x"
+value_to_update = "scale_invert_x"
 
-[node name="Swap4" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1573660964]
+[node name="Invert4" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1573660964]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
 theme_override_font_sizes/font_size = 14
-text = "Swap Scale Y"
+text = "Invert Scale Y"
 script = ExtResource("2_qiucb")
 sp_type = ""
-value_to_update = "scale_swap_y"
+value_to_update = "scale_invert_y"
 
 [node name="ShouldSnap" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1792140686]
 unique_name_in_owner = true
