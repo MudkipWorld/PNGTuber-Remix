@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://b5cysm832tuqg"]
+
+[ext_resource type="PackedScene" uid="uid://b33l6030k8a8p" path="res://UI/EditorUI/RightUI/Components/mesh_gen.tscn" id="1_fy02g"]
+
+[node name="MeshPanel" type="Panel" unique_id=1787386008]
+visible = false
+custom_minimum_size = Vector2(410, 0)
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=1618617921]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 12
+
+[node name="PanelContainer" type="PanelContainer" parent="Margin" unique_id=234346611]
+layout_mode = 2
+
+[node name="MeshMargin" type="MarginContainer" parent="Margin/PanelContainer" unique_id=1046572694]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Meshes" parent="Margin/PanelContainer/MeshMargin" unique_id=1021892942 instance=ExtResource("1_fy02g")]
+light_mask = 0
+layout_mode = 2
+size_flags_vertical = 3

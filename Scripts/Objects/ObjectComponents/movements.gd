@@ -106,20 +106,21 @@ func _physics_process(delta: float) -> void:
 		if is_instance_valid(Global.mesh_text_node):
 			can_deform = Global.mesh_text_node.deform
 		if !mesh.editable && !can_deform:
-			var t : Vector2 = (last_modifier_position - sprite_node.global_position).snappedf(0.00001)
+			var t : Vector2 = (last_modifier_position - %Origin.global_position)
 			var mesh_len = (last_wobble_pos + follow_component.target_pos )
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
 			var follow_amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
 			var final_amp = amp  + follow_amp 
 			if actor.get_value("physics"):
-				mesh_len -=   t
-				final_amp += Vector2(75,75)
+				mesh_len +=   t
+				var dir = Vector2(actor.get_value("mesh_phys_x"), actor.get_value("mesh_phys_y")).normalized()
+				final_amp -=  (Vector2(300,300) -  abs(Vector2(actor.get_value("mesh_phys_x"), actor.get_value("mesh_phys_y"))))*dir
 				
 			var safe_deform_pos
 			if Tracker.working:
 				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.08)
 			else:
-				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, final_amp.normalized().length())
+				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.15)
 			if abs(safe_deform_pos.x) != 0:
 				mesh.deform_x = safe_deform_pos.x
 			if abs(safe_deform_pos.y) != 0:
@@ -127,7 +128,7 @@ func _physics_process(delta: float) -> void:
 			
 			mesh.call_deferred("update_physics", delta, false)
 	
-		last_modifier_position = last_modifier_position.move_toward(sprite_node.global_position, 30*delta).snappedf(0.00001)
+		last_modifier_position = last_modifier_position.lerp(%Origin.global_position,0.125 )
 
 func _process(_delta : float) -> void:
 	if actor.get_value("static_obj"):

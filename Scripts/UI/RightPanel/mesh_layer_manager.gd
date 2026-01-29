@@ -27,6 +27,8 @@ func nullfy():
 	%AddLayer.disabled = true
 	%DeleteLayer.disabled = true
 	%SelectedWarp.disabled = true
+	%PhysicsEffect.editable = false
+	%PhysicsEffect2.editable = false
 
 func enable():
 	var _disable : bool = false
@@ -55,6 +57,8 @@ func enable():
 		%AddLayer.disabled = false
 		%DeleteLayer.disabled = false
 		%SelectedWarp.disabled = false
+		%PhysicsEffect.editable = true
+		%PhysicsEffect2.editable = true
 		
 		%SelectedLayer.clear()
 		set_data()
@@ -65,6 +69,10 @@ func set_data():
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
+				
+				%PhysicsEffect.value = i.sprite_data.mesh_phys_x
+				%PhysicsEffect2.value = i.sprite_data.mesh_phys_y
+				
 				if i.mesh.get_layer_count() < Global.selected_mesh_inx:
 					continue
 				var layer = i.mesh.get_layer(Global.selected_mesh_inx)
@@ -93,7 +101,6 @@ func set_data():
 		else:
 			%SelectedWarp.select(-1)
 	should_change = true
-
 
 func populate_targets():
 	%SelectedWarp.clear()
@@ -385,8 +392,6 @@ func _on_add_layer_pressed() -> void:
 func submit_to_undo_redo(data):
 	UndoRedoManager.push_data(data)
 
-
-
 func _on_edit_type_item_selected(index: int) -> void:
 	match index:
 		0:
@@ -405,3 +410,17 @@ func _on_selected_warp_item_selected(index: int) -> void:
 					i.get_node("%Sprite2D").warps.clear()
 				else:
 					i.get_node("%Sprite2D").warps = [id]
+
+func _on_physics_effect_value_changed(value: float) -> void:
+	if should_change:
+		for i in Global.held_sprites:
+			i.sprite_data.mesh_phys_x = value
+			StateButton.multi_edit(value, "mesh_phys_x", i, i.states)
+			i.save_state(Global.current_state)
+
+func _on_physics_effect_2_value_changed(value: float) -> void:
+	if should_change:
+		for i in Global.held_sprites:
+			i.sprite_data.mesh_phys_y = value
+			StateButton.multi_edit(value, "mesh_phys_y", i, i.states)
+			i.save_state(Global.current_state)

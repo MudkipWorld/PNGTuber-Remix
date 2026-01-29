@@ -10,6 +10,13 @@ windows.x86_64.single.release = "res://CustomMesh/windows/CustomMesh.windows.tem
 linux.x86_64.single.debug = "res://CustomMesh/linux/CustomMesh.linux.template_debug.x86_64.so"
 linux.x86_64.single.release = "res://CustomMesh/linux/CustomMesh.linux.template_release.x86_64.so"
 
+macos.x86_64.debug = "res://CustomMesh/macos/CustomMesh.macos.template_debug.universal.dylib"
+macos.x86_64.release = "res://CustomMesh/macos/CustomMesh.macos.template_release.universal.dylib"
+
+macos.arm64.debug = "res://CustomMesh/macos/CustomMesh.macos.template_debug.arm64.dylib"
+macos.arm64.release = "res://CustomMesh/macos/CustomMesh.macos.template_release.arm64.dylib"
+
+
 [dependencies]
 windows = {
     "res://CustomMesh/windows/libgcc_s_seh-1.dll" : "",

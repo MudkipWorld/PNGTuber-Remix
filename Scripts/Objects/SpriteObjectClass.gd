@@ -226,6 +226,9 @@ const DEFAULT_DATA := {
 	chain_rot_min = -3.14,
 	chain_rot_max = 3.14,
 	
+	mesh_phys_x = 75,
+	mesh_phys_y = 75,
+	
 	}
 
 @export var sprite_object : Node2D

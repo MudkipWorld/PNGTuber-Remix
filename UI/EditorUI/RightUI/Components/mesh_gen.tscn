@@ -93,6 +93,36 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "TR_FOLLOW_MOVEMENT"
 
+[node name="Label17" type="Label" parent="VBoxContainer/GridContainer4" unique_id=217385958]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Physics Effect X :"
+
+[node name="PhysicsEffect" type="SpinBox" parent="VBoxContainer/GridContainer4" unique_id=1884792571]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+min_value = -300.0
+max_value = 300.0
+step = 0.01
+value = 75.0
+
+[node name="Label18" type="Label" parent="VBoxContainer/GridContainer4" unique_id=769459181]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Physics Effect Y :"
+
+[node name="PhysicsEffect2" type="SpinBox" parent="VBoxContainer/GridContainer4" unique_id=1819836844]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+min_value = -300.0
+max_value = 300.0
+step = 0.01
+value = 75.0
+
 [node name="MeshDeformGrid" parent="VBoxContainer" unique_id=1635465628 instance=ExtResource("3_dmk11")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -570,6 +600,8 @@ value = 2.0
 [connection signal="value_changed" from="VBoxContainer/GridContainer4/InfluStrength" to="MeshGenScript" method="_on_influ_strength_value_changed"]
 [connection signal="toggled" from="VBoxContainer/GridContainer4/FollowWobble" to="MeshGenScript" method="_on_follow_wobble_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer4/FollowMovements" to="MeshGenScript" method="_on_follow_movements_toggled"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer4/PhysicsEffect" to="MeshLayerManager" method="_on_physics_effect_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer4/PhysicsEffect2" to="MeshLayerManager" method="_on_physics_effect_2_value_changed"]
 [connection signal="item_selected" from="VBoxContainer/GridContainer/SelectedWarp" to="MeshLayerManager" method="_on_selected_warp_item_selected"]
 [connection signal="pressed" from="VBoxContainer/GridContainer5/AddLayer" to="MeshLayerManager" method="_on_add_layer_pressed"]
 [connection signal="pressed" from="VBoxContainer/GridContainer5/DeleteLayer" to="MeshLayerManager" method="_on_delete_layer_pressed"]
