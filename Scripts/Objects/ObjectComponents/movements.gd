@@ -98,7 +98,7 @@ func _physics_process(delta: float) -> void:
 	index_change_len_y = lerp(index_change_len_y, signed_len_y, 0.95)
 	index_change_len = index_change_len * actor.get_value("index_change")
 	index_change_len_y = index_change_len_y * actor.get_value("index_change_y")
-	modifier_node.z_index = floori(index_change_len + index_change_len_y)
+	modifier_node.z_index = clamp(floori(index_change_len + index_change_len_y), -250, 250)
 	
 	
 	if actor.sprite_type == "Mesh" and mesh != null && is_instance_valid(mesh):

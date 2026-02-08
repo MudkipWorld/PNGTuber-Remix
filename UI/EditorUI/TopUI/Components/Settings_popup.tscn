@@ -541,6 +541,7 @@ step = 0.01
 
 [node name="FollowMouseGlobalInput" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=934148735]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 tooltip_text = "Enables using the Global Input module to be used for mouse following instead of Godot's Built-in mouse tracking (Debug)"
 text = "Track using Global Input"

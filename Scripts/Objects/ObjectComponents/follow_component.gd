@@ -46,10 +46,7 @@ func _physics_process(delta: float) -> void:
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()
 	else:
-		if Settings.theme_settings.use_glob_input:
-			mouse_coords = follow_calculation_glob() 
-		else:
-			mouse_coords = follow_calculation() 
+		mouse_coords = follow_calculation() 
 		process_follow(delta)
 		last_mouse_position = mouse_coords
 
@@ -93,14 +90,18 @@ func follow_calculation(_delta = 0.0):
 		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
 		else:
-			var viewport_size = actor.get_viewport().size
-			var origin = actor.get_global_transform_with_canvas().origin
-			var x_per = 1.0 - origin.x/float(viewport_size.x)
-			var y_per = 1.0 - origin.y/float(viewport_size.y)
-			var display_size = Vector2(DisplayServer.screen_get_size(main_marker.current_screen))
-			var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
-			var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
-			mouse_coords = Vector2(mouse_pos - display_size) + offset 
+			if !actor.get_value("use_object_pos"):
+				mouse_coords = actor.get_global_mouse_position()
+				return mouse_coords
+			else:
+				var viewport_size = actor.get_viewport().size
+				var origin = actor.get_global_transform_with_canvas().origin
+				var x_per = 1.0 - origin.x/float(viewport_size.x)
+				var y_per = 1.0 - origin.y/float(viewport_size.y)
+				var display_size = Vector2(DisplayServer.screen_get_size(main_marker.current_screen))
+				var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
+				var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
+				mouse_coords = Vector2(mouse_pos - display_size) + offset 
 	else:
 		mouse_coords = get_mouse_coords()
 	return mouse_coords
@@ -110,42 +111,7 @@ func get_mouse_coords() -> Vector2:
 	if actor.get_value("use_object_pos"):
 		coord = actor.get_local_mouse_position()
 	else:
-		coord = Vector2(DisplayServer.mouse_get_position())
-	return coord
-
-func follow_calculation_glob(_delta = 0.0):
-	var main_marker = Global.main.get_node("%Marker")
-
-
-	if WindowHandler.windows:
-		mouse_coords = Vector2.ZERO
-		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = get_mouse_coords_glob()
-	elif main_marker.current_screen != Monitor.ALL_SCREENS:
-		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
-			mouse_coords = Vector2.ZERO
-		else:
-			var viewport_size = actor.get_viewport().size
-			var origin = actor.get_global_transform_with_canvas().origin
-			var x_per = 1.0 - origin.x/float(viewport_size.x)
-			var y_per = 1.0 - origin.y/float(viewport_size.y)
-			var display_size = Vector2(DisplayServer.screen_get_size(main_marker.current_screen))
-			var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
-			var mouse_pos = GlobInput.get_mouse_position() - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
-			mouse_coords = Vector2(mouse_pos - display_size) + offset 
-	else:
-		mouse_coords = get_mouse_coords_glob()
-	return mouse_coords
-
-
-func get_mouse_coords_glob() -> Vector2:
-	var coord : Vector2 = Vector2.ZERO
-	if actor.get_value("use_object_pos"):
-		var delta_mouse = Vector2(window.get_position_with_decorations()) + Vector2((window.get_size_with_decorations())/2)
-		var test = actor.to_local(GlobInput.get_mouse_position()-Vector2(delta_mouse))
-		coord = test
-	else:
-		coord = Vector2(GlobInput.get_mouse_position())
+		coord = actor.get_global_mouse_position()
 	return coord
 
 
