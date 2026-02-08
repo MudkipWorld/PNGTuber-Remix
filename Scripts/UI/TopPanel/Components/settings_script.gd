@@ -325,7 +325,6 @@ func _on_dev_mode_toggled(toggled_on: bool) -> void:
 		Global.dev_mode.emit(Settings.theme_settings.dev_mode)
 		Settings.save()
 
-
 func _on_follow_mouse_global_input_toggled(toggled_on: bool) -> void:
 	if change_setting:
 		Settings.theme_settings.use_glob_input = toggled_on

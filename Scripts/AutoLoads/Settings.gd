@@ -259,6 +259,8 @@ func _on_ui_theme_button_item_selected(index):
 			current_theme = preload("res://Themes/FunkyTheme/Funkytheme.tres")
 		7:
 			current_theme = preload("res://Themes/FrutigerAeroTheme/FrutigerAero.tres")
+		8:
+			current_theme = null
 	
 	Settings.theme_settings.theme_id = index
 	Global.theme_update.emit(current_theme)
