@@ -405,7 +405,10 @@ func set_common_data(sprite, sprite_obj):
 			sprite_obj.show_only = sprite.show_only
 		if sprite.has("hold_to_show"):
 			sprite_obj.hold_to_show = sprite.hold_to_show
-		sprite_obj.get_node("%Sprite2D").visible = sprite.was_active_before
+		if sprite.is_asset:
+			sprite_obj.get_node("%Sprite2D").visible = sprite.was_active_before
+		else:
+			sprite_obj.get_node("%Sprite2D").visible = true
 		sprite_obj.was_active_before = sprite.was_active_before
 
 		sprite_obj.disappear_keys = str(sprite.sprite_id) + "Disappear"
