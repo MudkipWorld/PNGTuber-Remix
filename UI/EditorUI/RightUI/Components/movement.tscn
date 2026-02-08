@@ -594,6 +594,13 @@ step = 0.001
 value_to_update = "scale_y_max"
 has_alt_values = true
 
+[node name="UseActorPos" type="CheckBox" parent="VBoxContainer" unique_id=1509111690]
+layout_mode = 2
+text = "Use Object Position"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "use_object_pos"
+
 [node name="Grid" type="GridContainer" parent="VBoxContainer" unique_id=783457870]
 layout_mode = 2
 theme_override_constants/h_separation = 8
@@ -871,8 +878,6 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_CLOSED"
 popup/item_2/id = 2
 
-[connection signal="changed" from="VBoxContainer/SharedMovement" to="MovementTab" method="_on_shared_movement_changed"]
-[connection signal="changed" from="VBoxContainer/SharedMovement" to="VBoxContainer/EditValuesFor" method="set_visible"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/FollowOption" to="Whyisntthisworking" method="_on_follow_option_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer2/FollowOption2" to="Whyisntthisworking" method="_on_follow_option_2_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer3/FollowOption3" to="Whyisntthisworking" method="_on_follow_option_3_item_selected"]

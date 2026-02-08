@@ -292,8 +292,8 @@ func moving_origin(delta):
 		if main.can_scroll:
 			if Input.is_action_pressed("ctrl"):
 				if Input.is_action_just_pressed("lmb"):
-					var of = i.get_parent().to_local(i.get_parent().get_global_mouse_position()) - i.position
-					i.position += of
+					var of = i.get_parent().get_global_mouse_position() - i.global_position
+					i.global_position += of
 					i.get_node("%Sprite2D").global_position -= of
 
 					offset(i)

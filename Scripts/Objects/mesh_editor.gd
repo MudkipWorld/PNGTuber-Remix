@@ -648,5 +648,7 @@ func make_delta(verts: PackedVector2Array, add : PackedVector2Array) -> PackedVe
 	var delta := PackedVector2Array()
 	delta.resize(verts.size())
 	for i in range(verts.size()):
+		if add.size() == 0:
+			return delta
 		delta[i] = verts[i] + add[i]
 	return delta

@@ -229,6 +229,8 @@ const DEFAULT_DATA := {
 	mesh_phys_x = 75,
 	mesh_phys_y = 75,
 	
+	use_object_pos = true,
+	
 	}
 
 @export var sprite_object : Node2D
@@ -383,13 +385,19 @@ func set_blend(blend):
 			sprite_object.material.set_shader_parameter("enabled", true)
 			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
 
-func reparent_obj(parent):
+func reparent_obj(parent, no_global : bool = false):
 	for i in parent:
 		if i.parent_id == sprite_id:
-			var og_pos = i.global_position
-			i.get_parent().remove_child(i)
-			%Sprite2D.add_child(i)
-			i.global_position = og_pos
+			if no_global:
+				i.get_parent().remove_child(i)
+				%Sprite2D.add_child(i)
+			else:
+				var og_pos = i.global_position
+				i.get_parent().remove_child(i)
+				%Sprite2D.add_child(i)
+				i.global_position = og_pos
+			
+
 
 func image_replaced(image_date : ImageData):
 	if !get_value("folder"):
@@ -462,7 +470,6 @@ func fade_asset(was_visible: bool, node: Node, node_hide: Node) -> bool:
 		await tween.finished
 		node_hide.visible = false
 		return false
-
 
 func reference_ik_target():
 	for i in get_tree().get_nodes_in_group("Sprites"):

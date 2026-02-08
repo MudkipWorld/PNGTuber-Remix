@@ -353,7 +353,7 @@ func _on_flip_sprite_h_toggled(toggled_on: bool) -> void:
 	if should_change:
 		var undo_redo_data : Array = []
 		for i in Global.held_sprites:
-			if i.sprite_type == "Sprite2D":
+			if i.sprite_type == "Sprite2D" or  i.sprite_type == "Mesh":
 				var d = submit_to_undo_redo_manager(i, "flip_sprite_h", Global.current_state, i.sprite_data.flip_sprite_h , toggled_on)
 				i.sprite_data.flip_sprite_h = toggled_on
 				if i.get_value("flip_sprite_h"):
@@ -380,7 +380,7 @@ func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 	if should_change:
 		var undo_redo_data : Array = []
 		for i in Global.held_sprites:
-			if i.sprite_type == "Sprite2D":
+			if i.sprite_type == "Sprite2D" or  i.sprite_type == "Mesh":
 				var d = submit_to_undo_redo_manager(i, "flip_sprite_v", Global.current_state, i.sprite_data.flip_sprite_h , toggled_on)
 				i.sprite_data.flip_sprite_v = toggled_on
 				if i.get_value("flip_sprite_v"):

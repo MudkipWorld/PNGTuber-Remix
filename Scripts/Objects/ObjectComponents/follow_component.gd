@@ -88,7 +88,7 @@ func follow_calculation(_delta = 0.0):
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO
 		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = actor.get_local_mouse_position()
+			mouse_coords = get_mouse_coords()
 	elif main_marker.current_screen != Monitor.ALL_SCREENS:
 		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
@@ -102,18 +102,25 @@ func follow_calculation(_delta = 0.0):
 			var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
 			mouse_coords = Vector2(mouse_pos - display_size) + offset 
 	else:
-		mouse_coords = actor.get_local_mouse_position()
+		mouse_coords = get_mouse_coords()
 	return mouse_coords
+
+func get_mouse_coords() -> Vector2:
+	var coord : Vector2 = Vector2.ZERO
+	if actor.get_value("use_object_pos"):
+		coord = actor.get_local_mouse_position()
+	else:
+		coord = Vector2(DisplayServer.mouse_get_position())
+	return coord
 
 func follow_calculation_glob(_delta = 0.0):
 	var main_marker = Global.main.get_node("%Marker")
 
-	var delta_mouse = Vector2(window.get_position_with_decorations()) + Vector2((window.get_size_with_decorations())/2)
-	var test = actor.to_local(GlobInput.get_mouse_position()-Vector2(delta_mouse))
+
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO
 		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = test
+			mouse_coords = get_mouse_coords_glob()
 	elif main_marker.current_screen != Monitor.ALL_SCREENS:
 		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
@@ -127,8 +134,20 @@ func follow_calculation_glob(_delta = 0.0):
 			var mouse_pos = GlobInput.get_mouse_position() - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
 			mouse_coords = Vector2(mouse_pos - display_size) + offset 
 	else:
-		mouse_coords = test
+		mouse_coords = get_mouse_coords_glob()
 	return mouse_coords
+
+
+func get_mouse_coords_glob() -> Vector2:
+	var coord : Vector2 = Vector2.ZERO
+	if actor.get_value("use_object_pos"):
+		var delta_mouse = Vector2(window.get_position_with_decorations()) + Vector2((window.get_size_with_decorations())/2)
+		var test = actor.to_local(GlobInput.get_mouse_position()-Vector2(delta_mouse))
+		coord = test
+	else:
+		coord = Vector2(GlobInput.get_mouse_position())
+	return coord
+
 
 func update_controller_inputs() -> void:
 	axis_left = Input.get_vector("ControllerLeft", "ControllerRight", "ControllerUp", "ControllerDown")
@@ -264,7 +283,7 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 			var screen_width = screen_size.x
 			var normalized_mouse = (mouse_x) / (screen_width / 2)
 			normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)
-			var rotation_factor = lerp(actor.sprite_data.mouse_rotation, actor.sprite_data.mouse_rotation_max, max((normalized_mouse + 1) / 2, 0.001))
+			var rotation_factor = lerp(float(actor.get_value("rot_min")), float(actor.get_value("rot_max")), max((normalized_mouse + 1) / 2, 0.001))
 			target_rot = GlobalCalculations.is_nan_or_inf(clamp_rotations(rotation_factor))
 
 	elif follow_type2 == 1: target_rot = follow_controller_rotation(axis_left)
@@ -279,12 +298,12 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 				pass
 			1:
 				var inv = 1
-				if signi(actor.sprite_data.mouse_rotation) < 0:
+				if signi(actor.get_value("rot_min")) < 0:
 					inv = -1
-				if actor.sprite_data.mouse_rotation > actor.sprite_data.mouse_rotation_max:
-					clamped_rot = inv *clamp(Tracker.track_rot.y,actor.sprite_data.mouse_rotation_max, actor.sprite_data.mouse_rotation)
+				if actor.get_value("rot_min") > actor.get_value("rot_max"):
+					clamped_rot = inv *clamp(Tracker.track_rot.y,actor.get_value("rot_max"), actor.get_value("rot_min") )
 				else:
-					clamped_rot = inv*clamp(Tracker.track_rot.y,actor.sprite_data.mouse_rotation, actor.sprite_data.mouse_rotation_max )
+					clamped_rot = inv*clamp(Tracker.track_rot.y,actor.get_value("rot_min") ,actor.get_value("rot_max"))
 			2:
 				clamped_rot = clamp_rotations(Tracker.track_pupil_left.angle())
 			3:

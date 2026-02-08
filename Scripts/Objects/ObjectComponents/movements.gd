@@ -85,7 +85,7 @@ func _physics_process(delta: float) -> void:
 		follow_point_rot = 0.0
 	else:
 		follow_wiggle(delta)
-	if not Global.static_view:
+	if !Global.static_view:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
 		modifier1_node.global_position = GlobalCalculations.is_nan_or_inf(applied_pos)
@@ -106,25 +106,31 @@ func _physics_process(delta: float) -> void:
 		if is_instance_valid(Global.mesh_text_node):
 			can_deform = Global.mesh_text_node.deform
 		if !mesh.editable && !can_deform:
-			var t : Vector2 = (last_modifier_position - %Origin.global_position)
-			var mesh_len = (last_wobble_pos + follow_component.target_pos )
-			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
-			var follow_amp = Vector2(actor.get_value("look_at_mouse_pos"), actor.get_value("look_at_mouse_pos_y"))
-			var final_amp = amp  + follow_amp 
-			if actor.get_value("physics"):
-				mesh_len +=   t
-				var dir = Vector2(actor.get_value("mesh_phys_x"), actor.get_value("mesh_phys_y")).normalized()
-				final_amp -=  (Vector2(300,300) -  abs(Vector2(actor.get_value("mesh_phys_x"), actor.get_value("mesh_phys_y"))))*dir
-				
-			var safe_deform_pos
-			if Tracker.working:
-				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.08)
+			if Global.static_view:
+				mesh.deform_x = 0.5
+				mesh.deform_y = 0.5
 			else:
-				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.15)
-			if abs(safe_deform_pos.x) != 0:
-				mesh.deform_x = safe_deform_pos.x
-			if abs(safe_deform_pos.y) != 0:
-				mesh.deform_y = safe_deform_pos.y
+				var t : Vector2 = (last_modifier_position - %Origin.global_position)
+				var mesh_len = (last_wobble_pos + follow_component.target_pos )
+				var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
+				var middle_x = (abs(actor.get_value("pos_x_min"))+ actor.get_value("pos_x_max"))*0.5
+				var middle_y = (abs(actor.get_value("pos_y_min"))+ actor.get_value("pos_y_max"))*0.5
+				var follow_amp = Vector2(middle_x, middle_y)
+				var final_amp = amp  + follow_amp 
+				if actor.get_value("physics"):
+					mesh_len +=   t
+					var dir = Vector2(actor.get_value("mesh_phys_x"), actor.get_value("mesh_phys_y")).normalized()
+					final_amp -=  (Vector2(300,300) -  abs(Vector2(actor.get_value("mesh_phys_x"), actor.get_value("mesh_phys_y"))))*dir
+					
+				var safe_deform_pos
+				if Tracker.working:
+					safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.08)
+				else:
+					safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.15)
+				if abs(safe_deform_pos.x) != 0:
+					mesh.deform_x = safe_deform_pos.x
+				if abs(safe_deform_pos.y) != 0:
+					mesh.deform_y = safe_deform_pos.y
 			
 			mesh.call_deferred("update_physics", delta, false)
 	

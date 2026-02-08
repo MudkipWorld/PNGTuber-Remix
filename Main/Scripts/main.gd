@@ -250,7 +250,7 @@ func _input(event):
 			if Input.is_action_pressed("alt"):
 				set_zoom(%Camera2D.zoom*1.1)
 			else:
-				var val = min(%Camera2D.zoom.x*1.1, 5.0)
+				var val = min(%Camera2D.zoom.x*1.1, 15.0)
 				%Camera2D.zoom = Vector2(val, val)
 				Global.settings_dict.zoom = %Camera2D.zoom
 

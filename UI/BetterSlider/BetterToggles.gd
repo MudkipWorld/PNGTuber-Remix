@@ -1,7 +1,6 @@
 extends Button
 class_name BetterToggles
 
-signal changed(value: bool)
 
 var should_change : bool = false
 @export var sp_type : String = "Null"
@@ -19,6 +18,7 @@ func _ready() -> void:
 	toggled.connect(on_toggle)
 
 func enable():
+	should_change = false
 	if sp_type == "Null": return
 	if Global.held_sprites.is_empty(): return
 	
@@ -39,13 +39,9 @@ func enable():
 		
 	
 	if !is_instance_valid(sp): return
-	
-	should_change = false
 	disabled = false
 	button_pressed = sp.sprite_data[value_to_update] != inverted
-	
 	should_change = true
-	changed.emit(button_pressed)
 
 func get_value() -> String:
 	if !has_alt_values:
@@ -60,10 +56,7 @@ func get_value() -> String:
 	return value_to_update
 
 func nullfy():
-	should_change = false
 	disabled = true
-	button_pressed = false
-	changed.emit(button_pressed)
 
 func on_toggle(toggle : bool):
 	if !should_change: return
@@ -85,5 +78,3 @@ func on_toggle(toggle : bool):
 		if i.sprite_type == "WiggleApp" and sp_type == "WiggleApp":
 			i.update_wiggle_parts()
 	UndoRedoManager.push_data(undo_redo_data)
-	
-	changed.emit(button_pressed)

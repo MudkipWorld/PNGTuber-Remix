@@ -7,6 +7,8 @@ func get_default_object_data() -> Dictionary:
 	return {
 		move_with_wobble = true,
 		move_with_follow= true,
+		flip_sprite_h = false,
+		flip_sprite_v = false,
 	}
 
 func _init() -> void:
@@ -95,6 +97,15 @@ func get_state(id):
 		position = get_value("position")
 		%Sprite2D.position = get_value("offset") 
 		%Sprite2D.scale = Vector2(1,1)
+		if get_value("flip_sprite_h"):
+			%Sprite2D.scale.x = -1
+		else:
+			%Sprite2D.scale.x = 1
+		
+		if get_value("flip_sprite_v"):
+			%Sprite2D.scale.y = -1
+		else:
+			%Sprite2D.scale.y = 1
 		
 		%Modifier1.z_index = get_value("z_index")
 		modulate = get_value("colored")
