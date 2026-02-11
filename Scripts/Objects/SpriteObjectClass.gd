@@ -396,7 +396,6 @@ func reparent_obj(parent, no_global : bool = false):
 				i.get_parent().remove_child(i)
 				%Sprite2D.add_child(i)
 				i.global_position = og_pos
-			
 
 
 func image_replaced(image_date : ImageData):
@@ -415,7 +414,7 @@ func image_replaced(image_date : ImageData):
 	else:
 		return
 
-func zazaza_reposition(parent):
+func reposition(parent):
 	for i in parent:
 		if i.sprite_id == parent_id:
 			for state in states:
@@ -446,10 +445,10 @@ func trigger_fade(was_visible: bool):
 		if !was_visible:
 			modulate.a = 0.0
 		tween = get_tree().create_tween()
-		tween.tween_property(self, "modulate:a", 1.0, get_value("fade_speed"))
+		tween.tween_property(self, "modulate:a", get_value("colored").a, get_value("fade_speed"))
 	else:
 		if was_visible:
-			modulate.a = 1.0
+			modulate.a = get_value("colored").a
 		tween = get_tree().create_tween()
 		tween.tween_property(self, "modulate:a", 0.0, get_value("fade_speed"))
 		await tween.finished
@@ -463,12 +462,12 @@ func fade_asset(was_visible: bool, node: Node, node_hide: Node) -> bool:
 	if target:
 		node.modulate.a = 0.0
 		tween = get_tree().create_tween()
-		tween.tween_property(node, "modulate:a", 1.0, get_value("fade_speed_asset"))
+		tween.tween_property(node, "modulate:a", get_value("colored").a, get_value("fade_speed_asset"))
 		await tween.finished
-		node.modulate.a = 1.0
+		node.modulate.a = get_value("colored").a
 		return true
 	else:
-		node.modulate.a = 1.0
+		node.modulate.a = get_value("colored").a
 		tween = get_tree().create_tween()
 		tween.tween_property(node, "modulate:a", 0.0, get_value("fade_speed_asset"))
 		await tween.finished

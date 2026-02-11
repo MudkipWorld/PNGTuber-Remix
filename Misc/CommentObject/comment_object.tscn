@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://xi7wuil2fgw"]
+[gd_scene format=3 uid="uid://xi7wuil2fgw"]
 
 [ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_6cwnl"]
 [ext_resource type="Script" uid="uid://c3gej70hph4uo" path="res://Scripts/Objects/comment_object.gd" id="2_etb4i"]
@@ -28,17 +28,17 @@ colors = PackedColorArray(0, 0, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8ts6b"]
 gradient = SubResource("Gradient_31wc5")
 
-[node name="CommentObject" node_paths=PackedStringArray("comment_object", "sprite_object", "grab_object") instance=ExtResource("1_6cwnl")]
+[node name="CommentObject" unique_id=269893867 node_paths=PackedStringArray("comment_object", "sprite_object", "grab_object") instance=ExtResource("1_6cwnl")]
 script = ExtResource("2_etb4i")
 comment_object = NodePath("Modifier1/Modifier/Sprite2D")
 sprite_object = NodePath("Modifier1/Modifier/Placeholder")
 grab_object = NodePath("Modifier1/Modifier/Grab")
 sprite_type = "Comment"
 
-[node name="Placeholder" type="Sprite2D" parent="Modifier1/Modifier" index="1"]
+[node name="Placeholder" type="Sprite2D" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=1175483804]
 visible = false
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" index="2"]
+[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="2" unique_id=1465607829]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,7 +52,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 texture_normal = SubResource("GradientTexture2D_dxs6g")
 
-[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Grab" index="0"]
+[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Grab" index="0" unique_id=1057218457]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -68,7 +68,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_8ts6b")
 expand_mode = 1
 
-[node name="Sprite2D" type="TextEdit" parent="Modifier1/Modifier" index="3"]
+[node name="Sprite2D" type="TextEdit" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="3" unique_id=1785350109]
 unique_name_in_owner = true
 anchors_preset = -1
 anchor_right = 0.876405
@@ -81,13 +81,13 @@ placeholder_text = "Comments go here"
 editable = false
 wrap_mode = 1
 
-[node name="FollowComponent" parent="." index="3" node_paths=PackedStringArray("actor")]
+[node name="FollowComponent" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="Movements" parent="." index="4" node_paths=PackedStringArray("actor")]
+[node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="AnimatedSpriteTexture" parent="." index="6" node_paths=PackedStringArray("sprite_node")]
+[node name="AnimatedSpriteTexture" parent="." index="6" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
 sprite_node = NodePath("../Modifier1/Modifier/Placeholder")
 
 [connection signal="text_changed" from="Modifier1/Modifier/Sprite2D" to="." method="_on_sprite_2d_text_changed"]

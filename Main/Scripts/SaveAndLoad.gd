@@ -202,7 +202,7 @@ func load_model(path: String) -> void:
 	var load_dict = file.get_var(true)
 	file.close()
 
-	if not load_dict.has("sprites_array"):
+	if !load_dict.has("sprites_array"):
 		return
 
 	var file_version := ""
@@ -210,11 +210,11 @@ func load_model(path: String) -> void:
 		file_version = load_dict.version
 
 	if file_version != Global.version:
-		if not path.begins_with("res://"):
+		if !path.begins_with("res://"):
 			save_backup(load_dict, path)
 			await get_tree().process_frame
 		load_dict = VersionConverter.convert_save(load_dict, file_version)
-		if OS.has_feature("editor") or not path.begins_with("res://"):
+		if OS.has_feature("editor") or !path.begins_with("res://"):
 			var new_file := FileAccess.open(path, FileAccess.WRITE)
 			new_file.store_var(load_dict, true)
 			new_file.close()
@@ -226,7 +226,7 @@ func load_model(path: String) -> void:
 			Global.settings_dict.monitor = Monitor.ALL_SCREENS
 
 	Global.remake_states.emit(load_dict.settings_dict.states)
-	if not path.begins_with("res://"):
+	if !path.begins_with("res://"):
 		Global.save_path = path
 		
 		
@@ -260,7 +260,7 @@ func load_model(path: String) -> void:
 
 	if import_trimmed and !Global.settings_dict.trimmed:
 		for i in get_tree().get_nodes_in_group("Sprites"):
-			i.zazaza_reposition(get_tree().get_nodes_in_group("Sprites"))
+			i.reposition(get_tree().get_nodes_in_group("Sprites"))
 		Global.settings_dict.trimmed = true
 		import_trimmed = false
 
@@ -840,7 +840,7 @@ func load_pngplus_file(path):
 	Global.reparent_objects.emit(get_tree().get_nodes_in_group("Sprites"))
 
 	for spr in get_tree().get_nodes_in_group("Sprites"):
-		spr.zazaza(get_tree().get_nodes_in_group("Sprites"))
+		spr.reposition_plus(get_tree().get_nodes_in_group("Sprites"))
 
 	Global.settings_dict.should_delta = false
 	Global.reinfoanim.emit()

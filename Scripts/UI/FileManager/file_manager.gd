@@ -107,6 +107,7 @@ func delete_items():
 				sprite.used_image_id_normal = -1
 				sprite.referenced_data_normal = Global.image_data_normal
 		
+		Global.image_manager_data.erase(asset)
 		asset.get_metadata(0).unreference()
 		asset.free()
 	var assets : TreeItem = %Tree.get_root().get_child(0)
