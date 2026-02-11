@@ -10,6 +10,10 @@ func _ready():
 	Global.deselect.connect(held_sprite_is_null)
 	Global.show_model_warning.connect(show_model_warning)
 	Global.dev_mode.connect(check_dev_mode)
+	%InfluRad.value = MeshEditor.influence_radius
+	%InfluStrength.value = MeshEditor.influence_strength
+	%InfluRad.get_line_edit().add_theme_font_size_override("placeholder", 12)
+	%InfluStrength.get_line_edit().add_theme_font_size_override("placeholder", 12)
 
 func check_dev_mode(check : bool = false):
 	%Inspector.set_tab_hidden(6, !check)
@@ -123,3 +127,10 @@ func _on_chain_target_item_selected(index: int) -> void:
 	else:
 		for i in Global.held_sprites:
 			i.target_ik = null
+
+
+func _on_influ_rad_value_changed(value: float) -> void:
+	MeshEditor.influence_radius = value
+
+func _on_influ_strength_value_changed(value: float) -> void:
+	MeshEditor.influence_strength = value

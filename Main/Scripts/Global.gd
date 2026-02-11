@@ -177,6 +177,7 @@ func set_mode(new_mode) -> void:
 				control.get_node("%RightPanel").show()
 				control.get_node("%MeshPanel").hide()
 				control.get_node("%BrushesPanel").hide()
+				control.get_node("%BrushData").hide()
 			is_editor = true
 		1:
 			RenderingServer.set_default_clear_color(settings_dict.bg_color)
@@ -197,7 +198,11 @@ func set_mode(new_mode) -> void:
 				control.get_node("%RightPanel").hide()
 				control.get_node("%MeshPanel").show()
 				control.get_node("%BrushesPanel").show()
+				control.get_node("%BrushData").show()
 			is_editor = true
+	
+	for i in Global.get_tree().get_nodes_in_group("Meshes"):
+		i.get_node("%MeshEditor").queue_redraw()
 	
 	Settings.theme_settings.mode = mode
 	Settings.save()

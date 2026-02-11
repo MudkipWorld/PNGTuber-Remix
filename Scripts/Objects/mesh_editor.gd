@@ -83,22 +83,20 @@ func add_layer():
 	mesh.queue_redraw()
 
 func _draw():
+	if Global.mode != 2:
+		return
+	
 	if !draw_internal_web or ! mesh.editable:
 		return
 	if mesh == null or not is_instance_valid(mesh):
 		return
-
 	if mesh.original_vertices.is_empty() or mesh.triangles.is_empty() or mesh.texture == null:
 		return
-
-
 	var vertices_to_draw: PackedVector2Array
-
 	if mesh.show_deformed_mesh:
 		vertices_to_draw =  mesh.interpolated_vertices
 	else:
 		vertices_to_draw = mesh.original_vertices
-
 	var base_count = mesh.base_vertices.size()
 	var offset = -mesh.texture.get_size() / 2.0
 

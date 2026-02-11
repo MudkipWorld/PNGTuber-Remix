@@ -93,6 +93,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 2
 
 [node name="LeftSide" type="HBoxContainer" parent="MainSplit" unique_id=1282179463]
 layout_mode = 2
@@ -188,14 +189,75 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 2
+split_offsets = PackedInt32Array(-410)
+split_offset = -410
 
-[node name="AspectRatioContainer" type="Control" parent="MainSplit/SecondarySplit" unique_id=1181481441]
-clip_contents = true
+[node name="VB" type="VBoxContainer" parent="MainSplit/SecondarySplit" unique_id=524706771]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="CamZoom" type="HBoxContainer" parent="MainSplit/SecondarySplit/AspectRatioContainer" unique_id=1689271344]
+[node name="BrushData" type="Panel" parent="MainSplit/SecondarySplit/VB" unique_id=371543764]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainSplit/SecondarySplit/VB/BrushData" unique_id=1929269758]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainSplit/SecondarySplit/VB/BrushData/MarginContainer" unique_id=995909267]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainSplit/SecondarySplit/VB/BrushData/MarginContainer/HBoxContainer" unique_id=680577819]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 14
+text = "TR_INFLUENCE"
+vertical_alignment = 1
+
+[node name="InfluRad" type="SpinBox" parent="MainSplit/SecondarySplit/VB/BrushData/MarginContainer/HBoxContainer" unique_id=250743505]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 2500.0
+
+[node name="Label2" type="Label" parent="MainSplit/SecondarySplit/VB/BrushData/MarginContainer/HBoxContainer" unique_id=753747848]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 14
+text = "TR_STRENGTH"
+vertical_alignment = 1
+
+[node name="InfluStrength" type="SpinBox" parent="MainSplit/SecondarySplit/VB/BrushData/MarginContainer/HBoxContainer" unique_id=491103318]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.01
+max_value = 10.0
+step = 0.001
+value = 0.01
+
+[node name="AspectRatioContainer" type="Control" parent="MainSplit/SecondarySplit/VB" unique_id=1181481441]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="CamZoom" type="HBoxContainer" parent="MainSplit/SecondarySplit/VB/AspectRatioContainer" unique_id=1689271344]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(107, 20)
 layout_mode = 1
@@ -212,7 +274,7 @@ theme_override_constants/separation = 10
 alignment = 2
 script = ExtResource("4_epu7g")
 
-[node name="ZoomInButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" unique_id=525538463]
+[node name="ZoomInButton" type="Button" parent="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom" unique_id=525538463]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -222,7 +284,7 @@ icon = SubResource("AtlasTexture_kv61l")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ZoomOutButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" unique_id=350393960]
+[node name="ZoomOutButton" type="Button" parent="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom" unique_id=350393960]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -232,7 +294,7 @@ icon = SubResource("AtlasTexture_mi4uk")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ZoomMainResetButton" type="Button" parent="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" unique_id=607687450]
+[node name="ZoomMainResetButton" type="Button" parent="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom" unique_id=607687450]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
@@ -242,7 +304,7 @@ icon = SubResource("AtlasTexture_seimj")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ProjectSavedLabel" type="Label" parent="MainSplit/SecondarySplit/AspectRatioContainer" unique_id=1405730346]
+[node name="ProjectSavedLabel" type="Label" parent="MainSplit/SecondarySplit/VB/AspectRatioContainer" unique_id=1405730346]
 unique_name_in_owner = true
 visible = false
 material = SubResource("CanvasItemMaterial_y3a4k")
@@ -259,7 +321,7 @@ text = "Project Saved!"
 vertical_alignment = 2
 script = ExtResource("8_y3a4k")
 
-[node name="ModelSizeWarning" type="TextureRect" parent="MainSplit/SecondarySplit/AspectRatioContainer" unique_id=15208935]
+[node name="ModelSizeWarning" type="TextureRect" parent="MainSplit/SecondarySplit/VB/AspectRatioContainer" unique_id=15208935]
 unique_name_in_owner = true
 visible = false
 texture_filter = 1
@@ -526,9 +588,11 @@ size_flags_vertical = 3
 
 [connection signal="dragged" from="MainSplit" to="." method="_on_main_split_dragged"]
 [connection signal="dragged" from="MainSplit/SecondarySplit" to="." method="_on_secondary_split_dragged"]
-[connection signal="pressed" from="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom/ZoomInButton" to="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" method="_on_zoom_in_button_pressed"]
-[connection signal="pressed" from="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom/ZoomOutButton" to="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" method="_on_zoom_out_button_pressed"]
-[connection signal="pressed" from="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom/ZoomMainResetButton" to="MainSplit/SecondarySplit/AspectRatioContainer/CamZoom" method="_on_zoom_main_reset_button_pressed"]
+[connection signal="value_changed" from="MainSplit/SecondarySplit/VB/BrushData/MarginContainer/HBoxContainer/InfluRad" to="UIInput" method="_on_influ_rad_value_changed"]
+[connection signal="value_changed" from="MainSplit/SecondarySplit/VB/BrushData/MarginContainer/HBoxContainer/InfluStrength" to="UIInput" method="_on_influ_strength_value_changed"]
+[connection signal="pressed" from="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom/ZoomInButton" to="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom" method="_on_zoom_in_button_pressed"]
+[connection signal="pressed" from="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom/ZoomOutButton" to="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom" method="_on_zoom_out_button_pressed"]
+[connection signal="pressed" from="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom/ZoomMainResetButton" to="MainSplit/SecondarySplit/VB/AspectRatioContainer/CamZoom" method="_on_zoom_main_reset_button_pressed"]
 [connection signal="focus_entered" from="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_focus_entered"]
 [connection signal="focus_exited" from="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_focus_exited"]
 [connection signal="text_submitted" from="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/Name" to="UIInput" method="_on_name_text_submitted"]

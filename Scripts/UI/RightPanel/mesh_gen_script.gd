@@ -63,8 +63,6 @@ func _on_generate_mesh_pressed() -> void:
 		i.get_node("%MeshEditor").regenerate_mesh()
 
 func set_static_data():
-	%InfluRad.value = MeshEditor.influence_radius
-	%InfluStrength.value = MeshEditor.influence_strength
 	%SquareGrid.button_pressed = MeshEditor.square_grid
 	%RingGrid.button_pressed = MeshEditor.ring_grid
 	%GridSize.value = MeshEditor.grid_size
@@ -73,12 +71,6 @@ func set_static_data():
 	%InternalPoints.value = MeshEditor.internal_point_count
 	%Eplision.value = MeshEditor.eplision
 	%MergeClose.value = MeshEditor.merge_close
-
-func _on_influ_rad_value_changed(value: float) -> void:
-	MeshEditor.influence_radius = value
-
-func _on_influ_strength_value_changed(value: float) -> void:
-	MeshEditor.influence_strength = value
 
 func _on_square_grid_toggled(toggled_on: bool) -> void:
 	MeshEditor.square_grid = toggled_on

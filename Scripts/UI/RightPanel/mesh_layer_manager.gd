@@ -7,6 +7,11 @@ func _ready() -> void:
 	Global.reinfo.connect(enable)
 	nullfy()
 	Global.mesh_text_node = self
+	Global.mode_changed.connect(mode_changed)
+
+func mode_changed(mode : int = 0):
+	if mode == 2:
+		%MeshDeformGrid.update_all_meshes_points(0.16)
 
 func nullfy():
 	%Stiffnessx.editable = false

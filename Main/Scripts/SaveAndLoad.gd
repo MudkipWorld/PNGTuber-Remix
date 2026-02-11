@@ -26,6 +26,9 @@ func save_data():
 			var used : bool = false
 			for sp in sprites:
 				if sp == null or !is_instance_valid(sp): continue
+				if i == null or !is_instance_valid(i): 
+					Global.image_manager_data.erase(i)
+					continue
 				if sp.used_image_id == i.id or sp.used_image_id_normal == i.id:
 					used = true
 					break

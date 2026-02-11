@@ -187,9 +187,8 @@ func _input(event: InputEvent) -> void:
 		Global.deselect.emit()
 
 func on_mode_changed(new_mode) -> void:
-	desel_everything()
 	match new_mode:
-		0:
+		0, 2:
 			%PreviewModeCheck.show()
 			%HideUIButton.button_pressed = true
 			%HideUIButton.show()
@@ -198,6 +197,7 @@ func on_mode_changed(new_mode) -> void:
 			%HideUIButton.button_pressed = false
 			%PreviewModeCheck.hide()
 			%PreviewModeCheck.button_pressed = false
+			desel_everything()
 
 func choosing_mode(id):
 	Global.mode = id
