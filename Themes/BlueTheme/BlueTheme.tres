@@ -65,6 +65,60 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrtba"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.148348, 0.313888, 0.398995, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0588235, 0.176471, 0.235294, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6prbm"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.121569, 0.266667, 0.341176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0588235, 0.176471, 0.235294, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flao1"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.547055, 0.768111, 0.851949, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0784314, 0.27451, 0.411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ywlf"]
+content_margin_left = 7.0
+bg_color = Color(0.152941, 0.396078, 0.509804, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0745098, 0.27451, 0.411765, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_vn4vb"]
 color = Color(0.0666667, 0.188235, 0.25098, 1)
 
@@ -237,6 +291,11 @@ Button/styles/hover = SubResource("StyleBoxFlat_43370")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_en1um")
 Button/styles/normal = SubResource("StyleBoxFlat_cqmw0")
 Button/styles/pressed = SubResource("StyleBoxFlat_di57v")
+FoldableContainer/styles/panel = ExtResource("1_vj17i")
+FoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_yrtba")
+FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_6prbm")
+FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_flao1")
+FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_1ywlf")
 HSeparator/styles/separator = SubResource("StyleBoxLine_vn4vb")
 HSlider/icons/grabber = ExtResource("1_en1um")
 HSlider/icons/grabber_disabled = ExtResource("2_43370")

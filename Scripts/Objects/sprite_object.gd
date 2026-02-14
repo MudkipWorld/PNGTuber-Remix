@@ -20,7 +20,6 @@ func get_default_object_data() -> Dictionary:
 
 var wiggle_val : float = 0
 
-
 func _init() -> void:
 	cached_defaults = DEFAULT_DATA.merged(get_default_object_data(), true)
 	sprite_data = cached_defaults.duplicate(true)

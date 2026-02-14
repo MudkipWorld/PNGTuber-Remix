@@ -72,26 +72,31 @@ layout_mode = 2
 focus_mode = 0
 text = "Stop"
 
-[node name="HSeparator" type="HSeparator" parent="." unique_id=843772147]
+[node name="OSF" type="VBoxContainer" parent="." unique_id=1791098609]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="." unique_id=174285209]
+[node name="HSeparator" type="HSeparator" parent="OSF" unique_id=843772147]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="OSF" unique_id=174285209]
 layout_mode = 2
 text = "UDP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Grid2" type="GridContainer" parent="." unique_id=737712339]
+[node name="Grid2" type="GridContainer" parent="OSF" unique_id=737712339]
 layout_mode = 2
 columns = 2
 
-[node name="PortLabel" type="Label" parent="Grid2" unique_id=422176520]
+[node name="PortLabel" type="Label" parent="OSF/Grid2" unique_id=422176520]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Port : "
 
-[node name="UDPPortValue" type="SpinBox" parent="Grid2" unique_id=1818207726]
+[node name="UDPPortValue" type="SpinBox" parent="OSF/Grid2" unique_id=1818207726]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -108,11 +113,11 @@ theme_override_icons/down_disabled = SubResource("GradientTexture1D_b1km8")
 max_value = 65535.0
 value = 11573.0
 
-[node name="Label" type="Label" parent="Grid2" unique_id=1473687462]
+[node name="Label" type="Label" parent="OSF/Grid2" unique_id=1473687462]
 layout_mode = 2
 text = "Backend :"
 
-[node name="OptionButton" type="OptionButton" parent="Grid2" unique_id=2110565253]
+[node name="OptionButton" type="OptionButton" parent="OSF/Grid2" unique_id=2110565253]
 layout_mode = 2
 disabled = true
 selected = 0
@@ -120,13 +125,13 @@ item_count = 1
 popup/item_0/text = "OpenSeeFace"
 popup/item_0/id = 0
 
-[node name="Label2" type="Label" parent="Grid2" unique_id=1373848180]
+[node name="Label2" type="Label" parent="OSF/Grid2" unique_id=1373848180]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Position Tracking Strength : "
 
-[node name="OSFPosStrength" type="SpinBox" parent="Grid2" unique_id=975888106]
+[node name="OSFPosStrength" type="SpinBox" parent="OSF/Grid2" unique_id=975888106]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -134,13 +139,13 @@ min_value = 1.0
 max_value = 1000.0
 value = 10.0
 
-[node name="Label3" type="Label" parent="Grid2" unique_id=417812898]
+[node name="Label3" type="Label" parent="OSF/Grid2" unique_id=417812898]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Mouth Tracking Strength : "
 
-[node name="OSFPosMouth" type="SpinBox" parent="Grid2" unique_id=1040998317]
+[node name="OSFPosMouth" type="SpinBox" parent="OSF/Grid2" unique_id=1040998317]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -149,13 +154,13 @@ max_value = 10.0
 step = 0.001
 value = -0.05000000000000071
 
-[node name="UDPStartButton" type="Button" parent="Grid2" unique_id=1653311652]
+[node name="UDPStartButton" type="Button" parent="OSF/Grid2" unique_id=1653311652]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 text = "Start"
 
-[node name="UDPStopButton" type="Button" parent="Grid2" unique_id=415212]
+[node name="UDPStopButton" type="Button" parent="OSF/Grid2" unique_id=415212]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
@@ -165,8 +170,8 @@ text = "Stop"
 [connection signal="value_changed" from="Grid/PortValue" to="." method="_on_port_value_value_changed"]
 [connection signal="pressed" from="Grid/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Grid/StopButton" to="." method="_on_stop_button_pressed"]
-[connection signal="value_changed" from="Grid2/UDPPortValue" to="." method="_on_udp_port_value_value_changed"]
-[connection signal="value_changed" from="Grid2/OSFPosStrength" to="." method="_on_spin_box_value_changed"]
-[connection signal="value_changed" from="Grid2/OSFPosMouth" to="." method="_on_osf_pos_mouth_value_changed"]
-[connection signal="pressed" from="Grid2/UDPStartButton" to="." method="_on_udp_start_button_pressed"]
-[connection signal="pressed" from="Grid2/UDPStopButton" to="." method="_on_udp_stop_button_pressed"]
+[connection signal="value_changed" from="OSF/Grid2/UDPPortValue" to="." method="_on_udp_port_value_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFPosStrength" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFPosMouth" to="." method="_on_osf_pos_mouth_value_changed"]
+[connection signal="pressed" from="OSF/Grid2/UDPStartButton" to="." method="_on_udp_start_button_pressed"]
+[connection signal="pressed" from="OSF/Grid2/UDPStopButton" to="." method="_on_udp_stop_button_pressed"]

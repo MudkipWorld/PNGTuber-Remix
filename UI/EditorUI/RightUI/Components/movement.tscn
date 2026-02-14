@@ -691,33 +691,35 @@ script = ExtResource("2_qiucb")
 sp_type = ""
 value_to_update = "snap_scale"
 
-[node name="FoldableContainer" type="FoldableContainer" parent="VBoxContainer" unique_id=615088386]
+[node name="OSFFold" type="FoldableContainer" parent="VBoxContainer" unique_id=615088386]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 folded = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/FoldableContainer" unique_id=639030792]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/OSFFold" unique_id=639030792]
 visible = false
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/FoldableContainer/VBoxContainer" unique_id=1918090969]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/OSFFold/VBoxContainer" unique_id=1918090969]
 layout_mode = 2
 
-[node name="Label6" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer" unique_id=337823781]
+[node name="Label6" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer" unique_id=337823781]
 layout_mode = 2
 text = "UDP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/FoldableContainer/VBoxContainer" unique_id=455125672]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/OSFFold/VBoxContainer" unique_id=455125672]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=1316319265]
+[node name="Label" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1316319265]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "UDP Position :"
 
-[node name="UDPPosOption" type="OptionButton" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=422300395]
+[node name="UDPPosOption" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=422300395]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -744,12 +746,12 @@ popup/item_8/id = 7
 popup/item_9/text = "Eyebrow Right"
 popup/item_9/id = 8
 
-[node name="Label2" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=1345450995]
+[node name="Label2" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1345450995]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "UDP Rotation :"
 
-[node name="UDPRotOption" type="OptionButton" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=1282721617]
+[node name="UDPRotOption" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1282721617]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -776,12 +778,12 @@ popup/item_8/id = 7
 popup/item_9/text = "Eyebrow Right"
 popup/item_9/id = 8
 
-[node name="Label3" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=721885065]
+[node name="Label3" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=721885065]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "UDP Scale :"
 
-[node name="UDPScaleOption" type="OptionButton" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=17328050]
+[node name="UDPScaleOption" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=17328050]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -808,12 +810,12 @@ popup/item_8/id = 7
 popup/item_9/text = "Eyebrow Right"
 popup/item_9/id = 8
 
-[node name="Label4" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=1571333507]
+[node name="Label4" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1571333507]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Follow Eye :"
 
-[node name="FollowEye" type="OptionButton" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=731042284]
+[node name="FollowEye" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=731042284]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -826,12 +828,12 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_RIGHT_EYE"
 popup/item_2/id = 2
 
-[node name="Label5" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=459864713]
+[node name="Label5" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=459864713]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Follow Gaze :"
 
-[node name="FollowEyeGaze" type="OptionButton" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=616374916]
+[node name="FollowEyeGaze" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=616374916]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -844,12 +846,12 @@ popup/item_1/id = 1
 popup/item_2/text = "TR_RIGHT_EYE"
 popup/item_2/id = 2
 
-[node name="Label6" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=186374472]
+[node name="Label6" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=186374472]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Eye Style :"
 
-[node name="EyeStyle" type="OptionButton" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=804741953]
+[node name="EyeStyle" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=804741953]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -860,12 +862,12 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_FT_STRETCH"
 popup/item_1/id = 1
 
-[node name="Label7" type="Label" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=1680052150]
+[node name="Label7" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1680052150]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Mouth :"
 
-[node name="MouthFollow" type="OptionButton" parent="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer" unique_id=1370536639]
+[node name="MouthFollow" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1370536639]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -881,10 +883,10 @@ popup/item_2/id = 2
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/FollowOption" to="Whyisntthisworking" method="_on_follow_option_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer2/FollowOption2" to="Whyisntthisworking" method="_on_follow_option_2_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer3/FollowOption3" to="Whyisntthisworking" method="_on_follow_option_3_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer/UDPPosOption" to="Whyisntthisworking" method="_on_udp_pos_option_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer/UDPRotOption" to="Whyisntthisworking" method="_on_udp_rot_option_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer/UDPScaleOption" to="Whyisntthisworking" method="_on_udp_scale_option_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/FoldableContainer/VBoxContainer/GridContainer/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/UDPPosOption" to="Whyisntthisworking" method="_on_udp_pos_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/UDPRotOption" to="Whyisntthisworking" method="_on_udp_rot_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/UDPScaleOption" to="Whyisntthisworking" method="_on_udp_scale_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]

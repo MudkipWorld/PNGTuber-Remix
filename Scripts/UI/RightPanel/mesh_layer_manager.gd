@@ -98,7 +98,9 @@ func set_data():
 	if Global.held_sprites.size() > 0:
 		for i in Global.held_sprites[0].mesh.get_layer_count():
 			%SelectedLayer.add_item(str(i))
-		%SelectedLayer.select(Global.selected_mesh_inx)
+			
+		if %SelectedLayer.item_count > Global.selected_mesh_inx:
+			%SelectedLayer.select(Global.selected_mesh_inx)
 		
 		populate_targets()
 		if Global.held_sprites[0].mesh.warps.size() > 0:

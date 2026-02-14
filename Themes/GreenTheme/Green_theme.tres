@@ -67,6 +67,21 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3nt7"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+bg_color = Color(0.47451, 0.627451, 0.486275, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.262745, 0.356863, 0.12549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_rcmqk"]
 color = Color(0.160784, 0.223529, 0.0666667, 1)
 
@@ -150,21 +165,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.192157, 0.262745, 0.121569, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3nt7"]
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 4.0
-bg_color = Color(0.47451, 0.627451, 0.486275, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.262745, 0.356863, 0.12549, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -274,6 +274,11 @@ Button/styles/hover = SubResource("StyleBoxFlat_1nkp3")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_jywgb")
 Button/styles/normal = SubResource("StyleBoxFlat_evoqv")
 Button/styles/pressed = SubResource("StyleBoxFlat_5pxpf")
+FoldableContainer/styles/panel = SubResource("StyleBoxFlat_p3nt7")
+FoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_jywgb")
+FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_5pxpf")
+FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_1nkp3")
+FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_evoqv")
 HSeparator/styles/separator = SubResource("StyleBoxLine_rcmqk")
 HSlider/icons/grabber = ExtResource("1_jywgb")
 HSlider/icons/grabber_disabled = ExtResource("2_1nkp3")

@@ -6,7 +6,11 @@ func _ready() -> void:
 	WebsocketHandler.port_state.connect(disable_spinbox)
 	await get_tree().current_scene.ready
 	await get_tree().create_timer(0.1).timeout
+	Global.dev_mode.connect(check_dev_mode)
 	check_websocket()
+
+func check_dev_mode(check : bool = false):
+	%OSF.visible = check
 
 func disable_spinbox(toggle : bool):
 	%PortValue.editable = !toggle

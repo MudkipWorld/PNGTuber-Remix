@@ -546,9 +546,6 @@ layout_mode = 2
 tooltip_text = "Enables using the Global Input module to be used for mouse following instead of Godot's Built-in mouse tracking (Debug)"
 text = "Track using Global Input"
 
-[node name="Control" type="Control" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=796736935]
-layout_mode = 2
-
 [node name="Pickles" type="TextureRect" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1349199565]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2

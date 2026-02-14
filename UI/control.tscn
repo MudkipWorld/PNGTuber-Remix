@@ -150,10 +150,10 @@ expand_icon = true
 script = ExtResource("8_le2wr")
 id = 2
 
-[node name="RotationDeflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1490739781 groups=["DeformButtons"]]
+[node name="RotationInflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1490739781 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Deflate Brush"
+tooltip_text = "Inflate Brush"
 focus_mode = 1
 icon = SubResource("AtlasTexture_3vweu")
 icon_alignment = 1
@@ -161,10 +161,10 @@ expand_icon = true
 script = ExtResource("8_le2wr")
 id = 3
 
-[node name="RotationInflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1464763284 groups=["DeformButtons"]]
+[node name="RotationDeflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1464763284 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Inflate Brush"
+tooltip_text = "Deflate Brush"
 focus_mode = 1
 icon = SubResource("AtlasTexture_y3a4k")
 icon_alignment = 1
@@ -420,8 +420,6 @@ theme_override_font_sizes/font_size = 13
 current_tab = 0
 switch_on_drag_hover = false
 tab_focus_mode = 0
-tab_6/hidden = true
-tab_7/hidden = true
 
 [node name="Properties" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 light_mask = 0

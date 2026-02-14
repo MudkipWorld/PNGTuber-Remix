@@ -15,9 +15,9 @@ func _ready():
 	%InfluRad.get_line_edit().add_theme_font_size_override("placeholder", 12)
 	%InfluStrength.get_line_edit().add_theme_font_size_override("placeholder", 12)
 
-func check_dev_mode(check : bool = false):
-	%Inspector.set_tab_hidden(6, !check)
-	%Inspector.set_tab_hidden(7, !check)
+func check_dev_mode(_check : bool = false):
+	pass
+	#%Inspector.set_tab_hidden(7, !check)
 
 func show_model_warning(_warn : bool):
 	%ModelSizeWarning.visible = _warn
