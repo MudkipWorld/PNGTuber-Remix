@@ -208,12 +208,12 @@ models like the ones seen in VeadoTube Mini and Gazō-Tuber
 If this is on, the object’s movement gets affected by the parent’s Y-axis movement. This could be used to add more flavor to your model!
 
 ##### Ignore Bounce Example:
-|Ignore Bounce On|Ignore Bounce Off|
+|  Ignore Bounce On  |  Ignore Bounce Off  |
 
 ![IgnoreBounce](assets/IgnoreBounce.gif)
 
 ##### Physics Example:
-|Physics On|Physics Off|
+|  Physics On  |  Physics Off  |
 
 ![Physics](assets/Physics.gif)
 
@@ -303,6 +303,15 @@ Movements in PNGTube-Remix work using the concept of Sine Movement/ Sine Waves.
 - Texture mode :  Either stretch the texture onto the appendage or tile it, tiling can be useful for something like chains.
 - Mirror Reaction H : Honestly, don't remember, need to check the code again. I think it was a test feature I forgot to remove.
   
+#### Note
+When setting up the appendage, make sure that the tip of the appednage/ tail is pointing to the right.
+<br>Here is an example of how some appendages look</br>
+
+Example Tail and Hair piece.
+
+![AppendageTail](assets/TailRef.png)
+![AppendageHair](assets/Hair.png)
+
 Remember to check [Original Wiggle Appendage](https://github.com/Tameno-01/GodotWigglyAppendage2D).  
 Check this [Basic Appendage Parameters for Artists](https://github.com/Tameno-01/GodotWigglyAppendage2D/blob/main/docs/parameter_decriptions.md)  
 
@@ -389,6 +398,8 @@ Light can be used with the Normal Maps feature to give your model a dynamic ligh
 ##### Mesh
 **MESHES ARE EXPERIMENTAL.**
 
+**Only usable/ enabled from Developer Mode**
+
 - Deform : Enables/ Disables the mesh editing.
 - Show Web : Shows the internal web/ connections between the mesh points.
 - Influence : The brush influece size.
@@ -450,6 +461,7 @@ Special thanks for vj4 for the feature!
 ---
 ### Assigning Input keys and Naming States
 In V1.4 onwards, assigning Input Keys/ renaming States is done from the Remap button ontop of the states as shown here, not from settings. Don't forget to press enter after renaming your State.
+
 
 ![Input](assets/Tutorial_image_1.PNG)
 ![Input2](assets/Tutorial_image_2.png)
