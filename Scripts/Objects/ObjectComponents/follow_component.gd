@@ -193,14 +193,18 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 		dist = m_dist
 		if actor.get_value("snap_pos"):
 			if dir.x != 0:
-				target_pos.x =  lerp(target_pos.x, float(clamp(dir.x *dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))), actor.get_value("mouse_delay"))
+				var t = dir.x * -min(actor.get_value("pos_x_min"), min(dist.x, actor.get_value("pos_x_max")))
+				target_pos.x =  lerp(target_pos.x, t, actor.get_value("mouse_delay"))
 				current_dir.x = dir.x
 			if dir.y != 0:
-				target_pos.y = lerp(target_pos.y,  float(clamp(dir.y *dist.y, actor.get_value("pos_y_min"), actor.get_value("pos_y_max"))), actor.get_value("mouse_delay"))
+				var t = dir.y * -min(actor.get_value("pos_y_min"), min(dist.y, actor.get_value("pos_y_max")))
+				target_pos.y = lerp(target_pos.y, t, actor.get_value("mouse_delay"))
 				current_dir.y = dir.y
 		else:
-			target_pos.x = lerp(target_pos.x, float(clamp(dir.x *dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))), actor.get_value("mouse_delay"))
-			target_pos.y = lerp(target_pos.y,  float(clamp(dir.y *dist.y, actor.get_value("pos_y_min"), actor.get_value("pos_y_max"))), actor.get_value("mouse_delay"))
+			var t = Vector2(dir.x * -min(actor.get_value("pos_x_min"), min(dist.x, actor.get_value("pos_x_max"))), dir.y * -min(actor.get_value("pos_y_min"), min(dist.y, actor.get_value("pos_y_max"))))
+
+			target_pos.x = lerp(target_pos.x, t.x, actor.get_value("mouse_delay"))
+			target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay"))
 			current_dir = dir
 			current_dist = target_pos.length()
 	else:
