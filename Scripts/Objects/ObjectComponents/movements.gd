@@ -86,7 +86,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		follow_wiggle(delta)
 	if !Global.static_view:
-		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
+		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation + ik_smoothed_rot
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
 		modifier1_node.global_position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
@@ -171,6 +171,7 @@ func movements(delta: float) -> void:
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 	if actor_node == null or not is_instance_valid(actor_node):
+		ik_smoothed_rot = 0.0
 		return
 
 	if actor_node.target_ik != null and is_instance_valid(actor_node.target_ik):
@@ -181,7 +182,7 @@ func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 			apply_look_at_ik(target_pos)
 				
 		else:
-			modifier1_node.rotation = 0.0
+			ik_smoothed_rot = 0.0
 			
 		if actor_node.has_node("%Sprite2D"):
 			var sprite_root = actor_node.get_node("%Sprite2D")
@@ -190,7 +191,8 @@ func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 					if child.target_ik != null and is_instance_valid(child.target_ik):
 						apply_recursive_look_at_chain(child)
 	else:
-		modifier1_node.rotation = 0.0
+		ik_smoothed_rot = 0.0
+
 
 func apply_look_at_ik(target_pos: Vector2) -> void:
 	var chain_softness: float = actor.get_value("chain_softness")
