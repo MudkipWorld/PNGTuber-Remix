@@ -53,24 +53,21 @@ func reinfo():
 	
 	
 	%ChainTarget.clear()
-	%ChainTarget.add_item("None", -1)
-	var index : int = 0
+	%ChainTarget.add_item("None")
+	%ChainTarget.select(0)
+	var sp = null
+	if Global.held_sprites.size() > 0:
+		sp = Global.held_sprites[0]
+	var index : int = 1
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		%ChainTarget.add_item(i.sprite_name)
 		%ChainTarget.set_item_metadata(index, i)
+		if sp != null && is_instance_valid(sp):
+			if sp.target_ik != null && is_instance_valid(sp.target_ik):
+				if i == sp.target_ik:
+					%ChainTarget.select(index)
 		index += 1
-	
-	if Global.held_sprites.size() > 0:
-		var i = Global.held_sprites[0]
-		if i.target_ik != null && is_instance_valid(i.target_ik):
-			for l in %ChainTarget.item_count:
-				var item = %ChainTarget.get_item_metadata(l)
-				if item == i.target_ik:
-					%ChainTarget.select(l)
-		else:
-			%ChainTarget.select(-1)
-	
-	
+
 	should_change = true
 
 func _on_name_text_submitted(new_text):
@@ -121,13 +118,12 @@ func _on_name_focus_exited() -> void:
 
 func _on_chain_target_item_selected(index: int) -> void:
 	var selected = %ChainTarget.get_item_metadata(index)
-	if selected:
+	if selected != null and is_instance_valid(selected):
 		for i in Global.held_sprites:
 			i.target_ik = selected
 	else:
 		for i in Global.held_sprites:
 			i.target_ik = null
-
 
 func _on_influ_rad_value_changed(value: float) -> void:
 	MeshEditor.influence_radius = value

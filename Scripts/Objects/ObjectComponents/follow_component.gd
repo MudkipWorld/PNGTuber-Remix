@@ -114,7 +114,6 @@ func get_mouse_coords() -> Vector2:
 		coord = actor.get_global_mouse_position()
 	return coord
 
-
 func update_controller_inputs() -> void:
 	axis_left = Input.get_vector("ControllerLeft", "ControllerRight", "ControllerUp", "ControllerDown")
 	axis_right = Input.get_vector("ControllerFour", "ControllerTwo", "ControllerOne", "ControllerThree")

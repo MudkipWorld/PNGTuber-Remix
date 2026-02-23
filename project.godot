@@ -38,6 +38,7 @@ driver/enable_input=true
 
 VersionConverter="*res://Scripts/AutoLoads/VersionConversion/VersionConverter.tscn"
 Global="*res://Main/Scripts/Global.gd"
+LoadMisc="*uid://bqxqiptwa1wsc"
 SaveAndLoad="*res://Main/Scripts/SaveAndLoad.gd"
 Settings="*res://Scripts/AutoLoads/Settings.gd"
 GlobalAudioStreamPlayer="*res://Scripts/AutoLoads/audio_stream_player.tscn"
