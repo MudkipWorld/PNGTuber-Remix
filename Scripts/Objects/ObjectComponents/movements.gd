@@ -61,7 +61,7 @@ func _ready() -> void:
 	last_modifier_position = sprite_node.global_position
 
 func _physics_process(delta: float) -> void:
-	placeholder_position = modifier1_node.global_position
+	placeholder_position = modifier1_node.position
 	applied_pos =  placeholder_position
 	
 	if !Global.static_view and actor.rest_mode != 5:
@@ -88,7 +88,7 @@ func _physics_process(delta: float) -> void:
 	if !Global.static_view:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
-		modifier1_node.global_position = GlobalCalculations.is_nan_or_inf(applied_pos)
+		modifier1_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
 	shadow_target = modifier_node.global_position + follow_component.target_pos
 	if actor.get_value("index_change") != 0 or actor.get_value("index_change_y") != 0:

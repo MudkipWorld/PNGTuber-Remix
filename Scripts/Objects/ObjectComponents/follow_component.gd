@@ -34,6 +34,8 @@ var axis_shoulderr :Vector2 = Vector2.ZERO
 var axis_lr_3 : Vector2 = Vector2.ZERO
 var current_dir : Vector2 = Vector2.ZERO
 var current_dist : float = 0.0
+var test : Vector2 = Vector2.ZERO
+var final_target : Vector2 = Vector2.ZERO
 
 var window : Window = null
 
@@ -179,7 +181,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		if !actor.get_value("move_with_follow"):
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return
-	var final_target : Vector2 = target_pos
+	final_target = target_pos
 	if invert_x:
 		final_target.x *= -1
 	if invert_y:
@@ -190,19 +192,20 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 	var dist = dir
 	if m_dist != Vector2.ZERO:
 		dist = m_dist
-		var t = Vector2(  max(actor.get_value("pos_x_min"), min(dir.x *dist.x,actor.get_value("pos_x_max"))), 
+		var t = Vector2(max(actor.get_value("pos_x_min"), min(dir.x *dist.x,actor.get_value("pos_x_max"))), 
 		 max(actor.get_value("pos_y_min"), min(dir.y *dist.y, actor.get_value("pos_y_max"))))
-		
+		test = test.slerp(t, 0.25)
+
 		if actor.get_value("snap_pos"):
 			if dir.x != 0:
-				target_pos.x =  lerp(target_pos.x, t.x, actor.get_value("mouse_delay"))
+				target_pos.x =  lerp(target_pos.x, test.x, actor.get_value("mouse_delay"))
 				current_dir.x = dir.x
 			if dir.y != 0:
-				target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay"))
+				target_pos.y = lerp(target_pos.y, test.y, actor.get_value("mouse_delay"))
 				current_dir.y = dir.y
 		else:
-			target_pos.x = lerp(target_pos.x, t.x, actor.get_value("mouse_delay"))
-			target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay"))
+			target_pos.x = lerp(target_pos.x, test.x, actor.get_value("mouse_delay"))
+			target_pos.y = lerp(target_pos.y, test.y, actor.get_value("mouse_delay"))
 			current_dir = dir
 			current_dist = target_pos.length()
 	else:
