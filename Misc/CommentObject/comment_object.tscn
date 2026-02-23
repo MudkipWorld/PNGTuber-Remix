@@ -30,29 +30,38 @@ gradient = SubResource("Gradient_31wc5")
 
 [node name="CommentObject" unique_id=269893867 node_paths=PackedStringArray("comment_object", "sprite_object", "grab_object") instance=ExtResource("1_6cwnl")]
 script = ExtResource("2_etb4i")
-comment_object = NodePath("Modifier1/Modifier/Sprite2D")
-sprite_object = NodePath("Modifier1/Modifier/Placeholder")
-grab_object = NodePath("Modifier1/Modifier/Grab")
+comment_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D")
+sprite_object = NodePath("Modifier1/Rotation/Modifier/Placeholder")
+grab_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D/Grab")
 sprite_type = "Comment"
 
-[node name="Placeholder" type="Sprite2D" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=1175483804]
+[node name="Placeholder" type="Sprite2D" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="0" unique_id=1175483804]
 visible = false
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="2" unique_id=1465607829]
+[node name="Sprite2D" type="TextEdit" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="2" unique_id=1785350109]
 unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_right = 0.876405
+anchor_bottom = 0.893417
+offset_right = 434.0
+offset_bottom = 306.0
+focus_mode = 1
+mouse_filter = 1
+placeholder_text = "Comments go here"
+editable = false
+wrap_mode = 1
+
+[node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="5" unique_id=1465607829]
+unique_name_in_owner = true
+layout_mode = 1
 offset_left = -120.0
 offset_top = -120.0
-grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 texture_normal = SubResource("GradientTexture2D_dxs6g")
 
-[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Grab" index="0" unique_id=1057218457]
+[node name="Selection" type="TextureRect" parent="Modifier1/Rotation/Modifier/Sprite2D/Grab" index="0" unique_id=1057218457]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -68,26 +77,8 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_8ts6b")
 expand_mode = 1
 
-[node name="Sprite2D" type="TextEdit" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="3" unique_id=1785350109]
-unique_name_in_owner = true
-anchors_preset = -1
-anchor_right = 0.876405
-anchor_bottom = 0.893417
-offset_right = 434.0
-offset_bottom = 306.0
-focus_mode = 1
-mouse_filter = 1
-placeholder_text = "Comments go here"
-editable = false
-wrap_mode = 1
-
 [node name="FollowComponent" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
 [node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
-
-[node name="AnimatedSpriteTexture" parent="." index="6" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
-sprite_node = NodePath("../Modifier1/Modifier/Placeholder")
-
-[connection signal="text_changed" from="Modifier1/Modifier/Sprite2D" to="." method="_on_sprite_2d_text_changed"]

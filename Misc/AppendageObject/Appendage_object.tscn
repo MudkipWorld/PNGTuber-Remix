@@ -47,19 +47,18 @@ gradient = SubResource("Gradient_lijf4")
 
 [node name="SpriteObject" unique_id=468878790 node_paths=PackedStringArray("sprite_object", "grab_object") instance=ExtResource("1_31wc5")]
 script = ExtResource("1_yuqos")
-sprite_object = NodePath("Modifier1/Modifier/Sprite2D")
-grab_object = NodePath("Modifier1/Modifier/Sprite2D/Grab")
+sprite_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D")
+grab_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D/Grab")
 
-[node name="Sprite2D" type="Line2D" parent="Modifier1/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=290325673 node_paths=PackedStringArray("actor")]
+[node name="Sprite2D" type="Line2D" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=290325673]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(-10, 0, -4.96, 0, 2.1600008, 0, 11.360001, 0, 22.640001, 0, 36, 0, 50.4, -4.1681637e-05, 64.8, -0.00016672655, 79.2, -0.00037513475, 93.600006, -0.0006669062, 108, -0.0010420409, 122.399994, 0.0007889038, 136.79999, 0.0071153706, 151.19998, 0.017937364, 165.59996, 0.033254873, 179.99995, 0.053067908, 194.39993, 0.06662078, 208.79987, 0.06315783, 223.1998, 0.042679038, 237.59969, 0.005184412, 251.99956, -0.049326032, 266.39944, -0.10934867, 280.79932, -0.16337982, 295.19922, -0.2114195, 309.59915, -0.2534677, 323.9991, -0.28952444, 338.39908, -0.3195897, 352.79904, -0.34366342)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.1600008, 0, 11.360001, 0, 22.640001, 0, 36, 0, 50.4, 4.3702123e-05, 64.8, 0.00017480849, 79.2, 0.00039331912, 93.600006, 0.00069923396, 108, 0.001092553, 122.399994, 0.00025416026, 136.8, -0.0031350604, 151.2, -0.009075111, 165.59999, -0.017565986, 179.99998, -0.02860769, 194.39998, -0.04351322, 208.79996, -0.06359558, 223.19994, -0.08885476, 237.59988, -0.11929076, 251.99985, -0.15490359, 266.39963, -0.1662078, 280.79904, -0.123717956, 295.1981, -0.027434051, 309.5968, 0.12264392, 323.99512, 0.3265159, 338.39258, 0.5841739, 352.78867, 0.89560986)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
-actor = NodePath("../../..")
 segment_length = 72.0
 max_angle = 0.523599
 comeback_speed = 0.419
@@ -68,12 +67,16 @@ max_angular_momentum = 20.0
 subdivision = 5
 additional_start_segment = true
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Modifier/Sprite2D" index="0" unique_id=1348424283]
+[node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="0" unique_id=1348424283]
 unique_name_in_owner = true
 z_index = 4096
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -81,7 +84,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 texture_normal = SubResource("GradientTexture2D_wmc63")
 
-[node name="Selection" type="TextureRect" parent="Modifier1/Modifier/Sprite2D/Grab" index="0" unique_id=424484525]
+[node name="Selection" type="TextureRect" parent="Modifier1/Rotation/Modifier/Sprite2D/Grab" index="0" unique_id=424484525]
 unique_name_in_owner = true
 visible = false
 z_index = 4096
@@ -102,6 +105,3 @@ actor = NodePath("..")
 
 [node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
-
-[node name="AnimatedSpriteTexture" parent="." index="6" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
-sprite_node = NodePath("../Modifier1/Modifier/Sprite2D")

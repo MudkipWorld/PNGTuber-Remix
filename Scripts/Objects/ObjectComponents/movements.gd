@@ -5,7 +5,7 @@ extends Node
 
 @onready var modifier_node : Node2D = %Modifier
 @onready var modifier1_node : Node2D = %Modifier1
-@onready var sprite_node : Node2D = %Sprite2D
+@onready var sprite_node : Node = %Sprite2D
 @onready var follow_component : Node = %FollowComponent
 
 var parent_node : Node
@@ -86,7 +86,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		follow_wiggle(delta)
 	if !Global.static_view:
-		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation + ik_smoothed_rot
+		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
 		modifier1_node.global_position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
@@ -171,18 +171,18 @@ func movements(delta: float) -> void:
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 	if actor_node == null or not is_instance_valid(actor_node):
-		ik_smoothed_rot = 0.0
+		%Rotation.rotation = 0.0
 		return
 
 	if actor_node.target_ik != null and is_instance_valid(actor_node.target_ik):
-		var root = modifier1_node
-		var target = actor_node.target_ik.get_node("%Modifier1")
+		var root = %Rotation
+		var target = actor_node.target_ik.get_node("%Rotation")
 		if root != null and target != null:
 			var target_pos = ( Global.sprite_container.to_local(target.global_position) - Global.sprite_container.to_local(root.global_position))
 			apply_look_at_ik(target_pos)
 				
 		else:
-			ik_smoothed_rot = 0.0
+			%Rotation.rotation = 0.0
 			
 		if actor_node.has_node("%Sprite2D"):
 			var sprite_root = actor_node.get_node("%Sprite2D")
@@ -191,7 +191,7 @@ func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 					if child.target_ik != null and is_instance_valid(child.target_ik):
 						apply_recursive_look_at_chain(child)
 	else:
-		ik_smoothed_rot = 0.0
+		%Rotation.rotation = 0.0
 
 
 func apply_look_at_ik(target_pos: Vector2) -> void:
@@ -201,7 +201,7 @@ func apply_look_at_ik(target_pos: Vector2) -> void:
 	var rigidity = 1.0 / max(chain_softness, 0.0001)
 	var lerp_amount = clamp(0.75 * target_pos.normalized().length() * rigidity, 0.0, 1.0)
 	var target_angle_global = atan2(target_pos.y, target_pos.x)
-	var parent = modifier1_node.get_parent()
+	var parent = %Rotation.get_parent()
 	var target_angle_local = target_angle_global
 	
 	if parent != null:
@@ -214,7 +214,7 @@ func apply_look_at_ik(target_pos: Vector2) -> void:
 	if parent != null:
 		final_global += parent.global_rotation
 		
-	modifier1_node.global_rotation = lerp_angle(modifier1_node.global_rotation,final_global,lerp_amount)
+	%Rotation.global_rotation = lerp_angle(%Rotation.global_rotation,final_global,lerp_amount)
 
 func rest_mode_movements(delta : float) -> void:
 	glob = shadow_dragger

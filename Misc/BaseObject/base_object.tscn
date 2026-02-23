@@ -13,11 +13,14 @@ physics_interpolation_mode = 2
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 
-[node name="Modifier" type="Node2D" parent="Modifier1" unique_id=2094774544]
+[node name="Rotation" type="Node2D" parent="Modifier1" unique_id=2086871662]
+unique_name_in_owner = true
+
+[node name="Modifier" type="Node2D" parent="Modifier1/Rotation" unique_id=2094774544]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 
-[node name="Origin" type="Sprite2D" parent="Modifier1/Modifier" unique_id=387742310]
+[node name="Origin" type="Sprite2D" parent="Modifier1/Rotation/Modifier" unique_id=387742310]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 visible = false
