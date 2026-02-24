@@ -529,6 +529,16 @@ step = 0.01
 value = 5.0
 value_to_update = "chain_softness"
 
+[node name="BoneLen" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid" unique_id=2109211975 instance=ExtResource("17_kv61l")]
+layout_mode = 2
+sp_type = ""
+label_text = "Length :"
+mini_value = 1.0
+max_value = 9999999.0
+step = 0.01
+value = 5.0
+value_to_update = "bone_length"
+
 [node name="ChainRotMin" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=1124722970 instance=ExtResource("18_mi4uk")]
 layout_mode = 2
 sp_type = ""

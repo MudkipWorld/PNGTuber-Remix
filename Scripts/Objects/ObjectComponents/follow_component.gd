@@ -130,6 +130,8 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		return
 	var invert_x: bool = actor.get_value("pos_invert_x")
 	var invert_y: bool = actor.get_value("pos_invert_y")
+	var swap_x: bool = actor.get_value("pos_swap_x")
+	var swap_y: bool = actor.get_value("pos_swap_y")
 	var follow_type: int = actor.get_value("follow_type")
 	var keyboard_axis: Vector2 = Vector2.ZERO
 	if follow_type == 0:
@@ -181,11 +183,17 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		if !actor.get_value("move_with_follow"):
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return
-	final_target = target_pos
+	
+	var sw_x = target_pos.y if swap_x else target_pos.x
+	var sw_y = target_pos.x if swap_y else target_pos.y
+	
 	if invert_x:
-		final_target.x *= -1
+		sw_x *= -1
 	if invert_y:
-		final_target.y *= -1
+		sw_y *= -1
+		
+	final_target = Vector2(sw_x, sw_y)
+
 	modifier.position = modifier.position.lerp(final_target, actor.get_value("mouse_delay"))
 
 func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO):
@@ -325,6 +333,9 @@ func update_scale(dir: Vector2, delta: float) -> void:
 	var s_max_y = actor.get_value("scale_y_max")
 	var invert_x: bool = actor.get_value("scale_invert_x")
 	var invert_y: bool = actor.get_value("scale_invert_y")
+	var swap_x: bool = actor.get_value("scale_swap_x")
+	var swap_y: bool = actor.get_value("scale_swap_y")
+	
 	var x_val: float = 0.0
 	var y_val: float = 0.0
 	var keyboard_axis: Vector2 = Vector2.ZERO
@@ -399,12 +410,18 @@ func update_scale(dir: Vector2, delta: float) -> void:
 		modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_scale.x, actor.get_value("mouse_delay")))
 		modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_scale.y, actor.get_value("mouse_delay")))
 	else:
+		var sw_x = y_val if swap_x else x_val
+		var sw_y = x_val if swap_y else y_val
+		
 		if invert_x:
-			x_val *= -1
+			sw_x *= -1
 		if invert_y:
-			y_val *= -1
-		var target_sx: float = 1.0 - clamp( x_val, s_min_x, s_max_x)
-		var target_sy: float = 1.0 - clamp( y_val, s_min_y, s_max_y)
+			sw_y *= -1
+			
+		final_target = Vector2(sw_x, sw_y)
+		
+		var target_sx: float = 1.0 - clamp( final_target.x, s_min_x, s_max_x)
+		var target_sy: float = 1.0 - clamp( final_target.y, s_min_y, s_max_y)
 		var t: float = clamp(actor.get_value("mouse_delay") * delta * 60.0, 0.0, 1.0)
 		modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_sx, t))
 		modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_sy, t))

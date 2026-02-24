@@ -225,6 +225,7 @@ const DEFAULT_DATA := {
 	chain_softness = 5,
 	chain_rot_min = -3.14,
 	chain_rot_max = 3.14,
+	bone_length = 50,
 	
 	mesh_phys_x = 75,
 	mesh_phys_y = 75,

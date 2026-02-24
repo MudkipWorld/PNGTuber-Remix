@@ -169,52 +169,35 @@ func movements(delta: float) -> void:
 	stretch(length)
 	rotational_drag(length, delta)
 
-func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
-	if actor_node == null or not is_instance_valid(actor_node):
-		%Rotation.rotation = 0.0
-		return
 
-	if actor_node.target_ik != null and is_instance_valid(actor_node.target_ik):
-		var root = %Rotation
-		var target = actor_node.target_ik.get_node("%Rotation")
-		if root != null and target != null:
-			var target_pos = ( Global.sprite_container.to_local(target.global_position) - Global.sprite_container.to_local(root.global_position))
+func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
+	if actor_node == null or !is_instance_valid(actor_node):
+		return
+	if actor_node.target_ik != null && is_instance_valid(actor_node.target_ik):
+		var root = sprite_node
+		var target = actor_node.target_ik.get_node("%Modifier1")
+		if root != null && target != null:
+			var target_pos: Vector2 = Vector2(target.global_position - root.global_position)
 			apply_look_at_ik(target_pos)
-				
-		else:
-			%Rotation.rotation = 0.0
 			
 		if actor_node.has_node("%Sprite2D"):
 			var sprite_root = actor_node.get_node("%Sprite2D")
 			for child in sprite_root.get_children():
-				if child is SpriteObject and is_instance_valid(child):
-					if child.target_ik != null and is_instance_valid(child.target_ik):
-						apply_recursive_look_at_chain(child)
-	else:
-		%Rotation.rotation = 0.0
+				if child is SpriteObject && is_instance_valid(child):
+					apply_recursive_look_at_chain(child)
 
 
 func apply_look_at_ik(target_pos: Vector2) -> void:
 	var chain_softness: float = actor.get_value("chain_softness")
 	var rot_min: float = actor.get_value("chain_rot_min")
 	var rot_max: float = actor.get_value("chain_rot_max")
+	var bone_len: float = actor.get_value("bone_length")
 	var rigidity = 1.0 / max(chain_softness, 0.0001)
-	var lerp_amount = clamp(0.75 * target_pos.normalized().length() * rigidity, 0.0, 1.0)
+	var lerp_amount = clamp(0.75 * target_pos.limit_length(bone_len).length() / max(bone_len, 0.001) * rigidity, 0.0, 1.0)
 	var target_angle_global = atan2(target_pos.y, target_pos.x)
-	var parent = %Rotation.get_parent()
-	var target_angle_local = target_angle_global
-	
-	if parent != null:
-		target_angle_local -= parent.global_rotation
-		
-	target_angle_local = wrapf(target_angle_local, -PI, PI)
-	target_angle_local = clamp(target_angle_local, rot_min, rot_max)
-	
-	var final_global = target_angle_local
-	if parent != null:
-		final_global += parent.global_rotation
-		
-	%Rotation.global_rotation = lerp_angle(%Rotation.global_rotation,final_global,lerp_amount)
+	target_angle_global = wrapf(target_angle_global, -PI, PI)
+	target_angle_global = clamp(target_angle_global, rot_min, rot_max)
+	%Rotation.global_rotation = lerp_angle(%Rotation.global_rotation,target_angle_global,lerp_amount)
 
 func rest_mode_movements(delta : float) -> void:
 	glob = shadow_dragger
