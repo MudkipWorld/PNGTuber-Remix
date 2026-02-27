@@ -52,6 +52,7 @@ func _ready() -> void:
 	placeholder_position = actor.global_position
 	applied_pos = placeholder_position
 	shadow_dragger = placeholder_position
+	glob = placeholder_position
 	parent_node = get_parent()
 	if parent_node and parent_node.has_node("%Movements"):
 		parent_movements = parent_node.get_node("%Movements")
@@ -160,7 +161,7 @@ func movements(delta: float) -> void:
 	glob = shadow_dragger
 	wobble(delta)
 	drag()
-	if not actor.get_value("ignore_bounce"):
+	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
@@ -186,6 +187,10 @@ func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 				if child is SpriteObject && is_instance_valid(child):
 					apply_recursive_look_at_chain(child)
 
+		#var ik_chain =  actor_node.target_ik.target_ik
+		#if ik_chain != null && is_instance_valid(ik_chain):
+			#apply_recursive_look_at_chain(actor_node.target_ik)
+
 
 func apply_look_at_ik(target_pos: Vector2) -> void:
 	var chain_softness: float = actor.get_value("chain_softness")
@@ -198,6 +203,7 @@ func apply_look_at_ik(target_pos: Vector2) -> void:
 	target_angle_global = wrapf(target_angle_global, -PI, PI)
 	target_angle_global = clamp(target_angle_global, rot_min, rot_max)
 	%Rotation.global_rotation = lerp_angle(%Rotation.global_rotation,target_angle_global,lerp_amount)
+
 
 func rest_mode_movements(delta : float) -> void:
 	glob = shadow_dragger
@@ -227,14 +233,14 @@ func add_parent_physics(length : float) -> float:
 
 func drag():
 	var drag_speed = actor.get_value("dragSpeed")
-	var target = applied_pos
+	var target = modifier1_node.global_position
 	if drag_speed > 0:
 		
 		var t = 1.0/drag_speed
 		shadow_dragger = shadow_dragger.lerp(target, t)
 		applied_pos = shadow_dragger
 	else:
-		shadow_dragger =  shadow_dragger.lerp(target, 0.85)
+		shadow_dragger =  shadow_dragger.lerp(target, 0.25)
 
 func wobble(delta : float) -> void:
 	var use_delta : float = delta if Global.settings_dict.should_delta else 1.0
