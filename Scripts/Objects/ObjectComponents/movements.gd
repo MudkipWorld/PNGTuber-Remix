@@ -181,15 +181,15 @@ func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 			var target_pos: Vector2 = Vector2(target.global_position - root.global_position)
 			apply_look_at_ik(target_pos)
 			
-		if actor_node.has_node("%Sprite2D"):
-			var sprite_root = actor_node.get_node("%Sprite2D")
-			for child in sprite_root.get_children():
-				if child is SpriteObject && is_instance_valid(child):
-					apply_recursive_look_at_chain(child)
+			if actor_node.has_node("%Sprite2D"):
+				var sprite_root = actor_node.get_node("%Sprite2D")
+				for child in sprite_root.get_children():
+					if child is SpriteObject && is_instance_valid(child):
+						apply_recursive_look_at_chain(child)
 
-		#var ik_chain =  actor_node.target_ik.target_ik
-		#if ik_chain != null && is_instance_valid(ik_chain):
-			#apply_recursive_look_at_chain(actor_node.target_ik)
+			#var ik_chain =  actor_node.target_ik.target_ik
+			#if ik_chain != null && is_instance_valid(ik_chain):
+				#apply_recursive_look_at_chain(actor_node.target_ik)
 
 
 func apply_look_at_ik(target_pos: Vector2) -> void:
@@ -238,7 +238,7 @@ func drag():
 		
 		var t = 1.0/drag_speed
 		shadow_dragger = shadow_dragger.lerp(target, t)
-		applied_pos = shadow_dragger
+		applied_pos = shadow_dragger - actor.global_position
 	else:
 		shadow_dragger =  shadow_dragger.lerp(target, 0.25)
 
