@@ -37,9 +37,7 @@ func _ready() -> void:
 	if _mic_bus_index == -1:
 		push_error("GlobalMicAudio: 'Mic' bus not found. Speaking detection will not work.")
 		return
-	_capture = AudioEffectCapture.new()
-	_capture.buffer_length = 0.1
-	AudioServer.add_bus_effect(_mic_bus_index, _capture)
+	_capture = AudioServer.get_bus_effect(_mic_bus_index, 1)
 
 
 func _exit_tree() -> void:
@@ -49,6 +47,7 @@ func _exit_tree() -> void:
 			if AudioServer.get_bus_effect(_mic_bus_index, i) == _capture:
 				AudioServer.remove_bus_effect(_mic_bus_index, i)
 				break
+
 
 
 func _process(delta: float) -> void:

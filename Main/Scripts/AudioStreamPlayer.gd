@@ -28,8 +28,7 @@ func _ready():
 	mic_restart_timer.one_shot = false
 	add_child(mic_restart_timer)
 	await get_tree().current_scene.ready
-	mic_restart_timer.wait_time = MIC_RESTART_TIME
-	mic_restart_timer.start()
+
 	global_lipsync()
 
 func change_mic_restart_time(delay_fix : bool = false) -> void:
@@ -56,7 +55,10 @@ func global_lipsync():
 	}
 	for phoneme in Phonemes.PHONEME.COUNT:
 		var deviation: float = _matches[phoneme]
-		var value := 0.0 if deviation < 0.0 else 1.0 - deviation
+		var value = 0.0
+		if deviation > 0.0:
+			value = 1.0 - deviation
+		
 		if get_tree().get_root().has_node("Main/LipsyncConfigurationPopup"):
 			get_tree().get_root().get_node("Main/LipsyncConfigurationPopup/%PhBox").get_child(phoneme).value = value
 			
@@ -65,6 +67,7 @@ func global_lipsync():
 			t.value = value
 			actual_value = phoneme
 			t.actual_value = actual_value
-			
+
+
 	await get_tree().create_timer(0.1).timeout
-	call_deferred("global_lipsync")
+	global_lipsync()

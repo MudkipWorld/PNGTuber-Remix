@@ -307,20 +307,20 @@ func _physics_process(_delta: float) -> void:
 
 
 # Get or create an audio bus with the specified name
-static func _get_or_create_audio_bus(name: String) -> int:
+static func _get_or_create_audio_bus(_name: String) -> int:
 	# Find the audio bus
-	var bus := AudioServer.get_bus_index(name)
+	var bus := AudioServer.get_bus_index(_name)
 	if bus >= 0:
-		print("LipSync: Found existing audio bus ", bus, " (", name, ")")
+		print("LipSync: Found existing audio bus ", bus, " (", _name, ")")
 		return bus
 
 	# Create new bus	
 	bus = AudioServer.bus_count
 	AudioServer.add_bus()
-	AudioServer.set_bus_name(bus, name)
+	AudioServer.set_bus_name(bus, _name)
 
 	# Return bus
-	print("LipSync: Created new audio bus ", bus, " (", name, ")")
+	print("LipSync: Created new audio bus ", bus, " (", _name, ")")
 	return bus
 
 
