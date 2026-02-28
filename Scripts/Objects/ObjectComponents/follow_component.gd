@@ -202,7 +202,7 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 		dist = m_dist
 		var t = Vector2(max(actor.get_value("pos_x_min"), min(dir.x *dist.x,actor.get_value("pos_x_max"))), 
 		 max(actor.get_value("pos_y_min"), min(dir.y *dist.y, actor.get_value("pos_y_max"))))
-		test = test.lerp(t, 0.95)
+		test = test.slerp(t, 0.5)
 
 		if actor.get_value("snap_pos"):
 			if dir.x != 0:
