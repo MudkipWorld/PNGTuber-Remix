@@ -196,16 +196,48 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 
 	modifier.position = modifier.position.lerp(final_target, actor.get_value("mouse_delay"))
 
+
+# shout out to the worst code i have ever made
 func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO):
 	var dist = dir
 	if m_dist != Vector2.ZERO:
 		dist = m_dist
 		
-		var clamped_x = dir.x * max(actor.get_value("pos_x_min"), min(dist.x, actor.get_value("pos_x_max")))
-		var clamped_y = dir.y * max(actor.get_value("pos_y_min"), min(dist.y, actor.get_value("pos_y_max")))
+		var clamped_x_min = 0.0
+		var clamped_y_min  = 0.0
 		
-		var x = clamped_x
-		var y = clamped_y
+		var min_x = actor.get_value("pos_x_min")
+		var max_x = actor.get_value("pos_x_max")
+
+		var min_y = actor.get_value("pos_y_min")
+		var max_y = actor.get_value("pos_y_max")
+
+		if min_x != 0 && max_x == 0:
+			if dir.x <= 0:
+				clamped_x_min = dir.x * clamp(dist.x, 0, abs(min_x))
+
+		elif min_x == 0 && max_x != 0:
+			if dir.x >= 0:
+				clamped_x_min = dir.x * clamp(dist.x, 0, max_x)
+		else:
+			clamped_x_min = min(abs(actor.get_value("pos_x_min")), dist.x)
+			clamped_x_min = min(actor.get_value("pos_x_max"), dir.x * clamped_x_min)
+	
+	
+		if min_y != 0 && max_y == 0:
+			if dir.y <= 0:
+				clamped_y_min = dir.y * clamp(dist.y, 0, abs(min_y))
+
+		elif min_y == 0 && max_y != 0:
+			if dir.y >= 0:
+				clamped_y_min = dir.y * clamp(dist.y, 0, max_y)
+			
+		else:
+			clamped_y_min = min(abs(min_y), dist.y)
+			clamped_y_min = min(max_y, dir.y * clamped_y_min)
+
+		var x = clamped_x_min
+		var y = clamped_y_min
 		
 		if actor.get_value("snap_pos"):
 			if dir.x != 0:
