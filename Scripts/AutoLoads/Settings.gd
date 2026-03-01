@@ -173,7 +173,6 @@ func _ready():
 	Engine.max_physics_steps_per_frame = theme_settings.phys_steps
 	Global.dev_mode.emit(theme_settings.dev_mode)
 
-
 func update_tracking_backend():
 	match theme_settings.backend_type:
 		"default":
@@ -214,7 +213,7 @@ func lipsync_set_up():
 		LipSyncGlobals.load_file(theme_settings.lipsync_file_path)
 
 func scale_window():
-	get_tree().root.content_scale_factor = theme_settings.ui_scaling
+	get_tree().get_root().get_window().content_scale_factor = theme_settings.ui_scaling
 
 func window_size_changed():
 	Settings.theme_settings.screen_size = get_window().size
