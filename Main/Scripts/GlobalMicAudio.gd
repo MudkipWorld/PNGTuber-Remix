@@ -49,7 +49,6 @@ func _exit_tree() -> void:
 				break
 
 
-
 func _process(delta: float) -> void:
 	if _capture == null:
 		return

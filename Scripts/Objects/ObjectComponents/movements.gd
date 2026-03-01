@@ -47,6 +47,9 @@ var ik_smoothed_rot: float = 0.0
 
 var ik_angular_velocity := 0.0
 
+var calc_length : float = 0.0
+
+
 func _ready() -> void:
 	
 	placeholder_position = actor.global_position
@@ -159,17 +162,17 @@ func static_prev() -> void:
 func movements(delta: float) -> void:
 	apply_recursive_look_at_chain(actor)
 	glob = shadow_dragger
-	wobble(delta)
 	drag()
+	wobble(delta)
 	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
 	var length : float = l_norm.length() * (l.x - l.y)
 	length = add_parent_physics(length)
+	calc_length = length
 	stretch(length)
 	rotational_drag(length, delta)
-
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 	if actor_node == null or not is_instance_valid(actor_node):
@@ -197,7 +200,6 @@ func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 	else:
 		%Rotation.rotation = 0.0
 
-
 func apply_look_at_ik(target_pos: Vector2, rotation_node : Node2D) -> void:
 	var chain_softness: float = actor.get_value("chain_softness")
 	var rot_min: float = actor.get_value("chain_rot_min")
@@ -209,7 +211,6 @@ func apply_look_at_ik(target_pos: Vector2, rotation_node : Node2D) -> void:
 	target_angle_global = wrapf(target_angle_global, -PI, PI)
 	target_angle_global = clamp(target_angle_global, rot_min, rot_max)
 	rotation_node.global_rotation = lerp_angle(rotation_node.global_rotation,target_angle_global,lerp_amount)
-
 
 func rest_mode_movements(delta : float) -> void:
 	glob = shadow_dragger
@@ -226,15 +227,13 @@ func rest_mode_movements(delta : float) -> void:
 
 func add_parent_physics(length : float) -> float:
 	var leng = length
-	if not actor.get_value("physics"):
+	if !actor.get_value("physics"):
 		return leng
 	var p = actor.get_parent()
 	if (p is Sprite2D or p is WigglyAppendage2D or p is CustomMesh)  && is_instance_valid(p):
 			var c_parent = actor.get_parent().owner
 			if c_parent != null && is_instance_valid(c_parent):
-				var c_len_y = c_parent.get_node("%Movements").glob.y - c_parent.get_node("%Movements").shadow_dragger.y
-				var c_len_x = c_parent.get_node("%Movements").glob.x - c_parent.get_node("%Movements").shadow_dragger.x
-				leng += c_len_y + c_len_x
+				leng += c_parent.get_node("%Movements").calc_length
 	return leng
 
 func drag():
@@ -244,9 +243,9 @@ func drag():
 		
 		var t = 1.0/drag_speed
 		shadow_dragger = shadow_dragger.lerp(target, t)
-		applied_pos = shadow_dragger - actor.global_position
+		applied_pos += shadow_dragger - modifier1_node.global_position
 	else:
-		shadow_dragger =  shadow_dragger.lerp(target, 0.25)
+		shadow_dragger =  shadow_dragger.lerp(target, 0.5)
 
 func wobble(delta : float) -> void:
 	var use_delta : float = delta if Global.settings_dict.should_delta else 1.0

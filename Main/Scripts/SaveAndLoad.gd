@@ -185,6 +185,10 @@ func load_file(path: String, autoload : bool = false):
 
 	else:
 		load_model(path)
+	
+	
+	Global.camera_pos.global_position = Global.settings_dict.pan
+	Global.camera.zoom = Global.settings_dict.zoom
 
 func load_model(path: String) -> void:
 	Global.delete_states.emit()
