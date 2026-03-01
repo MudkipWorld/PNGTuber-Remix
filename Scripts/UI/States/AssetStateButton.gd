@@ -34,31 +34,34 @@ func _toggled(_button_pressed):
 
 func _unhandled_input(event):
 	if current_remap == Remap.Asset:
-		if not event is InputEventMouseMotion:
+		if !event is InputEventMouseMotion:
 			if event.is_released():
 				if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
+					Global.held_sprites[0].saved_event = event
+					action = str(Global.held_sprites[0].sprite_id)
 					InputMap.action_erase_events(action)
 					InputMap.action_add_event(action, event)
-					Global.held_sprites[0].saved_event = event
 				update_other_assets()
-
-				
-				
 				button_pressed = false
+				
 	elif current_remap == Remap.Keys:
-		if not event is InputEventMouseMotion:
+		if !event is InputEventMouseMotion:
 			if event.is_released():
 				if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 					if InputMap.has_action(Global.held_sprites[0].disappear_keys):
-						if id in range(InputMap.action_get_events(Global.held_sprites[0].disappear_keys).size()):
-							InputMap.action_get_events(Global.held_sprites[0].disappear_keys).set(id, event)
+						var input_array = InputMap.action_get_events(Global.held_sprites[0].disappear_keys)
+						if id < input_array.size():
+							var ev = input_array[id]
+							InputMap.action_erase_event(Global.held_sprites[0].disappear_keys, ev)
+							InputMap.action_add_event(Global.held_sprites[0].disappear_keys,event)
 						else:
 							InputMap.action_add_event(Global.held_sprites[0].disappear_keys,event)
 					else:
 						InputMap.add_action(Global.held_sprites[0].disappear_keys)
 						InputMap.action_add_event(Global.held_sprites[0].disappear_keys,event)
+						
+				print(Global.held_sprites[0].saved_keys)
 				%ShouldDisList.set_item_text(id, event.as_text())
-				
 				%ShouldDisRemapButton.button_pressed = false
 
 

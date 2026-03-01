@@ -426,11 +426,28 @@ func set_common_data(sprite, sprite_obj):
 				InputMap.action_add_event(sprite_obj.disappear_keys, event)
 			for keys in sprite.get("saved_disappear", []):
 				InputMap.action_add_event(sprite_obj.disappear_keys, keys)
+		else:
+			InputMap.erase_action(sprite_obj.disappear_keys)
+			InputMap.add_action(sprite_obj.disappear_keys)
+			for keys in sprite.get("saved_keys", []):
+				var event = InputEventKey.new()
+				event.keycode = OS.find_keycode_from_string(keys)
+				InputMap.action_add_event(sprite_obj.disappear_keys, event)
+			
+			for keys in sprite.get("saved_disappear", []):
+				InputMap.action_add_event(sprite_obj.disappear_keys, keys)
+			
 
 		if !InputMap.has_action(str(sprite.sprite_id)):
 			InputMap.add_action(str(sprite.sprite_id))
 			if sprite_obj.saved_event != null:
 				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+		else:
+			InputMap.add_action(str(sprite.sprite_id))
+			if sprite_obj.saved_event != null:
+				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+			
+			
 	sprite_obj.sprite_name = sprite.sprite_name
 
 func load_comment_block_object(_load_dict : Dictionary, sprite, sprite_obj):

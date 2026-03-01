@@ -8,9 +8,6 @@ extends Node
 @onready var sprite_node : Node = %Sprite2D
 @onready var follow_component : Node = %FollowComponent
 
-var parent_node : Node
-var parent_movements : Node
-
 var applied_pos : Vector2 = Vector2.ZERO
 var applied_rotation : float = 0.0
 var applied_scale : Vector2 = Vector2.ONE
@@ -56,9 +53,6 @@ func _ready() -> void:
 	applied_pos = placeholder_position
 	shadow_dragger = placeholder_position
 	glob = placeholder_position
-	parent_node = get_parent()
-	if parent_node and parent_node.has_node("%Movements"):
-		parent_movements = parent_node.get_node("%Movements")
 	rdrag_rad = deg_to_rad(actor.get_value("rdragStr"))
 	await get_tree().create_timer(0.025).timeout
 	ik_smoothed_rot = modifier1_node.global_rotation
@@ -92,7 +86,7 @@ func _physics_process(delta: float) -> void:
 	if !Global.static_view:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
-		modifier1_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
+		modifier_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
 	shadow_target = modifier_node.global_position + follow_component.target_pos
 	if actor.get_value("index_change") != 0 or actor.get_value("index_change_y") != 0:
@@ -160,18 +154,19 @@ func static_prev() -> void:
 	modifier_node.z_index = 0
 
 func movements(delta: float) -> void:
+	var glob_ = shadow_dragger
 	apply_recursive_look_at_chain(actor)
-	glob = shadow_dragger
-	drag()
 	wobble(delta)
+	drag()
+
 	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
-	var l = Vector2(glob - shadow_dragger)
+	var l = Vector2(glob_ - shadow_dragger)
 	var l_norm = l.normalized()
 	var length : float = l_norm.length() * (l.x + l.y)
 	length = add_parent_physics(length)
 	calc_length = length
-	stretch(length)
+	stretch(calc_length)
 	rotational_drag(length, delta)
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
@@ -217,7 +212,6 @@ func rest_mode_movements(delta : float) -> void:
 	drag()
 	if not actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
-
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
 	var length : float = l_norm.length() * (l.x - l.y)
@@ -238,12 +232,12 @@ func add_parent_physics(length : float) -> float:
 
 func drag():
 	var drag_speed = actor.get_value("dragSpeed")
-	var target = modifier1_node.global_position
+	var target = applied_pos
 	if drag_speed > 0:
 		
 		var t = 1.0/drag_speed
 		shadow_dragger = shadow_dragger.lerp(target, t)
-		applied_pos += shadow_dragger - modifier1_node.global_position
+		applied_pos += shadow_dragger - target
 	else:
 		shadow_dragger =  shadow_dragger.lerp(target, 0.5)
 
