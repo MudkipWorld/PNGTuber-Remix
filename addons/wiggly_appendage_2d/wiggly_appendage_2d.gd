@@ -85,6 +85,7 @@ var prev_root_pos: Vector2
 var smoothed_root_pos: Vector2
 @export_range(0.0, 1.0) var root_follow_smoothness := 0.65
 
+var sync_appendage : WigglyAppendage2D = null
 
 
 func _ready():
@@ -92,11 +93,11 @@ func _ready():
 	prev_root_pos = global_position
 	smoothed_root_pos = global_position
 
-	
 
 func _physics_process(delta):
 	if only_process_when_visible and not is_visible_in_tree():
 		return
+
 	if anchor_target != null && is_instance_valid(anchor_target):
 		var root_pos = get_global_position()
 		var anchor_pos = anchor_target.get_node("%Origin").global_position
@@ -110,8 +111,16 @@ func _physics_process(delta):
 			_process_point(physics_points[i], delta, i)
 	
 	if anchor_target != null && is_instance_valid(anchor_target):
-		_apply_verlet_anchor(delta)
+		if anchor_target != self:
+			_apply_verlet_anchor(delta)
+		
+	if sync_appendage != null && is_instance_valid(sync_appendage):
+		if sync_appendage != self:
+			_sync_from_appendage_prefix()
+	
+
 	_update_line()
+
 
 func _verlet_integration(delta):
 	for i in range(physics_points.size()):
@@ -211,6 +220,25 @@ func apply_constraints_merged():
 				physics_points[i] = p1
 				physics_points[i + 1] = p2
 
+func _sync_from_appendage_prefix():
+	if sync_appendage == null:
+		return
+		
+	if !is_instance_valid(sync_appendage):
+		return
+		
+	var source_points = sync_appendage.physics_points
+	var target_points = physics_points
+	var sync_count = min(source_points.size(), target_points.size())
+	var offset = global_position - sync_appendage.global_position
+	
+	for i in range(sync_count):
+		var src_pos = source_points[i][POSITION] + offset
+		var src_prev = source_points[i][PREVIOUS_POSITION] + offset if source_points[i].size() > PREVIOUS_POSITION else src_pos
+		target_points[i][POSITION] = src_pos
+		target_points[i][PREVIOUS_POSITION] = src_prev
+		target_points[i][ROTATION] = source_points[i][ROTATION]
+		target_points[i][ANGULAR_MOMENTUM] = source_points[i][ANGULAR_MOMENTUM]
 
 func reset(point_count: int = segment_count + 1) -> void:
 	physics_points = []
@@ -244,14 +272,12 @@ func reset(point_count: int = segment_count + 1) -> void:
 			new_point[PREVIOUS_POINT] = physics_points[-1]
 		physics_points.append(new_point)
 
-
 ## Returns the global positions of all points in the appendage
 func get_global_point_positions() -> PackedVector2Array:
 	var output := PackedVector2Array()
 	for point in physics_points:
 		output.append(point[POSITION])
 	return output
-
 
 func _process_point(point: Array, delta: float, index: int):
 	var prev_point = point[PREVIOUS_POINT]
@@ -290,7 +316,6 @@ func _process_point(point: Array, delta: float, index: int):
 	point[ROTATION] = point_rotation
 	point[POSITION] = prev_point[POSITION] + Vector2(current_segment_length, 0).rotated(point_rotation)
 
-
 func _process_root_point(point: Array, delta: float):
 	var current_pos = get_global_position()
 	smoothed_root_pos = smoothed_root_pos.lerp(current_pos, 1.0 - pow(1.0 - root_follow_smoothness, delta * 60.0))
@@ -301,7 +326,6 @@ func _process_root_point(point: Array, delta: float):
 		point[ROTATION] = 0.0
 	else:
 		point[ROTATION] = _rest_direction_angle + global_transform.get_rotation()
-
 
 func _update_line():
 	var new_line_points := PackedVector2Array()
@@ -326,7 +350,6 @@ func _update_line():
 
 	# run bezier normally if no special-case insert happened above
 	points = _bezier_interpolate(new_line_points, subdivision)
-
 
 func _bezier_interpolate(line: PackedVector2Array, subdivision: int) -> PackedVector2Array:
 	if subdivision < 1: return line
@@ -357,27 +380,22 @@ func _bezier_interpolate(line: PackedVector2Array, subdivision: int) -> PackedVe
 			output.append(lerp(ab, bc, t))
 	return output
 
-
 func _angle_difference(angle_a: float, angle_b: float) -> float:
 	var diff := angle_a - angle_b
 	if abs(diff) > TAU / 2.0:
 		diff -= TAU * sign(diff)
 	return diff
 
-
 func _signed_sqrt(value: float) -> float:
 	return sqrt(abs(value)) * sign(value)
 
-
 func _get_true_segment_length() -> float:
 	return segment_length * get_global_scale().x
-
 
 func _get_true_curvature() -> float:
 	var gt = get_global_transform()
 	var det = gt.x.x * gt.y.y - gt.x.y * gt.y.x
 	return curvature * sign(det)
-
 
 func _set_segment_count(value: float):
 	segment_count = value

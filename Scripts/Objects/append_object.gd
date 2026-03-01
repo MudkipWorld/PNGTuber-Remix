@@ -35,6 +35,7 @@ func get_default_object_data() -> Dictionary:
 		max_anchor_stretch = 999999.0,
 		mirror_anchor_movement_h = false,
 		mirror_anchor_movement_v = false,
+		sync_appendage = null
 	}
 
 func _init() -> void:
@@ -194,6 +195,19 @@ func set_anchor_sprite(_placeholder = null):
 				return
 			else:
 				%Sprite2D.anchor_target = null
+				
+	if get_value("sync_appendage") == null:
+		%Sprite2D.sync_appendage = null
+	else:
+		for i in Global.get_tree().get_nodes_in_group("Sprites"):
+			if i.sprite_id == get_value("sync_appendage"):
+				if i.get_node("%Sprite2D") is WigglyAppendage2D:
+					%Sprite2D.sync_appendage = i.get_node("%Sprite2D")
+				else:
+					%Sprite2D.sync_appendage = null
+				return
+			else:
+				%Sprite2D.sync_appendage = null
 
 func update_wiggle_parts():
 	if %Sprite2D.segment_count != get_value("wiggle_segm"):

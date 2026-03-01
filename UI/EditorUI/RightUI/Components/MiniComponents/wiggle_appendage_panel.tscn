@@ -280,6 +280,23 @@ popup/item_0/id = 0
 popup/item_1/text = "TR_TILE"
 popup/item_1/id = 1
 
+[node name="Label3" type="Label" parent="GridContainer" unique_id=1171986223]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Sync Appendage"
+
+[node name="SyncAppendage" type="OptionButton" parent="GridContainer" unique_id=1454184750]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 1
+popup/item_0/text = "TR_NONE"
+popup/item_0/id = 0
+
 [connection signal="toggled" from="AutoWagCheck" to="WiggleAppendage" method="_on_auto_wag_check_toggled"]
 [connection signal="item_selected" from="GridContainer/AnchorSprite" to="WiggleAppendage" method="_on_anchor_sprite_item_selected"]
 [connection signal="item_selected" from="GridContainer/TextureModeOption" to="WiggleAppendage" method="_on_texture_mode_option_item_selected"]
+[connection signal="item_selected" from="GridContainer/SyncAppendage" to="WiggleAppendage" method="_on_sync_appendage_item_selected"]

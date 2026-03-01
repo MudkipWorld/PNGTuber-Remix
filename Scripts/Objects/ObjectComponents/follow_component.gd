@@ -87,33 +87,33 @@ func follow_calculation(_delta = 0.0):
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO
 		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = get_mouse_coords()
+			mouse_coords = get_mouse_coords(0)
 	elif main_marker.current_screen != Monitor.ALL_SCREENS:
 		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
 		else:
-			if !actor.get_value("use_object_pos"):
-				mouse_coords = actor.get_global_mouse_position()
-				return mouse_coords
-			else:
-				var viewport_size = actor.get_viewport().size
-				var origin = actor.get_global_transform_with_canvas().origin
-				var x_per = 1.0 - origin.x/float(viewport_size.x)
-				var y_per = 1.0 - origin.y/float(viewport_size.y)
-				var display_size = Vector2(DisplayServer.screen_get_size(main_marker.current_screen))
-				var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
-				var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(main_marker.current_screen))
-				mouse_coords = Vector2(mouse_pos - display_size) + offset 
+			mouse_coords = get_mouse_coords(main_marker.current_screen)
 	else:
-		mouse_coords = get_mouse_coords()
+		mouse_coords = get_mouse_coords(0)
 	return mouse_coords
 
-func get_mouse_coords() -> Vector2:
+func get_mouse_coords(screen) -> Vector2:
 	var coord : Vector2 = Vector2.ZERO
 	if actor.get_value("use_object_pos"):
-		coord = actor.get_local_mouse_position()
+		
+		var offset = Vector2(DisplayServer.screen_get_position(screen))
+		coord = actor.to_local(actor.get_global_mouse_position() - (offset / Global.camera.zoom.clampf(0.001, 10.0)))
+		
 	else:
-		coord = actor.get_global_mouse_position()
+		var viewport_size = actor.get_viewport().size
+		var origin = actor.get_global_transform_with_canvas().origin
+		var x_per = 1.0 - origin.x/float(viewport_size.x)
+		var y_per = 1.0 - origin.y/float(viewport_size.y)
+		var display_size = Vector2(DisplayServer.screen_get_size(screen))
+		var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
+		var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(screen))
+		coord = Vector2(mouse_pos - display_size) + offset
+		
 	return coord
 
 func update_controller_inputs() -> void:
@@ -200,20 +200,25 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 	var dist = dir
 	if m_dist != Vector2.ZERO:
 		dist = m_dist
-		var t = Vector2(max(actor.get_value("pos_x_min"), min(dir.x *dist.x,actor.get_value("pos_x_max"))), 
-		 max(actor.get_value("pos_y_min"), min(dir.y *dist.y, actor.get_value("pos_y_max"))))
-		test = test.slerp(t, 0.135)
+		
+		var clamped_x = dir.x *clamp(dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))
+		var clamped_y = dir.y *clamp(dist.y, actor.get_value("pos_y_min"), actor.get_value("pos_y_max"))
 
+		var x = clamped_x
+		var y = clamped_y
+		
 		if actor.get_value("snap_pos"):
 			if dir.x != 0:
-				target_pos.x =  lerp(target_pos.x, test.x, actor.get_value("mouse_delay"))
+				target_pos.x =  lerp(target_pos.x, x, actor.get_value("mouse_delay"))
 				current_dir.x = dir.x
 			if dir.y != 0:
-				target_pos.y = lerp(target_pos.y, test.y, actor.get_value("mouse_delay"))
+				target_pos.y = lerp(target_pos.y, y, actor.get_value("mouse_delay"))
 				current_dir.y = dir.y
 		else:
-			target_pos.x = lerp(target_pos.x, test.x, actor.get_value("mouse_delay"))
-			target_pos.y = lerp(target_pos.y, test.y, actor.get_value("mouse_delay"))
+			var t = Vector2(x, y)
+
+			target_pos.x = lerp(target_pos.x, t.x, actor.get_value("mouse_delay"))
+			target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay"))
 			current_dir = dir
 			current_dist = target_pos.length()
 	else:

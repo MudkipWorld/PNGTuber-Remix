@@ -236,7 +236,7 @@ func set_zoom(new_zoom: Vector2) -> void:
 	var cam_pos := %Node2D.to_local(%Camera2D.get_screen_center_position()) as Vector2
 	var last_zoom: float = %Camera2D.zoom.x
 	
-	%Camera2D.zoom = new_zoom.clampf(0.01, 5.)
+	%Camera2D.zoom = new_zoom.clampf(0.001, 10.0)
 	Global.settings_dict.zoom = %Camera2D.zoom
 	
 	var change: float = %Camera2D.zoom.x / last_zoom

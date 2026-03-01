@@ -112,7 +112,7 @@ func _on_duplicate_button_pressed():
 	await get_tree().physics_frame
 	Global.get_sprite_states(Global.current_state)
 	Global.reparent_layers.emit(sprites)
-	Global.reparent_objects.emit(sprites, true)
+	Global.reparent_objects.emit(sprites)
 
 func _duplicate_single(sprite, id_map):
 	var obj = _instantiate_by_type(sprite.sprite_type)
