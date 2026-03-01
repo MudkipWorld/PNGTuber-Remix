@@ -201,9 +201,9 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 	if m_dist != Vector2.ZERO:
 		dist = m_dist
 		
-		var clamped_x = dir.x *clamp(dist.x, actor.get_value("pos_x_min"), actor.get_value("pos_x_max"))
-		var clamped_y = dir.y *clamp(dist.y, actor.get_value("pos_y_min"), actor.get_value("pos_y_max"))
-
+		var clamped_x = dir.x * max(actor.get_value("pos_x_min"), min(dist.x, actor.get_value("pos_x_max")))
+		var clamped_y = dir.y * max(actor.get_value("pos_y_min"), min(dist.y, actor.get_value("pos_y_max")))
+		
 		var x = clamped_x
 		var y = clamped_y
 		
