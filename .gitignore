@@ -16,8 +16,6 @@ data_*/
 mono_crash.*.json
 
 # .NET / IDE build artifacts and user settings
-bin/
-obj/
 *.user
 *.userosscache
 *.suo
