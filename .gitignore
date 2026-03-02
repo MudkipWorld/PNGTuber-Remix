@@ -5,7 +5,6 @@
 # Export configs (local, machine-specific, may contain secrets)
 export.cfg
 export_credentials.cfg
-export_presets.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
@@ -16,8 +15,6 @@ data_*/
 mono_crash.*.json
 
 # .NET / IDE build artifacts and user settings
-bin/
-obj/
 *.user
 *.userosscache
 *.suo
