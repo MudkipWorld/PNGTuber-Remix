@@ -192,7 +192,7 @@ func not_speaking():
 			1:
 			#	position = pos
 				set_mc_bouncy()
-			3:
+			2:
 			#	position = pos
 				set_mc_one_bounce()
 			4:
@@ -210,7 +210,7 @@ func speaking():
 			1:
 			#	position = pos
 				set_mo_bouncy()
-			3:
+			2:
 			#	position = pos
 				set_mo_one_bounce()
 			4:
@@ -240,8 +240,8 @@ func set_mc_one_bounce():
 		yVel = state_param_mo.bounce_energy * -1
 
 func set_mc_wobble():
-	position.x = lerp(position.x, sin(tick*state_param_mo.xFrq)*state_param_mo.xAmp, 0.08)
-	position.y = lerp(position.y, sin(tick*state_param_mo.yFrq)*state_param_mo.yAmp, 0.08)
+	position.x = lerp(position.x, sin(tick*state_param_mc.xFrq)*state_param_mc.xAmp, 0.08)
+	position.y = lerp(position.y, sin(tick*state_param_mc.yFrq)*state_param_mc.yAmp, 0.08)
 	bounceChange = position.y/10
 
 func set_mc_squish():
