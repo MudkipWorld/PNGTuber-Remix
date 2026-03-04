@@ -102,6 +102,7 @@ func _ready():
 	await  get_tree().create_timer(0.1).timeout
 	if get_tree().get_root().has_node("Main/%TopUI"):
 		top_bar = get_tree().get_root().get_node("Main/%TopUI")
+		
 	if !FileAccess.file_exists(websocket_api):
 		var save_data = FileAccess.open(websocket_api, FileAccess.WRITE)
 		save_data.store_string(WebsocketDoc.doc)
@@ -338,17 +339,9 @@ func path_helper(path, dir: String = "") -> String:
 	var target = ""
 	var current = DirAccess.open(path)
 	if current == null:
-		target = OS.get_user_data_dir() + dir
-		
-		var test = DirAccess.open(target)
-		if test == null:
-			DirAccess.make_dir_absolute(target)
+		target = OS.get_user_data_dir()
 		
 	else:
 		target = path + dir
-		var test = DirAccess.open(target)
-		if test == null:
-			DirAccess.make_dir_absolute(target)
-		
 	
 	return target

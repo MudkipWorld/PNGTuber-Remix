@@ -14,11 +14,9 @@ enum State {
 	AddNormal,
 	AddAppend,
 	ImportPSD,
-}
+	}
 var current_state : State
 var can_scroll : bool = false
-
-var rec_inp : bool = false
 
 @onready var origin = %SpritesContainer
 var of := Vector2.ZERO
@@ -68,7 +66,7 @@ func new_file():
 
 func load_file():
 	#%FileDialog.filters = ["*.pngRemix, *.save"]
-	%FileDialog.filters = ["*.pngRemix, *.save"]
+	%FileDialog.filters = ["*.pngRemix"]
 	$FileDialog.file_mode = 0
 	current_state = State.LoadFile
 	%FileDialog.show()
@@ -279,12 +277,6 @@ func _on_sub_viewport_container_mouse_entered():
 
 func _on_sub_viewport_container_mouse_exited():
 	can_scroll = false
-
-func _notification(what):
-	if what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN:
-		rec_inp = false
-	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
-		rec_inp = true
 
 func _on_confirmation_dialog_canceled() -> void:
 	%ConfirmationDialog.hide()

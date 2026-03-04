@@ -26,3 +26,12 @@ func _notification(what: int) -> void:
 		GlobInput.stop_hook()
 		get_tree().quit()
 		OS.kill(OS.get_process_id())
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("save"):
+		if Global.save_path:
+			SaveAndLoad.save_file(Global.save_path)
+		else:
+			Global.main.save_as_file()
+	if event.is_action_pressed("desel"):
+		Global.deselect.emit()

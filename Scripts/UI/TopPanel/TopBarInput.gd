@@ -11,6 +11,7 @@ var settings = preload("res://UI/EditorUI/TopUI/Components/Settings_popup.tscn")
 var tutorial = preload("res://UI/EditorUI/TopUI/Components/tutorial_pop_up.tscn")
 
 var file_submenu_item : PopupMenu = PopupMenu.new()
+var import_file_items = ["TR_ADD_IMAGE", "TR_ADD_APPENDAGE", "TR_PSD_IMPORT"]
 
 @onready var file_submenu_item_demos : PopupMenu = %Demos
 
@@ -18,7 +19,13 @@ func _ready():
 	get_viewport().transparent_bg = false
 	RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 	files.get_popup().connect("id_pressed",choosing_files)
-	var import_file_items = ["TR_ADD_IMAGE", "TR_ADD_APPENDAGE", "TR_PSD_IMPORT"]
+	mode.get_popup().connect("id_pressed",choosing_mode)
+	bgcolor.get_popup().connect("id_pressed",choosing_bg_color)
+	about.get_popup().connect("id_pressed",choosing_about)
+	%WindowButton.get_popup().connect("id_pressed",choosing_window)
+	Global.mode_changed.connect(on_mode_changed)
+	Global.deselect.connect(desel_everything)
+	
 	for i in import_file_items:
 		file_submenu_item.add_item(i)
 	files.get_popup().set_item_submenu_node(4, file_submenu_item)
@@ -27,16 +34,9 @@ func _ready():
 	%Demos.get_parent().remove_child(%Demos)
 	files.get_popup().set_item_submenu_node(5, file_submenu_item_demos)
 	file_submenu_item_demos.connect("id_pressed",choosing_file_demos)
-	
-	mode.get_popup().connect("id_pressed",choosing_mode)
-	bgcolor.get_popup().connect("id_pressed",choosing_bg_color)
-	about.get_popup().connect("id_pressed",choosing_about)
-	%WindowButton.get_popup().connect("id_pressed",choosing_window)
-	%EditButton.get_popup().connect("id_pressed",choosing_edit)
-	Global.mode_changed.connect(on_mode_changed)
+
 	update_window_button()
 	check_auto_saves()
-		
 	await get_tree().physics_frame
 	choosing_mode(Settings.theme_settings.mode)
 	Global.dev_mode.connect(check_dev_mode)
@@ -68,9 +68,6 @@ func update_window_button() -> void:
 func check_auto_saves():
 	if !DirAccess.dir_exists_absolute(Settings.autosave_location):
 		DirAccess.make_dir_absolute(Settings.autosave_location)
-
-func choosing_edit(_id : int):
-	pass
 
 func choosing_window(id):
 	match id:
@@ -175,17 +172,6 @@ func choosing_file_demos(id):
 		4:
 			SaveAndLoad.load_file("res://DemoModels/PickleModelAssets.pngRemix")
 
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("save"):
-		if Global.save_path:
-			SaveAndLoad.save_file(Global.save_path)
-		else:
-			Global.main.save_as_file()
-	if event.is_action_pressed("desel"):
-		desel_everything()
-		Global.deselect.emit()
-
 func on_mode_changed(new_mode) -> void:
 	match new_mode:
 		0, 2:
@@ -265,9 +251,8 @@ func origin_alias():
 func _on_hide_ui_button_toggled(toggled_on):
 	Global.main.get_node("%Control").visible = toggled_on
 
-
 func _on_deselect_button_pressed():
-	desel_everything()
+	Global.deselect.emit()
 
 func desel_everything():
 	if Global.held_sprite != null && is_instance_valid(Global.held_sprite):
@@ -275,7 +260,6 @@ func desel_everything():
 			Global.held_sprite.get_node("%Origin").hide()
 		#	%LayersTree.get_selected().deselect(0)
 	Global.held_sprite = null
-	Global.deselect.emit()
 
 func _on_preview_mode_check_toggled(toggled_on: bool) -> void:
 	Global.static_view = toggled_on

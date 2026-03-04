@@ -700,6 +700,9 @@ func make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> Pac
 #----------------------------------------------------------------------------
 # Global Backups
 func save_backup(data: Dictionary, previous_path: String) -> void:
+	if !DirAccess.dir_exists_absolute(backs_dir):
+		DirAccess.make_dir_absolute(backs_dir)
+	
 	var extension := "." + previous_path.get_extension()
 	var file_name = previous_path.get_file().get_basename()
 	var backup_path = backs_dir.path_join(file_name + "_backup" + extension)

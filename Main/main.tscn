@@ -303,7 +303,7 @@ ok_button_text = "Open"
 cancel_button_text = "TR_CANCEL"
 file_mode = 1
 access = 2
-filters = PackedStringArray("*.png", "*.jpeg", "*.jpg", "*.svg")
+filters = PackedStringArray("*.png", "*.svg")
 use_native_dialog = true
 
 [node name="Timer" type="Timer" parent="." unique_id=1814323488]
