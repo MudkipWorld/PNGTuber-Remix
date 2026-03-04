@@ -60,8 +60,8 @@ func _physics_process(delta: float) -> void:
 	placeholder_position = modifier1_node.position
 	applied_pos =  placeholder_position
 	
-	if !Global.static_view and actor.rest_mode != 5:
-		if (actor.rest_mode == 2 or actor.rest_mode == 3) and rest:
+	if !Global.static_view && actor.rest_mode != 4:
+		if (actor.rest_mode == 2 or actor.rest_mode == 3) && rest:
 			rest_mode_movements(delta)
 		else:
 			if actor.get_value("should_rotate"):
@@ -276,7 +276,7 @@ func rotational_drag(length, delta: float):
 func stretch(length : float) -> void:
 	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.15
 	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
-	modifier1_node.scale = modifier1_node.scale.lerp(target, 0.15)
+	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 
 func follow_wiggle(_delta : float) -> void:
 	var parent = actor.get_parent()

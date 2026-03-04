@@ -81,6 +81,7 @@ func save_before_closing():
 
 func save():
 	var save_file = FileAccess.open(save_location, FileAccess.WRITE)
+	if save_file == null: return
 	save_file.store_var(theme_settings.duplicate(true))
 	save_file.close()
 
@@ -105,8 +106,9 @@ func _ready():
 		
 	if !FileAccess.file_exists(websocket_api):
 		var save_data = FileAccess.open(websocket_api, FileAccess.WRITE)
-		save_data.store_string(WebsocketDoc.doc)
-		save_data.close()
+		if save_data != null:
+			save_data.store_string(WebsocketDoc.doc)
+			save_data.close()
 
 	if FileAccess.file_exists(save_location):
 		var load_file = FileAccess.open(save_location, FileAccess.READ)

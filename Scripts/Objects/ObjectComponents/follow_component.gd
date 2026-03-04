@@ -35,6 +35,10 @@ var current_dist : float = 0.0
 var final_target : Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
+	if actor.get_value("follow_type") == 15:
+		target_pos = Vector2.ZERO
+		modifier.position = Vector2.ZERO
+		return
 	if Global.static_view or actor.rest_mode == 5:
 		return
 	if actor.rest_mode in [1,3] and rest:

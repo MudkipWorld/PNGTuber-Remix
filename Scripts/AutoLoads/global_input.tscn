@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c0qommc823y23" path="res://Scripts/AutoLoads/cycle.gd" id="1_13c7p"]
 
 [node name="GlobalInput" type="GlobalInput" unique_id=784182461]
-use_physics_frames = true
 physics_interpolation_mode = 2
 
 [node name="Cycle" type="Node" parent="." unique_id=124913555]
