@@ -86,7 +86,7 @@ func _physics_process(delta: float) -> void:
 	if !Global.static_view:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
-		modifier_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
+		modifier1_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
 	shadow_target = modifier_node.global_position + follow_component.target_pos
 	if actor.get_value("index_change") != 0 or actor.get_value("index_change_y") != 0:
@@ -154,16 +154,16 @@ func static_prev() -> void:
 	modifier_node.z_index = 0
 
 func movements(delta: float) -> void:
-	var glob_ = shadow_dragger
+	glob = shadow_dragger
 	apply_recursive_look_at_chain(actor)
 	wobble(delta)
 	drag()
 
 	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
-	var l = Vector2(glob_ - shadow_dragger)
+	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
-	var length : float = l_norm.length() * (l.x + l.y)
+	var length : float = (l_norm.length() * (l.x + l.y)) + (last_wobble_pos.x + last_wobble_pos.y)
 	length = add_parent_physics(length)
 	calc_length = length
 	stretch(calc_length)
@@ -232,14 +232,14 @@ func add_parent_physics(length : float) -> float:
 
 func drag():
 	var drag_speed = actor.get_value("dragSpeed")
-	var target = applied_pos
+	var target = modifier1_node.global_position
 	if drag_speed > 0:
 		
 		var t = 1.0/drag_speed
 		shadow_dragger = shadow_dragger.lerp(target, t)
 		applied_pos += shadow_dragger - target
 	else:
-		shadow_dragger =  shadow_dragger.lerp(target, 0.5)
+		shadow_dragger = placeholder_position
 
 func wobble(delta : float) -> void:
 	var use_delta : float = delta if Global.settings_dict.should_delta else 1.0
