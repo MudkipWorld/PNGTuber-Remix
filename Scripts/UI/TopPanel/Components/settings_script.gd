@@ -108,7 +108,9 @@ func sliders_revalue(settings_dict):
 	%AutoSaveSpin.value = settings_dict.auto_save_timer
 	%DelaySlider.value = settings_dict.volume_delay
 	%DeltaTimeCheck.button_pressed = settings_dict.should_delta
-	%MaxFPSlider.value = settings_dict.max_fps
+	#%MaxFPSlider.value = settings_dict.max_fps
+	match_fps(settings_dict.max_fps)
+	
 	%OutOfBounds.button_pressed = settings_dict.snap_out_of_bounds
 
 func _on_volume_slider_drag_ended(value_changed: bool) -> void:
@@ -171,15 +173,6 @@ func _on_anti_al_check_toggled(toggled_on):
 
 func _on_input_check_button_toggled(toggled_on):
 	Global.settings_dict.checkinput = toggled_on
-
-func _on_max_fp_slider_drag_ended(value_changed: bool) -> void:
-	if value_changed:
-		%MaxFPSLabel.text = "Max FPS : " + str(%MaxFPSlider.value)
-		Global.settings_dict.max_fps = %MaxFPSlider.value
-		Global.top_ui.update_fps(%MaxFPSlider.value)
-
-func _on_max_fp_slider_value_changed(value: float) -> void:
-	%MaxFPSLabel.text = "Max FPS : " + str(value)
 
 func _on_auto_save_check_toggled(toggled_on):
 	Global.settings_dict.auto_save = toggled_on
@@ -250,9 +243,6 @@ func _on_floaty_panning_toggled(toggled_on: bool) -> void:
 	Settings.save()
 	Global.update_camera_smoothing()
 
-func _on_fix_mic_delay_toggled(toggled_on: bool) -> void:
-	GlobalAudioStreamPlayer.change_mic_restart_time(toggled_on)
-
 func _on_use_threads_toggled(_toggled_on: bool) -> void:
 	if !change_setting: return
 	Settings.theme_settings.use_threading = false
@@ -267,9 +257,6 @@ func _on_remix_language_set(index: int) -> void:
 
 func _on_out_of_bounds_toggled(toggled_on: bool) -> void:
 	Global.settings_dict.snap_out_of_bounds = toggled_on
-
-func _on_fix_mic_delay_pressed() -> void:
-	GlobalAudioStreamPlayer.mic_restart_timer_timeout()
 
 func _on_save_unused_images_toggled(toggled_on: bool) -> void:
 	Settings.theme_settings.save_unused_files = toggled_on
@@ -329,3 +316,55 @@ func _on_follow_mouse_global_input_toggled(toggled_on: bool) -> void:
 	if change_setting:
 		Settings.theme_settings.use_glob_input = toggled_on
 		Settings.save()
+
+func _on_max_fps_item_selected(index: int) -> void:
+	match index:
+		0:
+			Global.settings_dict.max_fps = 8
+		1:
+			Global.settings_dict.max_fps = 10
+		2:
+			Global.settings_dict.max_fps = 12
+		3:
+			Global.settings_dict.max_fps = 15
+		4:
+			Global.settings_dict.max_fps = 30
+		5:
+			Global.settings_dict.max_fps = 60
+		6:
+			Global.settings_dict.max_fps = 90
+		7:
+			Global.settings_dict.max_fps = 120
+		8:
+			Global.settings_dict.max_fps = 240
+	
+	Engine.max_fps = Global.settings_dict.max_fps
+
+func match_fps(fps):
+	match fps:
+		8:
+			%MaxFPS.select(0)
+		10:
+			%MaxFPS.select(1)
+		12:
+			%MaxFPS.select(2)
+		15:
+			%MaxFPS.select(3)
+		30:
+			%MaxFPS.select(4)
+		60:
+			%MaxFPS.select(5)
+		90:
+			%MaxFPS.select(6)
+		120:
+			%MaxFPS.select(7)
+		240:
+			%MaxFPS.select(8)
+		0:
+			Global.settings_dict.max_fps = 240
+			Engine.max_fps = Global.settings_dict.max_fps
+			%MaxFPS.select(8)
+		_:
+			Global.settings_dict.max_fps = 60
+			Engine.max_fps = Global.settings_dict.max_fps
+			%MaxFPS.select(5)

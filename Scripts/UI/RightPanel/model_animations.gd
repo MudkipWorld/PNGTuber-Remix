@@ -4,18 +4,18 @@ var should_change : bool = false
 
 func _ready() -> void:
 	await get_tree().current_scene.ready
-	Global.connect("reinfoanim", reinfoanim)
+	Global.connect("update_anim", update_anim)
 	%SquishAmount.get_node("%SliderValue").value_changed.connect(_on_squish_amount_changed)
 	%SquishAmount.get_node("%SpinBoxValue").value_changed.connect(_on_squish_amount_changed)
 	%BlinkChanceSlider.value = 10
 	Global.slider_values.connect(set_slider_data)
-	reinfoanim()
+	update_anim()
 
 func set_slider_data(data):
 	%BlinkChanceSlider.value = data.blink_chance
 	%BlinkSpeedSlider.value = data.blink_speed
 
-func reinfoanim():
+func update_anim():
 	should_change = false
 	%BounceStateCheck.button_pressed = Global.sprite_container.bounce_state
 	%MouthClosedAnim.select(Global.sprite_container.mouth_closed)

@@ -135,7 +135,7 @@ static func undo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.bounce_state = data.value
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -153,7 +153,7 @@ static func undo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.should_squish = data.value
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -164,7 +164,7 @@ static func undo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.squish_amount = data.value
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -173,7 +173,7 @@ static func undo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.current_mc_anim = data.value
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -182,7 +182,7 @@ static func undo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.current_mo_anim = data.value
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -194,7 +194,7 @@ static func redo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.bounce_state = data.new_val
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -204,7 +204,7 @@ static func redo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.blink_chance = data.new_val
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -214,7 +214,7 @@ static func redo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.should_squish = data.new_val
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -225,7 +225,7 @@ static func redo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.squish_amount = data.new_val
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -234,7 +234,7 @@ static func redo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.current_mc_anim = data.new_val
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -243,7 +243,7 @@ static func redo_sprite_container(data):
 			if Global.current_state == data.state:
 				data.sprite_container.current_mo_anim = data.new_val
 				Global.sprite_container.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.states.is_empty():
 					if Global.settings_dict.states.size() > data.state:
@@ -313,7 +313,7 @@ static func undo_light(data):
 			if Global.current_state == data.state:
 				data.light.visible = data.value
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -322,7 +322,7 @@ static func undo_light(data):
 			if Global.current_state == data.state:
 				data.light.energy = data.value
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -331,7 +331,7 @@ static func undo_light(data):
 			if Global.current_state == data.state:
 				data.light.color = data.value
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -340,7 +340,7 @@ static func undo_light(data):
 			if Global.current_state == data.state:
 				data.light.global_position = data.value
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -349,7 +349,7 @@ static func undo_light(data):
 			if Global.current_state == data.state:
 				data.light.scale = data.value
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -358,7 +358,7 @@ static func undo_light(data):
 			if Global.current_state == data.state:
 				data.light.blend = data.value
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -370,7 +370,7 @@ static func redo_light(data):
 			if Global.current_state == data.state:
 				data.light.visible = data.new_val
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -379,7 +379,7 @@ static func redo_light(data):
 			if Global.current_state == data.state:
 				data.light.energy = data.new_val
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -388,7 +388,7 @@ static func redo_light(data):
 			if Global.current_state == data.state:
 				data.light.color = data.new_val
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -397,7 +397,7 @@ static func redo_light(data):
 			if Global.current_state == data.state:
 				data.light.global_position = data.new_val
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -406,7 +406,7 @@ static func redo_light(data):
 			if Global.current_state == data.state:
 				data.light.scale = data.new_val
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:
@@ -415,7 +415,7 @@ static func redo_light(data):
 			if Global.current_state == data.state:
 				data.light.blend = data.new_val
 				data.light.save_state(Global.current_state)
-				Global.reinfoanim.emit()
+				Global.update_anim.emit()
 			else:
 				if !Global.settings_dict.light_states.is_empty():
 					if Global.settings_dict.light_states.size() > data.state:

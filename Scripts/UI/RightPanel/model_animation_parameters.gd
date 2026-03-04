@@ -12,7 +12,7 @@ func _ready() -> void:
 	await get_tree().current_scene.ready
 	%BounceAmountSlider.get_node("%SliderValue").value_changed.connect(_on_bounce_amount_slider_value_changed)
 	%GravityAmountSlider.get_node("%SliderValue").value_changed.connect(_on_gravity_amount_slider_value_changed)
-	Global.reinfoanim.connect(set_data)
+	Global.update_anim.connect(set_data)
 	set_data()
 
 

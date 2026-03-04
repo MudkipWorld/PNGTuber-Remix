@@ -275,7 +275,7 @@ func load_model(path: String) -> void:
 
 	Global.slider_values.emit(Global.settings_dict)
 	if Global.main.has_node("%Control"):
-		Global.reinfoanim.emit()
+		Global.update_anim.emit()
 	if Global.settings_dict.anti_alias:
 		Global.sprite_container.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	else:

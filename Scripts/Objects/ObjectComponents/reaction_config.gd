@@ -66,8 +66,6 @@ func _process(_delta: float) -> void:
 				else:
 					%Modifier.show()
 
-	
-	
 	if Global.settings_dict.checkinput != true:
 		return
 	var is_trying_to_appear = false
@@ -80,7 +78,12 @@ func _process(_delta: float) -> void:
 		is_trying_to_disappear = true
 	elif GlobInput.is_action_just_pressed(str(actor.sprite_id)) && !actor.hold_to_show:
 		if actor.show_only:
+			if actor.get_value("fade_asset"):
+				if actor.was_active_before: return
+				var _new_vis = await actor.fade_asset(false, actor, %Sprite2D)
 			%Sprite2D.visible = true
+			actor.was_active_before = true
+			
 		else:
 			if actor.get_value("fade_asset"):
 				var new_vis = await actor.fade_asset(actor.was_active_before, actor, %Sprite2D)
@@ -92,7 +95,8 @@ func _process(_delta: float) -> void:
 
 	if is_trying_to_disappear:
 		if actor.get_value("fade_asset"):
-			var new_visibility = await actor.fade_asset(false, actor, %Sprite2D)
+			if !actor.was_active_before: return
+			var new_visibility = await actor.fade_asset(true, actor, %Sprite2D)
 			%Sprite2D.visible = new_visibility
 			actor.was_active_before = new_visibility
 		else:

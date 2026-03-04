@@ -1,8 +1,6 @@
 extends AudioStreamPlayer
 
 const MIN_DB: int = 80
-var record_bus_index 
-
 const VU_COUNT = 4
 const HEIGHT = 40
 const  MAX_FREQ = 11050.0
@@ -17,7 +15,6 @@ var t = {
 }
 
 var actual_value : float = 0.0
-var mic_restart_timer : Timer = Timer.new()
 var _fingerprint := LipSyncFingerprint.new()
 var _matches := []
 
