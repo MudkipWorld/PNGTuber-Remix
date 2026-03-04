@@ -308,17 +308,6 @@ icon = ExtResource("4_fsnh4")
 icon_alignment = 1
 expand_icon = true
 
-[node name="FixMicDelay" type="Button" parent="SettingVbox/SettingsTab/Audio/VBoxContainer" unique_id=1142554596]
-custom_minimum_size = Vector2(262, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-tooltip_text = "Only toggle this on if you are experiencing
-a significant delay when the microphone
-is picking up sound."
-focus_mode = 0
-text = "Restart Mic"
-alignment = 0
-
 [node name="Import" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=163327294]
 visible = false
 layout_mode = 2
@@ -614,7 +603,6 @@ popup/item_8/id = 8
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="SettingsScript" method="_on_sensitivity_slider_drag_ended"]
 [connection signal="value_changed" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="SettingsScript" method="_on_sensitivity_slider_value_changed"]
 [connection signal="pressed" from="SettingVbox/SettingsTab/Audio/VBoxContainer/HBoxContainer/ResetMicButton" to="SettingsScript" method="_on_reset_mic_button_pressed"]
-[connection signal="pressed" from="SettingVbox/SettingsTab/Audio/VBoxContainer/FixMicDelay" to="SettingsScript" method="_on_fix_mic_delay_pressed"]
 [connection signal="toggled" from="SettingVbox/SettingsTab/Import/VBox/ImportTrim" to="SettingsScript" method="_on_import_trim_toggled"]
 [connection signal="toggled" from="SettingVbox/SettingsTab/Import/VBox/KeepOldTrimData" to="SettingsScript" method="_on_keep_old_trim_data_toggled"]
 [connection signal="value_changed" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer2/UIScalingSpinBox" to="SettingsScript" method="_on_ui_scaling_spin_box_value_changed"]
