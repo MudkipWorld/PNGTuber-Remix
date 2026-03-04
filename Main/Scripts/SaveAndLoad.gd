@@ -745,8 +745,9 @@ func export_images(_images = get_tree().get_nodes_in_group("Sprites")):
 
 #----------------------------------------------------------------------------
 # Misc Data
-func load_pngplus_file(path):
-	LoadMisc.load_pngplus_file(path, can_load_plus)
+func load_pngplus_file(_path):
+	pass
+	#LoadMisc.load_pngplus_file(path, can_load_plus)
 
 func load_images_from_psd(path : String):
 	LoadMisc.load_images_from_psd(path)

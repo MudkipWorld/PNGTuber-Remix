@@ -45,6 +45,29 @@ func _ready():
 	Global.mode_changed.connect(mode_changed)
 	Global.update_ui_pieces.connect(update_pieces)
 	update_pieces()
+	get_window().files_dropped.connect(file_dropped)
+
+func file_dropped(files : PackedStringArray):
+	sprite_paths.clear()
+	for file in files:
+		if file.get_extension().to_lower() == "png":
+			current_state = State.LoadSprites
+			sprite_paths.append(file)
+		elif file.get_extension().to_lower() == "pngremix":
+			current_state = State.LoadFile
+			sprite_paths.clear()
+			Global.new_file.emit()
+			SaveAndLoad.load_file(file, true)
+			break
+	
+	if sprite_paths.is_empty(): return
+	
+	if !sprite_paths.is_empty():
+		if Settings.theme_settings.enable_trimmer:
+			%ConfirmTrim.popup_centered()
+		else:
+			ImageTextureLoaderManager.trim = false
+			import_objects()
 
 func update_pieces():
 	%ProjectNamePanel.visible = Settings.theme_settings.hide_bottom_bar

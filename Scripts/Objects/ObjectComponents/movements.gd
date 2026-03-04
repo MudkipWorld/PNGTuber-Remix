@@ -139,7 +139,15 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta : float) -> void:
 	if actor.get_value("static_obj"):
-		actor.global_position = Global.sprite_container.get_parent().get_parent().to_global(actor.get_value("position"))
+		var object_pos = actor.get_value("position")
+		var pos = Global.main.get_node("%Node2D").to_global(actor.get_value("position"))
+		var p = actor.get_parent()
+		if (p is Sprite2D or p is WigglyAppendage2D or p is CustomMesh)  && is_instance_valid(p):
+			var parent = p.owner
+			if parent.get_value("static_obj"):
+				pos = p.to_global(object_pos)
+			
+		actor.global_transform.origin = pos
 
 func static_prev() -> void:
 	modifier_node.position = Vector2.ZERO

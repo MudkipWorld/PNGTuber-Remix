@@ -51,18 +51,12 @@ func auto_load_model():
 			SaveAndLoad.load_file(Settings.theme_settings.path)
 
 func save_between_sessions():
-	if Settings.theme_settings.session == 0:
-		if FileAccess.file_exists(Settings.theme_settings.path):
-			SaveAndLoad.save_file(Settings.theme_settings.path)
-		else:
-			DirAccess.make_dir_absolute(Settings.autosave_location)
-			SaveAndLoad.save_file(Settings.autosave_location + "/" + str(randi()))
-	elif Settings.theme_settings.session == 1:
-		if FileAccess.file_exists(Settings.theme_settings.path):
-			SaveAndLoad.save_file(Settings.theme_settings.path)
-		else:
-			DirAccess.make_dir_absolute(Settings.autosave_location)
-			SaveAndLoad.save_file(Settings.autosave_location + "/" + str(randi()))
+	if Global.save_path.begins_with("res://") : return
+	if FileAccess.file_exists(Global.save_path):
+		SaveAndLoad.save_file(Global.save_path)
+	else:
+		DirAccess.make_dir_absolute(Settings.autosave_location)
+		SaveAndLoad.save_file(Settings.autosave_location.path_join(str(randi())))
 
 func forced_backup_save():
 	if FileAccess.file_exists(Global.save_path):
