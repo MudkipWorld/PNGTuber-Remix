@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1ekr4qs5l516"]
+[gd_scene format=3 uid="uid://c1ekr4qs5l516"]
 
 [ext_resource type="Script" uid="uid://bdn6kp0ldq1ck" path="res://Main/Scripts/main_stream.gd" id="1_sw3on"]
 [ext_resource type="Script" uid="uid://b6atx7ybrp5sq" path="res://Main/Scripts/SpritesContainer.gd" id="1_u32ad"]
@@ -43,6 +43,7 @@ shader_parameter/line_scale = 3.648
 shader_parameter/frequency = 0.806
 shader_parameter/light_offset = 0.48101
 shader_parameter/alpha = 1.0
+shader_parameter/edge_subdivision = 64
 shader_parameter/overlay = true
 shader_parameter/resolution = Vector2(640, 480)
 shader_parameter/brightness = 1.4
@@ -76,7 +77,7 @@ shader_parameter/uv_scale = Vector2(2, 2)
 [sub_resource type="ViewportTexture" id="ViewportTexture_y4y0n"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
-[node name="MainStream" type="Control"]
+[node name="MainStream" type="Control" unique_id=407203005]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,10 +86,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sw3on")
 
-[node name="WindowHandler" type="Node" parent="."]
+[node name="WindowHandler" type="Node" parent="." unique_id=98322759]
 script = ExtResource("2_y56ai")
 
-[node name="BG" type="TextureRect" parent="."]
+[node name="BG" type="TextureRect" parent="." unique_id=1856154617]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.0980392)
 z_index = -999
@@ -105,7 +106,7 @@ texture = ExtResource("2_sw3on")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1207758584]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_d7c5n")
 layout_mode = 1
@@ -118,36 +119,35 @@ focus_mode = 0
 stretch = true
 mouse_target = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=839070326]
 unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1139806959]
 unique_name_in_owner = true
 position = Vector2(640, 360)
 
-[node name="CamPos" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+[node name="CamPos" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=158516187]
 unique_name_in_owner = true
 
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos"]
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos" unique_id=294565001]
 unique_name_in_owner = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
-[node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+[node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=1902816179]
 z_index = 4
 texture_filter = 4
 
-[node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin"]
+[node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=83123442]
 unique_name_in_owner = true
 script = ExtResource("1_u32ad")
 
-[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" instance=ExtResource("2_cj4vf")]
+[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" unique_id=929740548 instance=ExtResource("2_cj4vf")]
 unique_name_in_owner = true
-visible = false
 light_mask = 7
 visibility_layer = 7
 z_index = 4096
@@ -155,7 +155,7 @@ z_as_relative = false
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.92549)
 
-[node name="Effects" type="TextureRect" parent="."]
+[node name="Effects" type="TextureRect" parent="." unique_id=698286744]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_rorxk")
 layout_mode = 1
@@ -167,9 +167,9 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("ViewportTexture_y4y0n")
 
-[node name="UICanvas" type="CanvasLayer" parent="."]
+[node name="UICanvas" type="CanvasLayer" parent="." unique_id=526380764]
 
-[node name="Marker" type="Control" parent="UICanvas"]
+[node name="Marker" type="Control" parent="UICanvas" unique_id=1583164609]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 8
@@ -185,10 +185,10 @@ size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("5_me1oy")
 
-[node name="UI" parent="UICanvas" instance=ExtResource("5_h43to")]
+[node name="UI" parent="UICanvas" unique_id=833248254 instance=ExtResource("5_h43to")]
 unique_name_in_owner = true
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1976525289]
 unique_name_in_owner = true
 auto_translate_mode = 1
 title = "Open File(s)"
@@ -201,7 +201,7 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpeg", "*.jpg", "*.svg")
 use_native_dialog = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=117545315]
 wait_time = 0.05
 
 [connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]

@@ -10,8 +10,7 @@ func _ready() -> void:
 
 func init_switch_session():
 	if Settings.theme_settings.session == 1:
-		%MenuScreenPopup.current_mode = 1
-		Global.delete_states.emit()
+		Global.new_file.emit()
 		for i in %Scene.get_children():
 			i.queue_free()
 		%Scene.add_child(%MenuScreenPopup.streamer_mode.instantiate())

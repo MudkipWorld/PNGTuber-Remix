@@ -339,7 +339,16 @@ func path_helper(path, dir: String = "") -> String:
 	var current = DirAccess.open(path)
 	if current == null:
 		target = OS.get_user_data_dir() + dir
+		
+		var test = DirAccess.open(target)
+		if test == null:
+			DirAccess.make_dir_absolute(target)
+		
 	else:
 		target = path + dir
+		var test = DirAccess.open(target)
+		if test == null:
+			DirAccess.make_dir_absolute(target)
+		
 	
 	return target

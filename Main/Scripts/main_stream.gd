@@ -25,6 +25,7 @@ func _ready() -> void:
 	Global.sprite_container = %SpritesContainer
 	Global.light = %LightSource
 	Global.camera = %Camera2D
+	Global.camera_pos = %CamPos
 	Global.theme_update.connect(update_theme)
 	update_theme(Settings.current_theme)
 	await get_tree().create_timer(0.1).timeout
