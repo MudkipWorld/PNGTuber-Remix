@@ -1,6 +1,6 @@
-key,en,ru
-LANG_DISPLAY_NAME,English,Русский
-LANG_SYSTEM,System,Системный
+keys,en,ru
+TR_LANG_DISPLAY_NAME,English
+TR_LANG_SYSTEM,System,Системный
 About,About,
 Audio,Audio,
 Basic Concepts,Basic Concepts,

@@ -97,8 +97,6 @@ var settings_dict : Dictionary = {
 	snap_out_of_bounds = true,
 	cycles = [],
 
-	language = "automatic",
-	preferred_language = null,
 	trimmed = false,
 }
 
@@ -350,12 +348,3 @@ func mouse_delay():
 func update_camera_smoothing() -> void:
 	if !is_instance_valid(camera): return
 	camera.position_smoothing_enabled = Settings.theme_settings.floaty_panning
-
-func set_language(language: String) -> void:
-	var locale = Util.get_locale(language)
-	Settings.theme_settings.language = language
-	Settings.save()
-	if locale == "automatic":
-		TranslationServer.set_locale(OS.get_locale_language())
-	else:
-		TranslationServer.set_locale(locale)

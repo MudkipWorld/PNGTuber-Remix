@@ -8,21 +8,15 @@ func _ready() -> void:
 	%UIThemeButton.item_selected.connect(Settings._on_ui_theme_button_item_selected)
 	%UIThemeButton.select(Settings.theme_settings.theme_id)
 	%MicroPhoneMenu.get_popup().connect("id_pressed",choosing_device)
-	for i in %LanguageOptions.item_count:
-		if %LanguageOptions.get_item_text(i) == Settings.theme_settings.language:
-			%LanguageOptions.select(i)
-			break
-			
-
+	_populate_languages()
+	LanguageManager.language_changed.connect(_on_language_changed)
 	get_parent().close_requested.connect(close)
 	sliders_revalue(Global.settings_dict)
 	devices = AudioServer.get_input_device_list()
-	
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
 		if i == Settings.theme_settings.microphone:
 			%MicroPhoneMenu.select(devices.find(i))
-	
 	%SelectedScreen.add_item("All Screens")
 	for i in DisplayServer.get_screen_count():
 		%SelectedScreen.add_item("Screen " + str(i))
@@ -34,8 +28,25 @@ func _ready() -> void:
 		else:
 			Global.settings_dict.monitor = Monitor.ALL_SCREENS
 			%SelectedScreen.select(0)
-	
 	check_data()
+
+func _populate_languages() -> void:
+	%LanguageOptions.clear()
+	var selected_index := 0
+	for index in LanguageManager.available_languages.size():
+		var locale_code: String = LanguageManager.available_languages[index]
+		%LanguageOptions.add_item(LanguageManager.get_display_name(locale_code))
+		if locale_code == LanguageManager.get_current_locale():
+			selected_index = index
+	%LanguageOptions.select(selected_index)
+
+func _on_remix_language_set(index: int) -> void:
+	if index < 0 or index >= LanguageManager.available_languages.size():
+		return
+	LanguageManager.set_language(LanguageManager.available_languages[index])
+	
+func _on_language_changed(_locale: String) -> void:
+	_populate_languages()
 
 func close():
 	get_parent().queue_free()
@@ -46,7 +57,6 @@ func check_data():
 	%SaveOnExitCheck.button_pressed = Settings.theme_settings.save_on_exit
 	%AutoSaveCheck.button_pressed = Global.settings_dict.auto_save
 	%ImportTrim.button_pressed = Settings.theme_settings.enable_trimmer
-	
 	%UIScalingSpinBox.value = Settings.theme_settings.ui_scaling
 	%CustomCursorEditor.button_pressed = Settings.theme_settings.custom_cursor_editor
 	%CustomCursorPreview.button_pressed = Settings.theme_settings.custom_cursor_preview
@@ -54,25 +64,24 @@ func check_data():
 	#%UseThreads.button_pressed = Settings.theme_settings.use_threading
 	%KeepOldTrimData.button_pressed = Settings.theme_settings.save_raw_sprite
 	%SaveUnusedImages.button_pressed = Settings.theme_settings.save_unused_files
-	
 	%PhysicsTick.value = Settings.theme_settings.phys_tick_per_frame
 	%PhysicsSteps.value = Settings.theme_settings.phys_steps
 	%JitterFix.value = Settings.theme_settings.phys_jitter
 	%DevMode.button_pressed = Settings.theme_settings.dev_mode
 	%FollowMouseGlobalInput.button_pressed = Settings.theme_settings.use_glob_input
-	
+
 	if OS.has_feature("linux"):
 		%BackendOption.set_item_disabled(3, false)
 	else:
 		%BackendOption.set_item_disabled(3, true)
 		%BackendOption.select(0)
-	
+
 	if OS.has_feature("windows"):
 		%BackendOption.set_item_disabled(2, false)
 	else:
 		%BackendOption.set_item_disabled(2, true)
 		%BackendOption.select(0)
-		
+
 	match Settings.theme_settings.backend_type:
 		"default":
 			%BackendOption.select(0)
@@ -90,8 +99,7 @@ func check_data():
 			else:
 				%BackendOption.set_item_disabled(3, true)
 				%BackendOption.select(0)
-	
-	
+
 	change_setting = true
 
 func _physics_process(_delta):
@@ -158,14 +166,12 @@ func reset_mic_list():
 	devices = AudioServer.get_input_device_list()
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
-		
 	choosing_device(0)
 
 func _on_anti_al_check_toggled(toggled_on):
 	Global.settings_dict.anti_alias = toggled_on
 	if toggled_on:
 		Global.sprite_container.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-
 	else:
 		Global.sprite_container.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS
 
@@ -197,7 +203,6 @@ func _on_selected_screen_item_selected(index: int) -> void:
 		Global.main.get_node("%Marker").current_screen = Monitor.ALL_SCREENS
 	else:
 		Global.main.get_node("%Marker").current_screen = index - 1
-	
 	Global.settings_dict.monitor = Global.main.get_node("%Marker").current_screen
 	print(Global.settings_dict.monitor)
 
@@ -262,9 +267,6 @@ func _on_keep_old_trim_data_toggled(toggled_on: bool) -> void:
 	Settings.theme_settings.save_raw_sprite = toggled_on
 	Settings.save()
 
-func _on_remix_language_set(index: int) -> void:
-	Global.set_language(%LanguageOptions.get_item_text(index))
-
 func _on_out_of_bounds_toggled(toggled_on: bool) -> void:
 	Global.settings_dict.snap_out_of_bounds = toggled_on
 
@@ -285,8 +287,6 @@ func _on_backend_option_item_selected(index: int) -> void:
 			Settings.theme_settings.backend_type = "windows"
 		3:
 			Settings.theme_settings.backend_type = "x11"
-			
-			
 	Settings.save()
 	Settings.update_tracking_backend()
 

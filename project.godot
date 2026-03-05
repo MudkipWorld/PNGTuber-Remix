@@ -48,6 +48,7 @@ WebsocketHandler="*res://Main/Scripts/websocket_handler.gd"
 GlobInput="*res://Scripts/AutoLoads/global_input.tscn"
 CommandLine="*res://Scripts/AutoLoads/CommandLine.gd"
 Tracker="*res://Scripts/Trackings/TrackingBackend.gd"
+LanguageManager="*uid://htrtywrh8c4v"
 
 [debug]
 
@@ -359,7 +360,7 @@ pen_tablet/driver.windows="auto"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Localization/en/us/en_us.en.translation")
+locale/translations=PackedStringArray("res://Localization/translations.en.translation", "res://Localization/translations.ru.translation")
 
 [memory]
 
