@@ -1,4 +1,4 @@
-@icon("res://UI/BetterSlider/BetSIcon .png")
+@icon("res://UI/BetterSlider/BetSIcon.png")
 extends HBoxContainer
 class_name BetterSpinboxes
 
