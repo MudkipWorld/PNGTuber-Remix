@@ -6,7 +6,7 @@ extends Node
 @onready var modifier_node : Node2D = %Modifier
 @onready var modifier1_node : Node2D = %Modifier1
 @onready var sprite_node : Node = %Sprite2D
-@onready var follow_component : Node = %FollowComponent
+@onready var follow_component : Node = %FollowPosition
 
 var applied_pos : Vector2 = Vector2.ZERO
 var applied_rotation : float = 0.0
@@ -46,9 +46,7 @@ var ik_angular_velocity := 0.0
 
 var calc_length : float = 0.0
 
-
 func _ready() -> void:
-	
 	placeholder_position = actor.global_position
 	applied_pos = placeholder_position
 	shadow_dragger = placeholder_position
@@ -62,8 +60,8 @@ func _physics_process(delta: float) -> void:
 	placeholder_position = modifier1_node.position
 	applied_pos =  placeholder_position
 	
-	if !Global.static_view and actor.rest_mode != 5:
-		if (actor.rest_mode == 2 or actor.rest_mode == 3) and rest:
+	if !Global.static_view && actor.rest_mode != 4:
+		if (actor.rest_mode == 2 or actor.rest_mode == 3) && rest:
 			rest_mode_movements(delta)
 		else:
 			if actor.get_value("should_rotate"):
@@ -141,7 +139,15 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta : float) -> void:
 	if actor.get_value("static_obj"):
-		actor.global_position = Global.sprite_container.get_parent().get_parent().to_global(actor.get_value("position"))
+		var object_pos = actor.get_value("position")
+		var pos = Global.main.get_node("%Node2D").to_global(actor.get_value("position"))
+		var p = actor.get_parent()
+		if (p is Sprite2D or p is WigglyAppendage2D or p is CustomMesh)  && is_instance_valid(p):
+			var parent = p.owner
+			if parent.get_value("static_obj"):
+				pos = p.to_global(object_pos)
+			
+		actor.global_transform.origin = pos
 
 func static_prev() -> void:
 	modifier_node.position = Vector2.ZERO
@@ -163,7 +169,7 @@ func movements(delta: float) -> void:
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
-	var length : float = (l_norm.length() * (l.x + l.y)) + (last_wobble_pos.x + last_wobble_pos.y)
+	var length : float = l_norm.length() * (l.x + l.y) + (last_wobble_pos.x + last_wobble_pos.y)
 	length = add_parent_physics(length)
 	calc_length = length
 	stretch(calc_length)
@@ -269,16 +275,16 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))*0.5)
+	var yvel = ((length * actor.get_value("rdragStr"))*0.15)
 
 	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
 	
 	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.5
+	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.15
 	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
-	modifier1_node.scale = modifier1_node.scale.lerp(target, 0.15)
+	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 
 func follow_wiggle(_delta : float) -> void:
 	var parent = actor.get_parent()

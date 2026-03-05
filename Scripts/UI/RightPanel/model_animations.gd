@@ -4,18 +4,18 @@ var should_change : bool = false
 
 func _ready() -> void:
 	await get_tree().current_scene.ready
-	Global.connect("reinfoanim", reinfoanim)
+	Global.connect("update_anim", update_anim)
 	%SquishAmount.get_node("%SliderValue").value_changed.connect(_on_squish_amount_changed)
 	%SquishAmount.get_node("%SpinBoxValue").value_changed.connect(_on_squish_amount_changed)
 	%BlinkChanceSlider.value = 10
 	Global.slider_values.connect(set_slider_data)
-	reinfoanim()
+	update_anim()
 
 func set_slider_data(data):
 	%BlinkChanceSlider.value = data.blink_chance
 	%BlinkSpeedSlider.value = data.blink_speed
 
-func reinfoanim():
+func update_anim():
 	should_change = false
 	%BounceStateCheck.button_pressed = Global.sprite_container.bounce_state
 	%MouthClosedAnim.select(Global.sprite_container.mouth_closed)
@@ -73,16 +73,16 @@ func _on_mouth_closed_anim_item_selected(index: int) -> void:
 			Global.sprite_container.current_mc_anim = "Idle"
 		1:
 			Global.sprite_container.current_mc_anim = "Bouncy"
-		2:
+		3:
 			Global.sprite_container.current_mc_anim = "One Bounce"
 			
-		3:
+		4:
 			Global.sprite_container.current_mc_anim = "Wobble"
 			
-		4:
+		5:
 			Global.sprite_container.current_mc_anim = "Squish"
 			
-		5:
+		6:
 			Global.sprite_container.current_mc_anim = "Float"
 	
 	add_to_undo("current_mc_anim", old_state, Global.sprite_container.current_mc_anim)
@@ -97,13 +97,13 @@ func _on_mouth_open_anim_item_selected(index: int) -> void:
 			Global.sprite_container.current_mo_anim = "Idle"
 		1:
 			Global.sprite_container.current_mo_anim = "Bouncy"
-		2:
-			Global.sprite_container.current_mo_anim = "One Bounce"
 		3:
-			Global.sprite_container.current_mo_anim = "Wobble"
+			Global.sprite_container.current_mo_anim = "One Bounce"
 		4:
-			Global.sprite_container.current_mo_anim = "Squish"
+			Global.sprite_container.current_mo_anim = "Wobble"
 		5:
+			Global.sprite_container.current_mo_anim = "Squish"
+		6:
 			Global.sprite_container.current_mo_anim = "Float"
 			
 	add_to_undo("current_mo_anim", old_state, Global.sprite_container.current_mo_anim)

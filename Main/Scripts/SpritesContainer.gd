@@ -1,6 +1,6 @@
 extends Node2D
 
-signal reinfoanim
+signal update_anim
 var mouth_closed = 0
 var mouth_open = 0
 
@@ -151,7 +151,6 @@ func save_state(id):
 	else:
 		not_speaking()
 
-
 func get_state(state):
 	if !Global.settings_dict.states.is_empty():
 		if not Global.settings_dict.states[state].is_empty():
@@ -181,7 +180,7 @@ func get_state(state):
 			else:
 				not_speaking()
 		
-		reinfoanim.emit()
+		update_anim.emit()
 
 func not_speaking():
 	currenly_speaking = false
@@ -192,7 +191,7 @@ func not_speaking():
 			1:
 			#	position = pos
 				set_mc_bouncy()
-			2:
+			3:
 			#	position = pos
 				set_mc_one_bounce()
 			4:
@@ -210,7 +209,7 @@ func speaking():
 			1:
 			#	position = pos
 				set_mo_bouncy()
-			2:
+			3:
 			#	position = pos
 				set_mo_one_bounce()
 			4:
@@ -293,4 +292,3 @@ func set_effects():
 		Global.viewer.material.set_shader_parameter("roll_speed", model_effects.roll_speed)
 		Global.viewer.material.set_shader_parameter("roll_size", model_effects.roll_size)
 		Global.viewer.material.set_shader_parameter("aberration", model_effects.aberration)
-		

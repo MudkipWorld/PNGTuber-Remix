@@ -17,8 +17,6 @@ run/print_header=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.6")
 run/max_fps=60
-run/low_processor_mode=true
-run/low_processor_mode_sleep_usec=4600
 run/frame_delay_msec=4
 boot_splash/bg_color=Color(0.1118, 0.135361, 0.218212, 1)
 boot_splash/stretch_mode=0
@@ -46,7 +44,7 @@ LipSyncGlobals="*res://UI/Lipsync stuff/godot-lip-sync/lip_sync_globals.gd"
 GlobalMicAudio="*res://Main/Scripts/GlobalMicAudio.gd"
 WebsocketHandler="*res://Main/Scripts/websocket_handler.gd"
 GlobInput="*res://Scripts/AutoLoads/global_input.tscn"
-CommandLine="*res://Scripts/AutoLoads/CommandLine.gd"
+CommandLine="*uid://bb316uj87yar8"
 Tracker="*res://Scripts/Trackings/TrackingBackend.gd"
 
 [debug]

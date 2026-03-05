@@ -169,12 +169,13 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
 text = "TR_BOUNCE"
 
-[node name="InputsButton" type="MenuButton" parent="TopBar/HBox" unique_id=1690784609]
+[node name="Settings" type="Button" parent="TopBar/HBox" unique_id=142154520]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 14
 text = "TR_SETTINGS"
+flat = true
 
 [node name="CollabButton" type="MenuButton" parent="TopBar/HBox" unique_id=313356856]
 unique_name_in_owner = true
@@ -357,7 +358,7 @@ unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 280.0
-offset_bottom = 443.0
+offset_bottom = 412.0
 mouse_filter = 0
 edit_alpha = false
 color_mode = 1
@@ -367,7 +368,7 @@ sampler_visible = false
 color_modes_visible = false
 presets_visible = false
 
-[connection signal="pressed" from="TopBar/HBox/InputsButton" to="TopBarInput" method="_on_inputs_button_pressed"]
+[connection signal="pressed" from="TopBar/HBox/Settings" to="TopBarInput" method="_on_inputs_button_pressed"]
 [connection signal="about_to_popup" from="TopBar/HBox/WindowButton" to="TopBarInput" method="_on_window_button_about_to_popup"]
 [connection signal="toggled" from="TopBar/HBox/PreviewModeCheck" to="TopBarInput" method="_on_preview_mode_check_toggled"]
 [connection signal="toggled" from="TopBar/HBox/HideUIButton" to="TopBarInput" method="_on_hide_ui_button_toggled"]

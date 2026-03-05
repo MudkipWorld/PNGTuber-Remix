@@ -211,7 +211,6 @@ const VISEMES_DEF = [
 ## Silence threshold
 @export var silence := 0.15
 
-
 # Raw energy for each band (0..1)
 var energy_raw := BANDS_DEF.duplicate()
 
@@ -227,12 +226,10 @@ var _player : AudioStreamPlayer
 # Spectrum analyzer effect instance
 var _effect : AudioEffectSpectrumAnalyzerInstance
 
-
 # Sort class for sorting [shape,distance] array by distance
 class DistanceSorter:
 	static func sort_ascending(a: Array, b: Array) -> bool:
 		return true if a[1] < b[1] else false
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -266,13 +263,13 @@ func _ready() -> void:
 		# Start playing the microphone into the audio bus
 		_player.play()
 
-
 func _physics_process(_delta: float) -> void:
 	var energy_sum := 0.0
 	for i in BANDS_COUNT:
 		var c = BANDS_RANGE[i][0]
 		var w = BANDS_RANGE[i][1]
-		var mag = _effect.get_magnitude_for_frequency_range(c - w, c + w, 0)
+		var magnitude_mode = AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.MAGNITUDE_AVERAGE
+		var mag = _effect.get_magnitude_for_frequency_range(c - w, c + w, magnitude_mode)
 		var e = mag.length() * c
 		fingerprint[i] = e  # temporarily store raw energy
 		energy_sum += e
@@ -305,7 +302,6 @@ func _physics_process(_delta: float) -> void:
 	for i in VISEME.COUNT:
 		visemes[i] = lerp(visemes[i], scores[i] * score_scale, slew_scale)
 
-
 # Get or create an audio bus with the specified name
 static func _get_or_create_audio_bus(_name: String) -> int:
 	# Find the audio bus
@@ -320,10 +316,8 @@ static func _get_or_create_audio_bus(_name: String) -> int:
 	AudioServer.set_bus_name(bus, _name)
 
 	# Return bus
-	print("LipSync: Created new audio bus ", bus, " (", _name, ")")
+	#print("LipSync: Created new audio bus ", bus, " (", _name, ")")
 	return bus
-
-
 # Get or create a spectrum analyzer on the specified audio bus
 static func _get_or_create_spectrum_analyzer(bus: int) -> int:
 	# Search through existing effects
@@ -338,9 +332,8 @@ static func _get_or_create_spectrum_analyzer(bus: int) -> int:
 	AudioServer.add_bus_effect(bus, AudioEffectSpectrumAnalyzer.new())
 
 	# Return spectrum analyzer effect
-	print("LipSync: Created new spectrum analyzer effect ", bus, ":", idx)
+	#print("LipSync: Created new spectrum analyzer effect ", bus, ":", idx)
 	return idx
-
 
 # Calculate the distance between two fingerprints
 static func _fingerprint_distance(a: Array, b: Array) -> float:

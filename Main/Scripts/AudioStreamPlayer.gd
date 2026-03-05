@@ -1,9 +1,6 @@
 extends AudioStreamPlayer
 
 const MIN_DB: int = 80
-var record_bus_index 
-var record_effect : AudioEffectCapture = null
-
 const VU_COUNT = 4
 const HEIGHT = 40
 const  MAX_FREQ = 11050.0
@@ -18,31 +15,12 @@ var t = {
 }
 
 var actual_value : float = 0.0
-var mic_restart_timer : Timer = Timer.new()
 var _fingerprint := LipSyncFingerprint.new()
 var _matches := []
 
 func _ready():
-	record_bus_index = AudioServer.get_bus_index("Mic")
-	record_effect = AudioServer.get_bus_effect(record_bus_index, 1)
-	mic_restart_timer.one_shot = false
-	add_child(mic_restart_timer)
 	await get_tree().current_scene.ready
-
 	global_lipsync()
-
-func change_mic_restart_time(delay_fix : bool = false) -> void:
-	mic_restart_timer.wait_time = MIC_RESTART_TIME_FIX if delay_fix else MIC_RESTART_TIME
-
-func mic_restart_timer_timeout():
-	restart_mic()
-
-func restart_mic():
-	playing = false
-	record_effect.clear_buffer()
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	playing = true 
 
 func global_lipsync():
 	_fingerprint.populate(LipSyncGlobals.speech_spectrum)

@@ -14,11 +14,9 @@ enum State {
 	AddNormal,
 	AddAppend,
 	ImportPSD,
-}
+	}
 var current_state : State
 var can_scroll : bool = false
-
-var rec_inp : bool = false
 
 @onready var origin = %SpritesContainer
 var of := Vector2.ZERO
@@ -47,6 +45,29 @@ func _ready():
 	Global.mode_changed.connect(mode_changed)
 	Global.update_ui_pieces.connect(update_pieces)
 	update_pieces()
+	get_window().files_dropped.connect(file_dropped)
+
+func file_dropped(files : PackedStringArray):
+	sprite_paths.clear()
+	for file in files:
+		if file.get_extension().to_lower() == "png":
+			current_state = State.LoadSprites
+			sprite_paths.append(file)
+		elif file.get_extension().to_lower() == "pngremix":
+			current_state = State.LoadFile
+			sprite_paths.clear()
+			Global.new_file.emit()
+			SaveAndLoad.load_file(file, true)
+			break
+	
+	if sprite_paths.is_empty(): return
+	
+	if !sprite_paths.is_empty():
+		if Settings.theme_settings.enable_trimmer:
+			%ConfirmTrim.popup_centered()
+		else:
+			ImageTextureLoaderManager.trim = false
+			import_objects()
 
 func update_pieces():
 	%ProjectNamePanel.visible = Settings.theme_settings.hide_bottom_bar
@@ -68,7 +89,7 @@ func new_file():
 
 func load_file():
 	#%FileDialog.filters = ["*.pngRemix, *.save"]
-	%FileDialog.filters = ["*.pngRemix, *.save"]
+	%FileDialog.filters = ["*.pngRemix"]
 	$FileDialog.file_mode = 0
 	current_state = State.LoadFile
 	%FileDialog.show()
@@ -279,12 +300,6 @@ func _on_sub_viewport_container_mouse_entered():
 
 func _on_sub_viewport_container_mouse_exited():
 	can_scroll = false
-
-func _notification(what):
-	if what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_IN:
-		rec_inp = false
-	elif what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
-		rec_inp = true
 
 func _on_confirmation_dialog_canceled() -> void:
 	%ConfirmationDialog.hide()

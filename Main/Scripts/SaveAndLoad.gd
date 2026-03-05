@@ -8,6 +8,7 @@ var import_trimmed : bool = false
 var import_resized : bool = false
 var import_percent : float = 50.0
 @onready var dire = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/ExportedAssets")
+@onready var backs_dir = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/Backups")
 
 func save_file(path : String):
 	save_model(path)
@@ -274,7 +275,7 @@ func load_model(path: String) -> void:
 
 	Global.slider_values.emit(Global.settings_dict)
 	if Global.main.has_node("%Control"):
-		Global.reinfoanim.emit()
+		Global.update_anim.emit()
 	if Global.settings_dict.anti_alias:
 		Global.sprite_container.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	else:
@@ -443,9 +444,11 @@ func set_common_data(sprite, sprite_obj):
 			if sprite_obj.saved_event != null:
 				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
 		else:
-			InputMap.add_action(str(sprite.sprite_id))
-			if sprite_obj.saved_event != null:
-				InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
+			if InputMap.has_action(str(sprite.sprite_id)):
+				InputMap.erase_action(str(sprite.sprite_id))
+				InputMap.add_action(str(sprite.sprite_id))
+				if sprite_obj.saved_event != null:
+					InputMap.action_add_event(str(sprite.sprite_id), sprite_obj.saved_event)
 			
 			
 	sprite_obj.sprite_name = sprite.sprite_name
@@ -697,17 +700,18 @@ func make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> Pac
 #----------------------------------------------------------------------------
 # Global Backups
 func save_backup(data: Dictionary, previous_path: String) -> void:
-	var base_path := previous_path.get_basename()
+	if !DirAccess.dir_exists_absolute(backs_dir):
+		DirAccess.make_dir_absolute(backs_dir)
+	
 	var extension := "." + previous_path.get_extension()
-	base_path += "_backup"
-	
+	var file_name = previous_path.get_file().get_basename()
+	var backup_path = backs_dir.path_join(file_name + "_backup" + extension)
 	var counter: int = 1
-	var path := base_path + extension
-	while FileAccess.file_exists(path):
+	while FileAccess.file_exists(backup_path):
 		counter += 1
-		path = base_path + str(counter) + extension
+		backup_path = backs_dir.path_join(file_name + "_backup" + str(counter) + extension)
 	
-	var file := FileAccess.open(path, FileAccess.WRITE)
+	var file : FileAccess = FileAccess.open(backup_path, FileAccess.WRITE)
 	file.store_var(data, true)
 
 func export_images(_images = get_tree().get_nodes_in_group("Sprites")):
@@ -741,8 +745,9 @@ func export_images(_images = get_tree().get_nodes_in_group("Sprites")):
 
 #----------------------------------------------------------------------------
 # Misc Data
-func load_pngplus_file(path):
-	LoadMisc.load_pngplus_file(path, can_load_plus)
+func load_pngplus_file(_path):
+	pass
+	#LoadMisc.load_pngplus_file(path, can_load_plus)
 
 func load_images_from_psd(path : String):
 	LoadMisc.load_images_from_psd(path)

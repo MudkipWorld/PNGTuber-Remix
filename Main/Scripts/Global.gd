@@ -17,7 +17,7 @@ signal light_info
 signal speaking
 signal not_speaking
 
-signal reinfoanim
+signal update_anim
 signal remake_layers
 signal update_layers
 signal update_layer_visib
@@ -225,7 +225,7 @@ func load_sprite_states(state):
 	reinfo.emit()
 	animation_state.emit(current_state)
 	light_info.emit(current_state)
-	reinfoanim.emit()
+	update_anim.emit()
 
 func get_sprite_states(state):
 	if state != current_state:
@@ -240,7 +240,7 @@ func get_sprite_states(state):
 	animation_state.emit(current_state)
 	light_info.emit(current_state)
 	update_layer_visib.emit()
-	reinfoanim.emit()
+	update_anim.emit()
 
 func _input(_event : InputEvent):
 	for i in held_sprites:

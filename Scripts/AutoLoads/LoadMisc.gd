@@ -188,7 +188,7 @@ func load_pngplus_file(path, can_load_plus):
 		spr.reposition_plus(get_tree().get_nodes_in_group("Sprites"))
 
 	Global.settings_dict.should_delta = false
-	Global.reinfoanim.emit()
+	Global.update_anim.emit()
 	Global.remake_image_manager.emit()
 	Global.main.get_node("%Marker").current_screen = Monitor.ALL_SCREENS
 	Global.load_model.emit()

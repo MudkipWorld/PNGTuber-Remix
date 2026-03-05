@@ -31,14 +31,12 @@ var speech_delay : float :
 				Global.not_speaking.emit()
 				has_delayed = false
 
-
 func _ready() -> void:
 	_mic_bus_index = AudioServer.get_bus_index("Mic")
 	if _mic_bus_index == -1:
 		push_error("GlobalMicAudio: 'Mic' bus not found. Speaking detection will not work.")
 		return
 	_capture = AudioServer.get_bus_effect(_mic_bus_index, 1)
-
 
 func _exit_tree() -> void:
 	if _mic_bus_index != -1 and _capture != null:
@@ -48,8 +46,7 @@ func _exit_tree() -> void:
 				AudioServer.remove_bus_effect(_mic_bus_index, i)
 				break
 
-
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if _capture == null:
 		return
 
@@ -69,7 +66,7 @@ func _process(delta: float) -> void:
 	speech_value = volume
 	speech_delay = delay
 
-	if delay > Global.settings_dict.volume_limit and has_spoken:
+	if delay > Global.settings_dict.volume_limit && has_spoken:
 		delay = 1
 	elif volume < Global.settings_dict.volume_limit:
 		delay = move_toward(delay, 0, 0.5 * delta)
