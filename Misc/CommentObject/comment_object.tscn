@@ -77,8 +77,14 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_8ts6b")
 expand_mode = 1
 
-[node name="FollowComponent" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
+[node name="FollowPosition" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor")]
+[node name="FollowRotation" parent="." index="4" unique_id=1123989327 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="FollowScale" parent="." index="5" unique_id=1127925180 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="Movements" parent="." index="7" unique_id=941197373 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")

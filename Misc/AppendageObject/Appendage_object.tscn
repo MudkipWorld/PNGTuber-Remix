@@ -55,7 +55,7 @@ unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(-10, 0, -4.96, 0, 2.1600008, 0, 11.360001, 0, 22.640001, 0, 36, 0, 50.4, -0.0004503854, 64.8, -0.0018015417, 79.2, -0.004053469, 93.600006, -0.0072061666, 108, -0.011259635, 122.399994, -0.013016271, 136.79999, -0.0092784725, 151.19998, -4.6238303e-05, 165.59996, 0.014680432, 179.99995, 0.034901537, 194.39993, 0.061226487, 208.79988, 0.094264686, 223.19983, 0.13401614, 237.59973, 0.18048084, 251.99963, 0.23365879, 266.3995, 0.2922796, 280.79938, 0.3550728, 295.19922, 0.42203847, 309.59903, 0.49317652, 323.99884, 0.56848705, 338.39862, 0.64796996, 352.79837, 0.7316253)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.1600008, 0, 11.360001, 0, 22.640001, 0, 36, 0, 50.399998, 0.0020407278, 64.799995, 0.008162911, 79.19998, 0.01836655, 93.599976, 0.032651644, 107.99996, 0.05101819, 122.39995, 0.067094676, 136.79993, 0.074509576, 151.19992, 0.0732629, 165.59988, 0.06335464, 179.99988, 0.044784807, 194.3997, 0.002824055, 208.79921, -0.07725695, 223.19843, -0.1954582, 237.5973, -0.3517797, 251.99588, -0.54622144, 266.38016, -0.940882, 280.73608, -1.69786, 295.06375, -2.8171558, 309.3631, -4.298768, 323.63416, -6.142699, 337.8542, -8.345722, 352.00052, -10.9046135)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
@@ -100,11 +100,17 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_i82gq")
 expand_mode = 1
 
-[node name="FollowComponent" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
+[node name="FollowPosition" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="Movements" parent="." index="5" unique_id=941197373 node_paths=PackedStringArray("actor")]
+[node name="FollowRotation" parent="." index="4" unique_id=1123989327 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
 
-[node name="AnimatedSpriteTexture" parent="." index="6" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
+[node name="FollowScale" parent="." index="5" unique_id=1127925180 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="Movements" parent="." index="7" unique_id=941197373 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="AnimatedSpriteTexture" parent="." index="8" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
 sprite_node = NodePath("../Modifier1/Rotation/Modifier/Sprite2D")

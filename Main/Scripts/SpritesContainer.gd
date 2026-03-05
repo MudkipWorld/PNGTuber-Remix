@@ -1,6 +1,6 @@
 extends Node2D
 
-signal reinfoanim
+signal update_anim
 var mouth_closed = 0
 var mouth_open = 0
 
@@ -151,7 +151,6 @@ func save_state(id):
 	else:
 		not_speaking()
 
-
 func get_state(state):
 	if !Global.settings_dict.states.is_empty():
 		if not Global.settings_dict.states[state].is_empty():
@@ -181,7 +180,7 @@ func get_state(state):
 			else:
 				not_speaking()
 		
-		reinfoanim.emit()
+		update_anim.emit()
 
 func not_speaking():
 	currenly_speaking = false
@@ -240,8 +239,8 @@ func set_mc_one_bounce():
 		yVel = state_param_mo.bounce_energy * -1
 
 func set_mc_wobble():
-	position.x = lerp(position.x, sin(tick*state_param_mo.xFrq)*state_param_mo.xAmp, 0.08)
-	position.y = lerp(position.y, sin(tick*state_param_mo.yFrq)*state_param_mo.yAmp, 0.08)
+	position.x = lerp(position.x, sin(tick*state_param_mc.xFrq)*state_param_mc.xAmp, 0.08)
+	position.y = lerp(position.y, sin(tick*state_param_mc.yFrq)*state_param_mc.yAmp, 0.08)
 	bounceChange = position.y/10
 
 func set_mc_squish():
@@ -293,4 +292,3 @@ func set_effects():
 		Global.viewer.material.set_shader_parameter("roll_speed", model_effects.roll_speed)
 		Global.viewer.material.set_shader_parameter("roll_size", model_effects.roll_size)
 		Global.viewer.material.set_shader_parameter("aberration", model_effects.aberration)
-		

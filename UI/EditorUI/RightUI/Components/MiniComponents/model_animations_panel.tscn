@@ -32,28 +32,28 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_MOUTH_CLOSED"
 
-[node name="MouthClosedAnim" type="MenuButton" parent="MC" unique_id=1837067471]
+[node name="MouthClosedAnim" type="OptionButton" parent="MC" unique_id=2045749650]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "TR_IDLE"
-flat = false
-alignment = 0
-item_count = 6
+item_count = 7
 popup/item_0/text = "TR_IDLE"
 popup/item_0/id = 0
 popup/item_1/text = "TR_ANIMATION_BOUNCY"
 popup/item_1/id = 1
-popup/item_2/text = "TR_ANIMATION_ONE_BOUNCE"
-popup/item_2/id = 3
-popup/item_3/text = "TR_ANIMATION_WOBBLE"
-popup/item_3/id = 4
-popup/item_4/text = "TR_ANIMATION_SQUISH"
-popup/item_4/id = 5
-popup/item_5/text = "TR_FLOAT"
-popup/item_5/id = 6
+popup/item_2/id = 2
+popup/item_2/disabled = true
+popup/item_2/separator = true
+popup/item_3/text = "TR_ANIMATION_ONE_BOUNCE"
+popup/item_3/id = 3
+popup/item_4/text = "TR_ANIMATION_WOBBLE"
+popup/item_4/id = 4
+popup/item_5/text = "TR_ANIMATION_SQUISH"
+popup/item_5/id = 5
+popup/item_6/text = "TR_FLOAT"
+popup/item_6/id = 6
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=527045776]
 layout_mode = 2
@@ -73,28 +73,28 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "TR_MOUTH_OPEN_LABEL"
 
-[node name="MouthOpenAnim" type="MenuButton" parent="MO" unique_id=876145262]
+[node name="MouthOpenAnim" type="OptionButton" parent="MO" unique_id=1271866159]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "TR_IDLE"
-flat = false
-alignment = 0
-item_count = 6
+item_count = 7
 popup/item_0/text = "TR_IDLE"
 popup/item_0/id = 0
 popup/item_1/text = "TR_ANIMATION_BOUNCY"
 popup/item_1/id = 1
-popup/item_2/text = "TR_ANIMATION_ONE_BOUNCE"
-popup/item_2/id = 3
-popup/item_3/text = "TR_ANIMATION_WOBBLE"
-popup/item_3/id = 4
-popup/item_4/text = "TR_ANIMATION_SQUISH"
-popup/item_4/id = 5
-popup/item_5/text = "TR_FLOAT"
-popup/item_5/id = 6
+popup/item_2/id = 2
+popup/item_2/disabled = true
+popup/item_2/separator = true
+popup/item_3/text = "TR_ANIMATION_ONE_BOUNCE"
+popup/item_3/id = 3
+popup/item_4/text = "TR_ANIMATION_WOBBLE"
+popup/item_4/id = 4
+popup/item_5/text = "TR_ANIMATION_SQUISH"
+popup/item_5/id = 5
+popup/item_6/text = "TR_FLOAT"
+popup/item_6/id = 6
 
 [node name="PanelContainer2" type="PanelContainer" parent="." unique_id=1629535167]
 layout_mode = 2
@@ -178,6 +178,8 @@ layout_mode = 2
 [node name="ModelEffects" parent="." unique_id=1939593135 instance=ExtResource("4_nllqn")]
 layout_mode = 2
 
+[connection signal="item_selected" from="MC/MouthClosedAnim" to="ModelAnimations" method="_on_mouth_closed_anim_item_selected"]
+[connection signal="item_selected" from="MO/MouthOpenAnim" to="ModelAnimations" method="_on_mouth_open_anim_item_selected"]
 [connection signal="toggled" from="BounceStateCheck" to="ModelAnimations" method="_on_bounce_state_check_toggled"]
 [connection signal="value_changed" from="Grid/BlinkSpeedSlider" to="ModelAnimations" method="_on_blink_speed_slider_value_changed"]
 [connection signal="value_changed" from="Grid/BlinkChanceSlider" to="ModelAnimations" method="_on_blink_chance_slider_value_changed"]

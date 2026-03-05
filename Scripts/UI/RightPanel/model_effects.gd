@@ -3,7 +3,7 @@ extends VBoxContainer
 var should_change : bool = false
 
 func _ready() -> void:
-	Global.reinfoanim.connect(set_data)
+	Global.update_anim.connect(set_data)
 	await get_tree().current_scene.ready
 	set_data()
 

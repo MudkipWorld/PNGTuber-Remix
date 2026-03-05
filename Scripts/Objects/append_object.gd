@@ -258,7 +258,6 @@ func update_wiggle_parts():
 	if %Sprite2D.gravity!= get_value("wiggle_gravity"):
 		%Sprite2D.gravity = get_value("wiggle_gravity")
 
-
 func check_talk():
 	if get_value("should_talk"):
 		if get_value("open_mouth"):
@@ -274,7 +273,6 @@ func _on_grab_button_down():
 			var mouse_pos = get_parent().to_local(get_global_mouse_position())
 			for s in Global.held_sprites:
 				drag_offsets[s] = mouse_pos - s.position
-
 
 func _on_grab_button_up():
 	if selected:
