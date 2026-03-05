@@ -280,7 +280,7 @@ func toggle_borders():
 	if Settings.theme_settings.borders:
 		get_window().borderless = false
 		get_window().size = s
-	elif !Settings.theme_settings.borders:
+	else:
 		get_window().borderless = true
 		get_window().size = s
 	save()
@@ -330,7 +330,7 @@ func set_ui_pieces(val : int, id : int):
 		theme_settings.hide_mini_view = val
 	elif id == 6:
 		theme_settings.hide_sprite_view = val
-	elif 7:
+	elif id == 7:
 		theme_settings.hide_bottom_bar = val
 	save()
 
