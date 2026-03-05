@@ -334,7 +334,7 @@ func set_ui_pieces(val : int, id : int):
 		theme_settings.hide_bottom_bar = val
 	save()
 
-func path_helper(path, dir: String = "") -> String:
+func path_helper(path: String, dir: String = "") -> String:
 	var target = ""
 	var current = DirAccess.open(path)
 	if current == null:
