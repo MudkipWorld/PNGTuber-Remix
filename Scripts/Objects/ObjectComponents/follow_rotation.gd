@@ -3,20 +3,20 @@ extends Node
 @export var actor: SpriteObject
 @export var modifier: Node2D
 
-var smoothed_dir : Vector2 = Vector2.ZERO
-var dir_vel_anim : Vector2 = Vector2.ZERO
-var dist_vel_anim : float = 0.0
+var smoothed_dir: Vector2 = Vector2.ZERO
+var dir_vel_anim: Vector2 = Vector2.ZERO
+var dist_vel_anim: float = 0.0
 
-var target_rotation :Vector2 = Vector2.ZERO
-var target_scale :Vector2 = Vector2.ONE
+var target_rotation: Vector2 = Vector2.ZERO
+var target_scale: Vector2 = Vector2.ONE
 
-var rest : bool = false
-var axis_left :Vector2 = Vector2.ZERO
-var axis_right :Vector2 = Vector2.ZERO
-var axis_shoulderl :Vector2 = Vector2.ZERO
-var axis_shoulderr :Vector2 = Vector2.ZERO
-var axis_lr_3 : Vector2 = Vector2.ZERO
-var final_target : Vector2 = Vector2.ZERO
+var rest: bool = false
+var axis_left: Vector2 = Vector2.ZERO
+var axis_right: Vector2 = Vector2.ZERO
+var axis_shoulderl: Vector2 = Vector2.ZERO
+var axis_shoulderr: Vector2 = Vector2.ZERO
+var axis_lr_3: Vector2 = Vector2.ZERO
+var final_target: Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	if actor.get_value("follow_type2") == 15:
@@ -61,9 +61,10 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 			var main_marker = Global.main.get_node("%Marker")
 			var screen_size = DisplayServer.screen_get_size(-1)
 			if main_marker.current_screen == Monitor.ALL_SCREENS:
-				screen_size = DisplayServer.screen_get_size(1)
+				screen_size = DisplayServer.screen_get_size(DisplayServer.SCREEN_PRIMARY)
 			else:
-				screen_size = DisplayServer.screen_get_size(main_marker.current_screen)
+				var idx = clamp(main_marker.current_screen, 0, DisplayServer.get_screen_count() - 1)
+				screen_size = DisplayServer.screen_get_size(idx)
 			var mouse_x = %FollowPosition.mouse_coords.x
 			var screen_width = screen_size.x
 			var normalized_mouse = (mouse_x) / (screen_width / 2)
@@ -120,7 +121,7 @@ func follow_controller_rotation(axis) -> float:
 	return clamp(rotation_factor, deg_to_rad(rot_min), deg_to_rad(rot_max))
 
 func clamp_rotations(value) -> float :
-	var clamped = 0
+	var clamped := 0.0
 	var min_rot : float = actor.get_value("rot_min")
 	var max_rot : float = actor.get_value("rot_max")
 	if min_rot > max_rot:
