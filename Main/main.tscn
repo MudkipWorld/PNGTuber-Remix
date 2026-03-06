@@ -257,7 +257,7 @@ offset_left = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 11
-text = "Welcome!"
+text = "TR_WELCOME"
 
 [node name="WindowSize" type="Label" parent="UICanvas/UIHold/ProjectNamePanel" unique_id=1093128964]
 unique_name_in_owner = true

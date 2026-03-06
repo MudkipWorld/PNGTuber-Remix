@@ -284,9 +284,9 @@ selected = 0
 item_count = 3
 popup/item_0/text = "TR_DISABLED"
 popup/item_0/id = 0
-popup/item_1/text = "TR_OPEN"
+popup/item_1/text = "TR_MOUTH_OPEN"
 popup/item_1/id = 1
-popup/item_2/text = "TR_CLOSED"
+popup/item_2/text = "TR_MOUTH_CLOSED"
 popup/item_2/id = 2
 
 [node name="Label2" type="Label" parent="VBoxContainer/Reactions" unique_id=2043796717]
@@ -302,9 +302,9 @@ selected = 0
 item_count = 3
 popup/item_0/text = "TR_DISABLED"
 popup/item_0/id = 0
-popup/item_1/text = "TR_OPEN"
+popup/item_1/text = "TR_MOUTH_OPEN"
 popup/item_1/id = 1
-popup/item_2/text = "TR_CLOSED"
+popup/item_2/text = "TR_MOUTH_CLOSED"
 popup/item_2/id = 2
 
 [node name="IgnoreBounce" type="CheckBox" parent="VBoxContainer/Reactions" unique_id=624871798]

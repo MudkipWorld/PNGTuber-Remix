@@ -15,7 +15,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Test : "
+text = "Test"
 
 [node name="SpinBoxValue" type="SpinBox" parent="." unique_id=1182001255]
 unique_name_in_owner = true

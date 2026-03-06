@@ -420,47 +420,62 @@ theme_override_font_sizes/font_size = 13
 current_tab = 0
 switch_on_drag_hover = false
 tab_focus_mode = 0
+tab_0/title = "TR_TAB_PROPERTIES"
+tab_1/title = "TR_TAB_MOVEMENT"
+tab_2/title = "TR_TAB_WIGGLE"
+tab_3/title = "TR_TAB_ANIMATION"
+tab_4/title = "TR_TAB_MODEL"
+tab_5/title = "TR_TAB_LIGHT"
+tab_6/title = "TR_TAB_WEBSOCKET"
+tab_7/title = "TR_TAB_TESTS"
 
 [node name="Properties" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 0
+metadata/_tab_name = "TR_TAB_PROPERTIES"
 
 [node name="Movement" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=269024386 instance=ExtResource("9_fwbkq")]
 visible = false
 light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 1
+metadata/_tab_name = "TR_TAB_MOVEMENT"
 
 [node name="Wiggle" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1568898990 instance=ExtResource("6_63lps")]
 visible = false
 light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 2
+metadata/_tab_name = "TR_TAB_WIGGLE"
 
 [node name="Animation" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1805843008 instance=ExtResource("7_1r6xj")]
 visible = false
 light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 3
+metadata/_tab_name = "TR_TAB_ANIMATION"
 
 [node name="Model" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1895797174 instance=ExtResource("8_1r6xj")]
 visible = false
 light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 4
+metadata/_tab_name = "TR_TAB_MODEL"
 
 [node name="Light" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=310893493 instance=ExtResource("7_4jud0")]
 visible = false
 light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 5
+metadata/_tab_name = "TR_TAB_LIGHT"
 
 [node name="Websocket" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1031500172]
 visible = false
 light_mask = 0
 layout_mode = 2
 metadata/_tab_index = 6
+metadata/_tab_name = "TR_TAB_WEBSOCKET"
 
 [node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Websocket" unique_id=1789427237 instance=ExtResource("17_le2wr")]
 layout_mode = 2
@@ -471,6 +486,7 @@ layout_mode = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 7
+metadata/_tab_name = "TR_TAB_TESTS"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests" unique_id=727006526]
 custom_minimum_size = Vector2(350, 0)

@@ -59,7 +59,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "TR_BLIND_KEY"
+text = "TR_BIND_KEY"
 script = ExtResource("2_dpute")
 
 [node name="RemoveAssetButton" type="Button" parent="Buttons/HBoxContainer" unique_id=1584986079]
