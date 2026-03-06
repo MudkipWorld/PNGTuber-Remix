@@ -7,14 +7,17 @@ const AUTO_LOCALE := "auto"
 var available_languages: Array[String] = []
 var _current_locale: String = AUTO_LOCALE
 
+
 func _enter_tree() -> void:
 	available_languages = _build_languages()
+
 
 func initialize(saved_locale: String) -> void:
 	var validated := _validate_locale(saved_locale)
 	_apply_locale(validated)
 	if validated != saved_locale:
 		language_changed.emit(validated)
+
 
 func set_language(locale_code: String) -> void:
 	if not available_languages.has(locale_code):
@@ -23,8 +26,10 @@ func set_language(locale_code: String) -> void:
 	_apply_locale(locale_code)
 	language_changed.emit(_current_locale)
 
+
 func get_current_locale() -> String:
 	return _current_locale
+
 
 func get_display_name(locale_code: String) -> String:
 	if locale_code == AUTO_LOCALE:
@@ -35,6 +40,7 @@ func get_display_name(locale_code: String) -> String:
 	var display_name := String(tr_obj.get_message("TR_LANG_DISPLAY_NAME"))
 	return display_name if not display_name.is_empty() else locale_code
 
+
 func _build_languages() -> Array[String]:
 	var result: Array[String] = [AUTO_LOCALE]
 	var locales := TranslationServer.get_loaded_locales()
@@ -44,17 +50,20 @@ func _build_languages() -> Array[String]:
 			result.append(code)
 	return result
 
+
 func _is_locale_valid(locale_code: String) -> bool:
 	var tr_obj := TranslationServer.get_translation_object(locale_code)
 	if not tr_obj:
 		return false
 	return not tr_obj.get_message("TR_LANG_DISPLAY_NAME").is_empty()
 
+
 func _validate_locale(locale_code: String) -> String:
 	if available_languages.has(locale_code):
 		return locale_code
 	push_warning("LanguageManager: locale '%s' is unavailable, falling back to auto" % locale_code)
 	return AUTO_LOCALE
+
 
 func _apply_locale(locale_code: String) -> void:
 	if locale_code == _current_locale:
@@ -65,6 +74,7 @@ func _apply_locale(locale_code: String) -> void:
 		return
 	TranslationServer.set_locale(resolved)
 	_current_locale = locale_code
+
 
 func _resolve_locale(locale_code: String) -> String:
 	if locale_code != AUTO_LOCALE and not locale_code.is_empty():
