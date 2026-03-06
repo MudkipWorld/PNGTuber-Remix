@@ -24,8 +24,8 @@ func show_model_warning(_warn : bool):
 
 #region Update Slider info
 func held_sprite_is_null():
-	%SpriteID.text = "Sprite ID : 0"
-	%ParentID.text = "Parent ID : 0"
+	%SpriteID.text = tr("TR_SPRITE_ID_LABEL") + " 0"
+	%ParentID.text = tr("TR_PARENT_ID_LABEL") + " 0"
 	%Name.editable = false
 	%Name.text = ""
 	%AdvancedLipSync.disabled = true
@@ -36,9 +36,9 @@ func held_sprite_is_true():
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Sprite2D":
-				%AdvancedLipSync.disabled = false
-			%SpriteID.text = "Sprite ID : " + str(i.sprite_id)
-			%ParentID.text = "Parent ID : " + str(i.parent_id)
+				%AdvancedLipSync.disabled = false 
+			%SpriteID.text = tr("TR_SPRITE_ID_LABEL") + " " + str(i.sprite_id)
+			%ParentID.text = tr("TR_PARENT_ID_LABEL") + " " + str(i.parent_id)
 
 func reinfo():
 	held_sprite_is_null()

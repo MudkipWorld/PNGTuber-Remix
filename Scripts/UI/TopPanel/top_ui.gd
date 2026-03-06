@@ -7,7 +7,7 @@ func _ready():
 	Global.reinfo.connect(info_held)
 	Global.slider_values.connect(sliders_revalue)
 	Global.deselect.connect(info_desel)
-	%CreditLabel.text = "PNGTuber Remix by TheMime. Better UI by LeoRson. Websocket code by vj4. V" + Global.version
+	%CreditLabel.text = tr("TR_CREDITS") + Global.version
 	get_window().size_changed.connect(update_size_label)
 
 func info_held():
@@ -33,7 +33,7 @@ func update_fps(value):
 	Engine.max_fps = value
 
 func update_size_label():
-	%WindowSize.text = "Window Size " + str(get_window().size)
+	%WindowSize.text = tr("TR_WINDOW_SIZE") + " " + str(get_window().size)
 
 func _input(event: InputEvent) -> void:
 	if Global.mode == 0:

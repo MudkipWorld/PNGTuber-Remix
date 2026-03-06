@@ -228,7 +228,7 @@ func window_size_changed():
 		
 	if Global.main != null && is_instance_valid(Global.main):
 		if Global.main.has_node("%WindowSize"):
-			Global.main.get_node("%WindowSize").text = "Window Size " + str(Settings.theme_settings.screen_size)
+			Global.main.get_node("%WindowSize").text = tr("TR_WINDOW_SIZE") + " " + str(Settings.theme_settings.screen_size)
 	save()
 
 func check_ui():

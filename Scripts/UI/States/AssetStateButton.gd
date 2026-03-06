@@ -77,7 +77,7 @@ func update_key_text():
 	if InputMap.action_get_events(action).size() != 0:
 		text = "%s" % InputMap.action_get_events(action)[0].as_text()
 	else:
-		text = "Bind Key"
+		text = tr("TR_BIND_KEY")
 
 func update_stuff():
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
