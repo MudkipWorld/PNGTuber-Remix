@@ -135,7 +135,6 @@ func set_data():
 
 	should_change = true
 
-
 func _on_blend_state_pressed(id):
 	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
