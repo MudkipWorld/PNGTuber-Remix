@@ -11,23 +11,6 @@ signal settings_applied(settings_dict: Dictionary)
 
 func _ready() -> void:
 	await get_tree().current_scene.ready
-	sliders_revalue(Global.settings_dict)
-	Global.reinfo.connect(info_held)
-	Global.slider_values.connect(sliders_revalue)
-	Global.deselect.connect(info_desel)
-	%CreditLabel.text = tr("TR_CREDITS") + Global.version
-	get_window().size_changed.connect(update_size_label)
-
-func info_held():
-	%DeselectButton.show()
-
-func info_desel():
-	%DeselectButton.hide()
-
-func sliders_revalue(settings_dict):
-	%BGColorPicker.color = settings_dict.bg_color
-	$TopBarInput.origin_alias()
-	if Global.camera != null && is_instance_valid(Global.camera):
 	_apply_settings_to_ui(Global.settings_dict)
 
 	Global.reinfo.connect(_on_info_held)
@@ -71,10 +54,8 @@ func _update_fps(value: int) -> void:
 		Engine.max_fps = value
 
 
-func update_size_label():
-	%WindowSize.text = tr("TR_WINDOW_SIZE") + " " + str(get_window().size)
 func _on_window_size_changed() -> void:
-	window_size_label.text = "Window Size " + str(get_window().size)
+	window_size_label.text = tr("TR_WINDOW_SIZE") + " " + str(get_window().size)
 
 
 func _unhandled_input(event: InputEvent) -> void:
