@@ -42,7 +42,7 @@ This project is built using the Godot game engine!
 https://github.com/user-attachments/assets/8d10c5e7-b207-4cb4-9dd6-00a2bd14dcfd
 
 ## License
-This Project is under the MIT License.
+This Project is under a Custom License. Please, refer to it for more info <a href="https://github.com/MudkipWorld/PNGTuber-Remix/blob/1.4.x/LICENSE">Official License </a>
 
 ## Discord
 Please, if you would like a direct contact with me. Join the official discord!
