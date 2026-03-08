@@ -17,7 +17,7 @@ func _ready() -> void:
 	Global.slider_values.connect(_on_slider_values)
 	Global.deselect.connect(_on_info_deselected)
 
-	credit_label.text = tr("TR_CREDITS") + Global.version
+	credit_label.text = tr("TR_FULL_CREDITS") + "\n" + Global.version
 	get_window().size_changed.connect(_on_window_size_changed)
 
 

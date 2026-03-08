@@ -29,13 +29,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "TR_FILES"
 item_count = 4
-popup/item_0/text = "Open Model"
+popup/item_0/text = "TR_OPEN_MODEL"
 popup/item_0/id = 0
-popup/item_1/text = "Open Settings"
+popup/item_1/text = "TR_OPEN_SETTINGS"
 popup/item_1/id = 1
-popup/item_2/text = "Save Settings"
+popup/item_2/text = "TR_SAVE_SETTINGS"
 popup/item_2/id = 2
-popup/item_3/text = "Switch Session"
+popup/item_3/text = "TR_STREAM_SWITCH_SESSION"
 popup/item_3/id = 3
 
 [node name="ModeButton" type="MenuButton" parent="TopButtons" unique_id=219308451]
@@ -45,9 +45,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "TR_MODE"
 item_count = 2
-popup/item_0/text = "Setup"
+popup/item_0/text = "TR_SETUP"
 popup/item_0/id = 0
-popup/item_1/text = "Stream"
+popup/item_1/text = "TR_STREAM"
 popup/item_1/id = 1
 
 [node name="BGButton" type="MenuButton" parent="TopButtons" unique_id=769881697]
@@ -58,19 +58,19 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 14
 text = "TR_BG_COLOR"
 item_count = 7
-popup/item_0/text = "Red"
+popup/item_0/text = "TR_RED"
 popup/item_0/id = 0
-popup/item_1/text = "Blue"
+popup/item_1/text = "TR_BLUE"
 popup/item_1/id = 1
-popup/item_2/text = "Green"
+popup/item_2/text = "TR_GREEN"
 popup/item_2/id = 2
-popup/item_3/text = "Magenta"
+popup/item_3/text = "TR_MAGENTA"
 popup/item_3/id = 3
-popup/item_4/text = "Transparent"
+popup/item_4/text = "TR_TRANSPARENT"
 popup/item_4/id = 4
-popup/item_5/text = "Gray"
+popup/item_5/text = "TR_GRAY"
 popup/item_5/id = 5
-popup/item_6/text = "Custom"
+popup/item_6/text = "TR_CUSTOM"
 popup/item_6/id = 6
 
 [node name="SettingsButton" type="MenuButton" parent="TopButtons" unique_id=1564446901]
@@ -88,14 +88,14 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 14
 text = "TR_WINDOW"
 item_count = 4
-popup/item_0/text = "Toggle Borders"
+popup/item_0/text = "TR_TOGGLE_BORDERS"
 popup/item_0/id = 0
-popup/item_1/text = "Save Window (position, size, etc..)"
+popup/item_1/text = "TR_SAVE_WINDOW_POSITIONS"
 popup/item_1/id = 1
-popup/item_2/text = "Always on top"
+popup/item_2/text = "TR_ALWAYS_ON_TOP"
 popup/item_2/checkable = 1
 popup/item_2/id = 2
-popup/item_3/text = "Center Window"
+popup/item_3/text = "TR_CENTER_WINDOW"
 popup/item_3/id = 3
 
 [node name="WindowSize" type="Label" parent="TopButtons" unique_id=1991038856]

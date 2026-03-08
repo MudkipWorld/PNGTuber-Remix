@@ -23,7 +23,7 @@ script = ExtResource("1_b1km8")
 
 [node name="Label" type="Label" parent="." unique_id=1321307646]
 layout_mode = 2
-text = "Websocket"
+text = "TR_TAB_WEBSOCKET"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -31,7 +31,7 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Auto Start"
+text = "TR_AUTO_START"
 
 [node name="Grid" type="GridContainer" parent="." unique_id=1896538222]
 layout_mode = 2
@@ -41,7 +41,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Port : "
+text = "TR_PORT"
 
 [node name="PortValue" type="SpinBox" parent="Grid" unique_id=507881610]
 unique_name_in_owner = true
@@ -64,13 +64,13 @@ value = 1234.0
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "Start"
+text = "TR_START"
 
 [node name="StopButton" type="Button" parent="Grid" unique_id=491237872]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "Stop"
+text = "TR_STOP"
 
 [node name="OSF" type="VBoxContainer" parent="." unique_id=1791098609]
 unique_name_in_owner = true
@@ -82,7 +82,7 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="OSF" unique_id=174285209]
 layout_mode = 2
-text = "UDP"
+text = "TR_UDP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -94,7 +94,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Port : "
+text = "TR_PORT"
 
 [node name="UDPPortValue" type="SpinBox" parent="OSF/Grid2" unique_id=1818207726]
 unique_name_in_owner = true
@@ -115,21 +115,21 @@ value = 11573.0
 
 [node name="Label" type="Label" parent="OSF/Grid2" unique_id=1473687462]
 layout_mode = 2
-text = "Backend :"
+text = "TR_BACKEND"
 
 [node name="OptionButton" type="OptionButton" parent="OSF/Grid2" unique_id=2110565253]
 layout_mode = 2
 disabled = true
 selected = 0
 item_count = 1
-popup/item_0/text = "OpenSeeFace"
+popup/item_0/text = "TR_OPEN_SEE_FACE"
 popup/item_0/id = 0
 
 [node name="Label2" type="Label" parent="OSF/Grid2" unique_id=1373848180]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Position Tracking Strength : "
+text = "TR_POSITION_TRACKING_STRENGTH"
 
 [node name="OSFPosStrength" type="SpinBox" parent="OSF/Grid2" unique_id=975888106]
 unique_name_in_owner = true
@@ -143,7 +143,7 @@ value = 10.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Mouth Tracking Strength : "
+text = "TR_MOUTH_TRACKING_STRENGTH"
 
 [node name="OSFPosMouth" type="SpinBox" parent="OSF/Grid2" unique_id=1040998317]
 unique_name_in_owner = true
@@ -158,13 +158,13 @@ value = -0.05000000000000071
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "Start"
+text = "TR_START"
 
 [node name="UDPStopButton" type="Button" parent="OSF/Grid2" unique_id=415212]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "Stop"
+text = "TR_STOP"
 
 [connection signal="toggled" from="AutoStartWebsocket" to="." method="_on_auto_start_websocket_toggled"]
 [connection signal="value_changed" from="Grid/PortValue" to="." method="_on_port_value_value_changed"]
