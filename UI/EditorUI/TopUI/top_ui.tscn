@@ -94,6 +94,8 @@ popup/item_10/id = 13
 
 [node name="Demos" type="PopupMenu" parent="TopBar/HBox/FilesButton" unique_id=445111357]
 unique_name_in_owner = true
+oversampling_override = 1.0
+size = Vector2i(283, 268)
 item_count = 5
 item_0/text = "TR_BASIC_DEMO"
 item_0/icon = SubResource("AtlasTexture_o10to")
@@ -270,16 +272,17 @@ icon_alignment = 1
 [node name="CreditPopUp" type="PopupPanel" parent="." unique_id=779625607]
 unique_name_in_owner = true
 auto_translate_mode = 1
+transparent_bg = false
 oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(500, 250)
+size = Vector2i(500, 300)
 wrap_controls = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CreditPopUp" unique_id=1385156869]
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 496.0
-offset_bottom = 246.0
+offset_bottom = 296.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -302,6 +305,7 @@ text = "TR_SOURCE_CODE"
 [node name="GitHubButton" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=49676119]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+size_flags_horizontal = 10
 texture_normal = ExtResource("6_0f73e")
 texture_pressed = ExtResource("6_0f73e")
 texture_hover = ExtResource("6_0f73e")
@@ -319,6 +323,7 @@ text = "TR_SOCIALS"
 [node name="RedditButton" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=1358555024]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+size_flags_horizontal = 10
 texture_normal = ExtResource("8_3p41m")
 texture_pressed = ExtResource("8_3p41m")
 texture_hover = ExtResource("8_3p41m")
@@ -331,11 +336,12 @@ layout_mode = 2
 
 [node name="SocialLabel2" type="Label" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=171873942]
 layout_mode = 2
-text = "Websocket Doc"
+text = "TR_WEBSOCKET_DOC"
 
 [node name="WebsocketDoc" type="TextureButton" parent="CreditPopUp/VBoxContainer/GridContainer" unique_id=635151567]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+size_flags_horizontal = 10
 texture_normal = ExtResource("6_0f73e")
 texture_pressed = ExtResource("6_0f73e")
 texture_hover = ExtResource("6_0f73e")
@@ -350,15 +356,16 @@ visible = false
 [node name="Background" type="PopupPanel" parent="." unique_id=1032501821]
 unique_name_in_owner = true
 auto_translate_mode = 1
+oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(284, 416)
+size = Vector2i(284, 447)
 
 [node name="BGColorPicker" type="ColorPicker" parent="Background" unique_id=1361919135]
 unique_name_in_owner = true
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 280.0
-offset_bottom = 412.0
+offset_bottom = 443.0
 mouse_filter = 0
 edit_alpha = false
 color_mode = 1

@@ -317,7 +317,7 @@ offset_top = -17.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 12
-text = "Project Saved!"
+text = "TR_PROJECT_SAVED"
 vertical_alignment = 2
 script = ExtResource("8_y3a4k")
 
@@ -330,7 +330,7 @@ layout_mode = 1
 offset_top = 6.0
 offset_right = 33.0
 offset_bottom = 39.0
-tooltip_text = "One of your Images is over the recommended limit (1280x1280 px)"
+tooltip_text = "TR_IMAGE_LIMIN_WARNING"
 texture = ExtResource("7_seimj")
 expand_mode = 1
 stretch_mode = 5
@@ -432,6 +432,7 @@ tab_7/title = "TR_TAB_TESTS"
 [node name="Properties" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 light_mask = 0
 layout_mode = 2
+mouse_filter = 1
 metadata/_tab_index = 0
 metadata/_tab_name = "TR_TAB_PROPERTIES"
 
@@ -439,6 +440,7 @@ metadata/_tab_name = "TR_TAB_PROPERTIES"
 visible = false
 light_mask = 0
 layout_mode = 2
+mouse_filter = 1
 metadata/_tab_index = 1
 metadata/_tab_name = "TR_TAB_MOVEMENT"
 
@@ -446,6 +448,7 @@ metadata/_tab_name = "TR_TAB_MOVEMENT"
 visible = false
 light_mask = 0
 layout_mode = 2
+mouse_filter = 1
 metadata/_tab_index = 2
 metadata/_tab_name = "TR_TAB_WIGGLE"
 
@@ -453,6 +456,7 @@ metadata/_tab_name = "TR_TAB_WIGGLE"
 visible = false
 light_mask = 0
 layout_mode = 2
+mouse_filter = 1
 metadata/_tab_index = 3
 metadata/_tab_name = "TR_TAB_ANIMATION"
 
@@ -460,6 +464,7 @@ metadata/_tab_name = "TR_TAB_ANIMATION"
 visible = false
 light_mask = 0
 layout_mode = 2
+mouse_filter = 1
 metadata/_tab_index = 4
 metadata/_tab_name = "TR_TAB_MODEL"
 
@@ -467,6 +472,7 @@ metadata/_tab_name = "TR_TAB_MODEL"
 visible = false
 light_mask = 0
 layout_mode = 2
+mouse_filter = 1
 metadata/_tab_index = 5
 metadata/_tab_name = "TR_TAB_LIGHT"
 
@@ -526,7 +532,7 @@ custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
-text = "Chain Target :"
+text = "TR_CHAIN_TARGET"
 
 [node name="ChainTarget" type="OptionButton" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid" unique_id=127509399]
 unique_name_in_owner = true
@@ -538,7 +544,7 @@ allow_reselect = true
 [node name="Softness" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid" unique_id=2076704710 instance=ExtResource("17_kv61l")]
 layout_mode = 2
 sp_type = ""
-label_text = "Softness :"
+label_text = "TR_SOFTNESS"
 mini_value = 0.1
 max_value = 100.0
 step = 0.01
@@ -548,7 +554,7 @@ value_to_update = "chain_softness"
 [node name="BoneLen" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer/Grid" unique_id=2109211975 instance=ExtResource("17_kv61l")]
 layout_mode = 2
 sp_type = ""
-label_text = "Length :"
+label_text = "TR_LENGTH_LABEL"
 mini_value = 1.0
 max_value = 9999999.0
 step = 0.01
@@ -558,7 +564,7 @@ value_to_update = "bone_length"
 [node name="ChainRotMin" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=1124722970 instance=ExtResource("18_mi4uk")]
 layout_mode = 2
 sp_type = ""
-label_text = "Chain Rot Min :"
+label_text = "TR_CHAIN_ROT_MIN"
 mini_value = -3.14
 step = 0.01
 value_to_update = "chain_rot_min"
@@ -566,7 +572,7 @@ value_to_update = "chain_rot_min"
 [node name="ChainRotMin2" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests/VBoxContainer" unique_id=1821736143 instance=ExtResource("18_mi4uk")]
 layout_mode = 2
 sp_type = ""
-label_text = "Chain Rot Max :"
+label_text = "TR_CHAIN_ROT_MAX"
 max_value = 3.14
 step = 0.01
 value_to_update = "chain_rot_max"

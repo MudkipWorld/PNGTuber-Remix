@@ -15,7 +15,7 @@ transparent_bg = true
 gui_snap_controls_to_pixels = false
 oversampling_override = 1.0
 initial_position = 4
-size = Vector2i(500, 600)
+size = Vector2i(800, 600)
 transient = true
 exclusive = true
 
@@ -23,10 +23,11 @@ exclusive = true
 script = ExtResource("1_j2o6a")
 
 [node name="SettingVbox" type="VBoxContainer" parent="." unique_id=127944035]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 496.0
-offset_bottom = 596.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SettingsTab" type="TabContainer" parent="SettingVbox" unique_id=581917032]
 layout_mode = 2
@@ -34,10 +35,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/side_margin = 1
 current_tab = 0
+tab_0/title = "TR_TAB_MODEL"
+tab_1/title = "TR_TAB_AUDIO"
+tab_2/title = "TR_TAB_IMPORT"
+tab_3/title = "TR_TAB_REMIX"
 
 [node name="Model" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=1361405047]
 layout_mode = 2
 metadata/_tab_index = 0
+metadata/_tab_name = "TR_TAB_MODEL"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Model" unique_id=755952008]
 layout_mode = 2
@@ -171,12 +177,13 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "If a screen is selected and the cursor is out of it. The mouse is no longer tracked."
-text = "Snap Out of Bounds"
+text = "TR_SNAP_OUT_OF_BOUNDS"
 
 [node name="Audio" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=743431230]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+metadata/_tab_name = "TR_TAB_AUDIO"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Audio" unique_id=1871972551]
 layout_mode = 2
@@ -328,6 +335,7 @@ expand_icon = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
+metadata/_tab_name = "TR_TAB_IMPORT"
 
 [node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Import" unique_id=1219727415]
 layout_mode = 2
@@ -341,7 +349,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Automatically crop away any empty space
 surrounding an image when the image is opened."
-text = "Crop Images to Content"
+text = "TR_CROP_IMAGES_TO_CONTENT"
 
 [node name="KeepOldTrimData" type="CheckBox" parent="SettingVbox/SettingsTab/Import/VBox" unique_id=2002752470]
 unique_name_in_owner = true
@@ -350,12 +358,13 @@ layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Keeps a save of the Sprites before trimming. If toggled off, the file will only save the trimmed Sprites."
 button_pressed = true
-text = "Keep Data Before Trim"
+text = "TR_KEEP_DATA_BEFORE_TRIM"
 
 [node name="Remix" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=123285878]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
+metadata/_tab_name = "TR_TAB_REMIX"
 
 [node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Remix" unique_id=801633339]
 layout_mode = 2
@@ -388,7 +397,7 @@ size_flags_horizontal = 3
 tooltip_text = "When turned on panning in the editor
 will be smooth instead of snappy."
 focus_mode = 0
-text = "Floaty Panning"
+text = "TR_FLOATY_PANNING"
 
 [node name="Sp2" type="HSeparator" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=497713413]
 layout_mode = 2
@@ -403,7 +412,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
-text = "Fancy Cursor in Editor"
+text = "TR_FANCY_COURSOR_EDITOR"
 
 [node name="SelectCursorButton" type="Button" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=264480528]
 layout_mode = 2
@@ -412,11 +421,11 @@ tooltip_text = "Select a custom image for the cursor.
 The image should be smaller than 256x256.
 Sizes larger than 128x128 may cause rendering issues."
 focus_mode = 0
-text = "Select Custom Cursor"
+text = "TR_SELECT_CUSTOM_COURSOR"
 
 [node name="SelectCursor" type="FileDialog" parent="SettingVbox/SettingsTab/Remix/VBox/Grid/SelectCursorButton" unique_id=1141539453]
 title = "Open a File"
-ok_button_text = "Open"
+ok_button_text = "TR_OPEN"
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
@@ -427,14 +436,14 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
-text = "Fancy Cursor in Preview"
+text = "TR_FANCY_COURSOR_PREVIEW"
 
 [node name="RemoveCustomCursor" type="Button" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=1880504786]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Remove the custom cursor image and use the default cursor."
 focus_mode = 0
-text = "Remove Custom Cursor"
+text = "TR_REMOVE_CUSTOM_COURSOR"
 
 [node name="UseThreads" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=861261677]
 unique_name_in_owner = true
@@ -442,14 +451,14 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Use multi-threading for actions like saving and loading."
-text = "Use Threads"
+text = "TR_USE_THREADS"
 
 [node name="SaveUnusedImages" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=127149651]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Use multi-threading for actions like saving and loading."
-text = "Save Unused Files"
+text = "TR_SAVE_UNUSED_FILES"
 
 [node name="Control" type="Control" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=30947929]
 layout_mode = 2
@@ -469,7 +478,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "Tracking Backend : "
+text = "TR_TRACKING_BACKEND"
 
 [node name="BackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=1144415451]
 unique_name_in_owner = true
@@ -477,13 +486,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
 item_count = 4
-popup/item_0/text = "Default"
+popup/item_0/text = "TR_TRACKING_BACKEND_DEFAULT"
 popup/item_0/id = 0
-popup/item_1/text = "UIOHook"
+popup/item_1/text = "TR_TRACKING_BACKEND_UIOHOOK"
 popup/item_1/id = 1
-popup/item_2/text = "Windows"
+popup/item_2/text = "TR_TRACKING_BACKEND_WINDOWS"
 popup/item_2/id = 2
-popup/item_3/text = "x11"
+popup/item_3/text = "TR_TRACKING_BACKEND_X11"
 popup/item_3/id = 3
 
 [node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1262964452]
@@ -504,7 +513,7 @@ columns = 2
 [node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=168985847]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Physics Tick :"
+text = "TR_PHYSICS_TICK"
 
 [node name="PhysicsTick" type="SpinBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1731003949]
 unique_name_in_owner = true
@@ -517,7 +526,7 @@ value = 6.0
 [node name="Label2" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1780077417]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Physics Steps :"
+text = "TR_PHYSICS_STEPS"
 
 [node name="PhysicsSteps" type="SpinBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1285362417]
 unique_name_in_owner = true
@@ -529,7 +538,7 @@ value = 2.0
 [node name="Label3" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1071155850]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Jitter Fix :"
+text = "TR_JITTER_FIX"
 
 [node name="JitterFix" type="HSlider" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=2078598602]
 unique_name_in_owner = true
@@ -542,8 +551,8 @@ step = 0.01
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-tooltip_text = "Enables using the Global Input module to be used for mouse following instead of Godot's Built-in mouse tracking (Debug)"
-text = "Track using Global Input"
+tooltip_text = "TR_TRACK_USING_GLOBAL_INPUT_TOOLTIP"
+text = "TR_TRACK_USING_GLOBAL_INPUT"
 
 [node name="Pickles" type="TextureRect" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1349199565]
 custom_minimum_size = Vector2(64, 64)
@@ -558,14 +567,13 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "Developer Mode
-"
+text = "TR_TRACK_DEV_MODE"
 
 [node name="DevWarning" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1997408163]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-text = "DON'T USE UNLESS YOU KNOW WHAT YOU ARE DOING."
+text = "TR_WARNING_IF_KNOW"
 horizontal_alignment = 1
 
 [node name="Grid2" type="GridContainer" parent="SettingVbox" unique_id=818639693]
@@ -578,23 +586,23 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 item_count = 9
-popup/item_0/text = "Purple"
+popup/item_0/text = "TR_PURPLE"
 popup/item_0/id = 0
-popup/item_1/text = "Blue"
+popup/item_1/text = "TR_BLUE"
 popup/item_1/id = 1
-popup/item_2/text = "Orange"
+popup/item_2/text = "TR_ORANGE"
 popup/item_2/id = 2
-popup/item_3/text = "White"
+popup/item_3/text = "TR_White"
 popup/item_3/id = 3
-popup/item_4/text = "Dark"
+popup/item_4/text = "TR_DARK"
 popup/item_4/id = 4
-popup/item_5/text = "Green"
+popup/item_5/text = "TR_GREEN"
 popup/item_5/id = 5
-popup/item_6/text = "Funky"
+popup/item_6/text = "TR_FUNKY"
 popup/item_6/id = 6
-popup/item_7/text = "Frutiger Aero"
+popup/item_7/text = "TR_FRUTIGER_AERO"
 popup/item_7/id = 7
-popup/item_8/text = "None"
+popup/item_8/text = "TR_UDP_ITEM_NONE"
 popup/item_8/id = 8
 
 [connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/InputCheckButton" to="SettingsScript" method="_on_input_check_button_toggled"]
