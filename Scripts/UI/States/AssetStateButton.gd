@@ -3,34 +3,36 @@ extends Button
 @export var action: String
 
 enum Remap {
-	
 	Asset,
 	Keys,
-	
 }
 
-var current_remap : Remap
+var current_remap: Remap
 var selected_item = null
 var id
+
 
 func _init():
 	toggle_mode = true
 	theme_type_variation = "RemapButton"
 
+
 func _ready():
 	set_process_unhandled_input(false)
 	update_key_text()
+
 
 func _toggled(_button_pressed):
 	current_remap = Remap.Asset
 	if %IsAssetCheck.button_pressed:
 		set_process_unhandled_input(_button_pressed)
 		if _button_pressed:
-			text = "... Awaiting Input ..."
+			text = tr("TR_AWAITING_INPUT")
 			release_focus()
 		else:
 			update_key_text()
 			grab_focus()
+
 
 func _unhandled_input(event):
 	if current_remap == Remap.Asset:
@@ -43,7 +45,7 @@ func _unhandled_input(event):
 					InputMap.action_add_event(action, event)
 				update_other_assets()
 				button_pressed = false
-				
+
 	elif current_remap == Remap.Keys:
 		if !event is InputEventMouseMotion:
 			if event.is_released():
@@ -53,13 +55,13 @@ func _unhandled_input(event):
 						if id < input_array.size():
 							var ev = input_array[id]
 							InputMap.action_erase_event(Global.held_sprites[0].disappear_keys, ev)
-							InputMap.action_add_event(Global.held_sprites[0].disappear_keys,event)
+							InputMap.action_add_event(Global.held_sprites[0].disappear_keys, event)
 						else:
-							InputMap.action_add_event(Global.held_sprites[0].disappear_keys,event)
+							InputMap.action_add_event(Global.held_sprites[0].disappear_keys, event)
 					else:
 						InputMap.add_action(Global.held_sprites[0].disappear_keys)
-						InputMap.action_add_event(Global.held_sprites[0].disappear_keys,event)
-						
+						InputMap.action_add_event(Global.held_sprites[0].disappear_keys, event)
+
 				print(Global.held_sprites[0].saved_keys)
 				%ShouldDisList.set_item_text(id, event.as_text())
 				%ShouldDisRemapButton.button_pressed = false
@@ -73,24 +75,28 @@ func update_other_assets():
 					i.get_node("%Sprite2D").visible = Global.held_sprites[0].get_node("%Sprite2D").visible
 					i.was_active_before = Global.held_sprites[0].get_node("%Sprite2D").visible
 
+
 func update_key_text():
 	if InputMap.action_get_events(action).size() != 0:
 		text = "%s" % InputMap.action_get_events(action)[0].as_text()
 	else:
-		text = "Bind Key"
+		text = tr("TR_BIND_KEY")
+
 
 func update_stuff():
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 		if Global.held_sprites[0].saved_event != null:
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, Global.held_sprites[0].saved_event)
-			
+
 			update_key_text()
+
 
 func _on_remove_asset_button_pressed():
 	if InputMap.action_get_events(action).size() != 0:
 		InputMap.action_erase_events(action)
 		update_key_text()
+
 
 func _on_is_asset_check_toggled(toggled_on):
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
@@ -104,8 +110,9 @@ func _on_is_asset_check_toggled(toggled_on):
 				Global.held_sprites[0].saved_event = null
 				Global.held_sprites[0].get_node("%Sprite2D").visible = true
 				update_key_text()
-		
+
 		Global.held_sprites[0].is_asset = toggled_on
+
 
 func _on_should_disappear_check_toggled(toggled_on):
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
@@ -115,12 +122,14 @@ func _on_should_disappear_check_toggled(toggled_on):
 	else:
 		%ShouldDisListContainer.hide()
 
+
 func _on_should_dis_add_button_pressed():
 	%ShouldDisList.add_item("Null")
 
+
 func _on_should_dis_del_button_pressed():
 	%ShouldDisList.remove_item(id)
-	
+
 	var held = Global.held_sprites[0]
 	if held != null && is_instance_valid(held):
 		var action_name = held.disappear_keys
@@ -130,22 +139,23 @@ func _on_should_dis_del_button_pressed():
 				var ev = events[id]
 				InputMap.action_erase_event(action_name, ev)
 
-		
 	%ShouldDisRemapButton.disabled = false
 	%ShouldDisDelButton.disabled = false
 
+
 func _on_should_dis_list_item_selected(index):
 	id = index
-	
+
 	%ShouldDisRemapButton.disabled = false
 	%ShouldDisDelButton.disabled = false
-	
+
 
 func _on_should_dis_remap_button_toggled(toggled_on):
 	current_remap = Remap.Keys
 	set_process_unhandled_input(toggled_on)
 	if toggled_on:
 		%ShouldDisList.set_item_text(id, "Awaiting Input.")
+
 
 func _on_should_dis_list_empty_clicked(_at_position, _mouse_button_index):
 	selected_item = null

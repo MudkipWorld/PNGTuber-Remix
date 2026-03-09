@@ -97,13 +97,13 @@ script = ExtResource("2_j4lix")
 unique_name_in_owner = true
 transparent_bg = true
 oversampling_override = 1.0
+title = "TR_PLEASE_CONFIRM"
 initial_position = 2
 size = Vector2i(375, 200)
 unresizable = true
-ok_button_text = "Yes"
-dialog_text = "Would you like to have your Sprites Trimmed?
-(Removes all unused area around your image.)"
-cancel_button_text = "No"
+ok_button_text = "TR_YES"
+dialog_text = "TR_TRIM_DIALOG_TEXT"
+cancel_button_text = "TR_NO"
 
 [node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim" unique_id=1917826308]
 unique_name_in_owner = true
@@ -119,9 +119,9 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 8
-tooltip_text = "Offsets imported Sprites when trimming is enabled."
+tooltip_text = "TR_OFFSETS_IMPORTED_SPRITES_WHEN_TRIM"
 button_pressed = true
-text = "Offset Imported Sprite"
+text = "TR_OFFSET_IMPORTED_SPRITE"
 metadata/_edit_use_anchors_ = true
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=313316778]
@@ -257,7 +257,7 @@ offset_left = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 11
-text = "Welcome!"
+text = "TR_WELCOME"
 
 [node name="WindowSize" type="Label" parent="UICanvas/UIHold/ProjectNamePanel" unique_id=1093128964]
 unique_name_in_owner = true
@@ -284,9 +284,11 @@ localizations = Array[String](["TR_WINDOW_SIZE"])
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1802261511]
 unique_name_in_owner = true
+oversampling_override = 1.0
 title = "TR_PLEASE_CONFIRM"
 initial_position = 2
 size = Vector2i(338, 132)
+ok_button_text = "TR_CREATE_NEW_MODEL"
 dialog_text = "TR_NEW_PNGTUBER_TEXT"
 dialog_hide_on_ok = false
 dialog_autowrap = true
@@ -294,12 +296,12 @@ cancel_button_text = "TR_CANCEL"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1398432278]
 unique_name_in_owner = true
-title = "Open File(s)"
+title = "TR_FILE_DIALOG_TITLE"
 initial_position = 2
 size = Vector2i(800, 500)
 always_on_top = true
 force_native = true
-ok_button_text = "Open"
+ok_button_text = "TR_OPEN"
 cancel_button_text = "TR_CANCEL"
 file_mode = 1
 access = 2

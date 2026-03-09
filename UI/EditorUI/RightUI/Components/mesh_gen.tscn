@@ -31,7 +31,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
-text = "Mesh Control"
+text = "TR_MESH_CONTROL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -69,7 +69,7 @@ text = "TR_FOLLOW_MOVEMENT"
 [node name="Label17" type="Label" parent="VBoxContainer/GridContainer4" unique_id=217385958]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Physics Effect X :"
+text = "TR_PHYSICS_EFFECT_X"
 
 [node name="PhysicsEffect" type="SpinBox" parent="VBoxContainer/GridContainer4" unique_id=1884792571]
 unique_name_in_owner = true
@@ -84,7 +84,7 @@ value = 75.0
 [node name="Label18" type="Label" parent="VBoxContainer/GridContainer4" unique_id=769459181]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Physics Effect Y :"
+text = "TR_PHYSICS_EFFECT_Y"
 
 [node name="PhysicsEffect2" type="SpinBox" parent="VBoxContainer/GridContainer4" unique_id=1819836844]
 unique_name_in_owner = true
@@ -106,7 +106,7 @@ layout_mode = 2
 
 [node name="Label5" type="Label" parent="VBoxContainer" unique_id=1913765614]
 layout_mode = 2
-text = "Groups"
+text = "TR_GROUPS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -117,7 +117,7 @@ columns = 2
 [node name="Label16" type="Label" parent="VBoxContainer/GridContainer" unique_id=616092621]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Target Mesh :"
+text = "TR_TARGET_MESH"
 
 [node name="SelectedWarp" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=1542929827]
 unique_name_in_owner = true
@@ -130,7 +130,7 @@ layout_mode = 2
 
 [node name="Label4" type="Label" parent="VBoxContainer" unique_id=1461538333]
 layout_mode = 2
-text = "Deformation Layer"
+text = "TR_DEFORMATION_LAYER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -143,19 +143,19 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Add Layer"
+text = "TR_ADD_LAYER"
 
 [node name="DeleteLayer" type="Button" parent="VBoxContainer/GridContainer5" unique_id=167909796]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Delete Layer"
+text = "TR_DELETE_LAYER"
 
 [node name="Label15" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1795534711]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Layer :"
+text = "TR_LAYER"
 
 [node name="SelectedLayer" type="OptionButton" parent="VBoxContainer/GridContainer5" unique_id=2109396736]
 unique_name_in_owner = true
@@ -166,7 +166,7 @@ allow_reselect = true
 [node name="Label16" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1435018538]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Target Strength :"
+text = "TR_TARGET_STRENGTH"
 
 [node name="TargetStrength" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=261262781]
 unique_name_in_owner = true
@@ -181,7 +181,7 @@ value = 0.01
 [node name="Label3" type="Label" parent="VBoxContainer/GridContainer5" unique_id=152048384]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Stiffness X :"
+text = "TR_STIFFNESS_X"
 
 [node name="Stiffnessx" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=1422933025]
 unique_name_in_owner = true
@@ -196,7 +196,7 @@ value = 1.0
 [node name="Label5" type="Label" parent="VBoxContainer/GridContainer5" unique_id=2121485907]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Stiffness Y :"
+text = "TR_STIFFNESS_Y"
 
 [node name="Stiffnessy" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=1697214796]
 unique_name_in_owner = true
@@ -211,7 +211,7 @@ value = 1.0
 [node name="Label6" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1866259197]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Damping X :"
+text = "TR_DAMPING_X"
 
 [node name="Dampingx" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=1459107759]
 unique_name_in_owner = true
@@ -225,7 +225,7 @@ value = 0.1
 [node name="Label7" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1893025862]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Damping Y :"
+text = "TR_DAMPING_Y"
 
 [node name="Dampingy" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=2066564702]
 unique_name_in_owner = true
@@ -239,7 +239,7 @@ value = 0.1
 [node name="Label8" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1213387739]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Mass X :"
+text = "TR_MASS_X"
 
 [node name="Massx" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=1174091484]
 unique_name_in_owner = true
@@ -254,7 +254,7 @@ value = 0.01
 [node name="Label9" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1212235160]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Mass Y :"
+text = "TR_MASS_Y"
 
 [node name="Massy" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=1865157490]
 unique_name_in_owner = true
@@ -269,7 +269,7 @@ value = 0.01
 [node name="Label10" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1258131281]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Follow Speed :"
+text = "TR_FOLLOW_SPEED"
 
 [node name="FollowSpeed" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=45023686]
 unique_name_in_owner = true
@@ -284,7 +284,7 @@ value = 0.01
 [node name="Label11" type="Label" parent="VBoxContainer/GridContainer5" unique_id=1818927500]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Noise Speed :"
+text = "TR_NOISE_SPEED"
 
 [node name="NoiseSpeed" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=1526219982]
 unique_name_in_owner = true
@@ -298,7 +298,7 @@ value = 0.1
 [node name="Label12" type="Label" parent="VBoxContainer/GridContainer5" unique_id=947159414]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Noise Scale :"
+text = "TR_NOISE_SCALE"
 
 [node name="NoiseScale" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=1819471265]
 unique_name_in_owner = true
@@ -312,7 +312,7 @@ value = 0.1
 [node name="Label13" type="Label" parent="VBoxContainer/GridContainer5" unique_id=787796271]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Sine Speed :"
+text = "TR_SINE_SPEED"
 
 [node name="SineSpeed" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=624774337]
 unique_name_in_owner = true
@@ -326,7 +326,7 @@ step = 0.01
 [node name="Label14" type="Label" parent="VBoxContainer/GridContainer5" unique_id=523932541]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Sine Amp :"
+text = "TR_SINE_AMP"
 
 [node name="SineAmp" type="SpinBox" parent="VBoxContainer/GridContainer5" unique_id=143161158]
 unique_name_in_owner = true
@@ -340,7 +340,7 @@ step = 0.01
 [node name="Label4" type="Label" parent="VBoxContainer/GridContainer5" unique_id=636025076]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Motion Type :"
+text = "TR_MOTION_TYPE"
 
 [node name="MotionType" type="OptionButton" parent="VBoxContainer/GridContainer5" unique_id=366450628]
 unique_name_in_owner = true
@@ -348,17 +348,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 selected = 4
 item_count = 6
-popup/item_0/text = "Spring"
+popup/item_0/text = "TR_SPRING"
 popup/item_0/id = 0
-popup/item_1/text = "Sine"
+popup/item_1/text = "TR_SINE"
 popup/item_1/id = 1
-popup/item_2/text = "Noise"
+popup/item_2/text = "TR_NOISE"
 popup/item_2/id = 2
-popup/item_3/text = "Follow"
+popup/item_3/text = "TR_FOLLOW"
 popup/item_3/id = 3
-popup/item_4/text = "Bouncy"
+popup/item_4/text = "TR_BOUNCY"
 popup/item_4/id = 4
-popup/item_5/text = "None"
+popup/item_5/text = "TR_UDP_ITEM_NONE"
 popup/item_5/id = 5
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=753637686]
@@ -366,7 +366,7 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="VBoxContainer" unique_id=1115781004]
 layout_mode = 2
-text = "Generation"
+text = "TR_GENERATION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -420,7 +420,7 @@ text = "TR_GEN_FLIPPED"
 [node name="GenerateMesh6" type="Button" parent="VBoxContainer" unique_id=993278905]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Reset Deform Point"
+text = "TR_RESET_DEFORM_POINT"
 
 [node name="GridContainer2" type="GridContainer" parent="VBoxContainer" unique_id=922055022]
 layout_mode = 2
@@ -431,35 +431,35 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Square Grid"
+text = "TR_SQUARE_GRID"
 
 [node name="RingGrid" type="CheckBox" parent="VBoxContainer/GridContainer2" unique_id=1944471760]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Ring Grid"
+text = "TR_RING_GRID"
 
 [node name="TriGrid" type="CheckBox" parent="VBoxContainer/GridContainer2" unique_id=1507042960]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Tri Grid"
+text = "TR_TRI_GRID"
 
 [node name="TriRadial" type="CheckBox" parent="VBoxContainer/GridContainer2" unique_id=105908199]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Hex Radial"
+text = "TR_HEX_RADIAL"
 
 [node name="OuterPadding" type="CheckBox" parent="VBoxContainer/GridContainer2" unique_id=1582457665]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Outer Padding"
+text = "TR_OUTER_PADDING"
 
 [node name="Padding" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=11868223]
 unique_name_in_owner = true
@@ -474,7 +474,7 @@ value = 4.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Grid Size :"
+text = "TR_GRID_SIZE"
 
 [node name="GridSize" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=1337939765]
 unique_name_in_owner = true
@@ -488,7 +488,7 @@ value = 10.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Radial Spacing :"
+text = "TR_RADIAL_SPACING"
 
 [node name="RingSpacing" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=1911276660]
 unique_name_in_owner = true
@@ -501,7 +501,7 @@ value = 5.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Alpha Threshold : "
+text = "TR_ALPHA_TRESHOLD"
 
 [node name="Threshold" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=28744284]
 unique_name_in_owner = true
@@ -516,7 +516,7 @@ value = 0.1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Inner Points :"
+text = "TR_INNER_POINTS"
 
 [node name="InternalPoints" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=1565706235]
 unique_name_in_owner = true
@@ -530,7 +530,7 @@ value = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Eplision :"
+text = "TR_EPLISION"
 
 [node name="Eplision" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=2023894375]
 unique_name_in_owner = true
@@ -544,7 +544,7 @@ value = 0.01
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Merge Points Space :"
+text = "TR_MERGE_POINTS_SPACE"
 
 [node name="MergeClose" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=1923094134]
 unique_name_in_owner = true
@@ -558,7 +558,7 @@ value = 1.0
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Smooth Iterations :"
+text = "TR_SMOOTH_ITERATIONS"
 
 [node name="SmoothIterations" type="SpinBox" parent="VBoxContainer/GridContainer2" unique_id=1813395834]
 unique_name_in_owner = true

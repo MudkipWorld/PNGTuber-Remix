@@ -228,7 +228,7 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Keeps its length when linked to an anchor."
+tooltip_text = "TR_WIGGLE_STRETCH_TO_ANCHOR"
 theme_override_font_sizes/font_size = 14
 text = "TR_KEEP_LENGTH"
 script = ExtResource("3_cimjc")
@@ -285,7 +285,7 @@ custom_minimum_size = Vector2(93, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
-text = "Sync Appendage"
+text = "TR_SYNC_APPENDAGE"
 
 [node name="SyncAppendage" type="OptionButton" parent="GridContainer" unique_id=1454184750]
 unique_name_in_owner = true

@@ -47,7 +47,7 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	hide_sprite_view = true,
 	hide_bottom_bar = true,
 	use_threading = false,
-	language = "automatic",
+	language = "auto",
 	save_unused_files = false,
 	backend_type = "default",
 	audio_capturer = 2,
@@ -76,12 +76,15 @@ func save_before_closing():
 			DirAccess.make_dir_absolute(autosave_location)
 			SaveAndLoad.save_file(autosave_location + "/" + str(randi()))
 		window_size_changed()
-	await save()
+	save()
 	get_tree().quit()
 
-func save():
-	var save_file = FileAccess.open(save_location, FileAccess.WRITE)
-	if save_file == null: return
+func save() -> void:
+	var save_file := FileAccess.open(save_location, FileAccess.WRITE)
+	if not save_file:
+		push_error("Settings: failed to open file for writing: %s" % FileAccess.get_open_error())
+		file_error.emit("SAVE_FAILED", FileAccess.get_open_error())
+		return
 	save_file.store_var(theme_settings.duplicate(true))
 	save_file.close()
 
@@ -115,7 +118,6 @@ func _ready():
 		var info = load_file.get_var()
 		if info is Dictionary:
 			theme_settings.merge(info, true)
-			
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
 			
@@ -126,15 +128,12 @@ func _ready():
 			elif theme_settings.screen_window == 2:
 				get_window().mode = get_window().MODE_MINIMIZED
 			
-			
 			if theme_settings.borders:
 				get_window().borderless = false
 			elif !theme_settings.borders:
 				get_window().borderless = true
 			get_window().always_on_top = theme_settings.always_on_top
-			
 			get_window().position = theme_settings.screen_pos
-			
 			
 		load_file.close()
 		
@@ -155,7 +154,6 @@ func _ready():
 	get_window().size = Settings.theme_settings.screen_size
 	check_ui()
 #	top_bar.check_data()
-
 	if top_bar != null && is_instance_valid(top_bar):
 		top_bar.sliders_revalue(Global.settings_dict)
 	scale_window()
@@ -165,16 +163,17 @@ func _ready():
 			AudioServer.input_device = theme_settings.microphone
 	
 	change_cursor()
-	# Load language
-	var locale = Util.get_locale(theme_settings.language)
-	if locale == "automatic":
-		TranslationServer.set_locale(OS.get_locale_language())
-	else:
-		TranslationServer.set_locale(locale)
 	Engine.physics_jitter_fix = theme_settings.phys_jitter
 	Engine.physics_ticks_per_second = theme_settings.phys_tick_per_frame
 	Engine.max_physics_steps_per_frame = theme_settings.phys_steps
 	Global.dev_mode.emit(theme_settings.dev_mode)
+	
+	LanguageManager.language_changed.connect(_on_language_changed)
+	LanguageManager.initialize(theme_settings.language)
+
+func _on_language_changed(locale_code: String) -> void:
+	theme_settings.language = locale_code
+	save()
 
 func update_tracking_backend():
 	match theme_settings.backend_type:
@@ -210,7 +209,6 @@ func lipsync_set_up():
 	if !FileAccess.file_exists(theme_settings.lipsync_file_path):
 		LipSyncGlobals.file_data = preload("res://UI/Lipsync stuff/DefaultTraining.tres")
 		LipSyncGlobals.save_file_as(theme_settings.lipsync_file_path)
-		
 		save()
 	else:
 		LipSyncGlobals.load_file(theme_settings.lipsync_file_path)
@@ -230,7 +228,7 @@ func window_size_changed():
 		
 	if Global.main != null && is_instance_valid(Global.main):
 		if Global.main.has_node("%WindowSize"):
-			Global.main.get_node("%WindowSize").text = "Window Size " + str(Settings.theme_settings.screen_size)
+			Global.main.get_node("%WindowSize").text = tr("TR_WINDOW_SIZE") + " " + str(Settings.theme_settings.screen_size)
 	save()
 
 func check_ui():
@@ -290,7 +288,6 @@ func toggle_borders():
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("toggle_borders"):
 		toggle_borders()
-	
 	if Input.is_action_just_pressed("center_screen"):
 		center_window()
 
@@ -337,7 +334,7 @@ func set_ui_pieces(val : int, id : int):
 		theme_settings.hide_bottom_bar = val
 	save()
 
-func path_helper(path, dir: String = "") -> String:
+func path_helper(path: String, dir: String = "") -> String:
 	var target = ""
 	var current = DirAccess.open(path)
 	if current == null:
@@ -345,5 +342,4 @@ func path_helper(path, dir: String = "") -> String:
 		
 	else:
 		target = path + dir
-	
 	return target

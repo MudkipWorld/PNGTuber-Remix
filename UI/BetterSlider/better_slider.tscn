@@ -15,7 +15,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(93, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Test : "
+text = "TR_TEXT"
 
 [node name="SpinBoxValue" type="SpinBox" parent="." unique_id=1182001255]
 unique_name_in_owner = true
@@ -31,6 +31,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 focus_mode = 0
 mouse_filter = 1
+scrollable = false
 
 [connection signal="value_changed" from="SpinBoxValue" to="." method="_on_spin_box_value_value_changed"]
 [connection signal="drag_ended" from="SliderValue" to="." method="_on_slider_value_drag_ended"]

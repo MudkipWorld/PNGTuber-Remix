@@ -8,7 +8,7 @@ signal sprite_info
 
 func _ready() -> void:
 	var root = tree.create_item()
-	root.set_text(0, "Model")
+	root.set_text(0, tr("TR_MODEL"))
 	root.set_icon(0, preload("res://UI/Assets/FolderButton.png"))
 	Global.new_file.connect(delete_layers)
 	Global.remake_layers.connect(remake_layers)

@@ -17,7 +17,7 @@ func _ready() -> void:
 	Global.slider_values.connect(_on_slider_values)
 	Global.deselect.connect(_on_info_deselected)
 
-	credit_label.text = tr("TR_CREDITS") + Global.version
+	credit_label.text = tr("TR_FULL_CREDITS") + "\n" + Global.version
 	get_window().size_changed.connect(_on_window_size_changed)
 
 
@@ -55,7 +55,7 @@ func _update_fps(value: int) -> void:
 
 
 func _on_window_size_changed() -> void:
-	window_size_label.text = "Window Size " + str(get_window().size)
+	window_size_label.text = tr("TR_WINDOW_SIZE") + " " + str(get_window().size)
 
 
 func _unhandled_input(event: InputEvent) -> void:

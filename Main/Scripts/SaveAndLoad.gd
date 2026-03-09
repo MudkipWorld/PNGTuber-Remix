@@ -1,14 +1,15 @@
 extends Node
 
-var save_dict : Dictionary = {}
-var can_load_plus : bool = false
-const YIELD_EVERY : int = 25
+var save_dict: Dictionary = {}
+var can_load_plus: bool = false
+const YIELD_EVERY: int = 25
 
-var import_trimmed : bool = false
-var import_resized : bool = false
-var import_percent : float = 50.0
-@onready var dire = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/ExportedAssets")
-@onready var backs_dir = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/Backups")
+var import_trimmed: bool = false
+var import_resized: bool = false
+var import_percent: float = 50.0
+
+@onready var dire: String = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/ExportedAssets")
+@onready var backs_dir: String = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/Backups")
 
 func save_file(path : String):
 	save_model(path)
@@ -163,10 +164,14 @@ func save_data():
 		"image_manager_data": image_array,
 	}
 
-func save_model(path):
+func save_model(path: String) -> void:
 	Global.save_path = path
 	save_data()
-	var file = FileAccess.open(path,FileAccess.WRITE)
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if not file:
+		push_error("SaveAndLoad: failed to open for write '%s': %s" % [path, FileAccess.get_open_error()])
+		Global.project_updates.emit("Save Failed!")
+		return
 	file.store_var(save_dict, true)
 	file.close()
 	Global.project_updates.emit("Project Saved!")
@@ -700,48 +705,44 @@ func make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> Pac
 #----------------------------------------------------------------------------
 # Global Backups
 func save_backup(data: Dictionary, previous_path: String) -> void:
-	if !DirAccess.dir_exists_absolute(backs_dir):
+	if not DirAccess.dir_exists_absolute(backs_dir):
 		DirAccess.make_dir_absolute(backs_dir)
-	
 	var extension := "." + previous_path.get_extension()
-	var file_name = previous_path.get_file().get_basename()
-	var backup_path = backs_dir.path_join(file_name + "_backup" + extension)
-	var counter: int = 1
+	var base_name := previous_path.get_file().get_basename()
+	var backup_path := backs_dir.path_join(base_name + "_backup" + extension)
+	var counter := 1
 	while FileAccess.file_exists(backup_path):
 		counter += 1
-		backup_path = backs_dir.path_join(file_name + "_backup" + str(counter) + extension)
-	
-	var file : FileAccess = FileAccess.open(backup_path, FileAccess.WRITE)
+		backup_path = backs_dir.path_join(base_name + "_backup" + str(counter) + extension)
+	var file := FileAccess.open(backup_path, FileAccess.WRITE)
+	if not file:
+		push_error("SaveAndLoad: failed to write backup: %s" % backup_path)
+		return
 	file.store_var(data, true)
+	file.close()
 
-func export_images(_images = get_tree().get_nodes_in_group("Sprites")):
-	if !DirAccess.dir_exists_absolute(dire):
+func export_images(_images = get_tree().get_nodes_in_group("Sprites")) -> void:
+	if not DirAccess.dir_exists_absolute(dire):
 		DirAccess.make_dir_absolute(dire)
-		
 	for image in Global.image_manager_data:
-		if image != null:
-			if image.img_animated:
-				var file = FileAccess.open(dire +"/" + image.image_name + str(randi()) + ".gif", FileAccess.WRITE)
-				file.store_buffer(image.anim_texture)
-				file.close()
-				file = null
-			elif image.is_apng:
-				var file = FileAccess.open(dire +"/" + image.image_name + str(randi()) + ".apng", FileAccess.WRITE)
-				var exp_image = AImgIOAPNGExporter.new().export_animation(image.frames, 10, self, "_progress_report", [])
-				file.store_buffer(exp_image)
-				file.close()
-				file = null
-			elif !image.img_animated && !image.is_apng:
-				var img = Image.new()
-				img = image.runtime_texture.get_image()
-				img.save_png(dire +"/" + image.image_name + str(randi()) + ".png")
-				img = null
-				if image.image_data != null:
-					if !image.image_data.is_empty():
-						var img_d = Image.new()
-						img_d.load_png_from_buffer(image.image_data)
-						img_d.save_png(dire +"/" + image.image_name + str(randi()) + ".png")
-						img_d = null
+		if image == null: continue
+		var unique_name: String = image.image_name + str(randi())
+		if image.img_animated:
+			var file := FileAccess.open(dire.path_join(unique_name + ".gif"), FileAccess.WRITE)
+			if not file: continue
+			file.store_buffer(image.anim_texture)
+			file.close()
+		elif image.is_apng:
+			var file := FileAccess.open(dire.path_join(unique_name + ".apng"), FileAccess.WRITE)
+			if not file: continue
+			file.store_buffer(AImgIOAPNGExporter.new().export_animation(image.frames, 10, self, "_progress_report", []))
+			file.close()
+		else:
+			image.runtime_texture.get_image().save_png(dire.path_join(unique_name + ".png"))
+			if image.image_data != null and not image.image_data.is_empty():
+				var img_d := Image.new()
+				img_d.load_png_from_buffer(image.image_data)
+				img_d.save_png(dire.path_join(image.image_name + str(randi()) + ".png"))
 
 #----------------------------------------------------------------------------
 # Misc Data

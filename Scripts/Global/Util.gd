@@ -1,17 +1,5 @@
 class_name Util
 
-static func get_locale(language: String) -> String:
-	# This should be handled differently in the future, once more translations are added.
-	match language:
-		"English (US)":
-			return "en_US"
-			
-		"Español":
-			return "es"
-		_:
-			return "automatic"
-
-
 ## Returns the parent of the provided path. If an error occurs, then the provided
 ## path is returned.
 static func get_parent_path(path: String) -> String:
@@ -19,4 +7,3 @@ static func get_parent_path(path: String) -> String:
 	if parent_slash_index < 0:
 		return path;
 	return path.substr(0, parent_slash_index);
-	

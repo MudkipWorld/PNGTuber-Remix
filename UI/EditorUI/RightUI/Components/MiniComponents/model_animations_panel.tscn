@@ -140,6 +140,7 @@ min_value = 1.0
 max_value = 12.0
 step = 0.1
 value = 1.0
+scrollable = false
 
 [node name="BlinkChanceLabel" type="Label" parent="Grid" unique_id=799052175]
 unique_name_in_owner = true
@@ -155,6 +156,7 @@ min_value = 2.0
 max_value = 200.0
 value = 9.0
 rounded = true
+scrollable = false
 
 [node name="SquishAmount" parent="." unique_id=1291648094 instance=ExtResource("2_wkbb7")]
 unique_name_in_owner = true

@@ -80,7 +80,7 @@ animations = [{
 
 [node name="LipsyncConfigurationPopup" type="Window" unique_id=142413981]
 oversampling_override = 1.0
-title = "LipSync Configuration"
+title = "TR_LIP_SYNC_CONFIG"
 initial_position = 2
 size = Vector2i(1000, 600)
 transient = true
@@ -119,14 +119,14 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Files"
+text = "TR_FILES"
 flat = false
 item_count = 3
-popup/item_0/text = "New File"
+popup/item_0/text = "TR_NEW_FILE"
 popup/item_0/id = 0
-popup/item_1/text = "Load LipSync File"
+popup/item_1/text = "TR_LOAD_LIPSYNC_FILE"
 popup/item_1/id = 1
-popup/item_2/text = "Save LipSync File"
+popup/item_2/text = "TR_SAVE_LIPSYNC_FILE"
 popup/item_2/id = 2
 
 [node name="UIContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=847340530]
@@ -204,7 +204,7 @@ size_flags_horizontal = 0
 [node name="Label" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer" unique_id=1803801615]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Inspector"
+text = "TR_INSPECTOR"
 horizontal_alignment = 1
 vertical_alignment = 1
 

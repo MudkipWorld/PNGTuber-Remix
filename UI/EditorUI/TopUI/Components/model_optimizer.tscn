@@ -1,14 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dafcfpors4fb6"]
+[gd_scene format=3 uid="uid://dafcfpors4fb6"]
 
 [ext_resource type="Script" uid="uid://be8utdm0slmph" path="res://Scripts/UI/TopPanel/Components/model_optimizer.gd" id="1_x5vtu"]
 
-[node name="ModelOptimizer" type="Window"]
+[node name="ModelOptimizer" type="Window" unique_id=1966353415]
 transparent_bg = true
+oversampling_override = 1.0
+title = "TR_MODEL_OPTIMIZER_TITLE"
 initial_position = 1
 size = Vector2i(500, 300)
 script = ExtResource("1_x5vtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=874964016]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,65 +21,57 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1036395750]
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Grid" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=1928357176]
 layout_mode = 2
-text = "Model Optimizer
-(UNSTABLE)"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Grid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
 columns = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Grid" unique_id=446734765]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Trim Images :"
+text = "TR_MODEL_OPTIMIZER_TRIM_IMAGES"
 
-[node name="ImageTrim" type="CheckBox" parent="MarginContainer/VBoxContainer/Grid"]
+[node name="ImageTrim" type="CheckBox" parent="MarginContainer/VBoxContainer/Grid" unique_id=1364830863]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Grid" unique_id=1554991057]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Resize Model :"
+text = "TR_MODEL_OPTIMIZER_RESIZE_MODEL"
 
-[node name="ImageResize" type="CheckBox" parent="MarginContainer/VBoxContainer/Grid"]
+[node name="ImageResize" type="CheckBox" parent="MarginContainer/VBoxContainer/Grid" unique_id=1375347149]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Grid" unique_id=151682257]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Resize Percentage :"
+text = "TR_MODEL_OPTIMIZER_RESIZE_PERCENTAGE"
 
-[node name="ResizePrecent" type="SpinBox" parent="MarginContainer/VBoxContainer/Grid"]
+[node name="ResizePrecent" type="SpinBox" parent="MarginContainer/VBoxContainer/Grid" unique_id=1400817694]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 10.0
 value = 50.0
 suffix = "%"
 
-[node name="Warning" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Warning" type="Label" parent="MarginContainer/VBoxContainer" unique_id=565655423]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Note : Due to this being a destructive action, this will save a new Model with \"Optimized\" next to the original file.
-GIF optimization isn't supported."
+text = "TR_MODEL_NOTE"
 autowrap_mode = 2
 
-[node name="ApplyOptimization" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ApplyOptimization" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2123687180]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Apply"
+size_flags_vertical = 10
+text = "TR_APPLY"
 
 [connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]

@@ -69,6 +69,7 @@ _data = {
 
 [node name="TutorialPopUp" type="PopupPanel" unique_id=974085589]
 auto_translate_mode = 1
+transparent_bg = false
 oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(700, 510)

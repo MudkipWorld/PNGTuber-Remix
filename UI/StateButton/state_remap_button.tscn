@@ -1,26 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://drok2umdmycjc"]
+[gd_scene format=3 uid="uid://drok2umdmycjc"]
 
 [ext_resource type="Script" uid="uid://her88y5iifbo" path="res://Scripts/UI/States/StateRemapButton.gd" id="2_ih08l"]
 [ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/Assets/DeleteButton.png" id="3_5sre3"]
 
-[node name="StateButtonHbox" type="HBoxContainer"]
+[node name="StateButtonHbox" type="HBoxContainer" unique_id=312232708]
 offset_right = 258.0
 offset_bottom = 31.0
 size_flags_horizontal = 3
 
-[node name="State" type="Label" parent="."]
+[node name="State" type="Label" parent="." unique_id=1323418055]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "TR_HOT_KEY_LABEL"
 
-[node name="StateRemapButton" type="Button" parent="." groups=["StateRemapButton"]]
+[node name="StateRemapButton" type="Button" parent="." unique_id=225468902 groups=["StateRemapButton"]]
 custom_minimum_size = Vector2(120, 20)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "TR_"
+text = "TR_BIND_KEY"
 script = ExtResource("2_ih08l")
 
-[node name="Remove" type="Button" parent="."]
+[node name="Remove" type="Button" parent="." unique_id=1169589404]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
