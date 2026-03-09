@@ -15,7 +15,6 @@
 [ext_resource type="Script" uid="uid://duopekbdlbjla" path="res://Scripts/UI/Others/project_updates_label.gd" id="8_y3a4k"]
 [ext_resource type="PackedScene" uid="uid://ccvo3k5t6lis6" path="res://UI/EditorUI/RightUI/Components/movement.tscn" id="9_fwbkq"]
 [ext_resource type="PackedScene" uid="uid://bk2xbsvlmq0or" path="res://UI/StateButton/state_panel.tscn" id="10_1r6xj"]
-[ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="14_y3a4k"]
 [ext_resource type="PackedScene" uid="uid://b15lo00q8fe1j" path="res://UI/BetterSlider/better_spinboxes.tscn" id="17_kv61l"]
 [ext_resource type="PackedScene" uid="uid://cfuiw0rtt54fn" path="res://UI/StreamUI/web_socket_config.tscn" id="17_le2wr"]
 [ext_resource type="PackedScene" uid="uid://b33l6030k8a8p" path="res://UI/EditorUI/RightUI/Components/mesh_gen.tscn" id="18_kv61l"]
@@ -389,16 +388,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
-text = "TR_SPRITE_ID_LABEL{0}"
-script = ExtResource("14_y3a4k")
 
 [node name="ParentID" type="Label" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/HBoxContainer" unique_id=230162573]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 10
-text = "TR_PARENT_ID_LABEL{0}"
-script = ExtResource("14_y3a4k")
 
 [node name="VSplit" type="VSplitContainer" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer" unique_id=2047378406]
 unique_name_in_owner = true
