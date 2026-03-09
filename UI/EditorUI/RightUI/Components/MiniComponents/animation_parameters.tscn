@@ -24,7 +24,7 @@ text = "TR_BOUNCE_AMOUNT"
 [node name="BounceAmountSlider" parent="." unique_id=2026712760 instance=ExtResource("1_gkpfe")]
 unique_name_in_owner = true
 layout_mode = 2
-label_text = "TR_BOUNCE_LABEL"
+label_text = "TR_BOUNCE_AMOUNT"
 max_value = 3000.0
 step = 1.0
 ui_type = 3

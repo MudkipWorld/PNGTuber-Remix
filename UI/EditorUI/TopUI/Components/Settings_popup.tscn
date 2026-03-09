@@ -176,7 +176,7 @@ size_flags_horizontal = 3
 [node name="OutOfBounds" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer" unique_id=1096919297]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "If a screen is selected and the cursor is out of it. The mouse is no longer tracked."
+tooltip_text = "TR_SETTINGS_POPUP_OUT_OF_BOUNDS_TOOLTIP"
 text = "TR_SNAP_OUT_OF_BOUNDS"
 
 [node name="Audio" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=743431230]
@@ -325,7 +325,7 @@ text_overrun_behavior = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-tooltip_text = "Update Mic list"
+tooltip_text = "TR_UPDATE_MIC_LIST"
 button_mask = 7
 icon = ExtResource("4_fsnh4")
 icon_alignment = 1
@@ -347,8 +347,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(262, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-tooltip_text = "Automatically crop away any empty space
-surrounding an image when the image is opened."
+tooltip_text = "TR_SETTINGS_POPUP_IMPORT_TRIM"
 text = "TR_CROP_IMAGES_TO_CONTENT"
 
 [node name="KeepOldTrimData" type="CheckBox" parent="SettingVbox/SettingsTab/Import/VBox" unique_id=2002752470]
@@ -356,7 +355,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(262, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-tooltip_text = "Keeps a save of the Sprites before trimming. If toggled off, the file will only save the trimmed Sprites."
+tooltip_text = "TR_KEEP_DATA_BEFORE_TRIM_TOOLTIP"
 button_pressed = true
 text = "TR_KEEP_DATA_BEFORE_TRIM"
 
@@ -394,8 +393,7 @@ value = 1.0
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "When turned on panning in the editor
-will be smooth instead of snappy."
+tooltip_text = "TR_FLOATY_PANNING_TOOLTIP"
 focus_mode = 0
 text = "TR_FLOATY_PANNING"
 
@@ -417,9 +415,7 @@ text = "TR_FANCY_COURSOR_EDITOR"
 [node name="SelectCursorButton" type="Button" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=264480528]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Select a custom image for the cursor.
-The image should be smaller than 256x256.
-Sizes larger than 128x128 may cause rendering issues."
+tooltip_text = "TR_SELECT_CUSTOM_COURSOR_TOOLTIP"
 focus_mode = 0
 text = "TR_SELECT_CUSTOM_COURSOR"
 
@@ -441,7 +437,7 @@ text = "TR_FANCY_COURSOR_PREVIEW"
 [node name="RemoveCustomCursor" type="Button" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=1880504786]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Remove the custom cursor image and use the default cursor."
+tooltip_text = "TR_REMOVE_CUSTOM_COURSOR_TOOLTIP"
 focus_mode = 0
 text = "TR_REMOVE_CUSTOM_COURSOR"
 
@@ -450,14 +446,14 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Use multi-threading for actions like saving and loading."
+tooltip_text = "TR_THREADS_TOOLTIP"
 text = "TR_USE_THREADS"
 
 [node name="SaveUnusedImages" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=127149651]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Use multi-threading for actions like saving and loading."
+tooltip_text = "TR_THREADS_TOOLTIP"
 text = "TR_SAVE_UNUSED_FILES"
 
 [node name="Control" type="Control" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=30947929]
@@ -592,7 +588,7 @@ popup/item_1/text = "TR_BLUE"
 popup/item_1/id = 1
 popup/item_2/text = "TR_ORANGE"
 popup/item_2/id = 2
-popup/item_3/text = "TR_White"
+popup/item_3/text = "TR_WHITE"
 popup/item_3/id = 3
 popup/item_4/text = "TR_DARK"
 popup/item_4/id = 4

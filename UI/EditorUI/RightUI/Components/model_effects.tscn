@@ -163,7 +163,7 @@ metadata/_tab_index = 2
 [node name="Label" type="Label" parent="PanelContainer/TabContainer/Grid4" unique_id=1896381915]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "TR_EFFECT_COLOR_LABEL"
+text = "TR_EFFECT_COLOR"
 
 [node name="EffectColor2" type="ColorPickerButton" parent="PanelContainer/TabContainer/Grid4" unique_id=1289636379]
 unique_name_in_owner = true

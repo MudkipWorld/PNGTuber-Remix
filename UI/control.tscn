@@ -121,7 +121,7 @@ theme_override_constants/separation = 2
 [node name="DeformBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=842634988 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Deform Brush"
+tooltip_text = "TR_DEFORM_BRUSH"
 focus_mode = 1
 icon = SubResource("AtlasTexture_le2wr")
 icon_alignment = 1
@@ -131,7 +131,7 @@ script = ExtResource("8_le2wr")
 [node name="RotationCWBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=380077892 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Rotation CW Brush"
+tooltip_text = "TR_ROTATION_CW_BRUSH"
 focus_mode = 1
 icon = SubResource("AtlasTexture_dn4of")
 icon_alignment = 1
@@ -142,7 +142,7 @@ id = 1
 [node name="RotationCCWBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1771285192 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Rotation CCW Brush"
+tooltip_text = "TR_ROTATION_CCW_BRUSH"
 focus_mode = 1
 icon = SubResource("AtlasTexture_dockn")
 icon_alignment = 1
@@ -153,7 +153,7 @@ id = 2
 [node name="RotationInflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1490739781 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Inflate Brush"
+tooltip_text = "TR_INFLATE_BRUSH"
 focus_mode = 1
 icon = SubResource("AtlasTexture_3vweu")
 icon_alignment = 1
@@ -164,7 +164,7 @@ id = 3
 [node name="RotationDeflateBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=1464763284 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Deflate Brush"
+tooltip_text = "TR_DEFLATE_BRUSH"
 focus_mode = 1
 icon = SubResource("AtlasTexture_y3a4k")
 icon_alignment = 1
@@ -175,7 +175,7 @@ id = 4
 [node name="RotationRestoreBrush" type="Button" parent="MainSplit/LeftSide/BrushesPanel/VB" unique_id=249947340 groups=["DeformButtons"]]
 custom_minimum_size = Vector2(42, 42)
 layout_mode = 2
-tooltip_text = "Restore Brush"
+tooltip_text = "TR_RESTORE_BRUSH"
 focus_mode = 1
 icon = SubResource("AtlasTexture_o0brj")
 icon_alignment = 1
