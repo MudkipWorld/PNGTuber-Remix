@@ -191,9 +191,11 @@ unique_name_in_owner = true
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1976525289]
 unique_name_in_owner = true
 auto_translate_mode = 1
+oversampling_override = 1.0
 title = "TR_FILE_DIALOG_TITLE"
 initial_position = 2
 size = Vector2i(800, 500)
+visible = true
 force_native = true
 ok_button_text = "TR_OPEN"
 file_mode = 1

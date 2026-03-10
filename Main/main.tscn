@@ -296,6 +296,7 @@ cancel_button_text = "TR_CANCEL"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1398432278]
 unique_name_in_owner = true
+oversampling_override = 1.0
 title = "TR_FILE_DIALOG_TITLE"
 initial_position = 2
 size = Vector2i(800, 500)

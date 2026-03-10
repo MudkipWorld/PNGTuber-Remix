@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk2xbsvlmq0or"]
+[gd_scene format=3 uid="uid://bk2xbsvlmq0or"]
 
 [ext_resource type="Script" uid="uid://bjehgsjwju532" path="res://Scripts/UI/States/StatesStuff.gd" id="1_j5jjx"]
 [ext_resource type="PackedScene" uid="uid://drok2umdmycjc" path="res://UI/StateButton/state_remap_button.tscn" id="2_dfbov"]
 
-[node name="StatePanel" type="VBoxContainer"]
+[node name="StatePanel" type="VBoxContainer" unique_id=664571435]
 custom_minimum_size = Vector2(350, 107)
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,14 +15,14 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
 theme_override_constants/separation = 0
 
-[node name="StatesStuff" type="Node" parent="."]
+[node name="StatesStuff" type="Node" parent="." unique_id=279239247]
 script = ExtResource("1_j5jjx")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=509178184]
 layout_mode = 2
 alignment = 1
 
-[node name="AddState" type="Button" parent="HBoxContainer"]
+[node name="AddState" type="Button" parent="HBoxContainer" unique_id=1522913044]
 visible = false
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
@@ -32,7 +32,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 14
 text = "TR_ADD"
 
-[node name="DuplicateState" type="Button" parent="HBoxContainer"]
+[node name="DuplicateState" type="Button" parent="HBoxContainer" unique_id=294421752]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -42,7 +42,7 @@ theme_override_font_sizes/font_size = 14
 text = "TR_ADD"
 metadata/_edit_use_anchors_ = true
 
-[node name="StateRemap" type="Button" parent="HBoxContainer"]
+[node name="StateRemap" type="Button" parent="HBoxContainer" unique_id=1795849112]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -52,7 +52,7 @@ theme_override_font_sizes/font_size = 14
 text = "TR_REMAP"
 metadata/_edit_use_anchors_ = true
 
-[node name="DeleteState" type="Button" parent="HBoxContainer"]
+[node name="DeleteState" type="Button" parent="HBoxContainer" unique_id=1649578401]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -62,25 +62,25 @@ theme_override_font_sizes/font_size = 14
 text = "TR_DELETE"
 metadata/_edit_use_anchors_ = true
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="." unique_id=741257176]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1240470289]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
 horizontal_scroll_mode = 0
 
-[node name="StateButtons" type="HFlowContainer" parent="ScrollContainer"]
+[node name="StateButtons" type="HFlowContainer" parent="ScrollContainer" unique_id=1918202903]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="StateRemapPopup" type="Window" parent="."]
+[node name="StateRemapPopup" type="Window" parent="." unique_id=2079522872]
 unique_name_in_owner = true
 transparent_bg = true
 initial_position = 2
@@ -88,7 +88,7 @@ size = Vector2i(358, 200)
 visible = false
 popup_window = true
 
-[node name="Margin" type="MarginContainer" parent="StateRemapPopup"]
+[node name="Margin" type="MarginContainer" parent="StateRemapPopup" unique_id=1807598827]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -101,27 +101,27 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Panel" type="PanelContainer" parent="StateRemapPopup/Margin"]
+[node name="Panel" type="PanelContainer" parent="StateRemapPopup/Margin" unique_id=939083800]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="StateRemapPopup/Margin/Panel"]
+[node name="VBox" type="VBoxContainer" parent="StateRemapPopup/Margin/Panel" unique_id=1447805550]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="StateRemapPopup/Margin/Panel/VBox"]
+[node name="Label" type="Label" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=1351541082]
 layout_mode = 2
 text = "TR_STATE_REMAP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StateName" type="LineEdit" parent="StateRemapPopup/Margin/Panel/VBox"]
+[node name="StateName" type="LineEdit" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=1849943371]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="StateButtonHbox" parent="StateRemapPopup/Margin/Panel/VBox" instance=ExtResource("2_dfbov")]
+[node name="StateButtonHbox" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=754840864 instance=ExtResource("2_dfbov")]
 unique_name_in_owner = true
 layout_mode = 2
 
