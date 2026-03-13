@@ -169,10 +169,11 @@ func movements(delta: float) -> void:
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
-	var length : float = l_norm.length() * (l.x + l.y) + (last_wobble_pos.x + last_wobble_pos.y)
+	var length : float = l_norm.length() * (l.x - l.y)
 	length = add_parent_physics(length)
-	calc_length = length
-	stretch(calc_length)
+	var length_wobble : float = last_wobble_pos.normalized().length() * (last_wobble_pos.x + last_wobble_pos.y)
+	calc_length = length + length_wobble
+	stretch(length)
 	rotational_drag(length, delta)
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
@@ -275,14 +276,14 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))*0.25)
+	var yvel = ((length * actor.get_value("rdragStr"))*0.5)
 
 	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
 	
 	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.25
+	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.5
 	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
 	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 
