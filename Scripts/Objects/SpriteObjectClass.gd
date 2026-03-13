@@ -230,7 +230,7 @@ const DEFAULT_DATA := {
 	mesh_phys_x = 75,
 	mesh_phys_y = 75,
 	
-	use_object_pos = true,
+	use_object_pos = false,
 	
 	}
 

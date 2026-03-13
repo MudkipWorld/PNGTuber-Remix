@@ -62,8 +62,8 @@ text = "TR_X_FREQUENCY_WOBBLE"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
 step = 0.01
-scrollable = false
 
 [node name="XAmpWobbleLabel" type="Label" parent="VBox" unique_id=2047104364]
 unique_name_in_owner = true
@@ -76,8 +76,8 @@ text = "TR_X_AMPLITUDE_WOBBLE"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
 step = 0.01
-scrollable = false
 
 [node name="HSeparator2" type="HSeparator" parent="VBox" unique_id=536221539]
 layout_mode = 2
@@ -93,8 +93,8 @@ text = "TR_Y_FREQUENCY_WOBBLE"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
 step = 0.01
-scrollable = false
 
 [node name="YAmpWobbleLabel" type="Label" parent="VBox" unique_id=544147230]
 unique_name_in_owner = true
@@ -107,8 +107,8 @@ text = "TR_Y_AMPLITUDE_WOBBLE"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
 step = 0.01
-scrollable = false
 
 [connection signal="value_changed" from="VBox/XFreqWobbleSlider" to="." method="_on_x_freq_wobble_slider_value_changed"]
 [connection signal="value_changed" from="VBox/XAmpWobbleSlider" to="." method="_on_x_amp_wobble_slider_value_changed"]

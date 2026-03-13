@@ -32,9 +32,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-focus_mode = 0
-mouse_filter = 1
-scrollable = false
+mouse_force_pass_scroll_events = false
 
 [connection signal="value_changed" from="SpinBoxValue" to="." method="_on_spin_box_value_value_changed"]
 [connection signal="drag_ended" from="SliderValue" to="." method="_on_slider_value_drag_ended"]

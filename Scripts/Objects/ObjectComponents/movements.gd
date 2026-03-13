@@ -275,14 +275,14 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))*0.15)
+	var yvel = ((length * actor.get_value("rdragStr"))*0.25)
 
 	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
 	
 	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.15
+	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.25
 	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
 	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 

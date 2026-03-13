@@ -12,8 +12,8 @@ anchor_bottom = 1.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 1
 mouse_filter = 2
-follow_focus = true
 
 [node name="MovementTab" type="Node" parent="." unique_id=932160330]
 script = ExtResource("1_fsl5l")

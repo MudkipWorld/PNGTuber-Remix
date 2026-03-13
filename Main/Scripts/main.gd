@@ -223,9 +223,9 @@ func _on_confirmation_dialog_confirmed():
 	Global.save_path = ""
 	Global.new_file.emit()
 	clear_sprites()
-	Global.settings_dict.max_fps = 241
+	Global.settings_dict.max_fps = 60
 	Global.settings_dict.should_delta = true
-	%TopUI.update_fps(241)
+	%TopUI.update_fps(60)
 	Global.main.get_node("%Marker").current_screen = Monitor.ALL_SCREENS
 	Global.settings_dict.monitor = Monitor.ALL_SCREENS
 	%ConfirmationDialog.hide()
