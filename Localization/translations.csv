@@ -3,7 +3,7 @@ TR_LANG_DISPLAY_NAME,English,Русский (Бета)
 TR_LANG_SYSTEM,System,Системный
 TR_ABERRATION,Aberration,Аберрация
 TR_ABOUT,About,О программе
-TR_ABOUT_FULL,"PNGTubing is designed to be as lightweight and easy to use as possible. I prefer the models to be called puppets or paper dolls.","PNGTubing сделан максимально лёгким и простым в использовании. Модели лучше называть кукольными или «бумажными»."
+TR_ABOUT_FULL,PNGTubing is designed to be as lightweight and easy to use as possible. I prefer the models to be called puppets or paper dolls.,PNGTubing сделан максимально лёгким и простым в использовании. Модели лучше называть кукольными или «бумажными».
 TR_ACHROMATOPSIA,Achromatopsia,Ахроматопсия
 TR_ADD,Add,Добавить
 TR_ADD_APPENDAGE,Add Appendage Image,Добавить изображение придатка
@@ -13,19 +13,19 @@ TR_ADD_KEY,Add Key,Добавить клавишу
 TR_ADD_LAYER,Add Layer,Добавить слой
 TR_ADD_MESH,Add Mesh,Добавить сетку
 TR_ADD_NEW_STATE,Add new State,Добавить новое состояние
-TR_ADD_OBJECT_WITH_OFFSET,"Add Object with offset?\n(for Trimmed Images)",Добавить объект со смещением?\n(для обрезанных изображений)
+TR_ADD_OBJECT_WITH_OFFSET,Add Object with offset?\n(for Trimmed Images),Добавить объект со смещением?\n(для обрезанных изображений)
 TR_ADD_SPRITES,Add Sprites,Добавить спрайты
 TR_ADD_SPRITE_AS_APPENDAGE,Add Sprite as Appendage,Добавить спрайт как придаток
 TR_ADD_WINDOW,Add Window,Добавить окно
 TR_ADVANCED_LIP_SYNC,Advanced Lip Sync,Расширенная синхронизация губ
-TR_ADVANCED_LIP_SYNC_TOOLTIP,"Works only if the mouth shapes are in a sprite sheet. 14 frames.\n(Check the lip-sync settings)","Работает только если формы рта находятся в спрайт-листе. 14 кадров.\n(См. настройки синхронизации губ)"
+TR_ADVANCED_LIP_SYNC_TOOLTIP,Works only if the mouth shapes are in a sprite sheet. 14 frames.\n(Check the lip-sync settings),Работает только если формы рта находятся в спрайт-листе. 14 кадров.\n(См. настройки синхронизации губ)
 TR_ALPHA_TRESHOLD,Alpha Threshold,Порог альфа-канала
 TR_ALWAYS_ON_TOP,Always on Top,Поверх всех окон
 TR_AMOUNT,Amount,Количество
 TR_ANCHOR_LABEL,Anchor,Якорь
 TR_ANGLE,Angle,Угол
 TR_ANIMATE_TO_MOUSE,Animate to Follow,Анимация за курсором
-TR_ANIMATE_TO_MOUSE_TOOLTIP,"Animates the sprite sheet based on mouse position (horizontal and vertical)","Анимирует спрайт-лист по положению мыши (по горизонтали и вертикали)"
+TR_ANIMATE_TO_MOUSE_TOOLTIP,Animates the sprite sheet based on mouse position (horizontal and vertical),Анимирует спрайт-лист по положению мыши (по горизонтали и вертикали)
 TR_ANIMATION,Animation,Анимация
 TR_ANIMATION_BOUNCY,Bouncy,Прыгучий
 TR_ANIMATION_FRAMES_H,Horizontal Animation Frames,Горизонтальные кадры анимации
@@ -92,8 +92,8 @@ TR_COLOR,Color,Цвет
 TR_COLOR_BLINDNESS_HELPER,Color Blindness Aid,Помощь при дальтонизме
 TR_COLOR_BLINDNESS_HELPER_TOOLTIP,An accessibility feature that helps users and viewers with color blindness view the model,Функция доступности для пользователей и зрителей с дальтонизмом
 TR_COMEBACK_LABEL,Comeback,Возврат
-TR_COMMENTS_BUTTON_TOOLTIP,"Comment Block",Блок комментария
-TR_COMMENTS_GO_HERE,"Comments go here",Комментарии здесь
+TR_COMMENTS_BUTTON_TOOLTIP,Comment Block,Блок комментария
+TR_COMMENTS_GO_HERE,Comments go here,Комментарии здесь
 TR_CONTROLLER_LEFT,Controller (Left),Контроллер (левый)
 TR_CONTROLLER_RIGHT,Controller (Right),Контроллер (правый)
 TR_CREATE_NEW_MODEL,Create new model,Создать новую модель
@@ -123,14 +123,14 @@ TR_DELETE_STATE,Delete State,Удалить состояние
 TR_DEMO_MODEL,Demo Model's,Демо-модели
 TR_DESELECT,Deselect,Снять выделение
 TR_DETECT_HOTKEYS,Detect Hotkeys,Отслеживать горячие клавиши
-TR_DETECT_HOTKEYS_TOOLTIP,"Making the software able to change States and other toggles using Hotkeys.","Позволяет менять состояния и переключатели с помощью горячих клавиш."
+TR_DETECT_HOTKEYS_TOOLTIP,Making the software able to change States and other toggles using Hotkeys.,Позволяет менять состояния и переключатели с помощью горячих клавиш.
 TR_DEUTERANOPIA,Deuteranopia,Дейтеранопия
 TR_DISABLED,Disabled,Отключено
 TR_DISABLE_FOLLOW,Disable Follow Movement,Отключить следование
 TR_DISABLE_MOVE,Disable Movement,Отключить движение
 TR_DISAPPEAR_KEYS,Hide Key(s),Клавиши скрытия
 TR_DONT_HIDE,Don't Hide,Не скрывать
-TR_DONT_HIDE_ON_TOGGLE_TOOLTIP,"Shows the Asset only and doesn't hide it even when key is pressed again.","Показывает ресурс и не скрывает его при повторном нажатии клавиши."
+TR_DONT_HIDE_ON_TOGGLE_TOOLTIP,Shows the Asset only and doesn't hide it even when key is pressed again.,Показывает ресурс и не скрывает его при повторном нажатии клавиши.
 TR_DUPLICATE_STATE,Duplicate State,Дублировать состояние
 TR_EDIT,Edit,Правка
 TR_EDITOR,Editor,Редактор
@@ -160,17 +160,17 @@ TR_FILE_DIALOG_TITLE,Open Files,Открыть файлы
 TR_FILE_MANAGER,File Manager,Файловый менеджер
 TR_FILE_SYSTEM,File System,Файловая система
 TR_FLIP_H,Flip Horizontally,Отразить по горизонтали
-TR_FLIP_SPRITE_HORIZONTALLY,"Flip Sprite Image Horizontally",Перевернуть изображение спрайта по горизонтали
-TR_FLIP_SPRITE_VERTICALLY,"Flip Sprite Image Vertically",Перевернуть изображение спрайта по вертикали
+TR_FLIP_SPRITE_HORIZONTALLY,Flip Sprite Image Horizontally,Перевернуть изображение спрайта по горизонтали
+TR_FLIP_SPRITE_VERTICALLY,Flip Sprite Image Vertically,Перевернуть изображение спрайта по вертикали
 TR_FLIP_V,Flip Vertically,Отразить по вертикали
 TR_FLOAT,Float,Плавание
 TR_FLOATY_PANNING,Smooth Panning,Плавное панорамирование
-TR_FLOATY_PANNING_TOOLTIP,"When turned on panning in the editor will be smooth instead of snappy","При включении панорамирование в редакторе будет плавным, а не резким"
+TR_FLOATY_PANNING_TOOLTIP,When turned on panning in the editor will be smooth instead of snappy,"При включении панорамирование в редакторе будет плавным, а не резким"
 TR_FM_DELAY,Delay,Задержка
-TR_FM_MAX_ROT,Max-Rot,Максимальный поворот
+TR_FM_MAX_ROT,Max-Rot,Макс поворот
 TR_FM_MAX_SQUISH_X,Squish X,Сжатие X
 TR_FM_MAX_SQUISH_Y,Squish Y,Сжатие Y
-TR_FM_MIN_ROT,Min-Rot,Минимальный поворот
+TR_FM_MIN_ROT,Min-Rot,Мин поворот
 TR_FM_RANGE_X,Range X,Диапазон X
 TR_FM_RANGE_Y,Range Y,Диапазон Y
 TR_FOLLOW,Follow,Слежение
@@ -186,7 +186,7 @@ TR_FOLLOW_MOVEMENT,Follow Movement,Слежение за движением
 TR_FOLLOW_POSITION_LABEL,Follow Option (Position),Позиция
 TR_FOLLOW_ROTATION_LABEL,Follow Option (Rotation),Поворот
 TR_FOLLOW_SCALE_LABEL,Follow Option (Scale),Масштаб
-TR_FOLLOW_SCALE_NOT,"Small note:\nscale changes based on mouse position still need work and may change in future releases.","Примечание:\nмасштабирование по положению мыши ещё дорабатывается и может измениться в будущих версиях."
+TR_FOLLOW_SCALE_NOT,Small note:\nscale changes based on mouse position still need work and may change in future releases.,Примечание:\nмасштабирование по положению мыши ещё дорабатывается и может измениться в будущих версиях.
 TR_FOLLOW_SPEED,Follow Speed,Скорость слежения
 TR_FOLLOW_THROUGH,Follow Through,Последействие
 TR_FOLLOW_WOBBLE,Wobble Movement,Покачивание
@@ -195,7 +195,7 @@ TR_FRAME_LABEL,Frame,Кадр
 TR_FRUTIGER_AERO,Frutiger Aero,Фрутигер аэро
 TR_FT_DRAG,Drag,Сопротивление
 TR_FT_STRETCH,Stretch,Растяжение
-TR_FULL_CREDITS,"PNGTuber Remix by TheMime (MudkipWorld)\nImproved UI by LeoRson\nWebSocket code by vj4","PNGTuber Remix — TheMime (MudkipWorld)\nУлучшенный интерфейс — LeoRson\nКод WebSocket — vj4"
+TR_FULL_CREDITS,PNGTuber Remix by TheMime (MudkipWorld)\nImproved UI by LeoRson\nWebSocket code by vj4,PNGTuber Remix — TheMime (MudkipWorld)\nУлучшенный интерфейс — LeoRson\nКод WebSocket — vj4
 TR_FUNKY,Funky,Фанк
 TR_GENERATION,Generation,Генерация
 TR_GEN_CORNERS,Generate Corners,Создать углы
@@ -211,15 +211,15 @@ TR_GROUPS,Groups,Группы
 TR_HATCHES,Hatches,Штрихи
 TR_HEX_RADIAL,Hex Radial,Шестигранный радиальный
 TR_HIDDEN_ITEM,Hidden Item,Скрытый элемент
-TR_HOLD_TO_SHOW,Hold to Show,"Показывать при удержании"
-TR_HOLD_TO_SHOW_TOOLTIP,"Hovering over some buttons shows a tooltip explaining what they do","При наведении на некоторые кнопки появляется подсказка с пояснением"
+TR_HOLD_TO_SHOW,Hold to Show,Показывать при удержании
+TR_HOLD_TO_SHOW_TOOLTIP,Hovering over some buttons shows a tooltip explaining what they do,При наведении на некоторые кнопки появляется подсказка с пояснением
 TR_HOT_KEY_LABEL,Hot Key,Горячая клавиша
 TR_IDLE,Idle,Покой
 TR_IGNORE_BOUNCE,Ignore Bounce,Игнорировать прыжок
 TR_IMAGE,Image,Изображение
 TR_IMAGES,Images,Изображения
-TR_IMAGE_LIMIN_WARNING,"One of your images exceeds the recommended limit (1280x1280)","Одно из изображений превышает рекомендуемый размер (1280x1280)"
-TR_IMAGE_USED_BY_NO_SPRITES,"This image is currently used by 0 sprites. Deleting it will add a placeholder.\n(It can be replaced later)",Сейчас это изображение не используется ни одним спрайтом. При удалении будет добавлен заполнитель.\n(Его можно заменить позже)
+TR_IMAGE_LIMIN_WARNING,One of your images exceeds the recommended limit (1280x1280),Одно из изображений превышает рекомендуемый размер (1280x1280)
+TR_IMAGE_USED_BY_NO_SPRITES,This image is currently used by 0 sprites. Deleting it will add a placeholder.\n(It can be replaced later),Сейчас это изображение не используется ни одним спрайтом. При удалении будет добавлен заполнитель.\n(Его можно заменить позже)
 TR_IMPORT,Import,Импортировать
 TR_INDEX_X,Index X,Индекс X
 TR_INDEX_Y,Index Y,Индекс Y
@@ -312,8 +312,8 @@ TR_NONE_ANIMATED_SHEET,Non-Animated Sheet,Статичный спрайт-лис
 TR_NONE_ANIMATED_SHEET_TOOLTIP,Turns a sprite sheet into static frames you can choose from,Преобразует спрайт-лист в набор статичных кадров
 TR_NORMAL_MAP,Normal Map,Карта нормалей
 TR_NORMAL_MAP_DEMO,Normal Map Demo,Карты нормалей
-TR_OFFSETS_IMPORTED_SPRITES_WHEN_TRIM,"Offsets imported Sprites when trimming is enabled",Смещения импортированных спрайтов при включенной обрезке
-TR_OFFSET_IMPORTED_SPRITE,"Offset Imported Sprite",Смещение импортированного спрайта
+TR_OFFSETS_IMPORTED_SPRITES_WHEN_TRIM,Offsets imported Sprites when trimming is enabled,Смещения импортированных спрайтов при включенной обрезке
+TR_OFFSET_IMPORTED_SPRITE,Offset Imported Sprite,Смещение импортированного спрайта
 TR_OFFSET_X,Offset X,Смещение X
 TR_OFFSET_Y,Offset Y,Смещение Y
 TR_OPEN,Open,Открыть
@@ -330,7 +330,7 @@ TR_OUTER_PADDING,Outer Padding,Внешний отступ
 TR_OUTLINE,Outline,Обводка
 TR_PARENT_ID_LABEL,Parent ID,ID родителя
 TR_PAUSE_MOVEMENT,Pause Movement,Остановить движение
-TR_PAUSE_MOVEMENT_TOOLTIP,"Turns your model Static.\nUncheck to preview your model's movement.\nThis automatically gets unchecked when changing modes.","Делает модель статичной.\nСними галочку, чтобы увидеть движение модели.\nФлаг автоматически сбрасывается при смене режима."
+TR_PAUSE_MOVEMENT_TOOLTIP,Turns your model Static.\nUncheck to preview your model's movement.\nThis automatically gets unchecked when changing modes.,"Делает модель статичной.\nСними галочку, чтобы увидеть движение модели.\nФлаг автоматически сбрасывается при смене режима."
 TR_PAUSE_MOVEMENT_TOOLTIP_MOVEMENT_SECTION,Pauses movement if the value of that parameter is zero,"Останавливает движение, если значение параметра равно нулю"
 TR_PHONEMES,Phonemes,Фонемы
 TR_PHYSICS,Enable Physics,Включить физику
@@ -340,7 +340,7 @@ TR_PHYSICS_STEPS,Physics Steps,Шаги физики
 TR_PHYSICS_TICK,Physics Tick,Такты физики
 TR_PHYS_STIFFNESS_LABEL,Phys-Stiff,Жёсткость физики
 TR_PHYS_STIFFNESS_TOOLTIP,Physics/Reaction to parent's movement stiffness,Жёсткость реакции на движение родителя
-TR_PLEASE_CONFIRM,"Please Confirm…","Пожалуйста, подтвердите…"
+TR_PLEASE_CONFIRM,Please Confirm…,"Пожалуйста, подтвердите…"
 TR_PORT,Port,Порт
 TR_POSITION_SNAP_BUTTON,Position Snap,Привязка позиции
 TR_POSITION_SNAP_BUTTON_TOOLTIP,Snaps the position to the last movement position,Привязывает позицию к последней точке движения
@@ -348,7 +348,7 @@ TR_POSITION_TRACKING_STRENGTH,Position Tracking Strength,Сила отслежи
 TR_POS_X,Position X,Позиция X
 TR_POS_Y,Position Y,Позиция Y
 TR_PREVIEW,Preview,Предпросмотр
-TR_PREVIEW_MODE_TOOLTIP,"Makes the model static.\nUncheck to preview movement.\nThis is automatically unchecked when changing modes.","Делает модель статичной.\nСними флажок, чтобы посмотреть движение.\nФлажок автоматически снимается при смене режима."
+TR_PREVIEW_MODE_TOOLTIP,Makes the model static.\nUncheck to preview movement.\nThis is automatically unchecked when changing modes.,"Делает модель статичной.\nСними флажок, чтобы посмотреть движение.\nФлажок автоматически снимается при смене режима."
 TR_PROJECT_SAVED,Project Saved,Проект сохранён
 TR_PROPERTIES_HIDDEN_ITEM,"If enabled, the current object is hidden outside the editor","Если включено, текущий объект скрывается вне редактора"
 TR_PROTANOPIA,Protanopia,Протанопия
@@ -363,13 +363,13 @@ TR_RANGE_X_MIN,Range X Min,Диапазон X Мин
 TR_RANGE_Y_MAX,Range Y Max,Диапазон Y Макс
 TR_RANGE_Y_MIN,Range Y Min,Диапазон Y Мин
 TR_REACTION,Reaction,Реакция
-TR_RECOLOR_LAYER,"Recolor Layer",Перекрасить слой
+TR_RECOLOR_LAYER,Recolor Layer,Перекрасить слой
 TR_RED,Red,Красный
 TR_REMAP,Remap,Переназначить
 TR_REMAP_KEY,Remap Key,Переназначить клавишу
 TR_REMAP_STATE_HOTKEYS,Remap State Hot Keys,Переназначить горячие клавиши состояний
 TR_REMOVE_CUSTOM_COURSOR,Remove Custom Cursor,Убрать свой курсор
-TR_REMOVE_CUSTOM_COURSOR_TOOLTIP,"Remove the custom cursor image and use the default cursor",Удалить изображение курсора и использовать курсор по умолчанию
+TR_REMOVE_CUSTOM_COURSOR_TOOLTIP,Remove the custom cursor image and use the default cursor,Удалить изображение курсора и использовать курсор по умолчанию
 TR_RESET_ANIMATION,Reset Animation,Сбросить анимацию
 TR_RESET_ANIMATION_TOOLTIP,Resets animation on changing the current State.,Сбрасывает анимацию при смене текущего состояния.
 TR_RESET_DEFORM_POINT,Reset Deform Point,Сброс точки деформации
@@ -386,15 +386,15 @@ TR_RIGHT_EYE,Right eye,Правый глаз
 TR_RING_GRID,Ring Grid,Кольцевая сетка
 TR_ROLL_SIZE,Roll Size,Размер вращения
 TR_ROLL_SPEED,Roll Speed,Скорость вращения
-TR_ROTATE_SPRITE_IMAGE_TOOLTIP,"Rotate the sprite image by 90°.\nNote: this resets appendage dimensions.","Повернуть изображение спрайта на 90°.\nПримечание: это сбрасывает размеры придатка."
+TR_ROTATE_SPRITE_IMAGE_TOOLTIP,Rotate the sprite image by 90°.\nNote: this resets appendage dimensions.,Повернуть изображение спрайта на 90°.\nПримечание: это сбрасывает размеры придатка.
 TR_ROTATION,Rotation,Поворот
 TR_ROTATION_CCW_BRUSH,Rotation CCW Brush,Вращение кисти против часовой стрелки
 TR_ROTATION_CW_BRUSH,Rotation CW Brush,Вращение кисти по часовой стрелке
 TR_ROT_DEGREE,Rot-Degree,Градус поворота
 TR_ROT_FREQUENCY,Rot-Freq,Частота поворота
-TR_ROT_MAX_ROT,Max-Rot,Максимальный поворот
-TR_ROT_MIN_ROT,Min-Rot,Минимальный поворот
-TR_ROT_SNAP_BUTTON_TOOLTIP,Snaps the rotation to the last movement position,"Привязывает вращение к последней точке движения"
+TR_ROT_MAX_ROT,Max-Rot,Макс поворот
+TR_ROT_MIN_ROT,Min-Rot,Мин поворот
+TR_ROT_SNAP_BUTTON_TOOLTIP,Snaps the rotation to the last movement position,Привязывает вращение к последней точке движения
 TR_ROT_SPEED,Rot-Speed,Скорость поворота
 TR_ROT_THRESH,Rot-Threshold,Порог вращения
 TR_SAVE,Save,Сохранить
@@ -414,23 +414,23 @@ TR_SCALE_X_MAX,Scale X Max,Масштаб X Макс
 TR_SCALE_X_MIN,Scale X Min,Масштаб X Мин
 TR_SCALE_Y_MAX,Scale Y Max,Масштаб Y Макс
 TR_SCALE_Y_MIN,Scale Y Min,Масштаб Y Мин
-TR_SCL_SNAP_BUTTON_TOOLTIP,Snaps the scale to the last movement position,"Привязывает масштаб к последней точке движения"
+TR_SCL_SNAP_BUTTON_TOOLTIP,Snaps the scale to the last movement position,Привязывает масштаб к последней точке движения
 TR_SCREAMING,Screaming (Coming Soon),Крик (скоро)
 TR_SCREEN_CRT,Screen CRT,Эффект CRT
 TR_SEGMENTS_LABEL,Segments,Сегменты
 TR_SELECT_CUSTOM_COURSOR,Select Custom Cursor,Выбрать свой курсор
-TR_SELECT_CUSTOM_COURSOR_TOOLTIP,"Select a custom image for the cursor.\nThe image must be smaller than 256x256.\nImages larger than 128x128 may cause rendering issues.","Выберите собственное изображение для курсора\nРазмер изображения не должен превышать 256x256\nРазмер более 128x128 может вызвать проблемы с отображением → Выберите изображение для курсора.\nРазмер не должен превышать 256x256.\nРазмеры больше 128x128 могут вызвать проблемы с отображением."
+TR_SELECT_CUSTOM_COURSOR_TOOLTIP,Select a custom image for the cursor.\nThe image must be smaller than 256x256.\nImages larger than 128x128 may cause rendering issues.,Выберите собственное изображение для курсора\nРазмер изображения не должен превышать 256x256\nРазмер более 128x128 может вызвать проблемы с отображением → Выберите изображение для курсора.\nРазмер не должен превышать 256x256.\nРазмеры больше 128x128 могут вызвать проблемы с отображением.
 TR_SETTINGS,Settings,Настройки
-TR_SETTINGS_POPUP_IMPORT_TRIM,"Automatically crop away any empty space surrounding an image when the image is opened","Автоматически обрезать пустое пространство вокруг изображения при его открытии"
+TR_SETTINGS_POPUP_IMPORT_TRIM,Automatically crop away any empty space surrounding an image when the image is opened,Автоматически обрезать пустое пространство вокруг изображения при его открытии
 TR_SETTINGS_POPUP_OUT_OF_BOUNDS_TOOLTIP,"If a screen is selected and the cursor leaves it, mouse tracking stops","Если выбран экран и курсор выходит за его пределы, отслеживание мыши прекращается"
 TR_SETUP,Setup,Настройка
 TR_SHARED_MOVEMENT_BUTTON,Use Different Values When Mouth Is Open,Отдельные значения при открытом рте
 TR_SHARED_MOVEMENT_TOOLTIP,Uses different movement values while the mouth is open.,Использует отдельные значения движения при открытом рте.
-TR_SHORTCUTS_FULL,"* Mouse Controls\n- Rotation : Ctrl+MouseWheel (Up, Down)\n- Camera Zoom : MouseWheel (Up, Down)\n- Camera Drag : MouseWheel (Pressed)\n\n*Keyboard Controls \n- Moving Sprite : \n> Ctrl+W (Up)\n> Ctrl+S (Down)\n> Ctrl+A (Left)\n> Ctrl+D (Right)\n\n- Moving Offset : \n> Arrow-Up (Up)\n> Arrow-Down (Down)\n> Arrow-Left (Left)\n> Arrow-Right (Right)\n\n- Quick Save : Ctrl+S\n- Quick Deselect : Alt+D\n- Quick Window Centering : Ctrl+Kp -","* Управление мышью\n- Поворот: Ctrl + колёсико (вверх/вниз)\n- Зум камеры: колёсико (вверх/вниз)\n- Перетаскивание камеры: нажатое колёсико\n\n* Клавиатура\n- Перемещение спрайта:\n> Ctrl+W (вверх)\n> Ctrl+S (вниз)\n> Ctrl+A (влево)\n> Ctrl+D (вправо)\n\n- Смещение:\n> Стрелка вверх\n> Стрелка вниз\n> Стрелка влево\n> Стрелка вправо\n\n- Быстрое сохранение: Ctrl+S\n- Быстро снять выделение: Alt+D\n- Быстрая центровка окна: Ctrl+цифровой -"
+TR_SHORTCUTS_FULL,"* Mouse Controls\n- Rotation : Ctrl+MouseWheel (Up, Down)\n- Camera Zoom : MouseWheel (Up, Down)\n- Camera Drag : MouseWheel (Pressed)\n\n*Keyboard Controls \n- Moving Sprite : \n> Ctrl+W (Up)\n> Ctrl+S (Down)\n> Ctrl+A (Left)\n> Ctrl+D (Right)\n\n- Moving Offset : \n> Arrow-Up (Up)\n> Arrow-Down (Down)\n> Arrow-Left (Left)\n> Arrow-Right (Right)\n\n- Quick Save : Ctrl+S\n- Quick Deselect : Alt+D\n- Quick Window Centering : Ctrl+Kp -",* Управление мышью\n- Поворот: Ctrl + колёсико (вверх/вниз)\n- Зум камеры: колёсико (вверх/вниз)\n- Перетаскивание камеры: нажатое колёсико\n\n* Клавиатура\n- Перемещение спрайта:\n> Ctrl+W (вверх)\n> Ctrl+S (вниз)\n> Ctrl+A (влево)\n> Ctrl+D (вправо)\n\n- Смещение:\n> Стрелка вверх\n> Стрелка вниз\n> Стрелка влево\n> Стрелка вправо\n\n- Быстрое сохранение: Ctrl+S\n- Быстро снять выделение: Alt+D\n- Быстрая центровка окна: Ctrl+цифровой -
 TR_SHOULD_BLINK,Should Blink,Моргать
 TR_SHOULD_DISAPPEAR_TOOLTIP,Keys that hide the sprite when toggled,"Клавиши, скрывающие спрайт при включении"
-TR_SHOULD_DISSAPPEAR_LIST_TOOLTIP,"List of keys that hide the selected asset.\n(Keys must match another asset's key)","Список клавиш (должны совпадать с клавишами другого ресурса), при которых выбранный ресурс исчезает."
-TR_SHOULD_DIS_LABEL,"List of hide keys.\n(Key must match an existing asset)","Список клавиш скрытия.\n(Клавиша должна соответствовать существующему ресурсу)"
+TR_SHOULD_DISSAPPEAR_LIST_TOOLTIP,List of keys that hide the selected asset.\n(Keys must match another asset's key),"Список клавиш (должны совпадать с клавишами другого ресурса), при которых выбранный ресурс исчезает."
+TR_SHOULD_DIS_LABEL,List of hide keys.\n(Key must match an existing asset),Список клавиш скрытия.\n(Клавиша должна соответствовать существующему ресурсу)
 TR_SHOULD_TALK,Should Talk,Говорить
 TR_SHOW_UI,Show UI,Отображать интерфейс
 TR_SHOW_WEB,Show Web,Показать веб-страницу
@@ -470,7 +470,7 @@ TR_STRENGTH,Strength,Сила
 TR_STRETCH,Stretch,Растяжение
 TR_SUB_DIVISION_LABEL,Sub-Division,Подразбиение
 TR_SWITCH_SESSION,Which session do you want to switch to?,В какой сеанс перейти?
-TR_SWITCH_SESSION_FULL,"Save the model before switching modes. This opens a separate session.","Перед сменой режима сначала сохрани модель. Откроется отдельный сеанс."
+TR_SWITCH_SESSION_FULL,Save the model before switching modes. This opens a separate session.,Перед сменой режима сначала сохрани модель. Откроется отдельный сеанс.
 TR_SYNC_APPENDAGE,Sync Appendage,Синхронизировать придаток
 TR_SYNC_EFFECT,Sync Effect,Синхронизировать эффект
 TR_TAB_ANIMATION,Animation,Анимация
@@ -489,7 +489,7 @@ TR_TARGET_STRENGTH,Target Strength,Целевая сила
 TR_TEST,Test,Тест
 TR_TEXT,Text,Текст
 TR_TEXTURE_MODE_LABEL,Texture Mode,Режим текстуры
-TR_THREADS_TOOLTIP,"Use multithreading for actions like saving and loading","Использовать многопоточность для сохранения и загрузки"
+TR_THREADS_TOOLTIP,Use multithreading for actions like saving and loading,Использовать многопоточность для сохранения и загрузки
 TR_TILE,Tile,Плитка
 TR_TINT,Tint,Оттенок
 TR_TOGGLE_BORDERS,Toggle Borders,Переключить границы
@@ -498,7 +498,7 @@ TR_TOOLTIP_ADD_FOLDER,Add Folder,Добавить папку
 TR_TOOLTIP_ADD_IMAGE,Add Image,Добавить изображение
 TR_TOOLTIP_ADD_NORMAL_MAP,Add Normal Map,Добавить карту нормалей
 TR_TOOLTIP_ADD_SPRITE,Add Sprite,Добавить спрайт
-TR_TOOLTIP_AUTO_ROTATION,"Auto-rotates the sprite. Speed can be changed with Rot-Speed","Автоматически вращает спрайт. Скорость задаётся параметром скорости вращения"
+TR_TOOLTIP_AUTO_ROTATION,Auto-rotates the sprite. Speed can be changed with Rot-Speed,Автоматически вращает спрайт. Скорость задаётся параметром скорости вращения
 TR_TOOLTIP_DELETE_IMAGE,Delete Image,Удалить изображение
 TR_TOOLTIP_DELETE_NORMAL_MAP,Delete Normal Map,Удалить карту нормалей
 TR_TOOLTIP_DELETE_SPRITE,Delete Sprite,Удалить спрайт
@@ -514,9 +514,9 @@ TR_TRACKING_BACKEND_WINDOWS,Windows,Windows
 TR_TRACKING_BACKEND_X11,x11,x11
 TR_TRACK_DEV_MODE,Developer Mode,Режим разработчика
 TR_TRACK_USING_GLOBAL_INPUT,Use Global Input for Tracking,Использовать глобальный ввод
-TR_TRACK_USING_GLOBAL_INPUT_TOOLTIP,"Enables using the Global Input module to be used for mouse following instead of Godot's Built-in mouse tracking (Debug)","Позволяет использовать модуль глобального ввода для отслеживания мыши вместо встроенного отслеживания мыши Godot (отладка)"
+TR_TRACK_USING_GLOBAL_INPUT_TOOLTIP,Enables using the Global Input module to be used for mouse following instead of Godot's Built-in mouse tracking (Debug),Позволяет использовать модуль глобального ввода для отслеживания мыши вместо встроенного отслеживания мыши Godot (отладка)
 TR_TRANSPARENT,Transparent,Прозрачный
-TR_TRIM_DIALOG_TEXT,"Would you like to have your Sprites Trimmed?\n(Removes all unused area around your image)","Хотите обрезать спрайты?\n(Удаляет все неиспользуемые области вокруг вашего изображения)"
+TR_TRIM_DIALOG_TEXT,Would you like to have your Sprites Trimmed?\n(Removes all unused area around your image),Хотите обрезать спрайты?\n(Удаляет все неиспользуемые области вокруг вашего изображения)
 TR_TRIM_IMPORT,Trim Import,Обрезать при импорте
 TR_TRITANOPIA,Tritanopia,Тританопия
 TR_TRI_GRID,Tri Grid,Треугольная сетка
@@ -535,8 +535,8 @@ TR_UDP_POSITION,UDP Position,Позиция UDP
 TR_UDP_ROTATION,UDP Rotation,Вращение UDP
 TR_UDP_SCALE,UDP Scale,Масштаб UDP
 TR_UI_SCALE_LABEL,UI Scale,Масштаб интерфейса
-TR_UNLINK_BUTTON_TOOLTIP,"Unlinks a child Object from Parent Object","Открепляет дочерний объект от родительского"
-TR_UPDATE_MIC_LIST,"Update Mic List","Обновить список микрофонов"
+TR_UNLINK_BUTTON_TOOLTIP,Unlinks a child Object from Parent Object,Открепляет дочерний объект от родительского
+TR_UPDATE_MIC_LIST,Update Mic List,Обновить список микрофонов
 TR_USE_DELTA_TIME,Use DeltaTime,Использовать DeltaTime
 TR_USE_DELTA_TIME_TOOLTIP,"The movement Ticks uses (Tick + 1 every frame),\nwhich could lead to very strong movements even with low\nmovement values.\nUsing DeltaTime makes it slower ( Tick + 0.016 every frame)\nand more forgiving to use higher values.\nThis needs to be set for every model to prevent sharing issues.","Счётчик движения увеличивается на 1 каждый кадр,\nчто может давать слишком сильное движение даже при малых значениях.\nDeltaTime делает шаг ≈0.016 за кадр и позволяет использовать большие значения.\nЭто нужно указывать для каждой модели, чтобы не было проблем при обмене."
 TR_USE_OBJECT_POSITION,Use Object Position,Использовать положение объекта
@@ -552,19 +552,19 @@ TR_WASD,WASD,WASD
 TR_WASD_AD,WASD (A/D),WASD (A/D)
 TR_WASD_WS,WASD (W/S),WASD (W/S)
 TR_WEBSOCKET_DOC,WebSocket Docs,Документация WebSocket
-TR_WELCOME,Welcome!,"Добро пожаловать!"
+TR_WELCOME,Welcome!,Добро пожаловать!
 TR_WHAT_IS_PNG_TUBING_FULL,"PNGTubing is a form of Vtubing. However, unlike Vtubing, it is much simpler and less costly. This is why it gained popularity in recent years. There are some different types of PNGTubing, this includes Static (like the model shown), Toon and Rigged. In this software -PNGTube-Remix, you can create both Static and Rigged! Even mix them up if needed. Hope you have fun!","PNGTubing — разновидность Vtubing, но гораздо проще и дешевле, поэтому он стал так популярен в последние годы. Есть разные виды PNGTubing: статичный (как показано), мультяшный и «риггед». В PNGTube-Remix можно делать и статичные, и риггед‑модели, а при желании смешивать подходы. Удачи и приятного творчества!"
 TR_WHITE,White,Светлый
 TR_WIDTH,Width,Ширина
 TR_WIGGLE_APPENDAGE,Wiggle Appendage,Покачивание придатка
 TR_WIGGLE_PHYSICS,Wiggle Physics,Физика покачивания
 TR_WIGGLE_SPRITE,Wiggle Sprite,Покачивание спрайта
-TR_WIGGLE_STRETCH_TO_ANCHOR,"Keeps its length when linked to an anchor","Сохраняет свою длину при привязке к якорю"
+TR_WIGGLE_STRETCH_TO_ANCHOR,Keeps its length when linked to an anchor,Сохраняет свою длину при привязке к якорю
 TR_WINDOW,Window,Окно
 TR_WINDOW_DEFAULT,Reset Window To Default,Сбросить настройки окна
 TR_WINDOW_SIZE,Window Size,Размер окна
 TR_WOBBLE_FREQ_TOOLTIP,Affects wobble and squish,Влияет на покачивание и сжатие
-TR_WS_SYNC_EFFECT_TOOLTIP,"Syncs the wiggle effect of the Sprite with the Parent's Wiggle effect (Both must be Sprite Objects)","Синхронизирует эффект покачивания спрайта с родительским (оба должны быть спрайтами)"
+TR_WS_SYNC_EFFECT_TOOLTIP,Syncs the wiggle effect of the Sprite with the Parent's Wiggle effect (Both must be Sprite Objects),Синхронизирует эффект покачивания спрайта с родительским (оба должны быть спрайтами)
 TR_WS_WIGGLE_AMP,Wiggle-Amp,Амплитуда покачивания
 TR_WS_WIGGLE_FREQUENCY,Wiggle-Freq,Частота покачивания
 TR_XY_MOVEMENTS,X-Y Movements,Движения по X-Y
@@ -572,15 +572,15 @@ TR_XY_MOVEMENTS_X_AMP,X-Amp,Амплитуда X
 TR_XY_MOVEMENTS_X_FREQUENCY,X-Freq,Частота X
 TR_XY_MOVEMENTS_Y_AMP,Y-Amp,Амплитуда Y
 TR_XY_MOVEMENTS_Y_FREQUENCY,Y-Freq,Частота Y
-TR_X_AMPLITUDE_WOBBLE,"X-Amplitude Wobble {value}","Амплитуда колебаний по X {value}"
-TR_X_FREQUENCY_WOBBLE,"X-Frequency Wobble {value}","Частота колебаний по X {value}"
+TR_X_AMPLITUDE_WOBBLE,X-Amplitude Wobble {value},Амплитуда колебаний по X {value}
+TR_X_FREQUENCY_WOBBLE,X-Frequency Wobble {value},Частота колебаний по X {value}
 TR_X_FREQUENCY_WOBBLE_TOOLTIP,Affects the Wobbling,Влияет на покачивание
 TR_X_OFFSET,X-Offset,Смещение X
 TR_YES,Yes,Да
-TR_Y_AMPLITUDE_WOBBLE,"Y-Amplitude Wobble {value}","Амплитуда колебаний по Y {value}"
-TR_Y_FREQUENCY_WOBBLE,"Y-Frequency Wobble {value}","Частота колебаний по Y {value}"
+TR_Y_AMPLITUDE_WOBBLE,Y-Amplitude Wobble {value},Амплитуда колебаний по Y {value}
+TR_Y_FREQUENCY_WOBBLE,Y-Frequency Wobble {value},Частота колебаний по Y {value}
 TR_Y_OFFSET,Y-Offset,Смещение Y
 TR_Z_ORDER,Z Order,Порядок по Z
 Wiggle,Wiggle,Покачивание
 Window,Window,Окно
-EXPORT_SPRITES,"Export Sprite(s)",Экспортировать спрайты
+EXPORT_SPRITES,Export Sprite(s),Экспортировать спрайты
