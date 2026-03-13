@@ -99,22 +99,32 @@ transparent_bg = true
 oversampling_override = 1.0
 title = "TR_PLEASE_CONFIRM"
 initial_position = 2
-size = Vector2i(375, 200)
+size = Vector2i(375, 150)
 unresizable = true
 ok_button_text = "TR_YES"
 dialog_text = "TR_TRIM_DIALOG_TEXT"
 cancel_button_text = "TR_NO"
 
-[node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim" unique_id=1917826308]
+[node name="Control" type="Control" parent="FileImporter/ConfirmTrim" unique_id=1440557676]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim/Control" unique_id=1917826308]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -192.0
-offset_right = -8.0
-offset_bottom = -49.0
+offset_top = -31.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
@@ -314,7 +324,7 @@ wait_time = 0.05
 [connection signal="canceled" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_canceled"]
 [connection signal="close_requested" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_canceled"]
 [connection signal="confirmed" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_confirmed"]
-[connection signal="toggled" from="FileImporter/ConfirmTrim/OffsetSprite" to="FileImporter" method="_on_offset_sprite_toggled"]
+[connection signal="toggled" from="FileImporter/ConfirmTrim/Control/OffsetSprite" to="FileImporter" method="_on_offset_sprite_toggled"]
 [connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]
 [connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
