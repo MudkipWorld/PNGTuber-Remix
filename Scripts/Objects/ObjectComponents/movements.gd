@@ -296,18 +296,19 @@ func follow_wiggle(_delta : float) -> void:
 	var tip_index : int = clamp(actor.get_value("tip_point"), 0, parent.points.size() - 1)
 	var raw_tip : Vector2 = parent.to_global(parent.points[tip_index])
 	var real_tip : Vector2 = parent.points[tip_index]
+	var local_tip : Vector2 = actor.to_local(raw_tip)
 	
 	if not has_prev:
-		prev_smoothed_pos = raw_tip
+		prev_smoothed_pos = local_tip
 		has_prev = true
 
-	var d : float = prev_smoothed_pos.distance_to(raw_tip)
+	var d : float = prev_smoothed_pos.distance_to(local_tip)
 	var w : float = clamp(d * actor.get_value("follow_strength"), 0.0, 1.0)
-	prev_smoothed_pos = prev_smoothed_pos.lerp(raw_tip, w)
+	prev_smoothed_pos = prev_smoothed_pos.lerp(local_tip, w)
 
 	applied_pos = prev_smoothed_pos
 
-	var prev_point : Vector2 = raw_tip
+	var prev_point : Vector2 = local_tip
 	if tip_index > 0:
 		prev_point = parent.points[tip_index - 1]
 
