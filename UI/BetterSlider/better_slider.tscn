@@ -12,26 +12,27 @@ script = ExtResource("1_dnfx4")
 
 [node name="BetterSliderLabel" type="Label" parent="." unique_id=590295418]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(93, 0)
+custom_minimum_size = Vector2(105, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 14
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 13
 text = "TR_TEXT"
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="SpinBoxValue" type="SpinBox" parent="." unique_id=1182001255]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
 
 [node name="SliderValue" type="HSlider" parent="." unique_id=1124451210]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
-focus_mode = 0
-mouse_filter = 1
-scrollable = false
+size_flags_vertical = 4
+mouse_force_pass_scroll_events = false
 
 [connection signal="value_changed" from="SpinBoxValue" to="." method="_on_spin_box_value_value_changed"]
 [connection signal="drag_ended" from="SliderValue" to="." method="_on_slider_value_drag_ended"]

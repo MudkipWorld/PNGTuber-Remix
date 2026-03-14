@@ -169,10 +169,11 @@ func movements(delta: float) -> void:
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
-	var length : float = l_norm.length() * (l.x + l.y) + (last_wobble_pos.x + last_wobble_pos.y)
+	var length : float = l_norm.length() * (l.x - l.y)
 	length = add_parent_physics(length)
-	calc_length = length
-	stretch(calc_length)
+	var length_wobble : float = last_wobble_pos.normalized().length() * (last_wobble_pos.x + last_wobble_pos.y)
+	calc_length = length + length_wobble
+	stretch(length)
 	rotational_drag(length, delta)
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
@@ -275,14 +276,14 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))*0.15)
+	var yvel = ((length * actor.get_value("rdragStr"))*0.5)
 
 	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
 	
 	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.15
+	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.5
 	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
 	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 
@@ -295,18 +296,19 @@ func follow_wiggle(_delta : float) -> void:
 	var tip_index : int = clamp(actor.get_value("tip_point"), 0, parent.points.size() - 1)
 	var raw_tip : Vector2 = parent.to_global(parent.points[tip_index])
 	var real_tip : Vector2 = parent.points[tip_index]
+	var local_tip : Vector2 = actor.to_local(raw_tip)
 	
 	if not has_prev:
-		prev_smoothed_pos = raw_tip
+		prev_smoothed_pos = local_tip
 		has_prev = true
 
-	var d : float = prev_smoothed_pos.distance_to(raw_tip)
+	var d : float = prev_smoothed_pos.distance_to(local_tip)
 	var w : float = clamp(d * actor.get_value("follow_strength"), 0.0, 1.0)
-	prev_smoothed_pos = prev_smoothed_pos.lerp(raw_tip, w)
+	prev_smoothed_pos = prev_smoothed_pos.lerp(local_tip, w)
 
 	applied_pos = prev_smoothed_pos
 
-	var prev_point : Vector2 = raw_tip
+	var prev_point : Vector2 = local_tip
 	if tip_index > 0:
 		prev_point = parent.points[tip_index - 1]
 

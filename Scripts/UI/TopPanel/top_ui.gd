@@ -42,12 +42,12 @@ func _apply_settings_to_ui(settings_dict: Dictionary) -> void:
 		Global.camera.zoom = settings_dict.zoom
 		if Global.camera.get_parent() != null:
 			Global.camera.get_parent().global_position = settings_dict.pan
-	_update_fps(settings_dict.max_fps)
+	update_fps(settings_dict.max_fps)
 	if Global.settings_dict.auto_save:
 		Settings.save_timer.start()
 
 
-func _update_fps(value: int) -> void:
+func update_fps(value: int) -> void:
 	if value == 241:
 		Engine.max_fps = 0
 	else:

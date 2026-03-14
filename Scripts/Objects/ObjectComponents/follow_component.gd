@@ -207,27 +207,27 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 
 		if min_x != 0 && max_x == 0:
 			if dir.x <= 0:
-				clamped_x_min = dir.x * clamp(dist.x, 0, abs(min_x))
+				clamped_x_min = dir.x * min(dist.x, abs(min_x))
 
 		elif min_x == 0 && max_x != 0:
 			if dir.x >= 0:
-				clamped_x_min = dir.x * clamp(dist.x, 0, max_x)
+				clamped_x_min = dir.x * min(dist.x, max_x)
 		else:
-			clamped_x_min = min(abs(actor.get_value("pos_x_min")), dist.x)
-			clamped_x_min = min(actor.get_value("pos_x_max"), dir.x * clamped_x_min)
+			clamped_x_min =  abs(max(min_x, sign(dir.x) * dist.x))
+			clamped_x_min = dir.x * min(max_x ,clamped_x_min)
 	
 	
 		if min_y != 0 && max_y == 0:
-			if dir.y <= 0:
+			if dir.y >= 0:
 				clamped_y_min = dir.y * clamp(dist.y, 0, abs(min_y))
 
 		elif min_y == 0 && max_y != 0:
-			if dir.y >= 0:
+			if dir.y <= 0:
 				clamped_y_min = dir.y * clamp(dist.y, 0, max_y)
 			
 		else:
-			clamped_y_min = min(abs(min_y), dist.y)
-			clamped_y_min = min(max_y, dir.y * clamped_y_min)
+			clamped_y_min =  abs(max(-max_y, sign(dir.y) * dist.y))
+			clamped_y_min = dir.y * min(abs(min_y) ,clamped_y_min)
 
 		var x = clamped_x_min
 		var y = clamped_y_min
