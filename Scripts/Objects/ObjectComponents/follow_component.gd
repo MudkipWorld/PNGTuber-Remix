@@ -193,77 +193,62 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 # shout out to the worst code i have ever made
 func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO):
 	var dist = dir
+	
+	var min_x = actor.get_value("pos_x_min")
+	var max_x = actor.get_value("pos_x_max")
+
+	var min_y = actor.get_value("pos_y_min")
+	var max_y = actor.get_value("pos_y_max")
+	
 	if m_dist != Vector2.ZERO:
 		dist = m_dist
-		
-		var clamped_x_min = 0.0
-		var clamped_y_min  = 0.0
-		
-		var min_x = actor.get_value("pos_x_min")
-		var max_x = actor.get_value("pos_x_max")
-
-		var min_y = actor.get_value("pos_y_min")
-		var max_y = actor.get_value("pos_y_max")
-
-		if min_x != 0 && max_x == 0:
-			if dir.x <= 0:
-				clamped_x_min = dir.x * min(dist.x, abs(min_x))
-
-		elif min_x == 0 && max_x != 0:
-			if dir.x >= 0:
-				clamped_x_min = dir.x * min(dist.x, max_x)
-		else:
-			clamped_x_min =  abs(max(min_x, sign(dir.x) * dist.x))
-			clamped_x_min = dir.x * min(max_x ,clamped_x_min)
-	
-	
-		if min_y != 0 && max_y == 0:
-			if dir.y >= 0:
-				clamped_y_min = dir.y * clamp(dist.y, 0, abs(min_y))
-
-		elif min_y == 0 && max_y != 0:
-			if dir.y <= 0:
-				clamped_y_min = dir.y * clamp(dist.y, 0, max_y)
-			
-		else:
-			clamped_y_min =  abs(max(-max_y, sign(dir.y) * dist.y))
-			clamped_y_min = dir.y * min(abs(min_y) ,clamped_y_min)
-
-		var x = clamped_x_min
-		var y = clamped_y_min
-		
-		if actor.get_value("snap_pos"):
-			if dir.x != 0:
-				target_pos.x =  lerp(target_pos.x, x, actor.get_value("mouse_delay"))
-				current_dir.x = dir.x
-			if dir.y != 0:
-				target_pos.y = lerp(target_pos.y, y, actor.get_value("mouse_delay"))
-				current_dir.y = dir.y
-		else:
-			var t = Vector2(x, y)
-
-			target_pos.x = lerp(target_pos.x, t.x, actor.get_value("mouse_delay"))
-			target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay"))
-			current_dir = dir
-			current_dist = target_pos.length()
 	else:
-		var _mouse_delay = actor.get_value("mouse_delay")
-		var pos_norm = dir.clamp(Vector2(-1.0, -1.0), Vector2(1.0, 1.0))
-		var pos_x = lerp(float(actor.get_value("pos_x_min")),float(actor.get_value("pos_x_max")),max(0.001, (pos_norm.x * 0.5) + 0.5))
-		var pos_y = lerp(float(actor.get_value("pos_y_min")),float(actor.get_value("pos_y_max")),max(0.001, (pos_norm.y * 0.5 )+ 0.5))
-		var _target_pos_final : Vector2 = Vector2(pos_x, pos_y)
-		if actor.get_value("snap_pos"):
-			if dir.x != 0:
-				target_pos.x = lerp(target_pos.x, _target_pos_final.x, _mouse_delay)
-				current_dir.x = dir.x
-			if dir.y != 0:
-				target_pos.y = lerp(target_pos.y, _target_pos_final.y, _mouse_delay)
-				current_dir.y = dir.y
-		else:
-			target_pos.x = lerp(target_pos.x, _target_pos_final.x, _mouse_delay)
-			target_pos.y = lerp(target_pos.y, _target_pos_final.y, _mouse_delay)
-			current_dir = dir
-			current_dist = target_pos.length()
+		dist = Vector2(abs(min_x) + max_x, abs(min_y) + max_y)*0.5
+		
+	var clamped_x_min = 0.0
+	var clamped_y_min  = 0.0
+	
+	if min_x != 0 && max_x == 0:
+		if dir.x <= 0:
+			clamped_x_min = dir.x * min(dist.x, abs(min_x))
+			
+	elif min_x == 0 && max_x != 0:
+		if dir.x >= 0:
+			clamped_x_min = dir.x * min(dist.x, max_x)
+	else:
+		clamped_x_min =  abs(max(min_x, sign(dir.x) * dist.x))
+		clamped_x_min = dir.x * min(max_x ,clamped_x_min)
+	
+	if min_y != 0 && max_y == 0:
+		if dir.y >= 0:
+			clamped_y_min = dir.y * clamp(dist.y, 0, abs(min_y))
+	
+	elif min_y == 0 && max_y != 0:
+		if dir.y <= 0:
+			clamped_y_min = dir.y * clamp(dist.y, 0, max_y)
+		
+	else:
+		clamped_y_min =  abs(max(-max_y, sign(dir.y) * dist.y))
+		clamped_y_min = dir.y * min(abs(min_y) ,clamped_y_min)
+	
+	var x = clamped_x_min
+	var y = clamped_y_min
+	
+	if actor.get_value("snap_pos"):
+		if dir.x != 0:
+			target_pos.x =  lerp(target_pos.x, x, actor.get_value("mouse_delay_x"))
+			current_dir.x = dir.x
+		if dir.y != 0:
+			target_pos.y = lerp(target_pos.y, y, actor.get_value("mouse_delay_y"))
+			current_dir.y = dir.y
+	else:
+		var t = Vector2(x, y)
+
+		target_pos.x = lerp(target_pos.x, t.x, actor.get_value("mouse_delay_x"))
+		target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay_y"))
+		current_dir = dir
+		current_dist = target_pos.length()
+
 
 func update_sprite_animation(dir: Vector2, dist: float, _delta: float) -> void:
 	if actor.sprite_type != "Sprite2D":

@@ -169,7 +169,7 @@ func movements(delta: float) -> void:
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - shadow_dragger)
 	var l_norm = l.normalized()
-	var length : float = l_norm.length() * (l.x - l.y)
+	var length : float = l_norm.length() * (l.x + l.y)
 	length = add_parent_physics(length)
 	var length_wobble : float = last_wobble_pos.normalized().length() * (last_wobble_pos.x + last_wobble_pos.y)
 	calc_length = length + length_wobble
