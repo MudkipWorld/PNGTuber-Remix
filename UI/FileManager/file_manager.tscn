@@ -126,7 +126,7 @@ unique_name_in_owner = true
 title = "TR_PLEASE_CONFIRM"
 initial_position = 2
 size = Vector2i(338, 132)
-dialog_text = "TR_ADD_SPRITE_AS_APPENDAGE?"
+dialog_text = "TR_ADD_SPRITE_AS_APPENDAGE"
 
 [node name="RememberOffset" type="ConfirmationDialog" parent="." unique_id=1200018560]
 unique_name_in_owner = true
@@ -167,8 +167,7 @@ metadata/_edit_use_anchors_ = true
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1993649178]
 unique_name_in_owner = true
 auto_translate_mode = 1
-oversampling_override = 1.0
-title = "TR_FILE_DIALOG_TITLE"
+title = "Open File(s)"
 initial_position = 2
 size = Vector2i(800, 500)
 always_on_top = true
