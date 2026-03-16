@@ -41,9 +41,11 @@ func update_controller_inputs() -> void:
 	axis_shoulderr = Input.get_vector("ShoulderL2", "ShoulderR2", "ShoulderL2", "ShoulderR2")
 	axis_lr_3 = Input.get_vector("L3", "R3", "L3", "R3")
 
-func update_scale(dir: Vector2, delta: float) -> void:
+func update_scale(_dir: Vector2, delta: float) -> void:
 	if actor.get_value("follow_type3") == 15:
 		return
+	
+	var main_marker = Global.main.get_node("%Marker")
 	var follow_type3: int = actor.get_value("follow_type3")
 	var s_min_x = actor.get_value("scale_x_min")
 	var s_max_x = actor.get_value("scale_x_max")
@@ -57,6 +59,7 @@ func update_scale(dir: Vector2, delta: float) -> void:
 	var x_val: float = 0.0
 	var y_val: float = 0.0
 	var keyboard_axis: Vector2 = Vector2.ZERO
+	
 	match follow_type3:
 		0:
 			if actor.get_value("follow_mouse_velocity"):
@@ -64,34 +67,48 @@ func update_scale(dir: Vector2, delta: float) -> void:
 				x_val = s.x
 				y_val = s.y
 			else:
-				x_val = clamp(dir.x, s_min_x, s_max_x)
-				y_val = clamp(dir.y, s_min_y, s_max_y)
-
+				var test = follow_mouse_scale(%FollowPosition.mouse_coords, main_marker )
+				x_val = test.x
+				y_val = test.y
+				
 		1, 2, 10, 11, 12:
+			var axis = Vector2.ZERO
 			if follow_type3 == 1:
-				x_val = clamp(axis_left.x, s_min_x, s_max_x)
-				y_val = clamp(axis_left.y, s_min_y, s_max_y)
+				axis = follow_controller_scale(axis_left)
+
 			elif follow_type3 == 2:
-				x_val = clamp(axis_right.x, s_min_x, s_max_x)
-				y_val = clamp(axis_right.y, s_min_y, s_max_y)
+				axis = follow_controller_scale(axis_right)
 			elif follow_type3 == 10:
-				x_val = clamp(axis_shoulderl.x, s_min_x, s_max_x)
-				y_val = clamp(axis_shoulderl.y, s_min_y, s_max_y)
+				axis = follow_controller_scale(axis_shoulderl)
+
 			elif follow_type3 == 11:
-				x_val = clamp(axis_shoulderr.x, s_min_x, s_max_x)
-				y_val = clamp(axis_shoulderr.y, s_min_y, s_max_y)
+				axis = follow_controller_scale(axis_shoulderr)
+
 			elif follow_type3 == 12:
-				x_val = clamp(axis_lr_3.x, s_min_x, s_max_x)
-				y_val = clamp(axis_lr_3.y, s_min_y, s_max_y)
+				axis = follow_controller_scale(axis_lr_3)
+			
+			if actor.get_value("snap_scale"):
+				if axis.x != 0:
+					x_val = axis.x
+					
+				if axis.y != 0:
+					y_val = axis.y
+			else:
+				x_val = axis.x
+				y_val = axis.y
 
 		3, 4, 5, 6, 7, 8:
 			keyboard_axis = GlobalCalculations.some_keyboard_calc_wasd("follow_type3", actor)
-			if actor.get_value("snap_scale") and not keyboard_axis.is_zero_approx():
-				target_scale = target_scale.lerp(keyboard_axis, 0.15)
+			var axis = follow_controller_scale(keyboard_axis)
+			if actor.get_value("snap_scale"):
+				if axis.x != 0:
+					x_val = axis.x
+					
+				if axis.y != 0:
+					y_val = axis.y
 			else:
-				target_scale = keyboard_axis
-			x_val = clamp(target_scale.x, s_min_x, s_max_x)
-			y_val = clamp(target_scale.y, s_min_y, s_max_y)
+				x_val = axis.x
+				y_val = axis.y
 			
 		17:
 			if Tracker.working:
@@ -101,14 +118,14 @@ func update_scale(dir: Vector2, delta: float) -> void:
 					0:
 						pass
 					1:
-						clamped_x = clamp(Tracker.track_pos.x, s_min_x, s_max_x)
-						clamped_y = clamp(Tracker.track_pos.y, s_min_y, s_max_y)
+						clamped_x = clamp(Tracker.track_pos.normalized().x, s_min_x, s_max_x)
+						clamped_y = clamp(Tracker.track_pos.normalized().y, s_min_y, s_max_y)
 					2:
-						clamped_x = clamp(Tracker.track_pupil_left.x, s_min_x, s_max_x)
-						clamped_y = clamp(Tracker.track_pupil_left.y, s_min_y, s_max_y)
+						clamped_x = clamp(Tracker.track_pupil_left.normalized().x, s_min_x, s_max_x)
+						clamped_y = clamp(Tracker.track_pupil_left.normalized().y, s_min_y, s_max_y)
 					3:
-						clamped_x = clamp(Tracker.track_pupil_right.x, s_min_x, s_max_x)
-						clamped_y = clamp(Tracker.track_pupil_right.y, s_min_y, s_max_y)
+						clamped_x = clamp(Tracker.track_pupil_right.normalized().x, s_min_x, s_max_x)
+						clamped_y = clamp(Tracker.track_pupil_right.normalized().y, s_min_y, s_max_y)
 					4:
 						clamped_y = clamp(Tracker.eye_smile_left, s_min_y, s_max_y)
 					5:
@@ -128,6 +145,9 @@ func update_scale(dir: Vector2, delta: float) -> void:
 		modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_scale.x, actor.get_value("mouse_delay")))
 		modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_scale.y, actor.get_value("mouse_delay")))
 	else:
+		
+		target_scale = target_scale.lerp(Vector2(x_val, y_val), 0.15)
+		
 		var sw_x = y_val if swap_x else x_val
 		var sw_y = x_val if swap_y else y_val
 		
@@ -143,6 +163,43 @@ func update_scale(dir: Vector2, delta: float) -> void:
 		var t: float = clamp(actor.get_value("mouse_delay") * delta * 60.0, 0.0, 1.0)
 		modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_sx, t))
 		modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_sy, t))
+
+func follow_mouse_scale(mouse, main_marker) -> Vector2:
+	var screen_size = DisplayServer.screen_get_size(-1)
+	if main_marker.current_screen == Monitor.ALL_SCREENS:
+		screen_size = DisplayServer.screen_get_size(0)
+	else:
+		screen_size = DisplayServer.screen_get_size(main_marker.current_screen)
+
+	var center = screen_size * 0.5
+	var dist_from_center = mouse
+	
+	var norm_x = clamp(abs(dist_from_center.x) / center.x, 0.0, 1.0)
+	var norm_y = clamp(abs(dist_from_center.y) / center.y, 0.0, 1.0)
+
+	var s_min_x : float = actor.get_value("scale_x_min")
+	var s_max_x : float = actor.get_value("scale_x_max")
+	var s_min_y : float = actor.get_value("scale_y_min")
+	var s_max_y : float = actor.get_value("scale_y_max")
+
+	var target_scale_x = lerp(s_max_x, s_min_x, norm_x)
+	var target_scale_y = lerp(s_min_y,s_max_y , norm_y)
+
+	return Vector2(target_scale_x, target_scale_y)
+
+func follow_controller_scale(axis: Vector2) -> Vector2:
+	var s_min_x : float = actor.get_value("scale_x_min")
+	var s_max_x : float = actor.get_value("scale_x_max")
+	var s_min_y : float = actor.get_value("scale_y_min")
+	var s_max_y : float = actor.get_value("scale_y_max")
+
+	var t_x : float = abs(axis.x)
+	var t_y : float = abs(axis.y)
+
+	var target_scale_x : float = lerp(s_max_x, s_min_x, t_x)
+	var target_scale_y : float = lerp(s_max_y, s_min_y, t_y)
+
+	return Vector2(target_scale_x, target_scale_y)
 
 func follow_mouse_vel_scale() -> Vector2:
 	var t = Vector2(dir_vel_anim.x, 0).normalized()
