@@ -158,8 +158,8 @@ func update_scale(_dir: Vector2, delta: float) -> void:
 			
 		final_target = Vector2(sw_x, sw_y)
 		
-		var target_sx: float = 1.0 - clamp( final_target.x, s_min_x, s_max_x)
-		var target_sy: float = 1.0 - clamp( final_target.y, s_min_y, s_max_y)
+		var target_sx: float = 1.0 - final_target.x
+		var target_sy: float = 1.0 - final_target.y
 		var t: float = clamp(actor.get_value("mouse_delay") * delta * 60.0, 0.0, 1.0)
 		modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_sx, t))
 		modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_sy, t))
@@ -172,7 +172,7 @@ func follow_mouse_scale(mouse, main_marker) -> Vector2:
 		screen_size = DisplayServer.screen_get_size(main_marker.current_screen)
 
 	var center = screen_size * 0.5
-	var dist_from_center = mouse
+	var dist_from_center = mouse - center
 	
 	var norm_x = clamp(abs(dist_from_center.x) / center.x, 0.0, 1.0)
 	var norm_y = clamp(abs(dist_from_center.y) / center.y, 0.0, 1.0)
@@ -182,8 +182,8 @@ func follow_mouse_scale(mouse, main_marker) -> Vector2:
 	var s_min_y : float = actor.get_value("scale_y_min")
 	var s_max_y : float = actor.get_value("scale_y_max")
 
-	var target_scale_x = lerp(s_max_x, s_min_x, norm_x)
-	var target_scale_y = lerp(s_min_y,s_max_y , norm_y)
+	var target_scale_x = -lerp(s_max_x, s_min_x, norm_x)
+	var target_scale_y = -lerp(s_min_y,s_max_y , norm_y)
 
 	return Vector2(target_scale_x, target_scale_y)
 
@@ -193,11 +193,10 @@ func follow_controller_scale(axis: Vector2) -> Vector2:
 	var s_min_y : float = actor.get_value("scale_y_min")
 	var s_max_y : float = actor.get_value("scale_y_max")
 
-	var t_x : float = abs(axis.x)
-	var t_y : float = abs(axis.y)
+	var dist : float = clamp(axis.length(), 0.0, 1.0)
 
-	var target_scale_x : float = lerp(s_max_x, s_min_x, t_x)
-	var target_scale_y : float = lerp(s_max_y, s_min_y, t_y)
+	var target_scale_x : float = -lerp(s_max_x, s_min_x, dist)
+	var target_scale_y : float = -lerp(s_max_y, s_min_y, dist)
 
 	return Vector2(target_scale_x, target_scale_y)
 
