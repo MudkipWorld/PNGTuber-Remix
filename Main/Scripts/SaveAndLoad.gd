@@ -721,10 +721,24 @@ func save_backup(data: Dictionary, previous_path: String) -> void:
 	file.store_var(data, true)
 	file.close()
 
-func export_images(_images = get_tree().get_nodes_in_group("Sprites")) -> void:
+func export_images(images : Array = []) -> void:
 	if not DirAccess.dir_exists_absolute(dire):
 		DirAccess.make_dir_absolute(dire)
-	for image in Global.image_manager_data:
+		
+	var seen : Array = []
+	
+	if !images.is_empty():
+		for i in images :
+			var ref_img = i.referenced_data
+			var ref_normal = i.referenced_data_normal
+			if ref_img not in seen && ref_img != null:
+				seen.append(ref_img)
+			if ref_normal not in seen && ref_normal != null:
+				seen.append(ref_img)
+	else:
+		seen = Global.image_manager_data
+		
+	for image in seen:
 		if image == null: continue
 		var unique_name: String = image.image_name + str(randi())
 		if image.img_animated:
