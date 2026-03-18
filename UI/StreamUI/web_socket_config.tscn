@@ -139,6 +139,20 @@ min_value = 1.0
 max_value = 1000.0
 value = 10.0
 
+[node name="Label6" type="Label" parent="OSF/Grid2" unique_id=1873977919]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Position Tracking Strength Y"
+
+[node name="OSFPosStrength2" type="SpinBox" parent="OSF/Grid2" unique_id=1338436579]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 1000.0
+value = 10.0
+
 [node name="Label3" type="Label" parent="OSF/Grid2" unique_id=417812898]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -200,6 +214,7 @@ text = "TR_STOP"
 [connection signal="pressed" from="Grid/StopButton" to="." method="_on_stop_button_pressed"]
 [connection signal="value_changed" from="OSF/Grid2/UDPPortValue" to="." method="_on_udp_port_value_value_changed"]
 [connection signal="value_changed" from="OSF/Grid2/OSFPosStrength" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFPosStrength2" to="." method="_on_osf_pos_strength_2_value_changed"]
 [connection signal="value_changed" from="OSF/Grid2/OSFPosMouth" to="." method="_on_osf_pos_mouth_value_changed"]
 [connection signal="value_changed" from="OSF/Grid2/OSFEye" to="." method="_on_osf_eye_value_changed"]
 [connection signal="value_changed" from="OSF/Grid2/OSFEye2" to="." method="_on_osf_eye_2_value_changed"]

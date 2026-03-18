@@ -1,7 +1,7 @@
 extends TrackingRef
 class_name OpenSeeFaceBackend
 
-#  python facetracker.py -c 1 -p 8999 --model 2 -W 640 -H 480 -F 30 -s 1
+#  python facetracker.py -c 1 -p 11573 --model 2 -W 640 -H 480 -F 30 -s 1
 
 func update(delta : float, backend : TrackingBackend = null):
 	if not backend:
@@ -94,12 +94,13 @@ func update(delta : float, backend : TrackingBackend = null):
 	
 	backend.cheek_raise_left  = corner_up_left + eye_left
 	backend.cheek_raise_right = corner_up_right + eye_right
-	backend.cheek_average = 1.0 - (clamp(corner_up_left + eye_left, 0.0, 0.85) + clamp(corner_up_right + eye_right, 0.0, 0.85)) * 0.5
+	backend.cheek_average = (clamp(corner_up_left + eye_left, 0.0, 0.85) + clamp(corner_up_right + eye_right, 0.0, 0.85)) * 0.5
 	
 	var mouth_inout_left  = backend.track_features.get("MouthCornerInOutLeft", 0.0)
 	var mouth_inout_right = backend.track_features.get("MouthCornerInOutRight", 0.0)
 	var _mouth_asymmetry = mouth_inout_right - mouth_inout_left
 	var _mouth_pucker = (1.0 - wide) * 0.5
+	backend.mouth_pucker = _mouth_pucker
 
 func parse_packet(data: PackedByteArray, backend : TrackingBackend) -> Dictionary:
 	var pkg: Dictionary = {

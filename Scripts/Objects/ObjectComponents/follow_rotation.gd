@@ -78,27 +78,29 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 	elif follow_type2 == 11: target_rot = follow_controller_rotation(axis_shoulderl)
 	elif follow_type2 == 12: target_rot = follow_controller_rotation(axis_lr_3)
 	elif follow_type2 == 17 && Tracker.working:
-		var clamped_rot = 0
+		var clamped_rot : float = 0.0
+		var inv = 1
+		if signi(actor.get_value("rot_min")) < 0:
+			inv = -1
+		
 		match actor.get_value("udp_rot"):
 			0:
 				pass
 			1:
-				var inv = 1
-				if signi(actor.get_value("rot_min")) < 0:
-					inv = -1
-				if actor.get_value("rot_min") > actor.get_value("rot_max"):
-					clamped_rot = inv *clamp(Tracker.track_rot.y,actor.get_value("rot_max"), actor.get_value("rot_min") )
-				else:
-					clamped_rot = inv*clamp(Tracker.track_rot.y,actor.get_value("rot_min") ,actor.get_value("rot_max"))
+				var test = follow_controller_rotation(Vector2(Tracker.track_rot.y, Tracker.track_rot.y))
+				clamped_rot = inv * clamp_rotations(test)
 			2:
-				clamped_rot = clamp_rotations(Tracker.track_pupil_left.angle())
+				var test = Tracker.track_pupil_left.normalized().angle()
+				clamped_rot = inv * clamp_rotations(test)
 			3:
-				clamped_rot = clamp_rotations(Tracker.track_pupil_right.angle())
+				var test = Tracker.track_pupil_right.normalized().angle()
+				clamped_rot = inv * clamp_rotations(test)
 			4:
 				clamped_rot = clamp_rotations(Tracker.eye_smile_left)
 			5:
 				clamped_rot = clamp_rotations(Tracker.eye_smile_right)
 			6:
+				
 				clamped_rot = clamp_rotations(Tracker.cheek_raise_left)
 			7:
 				clamped_rot = clamp_rotations(Tracker.cheek_raise_right)
@@ -106,6 +108,13 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 				clamped_rot = clamp_rotations(Tracker.smooth_brow_left)
 			9:
 				clamped_rot = clamp_rotations(Tracker.smooth_brow_right)
+				
+			10:
+				clamped_rot = clamp_rotations(Tracker.cheek_average)
+			
+			11:
+				clamped_rot = clamp_rotations(Tracker.mouth_pucker)
+
 		target_rot = clamped_rot
 	else:
 		target_rot = 0
@@ -115,10 +124,8 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 
 func follow_controller_rotation(axis) -> float:
 	var normalized = clamp(axis.x, -1.0, 1.0)
-	var rot_min = clamp(actor.get_value("rLimitMin"), -360, 360)
-	var rot_max = clamp(actor.get_value("rLimitMax"), -360, 360)
 	var rotation_factor = lerp(actor.get_value("rot_min"), actor.get_value("rot_max"), max((normalized + 1) / 2, 0.001))
-	return clamp(rotation_factor, deg_to_rad(rot_min), deg_to_rad(rot_max))
+	return rotation_factor
 
 func clamp_rotations(value) -> float :
 	var clamped := 0.0

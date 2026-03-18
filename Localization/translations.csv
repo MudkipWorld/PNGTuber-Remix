@@ -584,3 +584,5 @@ TR_Z_ORDER,Z Order,Порядок по Z
 Wiggle,Wiggle,Покачивание
 Window,Window,Окно
 EXPORT_SPRITES,Export Sprite(s),Экспортировать спрайты
+TR_EYES_OPEN,Eyes Open,
+TR_EYES_CLOSED,Eyes Closed,

@@ -52,6 +52,7 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	backend_type = "default",
 	audio_capturer = 2,
 	osf_pos_stren = 10,
+	osf_pos_stren_y = 10,
 	osf_mouth_strength = -0.05,
 	osf_eye = 0.5,
 	osf_eye2 =  0.5,

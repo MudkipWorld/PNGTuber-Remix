@@ -49,6 +49,8 @@ var cheek_raise_left  = 0.0
 var cheek_raise_right = 0.0
 var cheek_average = 0.0
 
+var mouth_pucker : float = 0.0
+
 var is_blink_left := false
 var is_blink_right := false
 var is_blink := false
@@ -70,6 +72,7 @@ var is_mouth_open := false
 
 var current_tracker : TrackingRef = OpenSeeFaceBackend.new()
 static var osf_pos_strength : float = 10
+static var osf_pos_strength_y : float = 10
 static var osf_mouth_strength : float = -0.05
 var working : bool = false
 

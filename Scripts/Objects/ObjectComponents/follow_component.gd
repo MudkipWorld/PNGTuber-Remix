@@ -153,21 +153,48 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			1:
 				follow_position_calculations(Tracker.track_pos.normalized(), Tracker.track_pos)
 			2:
-				follow_position_calculations(Tracker.track_pupil_left.normalized(), Tracker.track_pupil_left * TrackingBackend.osf_pos_strength)
+				var multip = Vector2(TrackingBackend.osf_pos_strength, TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Tracker.track_pupil_left.normalized(), Tracker.track_pupil_left * multip)
 			3:
-				follow_position_calculations(Tracker.track_pupil_right.normalized(), Tracker.track_pupil_right * TrackingBackend.osf_pos_strength)
+				var multip = Vector2(TrackingBackend.osf_pos_strength, TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Tracker.track_pupil_right.normalized(), Tracker.track_pupil_right * multip)
 			4:
-				follow_position_calculations(Vector2(0, Tracker.eye_smile_left).normalized(), Vector2(0, Tracker.eye_smile_left * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.eye_smile_left * TrackingBackend.osf_pos_strength, Tracker.eye_smile_left * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.eye_smile_left, Tracker.eye_smile_left), dis)
 			5:
-				follow_position_calculations(Vector2(0, Tracker.eye_smile_right).normalized(), Vector2(0, Tracker.eye_smile_right * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.eye_smile_right * TrackingBackend.osf_pos_strength, Tracker.eye_smile_right * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.eye_smile_right, Tracker.eye_smile_right), dis)
 			6:
-				follow_position_calculations(Vector2(0, Tracker.cheek_raise_left).normalized(), Vector2(0, Tracker.cheek_raise_left * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.cheek_raise_left * TrackingBackend.osf_pos_strength, Tracker.cheek_raise_left * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.cheek_raise_left, Tracker.cheek_raise_left), dis)
 			7:
-				follow_position_calculations(Vector2(0, Tracker.cheek_raise_right).normalized(), Vector2(0, Tracker.cheek_raise_right * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.cheek_raise_right * TrackingBackend.osf_pos_strength, Tracker.cheek_raise_right * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.cheek_raise_right, Tracker.cheek_raise_right), dis)
 			8:
-				follow_position_calculations(Vector2(0, Tracker.brow_left_final).normalized(), Vector2(0, Tracker.brow_left_final * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.brow_left_final * TrackingBackend.osf_pos_strength, Tracker.brow_left_final * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.brow_left_final, Tracker.brow_left_final),dis)
 			9:
-				follow_position_calculations(Vector2(0, Tracker.brow_right_final).normalized(), Vector2(0, Tracker.brow_right_final * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.brow_right_final * TrackingBackend.osf_pos_strength, Tracker.brow_right_final * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.brow_right_final, Tracker.brow_right_final), dis)
+			10:
+				var dis = Vector2(Tracker.cheek_average * TrackingBackend.osf_pos_strength, Tracker.cheek_average * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.cheek_average, Tracker.cheek_average), dis)
+			11:
+				var dis = Vector2(Tracker.mouth_pucker * TrackingBackend.osf_pos_strength, Tracker.mouth_pucker * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.mouth_pucker, Tracker.mouth_pucker), dis)
+	else:
+		target_pos = Vector2.ZERO
+	
+	var sw_x = target_pos.y if swap_x else target_pos.x
+	var sw_y = target_pos.x if swap_y else target_pos.y
+	
+	if invert_x:
+		sw_x *= -1
+	if invert_y:
+		sw_y *= -1
+	
+	final_target = Vector2(sw_x, sw_y)
+	
 	if actor.sprite_type == "Sprite2D" && actor.get_value("animate_to_mouse") && actor.get_value("non_animated_sheet"):
 		update_sprite_animation(current_dir, current_dist, _delta)
 		if !actor.get_value("animate_to_mouse_track_pos"):
@@ -177,16 +204,6 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		if !actor.get_value("move_with_follow"):
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return
-	
-	var sw_x = target_pos.y if swap_x else target_pos.x
-	var sw_y = target_pos.x if swap_y else target_pos.y
-	
-	if invert_x:
-		sw_x *= -1
-	if invert_y:
-		sw_y *= -1
-		
-	final_target = Vector2(sw_x, sw_y)
 
 	modifier.position = modifier.position.lerp(final_target, actor.get_value("mouse_delay"))
 

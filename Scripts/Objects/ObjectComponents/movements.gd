@@ -82,11 +82,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		follow_wiggle(delta)
 	if !Global.static_view:
-		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
+		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation 
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
 		modifier1_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
-	shadow_target = modifier_node.global_position + follow_component.target_pos
+	shadow_target = modifier_node.global_position + follow_component.final_target
 	if actor.get_value("index_change") != 0 or actor.get_value("index_change_y") != 0:
 		var test = (shadow_target - actor.global_position).normalized()
 		var signed_len_x = (test.x)
@@ -112,7 +112,7 @@ func _physics_process(delta: float) -> void:
 			mesh.deform_y = 0.5
 		else:
 			var t : Vector2 = (last_modifier_position - %Origin.global_position)
-			var mesh_len = (last_wobble_pos + follow_component.target_pos )
+			var mesh_len = (last_wobble_pos + follow_component.final_target )
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
 			var middle_x = (abs(actor.get_value("pos_x_min"))+ actor.get_value("pos_x_max"))*0.5
 			var middle_y = (abs(actor.get_value("pos_y_min"))+ actor.get_value("pos_y_max"))*0.5
@@ -125,7 +125,8 @@ func _physics_process(delta: float) -> void:
 				
 			var safe_deform_pos
 			if Tracker.working:
-				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.08)
+				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len , delta, final_amp, 0.08)
+				
 			else:
 				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.15)
 			if abs(safe_deform_pos.x) != 0:
