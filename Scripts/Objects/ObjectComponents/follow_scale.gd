@@ -184,7 +184,7 @@ func update_scale(_dir: Vector2, delta: float) -> void:
 	modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_sx, t))
 	modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_sy, t))
 
-func follow_mouse_scale(mouse, main_marker) -> Vector2:
+func follow_mouse_scale(mouse : Vector2, main_marker) -> Vector2:
 	var screen_size = DisplayServer.screen_get_size(-1)
 	if main_marker.current_screen == Monitor.ALL_SCREENS:
 		screen_size = DisplayServer.screen_get_size(0)
@@ -192,7 +192,7 @@ func follow_mouse_scale(mouse, main_marker) -> Vector2:
 		screen_size = DisplayServer.screen_get_size(main_marker.current_screen)
 
 	var center = screen_size * 0.5
-	var dist_from_center = mouse - center
+	var dist_from_center = mouse.abs() - center
 	
 	var norm_x = clamp(abs(dist_from_center.x) / center.x, 0.0, 1.0)
 	var norm_y = clamp(abs(dist_from_center.y) / center.y, 0.0, 1.0)
@@ -203,7 +203,7 @@ func follow_mouse_scale(mouse, main_marker) -> Vector2:
 	var s_max_y : float = actor.get_value("scale_y_max")
 
 	var target_scale_x = -lerp(s_max_x, s_min_x, norm_x)
-	var target_scale_y = -lerp(s_min_y,s_max_y , norm_y)
+	var target_scale_y = -lerp(s_max_y, s_min_y, norm_y)
 
 	return Vector2(target_scale_x, target_scale_y)
 
@@ -213,15 +213,16 @@ func follow_controller_scale(axis: Vector2) -> Vector2:
 	var s_min_y : float = actor.get_value("scale_y_min")
 	var s_max_y : float = actor.get_value("scale_y_max")
 
-	var dist : float = clamp(axis.length(), 0.0, 1.0)
+	var dist : float = clamp(Vector2(axis.x, 0).length(), 0.0, 1.0)
+	var dist_2 : float = clamp(Vector2(0, axis.y).length(), 0.0, 1.0)
 
 	var target_scale_x : float = -lerp(s_max_x, s_min_x, dist)
-	var target_scale_y : float = -lerp(s_max_y, s_min_y, dist)
+	var target_scale_y : float = -lerp(s_max_y, s_min_y, dist_2)
 
 	return Vector2(target_scale_x, target_scale_y)
 
 func follow_mouse_vel_scale() -> Vector2:
-	var t = Vector2(dir_vel_anim.x, 0).normalized()
+	var t = Vector2(abs(dir_vel_anim.x), 0).normalized()
 	var normalized_mouse = t.x/2
 	normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)
 	var s_min_x = actor.get_value("scale_x_min")
