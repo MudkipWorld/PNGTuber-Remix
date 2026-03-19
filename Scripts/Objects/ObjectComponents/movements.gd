@@ -246,7 +246,7 @@ func drag():
 		shadow_dragger = shadow_dragger.lerp(target, t)
 		applied_pos += shadow_dragger - target
 	else:
-		shadow_dragger = placeholder_position  + last_wobble_pos
+		shadow_dragger = target
 
 func wobble(delta : float) -> void:
 	var use_delta : float = delta if Global.settings_dict.should_delta else 1.0
