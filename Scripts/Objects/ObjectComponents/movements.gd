@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 	if !Global.static_view:
 		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation 
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
-		modifier1_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
+		modifier_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
 	shadow_target = modifier_node.global_position + follow_component.final_target
 	if actor.get_value("index_change") != 0 or actor.get_value("index_change_y") != 0:
@@ -168,7 +168,7 @@ func movements(delta: float) -> void:
 
 	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
-	var l = Vector2(glob - shadow_dragger)
+	var l = Vector2(shadow_dragger - glob )
 	var l_norm = l.normalized()
 	var length : float = l_norm.length() * (l.x + l.y)
 	length = add_parent_physics(length)
@@ -239,7 +239,7 @@ func add_parent_physics(length : float) -> float:
 
 func drag():
 	var drag_speed = actor.get_value("dragSpeed")
-	var target = modifier1_node.global_position + last_wobble_pos
+	var target = placeholder_position + last_wobble_pos
 	if drag_speed > 0:
 		
 		var t = 1.0/drag_speed

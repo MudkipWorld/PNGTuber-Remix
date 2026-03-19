@@ -205,7 +205,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return
 
-	modifier.position = modifier.position.lerp(final_target, actor.get_value("mouse_delay"))
+	modifier.position = final_target
 
 # shout out to the worst code i have ever made
 func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO):
