@@ -11,36 +11,35 @@ func _ready() -> void:
 
 
 func nullfy():
-	%AnimationReset.disabled = true
-	%AnimationOneShot.disabled = true
-	%ResetonStateChange.disabled = true
 	%RSSlider.editable = false
-	%NonAnimatedSheetCheck.disabled = true
 	%FrameSpinbox.editable = false
 
 
 func enable():
-	for i in Global.held_sprites:
-		if i != null && is_instance_valid(i):
-			%RSSlider.editable = true
-			if i.sprite_type == "Sprite2D":
-				%NonAnimatedSheetCheck.disabled = false
-				%FrameSpinbox.editable = true
-			else:
-				%NonAnimatedSheetCheck.disabled = true
-				%FrameSpinbox.editable = false
+	if Global.held_sprites.size() < 1: 
+		nullfy()
+		return
+	
+	var i = Global.held_sprites[0]
+	if i != null && is_instance_valid(i):
+		%RSSlider.editable = true
+		if i.sprite_type == "Sprite2D":
+			%FrameSpinbox.editable = true
+		else:
+			%FrameSpinbox.editable = false
 
-			set_data()
+	set_data()
 
 
 func set_data():
 	should_change = false
-	for i in Global.held_sprites:
-		%RSSlider.value = i.get_value("rainbow_speed")
-		if i.sprite_type == "Sprite2D":
-			%NonAnimatedSheetCheck.button_pressed = i.get_value("non_animated_sheet")
-			%FrameSpinbox.value = i.get_value("frame")
-			%FrameSpinbox.max_value = (i.get_node("%Sprite2D").hframes * i.get_node("%Sprite2D").vframes) - 1
+
+	var i = Global.held_sprites[0]
+	%RSSlider.value = i.get_value("rainbow_speed")
+	if i.sprite_type == "Sprite2D":
+		%NonAnimatedSheetCheck.button_pressed = i.get_value("non_animated_sheet")
+		%FrameSpinbox.value = i.get_value("frame")
+		%FrameSpinbox.max_value = (i.get_node("%Sprite2D").hframes * i.get_node("%Sprite2D").vframes) - 1
 
 	should_change = true
 
