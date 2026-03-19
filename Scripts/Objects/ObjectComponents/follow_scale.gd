@@ -9,6 +9,7 @@ var dist_vel_anim : float = 0.0
 
 var target_rotation :Vector2 = Vector2.ZERO
 var target_scale :Vector2 = Vector2.ONE
+var mouse_coords : Vector2 = Vector2(0,0)
 
 var rest : bool = false
 var axis_left :Vector2 = Vector2.ZERO
@@ -27,9 +28,8 @@ func _physics_process(delta: float) -> void:
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()
 	else:
-		var dir = (%FollowPosition.mouse_coords - Vector2.ZERO).normalized() if %FollowPosition.mouse_coords.length() > 0.0001 else Vector2.ZERO
 		update_controller_inputs()
-		update_scale(dir, delta)
+		update_scale(delta)
 
 func reset_modifier() -> void:
 	modifier.scale = Vector2.ONE
@@ -41,7 +41,7 @@ func update_controller_inputs() -> void:
 	axis_shoulderr = Input.get_vector("ShoulderL2", "ShoulderR2", "ShoulderL2", "ShoulderR2")
 	axis_lr_3 = Input.get_vector("L3", "R3", "L3", "R3")
 
-func update_scale(_dir: Vector2, delta: float) -> void:
+func update_scale(delta: float) -> void:
 	if actor.get_value("follow_type3") == 15:
 		return
 	
@@ -67,7 +67,8 @@ func update_scale(_dir: Vector2, delta: float) -> void:
 				x_val = s.x
 				y_val = s.y
 			else:
-				var test = follow_mouse_scale(%FollowPosition.mouse_coords, main_marker )
+				mouse_coords = %FollowPosition.follow_calculation() 
+				var test = follow_mouse_scale(mouse_coords, main_marker )
 				x_val = test.x
 				y_val = test.y
 				

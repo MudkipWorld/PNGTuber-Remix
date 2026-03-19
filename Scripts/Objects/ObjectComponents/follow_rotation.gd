@@ -9,6 +9,7 @@ var dist_vel_anim: float = 0.0
 
 var target_rotation: Vector2 = Vector2.ZERO
 var target_scale: Vector2 = Vector2.ONE
+var mouse_coords : Vector2 = Vector2(0,0)
 
 var rest: bool = false
 var axis_left: Vector2 = Vector2.ZERO
@@ -27,9 +28,9 @@ func _physics_process(delta: float) -> void:
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()
 	else:
-		var dir = (%FollowPosition.mouse_coords - Vector2.ZERO).normalized() if %FollowPosition.mouse_coords.length() > 0.0001 else Vector2.ZERO
+
 		update_controller_inputs()
-		update_rotation(dir, delta)
+		update_rotation(delta)
 
 func reset_modifier() -> void:
 	modifier.rotation = 0.0
@@ -41,7 +42,7 @@ func update_controller_inputs() -> void:
 	axis_shoulderr = Input.get_vector("ShoulderL2", "ShoulderR2", "ShoulderL2", "ShoulderR2")
 	axis_lr_3 = Input.get_vector("L3", "R3", "L3", "R3")
 
-func update_rotation(_dir: Vector2, delta: float) -> void:
+func update_rotation(delta: float) -> void:
 	if actor.get_value("follow_type2") == 15:
 		return
 	var follow_type2 = actor.get_value("follow_type2")
@@ -65,7 +66,10 @@ func update_rotation(_dir: Vector2, delta: float) -> void:
 			else:
 				var idx = clamp(main_marker.current_screen, 0, DisplayServer.get_screen_count() - 1)
 				screen_size = DisplayServer.screen_get_size(idx)
-			var mouse_x = %FollowPosition.mouse_coords.x
+				
+			mouse_coords = %FollowPosition.follow_calculation() 
+				
+			var mouse_x = mouse_coords.x
 			var screen_width = screen_size.x
 			var normalized_mouse = (mouse_x) / (screen_width / 2)
 			normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)

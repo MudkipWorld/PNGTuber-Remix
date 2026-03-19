@@ -35,7 +35,6 @@ var current_dist : float = 0.0
 var final_target : Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-	mouse_coords = follow_calculation() 
 	if actor.get_value("follow_type") == 15:
 		target_pos = Vector2.ZERO
 		modifier.position = Vector2.ZERO
@@ -46,6 +45,7 @@ func _physics_process(delta: float) -> void:
 		reset_modifier()
 	else:
 		process_follow(delta)
+		mouse_coords = follow_calculation()
 		last_mouse_position = mouse_coords
 
 func reset_modifier() -> void:
@@ -265,7 +265,6 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 		target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay"))
 		current_dir = dir
 		current_dist = target_pos.length()
-
 
 func update_sprite_animation(dir: Vector2, dist: float, _delta: float) -> void:
 	if actor.sprite_type != "Sprite2D":
