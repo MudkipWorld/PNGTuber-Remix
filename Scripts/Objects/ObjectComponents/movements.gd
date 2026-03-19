@@ -172,8 +172,7 @@ func movements(delta: float) -> void:
 	var l_norm = l.normalized()
 	var length : float = l_norm.length() * (l.x + l.y)
 	length = add_parent_physics(length)
-	var length_wobble : float = last_wobble_pos.normalized().length() * (last_wobble_pos.x + last_wobble_pos.y)
-	calc_length = length + length_wobble
+	calc_length = length
 	stretch(length)
 	rotational_drag(length, delta)
 
@@ -240,14 +239,14 @@ func add_parent_physics(length : float) -> float:
 
 func drag():
 	var drag_speed = actor.get_value("dragSpeed")
-	var target = modifier1_node.global_position
+	var target = modifier1_node.global_position + last_wobble_pos
 	if drag_speed > 0:
 		
 		var t = 1.0/drag_speed
 		shadow_dragger = shadow_dragger.lerp(target, t)
 		applied_pos += shadow_dragger - target
 	else:
-		shadow_dragger = placeholder_position
+		shadow_dragger = placeholder_position  + last_wobble_pos
 
 func wobble(delta : float) -> void:
 	var use_delta : float = delta if Global.settings_dict.should_delta else 1.0
@@ -257,6 +256,8 @@ func wobble(delta : float) -> void:
 	else:
 		last_wobble_pos.x = sin((Global.tick - paused_wobble.x) * actor.get_value("xFrq")) * actor.get_value("xAmp")
 		last_wobble_pos.y = sin((Global.tick - paused_wobble.y) * actor.get_value("yFrq")) * actor.get_value("yAmp")
+
+	
 
 	if actor.sprite_type != "Mesh" or actor.get_value("move_with_wobble"):
 		applied_pos += last_wobble_pos

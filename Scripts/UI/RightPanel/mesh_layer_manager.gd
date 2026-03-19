@@ -104,16 +104,24 @@ func set_data():
 		
 		populate_targets()
 		if Global.held_sprites[0].mesh.warps.size() > 0:
-			%SelectedWarp.select(%SelectedWarp.get_item_index(Global.held_sprites[0].mesh.warps[0]))
+			for i in %SelectedWarp.item_count:
+				if %SelectedWarp.get_item_metadata(i) == Global.held_sprites[0].mesh.warps[0]:
+					%SelectedWarp.select(i)
+					break
+			
 		else:
 			%SelectedWarp.select(-1)
 	should_change = true
 
 func populate_targets():
 	%SelectedWarp.clear()
-	%SelectedWarp.add_item("None", -1)
+	%SelectedWarp.add_item("None")
+	
+	var index : int = 1
 	for i in get_tree().get_nodes_in_group("Meshes"):
-		%SelectedWarp.add_item(i.sprite_name, i.mesh.get_mesh_id())
+		%SelectedWarp.add_item(i.sprite_name, index)
+		%SelectedWarp.set_item_metadata( index ,i.mesh.get_mesh_id())
+		index +=1
 
 func _on_stiffnessx_value_changed(value: float) -> void:
 	if !should_change : return
@@ -412,11 +420,11 @@ func _on_selected_warp_item_selected(index: int) -> void:
 	for i in Global.held_sprites:
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Mesh":
-				var id = %SelectedWarp.get_item_id(index)
-				if id == -1:
+				if index == -1 or index == 0:
 					i.get_node("%Sprite2D").warps.clear()
 				else:
-					i.get_node("%Sprite2D").warps = [id]
+					var meta = %SelectedWarp.get_item_metadata(index)
+					i.get_node("%Sprite2D").warps = [meta]
 
 func _on_physics_effect_value_changed(value: float) -> void:
 	if should_change:
