@@ -50,15 +50,16 @@ script = ExtResource("1_yuqos")
 sprite_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D")
 grab_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D/Grab")
 
-[node name="Sprite2D" type="Line2D" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=290325673]
+[node name="Sprite2D" type="Line2D" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=290325673 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(-10, 0, -4.96, 0, 2.1600008, 0, 11.360001, 0, 22.640001, 0, 36, 0, 50.4, -0.0012728911, 64.799995, -0.0050915643, 79.2, -0.01145602, 93.59999, -0.020366257, 107.999985, -0.031822275, 122.39998, -0.04571303, 136.79997, -0.061927482, 151.19995, -0.08046563, 165.59993, -0.101327464, 179.99991, -0.124513, 194.3999, -0.14455658, 208.79988, -0.15599255, 223.19986, -0.15882091, 237.59985, -0.15304166, 251.99985, -0.13865481, 266.3998, -0.11920666, 280.7998, -0.098243505, 295.1998, -0.07576536, 309.5998, -0.051772203, 323.99976, -0.026264057, 338.39972, 0.0007590912, 352.79968, 0.029297234)
+points = PackedVector2Array(-10, 0, -4.96, 0, 2.1600008, 0, 11.360001, 0, 22.640001, 0, 36, 0, 50.4, 0.0006077769, 64.8, 0.0024311077, 79.2, 0.0054699928, 93.600006, 0.009724431, 108, 0.015194423, 122.399994, 0.02277807, 136.8, 0.03337347, 151.19998, 0.046980634, 165.59998, 0.06359954, 179.99997, 0.08323021, 194.39995, 0.105622955, 208.79993, 0.13052808, 223.19989, 0.15794559, 237.59985, 0.18787548, 251.99982, 0.22031775, 266.39938, 0.21642648, 280.79813, 0.13735573, 295.19608, -0.01689452, 309.59323, -0.24632424, 323.98956, -0.5509334, 338.38412, -0.93069875, 352.77588, -1.385597)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
+actor = NodePath("../../../..")
 segment_length = 72.0
 max_angle = 0.523599
 comeback_speed = 0.419

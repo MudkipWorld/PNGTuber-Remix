@@ -195,7 +195,7 @@ TR_FRAME_LABEL,Frame,Кадр
 TR_FRUTIGER_AERO,Frutiger Aero,Фрутигер аэро
 TR_FT_DRAG,Drag,Сопротивление
 TR_FT_STRETCH,Stretch,Растяжение
-TR_FULL_CREDITS,PNGTuber Remix by TheMime (MudkipWorld)\nImproved UI by LeoRson\nWebSocket code by vj4,PNGTuber Remix — TheMime (MudkipWorld)\nУлучшенный интерфейс — LeoRson\nКод WebSocket — vj4
+TR_FULL_CREDITS,PNGTuber Remix by TheMime\nImproved UI by LeoRson\nWebSocket code by vj4,PNGTuber Remix — TheMime\nУлучшенный интерфейс — LeoRson\nКод WebSocket — vj4
 TR_FUNKY,Funky,Фанк
 TR_GENERATION,Generation,Генерация
 TR_GEN_CORNERS,Generate Corners,Создать углы
@@ -584,5 +584,4 @@ TR_Z_ORDER,Z Order,Порядок по Z
 Wiggle,Wiggle,Покачивание
 Window,Window,Окно
 EXPORT_SPRITES,Export Sprite(s),Экспортировать спрайты
-TR_EYES_OPEN,Eyes Open,
-TR_EYES_CLOSED,Eyes Closed,
+TR_PHYS_EFF,Physics Effect,Physics Effect

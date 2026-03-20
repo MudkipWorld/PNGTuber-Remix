@@ -48,6 +48,7 @@ var last_dist : Vector2 = Vector2.ZERO
 var applied_pos_offset : Vector2 = Vector2.ZERO
 
 var modifier_global : Vector2 =  Vector2.ZERO
+var shadow_drag :  Vector2 =  Vector2.ZERO
 
 func _ready() -> void:
 	placeholder_position = actor.global_position
@@ -168,7 +169,7 @@ func movements(delta: float) -> void:
 	glob = dragger.global_position
 	apply_recursive_look_at_chain(actor)
 	wobble(delta)
-	drag()
+	drag(delta)
 
 	if actor.get_value("ignore_bounce"):
 		glob -= Vector2(0.0, Global.sprite_container.bounceChange)
@@ -220,7 +221,7 @@ func apply_look_at_ik(target_pos: Vector2, rotation_node : Node2D) -> void:
 
 func rest_mode_movements(delta : float) -> void:
 	glob = dragger.global_position
-	drag()
+	drag(delta)
 	if not actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - dragger.global_position)
@@ -241,13 +242,14 @@ func add_parent_physics(length : float) -> float:
 				leng += c_parent.get_node("%Movements").calc_length
 	return leng
 
-func drag():
+func drag(_delta : float):
 	var drag_speed = actor.get_value("dragSpeed")
 	var target = modifier_node.global_position + last_wobble_pos
 	if drag_speed > 0:
 		var t = 1.0 / drag_speed
 		dragger.global_position = dragger.global_position.lerp(target, t)
-		applied_pos = applied_pos.lerp(dragger.global_position - target, 0.95)
+		shadow_drag = shadow_drag.lerp(dragger.global_position - target, 0.85)
+		applied_pos += shadow_drag
 	else:
 		dragger.global_position = target
 
@@ -295,14 +297,14 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))*0.25)
+	var yvel = ((length * actor.get_value("rdragStr"))*(actor.get_value("phys_eff")/200.0))
 
 	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
 	
 	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.25
+	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* (actor.get_value("phys_eff")/200.0)
 	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
 	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 
