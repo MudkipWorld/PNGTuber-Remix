@@ -683,12 +683,12 @@ func updated_follow_check(sprite, st) -> Dictionary:
 		st["pos_x_max"] = abs(st["look_at_mouse_pos"])
 		st["pos_y_min"] = -abs(st["look_at_mouse_pos_y"])
 		st["pos_y_max"] = abs(st["look_at_mouse_pos_y"])
-		st["rot_min"] = st["mouse_rotation"]
-		st["rot_max"] = st["mouse_rotation_max"]
-		st["scale_x_min"] = -abs(st["mouse_scale_x"])
-		st["scale_x_max"] = abs(st["mouse_scale_x"])
-		st["scale_y_min"] = -abs(st["mouse_scale_y"])
-		st["scale_y_max"] = abs(st["mouse_scale_y"])
+		st["rot_min"] = st.get("mouse_rotation", 0.0)
+		st["rot_max"] = st.get("mouse_rotation_max", 0.0)
+		st["scale_x_min"] = -abs(st.get("mouse_scale_x", 0.0))
+		st["scale_x_max"] = abs(st.get("mouse_scale_x", 0.0))
+		st["scale_y_min"] = -abs(st.get("mouse_scale_y", 0.0))
+		st["scale_y_max"] = abs(st.get("mouse_scale_y", 0.0))
 		if signi(st["look_at_mouse_pos"]) < 0:
 			st["pos_invert_x"] = true
 		if signi(st["look_at_mouse_pos_y"]) < 0:
