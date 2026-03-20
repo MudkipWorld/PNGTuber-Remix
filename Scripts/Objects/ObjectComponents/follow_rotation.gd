@@ -73,7 +73,7 @@ func update_rotation(delta: float) -> void:
 			var screen_width = screen_size.x
 			var normalized_mouse = (mouse_x) / (screen_width / 2)
 			normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)
-			var rotation_factor = lerp(float(actor.get_value("rot_min")), float(actor.get_value("rot_max")), max((normalized_mouse + 1) / 2, 0.001))
+			var rotation_factor = lerp_angle(float(actor.get_value("rot_min")), float(actor.get_value("rot_max")), max((normalized_mouse + 1) / 2, 0.0))
 			target_rot = GlobalCalculations.is_nan_or_inf(clamp_rotations(rotation_factor))
 
 	elif follow_type2 == 1: target_rot = follow_controller_rotation(axis_left)

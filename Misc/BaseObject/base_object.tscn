@@ -15,6 +15,9 @@ physics_interpolation_mode = 2
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 
+[node name="Dragger" type="Node2D" parent="Modifier1" unique_id=2125229040]
+unique_name_in_owner = true
+
 [node name="Rotation" type="Node2D" parent="Modifier1" unique_id=2086871662]
 unique_name_in_owner = true
 
