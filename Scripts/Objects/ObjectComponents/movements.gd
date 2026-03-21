@@ -48,7 +48,6 @@ var last_dist : Vector2 = Vector2.ZERO
 var applied_pos_offset : Vector2 = Vector2.ZERO
 
 var modifier_global : Vector2 =  Vector2.ZERO
-var shadow_drag :  Vector2 =  Vector2.ZERO
 
 func _ready() -> void:
 	placeholder_position = actor.global_position
@@ -248,8 +247,7 @@ func drag(_delta : float):
 	if drag_speed > 0:
 		var t = 1.0 / drag_speed
 		dragger.global_position = dragger.global_position.lerp(target, t)
-		shadow_drag = shadow_drag.lerp(dragger.global_position - target, 0.85)
-		applied_pos += shadow_drag
+		applied_pos = applied_pos.lerp(actor.to_local(dragger.global_position), 0.5)
 	else:
 		dragger.global_position = target
 
