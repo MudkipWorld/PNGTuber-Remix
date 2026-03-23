@@ -81,23 +81,21 @@ func follow_calculation(_delta = 0.0):
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO
 		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = get_mouse_coords(0)
+			mouse_coords = get_mouse_coords(main_marker, 0)
 	elif main_marker.current_screen != Monitor.ALL_SCREENS:
 		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
 		else:
-			mouse_coords = get_mouse_coords(main_marker.current_screen)
+			mouse_coords = get_mouse_coords(main_marker, main_marker.current_screen)
 	else:
-		mouse_coords = get_mouse_coords(0)
+		mouse_coords = get_mouse_coords(main_marker, 0)
 	return mouse_coords
 
-func get_mouse_coords(screen) -> Vector2:
+func get_mouse_coords(main_marker, screen) -> Vector2:
 	var coord : Vector2 = Vector2.ZERO
 	if actor.get_value("use_object_pos"):
-		
 		var offset = Vector2(DisplayServer.screen_get_position(screen))
-		coord = actor.to_local(actor.get_global_mouse_position() - (offset / Global.camera.zoom.clampf(0.001, 10.0)))
-		
+		coord = actor.to_local(main_marker.viewport_mouse_position - (offset / Global.camera.zoom.clampf(0.001, 10.0)))
 	else:
 		var viewport_size = actor.get_viewport().size
 		var origin = actor.get_global_transform_with_canvas().origin

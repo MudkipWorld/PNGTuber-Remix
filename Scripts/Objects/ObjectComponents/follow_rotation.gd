@@ -60,13 +60,7 @@ func update_rotation(delta: float) -> void:
 			target_rot = follow_mouse_vel_rotation()
 		else:
 			var main_marker = Global.main.get_node("%Marker")
-			var screen_size = DisplayServer.screen_get_size(-1)
-			if main_marker.current_screen == Monitor.ALL_SCREENS:
-				screen_size = DisplayServer.screen_get_size(DisplayServer.SCREEN_PRIMARY)
-			else:
-				var idx = clamp(main_marker.current_screen, 0, DisplayServer.get_screen_count() - 1)
-				screen_size = DisplayServer.screen_get_size(idx)
-				
+			var screen_size = main_marker.get_screen_size()
 			mouse_coords = %FollowPosition.follow_calculation() 
 				
 			var mouse_x = mouse_coords.x

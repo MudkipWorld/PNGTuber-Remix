@@ -185,12 +185,9 @@ func update_scale(delta: float) -> void:
 	modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_sx, t))
 	modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_sy, t))
 
+
 func follow_mouse_scale(mouse : Vector2, main_marker) -> Vector2:
-	var screen_size = DisplayServer.screen_get_size(-1)
-	if main_marker.current_screen == Monitor.ALL_SCREENS:
-		screen_size = DisplayServer.screen_get_size(0)
-	else:
-		screen_size = DisplayServer.screen_get_size(main_marker.current_screen)
+	var screen_size = main_marker.get_screen_size()
 
 	var center = screen_size * 0.5
 	var dist_from_center = mouse.abs() - center

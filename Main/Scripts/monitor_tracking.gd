@@ -8,8 +8,24 @@ var coords : Vector2 = Vector2(0,0)
 var global_coords : Vector2 = Vector2(0,0)
 var screen_count = 0
 
+var _cached_screen
+var _cached_screen_size = Vector2i.MIN
+
+func get_screen_size():
+	if _cached_screen == current_screen:
+		return _cached_screen_size
+	_cached_screen = current_screen
+	if current_screen == Monitor.ALL_SCREENS:
+		_cached_screen_size =  DisplayServer.screen_get_size(DisplayServer.SCREEN_PRIMARY)
+	else:
+		var idx = clamp(current_screen, 0, DisplayServer.get_screen_count() - 1)
+		_cached_screen_size = DisplayServer.screen_get_size(idx)
+	return _cached_screen_size
+var viewport_mouse_position: Vector2 = Vector2.ZERO
+
 func _ready():
 	screen_count = DisplayServer.get_screen_count()
+	viewport_mouse_position = get_viewport().get_mouse_position()
 
 func _physics_process(_delta: float) -> void:
 	if current_screen == ALL_SCREENS:
@@ -17,6 +33,7 @@ func _physics_process(_delta: float) -> void:
 	else:
 		if current_screen in range(screen_count):
 			screen_based_position()
+	viewport_mouse_position = get_viewport().get_mouse_position()
 
 func mouse_in_current_screen():
 	var screen_pos = Vector2(DisplayServer.screen_get_position(current_screen)) - Vector2(1,1)
