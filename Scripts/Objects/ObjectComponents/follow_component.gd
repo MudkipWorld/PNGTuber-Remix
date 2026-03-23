@@ -94,18 +94,18 @@ func follow_calculation(_delta = 0.0):
 func get_mouse_coords(main_marker, screen) -> Vector2:
 	var coord : Vector2 = Vector2.ZERO
 	if actor.get_value("use_object_pos"):
-		var offset = Vector2(DisplayServer.screen_get_position(screen))
+		var offset = Vector2(main_marker.get_cached_screen_position(screen))
 		coord = actor.to_local(main_marker.viewport_mouse_position - (offset / Global.camera.zoom.clampf(0.001, 10.0)))
 	else:
 		var viewport_size = actor.get_viewport().size
 		var origin = actor.get_global_transform_with_canvas().origin
 		var x_per = 1.0 - origin.x/float(viewport_size.x)
 		var y_per = 1.0 - origin.y/float(viewport_size.y)
-		var display_size = Vector2(DisplayServer.screen_get_size(screen))
+		var display_size : Vector2 = main_marker.get_screen_size()
 		var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
-		var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(screen))
+		var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(main_marker.get_cached_screen_position(screen))
 		coord = Vector2(mouse_pos - display_size) + offset
-		
+
 	return coord
 
 func update_controller_inputs() -> void:

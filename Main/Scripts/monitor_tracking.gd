@@ -8,9 +8,17 @@ var coords : Vector2 = Vector2(0,0)
 var global_coords : Vector2 = Vector2(0,0)
 var screen_count = 0
 
-var _cached_screen
-var _cached_screen_size = Vector2i.MIN
+var _cached_screen_positions = {}
 
+func get_cached_screen_position(screen: int):
+	if _cached_screen_positions.has(screen):
+		return _cached_screen_positions.get(screen)
+	var position = DisplayServer.screen_get_position(screen)
+	_cached_screen_positions[screen] = position
+	return position
+	
+var _cached_screen
+var _cached_screen_size = Vector2.ZERO
 func get_screen_size():
 	if _cached_screen == current_screen:
 		return _cached_screen_size
