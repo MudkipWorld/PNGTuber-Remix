@@ -95,7 +95,7 @@ func get_mouse_coords(main_marker, screen) -> Vector2:
 	var coord : Vector2 = Vector2.ZERO
 	if actor.get_value("use_object_pos"):
 		var offset = Vector2(main_marker.get_cached_screen_position(screen))
-		coord = actor.to_local(main_marker.viewport_mouse_position - (offset / Global.camera.zoom.clampf(0.001, 10.0)))
+		coord = (actor.get_local_mouse_position() - offset)  / Global.camera.zoom.clampf(0.001, 10.0)
 	else:
 		var viewport_size = actor.get_viewport().size
 		var origin = actor.get_global_transform_with_canvas().origin

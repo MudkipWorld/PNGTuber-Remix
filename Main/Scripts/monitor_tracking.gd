@@ -13,9 +13,9 @@ var _cached_screen_positions = {}
 func get_cached_screen_position(screen: int):
 	if _cached_screen_positions.has(screen):
 		return _cached_screen_positions.get(screen)
-	var position = DisplayServer.screen_get_position(screen)
-	_cached_screen_positions[screen] = position
-	return position
+	var _position = DisplayServer.screen_get_position(screen)
+	_cached_screen_positions[screen] = _position
+	return _position
 	
 var _cached_screen
 var _cached_screen_size = Vector2.ZERO

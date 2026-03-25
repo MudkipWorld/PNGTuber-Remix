@@ -116,7 +116,7 @@ func _physics_process(delta):
 		
 	if sync_appendage != null && is_instance_valid(sync_appendage):
 		if sync_appendage != self:
-			_sync_from_appendage_prefix()
+			sync_from_appendage()
 	
 
 	_update_line()
@@ -220,7 +220,7 @@ func apply_constraints_merged():
 				physics_points[i] = p1
 				physics_points[i + 1] = p2
 
-func _sync_from_appendage_prefix():
+func sync_from_appendage():
 	if sync_appendage == null:
 		return
 		
@@ -230,15 +230,27 @@ func _sync_from_appendage_prefix():
 	var source_points = sync_appendage.physics_points
 	var target_points = physics_points
 	var sync_count = min(source_points.size(), target_points.size())
+	
 	var offset = global_position - sync_appendage.global_position
+
+	var angle_delta = _rest_direction_angle - sync_appendage._rest_direction_angle
+	var src_origin = sync_appendage.global_position
 	
 	for i in range(sync_count):
-		var src_pos = source_points[i][POSITION] + offset
-		var src_prev = source_points[i][PREVIOUS_POSITION] + offset if source_points[i].size() > PREVIOUS_POSITION else src_pos
+		var local_pos = source_points[i][POSITION] - src_origin
+		local_pos = local_pos.rotated(angle_delta)
+		var src_pos = src_origin + local_pos + offset
+
+		var local_prev = source_points[i][PREVIOUS_POSITION] - src_origin if source_points[i].size() > PREVIOUS_POSITION else local_pos
+		local_prev = local_prev.rotated(angle_delta)
+		var src_prev = src_origin + local_prev + offset
+		
 		target_points[i][POSITION] = src_pos
 		target_points[i][PREVIOUS_POSITION] = src_prev
-		target_points[i][ROTATION] = source_points[i][ROTATION]
+		
+		target_points[i][ROTATION] = source_points[i][ROTATION] + angle_delta
 		target_points[i][ANGULAR_MOMENTUM] = source_points[i][ANGULAR_MOMENTUM]
+
 
 func reset(point_count: int = segment_count + 1) -> void:
 	physics_points = []
