@@ -88,3 +88,5 @@ actor = NodePath("..")
 
 [node name="Movements" parent="." index="7" unique_id=941197373 node_paths=PackedStringArray("actor")]
 actor = NodePath("..")
+
+[connection signal="text_changed" from="Modifier1/Rotation/Modifier/Sprite2D" to="." method="_on_sprite_2d_text_changed"]

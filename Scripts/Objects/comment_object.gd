@@ -147,7 +147,6 @@ func zazaza(parent):
 						global = global_position
 						state.position = get_value("position")
 
-
 func _on_sprite_2d_text_changed() -> void:
 	sprite_data.text_data = %Sprite2D.text
 	save_state(Global.current_state)
