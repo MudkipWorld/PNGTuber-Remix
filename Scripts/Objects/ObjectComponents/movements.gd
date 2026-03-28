@@ -185,15 +185,15 @@ func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 		%Rotation.rotation = 0.0
 		return
 	if actor_node.target_ik != null and is_instance_valid(actor_node.target_ik):
-		var root = actor_node.get_node("%Modifier1")
-		var target = actor_node.target_ik.get_node("%Modifier1")
+		var root = actor_node.get_node("%Origin")
+		var target = actor_node.target_ik.get_node("%Origin")
 		if root != null and target != null:
 			var target_pos: Vector2 = target.global_position - root.global_position
 			apply_look_at_ik(target_pos, actor_node.get_node("%Rotation"))
 			
 			var ik_chain =  actor_node.target_ik.target_ik
 			if ik_chain != null && is_instance_valid(ik_chain):
-				var target_pos_2: Vector2 = ik_chain.global_position - root.global_position
+				var target_pos_2: Vector2 = ik_chain.get_node("%Origin").global_position - root.global_position
 				apply_look_at_ik(target_pos_2, actor_node.get_node("%Rotation"))
 				
 			if actor_node.has_node("%Sprite2D"):
