@@ -296,7 +296,7 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	yvel = move_toward(yvel, ((length * actor.get_value("rdragStr"))* 0.5)*(actor.get_value("phys_eff")/200.0), 600*delta)
+	yvel = move_toward(yvel, ((length * actor.get_value("rdragStr")))*(actor.get_value("phys_eff")/200.0), 600*delta)
 	
 	#Calculate Max angle
 	var min_a : float = actor.get_value("rLimitMin")
