@@ -295,11 +295,13 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))*(actor.get_value("phys_eff")/200.0))
-
+	var yvel = ((length * actor.get_value("rdragStr"))* 0.5)*(actor.get_value("phys_eff")/200.0)
+	
+	#Calculate Max angle
+	
 	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
 	
-	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
+	rot_drag = GlobalCalculations.is_nan_or_inf(lerp_angle(rot_drag,deg_to_rad(yvel),0.15))
 
 func stretch(length : float) -> void:
 	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* (actor.get_value("phys_eff")/200.0)
@@ -332,22 +334,15 @@ func follow_wiggle(_delta : float) -> void:
 		prev_point = parent.points[tip_index - 1]
 
 	var dir : Vector2 = real_tip - prev_point
-	if dir == Vector2.ZERO:
-		dir = Vector2(cos(parent._rest_direction_angle), sin(parent._rest_direction_angle))
-
+	
 	var rest_angle : float = parent._rest_direction_angle
-	var target_ang : float = rest_angle + wrapf(atan2(dir.y, dir.x) - rest_angle, -PI, PI)
+	var target_ang : float = wrapf(dir.rotated(-rest_angle).angle(), -PI, PI)
 
 	if abs(target_ang - biased) < actor.get_value("rotation_threshold"):
 		return
 
 	biased = lerp(biased, target_ang, actor.get_value("follow_strength"))
-	follow_point_rot = GlobalCalculations.clamp_angle(
-		biased,
-		deg_to_rad(actor.get_value("follow_wa_mini")) + rest_angle,
-		deg_to_rad(actor.get_value("follow_wa_max")) + rest_angle,
-		rest_angle
-	)
+	follow_point_rot = clamp(biased, deg_to_rad(actor.get_value("follow_wa_mini")), deg_to_rad(actor.get_value("follow_wa_max")))
 
 func rainbow(delta : float) -> void:
 	if actor.get_value("hidden_item") and Global.mode != 0:
