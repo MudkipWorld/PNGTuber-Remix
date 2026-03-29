@@ -48,6 +48,7 @@ var last_dist : Vector2 = Vector2.ZERO
 var applied_pos_offset : Vector2 = Vector2.ZERO
 
 var modifier_global : Vector2 =  Vector2.ZERO
+var yvel : float = 0.0
 
 func _ready() -> void:
 	placeholder_position = actor.global_position
@@ -177,8 +178,8 @@ func movements(delta: float) -> void:
 	var length : float = l.length() * (dir.x + dir.y)
 	length = add_parent_physics(length)
 	calc_length = length
-	stretch(length)
-	rotational_drag(length, delta)
+	stretch(calc_length)
+	rotational_drag(calc_length, delta)
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 	if actor_node == null or not is_instance_valid(actor_node):
@@ -221,7 +222,7 @@ func apply_look_at_ik(target_pos: Vector2, rotation_node : Node2D) -> void:
 func rest_mode_movements(delta : float) -> void:
 	glob = dragger.global_position
 	drag(delta)
-	if not actor.get_value("ignore_bounce"):
+	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
 	var l = Vector2(glob - dragger.global_position)
 	var l_norm = l.normalized()
@@ -295,17 +296,20 @@ func rotational_drag(length, delta: float):
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))* 0.5)*(actor.get_value("phys_eff")/200.0)
+	yvel = move_toward(yvel, ((length * actor.get_value("rdragStr"))* 0.5)*(actor.get_value("phys_eff")/200.0), 600*delta)
 	
 	#Calculate Max angle
+	var min_a : float = actor.get_value("rLimitMin")
+	var max_a : float = actor.get_value("rLimitMax")
 	
-	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
-	
+	yvel = clamp(yvel,min_a,max_a)
+
 	rot_drag = GlobalCalculations.is_nan_or_inf(lerp_angle(rot_drag,deg_to_rad(yvel),0.15))
+	
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* (actor.get_value("phys_eff")/200.0)
-	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
+	var syvel : float = (length * actor.get_value("stretchAmount") * 0.01)* (actor.get_value("phys_eff")/200.0)
+	var target : Vector2 = Vector2(1.0 - syvel, 1.0 + syvel)
 	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 
 func follow_wiggle(_delta : float) -> void:
