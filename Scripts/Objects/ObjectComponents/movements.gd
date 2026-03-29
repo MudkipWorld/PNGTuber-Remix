@@ -295,17 +295,11 @@ func rotational_drag(length, delta: float):
 		last_rot *= deg_to_rad(actor.get_value("rdragStr"))
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
-	
-	yvel = move_toward(yvel, ((length * actor.get_value("rdragStr")))*(actor.get_value("phys_eff")/200.0), 600*delta)
+	yvel = ((length * actor.get_value("rdragStr")))*(actor.get_value("phys_eff")/200.0)
 	
 	#Calculate Max angle
-	var min_a : float = actor.get_value("rLimitMin")
-	var max_a : float = actor.get_value("rLimitMax")
-	
-	yvel = clamp(yvel,min_a,max_a)
-
-	rot_drag = GlobalCalculations.is_nan_or_inf(lerp_angle(rot_drag,deg_to_rad(yvel),0.15))
-	
+	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
+	applied_rotation = lerp_angle(applied_rotation,deg_to_rad(yvel),0.15)
 
 func stretch(length : float) -> void:
 	var syvel : float = (length * actor.get_value("stretchAmount") * 0.01)* (actor.get_value("phys_eff")/200.0)
