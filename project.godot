@@ -367,12 +367,9 @@ limits/message_queue/max_size_mb=64
 
 [physics]
 
-common/physics_ticks_per_second=30
-common/max_physics_steps_per_frame=30
-common/physics_jitter_fix=0.1
 3d/physics_engine="Dummy"
 3d/solver/solver_iterations=2
-2d/solver/solver_iterations=2
+common/physics_interpolation=true
 common/enable_object_picking=false
 
 [rendering]
