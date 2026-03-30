@@ -231,8 +231,9 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 		if dir.x >= 0:
 			clamped_x_min = dir.x * min(dist.x, max_x)
 	else:
-		clamped_x_min =  abs(max(min_x, sign(dir.x) * dist.x))
-		clamped_x_min = dir.x * min(max_x ,clamped_x_min)
+		var clm_x = clamp(dir.x*dist.x, -abs(dir.x*max_x), abs(dir.x*min_x))
+		clamped_x_min = clm_x
+		
 	
 	if min_y != 0 && max_y == 0:
 		if dir.y >= 0:
@@ -243,8 +244,8 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 			clamped_y_min = dir.y * clamp(dist.y, 0, max_y)
 		
 	else:
-		clamped_y_min =  abs(max(-max_y, sign(dir.y) * dist.y))
-		clamped_y_min = dir.y * min(abs(min_y) ,clamped_y_min)
+		var clm_y = clamp(dir.y*dist.y, -abs(dir.y*max_y), abs(dir.y*min_y))
+		clamped_y_min = clm_y
 	
 	var x = clamped_x_min
 	var y = clamped_y_min
@@ -267,15 +268,22 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 func update_sprite_animation(dir: Vector2, dist: float, _delta: float) -> void:
 	if actor.sprite_type != "Sprite2D":
 		return
+		
+	var min_x = actor.get_value("pos_x_min")
+	var max_x = actor.get_value("pos_x_max")
 
-	var dist_x = dir.x * min(dist, actor.get_value("look_at_mouse_pos"))
-	var dist_y = dir.y * min(dist, actor.get_value("look_at_mouse_pos_y"))
+	var min_y = actor.get_value("pos_y_min")
+	var max_y = actor.get_value("pos_y_max")
+	var dist_cen = Vector2(abs(min_x) + max_x, abs(min_y) + max_y)*0.5
+
+	var dist_x = dir.x * min(dist, dist_cen.x)
+	var dist_y = dir.y * min(dist, dist_cen.y)
 
 	var hframes = %Sprite2D.hframes
 	var vframes = %Sprite2D.vframes
 
-	var norm_x = (dist_x / (2.0 * actor.get_value("look_at_mouse_pos"))) + 0.5
-	var norm_y = (dist_y / (2.0 * actor.get_value("look_at_mouse_pos_y"))) + 0.5
+	var norm_x = (dist_x / (2.0 * dist_cen.x)) + 0.5
+	var norm_y = (dist_y / (2.0 * dist_cen.y)) + 0.5
 
 	var frame_x = clamp(floor(norm_x * hframes), 0, hframes - 1)
 	var frame_y = clamp(floor(norm_y * vframes), 0, vframes - 1)
