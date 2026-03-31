@@ -12,7 +12,7 @@ func _ready() -> void:
 	LanguageManager.language_changed.connect(_on_language_changed)
 	get_parent().close_requested.connect(close)
 	sliders_revalue(Global.settings_dict)
-	devices = AudioServer.get_input_device_list()
+	devices = GlobalMicAudio.mic_input.get_device_names()
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
 		if i == Settings.theme_settings.microphone:
@@ -153,8 +153,9 @@ func _on_auto_save_spin_value_changed(value):
 
 func choosing_device(id):
 	if id != null:
-		if AudioServer.get_input_device_list().has(devices[id]):
-			AudioServer.input_device = devices[id]
+		if GlobalMicAudio.mic_input.get_device_names().has(devices[id]):
+			GlobalMicAudio.mic_input.set_microphone(id)
+			GlobalMicAudio.mic_input.start_audio()
 			Settings.theme_settings.microphone = devices[id]
 			Settings.save()
 	else:
@@ -165,7 +166,7 @@ func _on_reset_mic_button_pressed():
 
 func reset_mic_list():
 	%MicroPhoneMenu.get_popup().clear()
-	devices = AudioServer.get_input_device_list()
+	devices = GlobalMicAudio.mic_input.get_device_names()
 	for i in devices:
 		%MicroPhoneMenu.get_popup().add_item(i)
 	choosing_device(0)

@@ -52,7 +52,7 @@ func deformations_3x3(u: float, v: float) -> void:
 	for i in range(n):
 		var tl = deform_top_left[i]
 		var tm = deform_top_middle[i]
-		var tr = deform_top_right[i]
+		var _tr = deform_top_right[i]
 		var ml = deform_middle_left[i]
 		var mc = deform_center[i]
 		var mr = deform_middle_right[i]
@@ -67,7 +67,7 @@ func deformations_3x3(u: float, v: float) -> void:
 			mid_row = ml.lerp(mc, u_left)
 			bot_row = bl.lerp(bm, u_left)
 		else:
-			top_row = tm.lerp(tr, u_right)
+			top_row = tm.lerp(_tr, u_right)
 			mid_row = mc.lerp(mr, u_right)
 			bot_row = bm.lerp(br, u_right)
 		var final_pos: Vector2

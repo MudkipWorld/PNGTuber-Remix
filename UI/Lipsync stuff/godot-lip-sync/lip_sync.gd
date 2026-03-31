@@ -220,11 +220,6 @@ var fingerprint := BANDS_DEF.duplicate()
 # Visemes
 var visemes := VISEMES_DEF.duplicate()
 
-# Audio stream player
-var _player : AudioStreamPlayer
-
-# Spectrum analyzer effect instance
-var _effect : AudioEffectSpectrumAnalyzerInstance
 
 # Sort class for sorting [shape,distance] array by distance
 class DistanceSorter:
@@ -233,43 +228,15 @@ class DistanceSorter:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Verify audio input is enabled
-	if not ProjectSettings.get_setting("audio/driver/enable_input"):
-		printerr("LipSync: Audio input not enabled in project")
-		return
-
-	# Get and configure the audio bus
-	var bus := _get_or_create_audio_bus(audio_bus_name)
-	if mute_audio:
-		AudioServer.set_bus_mute(bus, true)
-
-	# Get and configure the spectrum analyzer
-	var idx := _get_or_create_spectrum_analyzer(bus)
-	var spectrum_cfg := AudioServer.get_bus_effect(bus, idx) as AudioEffectSpectrumAnalyzer
-	spectrum_cfg.buffer_length = 512.0 / AudioServer.get_mix_rate()
-	spectrum_cfg.fft_size = AudioEffectSpectrumAnalyzer.FFT_SIZE_512
-
-	# Get the spectrum analyzer instance
-	_effect = AudioServer.get_bus_effect_instance(bus, idx)
-
-	# Create the audio stream player
-	if add_microphone:
-		_player = AudioStreamPlayer.new()
-		_player.set_name("LipSyncInput")
-		_player.stream = AudioStreamMicrophone.new()
-		_player.bus = audio_bus_name
-		add_child(_player)
-	
-		# Start playing the microphone into the audio bus
-		_player.play()
+	pass
 
 func _physics_process(_delta: float) -> void:
 	var energy_sum := 0.0
 	for i in BANDS_COUNT:
 		var c = BANDS_RANGE[i][0]
 		var w = BANDS_RANGE[i][1]
-		var magnitude_mode = AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.MAGNITUDE_AVERAGE
-		var mag = _effect.get_magnitude_for_frequency_range(c - w, c + w, magnitude_mode)
+
+		var mag : Vector2 = GlobalMicAudio.mic_input.get_magnitude(c - w, c + w, 1)
 		var e = mag.length() * c
 		fingerprint[i] = e  # temporarily store raw energy
 		energy_sum += e
@@ -302,38 +269,6 @@ func _physics_process(_delta: float) -> void:
 	for i in VISEME.COUNT:
 		visemes[i] = lerp(visemes[i], scores[i] * score_scale, slew_scale)
 
-# Get or create an audio bus with the specified name
-static func _get_or_create_audio_bus(_name: String) -> int:
-	# Find the audio bus
-	var bus := AudioServer.get_bus_index(_name)
-	if bus >= 0:
-		print("LipSync: Found existing audio bus ", bus, " (", _name, ")")
-		return bus
-
-	# Create new bus	
-	bus = AudioServer.bus_count
-	AudioServer.add_bus()
-	AudioServer.set_bus_name(bus, _name)
-
-	# Return bus
-	#print("LipSync: Created new audio bus ", bus, " (", _name, ")")
-	return bus
-# Get or create a spectrum analyzer on the specified audio bus
-static func _get_or_create_spectrum_analyzer(bus: int) -> int:
-	# Search through existing effects
-	for i in AudioServer.get_bus_effect_count(bus):
-		var effect := AudioServer.get_bus_effect(bus, i) as AudioEffectSpectrumAnalyzer
-		if effect:
-			print("LipSync: Found existing spectrum analyzer effect ", bus, ":", i)
-			return i
-
-	# Create the spectrum analyzer
-	var idx := AudioServer.get_bus_effect_count(bus)
-	AudioServer.add_bus_effect(bus, AudioEffectSpectrumAnalyzer.new())
-
-	# Return spectrum analyzer effect
-	#print("LipSync: Created new spectrum analyzer effect ", bus, ":", idx)
-	return idx
 
 # Calculate the distance between two fingerprints
 static func _fingerprint_distance(a: Array, b: Array) -> float:

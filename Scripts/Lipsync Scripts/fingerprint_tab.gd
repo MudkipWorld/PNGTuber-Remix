@@ -14,7 +14,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
 	# Populate the fingerprint
-	_fingerprint.populate(LipSyncGlobals.speech_spectrum)
+	_fingerprint.populate()
 
 	# Get scale to normalize volume
 	var max_value: float = _fingerprint.values.max()

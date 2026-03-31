@@ -23,7 +23,7 @@ func _ready():
 	global_lipsync()
 
 func global_lipsync():
-	_fingerprint.populate(LipSyncGlobals.speech_spectrum)
+	_fingerprint.populate()
 	if LipSyncGlobals.file_data:
 		
 		LipSyncGlobals.file_data.match_phonemes({description = _fingerprint.description, values = _fingerprint.values}, _matches)

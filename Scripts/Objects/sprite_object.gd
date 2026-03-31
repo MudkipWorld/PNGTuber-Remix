@@ -170,7 +170,6 @@ func wiggle_sprite():
 
 func advanced_lipsyc():
 	if get_value("advanced_lipsync"):
-		print(GlobalAudioStreamPlayer.t.value)
 		if %Sprite2D.hframes != 14:
 			%Sprite2D.hframes = 14
 		if %ReactionConfig.currently_speaking:
