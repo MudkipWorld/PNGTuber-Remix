@@ -35,7 +35,6 @@ func _exit_tree() -> void:
 	mic_input.stop_audio()
 
 func _physics_process(delta: float) -> void:
-	Global.tick += delta
 	var peak : float = (mic_input.get_sample()) * Global.settings_dict.sensitivity_limit
 	volume = lerp(volume, peak, 0.1)
 	speech_value = volume
