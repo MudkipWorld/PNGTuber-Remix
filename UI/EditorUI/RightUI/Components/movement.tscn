@@ -492,6 +492,7 @@ mini_value = -4000.0
 step = 0.01
 value_to_update = "pos_x_min"
 has_alt_values = true
+allow_greater = true
 
 [node name="FMxBSlider2" parent="VBoxContainer" unique_id=821130948 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
@@ -516,6 +517,7 @@ mini_value = -4000.0
 step = 0.01
 value_to_update = "pos_y_min"
 has_alt_values = true
+allow_greater = true
 
 [node name="FMYBSlider2" parent="VBoxContainer" unique_id=409881856 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
@@ -592,6 +594,7 @@ mini_value = -1.0
 step = 0.001
 value_to_update = "scale_y_min"
 has_alt_values = true
+allow_greater = true
 
 [node name="SMYBSlider2" parent="VBoxContainer" unique_id=580154419 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
