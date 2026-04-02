@@ -72,11 +72,11 @@ func _process(_delta: float) -> void:
 	var is_trying_to_disappear = false
 	if GlobInput.is_action_just_pressed(str(actor.sprite_id)) && actor.hold_to_show:
 		is_trying_to_appear = true
+	
 	elif GlobInput.is_action_just_released(str(actor.sprite_id)) && actor.hold_to_show:
 		is_trying_to_disappear = true
-	elif GlobInput.is_action_just_pressed(actor.disappear_keys) && !actor.hold_to_show:
-		is_trying_to_disappear = true
-	elif GlobInput.is_action_just_pressed(str(actor.sprite_id)) && !actor.hold_to_show:
+
+	if GlobInput.is_action_just_pressed(str(actor.sprite_id)) && !actor.hold_to_show:
 		if actor.show_only:
 			if actor.get_value("fade_asset"):
 				if actor.was_active_before: return
@@ -93,6 +93,9 @@ func _process(_delta: float) -> void:
 				%Sprite2D.visible = !%Sprite2D.visible
 				actor.was_active_before = %Sprite2D.visible
 
+	if GlobInput.is_action_just_pressed(actor.disappear_keys) && !actor.hold_to_show:
+		is_trying_to_disappear = true
+
 	if is_trying_to_disappear:
 		if actor.get_value("fade_asset"):
 			if !actor.was_active_before: return
@@ -105,6 +108,7 @@ func _process(_delta: float) -> void:
 		if !actor.is_asset && !%Sprite2D.visible:
 			%Sprite2D.visible = true
 			actor.was_active_before = true
+		
 	elif is_trying_to_appear:
 		%Sprite2D.visible = true
 		actor.was_active_before = %Sprite2D.visible

@@ -61,8 +61,8 @@ func _unhandled_input(event):
 					else:
 						InputMap.add_action(Global.held_sprites[0].disappear_keys)
 						InputMap.action_add_event(Global.held_sprites[0].disappear_keys, event)
-
-				print(Global.held_sprites[0].saved_keys)
+				
+				print(event.as_text())
 				%ShouldDisList.set_item_text(id, event.as_text())
 				%ShouldDisRemapButton.button_pressed = false
 
