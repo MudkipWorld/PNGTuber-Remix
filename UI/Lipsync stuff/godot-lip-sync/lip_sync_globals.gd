@@ -53,6 +53,7 @@ func load_file(path: String):
 		for phoneme in Visemes.VISEME_PHONEME_MAP[viseme]:
 			var indx = 0
 			if phoneme in range(fake_file_data.training.size()):
+				if !fake_file_data.training.has(phoneme) : continue
 				for i in fake_file_data.training[phoneme]:
 					if i is Array:
 						var place_holder = i.duplicate(true)
