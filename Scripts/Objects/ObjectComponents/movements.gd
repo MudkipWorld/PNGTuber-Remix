@@ -308,7 +308,7 @@ func stretch(length : float) -> void:
 
 func follow_wiggle(_delta : float) -> void:
 	var parent = actor.get_parent()
-	if not parent or not (parent is WigglyAppendage2D):
+	if !parent or !(parent is WigglyAppendage2D):
 		follow_point_rot = 0.0
 		return
 
@@ -317,7 +317,7 @@ func follow_wiggle(_delta : float) -> void:
 	var real_tip : Vector2 = parent.points[tip_index]
 	var local_tip : Vector2 = actor.to_local(raw_tip)
 	
-	if not has_prev:
+	if !has_prev:
 		prev_smoothed_pos = local_tip
 		has_prev = true
 
