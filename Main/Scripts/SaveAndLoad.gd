@@ -172,8 +172,14 @@ func save_model(path: String) -> void:
 		push_error("SaveAndLoad: failed to open for write '%s': %s" % [path, FileAccess.get_open_error()])
 		Global.project_updates.emit("Save Failed!")
 		return
+
 	file.store_var(save_dict, true)
 	file.close()
+	
+	if !path.begins_with("res://"):
+		save_backup(save_dict, path)
+		await get_tree().process_frame
+
 	Global.project_updates.emit("Project Saved!")
 	save_dict.clear()
 
@@ -219,16 +225,8 @@ func load_model(path: String) -> void:
 		file_version = load_dict.version
 
 	
-	if !path.begins_with("res://"):
-		save_backup(load_dict, path)
-		await get_tree().process_frame
 	if file_version != Global.version:
 		load_dict = VersionConverter.convert_save(load_dict, file_version)
-	if OS.has_feature("editor") or !path.begins_with("res://"):
-		var new_file := FileAccess.open(path, FileAccess.WRITE)
-		new_file.store_var(load_dict, true)
-		new_file.close()
-
 
 	Global.settings_dict.merge(load_dict.settings_dict, true)
 	if Global.settings_dict.monitor != Monitor.ALL_SCREENS:
