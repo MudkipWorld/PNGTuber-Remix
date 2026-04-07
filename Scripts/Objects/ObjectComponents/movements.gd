@@ -153,7 +153,7 @@ func _process(_delta : float) -> void:
 			if parent.get_value("static_obj"):
 				pos = p.to_global(object_pos)
 			
-		actor.global_transform.origin = pos
+		%Rotation.global_position = pos
 
 func static_prev() -> void:
 	modifier_node.position = Vector2.ZERO
@@ -171,7 +171,7 @@ func movements(delta: float) -> void:
 	wobble(delta)
 	drag(delta)
 
-	if actor.get_value("ignore_bounce"):
+	if actor.get_value("ignore_bounce") && !actor.get_value("static_obj"):
 		glob -= Vector2(0.0, Global.sprite_container.bounceChange)
 	var l = glob - dragger.global_position
 	var dir = l.normalized()

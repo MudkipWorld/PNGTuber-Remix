@@ -101,7 +101,6 @@ func _on_spinbox_focused():
 			}
 		val.append(d)
 
-
 func _on_spinbox_unfocused():
 	Global.spinbox_held = false
 	held_spinbox = null
@@ -136,7 +135,7 @@ func _on_slider_value_value_changed(nvalue):
 		%SpinBoxValue.value = nvalue
 		if allow_greater:
 			%SpinBoxValue.value = -abs(nvalue)
-		_apply_value_to_selected(nvalue, false)
+		_apply_value_to_selected(%SpinBoxValue.value, false)
 
 func _on_slider_value_drag_ended(value_changed: bool):
 	if value_changed and sp_type != "Null":
