@@ -147,6 +147,15 @@ text = "TR_FOLLOW_THROUGH"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="DragBSlider2" parent="VBoxContainer" unique_id=1658009348 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_PHYS_EFF"
+max_value = 200.0
+step = 0.01
+value_to_update = "phys_eff"
+
 [node name="DragBSlider" parent="VBoxContainer" unique_id=1867166898 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -483,6 +492,7 @@ mini_value = -4000.0
 step = 0.01
 value_to_update = "pos_x_min"
 has_alt_values = true
+allow_greater = true
 
 [node name="FMxBSlider2" parent="VBoxContainer" unique_id=821130948 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
@@ -507,6 +517,7 @@ mini_value = -4000.0
 step = 0.01
 value_to_update = "pos_y_min"
 has_alt_values = true
+allow_greater = true
 
 [node name="FMYBSlider2" parent="VBoxContainer" unique_id=409881856 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
@@ -583,6 +594,7 @@ mini_value = -1.0
 step = 0.001
 value_to_update = "scale_y_min"
 has_alt_values = true
+allow_greater = true
 
 [node name="SMYBSlider2" parent="VBoxContainer" unique_id=580154419 instance=ExtResource("1_h5u6y")]
 unique_name_in_owner = true
@@ -724,7 +736,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 10
+item_count = 12
 popup/item_0/text = "TR_UDP_ITEM_NONE"
 popup/item_0/id = 9
 popup/item_1/text = "TR_UDP_ITEM_HEAD"
@@ -745,6 +757,10 @@ popup/item_8/text = "TR_UDP_ITEM_EYEBROW_LEFT"
 popup/item_8/id = 7
 popup/item_9/text = "TR_UDP_ITEM_EYEBROW_RIGHT"
 popup/item_9/id = 8
+popup/item_10/text = "Cheek Average"
+popup/item_10/id = 10
+popup/item_11/text = "Mouth Pucker"
+popup/item_11/id = 11
 
 [node name="Label2" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1345450995]
 layout_mode = 2
@@ -756,7 +772,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 10
+item_count = 12
 popup/item_0/text = "TR_UDP_ITEM_NONE"
 popup/item_0/id = 9
 popup/item_1/text = "TR_UDP_ITEM_HEAD"
@@ -777,6 +793,10 @@ popup/item_8/text = "TR_UDP_ITEM_EYEBROW_LEFT"
 popup/item_8/id = 7
 popup/item_9/text = "TR_UDP_ITEM_EYEBROW_RIGHT"
 popup/item_9/id = 8
+popup/item_10/text = "Cheek Average"
+popup/item_10/id = 10
+popup/item_11/text = "Mouth Pucker"
+popup/item_11/id = 11
 
 [node name="Label3" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=721885065]
 layout_mode = 2
@@ -788,7 +808,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 10
+item_count = 12
 popup/item_0/text = "TR_UDP_ITEM_NONE"
 popup/item_0/id = 9
 popup/item_1/text = "TR_UDP_ITEM_HEAD"
@@ -809,6 +829,10 @@ popup/item_8/text = "TR_UDP_ITEM_EYEBROW_LEFT"
 popup/item_8/id = 7
 popup/item_9/text = "TR_UDP_ITEM_EYEBROW_RIGHT"
 popup/item_9/id = 8
+popup/item_10/text = "Cheek Average"
+popup/item_10/id = 10
+popup/item_11/text = "Mouth Pucker"
+popup/item_11/id = 11
 
 [node name="Label4" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1571333507]
 layout_mode = 2

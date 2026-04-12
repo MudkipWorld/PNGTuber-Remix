@@ -3,6 +3,7 @@ extends Node
 @export var actor : SpriteObject
 @export var mesh : CustomMesh = null
 
+@onready var dragger : Node2D = %Dragger
 @onready var modifier_node : Node2D = %Modifier
 @onready var modifier1_node : Node2D = %Modifier1
 @onready var sprite_node : Node = %Sprite2D
@@ -11,52 +12,56 @@ extends Node
 var applied_pos : Vector2 = Vector2.ZERO
 var applied_rotation : float = 0.0
 var applied_scale : Vector2 = Vector2.ONE
+
 var placeholder_position : Vector2 = Vector2.ZERO
 
-var prev_smoothed_pos : Vector2 = Vector2.ZERO
-var has_prev : bool = false
+var last_wobble_pos : Vector2 = Vector2.ZERO
+var glob : Vector2 = Vector2.ZERO
 
 var rot_drag : float = 0.0
 var follow_point_rot : float = 0.0
+var should_rot_rotation : float = 0.0
+var last_rot : float = 0.0
+var paused_rotation : float = 0.0
+
+var paused_wobble : Vector2 = Vector2.ZERO
+
+var calc_length : float = 0.0
+
+var prev_smoothed_pos : Vector2 = Vector2.ZERO
+var has_prev : bool = false
 var biased : float = 0.0
 
-var last_wobble_pos : Vector2 = Vector2.ZERO
-var paused_wobble : Vector2 = Vector2.ZERO
-var paused_rotation : float = 0.0
-var last_rot : float = 0.0
-var should_rot_rotation : float = 0.0
+var ik_smoothed_rot : float = 0.0
+var ik_angular_velocity : float = 0.0
 
-var rest : bool = false
+var last_modifier_position : Vector2 = Vector2.ZERO
+var shadow_target : Vector2 = Vector2.ZERO
 
 var index_change_len : float = 0.0
 var index_change_len_y : float = 0.0
 
-var shadow_dragger : Vector2 = Vector2.ZERO
-var glob : Vector2 = Vector2.ZERO
+var rest : bool = false
 
-var rdrag_rad : float = 0.0
-var shadow_target : Vector2 = Vector2.ZERO
+var last_mouse_position : Vector2 = Vector2.ZERO
+var last_dist : Vector2 = Vector2.ZERO
+var applied_pos_offset : Vector2 = Vector2.ZERO
 
-var last_modifier_position : Vector2 = Vector2.ZERO
-
-var target_strength : float = 0.5
-var ik_smoothed_rot: float = 0.0
-
-var ik_angular_velocity := 0.0
-
-var calc_length : float = 0.0
+var modifier_global : Vector2 =  Vector2.ZERO
+var yvel : float = 0.0
 
 func _ready() -> void:
 	placeholder_position = actor.global_position
 	applied_pos = placeholder_position
-	shadow_dragger = placeholder_position
 	glob = placeholder_position
-	rdrag_rad = deg_to_rad(actor.get_value("rdragStr"))
 	await get_tree().create_timer(0.025).timeout
 	ik_smoothed_rot = modifier1_node.global_rotation
 	last_modifier_position = sprite_node.global_position
+	dragger.top_level = true
+	dragger.global_position = modifier_node.global_position
 
 func _physics_process(delta: float) -> void:
+	modifier_global = modifier1_node.global_position
 	placeholder_position = modifier1_node.position
 	applied_pos =  placeholder_position
 	
@@ -82,11 +87,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		follow_wiggle(delta)
 	if !Global.static_view:
-		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
+		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation 
 		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
-		modifier1_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
+		modifier_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
-	shadow_target = modifier_node.global_position + follow_component.target_pos
+	shadow_target = modifier_node.global_position + follow_component.final_target
 	if actor.get_value("index_change") != 0 or actor.get_value("index_change_y") != 0:
 		var test = (shadow_target - actor.global_position).normalized()
 		var signed_len_x = (test.x)
@@ -112,7 +117,7 @@ func _physics_process(delta: float) -> void:
 			mesh.deform_y = 0.5
 		else:
 			var t : Vector2 = (last_modifier_position - %Origin.global_position)
-			var mesh_len = (last_wobble_pos + follow_component.target_pos )
+			var mesh_len = (last_wobble_pos + follow_component.final_target )
 			var amp = Vector2(actor.get_value("xAmp"), actor.get_value("yAmp"))
 			var middle_x = (abs(actor.get_value("pos_x_min"))+ actor.get_value("pos_x_max"))*0.5
 			var middle_y = (abs(actor.get_value("pos_y_min"))+ actor.get_value("pos_y_max"))*0.5
@@ -125,7 +130,8 @@ func _physics_process(delta: float) -> void:
 				
 			var safe_deform_pos
 			if Tracker.working:
-				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.08)
+				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len , delta, final_amp, 0.08)
+				
 			else:
 				safe_deform_pos = mesh.apply_wobble_to_deformer(mesh_len, delta, final_amp, 0.15)
 			if abs(safe_deform_pos.x) != 0:
@@ -147,7 +153,7 @@ func _process(_delta : float) -> void:
 			if parent.get_value("static_obj"):
 				pos = p.to_global(object_pos)
 			
-		actor.global_transform.origin = pos
+		%Rotation.global_position = pos
 
 func static_prev() -> void:
 	modifier_node.position = Vector2.ZERO
@@ -160,36 +166,35 @@ func static_prev() -> void:
 	modifier_node.z_index = 0
 
 func movements(delta: float) -> void:
-	glob = shadow_dragger
+	glob = dragger.global_position
 	apply_recursive_look_at_chain(actor)
 	wobble(delta)
-	drag()
+	drag(delta)
 
-	if !actor.get_value("ignore_bounce"):
-		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
-	var l = Vector2(glob - shadow_dragger)
-	var l_norm = l.normalized()
-	var length : float = l_norm.length() * (l.x + l.y)
+	if actor.get_value("ignore_bounce") && !actor.get_value("static_obj"):
+		glob -= Vector2(0.0, Global.sprite_container.bounceChange)
+	var l = glob - dragger.global_position
+	var dir = l.normalized()
+	var length : float = l.length() * (dir.x + dir.y)
 	length = add_parent_physics(length)
-	var length_wobble : float = last_wobble_pos.normalized().length() * (last_wobble_pos.x + last_wobble_pos.y)
-	calc_length = length + length_wobble
-	stretch(length)
-	rotational_drag(length, delta)
+	calc_length = length
+	stretch(calc_length)
+	rotational_drag(calc_length, delta)
 
 func apply_recursive_look_at_chain(actor_node: SpriteObject) -> void:
 	if actor_node == null or not is_instance_valid(actor_node):
 		%Rotation.rotation = 0.0
 		return
 	if actor_node.target_ik != null and is_instance_valid(actor_node.target_ik):
-		var root = actor_node.get_node("%Modifier1")
-		var target = actor_node.target_ik.get_node("%Modifier1")
+		var root = actor_node.get_node("%Origin")
+		var target = actor_node.target_ik.get_node("%Origin")
 		if root != null and target != null:
 			var target_pos: Vector2 = target.global_position - root.global_position
 			apply_look_at_ik(target_pos, actor_node.get_node("%Rotation"))
 			
 			var ik_chain =  actor_node.target_ik.target_ik
 			if ik_chain != null && is_instance_valid(ik_chain):
-				var target_pos_2: Vector2 = ik_chain.global_position - root.global_position
+				var target_pos_2: Vector2 = ik_chain.get_node("%Origin").global_position - root.global_position
 				apply_look_at_ik(target_pos_2, actor_node.get_node("%Rotation"))
 				
 			if actor_node.has_node("%Sprite2D"):
@@ -215,11 +220,11 @@ func apply_look_at_ik(target_pos: Vector2, rotation_node : Node2D) -> void:
 	rotation_node.global_rotation = lerp_angle(rotation_node.global_rotation,target_angle_global,lerp_amount)
 
 func rest_mode_movements(delta : float) -> void:
-	glob = shadow_dragger
-	drag()
-	if not actor.get_value("ignore_bounce"):
+	glob = dragger.global_position
+	drag(delta)
+	if !actor.get_value("ignore_bounce"):
 		glob -= Vector2(Global.sprite_container.bounceChange, Global.sprite_container.bounceChange)
-	var l = Vector2(glob - shadow_dragger)
+	var l = Vector2(glob - dragger.global_position)
 	var l_norm = l.normalized()
 	var length : float = l_norm.length() * (l.x - l.y)
 	length = add_parent_physics(length)
@@ -237,28 +242,43 @@ func add_parent_physics(length : float) -> float:
 				leng += c_parent.get_node("%Movements").calc_length
 	return leng
 
-func drag():
+func drag(_delta : float):
 	var drag_speed = actor.get_value("dragSpeed")
-	var target = modifier1_node.global_position
+	var target = modifier_node.global_position + last_wobble_pos
 	if drag_speed > 0:
-		
-		var t = 1.0/drag_speed
-		shadow_dragger = shadow_dragger.lerp(target, t)
-		applied_pos += shadow_dragger - target
+		var t = 1.0 / drag_speed
+		dragger.global_position = dragger.global_position.lerp(target, t)
+		applied_pos = applied_pos.lerp(actor.to_local(dragger.global_position), 0.5)
 	else:
-		shadow_dragger = placeholder_position
+		dragger.global_position = target
 
-func wobble(delta : float) -> void:
-	var use_delta : float = delta if Global.settings_dict.should_delta else 1.0
-
-	if actor.get_value("pause_movement"):
-		paused_wobble += Vector2.ONE * use_delta
+func wobble(delta: float) -> void:
+	if actor.is_default("xFrq"):
+		if actor.get_value("pause_movement"):
+			if actor.is_all_default("xFrq"):
+				last_wobble_pos.x = 0
+			else:
+				paused_wobble.x += delta if Global.settings_dict.should_delta else 1.
+		else:
+			last_wobble_pos.x = sin((Global.tick-paused_wobble.x)*actor.get_value("xFrq"))*actor.get_value("xAmp")
 	else:
-		last_wobble_pos.x = sin((Global.tick - paused_wobble.x) * actor.get_value("xFrq")) * actor.get_value("xAmp")
-		last_wobble_pos.y = sin((Global.tick - paused_wobble.y) * actor.get_value("yFrq")) * actor.get_value("yAmp")
-
-	if actor.sprite_type != "Mesh" or actor.get_value("move_with_wobble"):
-		applied_pos += last_wobble_pos
+		last_wobble_pos.x = sin((Global.tick)*actor.get_value("xFrq"))*actor.get_value("xAmp")
+	
+	if actor.is_default("yFrq"):
+		if actor.get_value("pause_movement"):
+			if actor.is_all_default("yFrq"):
+				last_wobble_pos.y = 0
+				print("d")
+			else:
+				paused_wobble.y += delta if Global.settings_dict.should_delta else 1.
+		else:
+			last_wobble_pos.y = sin((Global.tick-paused_wobble.y)*actor.get_value("yFrq"))*actor.get_value("yAmp")
+	else:
+		last_wobble_pos.y = sin((Global.tick)*actor.get_value("yFrq"))*actor.get_value("yAmp")
+	
+	
+	applied_pos.x += last_wobble_pos.x
+	applied_pos.y += last_wobble_pos.y
 
 func rotational_drag(length, delta: float):
 	if actor.is_default("rot_frq"):
@@ -275,21 +295,20 @@ func rotational_drag(length, delta: float):
 		last_rot *= deg_to_rad(actor.get_value("rdragStr"))
 	
 	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
+	yvel = ((length * actor.get_value("rdragStr")))*(actor.get_value("phys_eff")/200.0)
 	
-	var yvel = ((length * actor.get_value("rdragStr"))*0.5)
-
+	#Calculate Max angle
 	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
-	
-	applied_rotation = GlobalCalculations.is_nan_or_inf(lerp_angle(applied_rotation,deg_to_rad(yvel),0.15))
+	applied_rotation = lerp_angle(applied_rotation,deg_to_rad(yvel),0.15)
 
 func stretch(length : float) -> void:
-	var yvel : float = (length * actor.get_value("stretchAmount") * 0.01)* 0.5
-	var target : Vector2 = Vector2(1.0 - yvel, 1.0 + yvel)
+	var syvel : float = (length * actor.get_value("stretchAmount") * 0.01)* (actor.get_value("phys_eff")/200.0)
+	var target : Vector2 = Vector2(1.0 - syvel, 1.0 + syvel)
 	modifier_node.scale = modifier_node.scale.lerp(target, 0.15)
 
 func follow_wiggle(_delta : float) -> void:
 	var parent = actor.get_parent()
-	if not parent or not (parent is WigglyAppendage2D):
+	if !parent or !(parent is WigglyAppendage2D):
 		follow_point_rot = 0.0
 		return
 
@@ -298,7 +317,7 @@ func follow_wiggle(_delta : float) -> void:
 	var real_tip : Vector2 = parent.points[tip_index]
 	var local_tip : Vector2 = actor.to_local(raw_tip)
 	
-	if not has_prev:
+	if !has_prev:
 		prev_smoothed_pos = local_tip
 		has_prev = true
 
@@ -313,22 +332,15 @@ func follow_wiggle(_delta : float) -> void:
 		prev_point = parent.points[tip_index - 1]
 
 	var dir : Vector2 = real_tip - prev_point
-	if dir == Vector2.ZERO:
-		dir = Vector2(cos(parent._rest_direction_angle), sin(parent._rest_direction_angle))
-
+	
 	var rest_angle : float = parent._rest_direction_angle
-	var target_ang : float = rest_angle + wrapf(atan2(dir.y, dir.x) - rest_angle, -PI, PI)
+	var target_ang : float = wrapf(dir.rotated(-rest_angle).angle(), -PI, PI)
 
 	if abs(target_ang - biased) < actor.get_value("rotation_threshold"):
 		return
 
 	biased = lerp(biased, target_ang, actor.get_value("follow_strength"))
-	follow_point_rot = GlobalCalculations.clamp_angle(
-		biased,
-		deg_to_rad(actor.get_value("follow_wa_mini")) + rest_angle,
-		deg_to_rad(actor.get_value("follow_wa_max")) + rest_angle,
-		rest_angle
-	)
+	follow_point_rot = clamp(biased, deg_to_rad(actor.get_value("follow_wa_mini")), deg_to_rad(actor.get_value("follow_wa_max")))
 
 func rainbow(delta : float) -> void:
 	if actor.get_value("hidden_item") and Global.mode != 0:

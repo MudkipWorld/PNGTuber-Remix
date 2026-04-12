@@ -61,8 +61,8 @@ func _unhandled_input(event):
 					else:
 						InputMap.add_action(Global.held_sprites[0].disappear_keys)
 						InputMap.action_add_event(Global.held_sprites[0].disappear_keys, event)
-
-				print(Global.held_sprites[0].saved_keys)
+				
+				print(event.as_text())
 				%ShouldDisList.set_item_text(id, event.as_text())
 				%ShouldDisRemapButton.button_pressed = false
 
@@ -152,10 +152,12 @@ func _on_should_dis_list_item_selected(index):
 
 func _on_should_dis_remap_button_toggled(toggled_on):
 	current_remap = Remap.Keys
-	set_process_unhandled_input(toggled_on)
 	if toggled_on:
+		if %ShouldDisList.item_count < id:
+			toggled_on = false
+			return
 		%ShouldDisList.set_item_text(id, "Awaiting Input.")
-
+	set_process_unhandled_input(toggled_on)
 
 func _on_should_dis_list_empty_clicked(_at_position, _mouse_button_index):
 	selected_item = null

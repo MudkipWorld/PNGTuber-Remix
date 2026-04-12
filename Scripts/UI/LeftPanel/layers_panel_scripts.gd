@@ -100,12 +100,12 @@ func _on_duplicate_button_pressed():
 	var id_map = {}
 	for sprite in Global.held_sprites:
 		if sprite != null and is_instance_valid(sprite):
-			var base = _duplicate_single(sprite, id_map)
+			var base = duplicate_single(sprite, id_map)
 			sprites.append(base)
 			var layers = %LayersTree.get_all_layeritems_with_parent(sprite.treeitem, true)
 			for layer in layers:
 				var t = layer.child.get_metadata(0).sprite_object
-				var child = _duplicate_child(base, t, id_map)
+				var child = duplicate_child(base, t, id_map)
 				sprites.append(child)
 	if sprites.is_empty():
 		return
@@ -114,23 +114,23 @@ func _on_duplicate_button_pressed():
 	Global.reparent_layers.emit(sprites)
 	Global.reparent_objects.emit(sprites)
 
-func _duplicate_single(sprite, id_map):
-	var obj = _instantiate_by_type(sprite.sprite_type)
-	_copy_transform(sprite, obj)
-	_copy_images(sprite, obj)
-	_copy_common(sprite, obj)
+func duplicate_single(sprite, id_map):
+	var obj = instantiate_by_type(sprite.sprite_type)
+	copy_transform(sprite, obj)
+	copy_images(sprite, obj)
+	copy_common(sprite, obj)
 	_finalize_duplicate(sprite, obj, id_map)
 	return obj
 
-func _duplicate_child(parent, t, id_map):
-	var obj = _instantiate_by_type(t.sprite_type)
-	_copy_transform(t, obj)
-	_copy_images(t, obj)
-	_copy_common(t, obj)
+func duplicate_child(parent, t, id_map):
+	var obj = instantiate_by_type(t.sprite_type)
+	copy_transform(t, obj)
+	copy_images(t, obj)
+	copy_common(t, obj)
 	_finalize_child_duplicate(parent, t, obj, id_map)
 	return obj
 
-func _instantiate_by_type(type):
+func instantiate_by_type(type):
 	if type == "WiggleApp":
 		return append_obj.instantiate()
 	if type == "Comment":
@@ -139,7 +139,7 @@ func _instantiate_by_type(type):
 		return mesh_obj.instantiate()
 	return sprite_obj.instantiate()
 
-func _copy_transform(src, dst):
+func copy_transform(src, dst):
 	if src.sprite_type != "Comment" or src.sprite_type != "Mesh":
 		dst.rotated = src.rotated
 		dst.flipped_h = src.flipped_h
@@ -186,7 +186,7 @@ func duplicate_mesh_data(src: CustomMesh, dst: CustomMesh) -> void:
 	dst.texture = src.texture
 
 
-func _copy_images(src, dst):
+func copy_images(src, dst):
 	dst.used_image_id = src.used_image_id
 	dst.used_image_id_normal = src.used_image_id_normal
 	dst.referenced_data = src.referenced_data
@@ -206,7 +206,7 @@ func _copy_images(src, dst):
 			dst.get_node("%Sprite2D").texture = canv
 
 
-func _copy_common(src, dst):
+func copy_common(src, dst):
 	dst.sprite_name = "Duplicate" + src.sprite_name
 	if src.get_value("folder"):
 		dst.sprite_data.folder = true

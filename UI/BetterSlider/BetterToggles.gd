@@ -41,6 +41,7 @@ func enable():
 	if !is_instance_valid(sp): return
 	disabled = false
 	button_pressed = sp.sprite_data[value_to_update] != inverted
+	await get_tree().process_frame
 	should_change = true
 
 func get_value() -> String:

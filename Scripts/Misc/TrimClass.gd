@@ -80,9 +80,7 @@ static func set_thumbnail(item : TreeItem):
 		#var test = item.get_metadata(0)
 		img = item.get_metadata(0).runtime_texture.get_image().duplicate(true)
 	else:
-		if item.get_metadata(0).sprite_object.img_animated:
-			img = item.get_metadata(0).sprite_object.get_node("%Sprite2D").texture.get_image().duplicate(true)
-		else:
+		if item.get_metadata(0).sprite_object.get_node("%Sprite2D").texture:
 			img = item.get_metadata(0).sprite_object.get_node("%Sprite2D").texture.get_image().duplicate(true)
 
 	var thumbnail_size = 32

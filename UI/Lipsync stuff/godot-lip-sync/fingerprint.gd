@@ -46,14 +46,14 @@ const SILENCE := 0.1
 
 
 ## Populate this fingerprint from a spectrum analyzer instance
-func populate(spectrum: AudioEffectSpectrumAnalyzerInstance):
+func populate():
 	# Populate values with energy
 	var energy_max := 0.0
 	for i in BANDS_COUNT:
 		var from_hz: float = BANDS_RANGE[i][0]
 		var to_hz: float = BANDS_RANGE[i][1]
 		var center_hz: float = BANDS_RANGE[i][2]
-		var magnitude := spectrum.get_magnitude_for_frequency_range(from_hz, to_hz, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_AVERAGE)
+		var magnitude : Vector2 = GlobalMicAudio.mic_input.get_magnitude(from_hz, to_hz, 0)
 		var e := magnitude.length() * center_hz
 		values[i] = e
 		energy_max = max(energy_max, e)
@@ -62,9 +62,6 @@ func populate(spectrum: AudioEffectSpectrumAnalyzerInstance):
 	var energy_scale := 0.0 if energy_max <= SILENCE else 1.0 / energy_max
 	for i in BANDS_COUNT:
 		values[i] *= energy_scale
-	
-	
-
 
 ## Calculate deviation between two fingerprints
 static func deviation(a: Array, b: Array) -> float:

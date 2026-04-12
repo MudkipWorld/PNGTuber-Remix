@@ -139,6 +139,20 @@ min_value = 1.0
 max_value = 1000.0
 value = 10.0
 
+[node name="Label6" type="Label" parent="OSF/Grid2" unique_id=1873977919]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Position Tracking Strength Y"
+
+[node name="OSFPosStrength2" type="SpinBox" parent="OSF/Grid2" unique_id=1338436579]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 1000.0
+value = 10.0
+
 [node name="Label3" type="Label" parent="OSF/Grid2" unique_id=417812898]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -153,6 +167,34 @@ min_value = -10.0
 max_value = 10.0
 step = 0.001
 value = -0.05000000000000071
+
+[node name="Label4" type="Label" parent="OSF/Grid2" unique_id=1768957176]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Eye Closed Threshold"
+
+[node name="OSFEye" type="SpinBox" parent="OSF/Grid2" unique_id=1694761428]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Label5" type="Label" parent="OSF/Grid2" unique_id=1324038035]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Eye Open Threshold"
+
+[node name="OSFEye2" type="SpinBox" parent="OSF/Grid2" unique_id=757818493]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
+value = 0.5
 
 [node name="UDPStartButton" type="Button" parent="OSF/Grid2" unique_id=1653311652]
 unique_name_in_owner = true
@@ -172,6 +214,9 @@ text = "TR_STOP"
 [connection signal="pressed" from="Grid/StopButton" to="." method="_on_stop_button_pressed"]
 [connection signal="value_changed" from="OSF/Grid2/UDPPortValue" to="." method="_on_udp_port_value_value_changed"]
 [connection signal="value_changed" from="OSF/Grid2/OSFPosStrength" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFPosStrength2" to="." method="_on_osf_pos_strength_2_value_changed"]
 [connection signal="value_changed" from="OSF/Grid2/OSFPosMouth" to="." method="_on_osf_pos_mouth_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFEye" to="." method="_on_osf_eye_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFEye2" to="." method="_on_osf_eye_2_value_changed"]
 [connection signal="pressed" from="OSF/Grid2/UDPStartButton" to="." method="_on_udp_start_button_pressed"]
 [connection signal="pressed" from="OSF/Grid2/UDPStopButton" to="." method="_on_udp_stop_button_pressed"]

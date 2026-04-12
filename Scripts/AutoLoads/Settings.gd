@@ -52,7 +52,10 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	backend_type = "default",
 	audio_capturer = 2,
 	osf_pos_stren = 10,
+	osf_pos_stren_y = 10,
 	osf_mouth_strength = -0.05,
+	osf_eye = 0.5,
+	osf_eye2 =  0.5,
 	phys_tick_per_frame = 60,
 	phys_steps = 10,
 	phys_jitter = 0.5,
@@ -159,8 +162,15 @@ func _ready():
 	scale_window()
 	lipsync_set_up()
 	if theme_settings.microphone != null:
-		if AudioServer.get_input_device_list().has(theme_settings.microphone):
-			AudioServer.input_device = theme_settings.microphone
+		
+		if GlobalMicAudio.mic_input.get_device_names().has(theme_settings.microphone):
+			var index_mic = GlobalMicAudio.mic_input.get_device_names().find(theme_settings.microphone)
+			GlobalMicAudio.mic_input.set_microphone(index_mic)
+			GlobalMicAudio.mic_input.start_audio()
+		else:
+			GlobalMicAudio.mic_input.set_microphone(0)
+			GlobalMicAudio.mic_input.start_audio()
+
 	
 	change_cursor()
 	Engine.physics_jitter_fix = theme_settings.phys_jitter

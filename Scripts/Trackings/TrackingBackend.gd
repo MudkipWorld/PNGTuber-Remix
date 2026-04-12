@@ -10,8 +10,8 @@ signal eyes_blink
 @export var listen_port: int = 11573
 @export var listen_host: String = "127.0.0.1"
 @export var points: int = 68
-@export var blink_close_threshold := 0.5
-@export var blink_open_threshold := 0.5
+static var blink_close_threshold := 0.5
+static var blink_open_threshold := 0.5
 @export var mouth_smooth_speed := 25.0
 @export var brow_smooth_speed := 5.0
 @export var gaze_smooth_speed := 10.0
@@ -49,6 +49,8 @@ var cheek_raise_left  = 0.0
 var cheek_raise_right = 0.0
 var cheek_average = 0.0
 
+var mouth_pucker : float = 0.0
+
 var is_blink_left := false
 var is_blink_right := false
 var is_blink := false
@@ -70,6 +72,7 @@ var is_mouth_open := false
 
 var current_tracker : TrackingRef = OpenSeeFaceBackend.new()
 static var osf_pos_strength : float = 10
+static var osf_pos_strength_y : float = 10
 static var osf_mouth_strength : float = -0.05
 var working : bool = false
 

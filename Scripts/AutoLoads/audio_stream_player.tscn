@@ -2,14 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5idljtng82vs" path="res://Main/Scripts/AudioStreamPlayer.gd" id="1_1tutj"]
 
-[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_1tutj"]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=234882763]
-stream = SubResource("AudioStreamMicrophone_1tutj")
 autoplay = true
 bus = &"Mic"
 script = ExtResource("1_1tutj")
-
-[node name="MicTimer" type="Timer" parent="." unique_id=739128888]
-wait_time = 30.0
-autostart = true

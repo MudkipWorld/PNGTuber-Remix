@@ -170,7 +170,6 @@ func wiggle_sprite():
 
 func advanced_lipsyc():
 	if get_value("advanced_lipsync"):
-		print(GlobalAudioStreamPlayer.t.value)
 		if %Sprite2D.hframes != 14:
 			%Sprite2D.hframes = 14
 		if %ReactionConfig.currently_speaking:
@@ -206,6 +205,7 @@ func get_state(id):
 		
 		if (global_position - old_glob).length() > get_value("drag_snap") && get_value("drag_snap") != 999999.0:
 			%Modifier.global_position = %Modifier1.global_position
+			%Dragger.global_position = %Modifier.global_position
 		
 		%Sprite2D.set_clip_children_mode(get_value("clip"))
 		rotation = get_value("rotation")

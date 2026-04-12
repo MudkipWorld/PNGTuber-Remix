@@ -44,8 +44,8 @@ func _physics_process(delta: float) -> void:
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()
 	else:
-		mouse_coords = follow_calculation() 
 		process_follow(delta)
+		mouse_coords = follow_calculation()
 		last_mouse_position = mouse_coords
 
 func reset_modifier() -> void:
@@ -81,33 +81,31 @@ func follow_calculation(_delta = 0.0):
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO
 		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = get_mouse_coords(0)
+			mouse_coords = get_mouse_coords(main_marker, 0)
 	elif main_marker.current_screen != Monitor.ALL_SCREENS:
 		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
 		else:
-			mouse_coords = get_mouse_coords(main_marker.current_screen)
+			mouse_coords = get_mouse_coords(main_marker, main_marker.current_screen)
 	else:
-		mouse_coords = get_mouse_coords(0)
+		mouse_coords = get_mouse_coords(main_marker, 0)
 	return mouse_coords
 
-func get_mouse_coords(screen) -> Vector2:
+func get_mouse_coords(main_marker, screen) -> Vector2:
 	var coord : Vector2 = Vector2.ZERO
 	if actor.get_value("use_object_pos"):
-		
-		var offset = Vector2(DisplayServer.screen_get_position(screen))
-		coord = actor.to_local(actor.get_global_mouse_position() - (offset / Global.camera.zoom.clampf(0.001, 10.0)))
-		
+		var offset = Vector2(main_marker.get_cached_screen_position(screen))
+		coord = (actor.get_local_mouse_position() - offset)  / Global.camera.zoom.clampf(0.001, 10.0)
 	else:
 		var viewport_size = actor.get_viewport().size
 		var origin = actor.get_global_transform_with_canvas().origin
 		var x_per = 1.0 - origin.x/float(viewport_size.x)
 		var y_per = 1.0 - origin.y/float(viewport_size.y)
-		var display_size = Vector2(DisplayServer.screen_get_size(screen))
+		var display_size : Vector2 = main_marker.get_screen_size()
 		var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
-		var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(DisplayServer.screen_get_position(screen))
+		var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(main_marker.get_cached_screen_position(screen))
 		coord = Vector2(mouse_pos - display_size) + offset
-		
+
 	return coord
 
 func update_controller_inputs() -> void:
@@ -153,21 +151,48 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			1:
 				follow_position_calculations(Tracker.track_pos.normalized(), Tracker.track_pos)
 			2:
-				follow_position_calculations(Tracker.track_pupil_left.normalized(), Tracker.track_pupil_left * TrackingBackend.osf_pos_strength)
+				var multip = Vector2(TrackingBackend.osf_pos_strength, TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Tracker.track_pupil_left.normalized(), Tracker.track_pupil_left * multip)
 			3:
-				follow_position_calculations(Tracker.track_pupil_right.normalized(), Tracker.track_pupil_right * TrackingBackend.osf_pos_strength)
+				var multip = Vector2(TrackingBackend.osf_pos_strength, TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Tracker.track_pupil_right.normalized(), Tracker.track_pupil_right * multip)
 			4:
-				follow_position_calculations(Vector2(0, Tracker.eye_smile_left).normalized(), Vector2(0, Tracker.eye_smile_left * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.eye_smile_left * TrackingBackend.osf_pos_strength, Tracker.eye_smile_left * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.eye_smile_left, Tracker.eye_smile_left), dis)
 			5:
-				follow_position_calculations(Vector2(0, Tracker.eye_smile_right).normalized(), Vector2(0, Tracker.eye_smile_right * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.eye_smile_right * TrackingBackend.osf_pos_strength, Tracker.eye_smile_right * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.eye_smile_right, Tracker.eye_smile_right), dis)
 			6:
-				follow_position_calculations(Vector2(0, Tracker.cheek_raise_left).normalized(), Vector2(0, Tracker.cheek_raise_left * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.cheek_raise_left * TrackingBackend.osf_pos_strength, Tracker.cheek_raise_left * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.cheek_raise_left, Tracker.cheek_raise_left), dis)
 			7:
-				follow_position_calculations(Vector2(0, Tracker.cheek_raise_right).normalized(), Vector2(0, Tracker.cheek_raise_right * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.cheek_raise_right * TrackingBackend.osf_pos_strength, Tracker.cheek_raise_right * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.cheek_raise_right, Tracker.cheek_raise_right), dis)
 			8:
-				follow_position_calculations(Vector2(0, Tracker.brow_left_final).normalized(), Vector2(0, Tracker.brow_left_final * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.brow_left_final * TrackingBackend.osf_pos_strength, Tracker.brow_left_final * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.brow_left_final, Tracker.brow_left_final),dis)
 			9:
-				follow_position_calculations(Vector2(0, Tracker.brow_right_final).normalized(), Vector2(0, Tracker.brow_right_final * TrackingBackend.osf_pos_strength))
+				var dis = Vector2(Tracker.brow_right_final * TrackingBackend.osf_pos_strength, Tracker.brow_right_final * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.brow_right_final, Tracker.brow_right_final), dis)
+			10:
+				var dis = Vector2(Tracker.cheek_average * TrackingBackend.osf_pos_strength, Tracker.cheek_average * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.cheek_average, Tracker.cheek_average), dis)
+			11:
+				var dis = Vector2(Tracker.mouth_pucker * TrackingBackend.osf_pos_strength, Tracker.mouth_pucker * TrackingBackend.osf_pos_strength_y)
+				follow_position_calculations(Vector2(Tracker.mouth_pucker, Tracker.mouth_pucker), dis)
+	else:
+		target_pos = Vector2.ZERO
+	
+	var sw_x = target_pos.y if swap_x else target_pos.x
+	var sw_y = target_pos.x if swap_y else target_pos.y
+	
+	if invert_x:
+		sw_x *= -1
+	if invert_y:
+		sw_y *= -1
+	
+	final_target = Vector2(sw_x, sw_y)
+	
 	if actor.sprite_type == "Sprite2D" && actor.get_value("animate_to_mouse") && actor.get_value("non_animated_sheet"):
 		update_sprite_animation(current_dir, current_dist, _delta)
 		if !actor.get_value("animate_to_mouse_track_pos"):
@@ -177,18 +202,8 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		if !actor.get_value("move_with_follow"):
 			modifier.position = modifier.position.lerp(Vector2.ZERO, actor.get_value("mouse_delay"))
 			return
-	
-	var sw_x = target_pos.y if swap_x else target_pos.x
-	var sw_y = target_pos.x if swap_y else target_pos.y
-	
-	if invert_x:
-		sw_x *= -1
-	if invert_y:
-		sw_y *= -1
-		
-	final_target = Vector2(sw_x, sw_y)
 
-	modifier.position = modifier.position.lerp(final_target, actor.get_value("mouse_delay"))
+	modifier.position = final_target
 
 # shout out to the worst code i have ever made
 func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO):
@@ -216,8 +231,9 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 		if dir.x >= 0:
 			clamped_x_min = dir.x * min(dist.x, max_x)
 	else:
-		clamped_x_min =  abs(max(min_x, sign(dir.x) * dist.x))
-		clamped_x_min = dir.x * min(max_x ,clamped_x_min)
+		var clm_x = clamp(dir.x*dist.x, -abs(dir.x*max_x), abs(dir.x*min_x))
+		clamped_x_min = clm_x
+		
 	
 	if min_y != 0 && max_y == 0:
 		if dir.y >= 0:
@@ -228,8 +244,8 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 			clamped_y_min = dir.y * clamp(dist.y, 0, max_y)
 		
 	else:
-		clamped_y_min =  abs(max(-max_y, sign(dir.y) * dist.y))
-		clamped_y_min = dir.y * min(abs(min_y) ,clamped_y_min)
+		var clm_y = clamp(dir.y*dist.y, -abs(dir.y*max_y), abs(dir.y*min_y))
+		clamped_y_min = clm_y
 	
 	var x = clamped_x_min
 	var y = clamped_y_min
@@ -249,19 +265,25 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 		current_dir = dir
 		current_dist = target_pos.length()
 
-
 func update_sprite_animation(dir: Vector2, dist: float, _delta: float) -> void:
 	if actor.sprite_type != "Sprite2D":
 		return
+		
+	var min_x = actor.get_value("pos_x_min")
+	var max_x = actor.get_value("pos_x_max")
 
-	var dist_x = dir.x * min(dist, actor.get_value("look_at_mouse_pos"))
-	var dist_y = dir.y * min(dist, actor.get_value("look_at_mouse_pos_y"))
+	var min_y = actor.get_value("pos_y_min")
+	var max_y = actor.get_value("pos_y_max")
+	var dist_cen = Vector2(abs(min_x) + max_x, abs(min_y) + max_y)*0.5
+
+	var dist_x = dir.x * min(dist, dist_cen.x)
+	var dist_y = dir.y * min(dist, dist_cen.y)
 
 	var hframes = %Sprite2D.hframes
 	var vframes = %Sprite2D.vframes
 
-	var norm_x = (dist_x / (2.0 * actor.get_value("look_at_mouse_pos"))) + 0.5
-	var norm_y = (dist_y / (2.0 * actor.get_value("look_at_mouse_pos_y"))) + 0.5
+	var norm_x = (dist_x / (2.0 * dist_cen.x)) + 0.5
+	var norm_y = (dist_y / (2.0 * dist_cen.y)) + 0.5
 
 	var frame_x = clamp(floor(norm_x * hframes), 0, hframes - 1)
 	var frame_y = clamp(floor(norm_y * vframes), 0, vframes - 1)

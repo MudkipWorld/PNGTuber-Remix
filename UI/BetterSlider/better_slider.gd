@@ -14,6 +14,8 @@ enum Type { Both, Spin, Slide, NoLabel, NoLabelSpin }
 @export var value_to_update: String = "position": get = get_value
 @export var has_alt_values := false
 
+@export var allow_greater : bool = false
+
 var should_change: bool = false
 var held_spinbox = null
 var val = []
@@ -23,13 +25,17 @@ func _ready():
 	Global.deselect.connect(nullfy)
 	Global.editing_for_changed.connect(enable)
 	
-	_setup_spinbox()
-	_setup_slider()
-	_setup_label()
+	setup_spinbox()
+	setup_slider()
+	setup_label()
+	
+	%SpinBoxValue.allow_greater = allow_greater
+	%SliderValue.allow_greater = allow_greater
+	
 	ready_type(ui_type)
 	nullfy()
 
-func _setup_spinbox():
+func setup_spinbox():
 	%SpinBoxValue.get_line_edit().focus_mode = 1
 	%SpinBoxValue.min_value = mini_value
 	%SpinBoxValue.max_value = max_value
@@ -37,38 +43,38 @@ func _setup_spinbox():
 	%SpinBoxValue.get_line_edit().focus_entered.connect(_on_spinbox_focused)
 	%SpinBoxValue.get_line_edit().focus_exited.connect(_on_spinbox_unfocused)
 
-func _setup_slider():
+func setup_slider():
 	%SliderValue.min_value = mini_value
 	%SliderValue.max_value = max_value
 	%SliderValue.step = step
 
-func _setup_label():
+func setup_label():
 	%BetterSliderLabel.text = label_text
 
 func ready_type(typ):
 	match typ:
 		Type.Spin:
-			_hide_slider()
-			_expand_spinbox()
+			hide_slider()
+			expand_spinbox()
 		Type.Slide:
-			_hide_spinbox()
+			hide_spinbox()
 		Type.NoLabel:
 			%BetterSliderLabel.hide()
 		Type.NoLabelSpin:
-			_hide_spinbox()
-			_expand_spinbox()
+			hide_spinbox()
+			expand_spinbox()
 			%BetterSliderLabel.hide()
 		_: pass
 
-func _hide_spinbox():
+func hide_spinbox():
 	%SpinBoxValue.hide()
 	%SpinBoxValue.editable = false
 
-func _hide_slider():
+func hide_slider():
 	%SliderValue.hide()
 	%SliderValue.editable = false
 
-func _expand_spinbox():
+func expand_spinbox():
 	%SpinBoxValue.set_h_size_flags(Control.SIZE_EXPAND_FILL)
 	%SpinBoxValue.set_horizontal_alignment(HORIZONTAL_ALIGNMENT_FILL)
 
@@ -95,7 +101,6 @@ func _on_spinbox_focused():
 			}
 		val.append(d)
 
-
 func _on_spinbox_unfocused():
 	Global.spinbox_held = false
 	held_spinbox = null
@@ -107,6 +112,9 @@ func _on_spin_box_value_value_changed(nvalue):
 		held_spinbox = null
 		Global.spinbox_held = false
 		%SliderValue.value = nvalue
+		if allow_greater:
+			%SliderValue.value = -abs(nvalue)
+		
 		%SpinBoxValue.get_line_edit().release_focus()
 
 func _on_slider_value_drag_started() -> void:
@@ -125,7 +133,9 @@ func _on_slider_value_drag_started() -> void:
 func _on_slider_value_value_changed(nvalue):
 	if should_change:
 		%SpinBoxValue.value = nvalue
-		_apply_value_to_selected(nvalue, false)
+		if allow_greater:
+			%SpinBoxValue.value = -abs(nvalue)
+		_apply_value_to_selected(%SpinBoxValue.value, false)
 
 func _on_slider_value_drag_ended(value_changed: bool):
 	if value_changed and sp_type != "Null":

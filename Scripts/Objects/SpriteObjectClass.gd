@@ -231,6 +231,7 @@ const DEFAULT_DATA := {
 	mesh_phys_y = 75,
 	
 	use_object_pos = false,
+	phys_eff = 25.0
 	
 	}
 

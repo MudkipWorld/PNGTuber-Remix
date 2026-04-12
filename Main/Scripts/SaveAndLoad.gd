@@ -172,8 +172,14 @@ func save_model(path: String) -> void:
 		push_error("SaveAndLoad: failed to open for write '%s': %s" % [path, FileAccess.get_open_error()])
 		Global.project_updates.emit("Save Failed!")
 		return
+
 	file.store_var(save_dict, true)
 	file.close()
+	
+	if !path.begins_with("res://"):
+		save_backup(save_dict, path)
+		await get_tree().process_frame
+
 	Global.project_updates.emit("Project Saved!")
 	save_dict.clear()
 
@@ -218,16 +224,9 @@ func load_model(path: String) -> void:
 	if "version" in load_dict:
 		file_version = load_dict.version
 
+	
 	if file_version != Global.version:
-		if !path.begins_with("res://"):
-			save_backup(load_dict, path)
-			await get_tree().process_frame
 		load_dict = VersionConverter.convert_save(load_dict, file_version)
-		if OS.has_feature("editor") or !path.begins_with("res://"):
-			var new_file := FileAccess.open(path, FileAccess.WRITE)
-			new_file.store_var(load_dict, true)
-			new_file.close()
-
 
 	Global.settings_dict.merge(load_dict.settings_dict, true)
 	if Global.settings_dict.monitor != Monitor.ALL_SCREENS:
@@ -683,12 +682,12 @@ func updated_follow_check(sprite, st) -> Dictionary:
 		st["pos_x_max"] = abs(st["look_at_mouse_pos"])
 		st["pos_y_min"] = -abs(st["look_at_mouse_pos_y"])
 		st["pos_y_max"] = abs(st["look_at_mouse_pos_y"])
-		st["rot_min"] = st["mouse_rotation"]
-		st["rot_max"] = st["mouse_rotation_max"]
-		st["scale_x_min"] = -abs(st["mouse_scale_x"])
-		st["scale_x_max"] = abs(st["mouse_scale_x"])
-		st["scale_y_min"] = -abs(st["mouse_scale_y"])
-		st["scale_y_max"] = abs(st["mouse_scale_y"])
+		st["rot_min"] = st.get("mouse_rotation", 0.0)
+		st["rot_max"] = st.get("mouse_rotation_max", 0.0)
+		st["scale_x_min"] = -abs(st.get("mouse_scale_x", 0.0))
+		st["scale_x_max"] = abs(st.get("mouse_scale_x", 0.0))
+		st["scale_y_min"] = -abs(st.get("mouse_scale_y", 0.0))
+		st["scale_y_max"] = abs(st.get("mouse_scale_y", 0.0))
 		if signi(st["look_at_mouse_pos"]) < 0:
 			st["pos_invert_x"] = true
 		if signi(st["look_at_mouse_pos_y"]) < 0:
@@ -721,10 +720,24 @@ func save_backup(data: Dictionary, previous_path: String) -> void:
 	file.store_var(data, true)
 	file.close()
 
-func export_images(_images = get_tree().get_nodes_in_group("Sprites")) -> void:
+func export_images(images : Array = []) -> void:
 	if not DirAccess.dir_exists_absolute(dire):
 		DirAccess.make_dir_absolute(dire)
-	for image in Global.image_manager_data:
+		
+	var seen : Array = []
+	
+	if !images.is_empty():
+		for i in images :
+			var ref_img = i.referenced_data
+			var ref_normal = i.referenced_data_normal
+			if ref_img not in seen && ref_img != null:
+				seen.append(ref_img)
+			if ref_normal not in seen && ref_normal != null:
+				seen.append(ref_img)
+	else:
+		seen = Global.image_manager_data
+		
+	for image in seen:
 		if image == null: continue
 		var unique_name: String = image.image_name + str(randi())
 		if image.img_animated:

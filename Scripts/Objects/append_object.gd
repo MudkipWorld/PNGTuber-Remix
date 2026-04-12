@@ -136,6 +136,7 @@ func get_state(id):
 		position = get_value("position")
 		if (global_position - old_glob).length() > get_value("drag_snap") && get_value("drag_snap") != 999999.0:
 			%Modifier.global_position = %Modifier1.global_position
+			%Dragger.global_position = %Modifier.global_position
 		
 		
 		%Sprite2D.position = get_value("offset") 
