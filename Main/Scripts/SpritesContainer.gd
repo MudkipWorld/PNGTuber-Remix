@@ -184,6 +184,7 @@ func get_state(state):
 
 func not_speaking():
 	currenly_speaking = false
+	Global.editing_for = Global.Mouth.Closed
 	if !Global.static_view:
 		match mouth_closed:
 			0:
@@ -202,6 +203,7 @@ func not_speaking():
 func speaking():
 #	modulate = Color.WHITE
 	currenly_speaking = true
+	Global.editing_for = Global.Mouth.Open
 	if !Global.static_view:
 		match mouth_open:
 			0:

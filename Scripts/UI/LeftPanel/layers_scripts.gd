@@ -195,9 +195,9 @@ func correct_recolor():
 
 	var root_items = %LayersTree.get_all_layeritems(root, false)
 	for item in root_items:
-		_recolor_recursive(item, Color.BLACK, false)
+		recolor_recursive(item, Color.BLACK, false)
 
-func _recolor_recursive(item: TreeItem, inherited_color: Color, is_inherited: bool):
+func recolor_recursive(item: TreeItem, inherited_color: Color, is_inherited: bool):
 	var meta = item.get_metadata(0)
 	if meta == null or !meta.has("sprite_object"):
 		return
@@ -226,5 +226,5 @@ func _recolor_recursive(item: TreeItem, inherited_color: Color, is_inherited: bo
 	# Recurse into children
 	var child = item.get_first_child()
 	while child:
-		_recolor_recursive(child, use_color, use_inherited)
+		recolor_recursive(child, use_color, use_inherited)
 		child = child.get_next()

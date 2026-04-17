@@ -119,7 +119,7 @@ func duplicate_single(sprite, id_map):
 	copy_transform(sprite, obj)
 	copy_images(sprite, obj)
 	copy_common(sprite, obj)
-	_finalize_duplicate(sprite, obj, id_map)
+	finalize_duplicate(sprite, obj, id_map)
 	return obj
 
 func duplicate_child(parent, t, id_map):
@@ -127,7 +127,7 @@ func duplicate_child(parent, t, id_map):
 	copy_transform(t, obj)
 	copy_images(t, obj)
 	copy_common(t, obj)
-	_finalize_child_duplicate(parent, t, obj, id_map)
+	finalize_child_duplicate(parent, t, obj, id_map)
 	return obj
 
 func instantiate_by_type(type):
@@ -149,7 +149,6 @@ func copy_transform(src, dst):
 	dst.position = src.position
 	dst.scale = src.scale
 	dst.sprite_data.scale = src.scale
-
 
 func duplicate_mesh_data(src: CustomMesh, dst: CustomMesh) -> void:
 	dst.original_vertices = src.original_vertices.duplicate()
@@ -185,7 +184,6 @@ func duplicate_mesh_data(src: CustomMesh, dst: CustomMesh) -> void:
 	
 	dst.texture = src.texture
 
-
 func copy_images(src, dst):
 	dst.used_image_id = src.used_image_id
 	dst.used_image_id_normal = src.used_image_id_normal
@@ -204,7 +202,6 @@ func copy_images(src, dst):
 			var canv = CanvasTexture.new()
 			canv.diffuse_texture = Global.folder_texture
 			dst.get_node("%Sprite2D").texture = canv
-
 
 func copy_common(src, dst):
 	dst.sprite_name = "Duplicate" + src.sprite_name
@@ -238,12 +235,12 @@ func copy_common(src, dst):
 		dst.get_node("%MeshEditor").queue_redraw()
 		dst.get_node("%Sprite2D").queue_redraw()
 
-func _finalize_duplicate(src, obj, id_map):
+func finalize_duplicate(src, obj, id_map):
 	obj.sprite_id = randi()
 	id_map[src.sprite_id] = obj.sprite_id
 	obj.parent_id = src.parent_id
 
-func _finalize_child_duplicate(parent, t, obj, id_map):
+func finalize_child_duplicate(parent, t, obj, id_map):
 	obj.sprite_id = randi()
 	id_map[t.sprite_id] = obj.sprite_id
 	if t.parent_id in id_map:
@@ -251,7 +248,6 @@ func _finalize_child_duplicate(parent, t, obj, id_map):
 	else:
 		obj.parent_id = parent.sprite_id
 	obj.global_position = t.global_position
-
 
 func _on_replace_button_pressed():
 	Global.main.replacing_sprite()

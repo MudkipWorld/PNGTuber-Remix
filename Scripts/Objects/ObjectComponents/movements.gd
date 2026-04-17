@@ -256,26 +256,29 @@ func wobble(delta: float) -> void:
 	if actor.is_default("xFrq"):
 		if actor.get_value("pause_movement"):
 			if actor.is_all_default("xFrq"):
-				last_wobble_pos.x = 0
+				last_wobble_pos.x = lerp(last_wobble_pos.x, 0.0, 0.5)
 			else:
 				paused_wobble.x += delta if Global.settings_dict.should_delta else 1.
 		else:
-			last_wobble_pos.x = sin((Global.tick-paused_wobble.x)*actor.get_value("xFrq"))*actor.get_value("xAmp")
+			var wob_x : float = sin((Global.tick-paused_wobble.x)*actor.get_value("xFrq"))*actor.get_value("xAmp")
+			last_wobble_pos.x = lerp(last_wobble_pos.x, wob_x, 0.5)
 	else:
-		last_wobble_pos.x = sin((Global.tick)*actor.get_value("xFrq"))*actor.get_value("xAmp")
+		var wob_x : float = sin((Global.tick)*actor.get_value("xFrq"))*actor.get_value("xAmp")
+		last_wobble_pos.x = lerp(last_wobble_pos.x, wob_x, 0.5)
 	
 	if actor.is_default("yFrq"):
 		if actor.get_value("pause_movement"):
 			if actor.is_all_default("yFrq"):
-				last_wobble_pos.y = 0
-				print("d")
+				last_wobble_pos.y = lerp(last_wobble_pos.y, 0.0, 0.5)
+
 			else:
 				paused_wobble.y += delta if Global.settings_dict.should_delta else 1.
 		else:
-			last_wobble_pos.y = sin((Global.tick-paused_wobble.y)*actor.get_value("yFrq"))*actor.get_value("yAmp")
+			var wob_y : float = sin((Global.tick-paused_wobble.y)*actor.get_value("yFrq"))*actor.get_value("yAmp")
+			last_wobble_pos.y = lerp(last_wobble_pos.y, wob_y, 0.5)
 	else:
-		last_wobble_pos.y = sin((Global.tick)*actor.get_value("yFrq"))*actor.get_value("yAmp")
-	
+		var wob_y : float = sin((Global.tick)*actor.get_value("yFrq"))*actor.get_value("yAmp")
+		last_wobble_pos.y = lerp(last_wobble_pos.y, wob_y, 0.5)
 	
 	applied_pos.x += last_wobble_pos.x
 	applied_pos.y += last_wobble_pos.y
@@ -294,11 +297,15 @@ func rotational_drag(length, delta: float):
 		last_rot = sin((Global.tick-paused_rotation) * actor.get_value("rot_frq"))
 		last_rot *= deg_to_rad(actor.get_value("rdragStr"))
 	
-	applied_rotation = lerp_angle(applied_rotation, last_rot, 0.15)
+	var min_rot : float = deg_to_rad(actor.get_value("rLimitMin"))
+	var max_rot : float = deg_to_rad(actor.get_value("rLimitMax"))
+	
+	var final_last_rot : float = clamp(last_rot,min_rot, max_rot)
+	
+	applied_rotation = lerp_angle(applied_rotation, final_last_rot, 0.15)
 	yvel = ((length * actor.get_value("rdragStr")))*(actor.get_value("phys_eff")/200.0)
 	
-	#Calculate Max angle
-	yvel = clamp(yvel,actor.get_value("rLimitMin"),actor.get_value("rLimitMax"))
+	yvel = clamp(yvel,min_rot, max_rot)
 	applied_rotation = lerp_angle(applied_rotation,deg_to_rad(yvel),0.15)
 
 func stretch(length : float) -> void:

@@ -284,7 +284,7 @@ var should_disappear : bool = false
 var hold_to_show : bool = false
 var saved_keys : Array = []
 var disappear_keys : String = str(sprite_id) + "Disappear"
-var rest_mode : int = 1
+var rest_mode : int = 0
 
 var last_mouse_position : Vector2 = Vector2(0,0)
 var last_dist : Vector2 = Vector2(0,0)
