@@ -95,7 +95,9 @@ You can Drag and Drop from your File Manager/ Images onto the Previews to set th
 - Image : Previews your current selected Object.
 - Normal Map : Previews the Normal Map of your selected Object.
 
-![BasicMovement](assets/Tutorial_image_17.PNG)
+![ImagePreview](assets/Tutorial_image_17.PNG)
+
+![ReplaceImage](assets/ReplaceImage.gif)
 
 ##### Layers Tools:
 
