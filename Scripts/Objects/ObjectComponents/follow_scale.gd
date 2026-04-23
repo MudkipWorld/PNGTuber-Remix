@@ -220,7 +220,7 @@ func follow_controller_scale(axis: Vector2) -> Vector2:
 	return Vector2(target_scale_x, target_scale_y)
 
 func follow_mouse_vel_scale() -> Vector2:
-	var t = Vector2(abs(dir_vel_anim.x), 0).normalized()
+	var t = Vector2(abs(%FollowPosition.last_dist.x), 0).normalized()
 	var normalized_mouse = t.x/2
 	normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)
 	var s_min_x = actor.get_value("scale_x_min")

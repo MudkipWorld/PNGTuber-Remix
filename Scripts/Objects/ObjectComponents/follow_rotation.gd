@@ -136,7 +136,7 @@ func clamp_rotations(value) -> float :
 	return clamped
 
 func follow_mouse_vel_rotation() -> float:
-	var t = Vector2(dir_vel_anim.x, 0).normalized()
+	var t = Vector2(%FollowPosition.last_dist.x, 0).normalized()
 	var normalized_mouse = t.x/2
 	normalized_mouse = clamp(normalized_mouse, -1.0, 1.0)
 	var rotation_factor = lerp(float(actor.get_value("rot_min")), float(actor.get_value("rot_max")), max(0.01, (normalized_mouse *0.5)))

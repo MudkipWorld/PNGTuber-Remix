@@ -46,7 +46,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		process_follow(delta)
 		mouse_coords = follow_calculation()
-		last_mouse_position = mouse_coords
 
 func reset_modifier() -> void:
 	modifier.position = Vector2.ZERO
@@ -55,21 +54,26 @@ func reset_modifier() -> void:
 
 func mouse_delay():
 	mouse_delta = last_mouse_position - mouse_coords
-	distance = Vector2(tanh(mouse_delta.x), tanh(mouse_delta.y))
-	if !mouse_delta.is_zero_approx():
-		if distance.length() == NAN:
-			distance = Vector2(0.0, 0.0)
-		last_mouse_position = mouse_coords
+	last_mouse_position = mouse_coords
 
-func process_follow(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if actor.get_value("follow_mouse_velocity"):
 		mouse_delay()
-		var dir_vel_x = -sign(mouse_delta.x)
-		var dir_vel_y = -sign(mouse_delta.y)
-		last_dist.x = lerp(last_dist.x, dir_vel_x * (distance.length() * actor.get_value("look_at_mouse_pos")), 0.5)
-		last_dist.y = lerp(last_dist.y, dir_vel_y * (distance.length() * actor.get_value("look_at_mouse_pos_y")), 0.5)
-		vel = mouse_delta
-		dir_vel_anim = mouse_delta 
+
+		if mouse_delta.length() > 7.0:
+			var dir_vel_x = -sign(mouse_delta.x)
+			var dir_vel_y = -sign(mouse_delta.y)
+			var min_x = actor.get_value("pos_x_min")
+			var max_x = actor.get_value("pos_x_max")
+			var min_y = actor.get_value("pos_y_min")
+			var max_y = actor.get_value("pos_y_max")
+			var norm_x : float = (abs(min_x) + max_x) * 0.5
+			var norm_y : float = (abs(min_y) + max_y) * 0.5
+
+			last_dist.x = lerp(last_dist.x, dir_vel_x * norm_x, 0.35)
+			last_dist.y = lerp(last_dist.y, dir_vel_y * norm_y, 0.35)
+
+func process_follow(delta: float) -> void:
 	var dir = (mouse_coords - Vector2.ZERO).normalized() if mouse_coords.length() > 0.0001 else Vector2.ZERO
 	var dist = mouse_coords.length()
 	
@@ -128,7 +132,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	var keyboard_axis: Vector2 = Vector2.ZERO
 	if follow_type == 0:
 		if actor.get_value("follow_mouse_velocity"):
-			follow_position_calculations(dir, last_dist)
+			follow_position_calculations(last_dist.sign(), last_dist.abs())
 		else:
 			follow_position_calculations(dir, Vector2(dist, dist))
 	elif follow_type in [1, 2, 10, 11, 12]:
@@ -251,10 +255,10 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 	var y = clamped_y_min
 	
 	if actor.get_value("snap_pos"):
-		if dir.x != 0:
+		if !is_zero_approx(dir.x) :
 			target_pos.x =  lerp(target_pos.x, x, actor.get_value("mouse_delay"))
 			current_dir.x = dir.x
-		if dir.y != 0:
+		if is_zero_approx(dir.y):
 			target_pos.y = lerp(target_pos.y, y, actor.get_value("mouse_delay"))
 			current_dir.y = dir.y
 	else:
