@@ -174,8 +174,7 @@ func movements(delta: float) -> void:
 	if actor.get_value("ignore_bounce") && !actor.get_value("static_obj"):
 		glob -= Vector2(0.0, Global.sprite_container.bounceChange)
 	var l = glob - dragger.global_position
-	var dir = l.normalized()
-	var length : float = l.length() * (dir.x + dir.y)
+	var length : float = l.y + l.x 
 	length = add_parent_physics(length)
 	calc_length = length
 	stretch(calc_length)

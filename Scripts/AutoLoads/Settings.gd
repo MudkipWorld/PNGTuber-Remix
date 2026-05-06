@@ -171,7 +171,6 @@ func _ready():
 			GlobalMicAudio.mic_input.set_microphone(0)
 			GlobalMicAudio.mic_input.start_audio()
 
-	
 	change_cursor()
 	Engine.physics_jitter_fix = theme_settings.phys_jitter
 	Engine.physics_ticks_per_second = theme_settings.phys_tick_per_frame
@@ -201,6 +200,8 @@ func update_tracking_backend():
 				GlobInput.backend = "x11"
 			else:
 				set_backed_default()
+		"dummy":
+			GlobInput.backend = "dummy"
 
 func set_backed_default():
 	if OS.has_feature("windows"):

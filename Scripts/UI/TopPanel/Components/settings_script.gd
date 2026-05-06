@@ -99,6 +99,8 @@ func check_data():
 			else:
 				%BackendOption.set_item_disabled(3, true)
 				%BackendOption.select(0)
+		"dummy":
+			%BackendOption.select(4)
 
 	change_setting = true
 
@@ -275,6 +277,8 @@ func _on_backend_option_item_selected(index: int) -> void:
 			Settings.theme_settings.backend_type = "windows"
 		3:
 			Settings.theme_settings.backend_type = "x11"
+		4:
+			Settings.theme_settings.backend_type = "dummy"
 	Settings.save()
 	Settings.update_tracking_backend()
 

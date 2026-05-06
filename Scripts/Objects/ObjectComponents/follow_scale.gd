@@ -185,7 +185,6 @@ func update_scale(delta: float) -> void:
 	modifier.scale.x = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.x, target_sx, t))
 	modifier.scale.y = GlobalCalculations.is_nan_or_inf(lerp(modifier.scale.y, target_sy, t))
 
-
 func follow_mouse_scale(mouse : Vector2, main_marker) -> Vector2:
 	var screen_size = main_marker.get_screen_size()
 
