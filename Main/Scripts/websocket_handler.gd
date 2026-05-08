@@ -214,6 +214,10 @@ func hide_sprite_by_identifier(identifier: String) -> bool:
 		sprite.sprite_data.visible = false
 		sprite.visible = false
 		sprite.save_state(Global.current_state)
+		if sprite.has_node("%Sprite2D"):
+			sprite.get_node("%Sprite2D").visible = false
+		if "was_active_before" in sprite:
+			sprite.was_active_before = false
 		
 		# Hide all children recursively if this is a group
 		var children = get_all_sprite_children_recursive(sprite)
@@ -221,7 +225,13 @@ func hide_sprite_by_identifier(identifier: String) -> bool:
 			child.sprite_data.visible = false
 			child.visible = false
 			child.save_state(Global.current_state)
+			if child.has_node("%Sprite2D"):
+				child.get_node("%Sprite2D").visible = false
+			if "was_active_before" in child:
+				child.was_active_before = false
 		
+		Global.reinfo.emit()
+		Global.update_layer_visib.emit()
 		return true
 	return false
 
@@ -233,6 +243,10 @@ func show_sprite_by_identifier(identifier: String) -> bool:
 		sprite.sprite_data.visible = true
 		sprite.visible = true
 		sprite.save_state(Global.current_state)
+		if sprite.has_node("%Sprite2D"):
+			sprite.get_node("%Sprite2D").visible = true
+		if "was_active_before" in sprite:
+			sprite.was_active_before = true
 		
 		# Show all children recursively if this is a group
 		var children = get_all_sprite_children_recursive(sprite)
@@ -240,7 +254,13 @@ func show_sprite_by_identifier(identifier: String) -> bool:
 			child.sprite_data.visible = true
 			child.visible = true
 			child.save_state(Global.current_state)
+			if child.has_node("%Sprite2D"):
+				child.get_node("%Sprite2D").visible = true
+			if "was_active_before" in child:
+				child.was_active_before = true
 		
+		Global.reinfo.emit()
+		Global.update_layer_visib.emit()
 		return true
 	return false
 
@@ -256,13 +276,25 @@ func toggle_sprite_by_identifier(identifier: String) -> Dictionary:
 		sprite.visible = new_visibility
 		sprite.save_state(Global.current_state)
 		
+		# Sync with reaction_config logic
+		if sprite.has_node("%Sprite2D"):
+			sprite.get_node("%Sprite2D").visible = new_visibility
+		if "was_active_before" in sprite:
+			sprite.was_active_before = new_visibility
+		
 		# Toggle all children recursively if this is a group
 		var children = get_all_sprite_children_recursive(sprite)
 		for child in children:
 			child.sprite_data.visible = new_visibility
 			child.visible = new_visibility
 			child.save_state(Global.current_state)
+			if child.has_node("%Sprite2D"):
+				child.get_node("%Sprite2D").visible = new_visibility
+			if "was_active_before" in child:
+				child.was_active_before = new_visibility
 		
+		Global.reinfo.emit()
+		Global.update_layer_visib.emit()
 		return {"success": true, "visible": new_visibility}
 	return {"success": false}
 
@@ -489,8 +521,8 @@ func _on_message(peer_id: int, message: String):
 						send(peer_id, JSON.stringify({"event": "state", "result": "failed", "error": "state not found", "identifier": identifier, "available_states": Global.settings_dict.get("states").size()}))
 				"general":
 					var key = str(json_data["key"])
-					Global.key_pressed.emit(key)
-					send(peer_id, JSON.stringify({"event": "general", "result": "success"}))
+					var actions_found = trigger_sprites_by_physical_key(key)
+					send(peer_id, JSON.stringify({"event": "general", "result": "success", "key": key, "actions_found": actions_found}))
 				"hide_sprite":
 					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
 					var result = hide_sprite_by_identifier(identifier)
@@ -507,7 +539,37 @@ func _on_message(peer_id: int, message: String):
 						send(peer_id, JSON.stringify({"event": "show_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
 				"toggle_sprite":
 					var identifier = str(json_data.get("sprite_name", json_data.get("sprite_id", json_data.get("id", ""))))
-					var result = toggle_sprite_by_identifier(identifier)
+					var reverse = json_data.get("reverse", false)
+					var match_sprite = json_data.get("match_sprite", "")
+					
+					var result
+					if match_sprite != "":
+						var target = find_sprite_by_identifier(identifier)
+						var source = find_sprite_by_identifier(match_sprite)
+						if target != null and source != null:
+							var source_visible = source.get_value("visible")
+							var new_visible = !source_visible if reverse else source_visible
+							target.sprite_data.visible = new_visible
+							target.visible = new_visible
+							target.save_state(Global.current_state)
+							if target.has_node("%Sprite2D"):
+								target.get_node("%Sprite2D").visible = new_visible
+							if "was_active_before" in target:
+								target.was_active_before = new_visible
+							
+							Global.reinfo.emit()
+							Global.update_layer_visib.emit()
+							result = {"success": true, "visible": new_visible}
+						else:
+							result = {"success": false}
+					else:
+						result = toggle_sprite_by_identifier(identifier)
+						if reverse and result.has("success"):
+							# If reverse was requested but no match_sprite, we just toggle again? 
+							# No, reverse without match doesn't make much sense for a single toggle.
+							# But we'll keep it simple: if match_sprite is provided, we sync.
+							pass
+
 					if result.has("success"):
 						var visibility_state = "visible" if result.visible else "hidden"
 						send(peer_id, JSON.stringify({"event": "toggle_sprite", "result": "success", "identifier": identifier, "visibility": visibility_state}))
@@ -556,7 +618,44 @@ func _on_message(peer_id: int, message: String):
 						send(peer_id, JSON.stringify({"event": "show_group", "result": "failed", "identifier": identifier, "error": "group not found"}))
 				"toggle_group":
 					var identifier = str(json_data.get("group_name", json_data.get("group_id", json_data.get("id", ""))))
-					var result = toggle_sprite_by_identifier(identifier)
+					var reverse = json_data.get("reverse", false)
+					var match_sprite = json_data.get("match_sprite", "")
+					
+					var result
+					if match_sprite != "":
+						var target = find_sprite_by_identifier(identifier)
+						var source = find_sprite_by_identifier(match_sprite)
+						if target != null and source != null:
+							var source_visible = source.get_value("visible")
+							var new_visible = !source_visible if reverse else source_visible
+							
+							# Apply to group (and children)
+							target.sprite_data.visible = new_visible
+							target.visible = new_visible
+							target.save_state(Global.current_state)
+							if target.has_node("%Sprite2D"):
+								target.get_node("%Sprite2D").visible = new_visible
+							if "was_active_before" in target:
+								target.was_active_before = new_visible
+								
+							var children = get_all_sprite_children_recursive(target)
+							for child in children:
+								child.sprite_data.visible = new_visible
+								child.visible = new_visible
+								child.save_state(Global.current_state)
+								if child.has_node("%Sprite2D"):
+									child.get_node("%Sprite2D").visible = new_visible
+								if "was_active_before" in child:
+									child.was_active_before = new_visible
+							
+							Global.reinfo.emit()
+							Global.update_layer_visib.emit()
+							result = {"success": true, "visible": new_visible}
+						else:
+							result = {"success": false}
+					else:
+						result = toggle_sprite_by_identifier(identifier)
+
 					if result.has("success"):
 						var visibility_state = "visible" if result.visible else "hidden"
 						send(peer_id, JSON.stringify({"event": "toggle_group", "result": "success", "identifier": identifier, "visibility": visibility_state}))
@@ -611,3 +710,45 @@ func _on_message(peer_id: int, message: String):
 	else:
 		# No "event" key found in the message
 		send(peer_id, JSON.stringify({"event": "error", "message": "Missing 'event' field in message"}))
+func trigger_sprites_by_physical_key(key_str: String) -> Array:
+	var key_code = OS.find_keycode_from_string(key_str)
+	if key_code == KEY_NONE:
+		# Manual fallback for common number keys if string search fails
+		match key_str:
+			"0": key_code = KEY_0
+			"1": key_code = KEY_1
+			"2": key_code = KEY_2
+			"3": key_code = KEY_3
+			"4": key_code = KEY_4
+			"5": key_code = KEY_5
+			"6": key_code = KEY_6
+			"7": key_code = KEY_7
+			"8": key_code = KEY_8
+			"9": key_code = KEY_9
+
+	if key_code == KEY_NONE:
+		return []
+
+	var items_triggered = []
+	for sprite in get_tree().get_nodes_in_group("Sprites"):
+		var triggered = false
+		
+		# 1. Check if this is the sprite's main Bind Key
+		if sprite.get("saved_event") is InputEventKey:
+			if sprite.saved_event.keycode == key_code or sprite.saved_event.physical_keycode == key_code:
+				toggle_sprite_by_identifier(str(sprite.sprite_id))
+				items_triggered.append(sprite.sprite_name + " (Toggle)")
+				triggered = true
+		
+		# 2. Check if this is one of the sprite's Hide Keys
+		if !triggered:
+			var action_name = str(sprite.sprite_id) + "Disappear"
+			if InputMap.has_action(action_name):
+				for event in InputMap.action_get_events(action_name):
+					if event is InputEventKey:
+						if event.keycode == key_code or event.physical_keycode == key_code:
+							hide_sprite_by_identifier(str(sprite.sprite_id))
+							items_triggered.append(sprite.sprite_name + " (Hide)")
+							break
+							
+	return items_triggered
