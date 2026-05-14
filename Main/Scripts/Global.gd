@@ -147,7 +147,10 @@ var image_data_normal = ImageData.new()
 var selected_mesh_inx : int = 1
 var folder_texture : Texture2D = null
 
+var obj : Object = Object.new()
+
 func _ready():
+	DisplayServer.register_additional_output(obj)
 	var img = Image.create_empty(32,32, false, Image.FORMAT_RGBA8)
 	folder_texture = ImageTexture.create_from_image(img)
 	create_placeholders()
@@ -156,6 +159,9 @@ func _ready():
 	blinking()
 	get_window().title = "PNGTuber-Remix V" + version
 	current_state = 0
+
+func _exit_tree() -> void:
+	DisplayServer.unregister_additional_output(obj)
 
 func create_placeholders():
 	image_data.runtime_texture = preload("res://Misc/TestAssets/Placeholder.png")

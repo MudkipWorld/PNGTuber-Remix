@@ -373,8 +373,8 @@ common/enable_object_picking=false
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
 textures/vram_compression/cache_gpu_compressor=false
