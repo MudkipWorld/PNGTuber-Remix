@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://55h38no64jhn"]
+[gd_scene format=3 uid="uid://55h38no64jhn"]
 
 [ext_resource type="Script" uid="uid://vh5w38e0slbs" path="res://Scripts/AutoLoads/VersionConversion/VersionConverter.gd" id="1_l5po3"]
 [ext_resource type="Script" uid="uid://bqpoeqqga82b6" path="res://Scripts/AutoLoads/VersionConversion/VersionMapper.gd" id="2_pdtgw"]
@@ -11,6 +11,6 @@ to_version = "1.3.6"
 converter = ExtResource("3_whued")
 metadata/_custom_type_script = "uid://bqpoeqqga82b6"
 
-[node name="VersionConverter" type="Node"]
+[node name="VersionConverter" type="Node" unique_id=1131332024]
 script = ExtResource("1_l5po3")
 conversion_map = Array[ExtResource("2_pdtgw")]([SubResource("Resource_s7te0")])

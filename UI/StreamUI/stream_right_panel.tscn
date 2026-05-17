@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://daboy6vehn665"]
 
-[node name="StreamRightPanel" type="Panel"]
+[node name="StreamRightPanel" type="Panel" unique_id=268232142]
 custom_minimum_size = Vector2(380, 0)
 anchors_preset = 11
 anchor_left = 1.0
