@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://g6paooy6tpxy"]
+[gd_scene format=3 uid="uid://g6paooy6tpxy"]
 
 [ext_resource type="Script" uid="uid://crajmo75eduvg" path="res://Scripts/UI/LeftPanel/sprite_preview.gd" id="1_3a5ns"]
 
-[node name="BG" type="Panel"]
+[node name="BG" type="Panel" unique_id=1598679066]
 custom_minimum_size = Vector2(0, 150)
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1348620964]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,23 +24,23 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=352637308]
 layout_mode = 2
 
-[node name="SpritePreview" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="SpritePreview" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1420757294]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 alignment = 1
 script = ExtResource("1_3a5ns")
 
-[node name="Preview" type="PanelContainer" parent="MarginContainer/VBoxContainer/SpritePreview"]
+[node name="Preview" type="PanelContainer" parent="MarginContainer/VBoxContainer/SpritePreview" unique_id=875050224]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CurrentSelected" type="TextureRect" parent="MarginContainer/VBoxContainer/SpritePreview/Preview"]
+[node name="CurrentSelected" type="TextureRect" parent="MarginContainer/VBoxContainer/SpritePreview/Preview" unique_id=403327297]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
@@ -50,13 +50,13 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="PreviewNormal" type="PanelContainer" parent="MarginContainer/VBoxContainer/SpritePreview"]
+[node name="PreviewNormal" type="PanelContainer" parent="MarginContainer/VBoxContainer/SpritePreview" unique_id=1133672006]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CurrentSelectedNormal" type="TextureRect" parent="MarginContainer/VBoxContainer/SpritePreview/PreviewNormal"]
+[node name="CurrentSelectedNormal" type="TextureRect" parent="MarginContainer/VBoxContainer/SpritePreview/PreviewNormal" unique_id=827773249]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(79, 79)
 layout_mode = 2
@@ -66,12 +66,12 @@ expand_mode = 1
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1973623864]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Imgprev" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Imgprev" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1012489883]
 custom_minimum_size = Vector2(87, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -79,7 +79,7 @@ theme_override_font_sizes/font_size = 14
 text = "TR_IMAGE"
 horizontal_alignment = 1
 
-[node name="NormalMapPrev" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="NormalMapPrev" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2058636508]
 custom_minimum_size = Vector2(87, 0)
 layout_mode = 2
 size_flags_horizontal = 3

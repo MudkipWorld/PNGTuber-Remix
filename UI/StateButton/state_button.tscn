@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwtyu481ec5vq"]
+[gd_scene format=3 uid="uid://cwtyu481ec5vq"]
 
 [ext_resource type="Script" uid="uid://cqsauqmcso8g2" path="res://Scripts/UI/States/StateButton.gd" id="2_2ybu4"]
 
@@ -13,7 +13,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="StateButton" type="Button" groups=["StateButtons"]]
+[node name="StateButton" type="Button" unique_id=617325042 groups=["StateButtons"]]
 custom_minimum_size = Vector2(35, 35)
 offset_right = 35.0
 offset_bottom = 35.0
@@ -23,7 +23,7 @@ theme_override_font_sizes/font_size = 15
 text = "1"
 script = ExtResource("2_2ybu4")
 
-[node name="Selected" type="Panel" parent="."]
+[node name="Selected" type="Panel" parent="." unique_id=1354235399]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

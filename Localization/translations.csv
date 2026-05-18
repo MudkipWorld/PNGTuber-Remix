@@ -581,6 +581,7 @@ TR_Y_AMPLITUDE_WOBBLE,Y-Amplitude Wobble {value},Амплитуда колеба
 TR_Y_FREQUENCY_WOBBLE,Y-Frequency Wobble {value},Частота колебаний по Y {value}
 TR_Y_OFFSET,Y-Offset,Смещение Y
 TR_Z_ORDER,Z Order,Порядок по Z
+TR_EXPORT_SPRITES,"Export Sprite(s)",Экспортировать спрайты
 Wiggle,Wiggle,Покачивание
 Window,Window,Окно
 EXPORT_SPRITES,Export Sprite(s),Экспортировать спрайты

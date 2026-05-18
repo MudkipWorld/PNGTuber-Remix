@@ -92,6 +92,7 @@ current_tab = 0
 tabs_visible = false
 
 [node name="Grid2" type="GridContainer" parent="PanelContainer/TabContainer" unique_id=1909525058]
+visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 8
 columns = 2
