@@ -84,6 +84,7 @@ func update_ui():
 		%SpawnVariance.value = float(Global.throwable_spawner.spawn_variance)
 	if has_node("%BothSides"):
 		%BothSides.button_pressed = Global.throwable_spawner.both_sides
+	%ItemList.clear()
 	var index : int = 0
 	for i in Global.throwable_spawner.selected_items:
 		%ItemList.add_item(i.image_name, i.runtime_texture, true)

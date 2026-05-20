@@ -26,11 +26,15 @@ func _ready():
 	grab_object.button_up.connect(_on_grab_button_up)
 	await get_tree().create_timer(0.1).timeout
 	if sprite_object == null or static_collision == null: return
+	static_collision.shape.radius = 500
+	static_collision.shape.height = 500
 	if sprite_object.texture:
-		var w : float = float(sprite_object.texture.get_image().get_width())
-		var h : float = float(sprite_object.texture.get_image().get_height())
-		static_collision.shape.size = Vector2(w, h)
-
+		var w : float = float(sprite_object.texture.get_width())
+		var h : float = float(sprite_object.texture.get_height())
+		if w > 0 && h > 0:
+			var r : float = min(w, h)
+			static_collision.shape.height = h
+			static_collision.shape.radius = Vector2(r, r).length()*0.5
 
 func sel():
 	if self in Global.held_sprites:

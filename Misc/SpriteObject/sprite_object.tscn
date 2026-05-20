@@ -22,7 +22,7 @@ shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 [sub_resource type="CanvasTexture" id="CanvasTexture_4xt5n"]
 diffuse_texture = ExtResource("5_nxel7")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxel7"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nxel7"]
 resource_local_to_scene = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5cd6y"]
@@ -75,7 +75,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="Coll" type="CollisionShape2D" parent="Modifier1/Rotation/Modifier/Sprite2D/HitDetection" index="0" unique_id=344222819]
-shape = SubResource("RectangleShape2D_nxel7")
+shape = SubResource("CapsuleShape2D_nxel7")
 disabled = true
 
 [node name="Selection" type="Sprite2D" parent="Modifier1/Rotation/Modifier/Sprite2D" index="1" unique_id=1592062795]

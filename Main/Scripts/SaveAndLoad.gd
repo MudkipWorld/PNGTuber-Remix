@@ -177,7 +177,7 @@ func save_data():
 			'position' : Global.throwable_spawner.position,
 			'direction' :  Global.throwable_spawner.dir,
 			'image_ids' : ids,
-			'event' : InputMap.action_get_events('throwing')[0],
+			'event' : InputMap.action_get_events('throwing')[0] if InputMap.action_get_events('throwing').size() > 0 else null,
 			'throw_per_trigger' : Global.throwable_spawner.throw_per_trigger,
 			'spawn_variance' : Global.throwable_spawner.spawn_variance,
 			'both_sides' : Global.throwable_spawner.both_sides,
@@ -327,6 +327,7 @@ func load_model(path: String) -> void:
 			InputMap.action_add_event('throwing', event)
 		
 		var ids : Array = throwable.get('image_ids', [])
+		Global.throwable_spawner.selected_items.clear()
 		for i in Global.image_manager_data:
 			if i.id in ids:
 				Global.throwable_spawner.selected_items.append(i)

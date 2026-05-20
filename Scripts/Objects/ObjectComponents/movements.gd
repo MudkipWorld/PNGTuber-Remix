@@ -107,7 +107,7 @@ func _physics_process(delta: float) -> void:
 		modifier_node.z_index = 0
 	
 	chained_hit_reaction()
-	hit_rotation = lerp_angle(hit_rotation, 0.0, 0.1)
+	hit_rotation = lerp(hit_rotation, 0.0, 0.1)
 	
 	if actor.sprite_type == "Mesh" and mesh != null && is_instance_valid(mesh):
 		var can_deform : bool = false

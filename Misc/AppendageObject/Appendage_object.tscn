@@ -21,7 +21,7 @@ shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 [sub_resource type="CanvasTexture" id="CanvasTexture_6684t"]
 diffuse_texture = ExtResource("5_mwqm8")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_31wc5"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_31wc5"]
 resource_local_to_scene = true
 
 [sub_resource type="Gradient" id="Gradient_31wc5"]
@@ -59,7 +59,7 @@ unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(0, 0, 27.36, 0.00011875296, 51.84, 0.00047501185, 73.44, 0.0010687767, 92.16, 0.0019000474, 108, 0.002968824, 122.399994, 0.0040567387, 136.8, 0.0049454244, 151.20001, 0.0056348797, 165.6, 0.0061251055, 180, 0.006416102, 194.4, 0.0060446095, 208.79999, 0.0045473687, 223.20001, 0.0019243807, 237.6, -0.0018243566, 252, -0.0066988403, 266.40002, -0.011996802, 280.8, -0.017015968, 295.2, -0.02175634, 309.59998, -0.026217915, 324, -0.030400697, 338.40002, -0.034304686, 352.8, -0.037929878)
+points = PackedVector2Array(0, 0, 27.36, 0.00011774575, 51.84, 0.000470983, 73.44, 0.0010597118, 92.16, 0.001883932, 108, 0.0029436438, 122.399994, 0.004030722, 136.8, 0.0049370416, 151.20001, 0.0056626024, 165.6, 0.0062074037, 180, 0.006571447, 194.4, 0.0069133355, 208.79999, 0.0073916744, 223.20001, 0.008006464, 237.6, 0.008757703, 252, 0.009645391, 266.40002, 0.010599104, 280.8, 0.011548415, 295.2, 0.012493324, 309.59998, 0.01343383, 324, 0.014369935, 338.40002, 0.015301637, 352.8, 0.016228937)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
@@ -77,7 +77,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="Coll" type="CollisionShape2D" parent="Modifier1/Rotation/Modifier/Sprite2D/HitDetection" index="0" unique_id=941113458]
-shape = SubResource("RectangleShape2D_31wc5")
+shape = SubResource("CircleShape2D_31wc5")
 disabled = true
 
 [node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="1" unique_id=1348424283]
