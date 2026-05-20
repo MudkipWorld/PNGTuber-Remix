@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://duopekbdlbjla" path="res://Scripts/UI/Others/project_updates_label.gd" id="8_y3a4k"]
 [ext_resource type="PackedScene" uid="uid://ccvo3k5t6lis6" path="res://UI/EditorUI/RightUI/Components/movement.tscn" id="9_fwbkq"]
 [ext_resource type="PackedScene" uid="uid://bk2xbsvlmq0or" path="res://UI/StateButton/state_panel.tscn" id="10_1r6xj"]
+[ext_resource type="PackedScene" uid="uid://c47knq8edutrk" path="res://UI/EditorUI/RightUI/Components/fun_stuff.tscn" id="16_mi4uk"]
 [ext_resource type="PackedScene" uid="uid://b15lo00q8fe1j" path="res://UI/BetterSlider/better_spinboxes.tscn" id="17_kv61l"]
 [ext_resource type="PackedScene" uid="uid://cfuiw0rtt54fn" path="res://UI/StreamUI/web_socket_config.tscn" id="17_le2wr"]
 [ext_resource type="PackedScene" uid="uid://b33l6030k8a8p" path="res://UI/EditorUI/RightUI/Components/mesh_gen.tscn" id="18_kv61l"]
@@ -422,7 +423,8 @@ tab_3/title = "TR_TAB_ANIMATION"
 tab_4/title = "TR_TAB_MODEL"
 tab_5/title = "TR_TAB_LIGHT"
 tab_6/title = "TR_TAB_WEBSOCKET"
-tab_7/title = "TR_TAB_TESTS"
+tab_7/title = "Fun (Test)"
+tab_8/title = "TR_TAB_TESTS"
 
 [node name="Properties" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1209265079 instance=ExtResource("8_i4djb")]
 light_mask = 0
@@ -481,12 +483,18 @@ metadata/_tab_name = "TR_TAB_WEBSOCKET"
 [node name="WebSocketConfig" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Websocket" unique_id=1789427237 instance=ExtResource("17_le2wr")]
 layout_mode = 2
 
+[node name="FunStuff" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1825143742 instance=ExtResource("16_mi4uk")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 7
+metadata/_tab_name = "Fun (Test)"
+
 [node name="Tests" type="ScrollContainer" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector" unique_id=1993124440]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
-metadata/_tab_index = 7
+metadata/_tab_index = 8
 metadata/_tab_name = "TR_TAB_TESTS"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit/Inspector/Tests" unique_id=727006526]

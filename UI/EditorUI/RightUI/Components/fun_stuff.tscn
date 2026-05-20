@@ -1,0 +1,250 @@
+[gd_scene format=3 uid="uid://c47knq8edutrk"]
+
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="1_mirsd"]
+[ext_resource type="Script" uid="uid://bjmucy0bep3os" path="res://Scripts/UI/RightPanel/fun_stuff.gd" id="1_w1yxh"]
+[ext_resource type="Texture2D" uid="uid://dsvnkyrgho1xx" path="res://UI/Assets/ui_buttons.png" id="3_1jc68"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edwq2"]
+atlas = ExtResource("3_1jc68")
+region = Rect2(66, 0, 33, 32)
+
+[node name="FunStuff" type="ScrollContainer" unique_id=1825143742]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_w1yxh")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1769561437]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBox" unique_id=1069375003]
+layout_mode = 2
+text = "Fun Stuff"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBox" unique_id=691756787]
+layout_mode = 2
+
+[node name="HasCollision" type="CheckBox" parent="VBox/HBoxContainer2" unique_id=621028956]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Has Collision"
+
+[node name="Physics" type="CheckBox" parent="VBox/HBoxContainer2" unique_id=349203837]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_PHYSICS"
+
+[node name="BetterSlider" parent="VBox" unique_id=1658009348 instance=ExtResource("1_mirsd")]
+layout_mode = 2
+sp_type = ""
+label_text = "Hit Strength"
+mini_value = -10.0
+max_value = 10.0
+value_to_update = "reaction_strength"
+
+[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=2107638675]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBox" unique_id=921475810]
+layout_mode = 2
+text = "Spawner Data"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="VBox" unique_id=1347018300]
+layout_mode = 2
+columns = 4
+
+[node name="Label" type="Label" parent="VBox/Grid" unique_id=349172428]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_POS_X"
+
+[node name="PositionX" type="SpinBox" parent="VBox/Grid" unique_id=2095710838]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000000.0
+max_value = 1000000.0
+step = 0.1
+
+[node name="Label2" type="Label" parent="VBox/Grid" unique_id=239373708]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_POS_Y"
+
+[node name="PositionY" type="SpinBox" parent="VBox/Grid" unique_id=2033366235]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000000.0
+max_value = 1000000.0
+step = 0.1
+
+[node name="Label3" type="Label" parent="VBox/Grid" unique_id=82763680]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dir X"
+
+[node name="DirX" type="SpinBox" parent="VBox/Grid" unique_id=2025645694]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+value = 1500.0
+
+[node name="Label4" type="Label" parent="VBox/Grid" unique_id=1395014851]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dir Y"
+
+[node name="DirY" type="SpinBox" parent="VBox/Grid" unique_id=807510409]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+value = 10.0
+
+[node name="Label5" type="Label" parent="VBox/Grid" unique_id=982674443]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Per Trigger"
+
+[node name="SpawnPerTrigger" type="SpinBox" parent="VBox/Grid" unique_id=1915780622]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 1000.0
+value = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox" unique_id=457813297]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBox/HBoxContainer" unique_id=145376524]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Throw Key"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox/HBoxContainer" unique_id=1324015353]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ThrowKey" type="Button" parent="VBox/HBoxContainer/HBoxContainer" unique_id=1043111196]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "TR_BIND_KEY"
+
+[node name="RemoveAssetButton" type="Button" parent="VBox/HBoxContainer/HBoxContainer" unique_id=972491248]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+icon = SubResource("AtlasTexture_edwq2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HSeparator2" type="HSeparator" parent="VBox" unique_id=1270057529]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBox" unique_id=1314329792]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBox/VBoxContainer" unique_id=1087336363]
+layout_mode = 2
+text = "Images"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="VBox/VBoxContainer" unique_id=1053865807]
+layout_mode = 2
+
+[node name="Add" type="Button" parent="VBox/VBoxContainer/HBox" unique_id=348713029]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add Image"
+
+[node name="Remove" type="Button" parent="VBox/VBoxContainer/HBox" unique_id=1386928360]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove Image"
+
+[node name="ItemList" type="ItemList" parent="VBox/VBoxContainer" unique_id=101793689]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 192)
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+max_columns = 0
+same_column_width = true
+fixed_column_width = 48
+icon_mode = 0
+fixed_icon_size = Vector2i(48, 48)
+
+[node name="PopupChoice" type="Window" parent="." unique_id=788589447]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Select Images"
+initial_position = 1
+size = Vector2i(500, 500)
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupChoice" unique_id=33573516]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SelectionList" type="ItemList" parent="PopupChoice/VBoxContainer" unique_id=465694225]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+max_columns = 0
+same_column_width = true
+fixed_column_width = 48
+fixed_icon_size = Vector2i(48, 48)
+
+[node name="Confirm" type="Button" parent="PopupChoice/VBoxContainer" unique_id=2029090181]
+layout_mode = 2
+text = "Confirm"
+
+[connection signal="toggled" from="VBox/HBoxContainer2/HasCollision" to="." method="_on_has_collision_toggled"]
+[connection signal="toggled" from="VBox/HBoxContainer2/Physics" to="." method="_on_physics_toggled"]
+[connection signal="value_changed" from="VBox/Grid/PositionX" to="." method="_on_position_x_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/PositionY" to="." method="_on_position_y_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/DirX" to="." method="_on_dir_x_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/DirY" to="." method="_on_dir_y_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
+[connection signal="toggled" from="VBox/HBoxContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
+[connection signal="pressed" from="VBox/HBoxContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
+[connection signal="pressed" from="VBox/VBoxContainer/HBox/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="VBox/VBoxContainer/HBox/Remove" to="." method="_on_remove_pressed"]
+[connection signal="multi_selected" from="VBox/VBoxContainer/ItemList" to="." method="_on_item_list_multi_selected"]
+[connection signal="close_requested" from="PopupChoice" to="." method="_on_popup_choice_close_requested"]
+[connection signal="multi_selected" from="PopupChoice/VBoxContainer/SelectionList" to="." method="_on_selection_list_multi_selected"]
+[connection signal="pressed" from="PopupChoice/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]

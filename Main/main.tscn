@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://dw4brgrpdpurf" path="res://Misc/LightSource/light_source.tscn" id="3_eo07p"]
 [ext_resource type="Shader" uid="uid://brpv37x267rmr" path="res://Scripts/Shaders/ColorBlindness.gdshader" id="3_o60nc"]
 [ext_resource type="Shader" uid="uid://bc5tbhguskdv2" path="res://Scripts/Shaders/ModelEffects.gdshader" id="3_rj11h"]
+[ext_resource type="Script" uid="uid://rl0aijomkxp0" path="res://Scripts/Misc/throwable/throwables.gd" id="5_rix8b"]
 [ext_resource type="Script" uid="uid://by4pbr6yeut1c" path="res://Main/Scripts/monitor_tracking.gd" id="5_rj11h"]
+[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="6_0jx5h"]
 [ext_resource type="PackedScene" uid="uid://bpmlfhv30o08l" path="res://UI/EditorUI/TopUI/top_ui.tscn" id="7_qwnpc"]
 [ext_resource type="Script" uid="uid://cl5ylmnvn6ncm" path="res://Scripts/Objects/mesh_poiner.gd" id="8_rix8b"]
 [ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="12_rix8b"]
@@ -173,6 +175,16 @@ position_smoothing_speed = 8.0
 [node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=1268053977]
 z_index = 4
 texture_filter = 4
+
+[node name="Throwables" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=310001112]
+unique_name_in_owner = true
+z_index = 4000
+script = ExtResource("5_rix8b")
+
+[node name="Pointer" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D/Origin/Throwables" unique_id=1574985264]
+unique_name_in_owner = true
+self_modulate = Color(0, 1, 0, 1)
+texture = ExtResource("6_0jx5h")
 
 [node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=1728498822]
 unique_name_in_owner = true

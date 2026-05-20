@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bohu2o2p0vqnd"]
+
+[ext_resource type="Script" uid="uid://d35mnegh8rv35" path="res://Scripts/Misc/throwable/throwable.gd" id="1_sxhc6"]
+[ext_resource type="Texture2D" uid="uid://dv27xjbwfkacl" path="res://Misc/TestAssets/Lamp.png" id="2_vemx8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vemx8"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vemx8"]
+resource_local_to_scene = true
+
+[node name="Throwable" type="RigidBody2D" unique_id=1039099669 node_paths=PackedStringArray("sprite_object", "collision")]
+collision_layer = 2
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_vemx8")
+inertia = 1.0
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 16
+script = ExtResource("1_sxhc6")
+sprite_object = NodePath("Sprite2D")
+collision = NodePath("Collision")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=160141541]
+texture = ExtResource("2_vemx8")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1022608560]
+shape = SubResource("CircleShape2D_vemx8")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1269568117]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

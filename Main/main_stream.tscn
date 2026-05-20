@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://c23flfaie3uxb" path="res://Misc/TestAssets/32x32grid.png" id="2_sw3on"]
 [ext_resource type="Script" uid="uid://qgnk6t8mi76s" path="res://Scripts/UI/WindowHandler/window_handler.gd" id="2_y56ai"]
 [ext_resource type="Shader" uid="uid://brpv37x267rmr" path="res://Scripts/Shaders/ColorBlindness.gdshader" id="3_me1oy"]
+[ext_resource type="Script" uid="uid://rl0aijomkxp0" path="res://Scripts/Misc/throwable/throwables.gd" id="5_d7c5n"]
 [ext_resource type="PackedScene" uid="uid://cnq8tddqwvy07" path="res://UI/StreamUI/stream_ui.tscn" id="5_h43to"]
 [ext_resource type="Script" uid="uid://by4pbr6yeut1c" path="res://Main/Scripts/monitor_tracking.gd" id="5_me1oy"]
+[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="6_fwmgs"]
 [ext_resource type="Shader" uid="uid://bc5tbhguskdv2" path="res://Scripts/Shaders/ModelEffects.gdshader" id="6_y56ai"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xfo8l"]
@@ -142,6 +144,15 @@ position_smoothing_speed = 8.0
 z_index = 4
 texture_filter = 4
 
+[node name="Throwables" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=2102940205]
+unique_name_in_owner = true
+script = ExtResource("5_d7c5n")
+
+[node name="Pointer" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D/Origin/Throwables" unique_id=1729005543]
+unique_name_in_owner = true
+self_modulate = Color(0, 1, 0, 1)
+texture = ExtResource("6_fwmgs")
+
 [node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=83123442]
 unique_name_in_owner = true
 script = ExtResource("1_u32ad")
@@ -191,7 +202,7 @@ unique_name_in_owner = true
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1976525289]
 unique_name_in_owner = true
 auto_translate_mode = 1
-title = "TR_FILE_DIALOG_TITLE"
+title = "Open File(s)"
 initial_position = 2
 size = Vector2i(800, 500)
 force_native = true

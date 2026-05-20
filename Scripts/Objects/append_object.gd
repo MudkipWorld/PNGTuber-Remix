@@ -52,6 +52,13 @@ func _ready():
 	grab_object.button_down.connect(_on_grab_button_down)
 	grab_object.button_up.connect(_on_grab_button_up)
 	Global.reinfo.connect(update_wiggle_parts)
+	await get_tree().create_timer(0.1).timeout
+	if sprite_object == null or static_collision == null: return
+	if sprite_object.texture:
+		var w : float = float(sprite_object.texture.get_image().get_width())
+		var h : float = float(sprite_object.texture.get_image().get_height())
+		static_collision.shape.size = Vector2(w, h)
+
 
 func sel():
 	if self in Global.held_sprites:
@@ -147,6 +154,8 @@ func get_state(id):
 		
 		%Sprite2D.texture_mode = get_value("tile")
 		%Sprite2D.keep_length = get_value("keep_length_anchor")
+		static_collision.disabled = !get_value("can_be_hit")
+		%HitDetection.set_collision_layer_value(2, get_value("can_be_hit"))
 		
 		
 		%Sprite2D.set_clip_children_mode(get_value("clip"))

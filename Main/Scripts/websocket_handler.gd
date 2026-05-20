@@ -704,12 +704,17 @@ func _on_message(peer_id: int, message: String):
 						send(peer_id, JSON.stringify({"event": "bounce_sprite", "result": "success", "identifier": identifier, "height": height, "duration": duration}))
 					else:
 						send(peer_id, JSON.stringify({"event": "bounce_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
+				"throw_item":
+					pass
+				"throw_random":
+					pass
 				_:
 					send(peer_id, JSON.stringify({"event": "error", "message": "Unknown event: " + str(json_data.get("event", "unknown"))}))
 					#print(Global.current_state)
 	else:
 		# No "event" key found in the message
 		send(peer_id, JSON.stringify({"event": "error", "message": "Missing 'event' field in message"}))
+
 func trigger_sprites_by_physical_key(key_str: String) -> Array:
 	var key_code = OS.find_keycode_from_string(key_str)
 	if key_code == KEY_NONE:

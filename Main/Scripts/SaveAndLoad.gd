@@ -25,6 +25,11 @@ func save_data():
 	for i in Global.image_manager_data:
 		if !Settings.theme_settings.save_unused_files:
 			var used : bool = false
+			for img in Global.throwable_spawner.selected_items:
+				if img == i:
+					used = true
+					break
+			
 			for sp in sprites:
 				if sp == null or !is_instance_valid(sp): continue
 				if i == null or !is_instance_valid(i): 
@@ -156,12 +161,25 @@ func save_data():
 			
 			
 		sprites_array.append(base)
+	
+	
+	var ids : Array = []
+	for img in Global.throwable_spawner.selected_items:
+		ids.append(img.id)
+	
 	save_dict = {
 		"version": Global.version,
 		"sprites_array": sprites_array,
 		"settings_dict": Global.settings_dict,
 		"input_array": input_array,
 		"image_manager_data": image_array,
+		"throwable" : {
+			'position' : Global.throwable_spawner.position,
+			'direction' :  Global.throwable_spawner.dir,
+			'image_ids' : ids,
+			'event' : InputMap.action_get_events('throwing')[0],
+			'throw_per_trigger' : Global.throwable_spawner.throw_per_trigger
+		}
 	}
 
 func save_model(path: String) -> void:
@@ -290,11 +308,28 @@ func load_model(path: String) -> void:
 	else:
 		Settings.save_timer.stop()
 
+	if Global.throwable_spawner != null && is_instance_valid(Global.throwable_spawner):
+		var throwable = load_dict.get("throwable", {})
+		Global.throwable_spawner.position = throwable.get('position', Vector2.ZERO)
+		Global.throwable_spawner.dir = throwable.get('direction', Vector2.ZERO)
+		Global.throwable_spawner.throw_per_trigger = throwable.get('throw_per_trigger', 1)
+		InputMap.action_erase_events('throwing')
+		var event = throwable.get('event', null)
+		if event != null:
+			InputMap.action_add_event('throwing', event)
+		
+		var ids : Array = throwable.get('image_ids', [])
+		for i in Global.image_manager_data:
+			if i.id in ids:
+				Global.throwable_spawner.selected_items.append(i)
+
 	Global.main.get_node("%Marker").current_screen = Global.settings_dict.monitor
 	Global.project_updates.emit("Project Loaded!")
 	Global.remake_image_manager.emit()
 	Global.load_model.emit()
 	Global.load_sprite_states(0)
+	
+	
 
 func resize_image_data(image_data: ImageData, sprite_node: Node2D, percent: float) -> void:
 	if percent == 100.0 or image_data.runtime_texture == null:

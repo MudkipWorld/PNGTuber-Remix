@@ -24,6 +24,13 @@ func _ready():
 	Global.deselect.connect(desel)
 	grab_object.button_down.connect(_on_grab_button_down)
 	grab_object.button_up.connect(_on_grab_button_up)
+	await get_tree().create_timer(0.1).timeout
+	if sprite_object == null or static_collision == null: return
+	if sprite_object.texture:
+		var w : float = float(sprite_object.texture.get_image().get_width())
+		var h : float = float(sprite_object.texture.get_image().get_height())
+		static_collision.shape.size = Vector2(w, h)
+
 
 func sel():
 	if self in Global.held_sprites:
@@ -97,6 +104,8 @@ func get_state(id):
 		position = get_value("position")
 		%Sprite2D.position = get_value("offset") 
 		%Sprite2D.scale = Vector2(1,1)
+		static_collision.disabled = !get_value("can_be_hit")
+		%HitDetection.set_collision_layer_value(2, get_value("can_be_hit"))
 		if get_value("flip_sprite_h"):
 			%Sprite2D.scale.x = -1
 		else:

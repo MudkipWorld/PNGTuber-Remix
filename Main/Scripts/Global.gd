@@ -124,6 +124,8 @@ var camera : Camera2D = null
 var camera_pos : Node2D = null
 var mesh_pointer : Node2D = null
 
+var throwable_spawner : Node2D = null
+
 var frame_counter : int = 0
 const FRAME_INTERVAL : int = 3  # Run every 5 frames
 var swtich_session_popup : Node = null

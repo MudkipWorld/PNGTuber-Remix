@@ -34,6 +34,15 @@ func _ready():
 	Global.deselect.connect(desel)
 	grab_object.button_down.connect(_on_grab_button_down)
 	grab_object.button_up.connect(_on_grab_button_up)
+	
+	await get_tree().create_timer(0.1).timeout
+	if sprite_object == null or static_collision == null: return
+	static_collision.shape.size = Vector2(500, 500)
+	if sprite_object.texture && !get_value("folder"):
+		var w : float = float(sprite_object.texture.get_width())
+		var h : float = float(sprite_object.texture.get_height())
+		if w > 0 && h > 0:
+			static_collision.shape.size = Vector2(w, h)
 
 func sel():
 	if self in Global.held_sprites:
@@ -200,6 +209,8 @@ func get_state(id):
 		modulate = get_value("colored")
 		%Sprite2D.self_modulate = get_value("tint")
 		scale = get_value("scale")
+		static_collision.disabled = !get_value("can_be_hit")
+		%HitDetection.set_collision_layer_value(2, get_value("can_be_hit"))
 	#	global_position = get_value("global_position")
 		
 		

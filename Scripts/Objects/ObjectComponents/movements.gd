@@ -13,6 +13,8 @@ var applied_pos : Vector2 = Vector2.ZERO
 var applied_rotation : float = 0.0
 var applied_scale : Vector2 = Vector2.ONE
 
+var hit_rotation : float = 0.0
+
 var placeholder_position : Vector2 = Vector2.ZERO
 
 var last_wobble_pos : Vector2 = Vector2.ZERO
@@ -87,8 +89,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		follow_wiggle(delta)
 	if !Global.static_view:
-		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation 
-		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
+		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
+		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot+ hit_rotation)
 		modifier_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
 	shadow_target = modifier_node.global_position + follow_component.final_target
@@ -104,6 +106,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		modifier_node.z_index = 0
 	
+	chained_hit_reaction()
+	hit_rotation = lerp_angle(hit_rotation, 0.0, 0.1)
 	
 	if actor.sprite_type == "Mesh" and mesh != null && is_instance_valid(mesh):
 		var can_deform : bool = false
@@ -142,6 +146,14 @@ func _physics_process(delta: float) -> void:
 			mesh.call_deferred("update_physics", delta, false)
 	
 		last_modifier_position = last_modifier_position.lerp(%Origin.global_position,0.125 )
+
+func chained_hit_reaction():
+	if actor.get_value("hit_physics"):
+		var p = actor.get_parent().owner
+		if p.get_value("can_be_hit"):
+			var hit : float = p.get_node("%Movements").hit_rotation * actor.get_value("reaction_strength")
+			var final_hit : float = hit*0.5
+			hit_rotation += final_hit
 
 func _process(_delta : float) -> void:
 	if actor.get_value("static_obj"):

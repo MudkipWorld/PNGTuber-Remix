@@ -21,6 +21,9 @@ shader_parameter/rotation_offset = Vector2(0.5, 0.5)
 [sub_resource type="CanvasTexture" id="CanvasTexture_6684t"]
 diffuse_texture = ExtResource("5_mwqm8")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31wc5"]
+resource_local_to_scene = true
+
 [sub_resource type="Gradient" id="Gradient_31wc5"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 0)
@@ -45,17 +48,18 @@ colors = PackedColorArray(0, 0, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i82gq"]
 gradient = SubResource("Gradient_lijf4")
 
-[node name="SpriteObject" unique_id=468878790 node_paths=PackedStringArray("sprite_object", "grab_object") instance=ExtResource("1_31wc5")]
+[node name="SpriteObject" unique_id=468878790 node_paths=PackedStringArray("sprite_object", "grab_object", "static_collision") instance=ExtResource("1_31wc5")]
 script = ExtResource("1_yuqos")
 sprite_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D")
 grab_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D/Grab")
+static_collision = NodePath("Modifier1/Rotation/Modifier/Sprite2D/HitDetection/Coll")
 
 [node name="Sprite2D" type="Line2D" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=290325673 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_lijf4")
-points = PackedVector2Array(0, 0, 27.36, 6.706932e-05, 51.84, 0.00026827728, 73.44, 0.0006036239, 92.16, 0.0010731091, 108, 0.0016767329, 122.399994, 0.0023677633, 136.8, 0.0030994676, 151.20001, 0.003871846, 165.6, 0.004684899, 180, 0.0055386256, 194.4, 0.006729022, 208.79999, 0.008552084, 223.20001, 0.011007812, 237.6, 0.014096203, 252, 0.01781726, 266.40002, 0.022435032, 280.8, 0.028213568, 295.2, 0.035152867, 309.59998, 0.043252926, 324, 0.05251375, 338.40002, 0.06293534, 352.8, 0.07451769)
+points = PackedVector2Array(0, 0, 27.36, 9.258982e-05, 51.84, 0.00037035928, 73.44, 0.00083330844, 92.16, 0.0014814371, 108, 0.0023147454, 122.399994, 0.0032514872, 136.8, 0.004209916, 151.20001, 0.0051900325, 165.6, 0.0061918357, 180, 0.007215326, 194.4, 0.008031969, 208.79999, 0.008413227, 223.20001, 0.0083591025, 237.6, 0.007869594, 252, 0.0069447015, 266.40002, 0.005561374, 280.8, 0.0036965597, 295.2, 0.0013502582, 309.59998, -0.0014775298, 324, -0.0047868043, 338.40002, -0.008577567, 352.8, -0.012849815)
 texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
 script = ExtResource("4_e6x1l")
@@ -67,7 +71,16 @@ stiffness_decay_exponent = 5.0
 max_angular_momentum = 20.0
 subdivision = 5
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="0" unique_id=1348424283]
+[node name="HitDetection" type="StaticBody2D" parent="Modifier1/Rotation/Modifier/Sprite2D" index="0" unique_id=711491270]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="Coll" type="CollisionShape2D" parent="Modifier1/Rotation/Modifier/Sprite2D/HitDetection" index="0" unique_id=941113458]
+shape = SubResource("RectangleShape2D_31wc5")
+disabled = true
+
+[node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="1" unique_id=1348424283]
 unique_name_in_owner = true
 z_index = 4096
 anchors_preset = 15

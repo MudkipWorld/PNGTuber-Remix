@@ -231,12 +231,17 @@ const DEFAULT_DATA := {
 	mesh_phys_y = 75,
 	
 	use_object_pos = false,
-	phys_eff = 25.0
+	phys_eff = 25.0,
+	
+	can_be_hit = false,
+	hit_physics = false,
+	reaction_strength = 0.5,
 	
 	}
 
 @export var sprite_object : Node2D
 @export var grab_object : BaseButton
+@export var static_collision : CollisionShape2D
 var used_image_id : int = 0
 var used_image_id_normal : int = 0
 var referenced_data : ImageData  = null

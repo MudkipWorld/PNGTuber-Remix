@@ -6,6 +6,9 @@
 [ext_resource type="Shader" uid="uid://di5vad1bc51ed" path="res://Scripts/Shaders/SpriteSelectionWA.gdshader" id="4_6vnt7"]
 [ext_resource type="Script" uid="uid://cur4yqw18532d" path="res://Scripts/Objects/mesh_editor.gd" id="4_pfue5"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfue5"]
+resource_local_to_scene = true
+
 [sub_resource type="Gradient" id="Gradient_uswo1"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 0)
@@ -30,11 +33,12 @@ colors = PackedColorArray(0, 0, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_dwesf"]
 gradient = SubResource("Gradient_31wc5")
 
-[node name="MeshObject" unique_id=1974029806 node_paths=PackedStringArray("mesh", "sprite_object", "grab_object") groups=["Meshes"] instance=ExtResource("1_mho80")]
+[node name="MeshObject" unique_id=1974029806 node_paths=PackedStringArray("mesh", "sprite_object", "grab_object", "static_collision") groups=["Meshes"] instance=ExtResource("1_mho80")]
 script = ExtResource("2_i8o0q")
 mesh = NodePath("Modifier1/Rotation/Modifier/Sprite2D")
 sprite_object = NodePath("Modifier1/Rotation/Modifier/placeholder")
 grab_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D/Grab")
+static_collision = NodePath("Modifier1/Rotation/Modifier/Sprite2D/HitDetection/Coll")
 sprite_type = "Mesh"
 
 [node name="placeholder" type="Sprite2D" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=238015401]
@@ -45,13 +49,22 @@ unique_name_in_owner = true
 script = ExtResource("3_pfue5")
 parent = NodePath("../../../..")
 
-[node name="MeshEditor" type="Node2D" parent="Modifier1/Rotation/Modifier/Sprite2D" index="0" unique_id=1524182583 node_paths=PackedStringArray("mesh")]
+[node name="HitDetection" type="StaticBody2D" parent="Modifier1/Rotation/Modifier/Sprite2D" index="0" unique_id=1285005073]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="Coll" type="CollisionShape2D" parent="Modifier1/Rotation/Modifier/Sprite2D/HitDetection" index="0" unique_id=1138904508]
+shape = SubResource("RectangleShape2D_pfue5")
+disabled = true
+
+[node name="MeshEditor" type="Node2D" parent="Modifier1/Rotation/Modifier/Sprite2D" index="1" unique_id=1524182583 node_paths=PackedStringArray("mesh")]
 unique_name_in_owner = true
 z_index = 4093
 script = ExtResource("4_pfue5")
 mesh = NodePath("..")
 
-[node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="1" unique_id=892850542]
+[node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="2" unique_id=892850542]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
