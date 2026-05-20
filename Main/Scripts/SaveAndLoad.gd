@@ -178,7 +178,11 @@ func save_data():
 			'direction' :  Global.throwable_spawner.dir,
 			'image_ids' : ids,
 			'event' : InputMap.action_get_events('throwing')[0],
-			'throw_per_trigger' : Global.throwable_spawner.throw_per_trigger
+			'throw_per_trigger' : Global.throwable_spawner.throw_per_trigger,
+			'spawn_variance' : Global.throwable_spawner.spawn_variance,
+			'both_sides' : Global.throwable_spawner.both_sides,
+			'base_mass' : Global.throwable_spawner.base_mass
+			
 		}
 	}
 
@@ -313,6 +317,10 @@ func load_model(path: String) -> void:
 		Global.throwable_spawner.position = throwable.get('position', Vector2.ZERO)
 		Global.throwable_spawner.dir = throwable.get('direction', Vector2.ZERO)
 		Global.throwable_spawner.throw_per_trigger = throwable.get('throw_per_trigger', 1)
+		Global.throwable_spawner.spawn_variance = throwable.get('spawn_variance', 0)
+		Global.throwable_spawner.both_sides = throwable.get('both_sides', false)
+		Global.throwable_spawner.base_mass = throwable.get('base_mass', 1)
+		
 		InputMap.action_erase_events('throwing')
 		var event = throwable.get('event', null)
 		if event != null:
@@ -328,8 +336,6 @@ func load_model(path: String) -> void:
 	Global.remake_image_manager.emit()
 	Global.load_model.emit()
 	Global.load_sprite_states(0)
-	
-	
 
 func resize_image_data(image_data: ImageData, sprite_node: Node2D, percent: float) -> void:
 	if percent == 100.0 or image_data.runtime_texture == null:

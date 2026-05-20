@@ -89,8 +89,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		follow_wiggle(delta)
 	if !Global.static_view:
-		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation
-		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot+ hit_rotation)
+		var final_rot = applied_rotation + rot_drag + follow_point_rot + should_rot_rotation+ hit_rotation
+		modifier_node.rotation = GlobalCalculations.is_nan_or_inf(final_rot)
 		modifier_node.position = GlobalCalculations.is_nan_or_inf(applied_pos)
 	
 	shadow_target = modifier_node.global_position + follow_component.final_target
@@ -153,6 +153,7 @@ func chained_hit_reaction():
 		if p.get_value("can_be_hit"):
 			var hit : float = p.get_node("%Movements").hit_rotation * actor.get_value("reaction_strength")
 			var final_hit : float = hit*0.5
+			final_hit = wrapf(final_hit, -PI, PI)
 			hit_rotation += final_hit
 
 func _process(_delta : float) -> void:
