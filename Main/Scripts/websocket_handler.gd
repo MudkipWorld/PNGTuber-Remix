@@ -750,7 +750,7 @@ func _on_message(peer_id: int, message: String):
 						var new_state = !Global.throwable_spawner.is_paused
 						if json_data.has("pause"):
 							new_state = bool(json_data["pause"])
-						Global.throwable_spawner.is_paused = new_state
+						Global.throwable_spawner.set_paused(new_state)
 						send(peer_id, JSON.stringify({"event": "toggle_throwables_pause", "result": "success", "is_paused": new_state}))
 				_:
 					send(peer_id, JSON.stringify({"event": "error", "message": "Unknown event: " + str(json_data.get("event", "unknown"))}))
