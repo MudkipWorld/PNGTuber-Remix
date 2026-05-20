@@ -191,6 +191,35 @@ icon = SubResource("AtlasTexture_edwq2")
 icon_alignment = 1
 expand_icon = true
 
+[node name="PauseThrowHBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBox/PauseThrowHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pause Throw Key"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox/PauseThrowHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ThrowPauseKey" type="Button" parent="VBox/PauseThrowHBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "TR_BIND_KEY"
+
+[node name="RemoveThrowPauseButton" type="Button" parent="VBox/PauseThrowHBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+icon = SubResource("AtlasTexture_edwq2")
+icon_alignment = 1
+expand_icon = true
 [node name="ThrowTest" type="Button" parent="VBox/GridContainer" unique_id=1487378663]
 layout_mode = 2
 text = "Throw Test"
@@ -280,6 +309,8 @@ text = "Confirm"
 [connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
+[connection signal="toggled" from="VBox/PauseThrowHBox/HBoxContainer/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
+[connection signal="pressed" from="VBox/PauseThrowHBox/HBoxContainer/RemoveThrowPauseButton" to="." method="_on_remove_throw_pause_button_pressed"]
 [connection signal="toggled" from="VBox/GridContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
 [connection signal="pressed" from="VBox/GridContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
 [connection signal="pressed" from="VBox/GridContainer/ThrowTest" to="." method="_on_throw_test_pressed"]

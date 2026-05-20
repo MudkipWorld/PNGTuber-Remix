@@ -2,8 +2,8 @@ extends ScrollContainer
 
 var should_change : bool = false
 var selected_items : Array = []
-
 var selected_items_to_add : Array = []
+var current_binding_action : String = ""
 
 func _ready() -> void:
 	set_process_unhandled_input(false)
@@ -143,31 +143,72 @@ func _on_selection_list_multi_selected(_index: int, _selected: bool) -> void:
 			selected_items_to_add.append(%SelectionList.get_item_metadata(i))
 
 func _on_throw_key_toggled(toggled_on: bool) -> void:
-	set_process_unhandled_input(toggled_on)
 	if toggled_on:
+		if has_node("%ThrowPauseKey"): %ThrowPauseKey.button_pressed = false
+		current_binding_action = "throwing"
+		set_process_unhandled_input(true)
 		%ThrowKey.text = tr("TR_AWAITING_INPUT")
 		release_focus()
 	else:
+		if current_binding_action == "throwing":
+			set_process_unhandled_input(false)
+			current_binding_action = ""
+		update_key_text()
+		grab_focus()
+
+func _on_throw_pause_key_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		%ThrowKey.button_pressed = false
+		current_binding_action = "throwing_pause"
+		set_process_unhandled_input(true)
+		%ThrowPauseKey.text = tr("TR_AWAITING_INPUT")
+		release_focus()
+	else:
+		if current_binding_action == "throwing_pause":
+			set_process_unhandled_input(false)
+			current_binding_action = ""
 		update_key_text()
 		grab_focus()
 
 func _unhandled_input(event):
-	if !event is InputEventMouseMotion:
+	if !event is InputEventMouseMotion and current_binding_action != "":
 		if event.is_released():
-			InputMap.action_erase_events('throwing')
-			InputMap.action_add_event('throwing', event)
-			%ThrowKey.button_pressed = false
+			if not InputMap.has_action(current_binding_action):
+				InputMap.add_action(current_binding_action)
+			InputMap.action_erase_events(current_binding_action)
+			InputMap.action_add_event(current_binding_action, event)
+			if current_binding_action == "throwing":
+				%ThrowKey.button_pressed = false
+			elif current_binding_action == "throwing_pause":
+				%ThrowPauseKey.button_pressed = false
+			
+			current_binding_action = ""
+			set_process_unhandled_input(false)
 			update_key_text()
 
 func update_key_text():
-	if InputMap.action_get_events('throwing').size() != 0:
+	if InputMap.has_action('throwing') and InputMap.action_get_events('throwing').size() != 0:
 		%ThrowKey.text = "%s" % InputMap.action_get_events('throwing')[0].as_text()
 	else:
 		%ThrowKey.text = tr("TR_BIND_KEY")
+		
+	if not InputMap.has_action('throwing_pause'):
+		InputMap.add_action('throwing_pause')
+		
+	if has_node("%ThrowPauseKey"):
+		if InputMap.action_get_events('throwing_pause').size() != 0:
+			%ThrowPauseKey.text = "%s" % InputMap.action_get_events('throwing_pause')[0].as_text()
+		else:
+			%ThrowPauseKey.text = tr("TR_BIND_KEY")
 
 func _on_remove_asset_button_pressed() -> void:
-	if InputMap.action_get_events('throwing').size() != 0:
+	if InputMap.has_action('throwing') and InputMap.action_get_events('throwing').size() != 0:
 		InputMap.action_erase_events('throwing')
+		update_key_text()
+
+func _on_remove_throw_pause_button_pressed() -> void:
+	if InputMap.has_action('throwing_pause') and InputMap.action_get_events('throwing_pause').size() != 0:
+		InputMap.action_erase_events('throwing_pause')
 		update_key_text()
 
 func _on_physics_toggled(toggled_on: bool) -> void:
