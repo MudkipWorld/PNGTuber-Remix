@@ -178,6 +178,7 @@ func save_data():
 			'direction' :  Global.throwable_spawner.dir,
 			'image_ids' : ids,
 			'event' : InputMap.action_get_events('throwing')[0] if InputMap.action_get_events('throwing').size() > 0 else null,
+			'stop_event' : InputMap.action_get_events('throwing_pause')[0] if InputMap.action_get_events('throwing_pause').size() > 0 else null,
 			'throw_per_trigger' : Global.throwable_spawner.throw_per_trigger,
 			'spawn_variance' : Global.throwable_spawner.spawn_variance,
 			'both_sides' : Global.throwable_spawner.both_sides,
@@ -325,6 +326,12 @@ func load_model(path: String) -> void:
 		var event = throwable.get('event', null)
 		if event != null:
 			InputMap.action_add_event('throwing', event)
+		
+		
+		InputMap.action_erase_events('throwing_pause')
+		var stop_event = throwable.get('stop_event', null)
+		if stop_event != null:
+			InputMap.action_add_event('throwing_pause', stop_event)
 		
 		var ids : Array = throwable.get('image_ids', [])
 		Global.throwable_spawner.selected_items.clear()
