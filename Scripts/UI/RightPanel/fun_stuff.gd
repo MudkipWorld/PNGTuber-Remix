@@ -74,6 +74,10 @@ func update_ui():
 	%DirX.value = Global.throwable_spawner.dir.x
 	%DirY.value = Global.throwable_spawner.dir.y
 	%SpawnPerTrigger.value = float(Global.throwable_spawner.throw_per_trigger)
+	if has_node("%SpawnVariance"):
+		%SpawnVariance.value = float(Global.throwable_spawner.spawn_variance)
+	if has_node("%BothSides"):
+		%BothSides.button_pressed = Global.throwable_spawner.both_sides
 	var index : int = 0
 	for i in Global.throwable_spawner.selected_items:
 		%ItemList.add_item(i.image_name, i.runtime_texture, true)
@@ -132,14 +136,13 @@ func _on_selection_list_multi_selected(_index: int, _selected: bool) -> void:
 			selected_items_to_add.append(%SelectionList.get_item_metadata(i))
 
 func _on_throw_key_toggled(toggled_on: bool) -> void:
-	if %ThrowKey.button_pressed:
-		set_process_unhandled_input(toggled_on)
-		if toggled_on:
-			%ThrowKey.text = tr("TR_AWAITING_INPUT")
-			release_focus()
-		else:
-			update_key_text()
-			grab_focus()
+	set_process_unhandled_input(toggled_on)
+	if toggled_on:
+		%ThrowKey.text = tr("TR_AWAITING_INPUT")
+		release_focus()
+	else:
+		update_key_text()
+		grab_focus()
 
 func _unhandled_input(event):
 	if !event is InputEventMouseMotion:
@@ -174,3 +177,11 @@ func _on_physics_toggled(toggled_on: bool) -> void:
 func _on_spawn_per_trigger_value_changed(value: float) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
 	Global.throwable_spawner.throw_per_trigger = int(value)
+
+func _on_spawn_variance_value_changed(value: float) -> void:
+	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
+	Global.throwable_spawner.spawn_variance = value
+
+func _on_both_sides_toggled(toggled_on: bool) -> void:
+	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
+	Global.throwable_spawner.both_sides = toggled_on
