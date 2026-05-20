@@ -46,13 +46,6 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "TR_PHYSICS"
 
-[node name="BothSides" type="CheckBox" parent="VBox/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "Both Sides"
-
 [node name="BetterSlider" parent="VBox" unique_id=1658009348 instance=ExtResource("1_mirsd")]
 layout_mode = 2
 sp_type = ""
@@ -141,33 +134,46 @@ min_value = 1.0
 max_value = 1000.0
 value = 1.0
 
-[node name="Label6" type="Label" parent="VBox/Grid"]
+[node name="Label6" type="Label" parent="VBox/Grid" unique_id=990086568]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Variance"
 
-[node name="SpawnVariance" type="SpinBox" parent="VBox/Grid"]
+[node name="SpawnVariance" type="SpinBox" parent="VBox/Grid" unique_id=315353511]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = 0.0
 max_value = 10000.0
 step = 0.1
-value = 0.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBox" unique_id=457813297]
+[node name="Label7" type="Label" parent="VBox/Grid" unique_id=2129990025]
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Base Mass"
 
-[node name="Label" type="Label" parent="VBox/HBoxContainer" unique_id=145376524]
+[node name="BaseMass" type="SpinBox" parent="VBox/Grid" unique_id=1921784791]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 500.0
+step = 0.1
+value = 1.0
+
+[node name="GridContainer" type="GridContainer" parent="VBox" unique_id=2035839379]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBox/GridContainer" unique_id=145376524]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Throw Key"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBox/HBoxContainer" unique_id=1324015353]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox/GridContainer" unique_id=1324015353]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ThrowKey" type="Button" parent="VBox/HBoxContainer/HBoxContainer" unique_id=1043111196]
+[node name="ThrowKey" type="Button" parent="VBox/GridContainer/HBoxContainer" unique_id=1043111196]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -175,7 +181,7 @@ size_flags_horizontal = 3
 toggle_mode = true
 text = "TR_BIND_KEY"
 
-[node name="RemoveAssetButton" type="Button" parent="VBox/HBoxContainer/HBoxContainer" unique_id=972491248]
+[node name="RemoveAssetButton" type="Button" parent="VBox/GridContainer/HBoxContainer" unique_id=972491248]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -214,6 +220,16 @@ size_flags_vertical = 4
 icon = SubResource("AtlasTexture_edwq2")
 icon_alignment = 1
 expand_icon = true
+[node name="ThrowTest" type="Button" parent="VBox/GridContainer" unique_id=1487378663]
+layout_mode = 2
+text = "Throw Test"
+
+[node name="BothSides" type="CheckBox" parent="VBox/GridContainer" unique_id=1338443628]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Both Sides"
 
 [node name="HSeparator2" type="HSeparator" parent="VBox" unique_id=1270057529]
 layout_mode = 2
@@ -286,17 +302,19 @@ text = "Confirm"
 
 [connection signal="toggled" from="VBox/HBoxContainer2/HasCollision" to="." method="_on_has_collision_toggled"]
 [connection signal="toggled" from="VBox/HBoxContainer2/Physics" to="." method="_on_physics_toggled"]
-[connection signal="toggled" from="VBox/HBoxContainer2/BothSides" to="." method="_on_both_sides_toggled"]
 [connection signal="value_changed" from="VBox/Grid/PositionX" to="." method="_on_position_x_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/PositionY" to="." method="_on_position_y_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/DirX" to="." method="_on_dir_x_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/DirY" to="." method="_on_dir_y_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
-[connection signal="toggled" from="VBox/HBoxContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
-[connection signal="pressed" from="VBox/HBoxContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
+[connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
 [connection signal="toggled" from="VBox/PauseThrowHBox/HBoxContainer/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
 [connection signal="pressed" from="VBox/PauseThrowHBox/HBoxContainer/RemoveThrowPauseButton" to="." method="_on_remove_throw_pause_button_pressed"]
+[connection signal="toggled" from="VBox/GridContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
+[connection signal="pressed" from="VBox/GridContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
+[connection signal="pressed" from="VBox/GridContainer/ThrowTest" to="." method="_on_throw_test_pressed"]
+[connection signal="toggled" from="VBox/GridContainer/BothSides" to="." method="_on_both_sides_toggled"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Remove" to="." method="_on_remove_pressed"]
 [connection signal="multi_selected" from="VBox/VBoxContainer/ItemList" to="." method="_on_item_list_multi_selected"]

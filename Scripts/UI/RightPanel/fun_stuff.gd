@@ -14,9 +14,11 @@ func _ready() -> void:
 
 func nullfy():
 	%HasCollision.disabled = true
+	%Physics.disabled = true
 
 func enable():
 	%HasCollision.disabled = false
+	%Physics.disabled = false
 	set_data()
 
 func set_data():
@@ -25,6 +27,7 @@ func set_data():
 	var i = Global.held_sprites[0]
 	if i == null or !is_instance_valid(i): return
 	%HasCollision.button_pressed = i.get_value('can_be_hit')
+	%Physics.button_pressed = i.get_value('hit_physics')
 	should_change = true
 
 func _on_has_collision_toggled(toggled_on: bool) -> void:
@@ -74,6 +77,9 @@ func update_ui():
 	%DirX.value = Global.throwable_spawner.dir.x
 	%DirY.value = Global.throwable_spawner.dir.y
 	%SpawnPerTrigger.value = float(Global.throwable_spawner.throw_per_trigger)
+	%SpawnVariance.value = Global.throwable_spawner.spawn_variance
+	%BothSides.button_pressed = Global.throwable_spawner.both_sides
+	%BaseMass.value = Global.throwable_spawner.base_mass
 	if has_node("%SpawnVariance"):
 		%SpawnVariance.value = float(Global.throwable_spawner.spawn_variance)
 	if has_node("%BothSides"):
@@ -125,7 +131,7 @@ func _on_confirm_pressed() -> void:
 		index += 1
 
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	Global.throwable_spawner.selected_items = selected_items_to_add.duplicate()
+	Global.throwable_spawner.selected_items.append_array(selected_items_to_add.duplicate())
 	
 	selected_items_to_add.clear()
 
@@ -226,3 +232,11 @@ func _on_spawn_variance_value_changed(value: float) -> void:
 func _on_both_sides_toggled(toggled_on: bool) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
 	Global.throwable_spawner.both_sides = toggled_on
+
+func _on_throw_test_pressed() -> void:
+	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
+	Global.throwable_spawner.throw_item()
+
+func _on_base_mass_value_changed(value: float) -> void:
+	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
+	Global.throwable_spawner.base_mass = value
