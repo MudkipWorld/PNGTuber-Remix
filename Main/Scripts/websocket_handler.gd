@@ -705,9 +705,44 @@ func _on_message(peer_id: int, message: String):
 					else:
 						send(peer_id, JSON.stringify({"event": "bounce_sprite", "result": "failed", "identifier": identifier, "error": "sprite not found"}))
 				"throw_item":
-					pass
+					if Global.throwable_spawner == null or not is_instance_valid(Global.throwable_spawner):
+						send(peer_id, JSON.stringify({"event": "throw_item", "result": "failed", "error": "throwable spawner not active"}))
+					else:
+						var item_name = str(json_data.get("item_name", ""))
+						var amount = int(json_data.get("amount", 1))
+						var variance = float(json_data.get("variance", -1.0))
+						var both_sides_val = -1
+						if json_data.has("both_sides"):
+							both_sides_val = 1 if bool(json_data["both_sides"]) else 0
+						
+						var found_img = null
+						if item_name != "":
+							for img in Global.image_manager_data:
+								if img.image_name == item_name:
+									found_img = img
+									break
+						
+						if found_img != null:
+							Global.throwable_spawner.throw_specific_item(found_img, amount, variance, both_sides_val)
+							send(peer_id, JSON.stringify({"event": "throw_item", "result": "success", "item_name": item_name, "amount": amount}))
+						else:
+							send(peer_id, JSON.stringify({"event": "throw_item", "result": "failed", "item_name": item_name, "error": "item not found"}))
 				"throw_random":
-					pass
+					if Global.throwable_spawner == null or not is_instance_valid(Global.throwable_spawner):
+						send(peer_id, JSON.stringify({"event": "throw_random", "result": "failed", "error": "throwable spawner not active"}))
+					else:
+						var amount = int(json_data.get("amount", -1))
+						var variance = float(json_data.get("variance", -1.0))
+						var both_sides_val = -1
+						if json_data.has("both_sides"):
+							both_sides_val = 1 if bool(json_data["both_sides"]) else 0
+							
+						if amount > 0:
+							Global.throwable_spawner.throw_random_items(amount, variance, both_sides_val)
+						else:
+							Global.throwable_spawner.throw_random_items(Global.throwable_spawner.throw_per_trigger, variance, both_sides_val)
+						
+						send(peer_id, JSON.stringify({"event": "throw_random", "result": "success"}))
 				_:
 					send(peer_id, JSON.stringify({"event": "error", "message": "Unknown event: " + str(json_data.get("event", "unknown"))}))
 					#print(Global.current_state)
