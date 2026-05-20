@@ -191,19 +191,16 @@ icon = SubResource("AtlasTexture_edwq2")
 icon_alignment = 1
 expand_icon = true
 
-[node name="PauseThrowHBox" type="HBoxContainer" parent="VBox"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBox/PauseThrowHBox"]
+[node name="Label2" type="Label" parent="VBox/GridContainer" unique_id=1495971531]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Pause Throw Key"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBox/PauseThrowHBox"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBox/GridContainer" unique_id=1883918977]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ThrowPauseKey" type="Button" parent="VBox/PauseThrowHBox/HBoxContainer"]
+[node name="ThrowPauseKey" type="Button" parent="VBox/GridContainer/HBoxContainer2" unique_id=1838041621]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -211,7 +208,7 @@ size_flags_horizontal = 3
 toggle_mode = true
 text = "TR_BIND_KEY"
 
-[node name="RemoveThrowPauseButton" type="Button" parent="VBox/PauseThrowHBox/HBoxContainer"]
+[node name="RemoveThrowPauseButton" type="Button" parent="VBox/GridContainer/HBoxContainer2" unique_id=467178550]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -220,9 +217,14 @@ size_flags_vertical = 4
 icon = SubResource("AtlasTexture_edwq2")
 icon_alignment = 1
 expand_icon = true
+
 [node name="ThrowTest" type="Button" parent="VBox/GridContainer" unique_id=1487378663]
 layout_mode = 2
 text = "Throw Test"
+
+[node name="StopTest" type="Button" parent="VBox/GridContainer" unique_id=1433446286]
+layout_mode = 2
+text = "Stop Test"
 
 [node name="BothSides" type="CheckBox" parent="VBox/GridContainer" unique_id=1338443628]
 unique_name_in_owner = true
@@ -309,11 +311,12 @@ text = "Confirm"
 [connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
-[connection signal="toggled" from="VBox/PauseThrowHBox/HBoxContainer/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
-[connection signal="pressed" from="VBox/PauseThrowHBox/HBoxContainer/RemoveThrowPauseButton" to="." method="_on_remove_throw_pause_button_pressed"]
 [connection signal="toggled" from="VBox/GridContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
 [connection signal="pressed" from="VBox/GridContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
+[connection signal="toggled" from="VBox/GridContainer/HBoxContainer2/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
+[connection signal="pressed" from="VBox/GridContainer/HBoxContainer2/RemoveThrowPauseButton" to="." method="_on_remove_throw_pause_button_pressed"]
 [connection signal="pressed" from="VBox/GridContainer/ThrowTest" to="." method="_on_throw_test_pressed"]
+[connection signal="pressed" from="VBox/GridContainer/StopTest" to="." method="_on_stop_test_pressed"]
 [connection signal="toggled" from="VBox/GridContainer/BothSides" to="." method="_on_both_sides_toggled"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Remove" to="." method="_on_remove_pressed"]

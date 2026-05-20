@@ -173,7 +173,7 @@ func _on_throw_pause_key_toggled(toggled_on: bool) -> void:
 func _unhandled_input(event):
 	if !event is InputEventMouseMotion and current_binding_action != "":
 		if event.is_released():
-			if not InputMap.has_action(current_binding_action):
+			if !InputMap.has_action(current_binding_action):
 				InputMap.add_action(current_binding_action)
 			InputMap.action_erase_events(current_binding_action)
 			InputMap.action_add_event(current_binding_action, event)
@@ -241,3 +241,6 @@ func _on_throw_test_pressed() -> void:
 func _on_base_mass_value_changed(value: float) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
 	Global.throwable_spawner.base_mass = value
+
+func _on_stop_test_pressed() -> void:
+	Global.throwable_spawner.toggle_pause()

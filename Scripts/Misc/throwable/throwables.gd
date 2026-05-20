@@ -24,7 +24,7 @@ func show_pointer(mode : int):
 func _process(_delta: float) -> void:
 	if GlobInput.is_action_just_pressed('throwing'):
 		throw_item()
-	if event.is_action_pressed("throwing_pause"):
+	if GlobInput.is_action_just_pressed("throwing_pause"):
 		toggle_pause()
 
 func toggle_pause():

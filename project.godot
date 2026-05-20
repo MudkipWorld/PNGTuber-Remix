@@ -355,6 +355,10 @@ throwing={
 "deadzone": 0.2,
 "events": []
 }
+throwing_pause={
+"deadzone": 0.2,
+"events": []
+}
 
 [input_devices]
 
