@@ -208,6 +208,15 @@ Trigger the throwable item spawner to launch items at the avatar.
 }
 ```
 
+**Toggle Throwables Pause:**
+Instantly stops any currently throwing items and prevents new items from being thrown until toggled again.
+```json
+{
+  "event": "toggle_throwables_pause",
+  "pause": true // Optional: boolean to explicitly set pause state. If omitted, toggles current state.
+}
+```
+
 ---
 
 ### 9. Load Model

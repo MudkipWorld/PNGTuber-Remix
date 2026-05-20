@@ -185,6 +185,36 @@ icon = SubResource("AtlasTexture_edwq2")
 icon_alignment = 1
 expand_icon = true
 
+[node name="PauseThrowHBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBox/PauseThrowHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pause Throw Key"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox/PauseThrowHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ThrowPauseKey" type="Button" parent="VBox/PauseThrowHBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "TR_BIND_KEY"
+
+[node name="RemoveThrowPauseButton" type="Button" parent="VBox/PauseThrowHBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+icon = SubResource("AtlasTexture_edwq2")
+icon_alignment = 1
+expand_icon = true
+
 [node name="HSeparator2" type="HSeparator" parent="VBox" unique_id=1270057529]
 layout_mode = 2
 
@@ -265,6 +295,8 @@ text = "Confirm"
 [connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
 [connection signal="toggled" from="VBox/HBoxContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
 [connection signal="pressed" from="VBox/HBoxContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
+[connection signal="toggled" from="VBox/PauseThrowHBox/HBoxContainer/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
+[connection signal="pressed" from="VBox/PauseThrowHBox/HBoxContainer/RemoveThrowPauseButton" to="." method="_on_remove_throw_pause_button_pressed"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Remove" to="." method="_on_remove_pressed"]
 [connection signal="multi_selected" from="VBox/VBoxContainer/ItemList" to="." method="_on_item_list_multi_selected"]
