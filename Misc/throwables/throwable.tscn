@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://xda24mapogvk" path="res://Misc/TestAssets/boom.mp3" id="3_mcuox"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vemx8"]
+resource_local_to_scene = true
 friction = 0.0
 bounce = 1.0
 

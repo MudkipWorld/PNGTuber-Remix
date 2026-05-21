@@ -168,7 +168,16 @@ func save_data():
 		var throw : ThrowableResource = thrw
 		var data : Dictionary = {
 			'image_id' : throw.image_data.id,
+			
 			'mass' : throw.mass,
+			'friction' : throw.friction,
+			'rough' : throw.rough,
+			'bounce' : throw.bounce,
+			'absorb' : throw.absorb,
+			
+			'gravity_scale' : throw.gravity_scale,
+			'inertia' : throw.inertia,
+			
 			'shape' : throw.collision_shape,
 			'audio_buffer' : throw.audio_buffer
 		}
@@ -354,7 +363,16 @@ func load_model(path: String) -> void:
 		var throwables : Array = throwable.get('throwable_data', [])
 		for i in throwables:
 			var throw : ThrowableResource = ThrowableResource.new()
-			throw.mass = i.get('mass', 1)
+			
+			throw.mass = i.get('mass', 1.0)
+			throw.friction = i.get('friction', 0.0)
+			throw.rough = i.get('rough', false)
+			throw.bounce = i.get('bounce', 1.0)
+			throw.absorb = i.get('absorb', false)
+			
+			throw.gravity_scale = i.get('gravity_scale', 1.0)
+			throw.inertia = i.get('inertia', 2.0)
+			
 			throw.audio_buffer = i.get('audio_buffer', PackedByteArray())
 			throw.collision_shape = i.get('shape', CircleShape2D.new())
 			var img_id = i.get('image_id', -1)

@@ -265,6 +265,13 @@ func _on_edit_pressed() -> void:
 	
 	%Preview.texture = selected.image_data.runtime_texture
 	%ObjMass.value = selected.mass
+	%Friction.value = selected.friction
+	%Bounce.value = selected.bounce
+	%Gravity.value = selected.gravity_scale
+	%Interia.value = selected.inertia
+	%Rough.button_pressed = selected.rough
+	%Absorbent.button_pressed = selected.absorb
+	
 	
 	%ObjectEditor.popup()
 
@@ -295,3 +302,31 @@ func _on_file_dialog_file_selected(path: String) -> void:
 func _on_obj_mass_value_changed(value: float) -> void:
 	if selected == null : return
 	selected.mass = value
+
+func _on_friction_value_changed(value: float) -> void:
+	if selected == null : return
+	selected.friction = value
+
+func _on_bounce_value_changed(value: float) -> void:
+	if selected == null : return
+	selected.bounce = value
+
+func _on_gravity_value_changed(value: float) -> void:
+	if selected == null : return
+	selected.gravity_scale = value
+
+func _on_interia_value_changed(value: float) -> void:
+	if selected == null : return
+	selected.inertia = value
+
+func _on_rough_toggled(toggled_on: bool) -> void:
+	if selected == null : return
+	selected.rough = toggled_on
+
+func _on_absorbent_toggled(toggled_on: bool) -> void:
+	if selected == null : return
+	selected.absorb = toggled_on
+
+func _on_spawn_radius_value_changed(value: float) -> void:
+	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
+	Global.throwable_spawner.spawn_radius = value

@@ -10,6 +10,7 @@ var is_paused : bool = false
 var current_throw_generation : int = 0
 var base_mass : float = 1
 var time_variance : float = 0.15
+var spawn_radius : float = 750.0
 
 func _ready() -> void:
 	Global.mode_changed.connect(show_pointer)

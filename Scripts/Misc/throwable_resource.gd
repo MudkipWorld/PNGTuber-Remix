@@ -2,6 +2,16 @@ extends Resource
 class_name ThrowableResource
 
 var mass : float = 1.0
+var friction : float = 0.0
+var rough : bool = false
+
+var bounce : float = 1.0
+var absorb : bool = false
+
+var gravity_scale : float = 1.0
+
+var inertia : float = 2.0
+
 var collision_shape : Shape2D = CircleShape2D.new()
 var image_data : ImageData = null
 var audio_data : AudioStreamMP3 = null

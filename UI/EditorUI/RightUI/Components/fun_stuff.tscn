@@ -174,6 +174,22 @@ max_value = 10.0
 step = 0.01
 value = 0.15000000000000002
 
+[node name="Label9" type="Label" parent="VBox/Grid" unique_id=734578043]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Spawn Radius"
+
+[node name="SpawnRadius" type="SpinBox" parent="VBox/Grid" unique_id=1010769022]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 100000.0
+step = 0.01
+value = 750.0
+
 [node name="GridContainer" type="GridContainer" parent="VBox" unique_id=2035839379]
 layout_mode = 2
 columns = 2
@@ -327,7 +343,7 @@ transparent_bg = true
 oversampling_override = 1.0
 title = "Throwable Editor"
 initial_position = 1
-size = Vector2i(500, 500)
+size = Vector2i(500, 550)
 visible = false
 
 [node name="VBox" type="VBoxContainer" parent="ObjectEditor" unique_id=920450750]
@@ -385,6 +401,60 @@ max_value = 1000.0
 step = 0.01
 value = 1.0
 
+[node name="Label2" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=178360063]
+layout_mode = 2
+text = "Friction"
+
+[node name="Friction" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=1804205184]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Label3" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=2116045098]
+layout_mode = 2
+text = "Bounce"
+
+[node name="Bounce" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=699474964]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label4" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=1811192842]
+layout_mode = 2
+text = "Gravity"
+
+[node name="Gravity" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=2062313966]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -8.0
+max_value = 8.0
+step = 0.01
+value = 1.0
+
+[node name="Label5" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=2055410065]
+layout_mode = 2
+text = "Inertia"
+
+[node name="Interia" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=1553273297]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1000.0
+step = 0.01
+value = 2.0
+
+[node name="Rough" type="CheckBox" parent="ObjectEditor/VBox/Grid" unique_id=897854417]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rough"
+
+[node name="Absorbent" type="CheckBox" parent="ObjectEditor/VBox/Grid" unique_id=1205756061]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Absorbent"
+
 [node name="FileDialog" type="FileDialog" parent="." unique_id=643288439]
 unique_name_in_owner = true
 oversampling_override = 1.0
@@ -408,6 +478,7 @@ unique_name_in_owner = true
 [connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/TimeVariance" to="." method="_on_time_variance_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/SpawnRadius" to="." method="_on_spawn_radius_value_changed"]
 [connection signal="toggled" from="VBox/GridContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
 [connection signal="pressed" from="VBox/GridContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
 [connection signal="toggled" from="VBox/GridContainer/HBoxContainer2/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
@@ -428,4 +499,10 @@ unique_name_in_owner = true
 [connection signal="pressed" from="ObjectEditor/VBox/Grid/PlayAudio" to="." method="_on_play_audio_pressed"]
 [connection signal="pressed" from="ObjectEditor/VBox/Grid/StopAudio" to="." method="_on_stop_audio_pressed"]
 [connection signal="value_changed" from="ObjectEditor/VBox/Grid/ObjMass" to="." method="_on_obj_mass_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Friction" to="." method="_on_friction_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Bounce" to="." method="_on_bounce_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Gravity" to="." method="_on_gravity_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Interia" to="." method="_on_interia_value_changed"]
+[connection signal="toggled" from="ObjectEditor/VBox/Grid/Rough" to="." method="_on_rough_toggled"]
+[connection signal="toggled" from="ObjectEditor/VBox/Grid/Absorbent" to="." method="_on_absorbent_toggled"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
