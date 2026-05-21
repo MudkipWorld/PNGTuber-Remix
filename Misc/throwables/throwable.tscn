@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d35mnegh8rv35" path="res://Scripts/Misc/throwable/throwable.gd" id="1_sxhc6"]
 [ext_resource type="Texture2D" uid="uid://dv27xjbwfkacl" path="res://Misc/TestAssets/Lamp.png" id="2_vemx8"]
+[ext_resource type="AudioStream" uid="uid://xda24mapogvk" path="res://Misc/TestAssets/boom.mp3" id="3_mcuox"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vemx8"]
 friction = 0.0
@@ -29,5 +30,10 @@ texture = ExtResource("2_vemx8")
 shape = SubResource("CircleShape2D_vemx8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1269568117]
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="." unique_id=1538660689]
+unique_name_in_owner = true
+stream = ExtResource("3_mcuox")
+bus = &"Effects"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

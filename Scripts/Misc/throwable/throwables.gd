@@ -9,6 +9,7 @@ var both_sides : bool = false
 var is_paused : bool = false
 var current_throw_generation : int = 0
 var base_mass : float = 1
+var time_variance : float = 0.15
 
 func _ready() -> void:
 	Global.mode_changed.connect(show_pointer)
@@ -51,8 +52,9 @@ func throw_random_items(amount: int, custom_variance: float = -1.0, custom_both_
 	for i in amount:
 		if is_paused or current_throw_generation != my_generation: break
 		var spawn : ThrowableObject = throwable.instantiate()
-		var img_data : ImageData = selected_items.pick_random()
-		spawn.sprite_object.texture = img_data.runtime_texture
+		var data : ThrowableResource = selected_items.pick_random()
+		spawn.throw_resource = data
+		spawn.set_data(base_mass)
 		
 		var is_flipped = current_both_sides and randf() > 0.5
 		var current_dir = dir
@@ -68,10 +70,9 @@ func throw_random_items(amount: int, custom_variance: float = -1.0, custom_both_
 			
 		var offset = Vector2(randf_range(-current_variance, current_variance), randf_range(-current_variance, current_variance))
 		spawn.position = base_pos + offset
-		spawn.mass = base_mass
 		add_child(spawn)
 		spawn.apply_central_impulse(current_dir - offset)
-		await get_tree().create_timer(randf_range(0.05, 0.15)).timeout
+		await get_tree().create_timer(randf_range(0.05, time_variance)).timeout
 
 func throw_specific_item(img_data: ImageData, amount: int = 1, custom_variance: float = -1.0, custom_both_sides: int = -1):
 	is_paused = false
@@ -83,7 +84,14 @@ func throw_specific_item(img_data: ImageData, amount: int = 1, custom_variance: 
 	for i in amount:
 		if is_paused or current_throw_generation != my_generation: break
 		var spawn : ThrowableObject = throwable.instantiate()
-		spawn.sprite_object.texture = img_data.runtime_texture
+		var find_match : ThrowableResource
+		for l in selected_items:
+			if  l.image_data == img_data:
+				find_match = l
+				break
+			
+		spawn.throw_resource = find_match
+		spawn.set_data(base_mass)
 		
 		var is_flipped = current_both_sides and randf() > 0.5
 		var current_dir = dir
@@ -100,7 +108,6 @@ func throw_specific_item(img_data: ImageData, amount: int = 1, custom_variance: 
 			
 		var offset = Vector2(randf_range(-current_variance, current_variance), randf_range(-current_variance, current_variance))
 		spawn.position = base_pos + offset
-		spawn.mass = base_mass
 		add_child(spawn)
 		spawn.apply_central_impulse(current_dir - offset)
-		await get_tree().create_timer(randf_range(0.05, 0.25)).timeout
+		await get_tree().create_timer(randf_range(0.05, time_variance)).timeout

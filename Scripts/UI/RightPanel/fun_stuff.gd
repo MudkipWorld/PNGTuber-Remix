@@ -4,6 +4,7 @@ var should_change : bool = false
 var selected_items : Array = []
 var selected_items_to_add : Array = []
 var current_binding_action : String = ""
+var selected : ThrowableResource
 
 func _ready() -> void:
 	set_process_unhandled_input(false)
@@ -70,6 +71,10 @@ func _on_dir_y_value_changed(value: float) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
 	Global.throwable_spawner.dir.y = value
 
+func _on_time_variance_value_changed(value: float) -> void:
+	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
+	Global.throwable_spawner.time_variance = value
+
 func update_ui():
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
 	%PositionX.value = Global.throwable_spawner.position.x
@@ -80,6 +85,7 @@ func update_ui():
 	%SpawnVariance.value = Global.throwable_spawner.spawn_variance
 	%BothSides.button_pressed = Global.throwable_spawner.both_sides
 	%BaseMass.value = Global.throwable_spawner.base_mass
+	%TimeVariance.value = Global.throwable_spawner.time_variance
 	if has_node("%SpawnVariance"):
 		%SpawnVariance.value = float(Global.throwable_spawner.spawn_variance)
 	if has_node("%BothSides"):
@@ -87,7 +93,9 @@ func update_ui():
 	%ItemList.clear()
 	var index : int = 0
 	for i in Global.throwable_spawner.selected_items:
-		%ItemList.add_item(i.image_name, i.runtime_texture, true)
+		if i.image_data == null : 
+			continue
+		%ItemList.add_item(i.image_data.image_name, i.image_data.runtime_texture, true)
 		%ItemList.set_item_metadata(index, i)
 		index += 1
 	
@@ -126,13 +134,18 @@ func _on_popup_choice_close_requested() -> void:
 
 func _on_confirm_pressed() -> void:
 	var index : int = 0
+	var to_be_added : Array = []
 	for i in selected_items_to_add:
+		var throw_res : ThrowableResource = ThrowableResource.new()
+		throw_res.image_data = i
+		throw_res.set_initial_data()
 		%ItemList.add_item(i.image_name, i.runtime_texture, true)
-		%ItemList.set_item_metadata(index, i)
+		%ItemList.set_item_metadata(index, throw_res)
+		to_be_added.append(throw_res)
 		index += 1
 
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	Global.throwable_spawner.selected_items.append_array(selected_items_to_add.duplicate())
+	Global.throwable_spawner.selected_items.append_array(to_be_added.duplicate())
 	
 	selected_items_to_add.clear()
 
@@ -244,3 +257,40 @@ func _on_base_mass_value_changed(value: float) -> void:
 
 func _on_stop_test_pressed() -> void:
 	Global.throwable_spawner.toggle_pause()
+
+func _on_edit_pressed() -> void:
+	if selected_items.size() < 1: return
+	selected = selected_items[0]
+	
+	%Preview.texture = selected.image_data.runtime_texture
+	%ObjMass.value = selected.mass
+	
+	%ObjectEditor.popup()
+
+func _on_object_editor_close_requested() -> void:
+	%ObjectEditor.hide()
+
+func _on_load_audio_pressed() -> void:
+	%FileDialog.popup()
+
+func _on_remove_audio_pressed() -> void:
+	selected.audio_buffer.clear()
+	selected.audio_data = null
+
+func _on_play_audio_pressed() -> void:
+	%TestPlayer.stream = selected.audio_data
+	%TestPlayer.play()
+
+func _on_stop_audio_pressed() -> void:
+	%TestPlayer.stop()
+
+func _on_file_dialog_file_selected(path: String) -> void:
+	if !FileAccess.file_exists(path) : return
+	var file = FileAccess.open(path, FileAccess.READ)
+	var data = file.get_buffer(file.get_length())
+	selected.audio_buffer = data
+	selected.recreate_audio()
+
+func _on_obj_mass_value_changed(value: float) -> void:
+	if selected == null : return
+	selected.mass = value

@@ -26,7 +26,7 @@ func save_data():
 		if !Settings.theme_settings.save_unused_files:
 			var used : bool = false
 			for img in Global.throwable_spawner.selected_items:
-				if img == i:
+				if img.image_data == i:
 					used = true
 					break
 			
@@ -164,8 +164,15 @@ func save_data():
 	
 	
 	var ids : Array = []
-	for img in Global.throwable_spawner.selected_items:
-		ids.append(img.id)
+	for thrw in Global.throwable_spawner.selected_items:
+		var throw : ThrowableResource = thrw
+		var data : Dictionary = {
+			'image_id' : throw.image_data.id,
+			'mass' : throw.mass,
+			'shape' : throw.collision_shape,
+			'audio_buffer' : throw.audio_buffer
+		}
+		ids.append(data)
 	
 	save_dict = {
 		"version": Global.version,
@@ -176,13 +183,14 @@ func save_data():
 		"throwable" : {
 			'position' : Global.throwable_spawner.position,
 			'direction' :  Global.throwable_spawner.dir,
-			'image_ids' : ids,
+			'throwable_data' : ids,
 			'event' : InputMap.action_get_events('throwing')[0] if InputMap.action_get_events('throwing').size() > 0 else null,
 			'stop_event' : InputMap.action_get_events('throwing_pause')[0] if InputMap.action_get_events('throwing_pause').size() > 0 else null,
 			'throw_per_trigger' : Global.throwable_spawner.throw_per_trigger,
 			'spawn_variance' : Global.throwable_spawner.spawn_variance,
 			'both_sides' : Global.throwable_spawner.both_sides,
-			'base_mass' : Global.throwable_spawner.base_mass
+			'base_mass' : Global.throwable_spawner.base_mass,
+			'time_variance' : Global.throwable_spawner.time_variance,
 			
 		}
 	}
@@ -321,6 +329,7 @@ func load_model(path: String) -> void:
 		Global.throwable_spawner.spawn_variance = throwable.get('spawn_variance', 0)
 		Global.throwable_spawner.both_sides = throwable.get('both_sides', false)
 		Global.throwable_spawner.base_mass = throwable.get('base_mass', 1)
+		Global.throwable_spawner.time_variance = throwable.get('time_variance', 0.15)
 		
 		InputMap.action_erase_events('throwing')
 		var event = throwable.get('event', null)
@@ -333,11 +342,28 @@ func load_model(path: String) -> void:
 		if stop_event != null:
 			InputMap.action_add_event('throwing_pause', stop_event)
 		
-		var ids : Array = throwable.get('image_ids', [])
 		Global.throwable_spawner.selected_items.clear()
+		var ids : Array = throwable.get('image_ids', [])
 		for i in Global.image_manager_data:
 			if i.id in ids:
-				Global.throwable_spawner.selected_items.append(i)
+				var throw : ThrowableResource = ThrowableResource.new()
+				throw.image_data = i
+				throw.set_initial_data()
+				Global.throwable_spawner.selected_items.append(throw)
+		
+		var throwables : Array = throwable.get('throwable_data', [])
+		for i in throwables:
+			var throw : ThrowableResource = ThrowableResource.new()
+			throw.mass = i.get('mass', 1)
+			throw.audio_buffer = i.get('audio_buffer', PackedByteArray())
+			throw.collision_shape = i.get('shape', CircleShape2D.new())
+			var img_id = i.get('image_id', -1)
+			for img in Global.image_manager_data:
+				if img.id == img_id:
+					throw.image_data = img
+			throw.recreate_audio()
+			Global.throwable_spawner.selected_items.append(throw)
+			
 
 	Global.main.get_node("%Marker").current_screen = Global.settings_dict.monitor
 	Global.project_updates.emit("Project Loaded!")

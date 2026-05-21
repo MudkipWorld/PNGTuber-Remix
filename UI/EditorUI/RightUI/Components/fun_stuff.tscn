@@ -160,6 +160,20 @@ max_value = 500.0
 step = 0.1
 value = 1.0
 
+[node name="Label8" type="Label" parent="VBox/Grid" unique_id=1592002982]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Time Variance"
+
+[node name="TimeVariance" type="SpinBox" parent="VBox/Grid" unique_id=1567262067]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.05
+max_value = 10.0
+step = 0.01
+value = 0.15000000000000002
+
 [node name="GridContainer" type="GridContainer" parent="VBox" unique_id=2035839379]
 layout_mode = 2
 columns = 2
@@ -254,6 +268,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Add Image"
 
+[node name="Edit" type="Button" parent="VBox/VBoxContainer/HBox" unique_id=726609075]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit Item"
+
 [node name="Remove" type="Button" parent="VBox/VBoxContainer/HBox" unique_id=1386928360]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -302,6 +321,83 @@ fixed_icon_size = Vector2i(48, 48)
 layout_mode = 2
 text = "Confirm"
 
+[node name="ObjectEditor" type="Window" parent="." unique_id=1125042306]
+unique_name_in_owner = true
+transparent_bg = true
+oversampling_override = 1.0
+title = "Throwable Editor"
+initial_position = 1
+size = Vector2i(500, 500)
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="ObjectEditor" unique_id=920450750]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelC" type="PanelContainer" parent="ObjectEditor/VBox" unique_id=487500211]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Preview" type="TextureRect" parent="ObjectEditor/VBox/PanelC" unique_id=88451796]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Grid" type="GridContainer" parent="ObjectEditor/VBox" unique_id=936214139]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="LoadAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=657687388]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load Audio File"
+
+[node name="RemoveAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=1757629668]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Clear Audio"
+
+[node name="PlayAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=1456828735]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play Audio"
+
+[node name="StopAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=1614905953]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stop Audio"
+
+[node name="Label" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=1022320644]
+layout_mode = 2
+text = "Mass"
+
+[node name="ObjMass" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=417932649]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.01
+max_value = 1000.0
+step = 0.01
+value = 1.0
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=643288439]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a File"
+force_native = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mp3")
+use_native_dialog = true
+
+[node name="TestPlayer" type="AudioStreamPlayer" parent="." unique_id=1452634962]
+unique_name_in_owner = true
+
 [connection signal="toggled" from="VBox/HBoxContainer2/HasCollision" to="." method="_on_has_collision_toggled"]
 [connection signal="toggled" from="VBox/HBoxContainer2/Physics" to="." method="_on_physics_toggled"]
 [connection signal="value_changed" from="VBox/Grid/PositionX" to="." method="_on_position_x_value_changed"]
@@ -311,6 +407,7 @@ text = "Confirm"
 [connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/TimeVariance" to="." method="_on_time_variance_value_changed"]
 [connection signal="toggled" from="VBox/GridContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
 [connection signal="pressed" from="VBox/GridContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
 [connection signal="toggled" from="VBox/GridContainer/HBoxContainer2/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
@@ -319,8 +416,16 @@ text = "Confirm"
 [connection signal="pressed" from="VBox/GridContainer/StopTest" to="." method="_on_stop_test_pressed"]
 [connection signal="toggled" from="VBox/GridContainer/BothSides" to="." method="_on_both_sides_toggled"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="VBox/VBoxContainer/HBox/Edit" to="." method="_on_edit_pressed"]
 [connection signal="pressed" from="VBox/VBoxContainer/HBox/Remove" to="." method="_on_remove_pressed"]
 [connection signal="multi_selected" from="VBox/VBoxContainer/ItemList" to="." method="_on_item_list_multi_selected"]
 [connection signal="close_requested" from="PopupChoice" to="." method="_on_popup_choice_close_requested"]
 [connection signal="multi_selected" from="PopupChoice/VBoxContainer/SelectionList" to="." method="_on_selection_list_multi_selected"]
 [connection signal="pressed" from="PopupChoice/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="close_requested" from="ObjectEditor" to="." method="_on_object_editor_close_requested"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/LoadAudio" to="." method="_on_load_audio_pressed"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/RemoveAudio" to="." method="_on_remove_audio_pressed"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/PlayAudio" to="." method="_on_play_audio_pressed"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/StopAudio" to="." method="_on_stop_audio_pressed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/ObjMass" to="." method="_on_obj_mass_value_changed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
