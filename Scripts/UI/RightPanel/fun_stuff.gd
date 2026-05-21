@@ -133,7 +133,7 @@ func _on_popup_choice_close_requested() -> void:
 	%PopupChoice.hide()
 
 func _on_confirm_pressed() -> void:
-	var index : int = 0
+	var index : int = %ItemList.item_count
 	var to_be_added : Array = []
 	for i in selected_items_to_add:
 		var throw_res : ThrowableResource = ThrowableResource.new()
@@ -261,6 +261,7 @@ func _on_stop_test_pressed() -> void:
 func _on_edit_pressed() -> void:
 	if selected_items.size() < 1: return
 	selected = selected_items[0]
+	if selected == null : return
 	
 	%Preview.texture = selected.image_data.runtime_texture
 	%ObjMass.value = selected.mass
