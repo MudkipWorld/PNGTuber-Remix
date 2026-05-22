@@ -30,6 +30,7 @@ func update_cycles(settings_dict = Global.settings_dict):
 				toggle_backward(cycle)
 
 func toggle_cycle(cycle):
+	if cycle.sprites.size() < 1 : return
 	cycle.active = !cycle.active
 	if cycle.active:
 		var array = cycle.sprites.duplicate()
@@ -55,28 +56,50 @@ func toggle_cycle(cycle):
 				sprite.was_active_before = sprite.get_node("%Sprite2D").visible
 
 func toggle_forward(cycle):
+	if cycle.sprites.size() < 1 : return
 	cycle.active = true
 	cycle.pos = wrap(cycle.pos + 1, 0, cycle.sprites.size())
 	cycle.last_sprite = cycle.sprites[cycle.pos]
+	var sprite_found : bool = false
+	var sp : SpriteObject = null
 	for sprite in get_tree().get_nodes_in_group("Sprites"):
 		if sprite.sprite_id in cycle.sprites and sprite.get_value("is_cycle"):
 			sprite.get_node("%Sprite2D").hide()
 			sprite.was_active_before = sprite.get_node("%Sprite2D").visible
 		if sprite.sprite_id == cycle.last_sprite and sprite.get_value("is_cycle"):
-			sprite.get_node("%Sprite2D").show()
-			sprite.was_active_before = sprite.get_node("%Sprite2D").visible
+			sprite_found = true
+			sp = sprite
+
+	if sprite_found:
+		sp.get_node("%Sprite2D").show()
+		sp.was_active_before = sp.get_node("%Sprite2D").visible
+	else:
+		cycle.sprites.erase(cycle.pos)
+		toggle_forward(cycle)
+		return
 
 func toggle_backward(cycle):
+	if cycle.sprites.size() < 1 : return
 	cycle.active = true
 	cycle.pos = wrap(cycle.pos - 1, 0, cycle.sprites.size())
 	cycle.last_sprite = cycle.sprites[cycle.pos]
+	var sprite_found : bool = false
+	var sp : SpriteObject = null
 	for sprite in get_tree().get_nodes_in_group("Sprites"):
 		if sprite.sprite_id in cycle.sprites and sprite.get_value("is_cycle"):
 			sprite.get_node("%Sprite2D").hide()
 			sprite.was_active_before = sprite.get_node("%Sprite2D").visible
 		if sprite.sprite_id == cycle.last_sprite and sprite.get_value("is_cycle"):
-			sprite.get_node("%Sprite2D").show()
-			sprite.was_active_before = sprite.get_node("%Sprite2D").visible
+			sprite_found = true
+			sp = sprite
+
+	if sprite_found:
+		sp.get_node("%Sprite2D").show()
+		sp.was_active_before = sp.get_node("%Sprite2D").visible
+	else:
+		cycle.sprites.erase(cycle.pos)
+		toggle_backward(cycle)
+		return
 
 func toggle_to(cycle, pos):
 	cycle.active = true
