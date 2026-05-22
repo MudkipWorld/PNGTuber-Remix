@@ -844,13 +844,15 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 3
+item_count = 4
 popup/item_0/text = "TR_UDP_ITEM_NONE"
 popup/item_0/id = 0
 popup/item_1/text = "TR_LEFT_EYE"
 popup/item_1/id = 1
 popup/item_2/text = "TR_RIGHT_EYE"
 popup/item_2/id = 2
+popup/item_3/text = "Both"
+popup/item_3/id = 3
 
 [node name="Label5" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=459864713]
 layout_mode = 2

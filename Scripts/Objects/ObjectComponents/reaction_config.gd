@@ -33,14 +33,23 @@ func _process(_delta: float) -> void:
 						%Modifier.scale.y = lerp(%Modifier.scale.y, Tracker.track_eye_left, 0.08)
 					2:
 						%Modifier.scale.y = lerp(%Modifier.scale.y, Tracker.track_eye_right, 0.08)
+					3:
+						%Modifier.scale.y = lerp(%Modifier.scale.y, (Tracker.track_eye_right + Tracker.track_eye_left)*0.5, 0.08)
 			else:
 				%Modifier.scale.y = 1
-			if Tracker.is_blink:
+			
+			var is_blinked = Tracker.is_blink
+			if actor.sprite_data.follow_eye == 1:
+				is_blinked = Tracker.is_blink_left
+			elif actor.sprite_data.follow_eye == 2:
+				is_blinked = Tracker.is_blink_right
+			
+			if is_blinked:
 				if !actor.sprite_data.open_eyes:
 					%Modifier1.show()
 				else:
 					%Modifier1.hide()
-			elif !Tracker.is_blink:
+			elif !is_blinked:
 				if !actor.sprite_data.open_eyes:
 					%Modifier1.hide()
 				else:

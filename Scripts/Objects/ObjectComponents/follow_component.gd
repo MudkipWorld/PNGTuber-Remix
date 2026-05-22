@@ -153,7 +153,7 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 			0:
 				pass
 			1:
-				follow_position_calculations(Tracker.track_pos.normalized(), Tracker.track_pos)
+				follow_position_calculations(Tracker.track_pos.normalized(), Tracker.track_pos.abs())
 			2:
 				var multip = Vector2(TrackingBackend.osf_pos_strength, TrackingBackend.osf_pos_strength_y)
 				follow_position_calculations(Tracker.track_pupil_left.normalized(), Tracker.track_pupil_left * multip)
