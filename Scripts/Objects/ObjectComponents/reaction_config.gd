@@ -235,6 +235,9 @@ func editor_blink():
 				reset_animations()
 			else:
 				%Modifier1.modulate.a = 0.2
+		else:
+			%Modifier1.show()
+			%Modifier1.modulate.a = 1
 		
 		blinking = true
 		%Blink.wait_time = 0.2 * Global.settings_dict.blink_speed
@@ -260,6 +263,9 @@ func blink():
 				reset_animations()
 			else:
 				%Modifier1.hide()
+		else:
+			%Modifier1.modulate.a = 1
+			%Modifier1.show()
 		
 		blinking = true
 		%Blink.wait_time = 0.2 * Global.settings_dict.blink_speed

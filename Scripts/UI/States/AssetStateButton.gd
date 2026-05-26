@@ -75,13 +75,11 @@ func update_other_assets():
 					i.get_node("%Sprite2D").visible = Global.held_sprites[0].get_node("%Sprite2D").visible
 					i.was_active_before = Global.held_sprites[0].get_node("%Sprite2D").visible
 
-
 func update_key_text():
 	if InputMap.action_get_events(action).size() != 0:
 		text = "%s" % InputMap.action_get_events(action)[0].as_text()
 	else:
 		text = tr("TR_BIND_KEY")
-
 
 func update_stuff():
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
@@ -91,12 +89,10 @@ func update_stuff():
 
 			update_key_text()
 
-
 func _on_remove_asset_button_pressed():
 	if InputMap.action_get_events(action).size() != 0:
 		InputMap.action_erase_events(action)
 		update_key_text()
-
 
 func _on_is_asset_check_toggled(toggled_on):
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
@@ -110,9 +106,9 @@ func _on_is_asset_check_toggled(toggled_on):
 				Global.held_sprites[0].saved_event = null
 				Global.held_sprites[0].get_node("%Sprite2D").visible = true
 				update_key_text()
+				%IsAssetButton.release_focus()
 
 		Global.held_sprites[0].is_asset = toggled_on
-
 
 func _on_should_disappear_check_toggled(toggled_on):
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):

@@ -404,7 +404,6 @@ func reparent_obj(parent, no_global : bool = false):
 				%Sprite2D.add_child(i)
 				i.global_position = og_pos
 
-
 func image_replaced(image_date : ImageData):
 	if !get_value("folder"):
 		if image_date == referenced_data:

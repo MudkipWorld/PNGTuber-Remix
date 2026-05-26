@@ -31,17 +31,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+focus_mode = 1
+focus_behavior_recursive = 1
 theme_override_constants/separation = 10
 script = ExtResource("1_c51j7")
 
 [node name="Label" type="Label" parent="." unique_id=299649279]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_ASSETS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Buttons" type="GridContainer" parent="." unique_id=903574020]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 columns = 2
 
 [node name="IsAssetCheck" type="CheckBox" parent="Buttons" unique_id=1236972780]
@@ -49,16 +55,21 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_IS_ASSET_TOOLTIP"
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_IS_ASSET"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Buttons" unique_id=71735021]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 
 [node name="IsAssetButton" type="Button" parent="Buttons/HBoxContainer" unique_id=397909906]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_behavior_recursive = 1
 text = "TR_BIND_KEY"
 script = ExtResource("2_dpute")
 
@@ -68,6 +79,8 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+focus_mode = 1
+focus_behavior_recursive = 1
 icon = SubResource("AtlasTexture_ef4gi")
 icon_alignment = 1
 expand_icon = true
@@ -78,6 +91,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_DONT_HIDE_ON_TOGGLE_TOOLTIP"
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_DONT_HIDE"
 
 [node name="ShouldDisappearCheck" type="CheckBox" parent="Buttons" unique_id=923178878]
@@ -86,6 +101,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_SHOULD_DISAPPEAR_TOOLTIP"
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_DISAPPEAR_KEYS"
 
 [node name="HoldToShowCheck" type="CheckBox" parent="Buttons" unique_id=1116284286]
@@ -94,15 +111,21 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "TR_HOLD_TO_SHOW_TOOLTIP"
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_HOLD_TO_SHOW"
 
 [node name="ShouldDisListContainer" type="VBoxContainer" parent="." unique_id=1183921443]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 1
+focus_behavior_recursive = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ShouldDisListContainer" unique_id=522919963]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 alignment = 1
 
 [node name="ShouldDisAddButton" type="Button" parent="ShouldDisListContainer/HBoxContainer" unique_id=638598836]
@@ -110,7 +133,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_ADD_KEY"
 
 [node name="ShouldDisDelButton" type="Button" parent="ShouldDisListContainer/HBoxContainer" unique_id=843528490]
@@ -118,7 +142,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 disabled = true
 text = "TR_DELETE_KEY"
 
@@ -127,7 +152,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 disabled = true
 toggle_mode = true
 text = "TR_REMAP_KEY"
@@ -139,6 +165,7 @@ layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "TR_SHOULD_DISSAPPEAR_LIST_TOOLTIP"
 focus_mode = 1
+focus_behavior_recursive = 1
 allow_reselect = true
 auto_height = true
 text_overrun_behavior = 2
@@ -147,22 +174,30 @@ fixed_column_width = 122
 
 [node name="HSeparator" type="HSeparator" parent="." unique_id=1026555211]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 
 [node name="Label2" type="Label" parent="." unique_id=1991764357]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_CYCLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CycleGrid" type="GridContainer" parent="." unique_id=975682215]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 theme_override_constants/v_separation = 6
 columns = 2
 
 [node name="CheckBox" type="CheckBox" parent="CycleGrid" unique_id=1407867287]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_IS_CYCLE_ASSET"
 script = ExtResource("6_w5yqn")
 sp_type = ""
@@ -172,7 +207,8 @@ value_to_update = "is_cycle"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 selected = 0
 item_count = 1
 popup/item_0/text = "TR_NONE"
@@ -180,12 +216,15 @@ popup/item_0/id = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2106729629]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 
 [node name="CycleChoice" type="OptionButton" parent="HBoxContainer" unique_id=770553601]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 selected = 0
 item_count = 1
 popup/item_0/text = "TR_NONE"
@@ -195,7 +234,8 @@ popup/item_0/id = 0
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 icon = SubResource("AtlasTexture_w7cq7")
 icon_alignment = 1
 expand_icon = true
@@ -204,7 +244,8 @@ expand_icon = true
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 icon = SubResource("AtlasTexture_u22l2")
 icon_alignment = 1
 expand_icon = true
@@ -212,21 +253,28 @@ expand_icon = true
 [node name="CycleMargin" type="PanelContainer" parent="." unique_id=1941641508]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 
 [node name="Grid" type="GridContainer" parent="CycleMargin" unique_id=2063412805]
 layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
 columns = 3
 
 [node name="Label" type="Label" parent="CycleMargin/Grid" unique_id=1920218107]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_CYCLE_TOGGLE_LABEL"
 
 [node name="CycleKey" type="Button" parent="CycleMargin/Grid" unique_id=2108905252]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 theme_override_font_sizes/font_size = 14
 toggle_mode = true
 text = "TR_BIND_KEY"
@@ -237,7 +285,8 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 icon = SubResource("AtlasTexture_ef4gi")
 icon_alignment = 1
 expand_icon = true
@@ -245,13 +294,16 @@ expand_icon = true
 [node name="Label2" type="Label" parent="CycleMargin/Grid" unique_id=1504642349]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_CYCLE_FORWARD_LABEL"
 
 [node name="CycleForward" type="Button" parent="CycleMargin/Grid" unique_id=1272268275]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 theme_override_font_sizes/font_size = 14
 toggle_mode = true
 text = "TR_BIND_KEY"
@@ -262,7 +314,8 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 icon = SubResource("AtlasTexture_2cqhf")
 icon_alignment = 1
 expand_icon = true
@@ -270,13 +323,16 @@ expand_icon = true
 [node name="Label3" type="Label" parent="CycleMargin/Grid" unique_id=1794631948]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
 text = "TR_CYCLE_BACKWARD_LABEL"
 
 [node name="CycleBackward" type="Button" parent="CycleMargin/Grid" unique_id=1073055985]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 theme_override_font_sizes/font_size = 14
 toggle_mode = true
 text = "TR_BIND_KEY"
@@ -287,7 +343,8 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-focus_mode = 0
+focus_mode = 1
+focus_behavior_recursive = 1
 icon = SubResource("AtlasTexture_2cqhf")
 icon_alignment = 1
 expand_icon = true

@@ -141,6 +141,11 @@ func get_state(id):
 			modulate.a = get_value("colored").a
 			visible = get_value("visible")
 		
+		if !get_value("should_blink"):
+			%Modifier1.modulate.a = 1
+			%Modifier1.show()
+		
+		
 	elif states[id].is_empty():
 		states[id] = sprite_data.duplicate(true)
 	
@@ -154,16 +159,6 @@ func check_talk():
 			%Rotation.show()
 	else:
 		%Rotation.show()
-
-func zazaza(parent):
-	for i in parent:
-		if i.sprite_id == parent_id:
-			sprite_data.position -= i.get_value("offset")
-			if is_plus_first_import:
-				for state in states:
-					if !state.is_empty():
-						global = global_position
-						state.position = get_value("position")
 
 func _on_sprite_2d_text_changed() -> void:
 	sprite_data.text_data = %Sprite2D.text
