@@ -139,10 +139,11 @@ dialog_text = "TR_ADD_OBJECT_WITH_OFFSET"
 [node name="ConfirmTrim" type="ConfirmationDialog" parent="." unique_id=986463380]
 unique_name_in_owner = true
 auto_translate_mode = 1
+oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(375, 200)
 unresizable = true
-ok_button_text = "TR_YES"
+ok_button_text = "Trim"
 dialog_text = "TR_TRIM_DIALOG_TEXT"
 cancel_button_text = "TR_NO"
 
