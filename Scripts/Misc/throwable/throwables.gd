@@ -1,7 +1,7 @@
 extends Node2D
 
 var throwable : PackedScene = preload("res://Misc/throwables/throwable.tscn")
-var dir : Vector2 = Vector2(1500, 10)
+var throw_force : float = 1500.0
 var selected_items : Array = []
 var throw_per_trigger : int = 1
 var spawn_variance : float = 0.0
@@ -12,9 +12,42 @@ var base_mass : float = 1
 var time_variance : float = 0.15
 var spawn_radius : float = 750.0
 
+var spawn_distance: float = 750.0:
+	set(val):
+		spawn_distance = val
+		_update_position()
+
+var spawn_degree: float = 0.0:
+	set(val):
+		spawn_degree = val
+		_update_position()
+
+func get_target_global_position() -> Vector2:
+	if Global.held_sprites.size() > 0 and is_instance_valid(Global.held_sprites[0]):
+		var sprite_node = Global.held_sprites[0].get_node_or_null("%Sprite2D")
+		if sprite_node != null and is_instance_valid(sprite_node):
+			return sprite_node.global_position
+		return Global.held_sprites[0].global_position
+	return get_parent().global_position
+
+func update_polar_from_position():
+	if not is_inside_tree(): return
+	var target_local = get_parent().to_local(get_target_global_position())
+	var relative_pos = position - target_local
+	spawn_distance = relative_pos.length()
+	spawn_degree = rad_to_deg(atan2(relative_pos.x, -relative_pos.y))
+
+func _update_position():
+	if not is_inside_tree(): return
+	var rad = deg_to_rad(spawn_degree)
+	var offset = Vector2(sin(rad), -cos(rad)) * spawn_distance
+	var target_global = get_target_global_position()
+	position = get_parent().to_local(target_global + offset)
+
 func _ready() -> void:
 	Global.mode_changed.connect(show_pointer)
 	Global.throwable_spawner = self
+	update_polar_from_position()
 
 func show_pointer(mode : int):
 	match mode:
@@ -28,6 +61,7 @@ func _process(_delta: float) -> void:
 		throw_item()
 	if GlobInput.is_action_just_pressed("throwing_pause"):
 		toggle_pause()
+	_update_position()
 
 func toggle_pause():
 	set_paused(!is_paused)
@@ -58,21 +92,21 @@ func throw_random_items(amount: int, custom_variance: float = -1.0, custom_both_
 		spawn.set_data(base_mass)
 		
 		var is_flipped = current_both_sides and randf() > 0.5
-		var current_dir = dir
-		var base_pos = Vector2.ZERO
+		
+		var target_global_pos = get_target_global_position()
+		var randomized_angle = deg_to_rad(spawn_degree + randf_range(-current_variance, current_variance))
+		var offset_from_target = Vector2(sin(randomized_angle), -cos(randomized_angle)) * spawn_distance
 		if is_flipped:
-			if position.x > 0:
-				base_pos.x = self.position.x * 2
-				current_dir.x = -dir.x
-			else:
-				base_pos.x = -self.position.x * 2
-				current_dir.x = -dir.x
-			current_dir.y = -dir.y
+			offset_from_target.x = -offset_from_target.x
 			
-		var offset = Vector2(randf_range(-current_variance, current_variance), randf_range(-current_variance, current_variance))
-		spawn.position = base_pos + offset
+		var spawn_global_pos = target_global_pos + offset_from_target
+		spawn.position = to_local(spawn_global_pos)
 		add_child(spawn)
-		spawn.apply_central_impulse(current_dir - offset)
+		
+		var impulse_dir = (target_global_pos - spawn_global_pos).normalized()
+		var impulse = impulse_dir * throw_force
+		spawn.apply_central_impulse(impulse)
+		
 		await get_tree().create_timer(randf_range(0.05, time_variance)).timeout
 
 func throw_specific_item(img_data: ImageData, amount: int = 1, custom_variance: float = -1.0, custom_both_sides: int = -1):
@@ -95,20 +129,19 @@ func throw_specific_item(img_data: ImageData, amount: int = 1, custom_variance: 
 		spawn.set_data(base_mass)
 		
 		var is_flipped = current_both_sides and randf() > 0.5
-		var current_dir = dir
-		var base_pos = Vector2.ZERO
+		
+		var target_global_pos = get_target_global_position()
+		var randomized_angle = deg_to_rad(spawn_degree + randf_range(-current_variance, current_variance))
+		var offset_from_target = Vector2(sin(randomized_angle), -cos(randomized_angle)) * spawn_distance
 		if is_flipped:
-			if position.x > 0:
-				base_pos.x = self.position.x * 2
-				current_dir.x = -dir.x
-			else:
-				base_pos.x = -self.position.x * 2
-				current_dir.x = -dir.x
-				
-			current_dir.y = -dir.y
+			offset_from_target.x = -offset_from_target.x
 			
-		var offset = Vector2(randf_range(-current_variance, current_variance), randf_range(-current_variance, current_variance))
-		spawn.position = base_pos + offset
+		var spawn_global_pos = target_global_pos + offset_from_target
+		spawn.position = to_local(spawn_global_pos)
 		add_child(spawn)
-		spawn.apply_central_impulse(current_dir - offset)
+		
+		var impulse_dir = (target_global_pos - spawn_global_pos).normalized()
+		var impulse = impulse_dir * throw_force
+		spawn.apply_central_impulse(impulse)
+		
 		await get_tree().create_timer(randf_range(0.05, time_variance)).timeout

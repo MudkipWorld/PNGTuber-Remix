@@ -14,6 +14,7 @@
   - [Settings](#settings)
   - [Assigning Input keys](#assigning-input-keys)
   - [Save and Load](#save-and-load)
+  - [Throwables](throwables.md)
 - [FAQ](#faq)
 
 ## Getting Started
@@ -459,6 +460,10 @@ Special thanks for vj4 for the feature!
 
 ![Webs](assets/Tutorial_image_16.PNG)
 
+
+---
+### Throwables
+For detailed information about setting up and troubleshooting the throwing feature, check the [Throwables Feature Guide](throwables.md).
 
 ---
 ### Assigning Input keys and Naming States

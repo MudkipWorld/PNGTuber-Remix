@@ -191,7 +191,7 @@ func save_data():
 		"image_manager_data": image_array,
 		"throwable" : {
 			'position' : Global.throwable_spawner.position,
-			'direction' :  Global.throwable_spawner.dir,
+			'throw_force' :  Global.throwable_spawner.throw_force,
 			'throwable_data' : ids,
 			'event' : InputMap.action_get_events('throwing')[0] if InputMap.action_get_events('throwing').size() > 0 else null,
 			'stop_event' : InputMap.action_get_events('throwing_pause')[0] if InputMap.action_get_events('throwing_pause').size() > 0 else null,
@@ -333,7 +333,9 @@ func load_model(path: String) -> void:
 	if Global.throwable_spawner != null && is_instance_valid(Global.throwable_spawner):
 		var throwable = load_dict.get("throwable", {})
 		Global.throwable_spawner.position = throwable.get('position', Vector2.ZERO)
-		Global.throwable_spawner.dir = throwable.get('direction', Vector2.ZERO)
+		if Global.throwable_spawner.has_method("update_polar_from_position"):
+			Global.throwable_spawner.update_polar_from_position()
+		Global.throwable_spawner.throw_force = throwable.get('throw_force', throwable.get('direction', Vector2(1500, 10)).length())
 		Global.throwable_spawner.throw_per_trigger = throwable.get('throw_per_trigger', 1)
 		Global.throwable_spawner.spawn_variance = throwable.get('spawn_variance', 0)
 		Global.throwable_spawner.both_sides = throwable.get('both_sides', false)

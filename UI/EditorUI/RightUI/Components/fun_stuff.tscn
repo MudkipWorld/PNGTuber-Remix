@@ -63,6 +63,28 @@ text = "Spawner Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HBoxDegree" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="LabelDegree" type="Label" parent="VBox/HBoxDegree"]
+layout_mode = 2
+text = "TR_DEGREE"
+
+[node name="PositionY" type="HSlider" parent="VBox/HBoxDegree"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -359.0
+max_value = 359.0
+step = 1.0
+
+[node name="PositionYSpin" type="SpinBox" parent="VBox/HBoxDegree"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -359.0
+max_value = 359.0
+step = 1.0
+
 [node name="Grid" type="GridContainer" parent="VBox" unique_id=1347018300]
 layout_mode = 2
 columns = 4
@@ -70,22 +92,9 @@ columns = 4
 [node name="Label" type="Label" parent="VBox/Grid" unique_id=349172428]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "TR_POS_X"
+text = "TR_DISTANCE"
 
 [node name="PositionX" type="SpinBox" parent="VBox/Grid" unique_id=2095710838]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1000000.0
-max_value = 1000000.0
-step = 0.1
-
-[node name="Label2" type="Label" parent="VBox/Grid" unique_id=239373708]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "TR_POS_Y"
-
-[node name="PositionY" type="SpinBox" parent="VBox/Grid" unique_id=2033366235]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -96,7 +105,7 @@ step = 0.1
 [node name="Label3" type="Label" parent="VBox/Grid" unique_id=82763680]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Dir X"
+text = "TR_THROW_FORCE"
 
 [node name="DirX" type="SpinBox" parent="VBox/Grid" unique_id=2025645694]
 unique_name_in_owner = true
@@ -471,7 +480,7 @@ unique_name_in_owner = true
 [connection signal="toggled" from="VBox/HBoxContainer2/HasCollision" to="." method="_on_has_collision_toggled"]
 [connection signal="toggled" from="VBox/HBoxContainer2/Physics" to="." method="_on_physics_toggled"]
 [connection signal="value_changed" from="VBox/Grid/PositionX" to="." method="_on_position_x_value_changed"]
-[connection signal="value_changed" from="VBox/Grid/PositionY" to="." method="_on_position_y_value_changed"]
+[connection signal="value_changed" from="VBox/HBoxDegree/PositionY" to="." method="_on_position_y_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/DirX" to="." method="_on_dir_x_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/DirY" to="." method="_on_dir_y_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
