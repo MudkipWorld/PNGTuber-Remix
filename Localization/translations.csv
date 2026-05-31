@@ -585,3 +585,6 @@ Wiggle,Wiggle,Покачивание
 Window,Window,Окно
 EXPORT_SPRITES,Export Sprite(s),Экспортировать спрайты
 TR_PHYS_EFF,Physics Effect,Physics Effect
+TR_DISTANCE,Distance,Расстояние
+TR_DEGREE,Degree,Градус
+TR_THROW_FORCE,Throw Force,Сила броска

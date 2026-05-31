@@ -12,6 +12,45 @@ func _ready() -> void:
 	Global.reinfo.connect(enable)
 	Global.load_model.connect(update_ui)
 	nullfy()
+	
+	%PositionX.min_value = 0.0
+	%PositionX.max_value = 10000.0
+	%PositionX.step = 1.0
+	
+	%PositionY.min_value = -359.0
+	%PositionY.max_value = 359.0
+	%PositionY.step = 1.0
+	
+	%PositionYSpin.min_value = -359.0
+	%PositionYSpin.max_value = 359.0
+	%PositionYSpin.step = 1.0
+	%PositionYSpin.value_changed.connect(_on_position_y_spin_value_changed)
+	
+	%SpawnVariance.min_value = 0.0
+	%SpawnVariance.max_value = 360.0
+	%SpawnVariance.step = 1.0
+
+	%DirY.visible = false
+	%DirY.get_parent().get_child(%DirY.get_index() - 1).visible = false
+
+	%DirX.min_value = 0.0
+	%DirX.max_value = 10000.0
+	%DirX.step = 10.0
+
+	var distance_label = %PositionX.get_parent().get_child(%PositionX.get_index() - 1)
+	distance_label.text = tr("TR_DISTANCE")
+	if distance_label.text == "TR_DISTANCE":
+		distance_label.text = "Distance"
+		
+	var degree_label = %PositionY.get_parent().get_child(0)
+	degree_label.text = tr("TR_DEGREE")
+	if degree_label.text == "TR_DEGREE":
+		degree_label.text = "Degree"
+		
+	var throw_force_label = %DirX.get_parent().get_child(%DirX.get_index() - 1)
+	throw_force_label.text = tr("TR_THROW_FORCE")
+	if throw_force_label.text == "TR_THROW_FORCE":
+		throw_force_label.text = "Throw Force"
 
 func nullfy():
 	%HasCollision.disabled = true
@@ -57,19 +96,34 @@ func submit_to_undo_redo_manager(node, action, state, value, new_value) -> Dicti
 
 func _on_position_x_value_changed(value: float) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	Global.throwable_spawner.position.x = value
+	Global.throwable_spawner.spawn_distance = value
 
 func _on_position_y_value_changed(value: float) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	Global.throwable_spawner.position.y = value
+	
+	var snapped_value = value
+	var snap_threshold = 5.0
+	for snap_target in [0.0, 90.0, 180.0, -90.0, -180.0, 270.0, -270.0]:
+		if abs(value - snap_target) < snap_threshold:
+			snapped_value = snap_target
+			break
+			
+	if snapped_value != value:
+		%PositionY.value = snapped_value
+		return
+		
+	if %PositionYSpin.value != snapped_value:
+		%PositionYSpin.value = snapped_value
+		
+	Global.throwable_spawner.spawn_degree = snapped_value
+
+func _on_position_y_spin_value_changed(value: float) -> void:
+	if %PositionY.value != value:
+		%PositionY.value = value
 
 func _on_dir_x_value_changed(value: float) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	Global.throwable_spawner.dir.x = value
-
-func _on_dir_y_value_changed(value: float) -> void:
-	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	Global.throwable_spawner.dir.y = value
+	Global.throwable_spawner.throw_force = value
 
 func _on_time_variance_value_changed(value: float) -> void:
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
@@ -77,10 +131,10 @@ func _on_time_variance_value_changed(value: float) -> void:
 
 func update_ui():
 	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	%PositionX.value = Global.throwable_spawner.position.x
-	%PositionY.value = Global.throwable_spawner.position.y
-	%DirX.value = Global.throwable_spawner.dir.x
-	%DirY.value = Global.throwable_spawner.dir.y
+	%PositionX.value = Global.throwable_spawner.spawn_distance
+	%PositionY.value = Global.throwable_spawner.spawn_degree
+	%PositionYSpin.value = Global.throwable_spawner.spawn_degree
+	%DirX.value = Global.throwable_spawner.throw_force
 	%SpawnPerTrigger.value = float(Global.throwable_spawner.throw_per_trigger)
 	%SpawnVariance.value = Global.throwable_spawner.spawn_variance
 	%BothSides.button_pressed = Global.throwable_spawner.both_sides
@@ -144,10 +198,11 @@ func _on_confirm_pressed() -> void:
 		to_be_added.append(throw_res)
 		index += 1
 
-	if Global.throwable_spawner == null or !is_instance_valid(Global.throwable_spawner) : return
-	Global.throwable_spawner.selected_items.append_array(to_be_added.duplicate())
+	if Global.throwable_spawner != null and is_instance_valid(Global.throwable_spawner):
+		Global.throwable_spawner.selected_items.append_array(to_be_added.duplicate())
 	
 	selected_items_to_add.clear()
+	%PopupChoice.hide()
 
 func _on_selection_list_multi_selected(_index: int, _selected: bool) -> void:
 	selected_items_to_add.clear()
