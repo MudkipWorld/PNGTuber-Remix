@@ -63,33 +63,37 @@ text = "Spawner Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxDegree" type="HBoxContainer" parent="VBox"]
+[node name="Grid" type="GridContainer" parent="VBox" unique_id=1347018300]
 layout_mode = 2
+columns = 4
 
-[node name="LabelDegree" type="Label" parent="VBox/HBoxDegree"]
+[node name="LabelDegree" type="Label" parent="VBox/Grid" unique_id=908093987]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "TR_DEGREE"
 
-[node name="PositionY" type="HSlider" parent="VBox/HBoxDegree"]
+[node name="HBoxDegree" type="HBoxContainer" parent="VBox/Grid" unique_id=514416775]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PositionYSpin" type="SpinBox" parent="VBox/Grid/HBoxDegree" unique_id=1227319887]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -359.0
 max_value = 359.0
-step = 1.0
 
-[node name="PositionYSpin" type="SpinBox" parent="VBox/HBoxDegree"]
+[node name="PositionY" type="HSlider" parent="VBox/Grid/HBoxDegree" unique_id=2042454899]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
+size_flags_horizontal = 3
 min_value = -359.0
 max_value = 359.0
-step = 1.0
 
-[node name="Grid" type="GridContainer" parent="VBox" unique_id=1347018300]
-layout_mode = 2
-columns = 4
-
-[node name="Label" type="Label" parent="VBox/Grid" unique_id=349172428]
+[node name="Distance" type="Label" parent="VBox/Grid" unique_id=349172428]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TR_DISTANCE"
@@ -98,37 +102,7 @@ text = "TR_DISTANCE"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -1000000.0
 max_value = 1000000.0
-step = 0.1
-
-[node name="Label3" type="Label" parent="VBox/Grid" unique_id=82763680]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "TR_THROW_FORCE"
-
-[node name="DirX" type="SpinBox" parent="VBox/Grid" unique_id=2025645694]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -10000.0
-max_value = 10000.0
-step = 0.1
-value = 1500.0
-
-[node name="Label4" type="Label" parent="VBox/Grid" unique_id=1395014851]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Dir Y"
-
-[node name="DirY" type="SpinBox" parent="VBox/Grid" unique_id=807510409]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -10000.0
-max_value = 10000.0
-step = 0.1
-value = 10.0
 
 [node name="Label5" type="Label" parent="VBox/Grid" unique_id=982674443]
 layout_mode = 2
@@ -143,6 +117,38 @@ min_value = 1.0
 max_value = 1000.0
 value = 1.0
 
+[node name="ForceX" type="Label" parent="VBox/Grid" unique_id=82763680]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_THROW_FORCE"
+
+[node name="DirX" type="SpinBox" parent="VBox/Grid" unique_id=2025645694]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+value = 1500.0
+
+[node name="ForceY" type="Label" parent="VBox/Grid" unique_id=1395014851]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dir Y"
+
+[node name="DirY" type="SpinBox" parent="VBox/Grid" unique_id=807510409]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+value = 10.0
+
 [node name="Label6" type="Label" parent="VBox/Grid" unique_id=990086568]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -152,22 +158,7 @@ text = "Variance"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 10000.0
-step = 0.1
-
-[node name="Label7" type="Label" parent="VBox/Grid" unique_id=2129990025]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Base Mass"
-
-[node name="BaseMass" type="SpinBox" parent="VBox/Grid" unique_id=1921784791]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 0.1
-max_value = 500.0
-step = 0.1
-value = 1.0
+max_value = 360.0
 
 [node name="Label8" type="Label" parent="VBox/Grid" unique_id=1592002982]
 layout_mode = 2
@@ -182,6 +173,20 @@ min_value = 0.05
 max_value = 10.0
 step = 0.01
 value = 0.15000000000000002
+
+[node name="Label7" type="Label" parent="VBox/Grid" unique_id=2129990025]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Base Mass"
+
+[node name="BaseMass" type="SpinBox" parent="VBox/Grid" unique_id=1921784791]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 500.0
+step = 0.1
+value = 1.0
 
 [node name="Label9" type="Label" parent="VBox/Grid" unique_id=734578043]
 visible = false
@@ -479,14 +484,14 @@ unique_name_in_owner = true
 
 [connection signal="toggled" from="VBox/HBoxContainer2/HasCollision" to="." method="_on_has_collision_toggled"]
 [connection signal="toggled" from="VBox/HBoxContainer2/Physics" to="." method="_on_physics_toggled"]
+[connection signal="value_changed" from="VBox/Grid/HBoxDegree/PositionY" to="." method="_on_position_y_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/PositionX" to="." method="_on_position_x_value_changed"]
-[connection signal="value_changed" from="VBox/HBoxDegree/PositionY" to="." method="_on_position_y_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/DirX" to="." method="_on_dir_x_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/DirY" to="." method="_on_dir_y_value_changed"]
-[connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
-[connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/TimeVariance" to="." method="_on_time_variance_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
 [connection signal="value_changed" from="VBox/Grid/SpawnRadius" to="." method="_on_spawn_radius_value_changed"]
 [connection signal="toggled" from="VBox/GridContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
 [connection signal="pressed" from="VBox/GridContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]

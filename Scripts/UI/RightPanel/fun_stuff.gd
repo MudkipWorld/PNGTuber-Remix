@@ -21,33 +21,19 @@ func _ready() -> void:
 	%PositionY.max_value = 359.0
 	%PositionY.step = 1.0
 	
-	%PositionYSpin.min_value = -359.0
-	%PositionYSpin.max_value = 359.0
-	%PositionYSpin.step = 1.0
 	%PositionYSpin.value_changed.connect(_on_position_y_spin_value_changed)
-	
-	%SpawnVariance.min_value = 0.0
-	%SpawnVariance.max_value = 360.0
-	%SpawnVariance.step = 1.0
 
-	%DirY.visible = false
-	%DirY.get_parent().get_child(%DirY.get_index() - 1).visible = false
-
-	%DirX.min_value = 0.0
-	%DirX.max_value = 10000.0
-	%DirX.step = 10.0
-
-	var distance_label = %PositionX.get_parent().get_child(%PositionX.get_index() - 1)
+	var distance_label = %Distance
 	distance_label.text = tr("TR_DISTANCE")
 	if distance_label.text == "TR_DISTANCE":
 		distance_label.text = "Distance"
 		
-	var degree_label = %PositionY.get_parent().get_child(0)
+	var degree_label = %LabelDegree
 	degree_label.text = tr("TR_DEGREE")
 	if degree_label.text == "TR_DEGREE":
 		degree_label.text = "Degree"
 		
-	var throw_force_label = %DirX.get_parent().get_child(%DirX.get_index() - 1)
+	var throw_force_label = %ForceX
 	throw_force_label.text = tr("TR_THROW_FORCE")
 	if throw_force_label.text == "TR_THROW_FORCE":
 		throw_force_label.text = "Throw Force"
