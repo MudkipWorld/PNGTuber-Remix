@@ -773,19 +773,19 @@ func load_sprite(sprite, image_data = null, normal = false):
 
 func updated_follow_check(sprite, st) -> Dictionary:
 	if !sprite.get("updated_follow_movement", false):
-		st["pos_x_min"] = -abs(st["look_at_mouse_pos"])
-		st["pos_x_max"] = abs(st["look_at_mouse_pos"])
-		st["pos_y_min"] = -abs(st["look_at_mouse_pos_y"])
-		st["pos_y_max"] = abs(st["look_at_mouse_pos_y"])
+		st["pos_x_min"] = -abs(st.get("look_at_mouse_pos", 0.0))
+		st["pos_x_max"] = abs(st.get("look_at_mouse_pos", 0.0))
+		st["pos_y_min"] = -abs(st.get("look_at_mouse_pos_y", 0.0))
+		st["pos_y_max"] = abs(st.get("look_at_mouse_pos_y", 0.0))
 		st["rot_min"] = st.get("mouse_rotation", 0.0)
 		st["rot_max"] = st.get("mouse_rotation_max", 0.0)
 		st["scale_x_min"] = -abs(st.get("mouse_scale_x", 0.0))
 		st["scale_x_max"] = abs(st.get("mouse_scale_x", 0.0))
 		st["scale_y_min"] = -abs(st.get("mouse_scale_y", 0.0))
 		st["scale_y_max"] = abs(st.get("mouse_scale_y", 0.0))
-		if signi(st["look_at_mouse_pos"]) < 0:
+		if signi(st.get("look_at_mouse_pos", 0.0)) < 0:
 			st["pos_invert_x"] = true
-		if signi(st["look_at_mouse_pos_y"]) < 0:
+		if signi(st.get("look_at_mouse_pos_y", 0.0)) < 0:
 			st["pos_invert_y"] = true
 	return st
 
