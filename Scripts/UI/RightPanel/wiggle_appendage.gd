@@ -69,23 +69,24 @@ func _on_auto_wag_check_toggled(toggled_on):
 			i.save_state(Global.current_state)
 
 func _on_texture_mode_option_item_selected(index: int) -> void:
+	if !should_change: return
 	match index:
 		0:
-			if should_change:
-				for i in Global.held_sprites:
-					if i == null or !is_instance_valid(i): continue
-					i.sprite_data.tile = 2
-					StateButton.multi_edit(2, "tile", i, i.states)
-					i.get_node("%Sprite2D").texture_mode = 2
-					i.save_state(Global.current_state)
+			for i in Global.held_sprites:
+				if i == null or !is_instance_valid(i): continue
+				i.sprite_data.tile = 2
+				StateButton.multi_edit(2, "tile", i, i.states)
+				i.get_node("%Sprite2D").texture_mode = 2
+				i.get_node("%Sprite2D").texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
+				i.save_state(Global.current_state)
 		1:
-			if should_change:
-				for i in Global.held_sprites:
-					if i == null or !is_instance_valid(i): continue
-					i.sprite_data.tile = 1
-					StateButton.multi_edit(1, "tile", i, i.states)
-					i.get_node("%Sprite2D").texture_mode = 1
-					i.save_state(Global.current_state)
+			for i in Global.held_sprites:
+				if i == null or !is_instance_valid(i): continue
+				i.sprite_data.tile = 1
+				StateButton.multi_edit(1, "tile", i, i.states)
+				i.get_node("%Sprite2D").texture_mode = 1
+				i.get_node("%Sprite2D").texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+				i.save_state(Global.current_state)
 
 func populate_anchor_data():
 	%AnchorSprite.clear()

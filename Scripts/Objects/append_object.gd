@@ -154,8 +154,16 @@ func get_state(id):
 		
 		%Sprite2D.closed = get_value("wiggle_closed_loop")
 		%Sprite2D.gravity = get_value("wiggle_gravity")
-		
 		%Sprite2D.texture_mode = get_value("tile")
+		
+		match get_value("tile"):
+			0:
+				%Sprite2D.texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
+			1:
+				%Sprite2D.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+			2:
+				%Sprite2D.texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
+		
 		%Sprite2D.keep_length = get_value("keep_length_anchor")
 		static_collision.disabled = !get_value("can_be_hit")
 		%HitDetection.set_collision_layer_value(2, get_value("can_be_hit"))
