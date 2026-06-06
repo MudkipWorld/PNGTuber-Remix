@@ -56,7 +56,8 @@ func move_stuff(item: TreeItem, other_item: TreeItem, at_position: Vector2) -> v
 	Global.reinfo.emit()
 
 func move_sprite_reparent(obj, obj_2, item, other_item, drop):
-	var other_parent = other_item.get_parent()
+	var old_parent = item.get_parent()
+	var old_index = item.get_index()
 	var undo_data = {}
 	
 	if drop == 0:
@@ -65,12 +66,10 @@ func move_sprite_reparent(obj, obj_2, item, other_item, drop):
 		obj_2.parent_id = obj.sprite_id
 		item.get_parent().remove_child(item)
 		other_item.add_child(item)
-		undo_data = add_to_undo_history(item, other_item)
 	elif drop == 1:
 		if item.get_parent() == other_item.get_parent():
 			item.move_after(other_item)
 			obj_2.get_parent().move_child(obj_2, obj.get_index())
-			undo_data = add_to_undo_history( item, other_parent)
 		else:
 			obj_2.get_parent().remove_child(obj_2)
 			obj.sprite_object.add_child(obj_2)
@@ -78,13 +77,11 @@ func move_sprite_reparent(obj, obj_2, item, other_item, drop):
 			item.get_parent().remove_child(item)
 			other_item.add_child(item)
 			item.move_after(other_item)
-			undo_data = add_to_undo_history( item, other_parent)
 		
 	elif drop == -1:
 		if other_item.get_parent() == item.get_parent():
 			item.move_before(other_item)
 			obj_2.get_parent().move_child(obj_2, obj.get_index())
-			undo_data = add_to_undo_history(item, other_parent)
 		else:
 			obj_2.get_parent().remove_child(obj_2)
 			obj.sprite_object.add_child(obj_2)
@@ -92,12 +89,13 @@ func move_sprite_reparent(obj, obj_2, item, other_item, drop):
 			item.get_parent().remove_child(item)
 			other_item.add_child(item)
 			item.move_before(other_item)
-			undo_data = add_to_undo_history(item, other_parent)
-			
+	
+	undo_data = add_to_undo_history(item, old_parent, old_index)
 	UndoRedoManager.push_data(undo_data)
 
 func move_sprite_to_container(obj, obj_2, item, other_item, drop):
-	var other_parent = other_item.get_parent()
+	var old_parent = item.get_parent()
+	var old_index = item.get_index()
 	var undo_data = {}
 	if drop == 0:
 		obj_2.get_parent().remove_child(obj_2)
@@ -105,34 +103,29 @@ func move_sprite_to_container(obj, obj_2, item, other_item, drop):
 		obj_2.parent_id = 0
 		item.get_parent().remove_child(item)
 		other_item.add_child(item)
-		undo_data = add_to_undo_history(item, other_item)
 		
 	elif drop == 1:
 		if item.get_parent() == other_item.get_parent():
 			item.move_after(other_item)
 			obj_2.get_parent().move_child(obj_2, obj.get_index())
-			undo_data = add_to_undo_history( item, other_parent)
 		else:
 			obj_2.get_parent().remove_child(obj_2)
 			Global.sprite_container.add_child(obj_2)
 			obj_2.parent_id = 0
 			item.get_parent().remove_child(item)
 			other_item.add_child(item)
-			undo_data = add_to_undo_history( item, other_parent)
 		
 	elif drop == -1:
 		if other_item.get_parent() == item.get_parent():
 			item.move_before(other_item)
 			obj_2.get_parent().move_child(obj_2, obj.get_index())
-			undo_data = add_to_undo_history( item, other_parent)
 		else:
 			obj_2.get_parent().remove_child(obj_2)
 			Global.sprite_container.add_child(obj_2)
 			obj_2.parent_id = 0
 			item.get_parent().remove_child(item)
 			other_item.add_child(item)
-			undo_data = add_to_undo_history( item, other_parent)
-
+	undo_data = add_to_undo_history(item, old_parent, old_index)
 	UndoRedoManager.push_data(undo_data)
 
 func valid_items(item: Variant, other: Variant) -> bool:
@@ -145,15 +138,12 @@ func finalize_move(sprite, og_pos: Vector2) -> void:
 	await get_tree().physics_frame
 	recolor_layer()
 
-func add_to_undo_history(item, other_item) -> Dictionary:
-	var old_parent = item.get_parent()
-	var old_index = item.get_index()
-	
+func add_to_undo_history(item, old_parent, old_index) -> Dictionary:
 	return {
 		tree = self,
 		item = item,
 		old_parent = old_parent,
-		new_parent = other_item,
+		new_parent = item.get_parent(),
 		old_index = old_index,
 		new_index = item.get_index()
 	}

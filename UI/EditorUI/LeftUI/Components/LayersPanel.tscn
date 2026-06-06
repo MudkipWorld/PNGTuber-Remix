@@ -274,7 +274,8 @@ layer_buttons = NodePath("../../LayersPanelScripts")
 
 [node name="LayerPopup" type="PopupMenu" parent="Layers/LayersScripts" unique_id=1302807447]
 unique_name_in_owner = true
-size = Vector2i(133, 224)
+oversampling_override = 1.0
+size = Vector2i(312, 251)
 item_count = 9
 item_0/text = "TR_ADD_SPRITES"
 item_0/id = 0
