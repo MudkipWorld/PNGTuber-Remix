@@ -1,0 +1,426 @@
+[gd_scene format=3 uid="uid://c3f86pv0can01"]
+
+[ext_resource type="Script" uid="uid://d4lt20s0e5gkc" path="res://Scripts/UI/RightPanel/properties_script.gd" id="1_q3kfe"]
+[ext_resource type="Script" uid="uid://181yhrus3jhb" path="res://Scripts/UI/Others/Spinboxes.gd" id="1_tcd20"]
+[ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="2_7ymxr"]
+[ext_resource type="PackedScene" uid="uid://djud66j0a78qo" path="res://UI/EditorUI/RightUI/Components/MiniComponents/assets_box.tscn" id="4_recil"]
+
+[node name="Properties" type="ScrollContainer" unique_id=2015424466]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PropertiesScript" type="Node" parent="." unique_id=402965527]
+script = ExtResource("1_q3kfe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1563573111]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=109535430]
+layout_mode = 2
+text = "TR_LAYOUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Layouts" type="GridContainer" parent="VBoxContainer" unique_id=1417226471]
+layout_mode = 2
+columns = 4
+
+[node name="PosXLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=1521369193]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_POS_X"
+
+[node name="PosXSpinBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=100932093]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000000000.0
+max_value = 1000000000.0
+step = 0.1
+script = ExtResource("1_tcd20")
+
+[node name="PosYLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=1346858472]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_POS_Y"
+
+[node name="PosYSpinBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=1102199071]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1000000000.0
+max_value = 1000000000.0
+step = 0.1
+script = ExtResource("1_tcd20")
+
+[node name="ZOrderLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=1783646581]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_Z_ORDER"
+
+[node name="ZOrderSpinbox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=1895736029]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -4000.0
+max_value = 4000.0
+script = ExtResource("1_tcd20")
+
+[node name="RotLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=2007019646]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_ROTATION"
+
+[node name="RotSpinBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=340792945]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -360.0
+max_value = 360.0
+step = 0.05
+script = ExtResource("1_tcd20")
+
+[node name="OffsetXLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=1513119693]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_OFFSET_X"
+
+[node name="OffsetXSpinBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=1737377344]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -99999.0
+max_value = 99999.0
+step = 0.1
+script = ExtResource("1_tcd20")
+
+[node name="OffsetYLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=805492138]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_OFFSET_Y"
+
+[node name="OffsetYSpinBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=1199531962]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -99999.0
+max_value = 99999.0
+step = 0.1
+
+[node name="SizeLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=1849689830]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_SIZE_X"
+
+[node name="SizeSpinBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=218432977]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+step = 0.01
+value = 1.0
+script = ExtResource("1_tcd20")
+
+[node name="SizeYLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=80797137]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 15
+text = "TR_SIZE_Y"
+
+[node name="SizeSpinYBox" type="SpinBox" parent="VBoxContainer/Layouts" unique_id=1813226611]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+step = 0.01
+value = 1.0
+script = ExtResource("1_tcd20")
+
+[node name="Sp3" type="HSeparator" parent="VBoxContainer" unique_id=690604835]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=1285211584]
+layout_mode = 2
+text = "TR_VISIBILITY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Visibilty" type="GridContainer" parent="VBoxContainer" unique_id=190390504]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="Visible" type="CheckBox" parent="VBoxContainer/Visibilty" unique_id=422795994]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_VISIBLE"
+
+[node name="ClipChildren" type="CheckBox" parent="VBoxContainer/Visibilty" unique_id=1125461398]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_CLIP_CHILDREN"
+
+[node name="FlipSpriteH" type="CheckBox" parent="VBoxContainer/Visibilty" unique_id=552192094]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_FLIP_H"
+icon_alignment = 1
+expand_icon = true
+
+[node name="FlipSpriteV" type="CheckBox" parent="VBoxContainer/Visibilty" unique_id=1179692931]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_FLIP_V"
+
+[node name="ColorLabel" type="Label" parent="VBoxContainer/Visibilty" unique_id=1883544610]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_COLOR"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/Visibilty" unique_id=1708676308]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 1)
+
+[node name="ColorLabel2" type="Label" parent="VBoxContainer/Visibilty" unique_id=226289757]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_TINT"
+
+[node name="TintPickerButton" type="ColorPickerButton" parent="VBoxContainer/Visibilty" unique_id=1580354978]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 1)
+
+[node name="BlendModeLabel" type="Label" parent="VBoxContainer/Visibilty" unique_id=1918592795]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_BLEND_LABEL"
+
+[node name="BlendMode" type="OptionButton" parent="VBoxContainer/Visibilty" unique_id=2128464922]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+selected = 0
+item_count = 7
+popup/item_0/text = "TR_BLEND_NORMAL"
+popup/item_0/id = 0
+popup/item_1/text = "TR_BLEND_ADD"
+popup/item_1/id = 1
+popup/item_2/text = "TR_BLEND_SUBTRACT"
+popup/item_2/id = 2
+popup/item_3/text = "TR_BLEND_MULTIPLY"
+popup/item_3/id = 3
+popup/item_4/text = "TR_BLEND_BURN"
+popup/item_4/id = 4
+popup/item_5/text = "TR_BLEND_HARDMIX"
+popup/item_5/id = 5
+popup/item_6/text = "TR_BLEND_CURSED"
+popup/item_6/id = 6
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1710119569]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=1760711651]
+layout_mode = 2
+text = "TR_REACTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reactions" type="GridContainer" parent="VBoxContainer" unique_id=48471221]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Reactions" unique_id=2101493799]
+custom_minimum_size = Vector2(161, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "TR_SHOULD_BLINK"
+
+[node name="EyeOption" type="OptionButton" parent="VBoxContainer/Reactions" unique_id=1920134316]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "TR_DISABLED"
+popup/item_0/id = 0
+popup/item_1/text = "TR_OPEN"
+popup/item_1/id = 1
+popup/item_2/text = "TR_CLOSED"
+popup/item_2/id = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/Reactions" unique_id=2043796717]
+custom_minimum_size = Vector2(161, 0)
+layout_mode = 2
+text = "TR_SHOULD_TALK"
+
+[node name="MouthOption" type="OptionButton" parent="VBoxContainer/Reactions" unique_id=1490972809]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "TR_DISABLED"
+popup/item_0/id = 0
+popup/item_1/text = "TR_OPEN"
+popup/item_1/id = 1
+popup/item_2/text = "TR_CLOSED"
+popup/item_2/id = 2
+
+[node name="IgnoreBounce" type="CheckBox" parent="VBoxContainer/Reactions" unique_id=624871798]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_IGNORE_BOUNCE"
+script = ExtResource("2_7ymxr")
+sp_type = ""
+value_to_update = "ignore_bounce"
+
+[node name="Physics" type="CheckBox" parent="VBoxContainer/Reactions" unique_id=1438784361]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_PHYSICS"
+script = ExtResource("2_7ymxr")
+sp_type = ""
+value_to_update = "physics"
+
+[node name="StaticObjectToggle" type="CheckBox" parent="VBoxContainer/Reactions" unique_id=995598182]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_STATIC_OBJECT"
+script = ExtResource("2_7ymxr")
+sp_type = ""
+value_to_update = "static_obj"
+
+[node name="UseMouseVel" type="CheckBox" parent="VBoxContainer/Reactions" unique_id=8477927]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_MOUSE_VELOCITY"
+script = ExtResource("2_7ymxr")
+sp_type = ""
+value_to_update = "follow_mouse_velocity"
+
+[node name="Sp6" type="HSeparator" parent="VBoxContainer" unique_id=2015232945]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="AssetsBox" parent="VBoxContainer" unique_id=1568006496 instance=ExtResource("4_recil")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Sp7" type="HSeparator" parent="VBoxContainer" unique_id=2057344341]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label4" type="Label" parent="VBoxContainer" unique_id=441475944]
+layout_mode = 2
+text = "TR_DEBUG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=1225085505]
+layout_mode = 2
+columns = 2
+
+[node name="RestModelLabel" type="Label" parent="VBoxContainer/GridContainer" unique_id=1558610700]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "TR_REST_MODE_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+text = "TR_REST_MODE"
+
+[node name="RestModeOption" type="OptionButton" parent="VBoxContainer/GridContainer" unique_id=1390632434]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_REST_MODE_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+selected = 0
+item_count = 6
+popup/item_0/text = "TR_DISABLED"
+popup/item_0/id = 0
+popup/item_1/text = "TR_REST_FOLLOW"
+popup/item_1/id = 1
+popup/item_2/text = "TR_REST_MOVE"
+popup/item_2/id = 2
+popup/item_3/text = "TR_REST_BOTH"
+popup/item_3/id = 3
+popup/item_4/text = "TR_DISABLE_MOVE"
+popup/item_4/id = 4
+popup/item_5/text = "TR_DISABLE_FOLLOW"
+popup/item_5/id = 5
+
+[node name="HiddenItem" type="CheckBox" parent="VBoxContainer/GridContainer" unique_id=203437404]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_PROPERTIES_HIDDEN_ITEM"
+theme_override_font_sizes/font_size = 16
+text = "TR_HIDDEN_ITEM"
+script = ExtResource("2_7ymxr")
+sp_type = ""
+value_to_update = "hidden_item"
+
+[connection signal="value_changed" from="VBoxContainer/Layouts/PosXSpinBox" to="PropertiesScript" method="_on_pos_x_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/PosYSpinBox" to="PropertiesScript" method="_on_pos_y_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/ZOrderSpinbox" to="PropertiesScript" method="_on_z_order_spinbox_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/RotSpinBox" to="PropertiesScript" method="_on_rot_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/OffsetXSpinBox" to="PropertiesScript" method="_on_offset_x_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/OffsetYSpinBox" to="PropertiesScript" method="_on_offset_y_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/SizeSpinBox" to="PropertiesScript" method="_on_size_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/SizeSpinYBox" to="PropertiesScript" method="_on_size_spin_y_box_value_changed"]
+[connection signal="toggled" from="VBoxContainer/Visibilty/Visible" to="PropertiesScript" method="_on_visible_toggled"]
+[connection signal="toggled" from="VBoxContainer/Visibilty/ClipChildren" to="PropertiesScript" method="_on_clip_children_toggled"]
+[connection signal="toggled" from="VBoxContainer/Visibilty/FlipSpriteH" to="PropertiesScript" method="_on_flip_sprite_h_toggled"]
+[connection signal="toggled" from="VBoxContainer/Visibilty/FlipSpriteV" to="PropertiesScript" method="_on_flip_sprite_v_toggled"]
+[connection signal="color_changed" from="VBoxContainer/Visibilty/ColorPickerButton" to="PropertiesScript" method="_on_color_picker_button_color_changed"]
+[connection signal="focus_entered" from="VBoxContainer/Visibilty/ColorPickerButton" to="PropertiesScript" method="_on_color_picker_button_focus_entered"]
+[connection signal="focus_exited" from="VBoxContainer/Visibilty/ColorPickerButton" to="PropertiesScript" method="_on_color_picker_button_focus_exited"]
+[connection signal="color_changed" from="VBoxContainer/Visibilty/TintPickerButton" to="PropertiesScript" method="_on_tint_picker_button_color_changed"]
+[connection signal="item_selected" from="VBoxContainer/Reactions/EyeOption" to="PropertiesScript" method="_on_eye_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/Reactions/MouthOption" to="PropertiesScript" method="_on_mouth_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/RestModeOption" to="PropertiesScript" method="_on_rest_mode_option_item_selected"]

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://clxl1gighe78l"]
+
+[ext_resource type="Script" uid="uid://0xm3lpjke4lf" path="res://UI/BetterSlider/better_slider.gd" id="1_dnfx4"]
+
+[node name="BetterSlider" type="HBoxContainer" unique_id=1658009348 groups=["InputsUIs"]]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_dnfx4")
+
+[node name="BetterSliderLabel" type="Label" parent="." unique_id=590295418]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 13
+text = "TR_TEXT"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="SpinBoxValue" type="SpinBox" parent="." unique_id=1182001255]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="SliderValue" type="HSlider" parent="." unique_id=1124451210]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_force_pass_scroll_events = false
+
+[connection signal="value_changed" from="SpinBoxValue" to="." method="_on_spin_box_value_value_changed"]
+[connection signal="drag_ended" from="SliderValue" to="." method="_on_slider_value_drag_ended"]
+[connection signal="drag_started" from="SliderValue" to="." method="_on_slider_value_drag_started"]
+[connection signal="value_changed" from="SliderValue" to="." method="_on_slider_value_value_changed"]

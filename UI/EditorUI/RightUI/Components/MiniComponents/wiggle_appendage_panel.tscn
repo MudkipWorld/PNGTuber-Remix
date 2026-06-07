@@ -1,0 +1,302 @@
+[gd_scene format=3 uid="uid://0pdcrfa5cxci"]
+
+[ext_resource type="Script" uid="uid://cfb1omm82mv67" path="res://Scripts/UI/RightPanel/wiggle_appendage.gd" id="1_txqgg"]
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="2_cimjc"]
+[ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="3_cimjc"]
+[ext_resource type="PackedScene" uid="uid://b15lo00q8fe1j" path="res://UI/BetterSlider/better_spinboxes.tscn" id="3_smak3"]
+
+[node name="WiggleAppendagePanel" type="VBoxContainer" unique_id=536680355]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="WiggleAppendage" type="Node" parent="." unique_id=1842004641]
+script = ExtResource("1_txqgg")
+
+[node name="Label" type="Label" parent="." unique_id=1788204364]
+layout_mode = 2
+text = "TR_WIGGLE_APPENDAGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AutoWagCheck" type="CheckBox" parent="." unique_id=541396957]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 14
+text = "TR_AUTO_WAG"
+
+[node name="AutoWagSettings" type="PanelContainer" parent="." unique_id=1162176029]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="AutoWagSettings" unique_id=878348822]
+layout_mode = 2
+
+[node name="WagSpeedBSlider" parent="AutoWagSettings/VBox" unique_id=1032505892 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_WAG_SPEED_SLIDER"
+mini_value = 0.1
+max_value = 50.0
+step = 0.01
+value_to_update = "wag_speed"
+
+[node name="WagFreqBSlider" parent="AutoWagSettings/VBox" unique_id=1612702979 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_WAG_FREQ_LABEL"
+mini_value = -50.0
+max_value = 50.0
+step = 0.01
+value_to_update = "wag_freq"
+
+[node name="MinimumCurve" parent="AutoWagSettings/VBox" unique_id=1401927098 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_MIN_CURVE_LABEL"
+mini_value = -180.0
+step = 0.01
+value_to_update = "wag_mini"
+
+[node name="MaxmumCurve" parent="AutoWagSettings/VBox" unique_id=360138800 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_MAX_CURVE_LABEL"
+max_value = 180.0
+step = 0.01
+value_to_update = "wag_max"
+
+[node name="WiggleAppsCurveBSlider" parent="." unique_id=469494639 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_CURVATURE_LABEL"
+mini_value = -10.0
+max_value = 10.0
+step = 0.01
+value_to_update = "wiggle_curve"
+
+[node name="WiggleAppSegmBSlider" parent="." unique_id=1595565892 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_SEGMENTS_LABEL"
+mini_value = 1.0
+max_value = 15.0
+step = 1.0
+value_to_update = "wiggle_segm"
+
+[node name="WiggleAppsStiffBSlider" parent="." unique_id=1775940392 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_STIFFNESS_LABEL"
+max_value = 50.0
+step = 1.0
+value_to_update = "wiggle_stiff"
+
+[node name="WiggleAppsMaxAngleBSlider" parent="." unique_id=469717526 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_MAX_ANGLE_LABEL"
+max_value = 180.0
+step = 0.1
+value_to_update = "wiggle_max_angle"
+
+[node name="WiggleAppsPhysStiffBSlider" parent="." unique_id=1683902604 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_PHYS_STIFFNESS_TOOLTIP"
+sp_type = "WiggleApp"
+label_text = "TR_PHYS_STIFFNESS_LABEL"
+mini_value = 0.5
+max_value = 10.0
+step = 0.1
+value_to_update = "wiggle_physics_stiffness"
+
+[node name="ComeBackSpeedBSlider" parent="." unique_id=649593419 instance=ExtResource("2_cimjc")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_COMEBACK_LABEL"
+max_value = 6.28
+step = 0.01
+value_to_update = "comeback_speed"
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=833142241]
+layout_mode = 2
+columns = 2
+
+[node name="MaxAngularMomentum" parent="GridContainer" unique_id=1957357816 instance=ExtResource("3_smak3")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_MOMENTUM_LABEL"
+mini_value = 0.1
+max_value = 10000.0
+step = 0.01
+value_to_update = "max_angular_momentum"
+
+[node name="Damp" parent="GridContainer" unique_id=1932380275 instance=ExtResource("3_smak3")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_DAMP_LABEL"
+mini_value = 0.1
+max_value = 1000.0
+step = 0.01
+value_to_update = "damping"
+
+[node name="WiggleWidthSpin" parent="GridContainer" unique_id=361213681 instance=ExtResource("3_smak3")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_WIDTH"
+mini_value = 1.0
+max_value = 10000.0
+step = 0.5
+value_to_update = "width"
+
+[node name="WiggleLengthSpin" parent="GridContainer" unique_id=230386989 instance=ExtResource("3_smak3")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_LENGTH_LABEL"
+mini_value = 1.0
+max_value = 10000.0
+step = 0.5
+value_to_update = "segm_length"
+
+[node name="WiggleGravityXSpin" parent="GridContainer" unique_id=1211768565 instance=ExtResource("3_smak3")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_GRAVITY_X_LABEL"
+mini_value = 1.0
+max_value = 10000.0
+step = 0.5
+value_to_update = "wiggle_gravity"
+is_x = "x"
+
+[node name="WiggleGravityYSpin" parent="GridContainer" unique_id=33197206 instance=ExtResource("3_smak3")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_GRAVITY_Y_LABEL"
+mini_value = 1.0
+max_value = 10000.0
+step = 0.5
+value_to_update = "wiggle_gravity"
+is_x = "y"
+
+[node name="WiggleGravityYSpin2" parent="GridContainer" unique_id=1439257325 instance=ExtResource("3_smak3")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_SUB_DIVISION_LABEL"
+mini_value = 1.0
+max_value = 100.0
+step = 1.0
+value_to_update = "subdivision"
+
+[node name="AppendRoationBSlider" parent="GridContainer" unique_id=1363396237 instance=ExtResource("2_cimjc")]
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_ANGLE"
+mini_value = -360.0
+max_value = 360.0
+step = 0.01
+ui_type = 1
+value_to_update = "appendage_angle"
+
+[node name="ClosedLoopCheck" type="CheckBox" parent="GridContainer" unique_id=1403859168]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_CLOSED_LOOP"
+script = ExtResource("3_cimjc")
+sp_type = "WiggleApp"
+value_to_update = "wiggle_closed_loop"
+
+[node name="Control" type="Control" parent="GridContainer" unique_id=879424099]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StretchToAnchor" type="CheckBox" parent="GridContainer" unique_id=1323091405]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_WIGGLE_STRETCH_TO_ANCHOR"
+theme_override_font_sizes/font_size = 14
+text = "TR_KEEP_LENGTH"
+script = ExtResource("3_cimjc")
+sp_type = "WiggleApp"
+value_to_update = "keep_length_anchor"
+
+[node name="MaxStretchBSlider3" parent="GridContainer" unique_id=1356913494 instance=ExtResource("2_cimjc")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = "WiggleApp"
+label_text = "TR_MAX_STRETCH"
+mini_value = 1.0
+max_value = 999999.0
+step = 0.1
+ui_type = 1
+value_to_update = "max_anchor_stretch"
+
+[node name="Label2" type="Label" parent="GridContainer" unique_id=1666482938]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_ANCHOR_LABEL"
+
+[node name="AnchorSprite" type="OptionButton" parent="GridContainer" unique_id=1333922329]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 1
+popup/item_0/text = "TR_NONE"
+popup/item_0/id = 0
+
+[node name="Label" type="Label" parent="GridContainer" unique_id=2134916009]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_TEXTURE_MODE_LABEL"
+
+[node name="TextureModeOption" type="OptionButton" parent="GridContainer" unique_id=240198909]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "TR_STRETCH"
+popup/item_0/id = 0
+popup/item_1/text = "TR_TILE"
+popup/item_1/id = 1
+
+[node name="Label3" type="Label" parent="GridContainer" unique_id=1171986223]
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_SYNC_APPENDAGE"
+
+[node name="SyncAppendage" type="OptionButton" parent="GridContainer" unique_id=1454184750]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 1
+popup/item_0/text = "TR_NONE"
+popup/item_0/id = 0
+
+[connection signal="toggled" from="AutoWagCheck" to="WiggleAppendage" method="_on_auto_wag_check_toggled"]
+[connection signal="item_selected" from="GridContainer/AnchorSprite" to="WiggleAppendage" method="_on_anchor_sprite_item_selected"]
+[connection signal="item_selected" from="GridContainer/TextureModeOption" to="WiggleAppendage" method="_on_texture_mode_option_item_selected"]
+[connection signal="item_selected" from="GridContainer/SyncAppendage" to="WiggleAppendage" method="_on_sync_appendage_item_selected"]

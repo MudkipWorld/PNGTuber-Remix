@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://3afwb1wdylg6"]
+
+[ext_resource type="Script" uid="uid://c8ho66xhc5a8u" path="res://Scripts/Misc/clipping_test.gd" id="1_ii0y2"]
+[ext_resource type="Texture2D" uid="uid://c7poyj5s0pd1v" path="res://PicklesIdle.png" id="2_7uny7"]
+[ext_resource type="Shader" uid="uid://ds8c6c64n8xok" path="res://Scripts/Shaders/clipping_test.gdshader" id="3_5nsoj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_83g06"]
+shader = ExtResource("3_5nsoj")
+shader_parameter/m_disable = false
+shader_parameter/m_rotation = 0.0
+shader_parameter/m_position = Vector2(503, 21)
+shader_parameter/m_viewport_size = Vector2(1, 1)
+shader_parameter/m_scale = Vector2(1, 1)
+shader_parameter/m_mask_texture = ExtResource("2_7uny7")
+shader_parameter/m_mask_global = Vector2(1061, 320)
+shader_parameter/m_parent_global = Vector2(558, 299)
+shader_parameter/parent_color = Vector4(0, 0, 0, 0)
+shader_parameter/has_shader_parent = false
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ii0y2")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Node2D" type="Node2D" parent="Node"]
+position = Vector2(603, 306)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node/Node2D"]
+unique_name_in_owner = true
+position = Vector2(154, 23)
+texture = ExtResource("2_7uny7")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Node/Node2D"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_83g06")
+position = Vector2(241, 47)
+texture = ExtResource("2_7uny7")

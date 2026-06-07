@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="AImgIOCRC32" load_steps=2 format=3 uid="uid://diqd7i6nojh66"]
+
+[ext_resource type="Script" uid="uid://jh08h8oafuad" path="res://addons/aimg_io/crc32.gd" id="1"]
+
+[resource]
+script = ExtResource("1")

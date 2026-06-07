@@ -1,0 +1,365 @@
+[gd_scene format=3 uid="uid://7r3v4vohf4at"]
+
+[ext_resource type="Script" uid="uid://sipcpctah7rf" path="res://Scripts/UI/LeftPanel/layers_panel_scripts.gd" id="1_jg6ph"]
+[ext_resource type="Texture2D" uid="uid://dsvnkyrgho1xx" path="res://UI/Assets/ui_buttons.png" id="2_rijo6"]
+[ext_resource type="Script" uid="uid://bq332dbu0r6wg" path="res://Scripts/UI/LeftPanel/layers_scripts.gd" id="9_bjklo"]
+[ext_resource type="Script" uid="uid://d4awuaovu50i2" path="res://Scripts/UI/LeftPanel/layers_tree.gd" id="11_hewhr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1mgf"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(429, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j82xv"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(396, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwdjw"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(132, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ikkj"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(165, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emyof"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(363, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hewhr"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(495, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjklo"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(0, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3tnu"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(198, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxswe"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(330, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwoqh"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(99, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l08i4"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(66, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5yhp"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(231, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0oqso"]
+atlas = ExtResource("2_rijo6")
+region = Rect2(264, 0, 33, 32)
+
+[node name="LayersPanel" type="VBoxContainer" unique_id=971474589]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LayersPanelScripts" type="Node" parent="." unique_id=1442990200]
+script = ExtResource("1_jg6ph")
+
+[node name="ButtonsPanel" type="Panel" parent="." unique_id=1022462738]
+custom_minimum_size = Vector2(210, 62)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonsPanel" unique_id=2058623169]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ButtonsPanel/VBoxContainer" unique_id=1719179433]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="UnlinkButton" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=2052908643]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "TR_UNLINK_BUTTON_TOOLTIP"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_r1mgf")
+expand_icon = true
+
+[node name="CommentsButton" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=664159261]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "TR_COMMENTS_BUTTON_TOOLTIP"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_j82xv")
+expand_icon = true
+
+[node name="FlipH" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=488402404]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+tooltip_text = "TR_FLIP_SPRITE_HORIZONTALLY"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_bwdjw")
+expand_icon = true
+
+[node name="FlipV" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=945975407]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "TR_FLIP_SPRITE_VERTICALLY"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_1ikkj")
+expand_icon = true
+
+[node name="RotateImage" type="Button" parent="ButtonsPanel/VBoxContainer/HBoxContainer" unique_id=1923574810]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "TR_ROTATE_SPRITE_IMAGE_TOOLTIP"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_emyof")
+expand_icon = true
+
+[node name="LayersButtons" type="HBoxContainer" parent="ButtonsPanel/VBoxContainer" unique_id=149504368]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="AddSpriteButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=656115861]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_ADD_SPRITE"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_hewhr")
+expand_icon = true
+
+[node name="AddAppendage" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=1148835489]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_ADD_APPENDAGE"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_bjklo")
+expand_icon = true
+
+[node name="FolderButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=1915150108]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_ADD_FOLDER"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+icon = SubResource("AtlasTexture_u3tnu")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ReplaceButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=547853467]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_REPLACE_SPRITE"
+focus_mode = 0
+icon = SubResource("AtlasTexture_oxswe")
+expand_icon = true
+
+[node name="DuplicateButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=187400136]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_DUPLICATE_SPRITE"
+focus_mode = 0
+icon = SubResource("AtlasTexture_cwoqh")
+expand_icon = true
+
+[node name="DeleteButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=79476424]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_DELETE_SPRITE"
+focus_mode = 0
+icon = SubResource("AtlasTexture_l08i4")
+expand_icon = true
+
+[node name="AddNormalButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=2045385644]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_ADD_NORMAL_MAP"
+focus_mode = 0
+icon = SubResource("AtlasTexture_j5yhp")
+expand_icon = true
+
+[node name="DelNormalButton" type="Button" parent="ButtonsPanel/VBoxContainer/LayersButtons" unique_id=791008579]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "TR_TOOLTIP_DELETE_NORMAL_MAP"
+focus_mode = 0
+icon = SubResource("AtlasTexture_0oqso")
+expand_icon = true
+
+[node name="LabelPanel" type="Panel" parent="." unique_id=362077229]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(210, 28)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Sprites" type="Label" parent="LabelPanel" unique_id=1765851076]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "TR_SPRITES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Layers" type="PanelContainer" parent="." unique_id=2116525138]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(210, 70)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="LayersScripts" type="Node" parent="Layers" unique_id=189623276 node_paths=PackedStringArray("layers_popup", "tree", "layer_buttons")]
+unique_name_in_owner = true
+script = ExtResource("9_bjklo")
+layers_popup = NodePath("LayerPopup")
+tree = NodePath("../MarginContainer/LayersTree")
+layer_buttons = NodePath("../../LayersPanelScripts")
+
+[node name="LayerPopup" type="PopupMenu" parent="Layers/LayersScripts" unique_id=1302807447]
+unique_name_in_owner = true
+oversampling_override = 1.0
+size = Vector2i(312, 251)
+item_count = 9
+item_0/text = "TR_ADD_SPRITES"
+item_0/id = 0
+item_1/text = "TR_ADD_FOLDER"
+item_1/id = 1
+item_2/text = "TR_TOOLTIP_REPLACE_SPRITE"
+item_2/id = 2
+item_3/text = "TR_TOOLTIP_DUBLICATE"
+item_3/id = 3
+item_4/text = "TR_TOOLTIP_DELETE_NORMAL_MAP"
+item_4/id = 4
+item_5/text = "TR_TOOLTIP_ADD_NORMAL_MAP"
+item_5/id = 5
+item_6/text = "TR_DESELECT"
+item_6/id = 7
+item_7/text = "TR_RECOLOR_LAYER"
+item_7/id = 8
+item_8/text = "EXPORT_SPRITES"
+item_8/id = 9
+
+[node name="PopupColor" type="PopupPanel" parent="Layers/LayersScripts" unique_id=195992560]
+unique_name_in_owner = true
+size = Vector2i(272, 377)
+
+[node name="LayerColor" type="ColorPicker" parent="Layers/LayersScripts/PopupColor" unique_id=1568674084]
+unique_name_in_owner = true
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 268.0
+offset_bottom = 373.0
+edit_alpha = false
+color_mode = 1
+picker_shape = 1
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Layers" unique_id=1387977744]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="LayersTree" type="Tree" parent="Layers/MarginContainer" unique_id=513728958]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/guide_color = Color(0, 0, 0, 0.196078)
+theme_override_colors/relationship_line_color = Color(0, 0, 0, 0.392157)
+theme_override_constants/v_separation = 2
+theme_override_constants/inner_item_margin_bottom = 2
+theme_override_constants/inner_item_margin_right = 2
+theme_override_constants/inner_item_margin_top = 2
+theme_override_constants/item_margin = 12
+theme_override_constants/icon_max_width = 25
+theme_override_constants/draw_guides = 2
+theme_override_constants/draw_relationship_lines = 2
+theme_override_constants/relationship_line_width = 2
+theme_override_constants/parent_hl_line_width = 2
+theme_override_constants/children_hl_line_width = 2
+theme_override_constants/parent_hl_line_margin = 2
+theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/title_button_font_size = 16
+allow_reselect = true
+select_mode = 2
+script = ExtResource("11_hewhr")
+
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/UnlinkButton" to="LayersPanelScripts" method="_on_unlink_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/CommentsButton" to="LayersPanelScripts" method="_on_comments_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/FlipH" to="LayersPanelScripts" method="_on_flip_h_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/FlipV" to="LayersPanelScripts" method="_on_flip_v_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/HBoxContainer/RotateImage" to="LayersPanelScripts" method="_on_rotate_image_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/AddSpriteButton" to="LayersPanelScripts" method="_on_add_sprite_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/AddAppendage" to="LayersPanelScripts" method="_on_add_appendage_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/FolderButton" to="LayersPanelScripts" method="_on_folder_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/ReplaceButton" to="LayersPanelScripts" method="_on_replace_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/DuplicateButton" to="LayersPanelScripts" method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/DeleteButton" to="LayersPanelScripts" method="_on_delete_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/AddNormalButton" to="LayersPanelScripts" method="_on_add_normal_button_pressed"]
+[connection signal="pressed" from="ButtonsPanel/VBoxContainer/LayersButtons/DelNormalButton" to="LayersPanelScripts" method="_on_del_normal_button_pressed"]
+[connection signal="color_changed" from="Layers/LayersScripts/PopupColor/LayerColor" to="Layers/LayersScripts" method="_on_layer_color_color_changed"]
+[connection signal="button_clicked" from="Layers/MarginContainer/LayersTree" to="Layers/LayersScripts" method="_on_layers_tree_button_clicked"]
+[connection signal="empty_clicked" from="Layers/MarginContainer/LayersTree" to="Layers/LayersScripts" method="_on_layers_tree_empty_clicked"]
+[connection signal="gui_input" from="Layers/MarginContainer/LayersTree" to="Layers/LayersScripts" method="_on_layers_tree_gui_input"]
+[connection signal="item_collapsed" from="Layers/MarginContainer/LayersTree" to="Layers/LayersScripts" method="_on_layers_tree_item_collapsed"]
+[connection signal="multi_selected" from="Layers/MarginContainer/LayersTree" to="Layers/LayersScripts" method="_on_layers_tree_multi_selected"]

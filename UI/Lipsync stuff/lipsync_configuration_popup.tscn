@@ -1,0 +1,840 @@
+[gd_scene format=3 uid="uid://dvq0c1qpx2vo5"]
+
+[ext_resource type="Texture2D" uid="uid://ci6qr5aaw55b4" path="res://Misc/TestAssets/MouthAssets/MouthTH.png" id="1_au3fa"]
+[ext_resource type="Script" uid="uid://b5dn8nbq7bfa1" path="res://Scripts/Lipsync Scripts/lipsync_configuration_popup.gd" id="1_hl02m"]
+[ext_resource type="Texture2D" uid="uid://cqgd1q4i527o8" path="res://Misc/TestAssets/MouthAssets/MouthS.png" id="2_ppb5f"]
+[ext_resource type="Script" uid="uid://dahlt80hulmva" path="res://Scripts/Lipsync Scripts/calibration_tree.gd" id="2_yucjp"]
+[ext_resource type="Texture2D" uid="uid://b8y26ab24g2o4" path="res://Misc/TestAssets/MouthAssets/MouthT.png" id="3_cs6of"]
+[ext_resource type="Texture2D" uid="uid://2aquomstqx5g" path="res://Misc/TestAssets/MouthAssets/MouthE.png" id="4_pxbl8"]
+[ext_resource type="Texture2D" uid="uid://duqct75wvludd" path="res://Misc/TestAssets/MouthAssets/MouthF.png" id="5_t75vy"]
+[ext_resource type="Texture2D" uid="uid://bbhn0ux53cai4" path="res://Misc/TestAssets/MouthAssets/MouthI.png" id="6_qsbug"]
+[ext_resource type="Texture2D" uid="uid://cx8254iqhjen8" path="res://Misc/TestAssets/MouthAssets/MouthO.png" id="7_gbjfb"]
+[ext_resource type="Texture2D" uid="uid://drbtaj374ybx7" path="res://Misc/TestAssets/MouthAssets/MouthB.png" id="8_2mt7e"]
+[ext_resource type="Texture2D" uid="uid://cs2yi8g32k5xm" path="res://Misc/TestAssets/MouthAssets/MouthR.png" id="9_eceqa"]
+[ext_resource type="Texture2D" uid="uid://defjl4banm5tn" path="res://Misc/TestAssets/MouthAssets/MouthU.png" id="10_n5m1q"]
+[ext_resource type="Texture2D" uid="uid://bh6q1bq10dkrv" path="res://Misc/TestAssets/MouthAssets/MouthA.png" id="11_df0wv"]
+[ext_resource type="Texture2D" uid="uid://bp33kti2vyvhb" path="res://Misc/TestAssets/MouthAssets/MouthG.png" id="12_tc06v"]
+[ext_resource type="Texture2D" uid="uid://7w6o1538wfy3" path="res://Misc/TestAssets/MouthAssets/MouthL.png" id="13_qbydv"]
+[ext_resource type="Texture2D" uid="uid://bx0wddxqvmjvb" path="res://Misc/TestAssets/MouthAssets/MouthSilent.png" id="14_m2i65"]
+[ext_resource type="Script" uid="uid://bfvds6wsw0wsg" path="res://Scripts/Lipsync Scripts/inspector_tab.gd" id="17_c25av"]
+[ext_resource type="Script" uid="uid://bu4wponkf4i03" path="res://Scripts/Lipsync Scripts/fingerprint_tab.gd" id="18_cl2hy"]
+[ext_resource type="Script" uid="uid://ceitfwi6o8fx5" path="res://Scripts/Lipsync Scripts/phonemes_tab.gd" id="19_uhohj"]
+
+[sub_resource type="Gradient" id="Gradient_m67kp"]
+offsets = PackedFloat32Array(0, 0.154717)
+colors = PackedColorArray(0.11, 0.11, 0.11, 0.686275, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2arc7"]
+gradient = SubResource("Gradient_m67kp")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dktqj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_au3fa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ppb5f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cs6of")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pxbl8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t75vy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qsbug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gbjfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2mt7e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_eceqa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_n5m1q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_df0wv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_tc06v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_qbydv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_m2i65")
+}],
+"loop": false,
+"name": &"MouthAnimations",
+"speed": 5.0
+}]
+
+[node name="LipsyncConfigurationPopup" type="Window" unique_id=142413981]
+oversampling_override = 1.0
+title = "TR_LIP_SYNC_CONFIG"
+initial_position = 2
+size = Vector2i(1000, 600)
+transient = true
+exclusive = true
+script = ExtResource("1_hl02m")
+
+[node name="BG" type="TextureRect" parent="." unique_id=22260863]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_2arc7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=187127947]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="TopMenu" type="PanelContainer" parent="VBoxContainer" unique_id=1759024405]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopMenu" unique_id=1356919549]
+layout_mode = 2
+
+[node name="FilesButton" type="MenuButton" parent="VBoxContainer/TopMenu/HBoxContainer" unique_id=501411280]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "TR_FILES"
+flat = false
+item_count = 3
+popup/item_0/text = "TR_NEW_FILE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_LOAD_LIPSYNC_FILE"
+popup/item_1/id = 1
+popup/item_2/text = "TR_SAVE_LIPSYNC_FILE"
+popup/item_2/id = 2
+
+[node name="UIContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=847340530]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="TreePanel" type="Panel" parent="VBoxContainer/UIContainer" unique_id=440899763]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/UIContainer/TreePanel" unique_id=550825057]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="CalibrationTree" type="Tree" parent="VBoxContainer/UIContainer/TreePanel/MarginContainer" unique_id=814942488]
+layout_mode = 2
+columns = 2
+script = ExtResource("2_yucjp")
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/UIContainer" unique_id=910083339]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PreviewBG" type="ColorRect" parent="VBoxContainer/UIContainer/VBox" unique_id=1128800858]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+color = Color(0.435192, 0.435192, 0.435192, 1)
+
+[node name="Pos" type="Control" parent="VBoxContainer/UIContainer/VBox/PreviewBG" unique_id=829550489]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shapes" type="AnimatedSprite2D" parent="VBoxContainer/UIContainer/VBox/PreviewBG/Pos" unique_id=1426929620]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_dktqj")
+animation = &"MouthAnimations"
+
+[node name="BottomPanel" type="Panel" parent="VBoxContainer/UIContainer/VBox" unique_id=1104442992]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel" unique_id=568601463]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer" unique_id=2048451871]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer" unique_id=1803801615]
+layout_mode = 2
+size_flags_vertical = 1
+text = "TR_INSPECTOR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inspect" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer" unique_id=203044130]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("17_c25av")
+calibration_tree = NodePath("../../../../../TreePanel/MarginContainer/CalibrationTree")
+
+[node name="Insp1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=299221658]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=2918379]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=846368820]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=2089613838]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=742540305]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=548349985]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1744577089]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1397059675]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=320195377]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1043187834]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1108347128]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1157513074]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=203459615]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp14" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1160132196]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp15" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=177330869]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp16" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1295143641]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp17" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=928816543]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp18" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=929984744]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp19" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1247175192]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Insp20" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/VBoxContainer/Inspect" unique_id=1621466610]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Stuff" type="TabContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer" unique_id=1135558577]
+layout_mode = 2
+size_flags_horizontal = 3
+current_tab = 0
+
+[node name="Spectrum" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff" unique_id=3251538]
+layout_mode = 2
+script = ExtResource("18_cl2hy")
+metadata/_tab_index = 0
+
+[node name="SpecBars" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum" unique_id=1745946648]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="spec1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=408329351]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1557216366]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1864352547]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1185112249]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=686029978]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1073204103]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1847945144]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1938547868]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=813970418]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=698087670]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=945510652]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=666571377]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1890457112]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec14" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=799951885]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec15" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1968357520]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec16" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1653862583]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec17" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=2043066958]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec18" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=2112912980]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec19" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=2146341443]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="spec20" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Spectrum/SpecBars" unique_id=1456100159]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phonemes" type="TabBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff" unique_id=951888576 node_paths=PackedStringArray("sprite")]
+visible = false
+layout_mode = 2
+script = ExtResource("19_uhohj")
+sprite = NodePath("../../../../PreviewBG/Pos/Shapes")
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes" unique_id=881113555]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PhBox" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer" unique_id=1778930098]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Phoneme1" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=675173489]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme2" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=774917436]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme3" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=161426777]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme4" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=656191341]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme5" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1761029408]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme6" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1971324756]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme7" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=737157377]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme8" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1362988479]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme9" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1545515039]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme10" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1050136415]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme11" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1456997717]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme12" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1403729958]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="Phoneme13" type="ProgressBar" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/PhBox" unique_id=1995756878]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.001
+fill_mode = 3
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer" unique_id=420873080]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="TH" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1182306486]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TH"
+horizontal_alignment = 1
+
+[node name="S" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=626922694]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "S"
+horizontal_alignment = 1
+
+[node name="T" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=315064475]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "T"
+horizontal_alignment = 1
+
+[node name="E" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=385853261]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "E"
+horizontal_alignment = 1
+
+[node name="F" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=957906948]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "F"
+horizontal_alignment = 1
+
+[node name="I" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=142088154]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "I"
+horizontal_alignment = 1
+
+[node name="O" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1120702819]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "O"
+horizontal_alignment = 1
+
+[node name="P" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=606483857]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "P"
+horizontal_alignment = 1
+
+[node name="R" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=500334386]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "R"
+horizontal_alignment = 1
+
+[node name="U" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1643512699]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "U"
+horizontal_alignment = 1
+
+[node name="A" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=2139494305]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+horizontal_alignment = 1
+
+[node name="G" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=1043161653]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "G"
+horizontal_alignment = 1
+
+[node name="L" type="Label" parent="VBoxContainer/UIContainer/VBox/BottomPanel/HBoxContainer/Stuff/Phonemes/VBoxContainer/HBoxContainer2" unique_id=2048434634]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "L"
+horizontal_alignment = 1
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=461927007]
+unique_name_in_owner = true
+force_native = true
+mode_overrides_title = false
+access = 2
+filters = PackedStringArray("*.tres")
+use_native_dialog = true
+
+[connection signal="confirmed" from="FileDialog" to="." method="_on_file_dialog_confirmed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

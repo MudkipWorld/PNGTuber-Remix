@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cwtfmnxmnl7h3"]
+
+[ext_resource type="PackedScene" uid="uid://bfys3e12aapdo" path="res://UI/EditorUI/RightUI/Components/MiniComponents/light_settings_panel.tscn" id="2_j3n53"]
+
+[node name="Light" type="ScrollContainer" unique_id=840147195]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="LightSettingsPanel" parent="." unique_id=524936842 instance=ExtResource("2_j3n53")]
+layout_mode = 2

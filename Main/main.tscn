@@ -1,14 +1,85 @@
-[gd_scene load_steps=7 format=3 uid="uid://b28gjkefgi5bs"]
+[gd_scene format=3 uid="uid://b28gjkefgi5bs"]
 
-[ext_resource type="Script" path="res://Main/Scripts/main.gd" id="1_6pthk"]
-[ext_resource type="Script" path="res://Main/Scripts/SpritesContainer.gd" id="2_lv028"]
+[ext_resource type="Script" uid="uid://bn6wdd2hwqxfp" path="res://Main/Scripts/main.gd" id="1_6pthk"]
+[ext_resource type="Script" uid="uid://u4rstm0uk8wb" path="res://Scripts/Misc/file_importer.gd" id="2_j4lix"]
+[ext_resource type="Script" uid="uid://b6atx7ybrp5sq" path="res://Main/Scripts/SpritesContainer.gd" id="2_lv028"]
 [ext_resource type="PackedScene" uid="uid://ngta1o5yiqxs" path="res://UI/control.tscn" id="2_micm1"]
+[ext_resource type="Script" uid="uid://qgnk6t8mi76s" path="res://Scripts/UI/WindowHandler/window_handler.gd" id="2_o60nc"]
 [ext_resource type="PackedScene" uid="uid://dw4brgrpdpurf" path="res://Misc/LightSource/light_source.tscn" id="3_eo07p"]
-[ext_resource type="Script" path="res://Main/Scripts/AudioStreamPlayer.gd" id="5_swrrk"]
+[ext_resource type="Shader" uid="uid://brpv37x267rmr" path="res://Scripts/Shaders/ColorBlindness.gdshader" id="3_o60nc"]
+[ext_resource type="Shader" uid="uid://bc5tbhguskdv2" path="res://Scripts/Shaders/ModelEffects.gdshader" id="3_rj11h"]
+[ext_resource type="Script" uid="uid://rl0aijomkxp0" path="res://Scripts/Misc/throwable/throwables.gd" id="5_rix8b"]
+[ext_resource type="Script" uid="uid://by4pbr6yeut1c" path="res://Main/Scripts/monitor_tracking.gd" id="5_rj11h"]
+[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="6_0jx5h"]
+[ext_resource type="PackedScene" uid="uid://bpmlfhv30o08l" path="res://UI/EditorUI/TopUI/top_ui.tscn" id="7_qwnpc"]
+[ext_resource type="Script" uid="uid://cl5ylmnvn6ncm" path="res://Scripts/Objects/mesh_poiner.gd" id="8_rix8b"]
+[ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="12_rix8b"]
 
-[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_b50ir"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f3gf5"]
+resource_local_to_scene = true
+shader = ExtResource("3_o60nc")
+shader_parameter/severity = 0.5
+shader_parameter/effect = 0
 
-[node name="Main" type="Control"]
+[sub_resource type="Gradient" id="Gradient_qac2q"]
+offsets = PackedFloat32Array(0, 0.192982, 0.554386, 0.803509, 0.978947)
+colors = PackedColorArray(0.709965, 0.196036, 0.771008, 1, 1, 1, 0, 1, 0.630854, 0.955883, 1, 1, 0, 1, 1, 1, 0.709804, 0.196078, 0.772549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qac2q"]
+gradient = SubResource("Gradient_qac2q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qac2q"]
+shader = ExtResource("3_rj11h")
+shader_parameter/effect = 0
+shader_parameter/ScaleMult = Vector2(1, 1)
+shader_parameter/AuraProgres = 0.4
+shader_parameter/TextureLaodMult = 8.0
+shader_parameter/Tilling = 52.12
+shader_parameter/MovementDirSpeed = Vector2(-0.8, 1)
+shader_parameter/MovementDirSpeed2 = Vector2(0.6, 2)
+shader_parameter/color_gradiant = SubResource("GradientTexture1D_qac2q")
+shader_parameter/Noise_Seed = Vector2(5, 1)
+shader_parameter/rainbow = false
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_scale = 3.648
+shader_parameter/frequency = 0.806
+shader_parameter/light_offset = 0.48101
+shader_parameter/alpha = 1.0
+shader_parameter/edge_subdivision = 64
+shader_parameter/overlay = true
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/brightness = 1.4
+shader_parameter/scanlines_opacity = 0.312
+shader_parameter/scanlines_width = 0.176
+shader_parameter/grille_opacity = 0.194
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 23.824
+shader_parameter/roll_variation = 2.405
+shader_parameter/distort_intensity = 0.05
+shader_parameter/aberration = -0.029
+shader_parameter/noise_opacity = 0.2
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.154
+shader_parameter/pixelate = false
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.5
+shader_parameter/clip_warp = true
+shader_parameter/vignette_intensity = 0.5
+shader_parameter/vignette_opacity = 0.0
+shader_parameter/spacing = 0.006
+shader_parameter/thickness = 0.002
+shader_parameter/amp = 0.005
+shader_parameter/hatch_angle = 210.0
+shader_parameter/progress = 2.0
+shader_parameter/bound_width_a = 0.0
+shader_parameter/corner_a = 0.0
+shader_parameter/uv_scale = Vector2(2, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rj11h"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[node name="Main" type="Control" unique_id=851310579]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,103 +88,259 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6pthk")
 
-[node name="BackgroundInputCapture" type="BackgroundInputCapture" parent="."]
+[node name="WindowHandler" type="Node" parent="." unique_id=440670658]
+script = ExtResource("2_o60nc")
 
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+[node name="FileImporter" type="Node" parent="." unique_id=886724899]
+unique_name_in_owner = true
+script = ExtResource("2_j4lix")
+
+[node name="ConfirmTrim" type="ConfirmationDialog" parent="FileImporter" unique_id=1828680810]
+unique_name_in_owner = true
+transparent_bg = true
+oversampling_override = 1.0
+title = "TR_PLEASE_CONFIRM"
+initial_position = 2
+size = Vector2i(375, 150)
+unresizable = true
+ok_button_text = "TR_YES"
+dialog_text = "TR_TRIM_DIALOG_TEXT"
+cancel_button_text = "TR_NO"
+
+[node name="Control" type="Control" parent="FileImporter/ConfirmTrim" unique_id=1440557676]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OffsetSprite" type="CheckBox" parent="FileImporter/ConfirmTrim/Control" unique_id=1917826308]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+tooltip_text = "TR_OFFSETS_IMPORTED_SPRITES_WHEN_TRIM"
+button_pressed = true
+text = "TR_OFFSET_IMPORTED_SPRITE"
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=313316778]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_f3gf5")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
+mouse_filter = 0
 stretch = true
+mouse_target = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
-transparent_bg = true
-handle_input_locally = false
-canvas_item_default_texture_repeat = 1
-size = Vector2i(1280, 720)
-size_2d_override = Vector2i(1280, 720)
-size_2d_override_stretch = true
-render_target_update_mode = 4
-
-[node name="BackgroundStuff" type="Node2D" parent="SubViewportContainer2/SubViewport"]
-position = Vector2(640, 360)
-
-[node name="BGContainer" type="Node2D" parent="SubViewportContainer2/SubViewport/BackgroundStuff"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1631552527]
 unique_name_in_owner = true
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-vrs_mode = 2
-canvas_item_default_texture_filter = 2
+gui_snap_controls_to_pixels = false
+sdf_oversize = 0
+sdf_scale = 2
+oversampling = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport"]
-position = Vector2(640, 360)
-
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Node2D"]
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1740936232]
 unique_name_in_owner = true
 
-[node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D"]
+[node name="CamPos" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=703986065]
+unique_name_in_owner = true
 
-[node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin"]
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos" unique_id=450027901]
+unique_name_in_owner = true
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=1268053977]
+z_index = 4
+texture_filter = 4
+
+[node name="Throwables" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=310001112]
+unique_name_in_owner = true
+z_index = 4000
+script = ExtResource("5_rix8b")
+
+[node name="Pointer" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D/Origin/Throwables" unique_id=1574985264]
+unique_name_in_owner = true
+self_modulate = Color(0, 1, 0, 1)
+texture = ExtResource("6_0jx5h")
+
+[node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=1728498822]
 unique_name_in_owner = true
 script = ExtResource("2_lv028")
 
-[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" instance=ExtResource("3_eo07p")]
-visible = false
+[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" unique_id=2074649847 instance=ExtResource("3_eo07p")]
+unique_name_in_owner = true
+light_mask = 7
+visibility_layer = 7
+z_index = 4096
+z_as_relative = false
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.92549)
 
-[node name="Control" parent="." instance=ExtResource("2_micm1")]
-layout_mode = 1
-
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+[node name="MeshPointer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=267766965]
 unique_name_in_owner = true
-initial_position = 2
-size = Vector2i(338, 100)
-dialog_text = " Do you want to make a PNGTuber model?"
-dialog_autowrap = true
+z_index = 4096
+z_as_relative = false
+script = ExtResource("8_rix8b")
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="Effects" type="TextureRect" parent="." unique_id=1951697743]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_qac2q")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("ViewportTexture_rj11h")
+
+[node name="UICanvas" type="CanvasLayer" parent="." unique_id=231648525]
+layer = 2
+
+[node name="Marker" type="Control" parent="UICanvas" unique_id=1271689922]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("5_rj11h")
+
+[node name="UIHold" type="VBoxContainer" parent="UICanvas" unique_id=918698920]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="UIHolder" type="VBoxContainer" parent="UICanvas/UIHold" unique_id=1210955179]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = -1
+
+[node name="TopUI" parent="UICanvas/UIHold/UIHolder" unique_id=1603455844 instance=ExtResource("7_qwnpc")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Control" parent="UICanvas/UIHold/UIHolder" unique_id=1859817720 instance=ExtResource("2_micm1")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ProjectNamePanel" type="Panel" parent="UICanvas/UIHold" unique_id=821142979]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="ProjectNameLabel" type="Label" parent="UICanvas/UIHold/ProjectNamePanel" unique_id=1399472450]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 11
+text = "TR_WELCOME"
+
+[node name="WindowSize" type="Label" parent="UICanvas/UIHold/ProjectNamePanel" unique_id=1093128964]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.056
+anchor_right = 1.0
+anchor_bottom = 0.944
+offset_left = -183.0
+offset_top = -0.00800002
+offset_bottom = 0.00799942
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 11
+text = "{0} (0,0)"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("12_rix8b")
+localizations = Array[String](["TR_WINDOW_SIZE"])
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1802261511]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "TR_PLEASE_CONFIRM"
+initial_position = 2
+size = Vector2i(338, 132)
+ok_button_text = "TR_CREATE_NEW_MODEL"
+dialog_text = "TR_NEW_PNGTUBER_TEXT"
+dialog_hide_on_ok = false
+dialog_autowrap = true
+cancel_button_text = "TR_CANCEL"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1398432278]
 unique_name_in_owner = true
 title = "Open File(s)"
 initial_position = 2
 size = Vector2i(800, 500)
-ok_button_text = "Open"
+always_on_top = true
+force_native = true
+ok_button_text = "TR_OPEN"
+cancel_button_text = "TR_CANCEL"
 file_mode = 1
 access = 2
-filters = PackedStringArray("*.png", "*.jpeg", "*.jpg", "*.svg")
+filters = PackedStringArray("*.png", "*.svg")
+use_native_dialog = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamMicrophone_b50ir")
-autoplay = true
-bus = &"Mic"
-script = ExtResource("5_swrrk")
-
-[node name="MicTimer" type="Timer" parent="AudioStreamPlayer"]
-wait_time = 30.0
-autostart = true
-
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1814323488]
 wait_time = 0.05
 
-[connection signal="bg_key_pressed" from="BackgroundInputCapture" to="." method="_on_background_input_capture_bg_key_pressed"]
+[connection signal="canceled" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_canceled"]
+[connection signal="close_requested" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_canceled"]
+[connection signal="confirmed" from="FileImporter/ConfirmTrim" to="FileImporter" method="_on_confirm_trim_confirmed"]
+[connection signal="toggled" from="FileImporter/ConfirmTrim/Control/OffsetSprite" to="FileImporter" method="_on_offset_sprite_toggled"]
 [connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
 [connection signal="mouse_exited" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]
+[connection signal="canceled" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="close_requested" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
 [connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="files_selected" from="FileDialog" to="." method="_on_file_dialog_files_selected"]
-[connection signal="timeout" from="AudioStreamPlayer/MicTimer" to="AudioStreamPlayer" method="_on_mic_timer_timeout"]

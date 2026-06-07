@@ -1,13 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwtyu481ec5vq"]
+[gd_scene load_steps=3 format=3 uid="uid://cwtyu481ec5vq"]
 
-[ext_resource type="Script" path="res://Scripts/StateButton.gd" id="2_2ybu4"]
+[ext_resource type="Script" uid="uid://cqsauqmcso8g2" path="res://Scripts/UI/States/StateButton.gd" id="2_2ybu4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esdw3"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="StateButton" type="Button" groups=["StateButtons"]]
 custom_minimum_size = Vector2(35, 35)
-offset_right = 8.0
-offset_bottom = 8.0
+offset_right = 35.0
+offset_bottom = 35.0
+size_flags_vertical = 0
+focus_mode = 0
 theme_override_font_sizes/font_size = 15
 text = "1"
 script = ExtResource("2_2ybu4")
+
+[node name="Selected" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_esdw3")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

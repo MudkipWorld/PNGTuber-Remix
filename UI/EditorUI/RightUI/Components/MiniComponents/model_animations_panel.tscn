@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://dk4y4x3f5jmri"]
+
+[ext_resource type="Script" uid="uid://bimhkpsielfws" path="res://Scripts/UI/RightPanel/model_animations.gd" id="1_xngbb"]
+[ext_resource type="PackedScene" uid="uid://ddhwynf6o3br1" path="res://UI/EditorUI/RightUI/Components/MiniComponents/animation_parameters.tscn" id="2_k2y8f"]
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="2_wkbb7"]
+[ext_resource type="PackedScene" uid="uid://ckidjwx5bqwbj" path="res://UI/EditorUI/RightUI/Components/model_effects.tscn" id="4_nllqn"]
+
+[node name="ModelAnimationsPanel" type="VBoxContainer" unique_id=1934144229]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="." unique_id=1393932671]
+layout_mode = 2
+text = "TR_MODEL_ANIMATIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ModelAnimations" type="Node" parent="." unique_id=667713576]
+script = ExtResource("1_xngbb")
+
+[node name="MC" type="HBoxContainer" parent="." unique_id=1646025411]
+layout_mode = 2
+
+[node name="MouthClosedAnimLabel" type="Label" parent="MC" unique_id=1681666530]
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "TR_MOUTH_CLOSED"
+
+[node name="MouthClosedAnim" type="OptionButton" parent="MC" unique_id=2045749650]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+item_count = 7
+popup/item_0/text = "TR_IDLE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_ANIMATION_BOUNCY"
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_2/disabled = true
+popup/item_2/separator = true
+popup/item_3/text = "TR_ANIMATION_ONE_BOUNCE"
+popup/item_3/id = 3
+popup/item_4/text = "TR_ANIMATION_WOBBLE"
+popup/item_4/id = 4
+popup/item_5/text = "TR_ANIMATION_SQUISH"
+popup/item_5/id = 5
+popup/item_6/text = "TR_FLOAT"
+popup/item_6/id = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=527045776]
+layout_mode = 2
+
+[node name="AnimationParameters" parent="PanelContainer" unique_id=1757742535 instance=ExtResource("2_k2y8f")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="." unique_id=683454117]
+layout_mode = 2
+
+[node name="MO" type="HBoxContainer" parent="." unique_id=1219627002]
+layout_mode = 2
+
+[node name="MouthOpenAnimLabel" type="Label" parent="MO" unique_id=1195604951]
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "TR_MOUTH_OPEN_LABEL"
+
+[node name="MouthOpenAnim" type="OptionButton" parent="MO" unique_id=1271866159]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+item_count = 7
+popup/item_0/text = "TR_IDLE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_ANIMATION_BOUNCY"
+popup/item_1/id = 1
+popup/item_2/id = 2
+popup/item_2/disabled = true
+popup/item_2/separator = true
+popup/item_3/text = "TR_ANIMATION_ONE_BOUNCE"
+popup/item_3/id = 3
+popup/item_4/text = "TR_ANIMATION_WOBBLE"
+popup/item_4/id = 4
+popup/item_5/text = "TR_ANIMATION_SQUISH"
+popup/item_5/id = 5
+popup/item_6/text = "TR_FLOAT"
+popup/item_6/id = 6
+
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=1629535167]
+layout_mode = 2
+
+[node name="AnimationParameters" parent="PanelContainer2" unique_id=751746562 instance=ExtResource("2_k2y8f")]
+layout_mode = 2
+type = 1
+
+[node name="BounceStateCheck" type="CheckBox" parent="." unique_id=511751763]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "TR_BOUNCE_WHEN_CHANGING_STATES"
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=1729379961]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="." unique_id=1868518152]
+layout_mode = 2
+text = "TR_EYE_ANIMATIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="." unique_id=1881167250]
+layout_mode = 2
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="BlinkSpeedLabel" type="Label" parent="Grid" unique_id=1442915966]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "TR_BLINK_SPEED"
+
+[node name="BlinkSpeedSlider" type="HSlider" parent="Grid" unique_id=1994747486]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 12.0
+step = 0.1
+value = 1.0
+scrollable = false
+
+[node name="BlinkChanceLabel" type="Label" parent="Grid" unique_id=799052175]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+text = "TR_BLINK_CHANCE"
+
+[node name="BlinkChanceSlider" type="HSlider" parent="Grid" unique_id=484424230]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 2.0
+max_value = 200.0
+value = 9.0
+rounded = true
+scrollable = false
+
+[node name="SquishAmount" parent="." unique_id=1291648094 instance=ExtResource("2_wkbb7")]
+unique_name_in_owner = true
+layout_mode = 2
+label_text = "TR_SQUISH_AMOUNT"
+mini_value = 1.001
+max_value = 10.0
+step = 0.001
+value_to_update = ""
+
+[node name="ShouldSquish" type="CheckBox" parent="." unique_id=1648910013]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(116, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "TR_SQUISH_ON_BLINK"
+
+[node name="HSeparator3" type="HSeparator" parent="." unique_id=933948606]
+layout_mode = 2
+
+[node name="ModelEffects" parent="." unique_id=1939593135 instance=ExtResource("4_nllqn")]
+layout_mode = 2
+
+[connection signal="item_selected" from="MC/MouthClosedAnim" to="ModelAnimations" method="_on_mouth_closed_anim_item_selected"]
+[connection signal="item_selected" from="MO/MouthOpenAnim" to="ModelAnimations" method="_on_mouth_open_anim_item_selected"]
+[connection signal="toggled" from="BounceStateCheck" to="ModelAnimations" method="_on_bounce_state_check_toggled"]
+[connection signal="value_changed" from="Grid/BlinkSpeedSlider" to="ModelAnimations" method="_on_blink_speed_slider_value_changed"]
+[connection signal="value_changed" from="Grid/BlinkChanceSlider" to="ModelAnimations" method="_on_blink_chance_slider_value_changed"]
+[connection signal="toggled" from="ShouldSquish" to="ModelAnimations" method="_on_should_squish_toggled"]

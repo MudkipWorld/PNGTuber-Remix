@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnq8tddqwvy07"]
+
+[ext_resource type="PackedScene" uid="uid://bdsqs0utx8bji" path="res://UI/StreamUI/StreamTopUI.tscn" id="1_k6lh3"]
+[ext_resource type="PackedScene" uid="uid://daboy6vehn665" path="res://UI/StreamUI/stream_right_panel.tscn" id="2_48ug2"]
+[ext_resource type="PackedScene" uid="uid://cfuiw0rtt54fn" path="res://UI/StreamUI/web_socket_config.tscn" id="3_r57gs"]
+[ext_resource type="PackedScene" uid="uid://bk2xbsvlmq0or" path="res://UI/StateButton/state_panel.tscn" id="4_gkrmm"]
+
+[node name="UI" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="STopUI" parent="." instance=ExtResource("1_k6lh3")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="UISplit" type="HSplitContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Empty" type="AspectRatioContainer" parent="UISplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="StreamRightPanel" parent="UISplit" instance=ExtResource("2_48ug2")]
+layout_mode = 2
+
+[node name="SetupMargin" type="MarginContainer" parent="UISplit/StreamRightPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VSplitContainer" type="VSplitContainer" parent="UISplit/StreamRightPanel/SetupMargin"]
+layout_mode = 2
+
+[node name="SetupPanel" type="ScrollContainer" parent="UISplit/StreamRightPanel/SetupMargin/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="UISplit/StreamRightPanel/SetupMargin/VSplitContainer/SetupPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="WebSocketConfig" parent="UISplit/StreamRightPanel/SetupMargin/VSplitContainer/SetupPanel/VBox" instance=ExtResource("3_r57gs")]
+layout_mode = 2
+
+[node name="StatePanel" parent="UISplit/StreamRightPanel/SetupMargin/VSplitContainer" instance=ExtResource("4_gkrmm")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="HBoxContainer" parent="UISplit/StreamRightPanel/SetupMargin/VSplitContainer/StatePanel" index="1"]
+visible = false
+
+[editable path="UISplit/StreamRightPanel/SetupMargin/VSplitContainer/StatePanel"]

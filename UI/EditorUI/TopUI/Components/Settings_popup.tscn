@@ -1,0 +1,635 @@
+[gd_scene format=3 uid="uid://5ju7ih768ysd"]
+
+[ext_resource type="Script" uid="uid://b2cf035nd4pj7" path="res://Scripts/UI/TopPanel/Components/settings_script.gd" id="1_j2o6a"]
+[ext_resource type="Script" uid="uid://181yhrus3jhb" path="res://Scripts/UI/Others/Spinboxes.gd" id="2_s0wg0"]
+[ext_resource type="Texture2D" uid="uid://upxotcsbnfdk" path="res://UI/Assets/slider.png" id="3_qasrd"]
+[ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="3_s0wg0"]
+[ext_resource type="Texture2D" uid="uid://x1nc07bigmj1" path="res://UI/Assets/ZoomResetButton.png" id="4_fsnh4"]
+[ext_resource type="Texture2D" uid="uid://byc1nc0xfubaq" path="res://TutorialAssets/Pickles/pickle1.png" id="6_qasrd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iakd"]
+
+[node name="InputsPopup" type="Window" unique_id=896111795]
+auto_translate_mode = 1
+transparent_bg = true
+gui_snap_controls_to_pixels = false
+oversampling_override = 1.0
+initial_position = 4
+size = Vector2i(800, 600)
+transient = true
+exclusive = true
+
+[node name="SettingsScript" type="Node" parent="." unique_id=322513077]
+script = ExtResource("1_j2o6a")
+
+[node name="SettingVbox" type="VBoxContainer" parent="." unique_id=127944035]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsTab" type="TabContainer" parent="SettingVbox" unique_id=581917032]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/side_margin = 1
+current_tab = 0
+tab_0/title = "TR_TAB_MODEL"
+tab_1/title = "TR_TAB_AUDIO"
+tab_2/title = "TR_TAB_IMPORT"
+tab_3/title = "TR_TAB_REMIX"
+
+[node name="Model" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=1361405047]
+layout_mode = 2
+metadata/_tab_index = 0
+metadata/_tab_name = "TR_TAB_MODEL"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Model" unique_id=755952008]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="GridContainer" type="GridContainer" parent="SettingVbox/SettingsTab/Model/VBoxContainer" unique_id=114206316]
+custom_minimum_size = Vector2(428, 0)
+layout_mode = 2
+size_flags_vertical = 0
+columns = 2
+
+[node name="InputCheckButton" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=20136830]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+tooltip_text = "TR_DETECT_HOTKEYS_TOOLTIP"
+button_pressed = true
+text = "TR_DETECT_HOTKEYS"
+
+[node name="AntiAlCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=41408281]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+button_pressed = true
+text = "TR_ANTI_ALIASING"
+
+[node name="AutoLoadCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=818109200]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+text = "TR_AUTO_LOAD_MODEL"
+
+[node name="DeltaTimeCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=232802802]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_USE_DELTA_TIME_TOOLTIP"
+text = "TR_USE_DELTA_TIME"
+autowrap_mode = 3
+
+[node name="SaveOnExitCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=575020467]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+text = "TR_SAVE_ON_EXIT"
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=1330979037]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "TR_SAVE_ON_EXIT_NOTE"
+vertical_alignment = 1
+
+[node name="AutoSaveCheck" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=1382951206]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_AUTO_SAVE"
+
+[node name="AutoSaveSpin" type="SpinBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=1556609013]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+suffix = "min."
+script = ExtResource("2_s0wg0")
+
+[node name="MaxFPSLabel" type="Label" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=202779395]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(144, 0)
+layout_mode = 2
+text = "FPS"
+script = ExtResource("3_s0wg0")
+localizations = Array[String](["TR_MAX_FPS"])
+
+[node name="MaxFPS" type="OptionButton" parent="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer" unique_id=1967336129]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 9
+popup/item_0/text = "8"
+popup/item_0/id = 0
+popup/item_1/text = "12"
+popup/item_1/id = 1
+popup/item_2/text = "15"
+popup/item_2/id = 2
+popup/item_3/text = "24"
+popup/item_3/id = 3
+popup/item_4/text = "30"
+popup/item_4/id = 4
+popup/item_5/text = "60"
+popup/item_5/id = 5
+popup/item_6/text = "90"
+popup/item_6/id = 6
+popup/item_7/text = "120"
+popup/item_7/id = 7
+popup/item_8/text = "240"
+popup/item_8/id = 8
+
+[node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Model/VBoxContainer" unique_id=2113793876]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/VBoxContainer" unique_id=269206432]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/VBoxContainer/HBoxContainer2" unique_id=2053661428]
+layout_mode = 2
+text = "TR_FOLLOW_MOUSE_SCREEN_LABEL"
+
+[node name="SelectedScreen" type="OptionButton" parent="SettingVbox/SettingsTab/Model/VBoxContainer/HBoxContainer2" unique_id=1726646595]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OutOfBounds" type="CheckBox" parent="SettingVbox/SettingsTab/Model/VBoxContainer" unique_id=1096919297]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_SETTINGS_POPUP_OUT_OF_BOUNDS_TOOLTIP"
+text = "TR_SNAP_OUT_OF_BOUNDS"
+
+[node name="Audio" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=743431230]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+metadata/_tab_name = "TR_TAB_AUDIO"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingVbox/SettingsTab/Audio" unique_id=1871972551]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="GridContainer2" type="GridContainer" parent="SettingVbox/SettingsTab/Audio/VBoxContainer" unique_id=561195807]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 10
+columns = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VolumeLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2" unique_id=2006972541]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 20
+text = "TR_VOLUME"
+
+[node name="VolumeBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2" unique_id=1418220909]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+max_value = 1.0
+step = 0.0
+
+[node name="VolumeSlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/VolumeBar" unique_id=1674393419]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("3_qasrd")
+theme_override_icons/grabber_highlight = ExtResource("3_qasrd")
+theme_override_icons/grabber_disabled = ExtResource("3_qasrd")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="DelayLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2" unique_id=1977129532]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 20
+text = "TR_DELAY"
+
+[node name="DelayBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2" unique_id=316444458]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+max_value = 1.0
+
+[node name="DelaySlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/DelayBar" unique_id=248635559]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("3_qasrd")
+theme_override_icons/grabber_highlight = ExtResource("3_qasrd")
+theme_override_icons/grabber_disabled = ExtResource("3_qasrd")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="SensitivityLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2" unique_id=1574725021]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 20
+text = "TR_VOLUME_SENSITIVITY"
+
+[node name="SensitivityBar" type="ProgressBar" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2" unique_id=1888951151]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/SensitivityBar" unique_id=1003197298]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_icons/grabber = ExtResource("3_qasrd")
+theme_override_icons/grabber_highlight = ExtResource("3_qasrd")
+theme_override_icons/grabber_disabled = ExtResource("3_qasrd")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_6iakd")
+min_value = 1.0
+max_value = 10.0
+step = 0.01
+value = 1.0
+
+[node name="Sp2" type="HSeparator" parent="SettingVbox/SettingsTab/Audio/VBoxContainer" unique_id=299353505]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingVbox/SettingsTab/Audio/VBoxContainer" unique_id=2131955455]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 7
+
+[node name="MicLabel" type="Label" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/HBoxContainer" unique_id=124681711]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "TR_MICROPHONE_LABEL"
+
+[node name="MicroPhoneMenu" type="OptionButton" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/HBoxContainer" unique_id=2123152638]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 17
+text_overrun_behavior = 3
+
+[node name="ResetMicButton" type="Button" parent="SettingVbox/SettingsTab/Audio/VBoxContainer/HBoxContainer" unique_id=848951750]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "TR_UPDATE_MIC_LIST"
+button_mask = 7
+icon = ExtResource("4_fsnh4")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Import" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=163327294]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+metadata/_tab_name = "TR_TAB_IMPORT"
+
+[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Import" unique_id=1219727415]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ImportTrim" type="CheckBox" parent="SettingVbox/SettingsTab/Import/VBox" unique_id=644736798]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(262, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "TR_SETTINGS_POPUP_IMPORT_TRIM"
+text = "TR_CROP_IMAGES_TO_CONTENT"
+
+[node name="KeepOldTrimData" type="CheckBox" parent="SettingVbox/SettingsTab/Import/VBox" unique_id=2002752470]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(262, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "TR_KEEP_DATA_BEFORE_TRIM_TOOLTIP"
+button_pressed = true
+text = "TR_KEEP_DATA_BEFORE_TRIM"
+
+[node name="Remix" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=123285878]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+metadata/_tab_name = "TR_TAB_REMIX"
+
+[node name="VBox" type="VBoxContainer" parent="SettingVbox/SettingsTab/Remix" unique_id=801633339]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridContainer2" type="GridContainer" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=127506598]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer2" unique_id=285956353]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "TR_UI_SCALE_LABEL"
+
+[node name="UIScalingSpinBox" type="SpinBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer2" unique_id=369517190]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.5
+max_value = 2.0
+step = 0.1
+value = 1.0
+
+[node name="FloatyPanning" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer2" unique_id=746036601]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_FLOATY_PANNING_TOOLTIP"
+focus_mode = 0
+text = "TR_FLOATY_PANNING"
+
+[node name="Sp2" type="HSeparator" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=497713413]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Grid" type="GridContainer" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=130729981]
+layout_mode = 2
+columns = 2
+
+[node name="CustomCursorEditor" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=2093424681]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "TR_FANCY_COURSOR_EDITOR"
+
+[node name="SelectCursorButton" type="Button" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=264480528]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_SELECT_CUSTOM_COURSOR_TOOLTIP"
+focus_mode = 0
+text = "TR_SELECT_CUSTOM_COURSOR"
+
+[node name="SelectCursor" type="FileDialog" parent="SettingVbox/SettingsTab/Remix/VBox/Grid/SelectCursorButton" unique_id=1141539453]
+title = "Open a File"
+ok_button_text = "TR_OPEN"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png", "*.jpg", "*.jpeg")
+use_native_dialog = true
+
+[node name="CustomCursorPreview" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=376152734]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "TR_FANCY_COURSOR_PREVIEW"
+
+[node name="RemoveCustomCursor" type="Button" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=1880504786]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_REMOVE_CUSTOM_COURSOR_TOOLTIP"
+focus_mode = 0
+text = "TR_REMOVE_CUSTOM_COURSOR"
+
+[node name="UseThreads" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=861261677]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_THREADS_TOOLTIP"
+text = "TR_USE_THREADS"
+
+[node name="SaveUnusedImages" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=127149651]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_THREADS_TOOLTIP"
+text = "TR_SAVE_UNUSED_FILES"
+
+[node name="Control" type="Control" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=30947929]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=1956993419]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "TR_LANGUAGE_LABEL"
+
+[node name="LanguageOptions" type="OptionButton" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=1345685206]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=2045659029]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "TR_TRACKING_BACKEND"
+
+[node name="BackendOption" type="OptionButton" parent="SettingVbox/SettingsTab/Remix/VBox/Grid" unique_id=1144415451]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "TR_TRACKING_BACKEND_WINDOWS"
+popup/item_0/id = 0
+popup/item_1/text = "TR_TRACKING_BACKEND_X11"
+popup/item_1/id = 1
+popup/item_2/text = "Dummy"
+popup/item_2/id = 2
+
+[node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1262964452]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label4" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1311021416]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_DEBUG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1980667632]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=168985847]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_PHYSICS_TICK"
+
+[node name="PhysicsTick" type="SpinBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1731003949]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 6.0
+max_value = 144.0
+value = 6.0
+
+[node name="Label2" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1780077417]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_PHYSICS_STEPS"
+
+[node name="PhysicsSteps" type="SpinBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1285362417]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 2.0
+value = 2.0
+
+[node name="Label3" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1071155850]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_JITTER_FIX"
+
+[node name="JitterFix" type="HSlider" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=2078598602]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="FollowMouseGlobalInput" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=934148735]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+tooltip_text = "TR_TRACK_USING_GLOBAL_INPUT_TOOLTIP"
+text = "TR_TRACK_USING_GLOBAL_INPUT"
+
+[node name="Pickles" type="TextureRect" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=1349199565]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("6_qasrd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DevMode" type="CheckBox" parent="SettingVbox/SettingsTab/Remix/VBox/GridContainer" unique_id=951386969]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "TR_TRACK_DEV_MODE"
+
+[node name="DevWarning" type="Label" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1997408163]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "TR_WARNING_IF_KNOW"
+horizontal_alignment = 1
+
+[node name="Grid2" type="GridContainer" parent="SettingVbox" unique_id=818639693]
+layout_mode = 2
+size_flags_horizontal = 0
+columns = 2
+
+[node name="UIThemeButton" type="OptionButton" parent="SettingVbox/Grid2" unique_id=1145562123]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+item_count = 9
+popup/item_0/text = "TR_PURPLE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_BLUE"
+popup/item_1/id = 1
+popup/item_2/text = "TR_ORANGE"
+popup/item_2/id = 2
+popup/item_3/text = "TR_WHITE"
+popup/item_3/id = 3
+popup/item_4/text = "TR_DARK"
+popup/item_4/id = 4
+popup/item_5/text = "TR_GREEN"
+popup/item_5/id = 5
+popup/item_6/text = "TR_FUNKY"
+popup/item_6/id = 6
+popup/item_7/text = "TR_FRUTIGER_AERO"
+popup/item_7/id = 7
+popup/item_8/text = "TR_UDP_ITEM_NONE"
+popup/item_8/id = 8
+
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/InputCheckButton" to="SettingsScript" method="_on_input_check_button_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/AntiAlCheck" to="SettingsScript" method="_on_anti_al_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/AutoLoadCheck" to="SettingsScript" method="_on_auto_load_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/DeltaTimeCheck" to="SettingsScript" method="_on_delta_time_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/SaveOnExitCheck" to="SettingsScript" method="_on_save_on_exit_check_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/AutoSaveCheck" to="SettingsScript" method="_on_auto_save_check_toggled"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/AutoSaveSpin" to="SettingsScript" method="_on_auto_save_spin_value_changed"]
+[connection signal="item_selected" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/MaxFPS" to="SettingsScript" method="_on_max_fps_item_selected"]
+[connection signal="item_selected" from="SettingVbox/SettingsTab/Model/VBoxContainer/HBoxContainer2/SelectedScreen" to="SettingsScript" method="_on_selected_screen_item_selected"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/OutOfBounds" to="SettingsScript" method="_on_out_of_bounds_toggled"]
+[connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/VolumeBar/VolumeSlider" to="SettingsScript" method="_on_volume_slider_drag_ended"]
+[connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/DelayBar/DelaySlider" to="SettingsScript" method="_on_delay_slider_drag_ended"]
+[connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="SettingsScript" method="_on_sensitivity_slider_drag_ended"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="SettingsScript" method="_on_sensitivity_slider_value_changed"]
+[connection signal="pressed" from="SettingVbox/SettingsTab/Audio/VBoxContainer/HBoxContainer/ResetMicButton" to="SettingsScript" method="_on_reset_mic_button_pressed"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Import/VBox/ImportTrim" to="SettingsScript" method="_on_import_trim_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Import/VBox/KeepOldTrimData" to="SettingsScript" method="_on_keep_old_trim_data_toggled"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer2/UIScalingSpinBox" to="SettingsScript" method="_on_ui_scaling_spin_box_value_changed"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer2/FloatyPanning" to="SettingsScript" method="_on_floaty_panning_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/Grid/CustomCursorEditor" to="SettingsScript" method="_on_custom_cursor_editor_toggled"]
+[connection signal="pressed" from="SettingVbox/SettingsTab/Remix/VBox/Grid/SelectCursorButton" to="SettingVbox/SettingsTab/Remix/VBox/Grid/SelectCursorButton/SelectCursor" method="popup_centered"]
+[connection signal="file_selected" from="SettingVbox/SettingsTab/Remix/VBox/Grid/SelectCursorButton/SelectCursor" to="SettingsScript" method="_on_select_cursor_file_selected"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/Grid/CustomCursorPreview" to="SettingsScript" method="_on_custom_cursor_preview_toggled"]
+[connection signal="pressed" from="SettingVbox/SettingsTab/Remix/VBox/Grid/RemoveCustomCursor" to="SettingsScript" method="_on_remove_custom_cursor_pressed"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/Grid/UseThreads" to="SettingsScript" method="_on_use_threads_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/Grid/SaveUnusedImages" to="SettingsScript" method="_on_save_unused_images_toggled"]
+[connection signal="item_selected" from="SettingVbox/SettingsTab/Remix/VBox/Grid/LanguageOptions" to="SettingsScript" method="_on_remix_language_set"]
+[connection signal="item_selected" from="SettingVbox/SettingsTab/Remix/VBox/Grid/BackendOption" to="SettingsScript" method="_on_backend_option_item_selected"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/PhysicsTick" to="SettingsScript" method="_on_physics_tick_value_changed"]
+[connection signal="value_changed" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/PhysicsSteps" to="SettingsScript" method="_on_physics_steps_value_changed"]
+[connection signal="drag_ended" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/JitterFix" to="SettingsScript" method="_on_jitter_fix_drag_ended"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/FollowMouseGlobalInput" to="SettingsScript" method="_on_follow_mouse_global_input_toggled"]
+[connection signal="gui_input" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/Pickles" to="SettingsScript" method="_on_pickles_gui_input"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Remix/VBox/GridContainer/DevMode" to="SettingsScript" method="_on_dev_mode_toggled"]

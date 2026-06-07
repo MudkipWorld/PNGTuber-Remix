@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dbb5yj5luepnb"]
+
+[ext_resource type="Script" uid="uid://c5idljtng82vs" path="res://Main/Scripts/AudioStreamPlayer.gd" id="1_1tutj"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=234882763]
+autoplay = true
+bus = &"Mic"
+script = ExtResource("1_1tutj")

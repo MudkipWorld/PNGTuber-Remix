@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://cpfn2bvg67l5w"]
+
+[resource]
+BoxContainer/constants/separation = 0
+SplitContainer/constants/autohide = 0
+SplitContainer/constants/separation = 2

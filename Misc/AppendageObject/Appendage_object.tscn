@@ -1,147 +1,128 @@
-[gd_scene load_steps=9 format=3 uid="uid://cb6sos2p8qbrr"]
+[gd_scene format=3 uid="uid://cb6sos2p8qbrr"]
 
-[ext_resource type="Script" path="res://Misc/AppendageObject/Script/append_object.gd" id="1_yuqos"]
+[ext_resource type="PackedScene" uid="uid://byqy3gmm478yp" path="res://Misc/BaseObject/base_object.tscn" id="1_31wc5"]
+[ext_resource type="Script" uid="uid://cpxma1104nmwe" path="res://Scripts/Objects/append_object.gd" id="1_yuqos"]
 [ext_resource type="Texture2D" uid="uid://cppqjhaoi70l5" path="res://Misc/EasyBlend/Blends/add.png" id="2_2g5n2"]
-[ext_resource type="Texture2D" uid="uid://dajiyes440dqd" path="res://Misc/AppendageObject/tail - Copy.png" id="3_x2iay"]
-[ext_resource type="Script" path="res://addons/wiggly_appendage_2d/wiggly_appendage_2d.gd" id="4_e6x1l"]
-[ext_resource type="Texture2D" uid="uid://boqyue1ceoy4b" path="res://Misc/AppendageObject/Folder.png" id="5_n8i6v"]
+[ext_resource type="Shader" uid="uid://c8aq5jfqgs2ro" path="res://Scripts/Shaders/SpriteShader.gdshader" id="3_p6byp"]
+[ext_resource type="Script" uid="uid://yihxjoi1vtu5" path="res://addons/wiggly_appendage_2d/wiggly_appendage_2d.gd" id="4_e6x1l"]
+[ext_resource type="Texture2D" uid="uid://dajiyes440dqd" path="res://Misc/TestAssets/tail - Copy.png" id="5_mwqm8"]
+[ext_resource type="Shader" uid="uid://di5vad1bc51ed" path="res://Scripts/Shaders/SpriteSelectionWA.gdshader" id="8_cwgos"]
 
-[sub_resource type="Shader" id="Shader_l06p8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lijf4"]
 resource_local_to_scene = true
-code = "shader_type canvas_item;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
-uniform bool enabled;
-
-
-
-uniform sampler2D Blend;  //Blending mode texture
-uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
-
-uniform bool wiggle;
-uniform float rotation = 0.0;
-uniform vec2 rotation_offset = vec2(0.5, 0.5);
-
-varying vec4 modulate;
-varying vec2 rot_uv;
-
-void vertex(){
-	modulate = COLOR;
-	
-}
-
-void fragment() {
-	if (wiggle){
-		float rotation_anchored = rotation * (1.0 - UV.y);
-		mat2 rotation_mat = mat2(vec2(cos(rotation_anchored), sin(rotation_anchored)),
-		vec2(-sin(rotation_anchored), cos(rotation_anchored)));
-		vec2 centered_uv = UV - rotation_offset;
-		vec2 rotated_uv = centered_uv * rotation_mat;
-		rotated_uv = rotated_uv + rotation_offset;
-		
-		COLOR = texture(TEXTURE, rotated_uv)*modulate;
-		rot_uv = rotated_uv;
-	}
-	
-	if (enabled){
-		vec4 bgColor;
-		vec4 Color = texture(TEXTURE, UV);
-		vec4 blendColor;
-	   	vec4 output = vec4(1,1,1,1);
-	
-		bgColor = texture( TEXTURE, UV);
-	
-		output.a = Color.a;
-	
-		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
-		output.r = blendColor.r;
-		blendColor = texture( Blend, vec2(bgColor.g, Color.g) );
-		output.g = blendColor.g;
-		blendColor = texture( Blend, vec2(bgColor.b, Color.b) );
-		output.b = blendColor.b;
-	
-		output = mix(Color, output, Intensity)* modulate;
-		
-		// needs fix, uauauau
-		if(wiggle){
-			COLOR = output *texture(TEXTURE, rot_uv);
-
-		}
-		else{
-			COLOR = output;
-		}
-		
-	}
-	
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tqhp"]
-resource_local_to_scene = true
-shader = SubResource("Shader_l06p8")
+shader = ExtResource("3_p6byp")
 shader_parameter/enabled = false
+shader_parameter/Blend = ExtResource("2_2g5n2")
 shader_parameter/Intensity = 1.0
 shader_parameter/wiggle = true
 shader_parameter/rotation = 0.0
 shader_parameter/rotation_offset = Vector2(0.5, 0.5)
-shader_parameter/Blend = ExtResource("2_2g5n2")
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_aq8i0"]
-diffuse_texture = ExtResource("3_x2iay")
+[sub_resource type="CanvasTexture" id="CanvasTexture_6684t"]
+diffuse_texture = ExtResource("5_mwqm8")
 
-[node name="SpriteObject" type="Node2D" groups=["Sprites"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_31wc5"]
+resource_local_to_scene = true
+
+[sub_resource type="Gradient" id="Gradient_31wc5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wmc63"]
+gradient = SubResource("Gradient_31wc5")
+width = 120
+height = 120
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2s2ie"]
+shader = ExtResource("8_cwgos")
+shader_parameter/ant_color_1 = Color(1, 1, 1, 1)
+shader_parameter/ant_color_2 = Color(0, 0, 0, 1)
+shader_parameter/ant_width = 1.5
+shader_parameter/ant_length = 10.0
+shader_parameter/ant_speed = 30.0
+
+[sub_resource type="Gradient" id="Gradient_lijf4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i82gq"]
+gradient = SubResource("Gradient_lijf4")
+
+[node name="SpriteObject" unique_id=468878790 node_paths=PackedStringArray("sprite_object", "grab_object", "static_collision") instance=ExtResource("1_31wc5")]
 script = ExtResource("1_yuqos")
+sprite_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D")
+grab_object = NodePath("Modifier1/Rotation/Modifier/Sprite2D/Grab")
+static_collision = NodePath("Modifier1/Rotation/Modifier/Sprite2D/HitDetection/Coll")
 
-[node name="Pos" type="Node2D" parent="."]
+[node name="Sprite2D" type="Line2D" parent="Modifier1/Rotation/Modifier" parent_id_path=PackedInt32Array(2094774544) index="1" unique_id=290325673 node_paths=PackedStringArray("actor")]
 unique_name_in_owner = true
-texture_repeat = 1
-
-[node name="Wobble" type="Node2D" parent="Pos"]
-
-[node name="Squish" type="Node2D" parent="Pos/Wobble"]
-
-[node name="Drag" type="Node2D" parent="Pos/Wobble/Squish"]
-
-[node name="Rotation" type="Node2D" parent="Pos/Wobble/Squish/Drag"]
-unique_name_in_owner = true
-
-[node name="Sprite2D" type="Line2D" parent="Pos/Wobble/Squish/Drag/Rotation"]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_1tqhp")
-points = PackedVector2Array(-10, 0, -5.8, 0, -1.2, 0, 3.8, 0, 9.2, 0, 15, 0, 21, 0, 27, 0, 33, 0, 39, 0, 45, 0, 51, 0, 57, 0, 63, 0, 69, 0, 75, 0, 81, 0, 87, 0, 93, 0, 99, 0, 105, 0, 111, 0, 117, 0, 123, 0, 129, 0, 135, 0, 141, 0, 147, 0)
-width = 80.0
-texture = SubResource("CanvasTexture_aq8i0")
+physics_interpolation_mode = 1
+material = SubResource("ShaderMaterial_lijf4")
+points = PackedVector2Array(0, 0, 27.36, 1.3388861e-05, 51.84, 5.3555443e-05, 73.44, 0.00012049975, 92.16, 0.00021422177, 108, 0.00033472152, 122.399994, 0.0005021336, 136.8, 0.0007365928, 151.20001, 0.0010380992, 165.6, 0.0014066524, 180, 0.0018422527, 194.4, 0.002329499, 208.79999, 0.0028529903, 223.20001, 0.0034127263, 237.6, 0.0040087076, 252, 0.004640933, 266.40002, 0.004840377, 280.8, 0.0041380106, 295.2, 0.0025338347, 309.59998, 2.7849339e-05, 324, -0.0033799456, 338.40002, -0.0076895505, 352.8, -0.012900965)
+texture = SubResource("CanvasTexture_6684t")
 texture_mode = 2
-joint_mode = 2
 script = ExtResource("4_e6x1l")
-curvature_exponent = -1.143
+actor = NodePath("../../../..")
+segment_length = 72.0
 max_angle = 0.523599
 comeback_speed = 0.419
-stiffness_decay_exponent = 10.0
-max_angular_momentum = 15.0
+stiffness_decay_exponent = 5.0
+max_angular_momentum = 20.0
 subdivision = 5
-additional_start_segment = true
 
-[node name="Grab" type="TextureButton" parent="Pos/Wobble/Squish/Drag/Rotation/Sprite2D"]
+[node name="HitDetection" type="StaticBody2D" parent="Modifier1/Rotation/Modifier/Sprite2D" index="0" unique_id=711491270]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="Coll" type="CollisionShape2D" parent="Modifier1/Rotation/Modifier/Sprite2D/HitDetection" index="0" unique_id=941113458]
+shape = SubResource("CircleShape2D_31wc5")
+disabled = true
+
+[node name="Grab" type="TextureButton" parent="Modifier1/Rotation/Modifier/Sprite2D" index="1" unique_id=1348424283]
 unique_name_in_owner = true
 z_index = 4096
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 181.0
-offset_bottom = 50.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
-texture_normal = ExtResource("5_n8i6v")
-stretch_mode = 5
+texture_normal = SubResource("GradientTexture2D_wmc63")
 
-[node name="Blink" type="Timer" parent="."]
-wait_time = 0.2
+[node name="Selection" type="TextureRect" parent="Modifier1/Rotation/Modifier/Sprite2D/Grab" index="0" unique_id=424484525]
+unique_name_in_owner = true
+visible = false
+z_index = 4096
+z_as_relative = false
+material = SubResource("ShaderMaterial_2s2ie")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_i82gq")
+expand_mode = 1
 
-[node name="Animation" type="Timer" parent="."]
+[node name="FollowPosition" parent="." index="3" unique_id=910203176 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
 
-[connection signal="button_down" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_down"]
-[connection signal="button_up" from="Pos/Wobble/Squish/Drag/Rotation/Sprite2D/Grab" to="." method="_on_grab_button_up"]
+[node name="FollowRotation" parent="." index="4" unique_id=1123989327 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="FollowScale" parent="." index="5" unique_id=1127925180 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="Movements" parent="." index="7" unique_id=941197373 node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
+
+[node name="AnimatedSpriteTexture" parent="." index="8" unique_id=1705399464 node_paths=PackedStringArray("sprite_node")]
+sprite_node = NodePath("../Modifier1/Rotation/Modifier/Sprite2D")

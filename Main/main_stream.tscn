@@ -1,0 +1,220 @@
+[gd_scene format=3 uid="uid://c1ekr4qs5l516"]
+
+[ext_resource type="Script" uid="uid://bdn6kp0ldq1ck" path="res://Main/Scripts/main_stream.gd" id="1_sw3on"]
+[ext_resource type="Script" uid="uid://b6atx7ybrp5sq" path="res://Main/Scripts/SpritesContainer.gd" id="1_u32ad"]
+[ext_resource type="PackedScene" uid="uid://dw4brgrpdpurf" path="res://Misc/LightSource/light_source.tscn" id="2_cj4vf"]
+[ext_resource type="Texture2D" uid="uid://c23flfaie3uxb" path="res://Misc/TestAssets/32x32grid.png" id="2_sw3on"]
+[ext_resource type="Script" uid="uid://qgnk6t8mi76s" path="res://Scripts/UI/WindowHandler/window_handler.gd" id="2_y56ai"]
+[ext_resource type="Shader" uid="uid://brpv37x267rmr" path="res://Scripts/Shaders/ColorBlindness.gdshader" id="3_me1oy"]
+[ext_resource type="Script" uid="uid://rl0aijomkxp0" path="res://Scripts/Misc/throwable/throwables.gd" id="5_d7c5n"]
+[ext_resource type="PackedScene" uid="uid://cnq8tddqwvy07" path="res://UI/StreamUI/stream_ui.tscn" id="5_h43to"]
+[ext_resource type="Script" uid="uid://by4pbr6yeut1c" path="res://Main/Scripts/monitor_tracking.gd" id="5_me1oy"]
+[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="6_fwmgs"]
+[ext_resource type="Shader" uid="uid://bc5tbhguskdv2" path="res://Scripts/Shaders/ModelEffects.gdshader" id="6_y56ai"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xfo8l"]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d7c5n"]
+resource_local_to_scene = true
+shader = ExtResource("3_me1oy")
+shader_parameter/severity = 0.5
+shader_parameter/effect = 0
+
+[sub_resource type="Gradient" id="Gradient_fwmgs"]
+offsets = PackedFloat32Array(0, 0.192982, 0.554386, 0.803509, 0.978947)
+colors = PackedColorArray(0.709965, 0.196036, 0.771008, 1, 1, 1, 0, 1, 0.630854, 0.955883, 1, 1, 0, 1, 1, 1, 0.709804, 0.196078, 0.772549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o60nc"]
+gradient = SubResource("Gradient_fwmgs")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rorxk"]
+shader = ExtResource("6_y56ai")
+shader_parameter/effect = 0
+shader_parameter/ScaleMult = Vector2(1, 1)
+shader_parameter/AuraProgres = 0.4
+shader_parameter/TextureLaodMult = 8.0
+shader_parameter/Tilling = 52.12
+shader_parameter/MovementDirSpeed = Vector2(-0.8, 1)
+shader_parameter/MovementDirSpeed2 = Vector2(0.6, 2)
+shader_parameter/color_gradiant = SubResource("GradientTexture1D_o60nc")
+shader_parameter/Noise_Seed = Vector2(5, 1)
+shader_parameter/rainbow = false
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_scale = 3.648
+shader_parameter/frequency = 0.806
+shader_parameter/light_offset = 0.48101
+shader_parameter/alpha = 1.0
+shader_parameter/edge_subdivision = 64
+shader_parameter/overlay = true
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/brightness = 1.4
+shader_parameter/scanlines_opacity = 0.312
+shader_parameter/scanlines_width = 0.176
+shader_parameter/grille_opacity = 0.194
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 23.824
+shader_parameter/roll_variation = 2.405
+shader_parameter/distort_intensity = 0.05
+shader_parameter/aberration = -0.029
+shader_parameter/noise_opacity = 0.2
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.154
+shader_parameter/pixelate = false
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.5
+shader_parameter/clip_warp = true
+shader_parameter/vignette_intensity = 0.5
+shader_parameter/vignette_opacity = 0.0
+shader_parameter/spacing = 0.006
+shader_parameter/thickness = 0.002
+shader_parameter/amp = 0.005
+shader_parameter/hatch_angle = 210.0
+shader_parameter/progress = 2.0
+shader_parameter/bound_width_a = 0.0
+shader_parameter/corner_a = 0.0
+shader_parameter/uv_scale = Vector2(2, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_y4y0n"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[node name="MainStream" type="Control" unique_id=407203005]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sw3on")
+
+[node name="WindowHandler" type="Node" parent="." unique_id=98322759]
+script = ExtResource("2_y56ai")
+
+[node name="BG" type="TextureRect" parent="." unique_id=1856154617]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.0980392)
+z_index = -999
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_xfo8l")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_sw3on")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1207758584]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_d7c5n")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+stretch = true
+mouse_target = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=839070326]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1139806959]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+
+[node name="CamPos" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=158516187]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Node2D/CamPos" unique_id=294565001]
+unique_name_in_owner = true
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="Origin" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D" unique_id=1902816179]
+z_index = 4
+texture_filter = 4
+
+[node name="Throwables" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=2102940205]
+unique_name_in_owner = true
+script = ExtResource("5_d7c5n")
+
+[node name="Pointer" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D/Origin/Throwables" unique_id=1729005543]
+unique_name_in_owner = true
+self_modulate = Color(0, 1, 0, 1)
+texture = ExtResource("6_fwmgs")
+
+[node name="SpritesContainer" type="Node2D" parent="SubViewportContainer/SubViewport/Node2D/Origin" unique_id=83123442]
+unique_name_in_owner = true
+script = ExtResource("1_u32ad")
+
+[node name="LightSource" parent="SubViewportContainer/SubViewport/Node2D" unique_id=929740548 instance=ExtResource("2_cj4vf")]
+unique_name_in_owner = true
+light_mask = 7
+visibility_layer = 7
+z_index = 4096
+z_as_relative = false
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.92549)
+
+[node name="Effects" type="TextureRect" parent="." unique_id=698286744]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_rorxk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("ViewportTexture_y4y0n")
+
+[node name="UICanvas" type="CanvasLayer" parent="." unique_id=526380764]
+
+[node name="Marker" type="Control" parent="UICanvas" unique_id=1583164609]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("5_me1oy")
+
+[node name="UI" parent="UICanvas" unique_id=833248254 instance=ExtResource("5_h43to")]
+unique_name_in_owner = true
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1976525289]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Open File(s)"
+initial_position = 2
+size = Vector2i(800, 500)
+force_native = true
+ok_button_text = "TR_OPEN"
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.png", "*.jpeg", "*.jpg", "*.svg")
+use_native_dialog = true
+
+[node name="Timer" type="Timer" parent="." unique_id=117545315]
+wait_time = 0.05
+
+[connection signal="mouse_entered" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_entered"]
+[connection signal="mouse_exited" from="SubViewportContainer" to="." method="_on_sub_viewport_container_mouse_exited"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

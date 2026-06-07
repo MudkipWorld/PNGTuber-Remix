@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://byqy3gmm478yp"]
+
+[ext_resource type="Texture2D" uid="uid://bt5ep2bnr2x76" path="res://Misc/SpriteObject/origin.png" id="2_xotqk"]
+[ext_resource type="Script" uid="uid://cl5x0rrrxj6ys" path="res://Scripts/Objects/ObjectComponents/follow_component.gd" id="3_7v2q7"]
+[ext_resource type="Script" uid="uid://dtqctjteo0g1e" path="res://Scripts/Objects/ObjectComponents/follow_rotation.gd" id="3_qif83"]
+[ext_resource type="Script" uid="uid://br0rcxgn7jg0v" path="res://Scripts/Objects/ObjectComponents/follow_scale.gd" id="4_ht5xw"]
+[ext_resource type="Script" uid="uid://dfriyw4cgss8i" path="res://Scripts/Objects/ObjectComponents/movements.gd" id="8_617re"]
+[ext_resource type="Script" uid="uid://dwyy1dflsfctu" path="res://Scripts/Objects/ObjectComponents/reaction_config.gd" id="9_fpp0d"]
+[ext_resource type="Script" uid="uid://dfyvj4w18tr1" path="res://Scripts/Misc/AnimatedSpriteTextureScripts/AnimatedSpriteTexture.gd" id="10_lrffp"]
+
+[node name="SpriteObject" type="Node2D" unique_id=885968251 groups=["Sprites"]]
+physics_interpolation_mode = 2
+
+[node name="Modifier1" type="Node2D" parent="." unique_id=1614637175]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+
+[node name="Dragger" type="Node2D" parent="Modifier1" unique_id=2125229040]
+unique_name_in_owner = true
+
+[node name="Rotation" type="Node2D" parent="Modifier1" unique_id=2086871662]
+unique_name_in_owner = true
+
+[node name="Modifier" type="Node2D" parent="Modifier1/Rotation" unique_id=2094774544]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+
+[node name="Origin" type="Sprite2D" parent="Modifier1/Rotation/Modifier" unique_id=387742310]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+visible = false
+z_index = 4096
+z_as_relative = false
+texture = ExtResource("2_xotqk")
+
+[node name="Animation" type="Timer" parent="." unique_id=1970304925]
+
+[node name="Blink" type="Timer" parent="." unique_id=271310404]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="FollowPosition" type="Node" parent="." unique_id=910203176 node_paths=PackedStringArray("modifier")]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+script = ExtResource("3_7v2q7")
+modifier = NodePath("../Modifier1")
+
+[node name="FollowRotation" type="Node" parent="." unique_id=1123989327 node_paths=PackedStringArray("modifier")]
+script = ExtResource("3_qif83")
+modifier = NodePath("../Modifier1")
+
+[node name="FollowScale" type="Node" parent="." unique_id=1127925180 node_paths=PackedStringArray("modifier")]
+script = ExtResource("4_ht5xw")
+modifier = NodePath("../Modifier1")
+
+[node name="ReactionConfig" type="Node" parent="." unique_id=180771304 node_paths=PackedStringArray("actor", "animation_handler")]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+script = ExtResource("9_fpp0d")
+actor = NodePath("..")
+animation_handler = NodePath("../AnimatedSpriteTexture")
+
+[node name="Movements" type="Node" parent="." unique_id=941197373]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+script = ExtResource("8_617re")
+
+[node name="AnimatedSpriteTexture" type="Node" parent="." unique_id=1705399464 node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+script = ExtResource("10_lrffp")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://dfyvj4w18tr1"
+
+[connection signal="visibility_changed" from="." to="FollowPosition" method="_on_sprite_object_visibility_changed"]
+[connection signal="visibility_changed" from="." to="FollowRotation" method="_on_sprite_object_visibility_changed"]
+[connection signal="visibility_changed" from="." to="FollowScale" method="_on_sprite_object_visibility_changed"]
+[connection signal="visibility_changed" from="." to="Movements" method="_on_sprite_object_visibility_changed"]

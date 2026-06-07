@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://b15lo00q8fe1j"]
+
+[ext_resource type="Script" uid="uid://bfvqhcc7c4ekn" path="res://UI/BetterSlider/better_Spinboxesgd.gd" id="1_yih2n"]
+
+[node name="BetterSlider" type="HBoxContainer" groups=["InputsUIs"]]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_yih2n")
+
+[node name="BetterSliderLabel" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(93, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_TEXT"
+
+[node name="SpinBoxValue" type="SpinBox" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="value_changed" from="SpinBoxValue" to="." method="_on_spin_box_value_value_changed"]

@@ -1,42 +1,51 @@
 extends AudioStreamPlayer
 
 const MIN_DB: int = 80
-var record_bus_index 
-var record_effect : AudioEffectRecord
-
-var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
-
 const VU_COUNT = 4
-const HEIGHT = 60
+const HEIGHT = 40
 const  MAX_FREQ = 11050.0
+const MIC_RESTART_TIME: float = 30
+const MIC_RESTART_TIME_FIX: float = 15
 var bar_stuff = []
 var used_bar = 0
 
-# Called when the node enters the scene tree for the first time.
+var t = {
+	value = 0,
+	actual_value = 0,
+}
+
+var actual_value : float = 0.0
+var _fingerprint := LipSyncFingerprint.new()
+var _matches := []
+
 func _ready():
-	record_bus_index = AudioServer.get_bus_index("Mic")
-	record_effect = AudioServer.get_bus_effect(record_bus_index, 0)
-	spectrum_analyzer = AudioServer.get_bus_effect_instance(record_bus_index, 2)
+	await get_tree().current_scene.ready
+	global_lipsync()
 
-
-func _process(_delta):
-	var prev_hz = 0
-	bar_stuff = []
-	for i in range(1, VU_COUNT + 1):
-		var hz = i * MAX_FREQ/ VU_COUNT
-		var magnitude = spectrum_analyzer.get_magnitude_for_frequency_range(prev_hz,hz)
-		var energy = linear_to_db(magnitude.length())
-		var height = clamp(energy + HEIGHT, 0, 1000)
+func global_lipsync():
+	_fingerprint.populate()
+	if LipSyncGlobals.file_data:
 		
-		prev_hz = hz
+		LipSyncGlobals.file_data.match_phonemes({description = _fingerprint.description, values = _fingerprint.values}, _matches)
+	t = {
+	value = 0,
+	actual_value = 0,
+	}
+	for phoneme in Phonemes.PHONEME.COUNT:
+		var deviation: float = _matches[phoneme]
+		var value = 0.0
+		if deviation > 0.0:
+			value = 1.0 - deviation
 		
-		bar_stuff.append(height)
-	used_bar = bar_stuff
-#	print(bar_stuff)
-	
+		if get_tree().get_root().has_node("Main/LipsyncConfigurationPopup"):
+			get_tree().get_root().get_node("Main/LipsyncConfigurationPopup/%PhBox").get_child(phoneme).value = value
+			
+			
+		if value > t.value:
+			t.value = value
+			actual_value = phoneme
+			t.actual_value = actual_value
 
-func _on_mic_timer_timeout():
-	playing = false
-	await get_tree().create_timer(0.05).timeout
-	playing = true
-	$MicTimer.start()
+
+	await get_tree().create_timer(0.1).timeout
+	global_lipsync()

@@ -1,2 +1,57 @@
-# Godot 4+ specific ignores
+# Godot cache and import
 .godot/
+.import/
+
+# Export configs (local, machine-specific, may contain secrets)
+export.cfg
+export_credentials.cfg
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono / C#
+.mono/
+data_*/
+mono_crash.*.json
+
+# .NET / IDE build artifacts and user settings
+*.user
+*.userosscache
+*.suo
+*.rsuser
+*.sln.docstates
+
+# IDE settings
+.vscode/
+.idea/
+.vs/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Android
+.nomedia
+/android/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux / Unix
+*~
+.fuse_hidden*
+.Trash-*
+.nfs*
+
+# Temporary files / logs
+*.tmp
+*.log

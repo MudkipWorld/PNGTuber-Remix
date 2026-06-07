@@ -1,0 +1,243 @@
+[gd_scene format=3 uid="uid://w2l13b1625f6"]
+
+[ext_resource type="Script" uid="uid://73xnoo570ynw" path="res://Scripts/UI/RightPanel/animation_tab.gd" id="1_3iye5"]
+[ext_resource type="PackedScene" uid="uid://qjip1w7hh1ss" path="res://UI/EditorUI/LeftUI/Components/AnimationPanel.tscn" id="2_kcx3q"]
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="4_3iye5"]
+[ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="4_ryas8"]
+
+[node name="Animation" type="ScrollContainer" unique_id=509451003]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_3iye5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1572404534]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Label4" type="Label" parent="VBoxContainer" unique_id=2020574660]
+layout_mode = 2
+text = "TR_ANIMATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentSelVbox" parent="VBoxContainer" unique_id=1710282399 instance=ExtResource("2_kcx3q")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=2098012137]
+layout_mode = 2
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="AnimationReset" type="CheckBox" parent="VBoxContainer/GridContainer" unique_id=1710904295]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_RESET_ANIMATION_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+text = "TR_RESET_ANIMATION"
+script = ExtResource("4_ryas8")
+sp_type = ""
+seen_type = "Comment"
+value_to_update = "should_reset"
+
+[node name="AnimationOneShot" type="CheckBox" parent="VBoxContainer/GridContainer" unique_id=764960072]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_ANIMATION_ONE_SHOT_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+text = "TR_ANIMATION_ONE_SHOT"
+script = ExtResource("4_ryas8")
+sp_type = ""
+seen_type = "Comment"
+value_to_update = "one_shot"
+
+[node name="ResetonStateChange" type="CheckBox" parent="VBoxContainer/GridContainer" unique_id=1905113385]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_RESET_ON_STATE_CHANGE_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_RESET_ON_STATE_CHANGE"
+script = ExtResource("4_ryas8")
+sp_type = ""
+seen_type = "Comment"
+value_to_update = "should_reset_state"
+
+[node name="Sp4" type="HSeparator" parent="VBoxContainer" unique_id=838824960]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SheetControls" type="Label" parent="VBoxContainer" unique_id=1236436103]
+layout_mode = 2
+text = "SpriteSheet"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NonAnimatedSheetCheck" type="CheckBox" parent="VBoxContainer" unique_id=645307855]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "TR_NONE_ANIMATED_SHEET_TOOLTIP"
+theme_override_font_sizes/font_size = 16
+text = "TR_NONE_ANIMATED_SHEET"
+script = ExtResource("4_ryas8")
+sp_type = "Sprite2D"
+value_to_update = "non_animated_sheet"
+
+[node name="FrameHBox" type="HBoxContainer" parent="VBoxContainer" unique_id=1279536543]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FrameLabel" type="Label" parent="VBoxContainer/FrameHBox" unique_id=838172229]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_FRAME_LABEL"
+
+[node name="FrameSpinbox" type="SpinBox" parent="VBoxContainer/FrameHBox" unique_id=317671051]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 12.0
+
+[node name="GridContainer2" type="GridContainer" parent="VBoxContainer" unique_id=1724327466]
+layout_mode = 2
+columns = 2
+
+[node name="AnimateToMouse" type="CheckBox" parent="VBoxContainer/GridContainer2" unique_id=1620918578]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_ANIMATE_TO_MOUSE_TOOLTIP"
+text = "TR_ANIMATE_TO_MOUSE"
+script = ExtResource("4_ryas8")
+sp_type = "Sprite2D"
+value_to_update = "animate_to_mouse"
+
+[node name="AnimateToMouse2" type="CheckBox" parent="VBoxContainer/GridContainer2" unique_id=119119112]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_MOVE_WITH_MOUSE_TOOLTIP"
+text = "TR_MOVE_WITH_MOUSE"
+script = ExtResource("4_ryas8")
+sp_type = "Sprite2D"
+value_to_update = "animate_to_mouse_track_pos"
+
+[node name="BetterSlider" parent="VBoxContainer" unique_id=1050380638 instance=ExtResource("4_3iye5")]
+layout_mode = 2
+sp_type = "Sprite2D"
+label_text = "TR_ANIMATION_SPEED"
+mini_value = 0.01
+max_value = 250.0
+step = 0.01
+value = 1.0
+value_to_update = "animate_to_mouse_speed"
+
+[node name="Sp7" type="HSeparator" parent="VBoxContainer" unique_id=1670943163]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Effects" type="Label" parent="VBoxContainer" unique_id=1907953548]
+layout_mode = 2
+text = "TR_EFFECTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EffectsGrid" type="GridContainer" parent="VBoxContainer" unique_id=704377612]
+layout_mode = 2
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Rainbow" type="CheckBox" parent="VBoxContainer/EffectsGrid" unique_id=1864826572]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_RAINBOW"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "rainbow"
+
+[node name="Self-Rainbow Only" type="CheckBox" parent="VBoxContainer/EffectsGrid" unique_id=179089331]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TR_EFFECT_SELF_RAINBOW"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "rainbow_self"
+
+[node name="RSLabel" type="Label" parent="VBoxContainer/EffectsGrid" unique_id=1709787498]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "TR_EFFECT_RAINBOW_SPEED"
+
+[node name="RSSlider" type="HSlider" parent="VBoxContainer/EffectsGrid" unique_id=1349404962]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_force_pass_scroll_events = false
+min_value = -1.0
+max_value = 1.0
+step = 0.001
+value = 0.0009999999999998899
+
+[node name="GridContainer3" type="GridContainer" parent="VBoxContainer" unique_id=2044569143]
+layout_mode = 2
+columns = 2
+
+[node name="Fade" type="CheckBox" parent="VBoxContainer/GridContainer3" unique_id=1409072283]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_MOVE_WITH_MOUSE_TOOLTIP"
+text = "TR_FADE"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "fade"
+
+[node name="Fade2" type="CheckBox" parent="VBoxContainer/GridContainer3" unique_id=155651778]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_MOVE_WITH_MOUSE_TOOLTIP"
+text = "TR_FADE_ASSET"
+script = ExtResource("4_ryas8")
+sp_type = ""
+value_to_update = "fade_asset"
+
+[node name="BetterSlider2" parent="VBoxContainer" unique_id=573029027 instance=ExtResource("4_3iye5")]
+layout_mode = 2
+sp_type = ""
+label_text = "TR_FADE_PARAM"
+mini_value = 0.01
+max_value = 10.0
+step = 0.01
+value = 1.0
+value_to_update = "fade_speed"
+
+[node name="BetterSlider3" parent="VBoxContainer" unique_id=2062012997 instance=ExtResource("4_3iye5")]
+layout_mode = 2
+sp_type = ""
+label_text = "TR_FADE_ASSET_PARAM"
+mini_value = 0.01
+max_value = 10.0
+step = 0.01
+value = 1.0
+value_to_update = "fade_speed_asset"
+
+[connection signal="value_changed" from="VBoxContainer/FrameHBox/FrameSpinbox" to="." method="_on_frame_spinbox_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/EffectsGrid/RSSlider" to="." method="_on_rs_slider_value_changed"]

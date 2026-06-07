@@ -1,0 +1,75 @@
+extends AcceptDialog
+
+@export var container : Node
+
+var editor_mode = preload("res://Main/main.tscn")
+var streamer_mode = preload("res://Main/main_stream.tscn")
+var current_mode : int = 0 
+
+func _ready() -> void:
+	Global.theme_update.connect(update_theme)
+	close_requested.connect(close)
+	confirmed.connect(close)
+
+func _on_editor_mode_pressed() -> void:
+	if current_mode != 0:
+		save_between_sessions()
+		forced_backup_save()
+		await get_tree().physics_frame
+		Global.new_file.emit()
+		if WebsocketHandler.is_working:
+			WebsocketHandler.stop()
+		for i in container.get_children():
+			i.queue_free()
+		
+		container.add_child(editor_mode.instantiate())
+		Settings.theme_settings.session = 0
+		Settings.save()
+		current_mode = 0
+		auto_load_model()
+		Global.mode_changed.emit(Global.mode)
+
+func _on_steamer_mode_pressed() -> void:
+	if current_mode != 1:
+		save_between_sessions()
+		forced_backup_save()
+		await get_tree().physics_frame
+		Global.new_file.emit()
+		for i in container.get_children():
+			i.queue_free()
+		container.add_child(streamer_mode.instantiate())
+		Settings.theme_settings.session = 1
+		Settings.save()
+		current_mode = 1
+		auto_load_model()
+		Global.mode_changed.emit(Global.mode)
+
+func auto_load_model():
+	if Settings.theme_settings.auto_load:
+		if FileAccess.file_exists(Settings.theme_settings.path):
+			await get_tree().create_timer(0.15).timeout
+			SaveAndLoad.load_file(Settings.theme_settings.path)
+
+func save_between_sessions():
+	if Global.save_path.begins_with("res://") : return
+	if FileAccess.file_exists(Global.save_path):
+		SaveAndLoad.save_file(Global.save_path)
+	else:
+		DirAccess.make_dir_absolute(Settings.autosave_location)
+		SaveAndLoad.save_file(Settings.autosave_location.path_join(str(randi())))
+
+func forced_backup_save():
+	if FileAccess.file_exists(Global.save_path):
+		SaveAndLoad.save_data()
+		var sav = SaveAndLoad.save_dict
+		SaveAndLoad.save_backup(sav, Global.save_path)
+	else:
+		SaveAndLoad.save_data()
+		var sav = SaveAndLoad.save_dict
+		SaveAndLoad.save_backup(sav, SaveAndLoad.backs_dir.path_join(str(randi())+ ".pngRemix"))
+
+func update_theme(new_theme : Theme = preload("res://Themes/PurpleTheme/GUITheme.tres")):
+	theme = new_theme
+
+func close():
+	hide()

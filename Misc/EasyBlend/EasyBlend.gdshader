@@ -17,28 +17,28 @@ void fragment() {
 		vec4 Color = texture(TEXTURE, UV);
 		vec4 blendColor;
 	   	vec4 output = vec4(1,1,1,1);
-	
+
 		bgColor = texture( SCREEN_TEXTURE, SCREEN_UV);
-	
+
 		output.a = Color.a;
-	
+
 		blendColor = texture( Blend, vec2(bgColor.r, Color.r) );
 		output.r = blendColor.r;
 		blendColor = texture( Blend, vec2(bgColor.g, Color.g) );
 		output.g = blendColor.g;
 		blendColor = texture( Blend, vec2(bgColor.b, Color.b) );
 		output.b = blendColor.b;
-	
+
 		output.rgb = mix(Color.rgb, output.rgb, Intensity);
 		COLOR = output;
-		
+
 	} else {
 		COLOR = texture(TEXTURE, UV);
 	}
-	
-	if (outline_enabled){ 
+
+	if (outline_enabled){
 		vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
-		
+
 		float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
 		outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
 		outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
@@ -48,15 +48,15 @@ void fragment() {
 		outline += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
 		outline += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
 		outline = min(outline, 1.0);
-		
+
 		vec4 animated_line_color = vec4(light_offset + sin(2.0*3.14*sin_frequency*TIME),
 								   light_offset + sin(2.0*3.14*sin_frequency*TIME + radians(120.0)),
 								   light_offset + sin(2.0*3.14*sin_frequency*TIME + radians(240.0)),
 								   1.0);
-		
+
 		vec4 color = texture(TEXTURE, UV);
 		COLOR = mix(color, animated_line_color, outline - color.a);
 	}
 
-	
+
 }

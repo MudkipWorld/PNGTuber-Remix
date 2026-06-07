@@ -1,0 +1,918 @@
+[gd_scene format=3 uid="uid://ccvo3k5t6lis6"]
+
+[ext_resource type="Script" uid="uid://c8nhrcj1ttgu0" path="res://Scripts/UI/RightPanel/movement_tab.gd" id="1_fsl5l"]
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="1_h5u6y"]
+[ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="2_qiucb"]
+[ext_resource type="Script" uid="uid://b75cjxwjdv1t3" path="res://Scripts/UI/RightPanel/whyisntthisworking.gd" id="2_t2p8h"]
+
+[node name="Movement" type="ScrollContainer" unique_id=2078813650]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+mouse_filter = 2
+
+[node name="MovementTab" type="Node" parent="." unique_id=932160330]
+script = ExtResource("1_fsl5l")
+
+[node name="Whyisntthisworking" type="Node" parent="." unique_id=1613641438]
+script = ExtResource("2_t2p8h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=530834915]
+clip_contents = true
+custom_minimum_size = Vector2(320, 0)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SharedMovement" type="CheckBox" parent="VBoxContainer" unique_id=827652221]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "TR_SHARED_MOVEMENT_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_SHARED_MOVEMENT_BUTTON"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "shared_movement"
+inverted = true
+
+[node name="EditValuesFor" type="HBoxContainer" parent="VBoxContainer" unique_id=1262731274]
+layout_mode = 2
+
+[node name="EditValuesForLabel" type="Label" parent="VBoxContainer/EditValuesFor" unique_id=1278942599]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TR_EDIT_VALUES_FOR_LABEL"
+
+[node name="EditValuesForMenu" type="MenuButton" parent="VBoxContainer/EditValuesFor" unique_id=1531443332]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_MOUTH_CLOSED"
+flat = false
+alignment = 0
+item_count = 3
+popup/item_0/text = "TR_MOUTH_CLOSED"
+popup/item_0/id = 0
+popup/item_1/text = "TR_MOUTH_OPEN"
+popup/item_1/id = 1
+popup/item_2/text = "TR_SCREAMING"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="PauseMovement" type="CheckBox" parent="VBoxContainer/EditValuesFor" unique_id=1669228907]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_PAUSE_MOVEMENT_TOOLTIP_MOVEMENT_SECTION"
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "TR_PAUSE_MOVEMENT"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "pause_movement"
+
+[node name="Sp5" type="HSeparator" parent="VBoxContainer" unique_id=365940669]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label4" type="Label" parent="VBoxContainer" unique_id=828814423]
+layout_mode = 2
+text = "TR_XY_MOVEMENTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="XAmpBSlider" parent="VBoxContainer" unique_id=951914775 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_XY_MOVEMENTS_X_AMP"
+mini_value = -300.0
+max_value = 300.0
+step = 0.01
+value_to_update = "xAmp"
+has_alt_values = true
+
+[node name="XFBSlider" parent="VBoxContainer" unique_id=726845942 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_XY_MOVEMENTS_X_FREQUENCY"
+mini_value = -35.0
+max_value = 35.0
+step = 0.01
+value_to_update = "xFrq"
+has_alt_values = true
+
+[node name="Sp" type="HSeparator" parent="VBoxContainer" unique_id=837968620]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="YAmpBSlider" parent="VBoxContainer" unique_id=32508790 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_XY_MOVEMENTS_Y_AMP"
+mini_value = -300.0
+max_value = 300.0
+step = 0.01
+value_to_update = "yAmp"
+has_alt_values = true
+
+[node name="YFBSlider" parent="VBoxContainer" unique_id=803420314 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_XY_MOVEMENTS_Y_FREQUENCY"
+mini_value = -35.0
+max_value = 35.0
+step = 0.01
+value_to_update = "yFrq"
+has_alt_values = true
+
+[node name="Sp4" type="HSeparator" parent="VBoxContainer" unique_id=1019926723]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=887910459]
+layout_mode = 2
+text = "TR_FOLLOW_THROUGH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DragBSlider2" parent="VBoxContainer" unique_id=1658009348 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_PHYS_EFF"
+max_value = 200.0
+step = 0.01
+value_to_update = "phys_eff"
+
+[node name="DragBSlider" parent="VBoxContainer" unique_id=1867166898 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_FT_DRAG"
+max_value = 100.0
+step = 1.0
+value_to_update = "dragSpeed"
+has_alt_values = true
+
+[node name="DragSnapBSlider" parent="VBoxContainer" unique_id=1828234531 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_SNAP_DRAG"
+mini_value = 1.0
+max_value = 999999.0
+step = 1.0
+value_to_update = "drag_snap"
+has_alt_values = true
+
+[node name="StretchBSlider" parent="VBoxContainer" unique_id=2132906058 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_FT_STRETCH"
+mini_value = -100.0
+max_value = 100.0
+step = 0.01
+value_to_update = "stretchAmount"
+has_alt_values = true
+
+[node name="IndexBSlider" parent="VBoxContainer" unique_id=116928037 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_INDEX_X"
+mini_value = -100.0
+max_value = 100.0
+step = 1.0
+value_to_update = "index_change"
+has_alt_values = true
+
+[node name="IndexBSlider2" parent="VBoxContainer" unique_id=339463825 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_INDEX_Y"
+mini_value = -100.0
+max_value = 100.0
+step = 1.0
+value_to_update = "index_change_y"
+has_alt_values = true
+
+[node name="Sp3" type="HSeparator" parent="VBoxContainer" unique_id=2127176718]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=105866384]
+layout_mode = 2
+text = "TR_ROTATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RotationMinRotBSlider2" parent="VBoxContainer" unique_id=152933116 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_MIN_ROT"
+mini_value = -360.0
+step = 0.1
+value_to_update = "rLimitMin"
+has_alt_values = true
+
+[node name="RotationMaxRotBSlider2" parent="VBoxContainer" unique_id=451803759 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_MAX_ROT"
+max_value = 360.0
+step = 0.1
+value_to_update = "rLimitMax"
+has_alt_values = true
+
+[node name="RotationLevelBSlider" parent="VBoxContainer" unique_id=145584341 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_DEGREE"
+mini_value = -180.0
+max_value = 180.0
+step = 0.01
+value_to_update = "rdragStr"
+has_alt_values = true
+
+[node name="RotationFreqBSlider" parent="VBoxContainer" unique_id=425060054 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_FREQUENCY"
+mini_value = -35.0
+max_value = 35.0
+step = 0.01
+value_to_update = "rot_frq"
+has_alt_values = true
+
+[node name="RotationSpeedBSlider" parent="VBoxContainer" unique_id=36335289 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_SPEED"
+mini_value = -2.0
+max_value = 2.0
+step = 0.001
+value_to_update = "should_rot_speed"
+has_alt_values = true
+
+[node name="ShouldRotCheck" type="CheckBox" parent="VBoxContainer" unique_id=308590231]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "TR_TOOLTIP_AUTO_ROTATION"
+theme_override_font_sizes/font_size = 14
+text = "TR_AUTO_ROTATION"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "should_rotate"
+has_alt_values = true
+
+[node name="Sp2" type="HSeparator" parent="VBoxContainer" unique_id=207018950]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="FMLable" type="Label" parent="VBoxContainer" unique_id=2068026763]
+layout_mode = 2
+text = "TR_FOLLOW_MOUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=271187820]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1674395298]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "TR_FOLLOW_POSITION_LABEL"
+
+[node name="FollowOption" type="OptionButton" parent="VBoxContainer/HBoxContainer" unique_id=1111315970]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+selected = 0
+item_count = 18
+popup/item_0/text = "TR_MOUSE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_CONTROLLER_LEFT"
+popup/item_1/id = 1
+popup/item_2/text = "TR_CONTROLLER_RIGHT"
+popup/item_2/id = 2
+popup/item_3/text = "TR_WASD_WS"
+popup/item_3/id = 3
+popup/item_4/text = "TR_WASD_AD"
+popup/item_4/id = 4
+popup/item_5/text = "TR_WASD"
+popup/item_5/id = 5
+popup/item_6/text = "TR_ARROW_KEYS_UD"
+popup/item_6/id = 6
+popup/item_7/text = "TR_ARROW_KEYS_LR"
+popup/item_7/id = 7
+popup/item_8/text = "TR_ARROW_KEYS"
+popup/item_8/id = 8
+popup/item_9/text = "TR_MISC"
+popup/item_9/id = 12
+popup/item_9/separator = true
+popup/item_10/text = "R1 + L1"
+popup/item_10/id = 9
+popup/item_11/text = "R2 + L2"
+popup/item_11/id = 10
+popup/item_12/text = "R3 + L3"
+popup/item_12/id = 11
+popup/item_13/text = "TR_OTHERS"
+popup/item_13/id = 14
+popup/item_13/separator = true
+popup/item_14/text = "TR_CUSTOM"
+popup/item_14/id = 15
+popup/item_14/disabled = true
+popup/item_15/text = "TR_UDP_ITEM_NONE"
+popup/item_15/id = 999
+popup/item_16/id = 16
+popup/item_16/disabled = true
+popup/item_16/separator = true
+popup/item_17/text = "TR_UDP"
+popup/item_17/id = 17
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1712858666]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=819656312]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "TR_FOLLOW_ROTATION_LABEL"
+
+[node name="FollowOption2" type="OptionButton" parent="VBoxContainer/HBoxContainer2" unique_id=1187966444]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+selected = 0
+item_count = 18
+popup/item_0/text = "TR_MOUSE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_CONTROLLER_LEFT"
+popup/item_1/id = 1
+popup/item_2/text = "TR_CONTROLLER_RIGHT"
+popup/item_2/id = 2
+popup/item_3/text = "TR_WASD_WS"
+popup/item_3/id = 3
+popup/item_4/text = "TR_WASD_AD"
+popup/item_4/id = 4
+popup/item_5/text = "TR_WASD"
+popup/item_5/id = 5
+popup/item_6/text = "TR_ARROW_KEYS_UD"
+popup/item_6/id = 6
+popup/item_7/text = "TR_ARROW_KEYS_LR"
+popup/item_7/id = 7
+popup/item_8/text = "TR_ARROW_KEYS"
+popup/item_8/id = 8
+popup/item_9/text = "TR_MISC"
+popup/item_9/id = 12
+popup/item_9/separator = true
+popup/item_10/text = "R1 + L1"
+popup/item_10/id = 9
+popup/item_11/text = "R2 + L2"
+popup/item_11/id = 10
+popup/item_12/text = "R3 + L3"
+popup/item_12/id = 11
+popup/item_13/text = "TR_OTHERS"
+popup/item_13/id = 14
+popup/item_13/separator = true
+popup/item_14/text = "TR_CUSTOM"
+popup/item_14/id = 15
+popup/item_14/disabled = true
+popup/item_15/text = "TR_UDP_ITEM_NONE"
+popup/item_15/id = 999
+popup/item_16/id = 17
+popup/item_16/disabled = true
+popup/item_16/separator = true
+popup/item_17/text = "TR_UDP"
+popup/item_17/id = 16
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=1466851355]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=1437101607]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "TR_FOLLOW_SCALE_LABEL"
+
+[node name="FollowOption3" type="OptionButton" parent="VBoxContainer/HBoxContainer3" unique_id=1037296269]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+selected = 0
+item_count = 18
+popup/item_0/text = "TR_MOUSE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_CONTROLLER_LEFT"
+popup/item_1/id = 1
+popup/item_2/text = "TR_CONTROLLER_RIGHT"
+popup/item_2/id = 2
+popup/item_3/text = "TR_WASD_WS"
+popup/item_3/id = 3
+popup/item_4/text = "TR_WASD_AD"
+popup/item_4/id = 4
+popup/item_5/text = "TR_WASD"
+popup/item_5/id = 5
+popup/item_6/text = "TR_ARROW_KEYS_UD"
+popup/item_6/id = 6
+popup/item_7/text = "TR_ARROW_KEYS_LR"
+popup/item_7/id = 7
+popup/item_8/text = "TR_ARROW_KEYS"
+popup/item_8/id = 8
+popup/item_9/text = "TR_MISC"
+popup/item_9/id = 12
+popup/item_9/separator = true
+popup/item_10/text = "R1 + L1"
+popup/item_10/id = 9
+popup/item_11/text = "R2 + L2"
+popup/item_11/id = 10
+popup/item_12/text = "R3 + L3"
+popup/item_12/id = 11
+popup/item_13/text = "TR_OTHERS"
+popup/item_13/id = 14
+popup/item_13/separator = true
+popup/item_14/text = "TR_CUSTOM"
+popup/item_14/id = 15
+popup/item_14/disabled = true
+popup/item_15/text = "TR_UDP_ITEM_NONE"
+popup/item_15/id = 999
+popup/item_16/id = 17
+popup/item_16/disabled = true
+popup/item_16/separator = true
+popup/item_17/text = "TR_UDP"
+popup/item_17/id = 16
+
+[node name="FMDBSlider2" parent="VBoxContainer" unique_id=1674292144 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_FM_DELAY"
+mini_value = 0.001
+max_value = 1.0
+step = 0.001
+value = 0.1
+value_to_update = "mouse_delay"
+has_alt_values = true
+
+[node name="Sp7" type="HSeparator" parent="VBoxContainer" unique_id=667598441]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="FMxBSlider" parent="VBoxContainer" unique_id=1058539237 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_RANGE_X_MIN"
+mini_value = -4000.0
+step = 0.01
+value_to_update = "pos_x_min"
+has_alt_values = true
+allow_greater = true
+
+[node name="FMxBSlider2" parent="VBoxContainer" unique_id=821130948 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_RANGE_X_MAX"
+max_value = 4000.0
+step = 0.01
+value_to_update = "pos_x_max"
+has_alt_values = true
+
+[node name="Sp11" type="HSeparator" parent="VBoxContainer" unique_id=608738752]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="FMYBSlider" parent="VBoxContainer" unique_id=1837290219 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_RANGE_Y_MIN"
+mini_value = -4000.0
+step = 0.01
+value_to_update = "pos_y_min"
+has_alt_values = true
+allow_greater = true
+
+[node name="FMYBSlider2" parent="VBoxContainer" unique_id=409881856 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_RANGE_Y_MAX"
+max_value = 4000.0
+step = 0.01
+value_to_update = "pos_y_max"
+has_alt_values = true
+
+[node name="Sp8" type="HSeparator" parent="VBoxContainer" unique_id=1848555462]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="RMBSliderMin" parent="VBoxContainer" unique_id=1182455484 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_MIN_MOUSE_ROTATION"
+sp_type = ""
+label_text = "TR_FM_MIN_ROT"
+mini_value = -5.0
+max_value = 5.0
+step = 0.001
+value_to_update = "rot_min"
+has_alt_values = true
+
+[node name="RMBSliderMax" parent="VBoxContainer" unique_id=1833691123 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_MAX_MOUSE_ROTATION"
+sp_type = ""
+label_text = "TR_FM_MAX_ROT"
+mini_value = -5.0
+max_value = 5.0
+step = 0.001
+value_to_update = "rot_max"
+has_alt_values = true
+
+[node name="Sp9" type="HSeparator" parent="VBoxContainer" unique_id=527670951]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SMXBSlider" parent="VBoxContainer" unique_id=170828461 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_SCALE_X_MIN"
+mini_value = -1.0
+step = 0.001
+value_to_update = "scale_x_min"
+has_alt_values = true
+
+[node name="SMXBSlider2" parent="VBoxContainer" unique_id=244348594 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_SCALE_X_MAX"
+max_value = 1.0
+step = 0.001
+value_to_update = "scale_x_max"
+has_alt_values = true
+
+[node name="Sp10" type="HSeparator" parent="VBoxContainer" unique_id=344714167]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="SMYBSlider" parent="VBoxContainer" unique_id=431025096 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_SCALE_Y_MIN"
+mini_value = -1.0
+step = 0.001
+value_to_update = "scale_y_min"
+has_alt_values = true
+allow_greater = true
+
+[node name="SMYBSlider2" parent="VBoxContainer" unique_id=580154419 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_SCALE_Y_MAX"
+max_value = 1.0
+step = 0.001
+value_to_update = "scale_y_max"
+has_alt_values = true
+
+[node name="UseActorPos" type="CheckBox" parent="VBoxContainer" unique_id=1509111690]
+layout_mode = 2
+text = "TR_USE_OBJECT_POSITION"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "use_object_pos"
+
+[node name="Grid" type="GridContainer" parent="VBoxContainer" unique_id=783457870]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Invert" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1794916593]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_INVERT_POS_X"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "pos_invert_x"
+
+[node name="Invert2" type="CheckBox" parent="VBoxContainer/Grid" unique_id=345199797]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_INVERT_POS_Y"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "pos_invert_y"
+
+[node name="Invert3" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1231065094]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_SCALE_POS_X"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "scale_invert_x"
+
+[node name="Invert4" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1573660964]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_SCALE_POS_Y"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "scale_invert_y"
+
+[node name="ShouldSnap" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1792140686]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_POSITION_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_POSITION_SNAP_BUTTON"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "snap_pos"
+
+[node name="ShouldSnap2" type="CheckBox" parent="VBoxContainer/Grid" unique_id=1728443735]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_ROT_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_SNAP_ROT"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "snap_rot"
+
+[node name="ShouldSnap3" type="CheckBox" parent="VBoxContainer/Grid" unique_id=2025204603]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_SCL_SNAP_BUTTON_TOOLTIP"
+theme_override_font_sizes/font_size = 14
+text = "TR_SNAP_SCL"
+script = ExtResource("2_qiucb")
+sp_type = ""
+value_to_update = "snap_scale"
+
+[node name="OSFFold" type="FoldableContainer" parent="VBoxContainer" unique_id=615088386]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+folded = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/OSFFold" unique_id=639030792]
+visible = false
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/OSFFold/VBoxContainer" unique_id=1918090969]
+layout_mode = 2
+
+[node name="Label6" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer" unique_id=337823781]
+layout_mode = 2
+text = "UDP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/OSFFold/VBoxContainer" unique_id=455125672]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1316319265]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_UDP_POSITION"
+
+[node name="UDPPosOption" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=422300395]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 12
+popup/item_0/text = "TR_UDP_ITEM_NONE"
+popup/item_0/id = 9
+popup/item_1/text = "TR_UDP_ITEM_HEAD"
+popup/item_1/id = 0
+popup/item_2/text = "TR_UDP_ITEM_PUPIL_LEFT"
+popup/item_2/id = 1
+popup/item_3/text = "TR_UDP_ITEM_PUPIL_RIGHT"
+popup/item_3/id = 2
+popup/item_4/text = "TR_UDP_ITEM_EYE_SMILE_LEFT"
+popup/item_4/id = 3
+popup/item_5/text = "TR_UDP_ITEM_EYE_SMILE_RIGHT"
+popup/item_5/id = 4
+popup/item_6/text = "TR_UDP_ITEM_CHEEK_RAISE_LEFT"
+popup/item_6/id = 5
+popup/item_7/text = "TR_UDP_ITEM_CHEEK_RAISE_RIGHT"
+popup/item_7/id = 6
+popup/item_8/text = "TR_UDP_ITEM_EYEBROW_LEFT"
+popup/item_8/id = 7
+popup/item_9/text = "TR_UDP_ITEM_EYEBROW_RIGHT"
+popup/item_9/id = 8
+popup/item_10/text = "Cheek Average"
+popup/item_10/id = 10
+popup/item_11/text = "Mouth Pucker"
+popup/item_11/id = 11
+
+[node name="Label2" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1345450995]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_UDP_ROTATION"
+
+[node name="UDPRotOption" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1282721617]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 12
+popup/item_0/text = "TR_UDP_ITEM_NONE"
+popup/item_0/id = 9
+popup/item_1/text = "TR_UDP_ITEM_HEAD"
+popup/item_1/id = 0
+popup/item_2/text = "TR_UDP_ITEM_PUPIL_LEFT"
+popup/item_2/id = 1
+popup/item_3/text = "TR_UDP_ITEM_PUPIL_RIGHT"
+popup/item_3/id = 2
+popup/item_4/text = "TR_UDP_ITEM_EYE_SMILE_LEFT"
+popup/item_4/id = 3
+popup/item_5/text = "TR_UDP_ITEM_EYE_SMILE_RIGHT"
+popup/item_5/id = 4
+popup/item_6/text = "TR_UDP_ITEM_CHEEK_RAISE_LEFT"
+popup/item_6/id = 5
+popup/item_7/text = "TR_UDP_ITEM_CHEEK_RAISE_RIGHT"
+popup/item_7/id = 6
+popup/item_8/text = "TR_UDP_ITEM_EYEBROW_LEFT"
+popup/item_8/id = 7
+popup/item_9/text = "TR_UDP_ITEM_EYEBROW_RIGHT"
+popup/item_9/id = 8
+popup/item_10/text = "Cheek Average"
+popup/item_10/id = 10
+popup/item_11/text = "Mouth Pucker"
+popup/item_11/id = 11
+
+[node name="Label3" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=721885065]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_UDP_SCALE"
+
+[node name="UDPScaleOption" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=17328050]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 12
+popup/item_0/text = "TR_UDP_ITEM_NONE"
+popup/item_0/id = 9
+popup/item_1/text = "TR_UDP_ITEM_HEAD"
+popup/item_1/id = 0
+popup/item_2/text = "TR_UDP_ITEM_PUPIL_LEFT"
+popup/item_2/id = 1
+popup/item_3/text = "TR_UDP_ITEM_PUPIL_RIGHT"
+popup/item_3/id = 2
+popup/item_4/text = "TR_UDP_ITEM_EYE_SMILE_LEFT"
+popup/item_4/id = 3
+popup/item_5/text = "TR_UDP_ITEM_EYE_SMILE_RIGHT"
+popup/item_5/id = 4
+popup/item_6/text = "TR_UDP_ITEM_CHEEK_RAISE_LEFT"
+popup/item_6/id = 5
+popup/item_7/text = "TR_UDP_ITEM_CHEEK_RAISE_RIGHT"
+popup/item_7/id = 6
+popup/item_8/text = "TR_UDP_ITEM_EYEBROW_LEFT"
+popup/item_8/id = 7
+popup/item_9/text = "TR_UDP_ITEM_EYEBROW_RIGHT"
+popup/item_9/id = 8
+popup/item_10/text = "Cheek Average"
+popup/item_10/id = 10
+popup/item_11/text = "Mouth Pucker"
+popup/item_11/id = 11
+
+[node name="Label4" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1571333507]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_FOLLOW_EYE"
+
+[node name="FollowEye" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=731042284]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 4
+popup/item_0/text = "TR_UDP_ITEM_NONE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_LEFT_EYE"
+popup/item_1/id = 1
+popup/item_2/text = "TR_RIGHT_EYE"
+popup/item_2/id = 2
+popup/item_3/text = "Both"
+popup/item_3/id = 3
+
+[node name="Label5" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=459864713]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_FOLLOW_GAZE"
+
+[node name="FollowEyeGaze" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=616374916]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "TR_UDP_ITEM_NONE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_LEFT_EYE"
+popup/item_1/id = 1
+popup/item_2/text = "TR_RIGHT_EYE"
+popup/item_2/id = 2
+
+[node name="Label6" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=186374472]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_EYE_STYLE"
+
+[node name="EyeStyle" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=804741953]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "TR_UDP_ITEM_NONE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_FT_STRETCH"
+popup/item_1/id = 1
+
+[node name="Label7" type="Label" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1680052150]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_MOUTH"
+
+[node name="MouthFollow" type="OptionButton" parent="VBoxContainer/OSFFold/VBoxContainer/GridContainer" unique_id=1370536639]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "TR_UDP_ITEM_NONE"
+popup/item_0/id = 0
+popup/item_1/text = "TR_OPEN"
+popup/item_1/id = 1
+popup/item_2/text = "TR_CLOSED"
+popup/item_2/id = 2
+
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/FollowOption" to="Whyisntthisworking" method="_on_follow_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/FollowOption2" to="Whyisntthisworking" method="_on_follow_option_2_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer3/FollowOption3" to="Whyisntthisworking" method="_on_follow_option_3_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/UDPPosOption" to="Whyisntthisworking" method="_on_udp_pos_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/UDPRotOption" to="Whyisntthisworking" method="_on_udp_rot_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/UDPScaleOption" to="Whyisntthisworking" method="_on_udp_scale_option_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/FollowEye" to="Whyisntthisworking" method="_on_follow_eye_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/FollowEyeGaze" to="Whyisntthisworking" method="_on_follow_eye_gaze_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/EyeStyle" to="Whyisntthisworking" method="_on_eye_style_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OSFFold/VBoxContainer/GridContainer/MouthFollow" to="Whyisntthisworking" method="_on_mouth_follow_item_selected"]

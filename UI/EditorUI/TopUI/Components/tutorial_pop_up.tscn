@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://r2walrps7ne"]
+
+[ext_resource type="Script" uid="uid://dwa2v8yxe8sff" path="res://Scripts/UI/Others/pop_up.gd" id="1_si4kh"]
+[ext_resource type="Texture2D" uid="uid://byc1nc0xfubaq" path="res://TutorialAssets/Pickles/pickle1.png" id="4_pbr64"]
+[ext_resource type="Texture2D" uid="uid://c8p2b5v284wjd" path="res://TutorialAssets/Others/FreqAmpTimeGraph.png" id="5_utmvu"]
+[ext_resource type="Texture2D" uid="uid://hrno6rnanx58" path="res://TutorialAssets/Others/FreqAmpTimeGraph2.png" id="6_q7qfu"]
+
+[sub_resource type="Animation" id="Animation_pbr64"]
+resource_name = "Anim"
+loop_mode = 1
+step = 0.083333336
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TabContainer/Basic Concepts/GridContainer/FreqHigh:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(384.5, 358.5), Vector2(384.5, 400), Vector2(384.5, 358.5), Vector2(384.5, 400), Vector2(384.5, 358.5), Vector2(384.5, 400)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TabContainer/Basic Concepts/GridContainer/FrqLow:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(245.5, 358.5), Vector2(245.5, 400)]
+}
+
+[sub_resource type="Animation" id="Animation_nwaay"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TabContainer/Basic Concepts/GridContainer/FreqHigh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384.5, 358.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TabContainer/Basic Concepts/GridContainer/FrqLow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(245.5, 358.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bl1o7"]
+_data = {
+&"Anim": SubResource("Animation_pbr64"),
+&"RESET": SubResource("Animation_nwaay")
+}
+
+[node name="TutorialPopUp" type="PopupPanel" unique_id=974085589]
+auto_translate_mode = 1
+transparent_bg = false
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(700, 510)
+visible = true
+script = ExtResource("1_si4kh")
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=2115787884]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 696.0
+offset_bottom = 506.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/side_margin = 1
+theme_override_constants/icon_separation = 0
+current_tab = 0
+
+[node name="Basic Concepts" type="ScrollContainer" parent="TabContainer" unique_id=167086270]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Basic Concepts" unique_id=954272263]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+columns = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Basic Concepts/GridContainer" unique_id=1770007980]
+custom_minimum_size = Vector2(245, 257)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainer/Basic Concepts/GridContainer/ScrollContainer" unique_id=360340230]
+custom_minimum_size = Vector2(245, 257)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "TR_BASIC_CONCEPTS_FULL"
+autowrap_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Basic Concepts/GridContainer" unique_id=2041942561]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Basic Concepts/GridContainer/VBoxContainer" unique_id=2145639645]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("5_utmvu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="TabContainer/Basic Concepts/GridContainer/VBoxContainer" unique_id=1926384001]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("6_q7qfu")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="FreqHigh" type="Sprite2D" parent="TabContainer/Basic Concepts/GridContainer" unique_id=816277998]
+position = Vector2(384.5, 358.5)
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("4_pbr64")
+
+[node name="FrqLow" type="Sprite2D" parent="TabContainer/Basic Concepts/GridContainer" unique_id=787473841]
+position = Vector2(245.5, 358.5)
+scale = Vector2(0.43, 0.43)
+texture = ExtResource("4_pbr64")
+
+[node name="Basic Controls" type="ScrollContainer" parent="TabContainer" unique_id=2099283027]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Basic Controls" unique_id=1728828525]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Basic Controls/VBoxContainer" unique_id=492346093]
+custom_minimum_size = Vector2(550, 408)
+layout_mode = 2
+text = "TR_BASIC_CONTROLS_FULL"
+autowrap_mode = 2
+
+[node name="Shortcuts" type="ScrollContainer" parent="TabContainer" unique_id=1098941163]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Shortcuts" unique_id=953944701]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Shortcuts/VBoxContainer" unique_id=302140868]
+custom_minimum_size = Vector2(550, 408)
+layout_mode = 2
+text = "TR_SHORTCUTS_FULL"
+autowrap_mode = 2
+
+[node name="FAQ" type="ScrollContainer" parent="TabContainer" unique_id=1492820062]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/FAQ" unique_id=1606599786]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/FAQ/VBoxContainer" unique_id=1080982225]
+custom_minimum_size = Vector2(550, 408)
+layout_mode = 2
+size_flags_vertical = 3
+text = "TR_FAQ_FULL"
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=834234047]
+libraries/ = SubResource("AnimationLibrary_bl1o7")
+autoplay = &"Anim"

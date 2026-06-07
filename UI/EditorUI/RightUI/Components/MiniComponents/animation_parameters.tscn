@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://ddhwynf6o3br1"]
+
+[ext_resource type="Script" uid="uid://cplj1qo0nys4g" path="res://Scripts/UI/RightPanel/model_animation_parameters.gd" id="1_1lywl"]
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="1_gkpfe"]
+
+[node name="AnimationParameters" type="GridContainer" unique_id=1253882554]
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/v_separation = 6
+script = ExtResource("1_1lywl")
+
+[node name="BounceAmount" type="Label" parent="." unique_id=561169470]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_BOUNCE_AMOUNT_TOOLTIP"
+mouse_filter = 1
+text = "TR_BOUNCE_AMOUNT"
+
+[node name="BounceAmountSlider" parent="." unique_id=2026712760 instance=ExtResource("1_gkpfe")]
+unique_name_in_owner = true
+layout_mode = 2
+label_text = "TR_BOUNCE_AMOUNT"
+max_value = 3000.0
+step = 1.0
+ui_type = 3
+
+[node name="GravityAmount" type="Label" parent="." unique_id=1655529601]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TR_BOUNCE_GRAVITY"
+
+[node name="GravityAmountSlider" parent="." unique_id=1642193153 instance=ExtResource("1_gkpfe")]
+unique_name_in_owner = true
+layout_mode = 2
+label_text = "TR_BOUNCE_GRAVITY_LABEL"
+mini_value = 0.5
+max_value = 3000.0
+step = 1.0
+ui_type = 3
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=1534550677]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=136686474]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="XFreqWobbleLabel" type="Label" parent="VBox" unique_id=1398661961]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_X_FREQUENCY_WOBBLE_TOOLTIP"
+mouse_filter = 1
+text = "TR_X_FREQUENCY_WOBBLE"
+
+[node name="XFreqWobbleSlider" type="HSlider" parent="VBox" unique_id=197042436]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
+step = 0.01
+
+[node name="XAmpWobbleLabel" type="Label" parent="VBox" unique_id=2047104364]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_X_FREQUENCY_WOBBLE_TOOLTIP"
+mouse_filter = 1
+text = "TR_X_AMPLITUDE_WOBBLE"
+
+[node name="XAmpWobbleSlider" type="HSlider" parent="VBox" unique_id=1349978212]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
+step = 0.01
+
+[node name="HSeparator2" type="HSeparator" parent="VBox" unique_id=536221539]
+layout_mode = 2
+
+[node name="YFreqWobbleLabel" type="Label" parent="VBox" unique_id=969934279]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_WOBBLE_FREQ_TOOLTIP"
+mouse_filter = 1
+text = "TR_Y_FREQUENCY_WOBBLE"
+
+[node name="YFreqWobbleSlider" type="HSlider" parent="VBox" unique_id=262092884]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
+step = 0.01
+
+[node name="YAmpWobbleLabel" type="Label" parent="VBox" unique_id=544147230]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "TR_WOBBLE_FREQ_TOOLTIP"
+mouse_filter = 1
+text = "TR_Y_AMPLITUDE_WOBBLE"
+
+[node name="YAmpWobbleSlider" type="HSlider" parent="VBox" unique_id=1520764711]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_force_pass_scroll_events = false
+step = 0.01
+
+[connection signal="value_changed" from="VBox/XFreqWobbleSlider" to="." method="_on_x_freq_wobble_slider_value_changed"]
+[connection signal="value_changed" from="VBox/XAmpWobbleSlider" to="." method="_on_x_amp_wobble_slider_value_changed"]
+[connection signal="value_changed" from="VBox/YFreqWobbleSlider" to="." method="_on_y_freq_wobble_slider_value_changed"]
+[connection signal="value_changed" from="VBox/YAmpWobbleSlider" to="." method="_on_y_amp_wobble_slider_value_changed"]

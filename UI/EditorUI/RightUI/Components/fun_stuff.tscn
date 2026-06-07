@@ -1,0 +1,522 @@
+[gd_scene format=3 uid="uid://c47knq8edutrk"]
+
+[ext_resource type="PackedScene" uid="uid://clxl1gighe78l" path="res://UI/BetterSlider/better_slider.tscn" id="1_mirsd"]
+[ext_resource type="Script" uid="uid://bjmucy0bep3os" path="res://Scripts/UI/RightPanel/fun_stuff.gd" id="1_w1yxh"]
+[ext_resource type="Texture2D" uid="uid://dsvnkyrgho1xx" path="res://UI/Assets/ui_buttons.png" id="3_1jc68"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edwq2"]
+atlas = ExtResource("3_1jc68")
+region = Rect2(66, 0, 33, 32)
+
+[node name="FunStuff" type="ScrollContainer" unique_id=1825143742]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_w1yxh")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1769561437]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBox" unique_id=1069375003]
+layout_mode = 2
+text = "Fun Stuff"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBox" unique_id=691756787]
+layout_mode = 2
+
+[node name="HasCollision" type="CheckBox" parent="VBox/HBoxContainer2" unique_id=621028956]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Has Collision"
+
+[node name="Physics" type="CheckBox" parent="VBox/HBoxContainer2" unique_id=349203837]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_PHYSICS"
+
+[node name="BetterSlider" parent="VBox" unique_id=1658009348 instance=ExtResource("1_mirsd")]
+layout_mode = 2
+sp_type = ""
+label_text = "Hit Strength"
+mini_value = -10.0
+max_value = 10.0
+value_to_update = "reaction_strength"
+
+[node name="HSeparator" type="HSeparator" parent="VBox" unique_id=2107638675]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBox" unique_id=921475810]
+layout_mode = 2
+text = "Spawner Data"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="VBox" unique_id=1347018300]
+layout_mode = 2
+columns = 4
+
+[node name="LabelDegree" type="Label" parent="VBox/Grid" unique_id=908093987]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_DEGREE"
+
+[node name="HBoxDegree" type="HBoxContainer" parent="VBox/Grid" unique_id=514416775]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PositionYSpin" type="SpinBox" parent="VBox/Grid/HBoxDegree" unique_id=1227319887]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -359.0
+max_value = 359.0
+
+[node name="PositionY" type="HSlider" parent="VBox/Grid/HBoxDegree" unique_id=2042454899]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -359.0
+max_value = 359.0
+
+[node name="Distance" type="Label" parent="VBox/Grid" unique_id=349172428]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_DISTANCE"
+
+[node name="PositionX" type="SpinBox" parent="VBox/Grid" unique_id=2095710838]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1000000.0
+
+[node name="Label5" type="Label" parent="VBox/Grid" unique_id=982674443]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Per Trigger"
+
+[node name="SpawnPerTrigger" type="SpinBox" parent="VBox/Grid" unique_id=1915780622]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 1000.0
+value = 1.0
+
+[node name="ForceX" type="Label" parent="VBox/Grid" unique_id=82763680]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_THROW_FORCE"
+
+[node name="DirX" type="SpinBox" parent="VBox/Grid" unique_id=2025645694]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+value = 1500.0
+
+[node name="ForceY" type="Label" parent="VBox/Grid" unique_id=1395014851]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dir Y"
+
+[node name="DirY" type="SpinBox" parent="VBox/Grid" unique_id=807510409]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10000.0
+max_value = 10000.0
+step = 0.1
+value = 10.0
+
+[node name="Label6" type="Label" parent="VBox/Grid" unique_id=990086568]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Variance"
+
+[node name="SpawnVariance" type="SpinBox" parent="VBox/Grid" unique_id=315353511]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 360.0
+
+[node name="Label8" type="Label" parent="VBox/Grid" unique_id=1592002982]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Time Variance"
+
+[node name="TimeVariance" type="SpinBox" parent="VBox/Grid" unique_id=1567262067]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.05
+max_value = 10.0
+step = 0.01
+value = 0.15000000000000002
+
+[node name="Label7" type="Label" parent="VBox/Grid" unique_id=2129990025]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Base Mass"
+
+[node name="BaseMass" type="SpinBox" parent="VBox/Grid" unique_id=1921784791]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 500.0
+step = 0.1
+value = 1.0
+
+[node name="Label9" type="Label" parent="VBox/Grid" unique_id=734578043]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Spawn Radius"
+
+[node name="SpawnRadius" type="SpinBox" parent="VBox/Grid" unique_id=1010769022]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 100000.0
+step = 0.01
+value = 750.0
+
+[node name="GridContainer" type="GridContainer" parent="VBox" unique_id=2035839379]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBox/GridContainer" unique_id=145376524]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Throw Key"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox/GridContainer" unique_id=1324015353]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ThrowKey" type="Button" parent="VBox/GridContainer/HBoxContainer" unique_id=1043111196]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "TR_BIND_KEY"
+
+[node name="RemoveAssetButton" type="Button" parent="VBox/GridContainer/HBoxContainer" unique_id=972491248]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+icon = SubResource("AtlasTexture_edwq2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label2" type="Label" parent="VBox/GridContainer" unique_id=1495971531]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pause Throw Key"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBox/GridContainer" unique_id=1883918977]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ThrowPauseKey" type="Button" parent="VBox/GridContainer/HBoxContainer2" unique_id=1838041621]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "TR_BIND_KEY"
+
+[node name="RemoveThrowPauseButton" type="Button" parent="VBox/GridContainer/HBoxContainer2" unique_id=467178550]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+icon = SubResource("AtlasTexture_edwq2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ThrowTest" type="Button" parent="VBox/GridContainer" unique_id=1487378663]
+layout_mode = 2
+text = "Throw Test"
+
+[node name="StopTest" type="Button" parent="VBox/GridContainer" unique_id=1433446286]
+layout_mode = 2
+text = "Stop Test"
+
+[node name="BothSides" type="CheckBox" parent="VBox/GridContainer" unique_id=1338443628]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Both Sides"
+
+[node name="HSeparator2" type="HSeparator" parent="VBox" unique_id=1270057529]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBox" unique_id=1314329792]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBox/VBoxContainer" unique_id=1087336363]
+layout_mode = 2
+text = "Images"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="VBox/VBoxContainer" unique_id=1053865807]
+layout_mode = 2
+
+[node name="Add" type="Button" parent="VBox/VBoxContainer/HBox" unique_id=348713029]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add Image"
+
+[node name="Edit" type="Button" parent="VBox/VBoxContainer/HBox" unique_id=726609075]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit Item"
+
+[node name="Remove" type="Button" parent="VBox/VBoxContainer/HBox" unique_id=1386928360]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove Image"
+
+[node name="ItemList" type="ItemList" parent="VBox/VBoxContainer" unique_id=101793689]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 192)
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+max_columns = 0
+same_column_width = true
+fixed_column_width = 48
+icon_mode = 0
+fixed_icon_size = Vector2i(48, 48)
+
+[node name="PopupChoice" type="Window" parent="." unique_id=788589447]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Select Images"
+initial_position = 1
+size = Vector2i(500, 500)
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupChoice" unique_id=33573516]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SelectionList" type="ItemList" parent="PopupChoice/VBoxContainer" unique_id=465694225]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+max_columns = 0
+same_column_width = true
+fixed_column_width = 48
+fixed_icon_size = Vector2i(48, 48)
+
+[node name="Confirm" type="Button" parent="PopupChoice/VBoxContainer" unique_id=2029090181]
+layout_mode = 2
+text = "Confirm"
+
+[node name="ObjectEditor" type="Window" parent="." unique_id=1125042306]
+unique_name_in_owner = true
+transparent_bg = true
+oversampling_override = 1.0
+title = "Throwable Editor"
+initial_position = 1
+size = Vector2i(500, 550)
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="ObjectEditor" unique_id=920450750]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelC" type="PanelContainer" parent="ObjectEditor/VBox" unique_id=487500211]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Preview" type="TextureRect" parent="ObjectEditor/VBox/PanelC" unique_id=88451796]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Grid" type="GridContainer" parent="ObjectEditor/VBox" unique_id=936214139]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="LoadAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=657687388]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load Audio File"
+
+[node name="RemoveAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=1757629668]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Clear Audio"
+
+[node name="PlayAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=1456828735]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play Audio"
+
+[node name="StopAudio" type="Button" parent="ObjectEditor/VBox/Grid" unique_id=1614905953]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stop Audio"
+
+[node name="Label" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=1022320644]
+layout_mode = 2
+text = "Mass"
+
+[node name="ObjMass" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=417932649]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.01
+max_value = 1000.0
+step = 0.01
+value = 1.0
+
+[node name="Label2" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=178360063]
+layout_mode = 2
+text = "Friction"
+
+[node name="Friction" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=1804205184]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Label3" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=2116045098]
+layout_mode = 2
+text = "Bounce"
+
+[node name="Bounce" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=699474964]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label4" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=1811192842]
+layout_mode = 2
+text = "Gravity"
+
+[node name="Gravity" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=2062313966]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -8.0
+max_value = 8.0
+step = 0.01
+value = 1.0
+
+[node name="Label5" type="Label" parent="ObjectEditor/VBox/Grid" unique_id=2055410065]
+layout_mode = 2
+text = "Inertia"
+
+[node name="Interia" type="SpinBox" parent="ObjectEditor/VBox/Grid" unique_id=1553273297]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1000.0
+step = 0.01
+value = 2.0
+
+[node name="Rough" type="CheckBox" parent="ObjectEditor/VBox/Grid" unique_id=897854417]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rough"
+
+[node name="Absorbent" type="CheckBox" parent="ObjectEditor/VBox/Grid" unique_id=1205756061]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Absorbent"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=643288439]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Open a File"
+force_native = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mp3")
+use_native_dialog = true
+
+[node name="TestPlayer" type="AudioStreamPlayer" parent="." unique_id=1452634962]
+unique_name_in_owner = true
+
+[connection signal="toggled" from="VBox/HBoxContainer2/HasCollision" to="." method="_on_has_collision_toggled"]
+[connection signal="toggled" from="VBox/HBoxContainer2/Physics" to="." method="_on_physics_toggled"]
+[connection signal="value_changed" from="VBox/Grid/HBoxDegree/PositionY" to="." method="_on_position_y_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/PositionX" to="." method="_on_position_x_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/SpawnPerTrigger" to="." method="_on_spawn_per_trigger_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/DirX" to="." method="_on_dir_x_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/DirY" to="." method="_on_dir_y_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/SpawnVariance" to="." method="_on_spawn_variance_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/TimeVariance" to="." method="_on_time_variance_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/BaseMass" to="." method="_on_base_mass_value_changed"]
+[connection signal="value_changed" from="VBox/Grid/SpawnRadius" to="." method="_on_spawn_radius_value_changed"]
+[connection signal="toggled" from="VBox/GridContainer/HBoxContainer/ThrowKey" to="." method="_on_throw_key_toggled"]
+[connection signal="pressed" from="VBox/GridContainer/HBoxContainer/RemoveAssetButton" to="." method="_on_remove_asset_button_pressed"]
+[connection signal="toggled" from="VBox/GridContainer/HBoxContainer2/ThrowPauseKey" to="." method="_on_throw_pause_key_toggled"]
+[connection signal="pressed" from="VBox/GridContainer/HBoxContainer2/RemoveThrowPauseButton" to="." method="_on_remove_throw_pause_button_pressed"]
+[connection signal="pressed" from="VBox/GridContainer/ThrowTest" to="." method="_on_throw_test_pressed"]
+[connection signal="pressed" from="VBox/GridContainer/StopTest" to="." method="_on_stop_test_pressed"]
+[connection signal="toggled" from="VBox/GridContainer/BothSides" to="." method="_on_both_sides_toggled"]
+[connection signal="pressed" from="VBox/VBoxContainer/HBox/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="VBox/VBoxContainer/HBox/Edit" to="." method="_on_edit_pressed"]
+[connection signal="pressed" from="VBox/VBoxContainer/HBox/Remove" to="." method="_on_remove_pressed"]
+[connection signal="multi_selected" from="VBox/VBoxContainer/ItemList" to="." method="_on_item_list_multi_selected"]
+[connection signal="close_requested" from="PopupChoice" to="." method="_on_popup_choice_close_requested"]
+[connection signal="multi_selected" from="PopupChoice/VBoxContainer/SelectionList" to="." method="_on_selection_list_multi_selected"]
+[connection signal="pressed" from="PopupChoice/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="close_requested" from="ObjectEditor" to="." method="_on_object_editor_close_requested"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/LoadAudio" to="." method="_on_load_audio_pressed"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/RemoveAudio" to="." method="_on_remove_audio_pressed"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/PlayAudio" to="." method="_on_play_audio_pressed"]
+[connection signal="pressed" from="ObjectEditor/VBox/Grid/StopAudio" to="." method="_on_stop_audio_pressed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/ObjMass" to="." method="_on_obj_mass_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Friction" to="." method="_on_friction_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Bounce" to="." method="_on_bounce_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Gravity" to="." method="_on_gravity_value_changed"]
+[connection signal="value_changed" from="ObjectEditor/VBox/Grid/Interia" to="." method="_on_interia_value_changed"]
+[connection signal="toggled" from="ObjectEditor/VBox/Grid/Rough" to="." method="_on_rough_toggled"]
+[connection signal="toggled" from="ObjectEditor/VBox/Grid/Absorbent" to="." method="_on_absorbent_toggled"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

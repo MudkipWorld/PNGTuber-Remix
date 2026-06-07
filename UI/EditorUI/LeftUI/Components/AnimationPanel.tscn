@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://qjip1w7hh1ss"]
+
+[ext_resource type="Script" uid="uid://bpskqcxi1aufc" path="res://Scripts/UI/LeftPanel/animation_panel_scripts.gd" id="1_phr78"]
+
+[node name="AnimationPanel" type="MarginContainer" unique_id=1018005318]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 128.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="AnimationPanelScripts" type="Node" parent="." unique_id=266232924]
+script = ExtResource("1_phr78")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=549520457]
+layout_mode = 2
+
+[node name="AnimationFramesLabel" type="Label" parent="VBoxContainer" unique_id=874701382]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TR_ANIMATION_FRAMES_H"
+
+[node name="AnimationFramesSlider" type="HSlider" parent="VBoxContainer" unique_id=172423990]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+min_value = 1.0
+max_value = 164.0
+value = 1.0
+rounded = true
+
+[node name="AnimationFramesLabel2" type="Label" parent="VBoxContainer" unique_id=1412799941]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TR_ANIMATION_FRAMES_V"
+
+[node name="AnimationFramesSlider2" type="HSlider" parent="VBoxContainer" unique_id=1671547996]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+min_value = 1.0
+max_value = 164.0
+value = 1.0
+rounded = true
+
+[node name="AnimationSpeedLabel" type="Label" parent="VBoxContainer" unique_id=1325142812]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TR_ANIMATION_SPEED"
+
+[node name="AnimationSpeedSlider" type="HSlider" parent="VBoxContainer" unique_id=1064561297]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+min_value = 1.0
+max_value = 60.0
+value = 1.0
+
+[connection signal="value_changed" from="VBoxContainer/AnimationFramesSlider" to="AnimationPanelScripts" method="_on_animation_frames_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/AnimationFramesSlider2" to="AnimationPanelScripts" method="_on_animation_frames_slider_2_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/AnimationSpeedSlider" to="AnimationPanelScripts" method="_on_animation_speed_slider_value_changed"]

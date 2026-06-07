@@ -1,0 +1,222 @@
+[gd_scene format=3 uid="uid://cfuiw0rtt54fn"]
+
+[ext_resource type="Script" uid="uid://ym8vo86cfyyi" path="res://Scripts/UI/StreamUI/web_socket_config.gd" id="1_b1km8"]
+
+[sub_resource type="Gradient" id="Gradient_257p7"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b1km8"]
+gradient = SubResource("Gradient_257p7")
+width = 1
+
+[node name="WebSocketConfig" type="VBoxContainer" unique_id=147177568]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+script = ExtResource("1_b1km8")
+
+[node name="Label" type="Label" parent="." unique_id=1321307646]
+layout_mode = 2
+text = "TR_TAB_WEBSOCKET"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AutoStartWebsocket" type="CheckBox" parent="." unique_id=1387919052]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TR_AUTO_START"
+
+[node name="Grid" type="GridContainer" parent="." unique_id=1896538222]
+layout_mode = 2
+columns = 2
+
+[node name="PortLabel" type="Label" parent="Grid" unique_id=1164785892]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_PORT"
+
+[node name="PortValue" type="SpinBox" parent="Grid" unique_id=507881610]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/field_and_buttons_separation = -16
+theme_override_icons/updown = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up_hover = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up_pressed = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up_disabled = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down_hover = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down_pressed = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down_disabled = SubResource("GradientTexture1D_b1km8")
+max_value = 65535.0
+value = 1234.0
+
+[node name="StartButton" type="Button" parent="Grid" unique_id=737712827]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "TR_START"
+
+[node name="StopButton" type="Button" parent="Grid" unique_id=491237872]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "TR_STOP"
+
+[node name="OSF" type="VBoxContainer" parent="." unique_id=1791098609]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="OSF" unique_id=843772147]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="OSF" unique_id=174285209]
+layout_mode = 2
+text = "TR_UDP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Grid2" type="GridContainer" parent="OSF" unique_id=737712339]
+layout_mode = 2
+columns = 2
+
+[node name="PortLabel" type="Label" parent="OSF/Grid2" unique_id=422176520]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_PORT"
+
+[node name="UDPPortValue" type="SpinBox" parent="OSF/Grid2" unique_id=1818207726]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/field_and_buttons_separation = -16
+theme_override_icons/updown = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up_hover = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up_pressed = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/up_disabled = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down_hover = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down_pressed = SubResource("GradientTexture1D_b1km8")
+theme_override_icons/down_disabled = SubResource("GradientTexture1D_b1km8")
+max_value = 65535.0
+value = 11573.0
+
+[node name="Label" type="Label" parent="OSF/Grid2" unique_id=1473687462]
+layout_mode = 2
+text = "TR_BACKEND"
+
+[node name="OptionButton" type="OptionButton" parent="OSF/Grid2" unique_id=2110565253]
+layout_mode = 2
+disabled = true
+selected = 0
+item_count = 1
+popup/item_0/text = "TR_OPEN_SEE_FACE"
+popup/item_0/id = 0
+
+[node name="Label2" type="Label" parent="OSF/Grid2" unique_id=1373848180]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_POSITION_TRACKING_STRENGTH"
+
+[node name="OSFPosStrength" type="SpinBox" parent="OSF/Grid2" unique_id=975888106]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 1000.0
+value = 10.0
+
+[node name="Label6" type="Label" parent="OSF/Grid2" unique_id=1873977919]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Position Tracking Strength Y"
+
+[node name="OSFPosStrength2" type="SpinBox" parent="OSF/Grid2" unique_id=1338436579]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 1000.0
+value = 10.0
+
+[node name="Label3" type="Label" parent="OSF/Grid2" unique_id=417812898]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "TR_MOUTH_TRACKING_STRENGTH"
+
+[node name="OSFPosMouth" type="SpinBox" parent="OSF/Grid2" unique_id=1040998317]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -10.0
+max_value = 10.0
+step = 0.001
+value = -0.05000000000000071
+
+[node name="Label4" type="Label" parent="OSF/Grid2" unique_id=1768957176]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Eye Closed Threshold"
+
+[node name="OSFEye" type="SpinBox" parent="OSF/Grid2" unique_id=1694761428]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="Label5" type="Label" parent="OSF/Grid2" unique_id=1324038035]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Eye Open Threshold"
+
+[node name="OSFEye2" type="SpinBox" parent="OSF/Grid2" unique_id=757818493]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="UDPStartButton" type="Button" parent="OSF/Grid2" unique_id=1653311652]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "TR_START"
+
+[node name="UDPStopButton" type="Button" parent="OSF/Grid2" unique_id=415212]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "TR_STOP"
+
+[connection signal="toggled" from="AutoStartWebsocket" to="." method="_on_auto_start_websocket_toggled"]
+[connection signal="value_changed" from="Grid/PortValue" to="." method="_on_port_value_value_changed"]
+[connection signal="pressed" from="Grid/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Grid/StopButton" to="." method="_on_stop_button_pressed"]
+[connection signal="value_changed" from="OSF/Grid2/UDPPortValue" to="." method="_on_udp_port_value_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFPosStrength" to="." method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFPosStrength2" to="." method="_on_osf_pos_strength_2_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFPosMouth" to="." method="_on_osf_pos_mouth_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFEye" to="." method="_on_osf_eye_value_changed"]
+[connection signal="value_changed" from="OSF/Grid2/OSFEye2" to="." method="_on_osf_eye_2_value_changed"]
+[connection signal="pressed" from="OSF/Grid2/UDPStartButton" to="." method="_on_udp_start_button_pressed"]
+[connection signal="pressed" from="OSF/Grid2/UDPStopButton" to="." method="_on_udp_stop_button_pressed"]

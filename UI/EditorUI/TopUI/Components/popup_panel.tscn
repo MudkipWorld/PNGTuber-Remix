@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://1x30v3npumk6"]
+
+[ext_resource type="Script" uid="uid://c7vywv1ffskvg" path="res://Scripts/UI/Others/popup_panel.gd" id="1_wqjpb"]
+
+[node name="PopupPanel" type="PopupPanel"]
+initial_position = 1
+size = Vector2i(308, 200)
+visible = true
+script = ExtResource("1_wqjpb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "TR_SAVE_WARNING"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+size_flags_vertical = 3
+text = "TR_SAVE_WARNING_FULL"
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "TR_QUIT"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
