@@ -481,17 +481,13 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
-item_count = 5
-popup/item_0/text = "TR_TRACKING_BACKEND_DEFAULT"
+item_count = 3
+popup/item_0/text = "TR_TRACKING_BACKEND_WINDOWS"
 popup/item_0/id = 0
-popup/item_1/text = "TR_TRACKING_BACKEND_UIOHOOK"
+popup/item_1/text = "TR_TRACKING_BACKEND_X11"
 popup/item_1/id = 1
-popup/item_2/text = "TR_TRACKING_BACKEND_WINDOWS"
+popup/item_2/text = "Dummy"
 popup/item_2/id = 2
-popup/item_3/text = "TR_TRACKING_BACKEND_X11"
-popup/item_3/id = 3
-popup/item_4/text = "Dummy"
-popup/item_4/id = 4
 
 [node name="Sp3" type="HSeparator" parent="SettingVbox/SettingsTab/Remix/VBox" unique_id=1262964452]
 layout_mode = 2

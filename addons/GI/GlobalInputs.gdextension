@@ -14,10 +14,5 @@ linux.x86_64.single.release = "linux/GlobalInput.linux.template_release.x86_64.s
 windows = {
     "windows/libgcc_s_seh-1.dll" : "",
     "windows/libstdc++-6.dll" : "",
-    "windows/libuiohook.dll" : "",
     "windows/libwinpthread-1.dll" : "",
 }
-linux = {
-    "linux/libuiohook.so" : "",
-}
-

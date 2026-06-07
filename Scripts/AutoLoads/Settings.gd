@@ -186,10 +186,6 @@ func _on_language_changed(locale_code: String) -> void:
 
 func update_tracking_backend():
 	match theme_settings.backend_type:
-		"default":
-			set_backed_default()
-		"uiohook":
-			GlobInput.backend = "uiohook"
 		"windows":
 			if OS.has_feature("windows"):
 				GlobInput.backend = "windows"
@@ -202,6 +198,8 @@ func update_tracking_backend():
 				set_backed_default()
 		"dummy":
 			GlobInput.backend = "dummy"
+		_:
+			set_backed_default()
 
 func set_backed_default():
 	if OS.has_feature("windows"):
@@ -209,7 +207,7 @@ func set_backed_default():
 	elif OS.has_feature("linux"):
 		GlobInput.backend = "x11"
 	else:
-		GlobInput.backend = "uiohook"
+		GlobInput.backend = "dummy"
 
 func lipsync_set_up():
 	var parent_path = Util.get_parent_path(save_location);

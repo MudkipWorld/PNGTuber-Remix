@@ -71,36 +71,34 @@ func check_data():
 	%FollowMouseGlobalInput.button_pressed = Settings.theme_settings.use_glob_input
 
 	if OS.has_feature("linux"):
-		%BackendOption.set_item_disabled(3, false)
+		%BackendOption.set_item_disabled(1, false)
 	else:
-		%BackendOption.set_item_disabled(3, true)
-		%BackendOption.select(0)
+		%BackendOption.set_item_disabled(0, true)
+		%BackendOption.select(2)
 
 	if OS.has_feature("windows"):
-		%BackendOption.set_item_disabled(2, false)
+		%BackendOption.set_item_disabled(0, false)
 	else:
-		%BackendOption.set_item_disabled(2, true)
-		%BackendOption.select(0)
+		%BackendOption.set_item_disabled(1, true)
+		%BackendOption.select(2)
 
 	match Settings.theme_settings.backend_type:
-		"default":
-			%BackendOption.select(0)
-		"uiohook":
-			%BackendOption.select(1)
 		"windows":
 			if OS.has_feature("windows"):
-				%BackendOption.select(2)
-			else:
-				%BackendOption.set_item_disabled(2, true)
 				%BackendOption.select(0)
+			else:
+				%BackendOption.set_item_disabled(0, true)
+				%BackendOption.select(2)
 		"x11":
 			if OS.has_feature("linux"):
-				%BackendOption.select(3)
+				%BackendOption.select(1)
 			else:
-				%BackendOption.set_item_disabled(3, true)
-				%BackendOption.select(0)
+				%BackendOption.set_item_disabled(1, true)
+				%BackendOption.select(2)
 		"dummy":
-			%BackendOption.select(4)
+			%BackendOption.select(2)
+		_:
+			%BackendOption.select(2)
 
 	change_setting = true
 
@@ -270,14 +268,10 @@ func _on_save_unused_images_toggled(toggled_on: bool) -> void:
 func _on_backend_option_item_selected(index: int) -> void:
 	match index:
 		0:
-			Settings.theme_settings.backend_type = "default"
-		1:
-			Settings.theme_settings.backend_type = "uiohook"
-		2:
 			Settings.theme_settings.backend_type = "windows"
-		3:
+		1:
 			Settings.theme_settings.backend_type = "x11"
-		4:
+		2:
 			Settings.theme_settings.backend_type = "dummy"
 	Settings.save()
 	Settings.update_tracking_backend()
