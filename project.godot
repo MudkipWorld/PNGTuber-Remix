@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PNGTube-Remix"
-config/version="1.4.5"
+config/version="1.4.6"
 run/main_scene="uid://ckgt30cxu04dj"
 run/print_header=false
 config/quit_on_go_back=false
