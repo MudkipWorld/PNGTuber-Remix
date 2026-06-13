@@ -89,6 +89,7 @@ popup/item_8/text = "TR_EXPORT_MODEL_PARTS"
 popup/item_8/id = 7
 popup/item_9/text = "TR_STREAMER_SESSION"
 popup/item_9/id = 11
+popup/item_9/disabled = true
 popup/item_10/text = "TR_MODEL_OPTIMIZER_TITLE"
 popup/item_10/id = 13
 
