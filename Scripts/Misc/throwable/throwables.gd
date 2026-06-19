@@ -23,11 +23,6 @@ var spawn_degree: float = 0.0:
 		_update_position()
 
 func get_target_global_position() -> Vector2:
-	if Global.held_sprites.size() > 0 and is_instance_valid(Global.held_sprites[0]):
-		var sprite_node = Global.held_sprites[0].get_node_or_null("%Sprite2D")
-		if sprite_node != null and is_instance_valid(sprite_node):
-			return sprite_node.global_position
-		return Global.held_sprites[0].global_position
 	return get_parent().global_position
 
 func update_polar_from_position():
