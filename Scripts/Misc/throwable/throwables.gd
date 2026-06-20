@@ -1,4 +1,5 @@
 extends Node2D
+class_name ThrowablesSpawner
 
 var throwable : PackedScene = preload("res://Misc/throwables/throwable.tscn")
 var throw_force : float = 1500.0
@@ -11,6 +12,7 @@ var current_throw_generation : int = 0
 var base_mass : float = 1
 var time_variance : float = 0.15
 var spawn_radius : float = 750.0
+static var show_pointer_origin : bool = false
 
 var spawn_distance: float = 750.0:
 	set(val):
@@ -38,18 +40,16 @@ func _update_position():
 	var offset = Vector2(sin(rad), -cos(rad)) * spawn_distance
 	var target_global = get_target_global_position()
 	position = get_parent().to_local(target_global + offset)
+	if show_pointer_origin && Global.mode == 0:
+		%Pointer.show()
+		
+	else:
+		%Pointer.hide()
 
 func _ready() -> void:
-	Global.mode_changed.connect(show_pointer)
 	Global.throwable_spawner = self
 	update_polar_from_position()
 
-func show_pointer(mode : int):
-	match mode:
-		0:
-			%Pointer.show()
-		_:
-			%Pointer.hide()
 
 func _process(_delta: float) -> void:
 	if GlobInput.is_action_just_pressed('throwing'):

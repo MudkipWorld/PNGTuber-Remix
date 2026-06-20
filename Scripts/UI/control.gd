@@ -20,3 +20,9 @@ func _on_main_split_dragged(offset: int) -> void:
 func _on_secondary_split_dragged(offset: int) -> void:
 	Settings.theme_settings.right = offset
 	Settings.save()
+
+func _on_inspector_tab_changed(tab: int) -> void:
+	if tab == 7:
+		ThrowablesSpawner.show_pointer_origin = true
+	else:
+		ThrowablesSpawner.show_pointer_origin = false
