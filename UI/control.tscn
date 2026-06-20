@@ -407,8 +407,8 @@ split_offset = -113
 
 [node name="Inspector" type="TabContainer" parent="MainSplit/SecondarySplit/RightSide/RightPanel/Margin/VBoxContainer/VSplit" unique_id=1099070921]
 unique_name_in_owner = true
-clip_contents = true
 custom_minimum_size = Vector2(350, 400)
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 1
