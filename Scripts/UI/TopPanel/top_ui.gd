@@ -11,7 +11,7 @@ signal settings_applied(settings_dict: Dictionary)
 
 func _ready() -> void:
 	await get_tree().current_scene.ready
-	_apply_settings_to_ui(Global.settings_dict)
+	apply_settings_to_ui(Global.settings_dict)
 
 	Global.reinfo.connect(_on_info_held)
 	Global.slider_values.connect(_on_slider_values)
@@ -30,11 +30,11 @@ func _on_info_deselected() -> void:
 
 
 func _on_slider_values(settings_dict: Dictionary) -> void:
-	_apply_settings_to_ui(settings_dict)
+	apply_settings_to_ui(settings_dict)
 	settings_applied.emit(settings_dict)
 
 
-func _apply_settings_to_ui(settings_dict: Dictionary) -> void:
+func apply_settings_to_ui(settings_dict: Dictionary) -> void:
 	bg_color_picker.color = settings_dict.bg_color
 	if top_bar_input != null and is_instance_valid(top_bar_input):
 		(top_bar_input as Node).call("origin_alias")
@@ -43,8 +43,7 @@ func _apply_settings_to_ui(settings_dict: Dictionary) -> void:
 		if Global.camera.get_parent() != null:
 			Global.camera.get_parent().global_position = settings_dict.pan
 	update_fps(settings_dict.max_fps)
-	if Global.settings_dict.auto_save:
-		Settings.save_timer.start()
+	Settings.setup_auto_save()
 
 
 func update_fps(value: int) -> void:

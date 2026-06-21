@@ -148,8 +148,8 @@ func _on_delta_time_check_toggled(toggled_on: bool) -> void:
 	Global.settings_dict.should_delta = toggled_on
 
 func _on_auto_save_spin_value_changed(value):
-	Settings.save_timer.wait_time = value * 60
 	Global.settings_dict.auto_save_timer = value
+	Settings.setup_auto_save()
 
 func choosing_device(id):
 	if id != null:
@@ -183,10 +183,7 @@ func _on_input_check_button_toggled(toggled_on):
 
 func _on_auto_save_check_toggled(toggled_on):
 	Global.settings_dict.auto_save = toggled_on
-	if toggled_on:
-		Settings.save_timer.start()
-	else:
-		Settings.save_timer.stop()
+	Settings.setup_auto_save()
 
 func _on_import_trim_toggled(toggled_on: bool) -> void:
 	Settings.theme_settings.enable_trimmer = toggled_on

@@ -102,6 +102,13 @@ func auto_save():
 	if Global.settings_dict.auto_save:
 		save_timer.start()
 
+func setup_auto_save():
+	save_timer.wait_time = Global.settings_dict.auto_save_timer * 60
+	if Global.settings_dict.auto_save:
+		save_timer.start()
+	else:
+		save_timer.stop()
+
 func _ready():
 	save_timer.timeout.connect(auto_save)
 	save_timer.one_shot = true
