@@ -23,7 +23,9 @@ jobs:
     name: Windows Export
     runs-on: ubuntu-24.04  # Use 24.04 with godot 4
     container:
-      image: barichello/godot-ci:${{ inputs.godot_version }}
+# Temp container change until upstream releases a new version
+#      image: barichello/godot-ci:${{ inputs.godot_version }}
+      image: davcri/godot-game-template-ci:${{ inputs.godot_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -55,7 +57,9 @@ jobs:
     name: Linux Export
     runs-on: ubuntu-24.04  # Use 24.04 with godot 4
     container:
-      image: barichello/godot-ci:${{ inputs.godot_version }}
+# Temp container change until upstream releases a new version
+#      image: barichello/godot-ci:${{ inputs.godot_version }}
+      image: davcri/godot-game-template-ci:${{ inputs.godot_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
