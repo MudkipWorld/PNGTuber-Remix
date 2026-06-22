@@ -196,6 +196,8 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 		sw_y *= -1
 	
 	final_target = Vector2(sw_x, sw_y)
+	current_dist = final_target.length()
+	current_dir = final_target.normalized()
 	
 	if actor.sprite_type == "Sprite2D" && actor.get_value("animate_to_mouse") && actor.get_value("non_animated_sheet"):
 		update_sprite_animation(current_dir, current_dist, _delta)
@@ -257,19 +259,15 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 	if actor.get_value("snap_pos"):
 		if !is_zero_approx(dir.x) :
 			target_pos.x =  lerp(target_pos.x, x, actor.get_value("mouse_delay"))
-			current_dir.x = dir.x
 		if is_zero_approx(dir.y):
 			target_pos.y = lerp(target_pos.y, y, actor.get_value("mouse_delay"))
-			current_dir.y = dir.y
 	else:
 		var t = Vector2(x, y)
 
 		target_pos.x = lerp(target_pos.x, t.x, actor.get_value("mouse_delay"))
 		target_pos.y = lerp(target_pos.y, t.y, actor.get_value("mouse_delay"))
-		current_dir = dir
-		current_dist = target_pos.length()
 
-func update_sprite_animation(dir: Vector2, dist: float, _delta: float) -> void:
+func update_sprite_animation(dir: Vector2, dist: float, delta: float) -> void:
 	if actor.sprite_type != "Sprite2D":
 		return
 		
@@ -289,14 +287,14 @@ func update_sprite_animation(dir: Vector2, dist: float, _delta: float) -> void:
 	var norm_x = (dist_x / (2.0 * dist_cen.x)) + 0.5
 	var norm_y = (dist_y / (2.0 * dist_cen.y)) + 0.5
 
-	var frame_x = clamp(floor(norm_x * hframes), 0, hframes - 1)
-	var frame_y = clamp(floor(norm_y * vframes), 0, vframes - 1)
+	var frame_x = clamp(norm_x * hframes, 0, hframes - 1)
+	var frame_y = clamp(norm_y * vframes, 0, vframes - 1)
 
-	frame_h = move_toward(frame_h, frame_x, actor.get_value("animate_to_mouse_speed"))
-	frame_v = move_toward(frame_v, frame_y, actor.get_value("animate_to_mouse_speed"))
+	frame_h = move_toward(frame_h, frame_x, actor.get_value("animate_to_mouse_speed") * delta)
+	frame_v = move_toward(frame_v, frame_y, actor.get_value("animate_to_mouse_speed") * delta)
 
-	%Sprite2D.frame_coords.x = floor(frame_h)
-	%Sprite2D.frame_coords.y = floor(frame_v)
+	%Sprite2D.frame_coords.x = floori(frame_h)
+	%Sprite2D.frame_coords.y = floori(frame_v)
 
 func _on_sprite_object_visibility_changed() -> void:
 	rest = !actor.is_visible_in_tree()
