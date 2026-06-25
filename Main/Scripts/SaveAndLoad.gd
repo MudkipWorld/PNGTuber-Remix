@@ -804,10 +804,6 @@ func save_backup(data: Dictionary, previous_path: String) -> void:
 	var extension := "." + previous_path.get_extension()
 	var base_name := previous_path.get_file().get_basename()
 	var backup_path := backs_dir.path_join(base_name + "_backup" + extension)
-	var counter := 1
-	while FileAccess.file_exists(backup_path):
-		counter += 1
-		backup_path = backs_dir.path_join(base_name + "_backup" + str(counter) + extension)
 	var file := FileAccess.open(backup_path, FileAccess.WRITE)
 	if not file:
 		push_error("SaveAndLoad: failed to write backup: %s" % backup_path)
