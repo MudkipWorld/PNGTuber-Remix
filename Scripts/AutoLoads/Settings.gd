@@ -145,6 +145,7 @@ func _ready():
 			get_window().always_on_top = theme_settings.always_on_top
 			get_window().position = theme_settings.screen_pos
 			
+			update_tracking_backend()
 		load_file.close()
 		
 	else:
@@ -157,6 +158,7 @@ func _ready():
 			push_error(FileAccess.get_open_error())
 			file_error.emit("INITIAL_SAVE_ERROR", FileAccess.get_open_error())
 		loaded_UI(theme_settings.theme_id)
+		set_backed_default()
 	
 	get_window().size_changed.connect(window_size_changed)
 	

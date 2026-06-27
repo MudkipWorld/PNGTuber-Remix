@@ -70,15 +70,14 @@ func check_data():
 	%DevMode.button_pressed = Settings.theme_settings.dev_mode
 	%FollowMouseGlobalInput.button_pressed = Settings.theme_settings.use_glob_input
 
-	if OS.has_feature("linux"):
-		%BackendOption.set_item_disabled(1, false)
-	else:
-		%BackendOption.set_item_disabled(0, true)
-		%BackendOption.select(2)
-
 	if OS.has_feature("windows"):
 		%BackendOption.set_item_disabled(0, false)
+		%BackendOption.set_item_disabled(1, true)
+	elif OS.has_feature("linux"):
+		%BackendOption.set_item_disabled(1, false)
+		%BackendOption.set_item_disabled(0, true)
 	else:
+		%BackendOption.set_item_disabled(0, true)
 		%BackendOption.set_item_disabled(1, true)
 		%BackendOption.select(2)
 
