@@ -17,6 +17,7 @@ text = "TR_HOT_KEY_LABEL"
 custom_minimum_size = Vector2(120, 20)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_behavior_recursive = 2
 text = "TR_BIND_KEY"
 script = ExtResource("2_ih08l")
 

@@ -69,7 +69,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-focus_behavior_recursive = 1
+focus_behavior_recursive = 2
 text = "TR_BIND_KEY"
 script = ExtResource("2_dpute")
 

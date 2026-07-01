@@ -28,15 +28,15 @@ func _toggled(_button_pressed):
 		set_process_unhandled_input(_button_pressed)
 		if _button_pressed:
 			text = tr("TR_AWAITING_INPUT")
-			release_focus()
+			set_focus_mode(FOCUS_ALL)
 		else:
 			update_key_text()
-			grab_focus()
+			release_focus()
 
 
 func _unhandled_input(event):
 	if current_remap == Remap.Asset:
-		if !event is InputEventMouseMotion:
+		if event is InputEventKey:
 			if event.is_released():
 				if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 					Global.held_sprites[0].saved_event = event
@@ -47,7 +47,7 @@ func _unhandled_input(event):
 				button_pressed = false
 
 	elif current_remap == Remap.Keys:
-		if !event is InputEventMouseMotion:
+		if event is InputEventKey:
 			if event.is_released():
 				if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 					if InputMap.has_action(Global.held_sprites[0].disappear_keys):
