@@ -9,7 +9,7 @@
   <p align="center">
 	Start PNGTubing in a more interesting and alive way.
 	<br />
-	<a href="https://docs.google.com/document/d/1p5CSKFrBaDk-bDVbm13CNPw3AkUdGX1o_BnKcr2oi40/edit?usp=sharing"><strong>Explore the docs »</strong></a>
+	<a href="https://mudkipworld.github.io/PNGRemix-Doc/#/"><strong>Explore the docs »</strong></a>
 	<br />
 	<br />
 	&middot;
