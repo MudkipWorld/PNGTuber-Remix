@@ -5,8 +5,6 @@ extends CustomMesh
 func _ready() -> void:
 	actor = parent
 
-
-
 func add_internal_point_gd(p: Vector2) -> void:
 	if not is_inside_base(p):
 		return

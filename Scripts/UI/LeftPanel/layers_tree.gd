@@ -3,25 +3,35 @@ extends Tree
 var held_item: Array[TreeItem] = []
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
+	drop_mode_flags = 3
+	held_item.clear()
+	for entry in Global.held_sprites:
+		if entry.treeitem && is_instance_valid(entry.treeitem):
+			held_item.append(entry.treeitem)
 	if held_item.is_empty():
-		for entry in Global.held_sprites:
-			if entry.treeitem:
-				held_item.append(entry.treeitem)
-	return held_item
+		return null
+	return {"tree_items": held_item}
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
-	drop_mode_flags = 3
-	if not (data is Array[TreeItem]):
-		return false
-	return true
+	if data is Dictionary && data.has("tree_items"):
+		var items = data["tree_items"]
+		return items is Array && items.size() > 0 && items[0] is TreeItem
+	return false
 
 func _drop_data(at_position: Vector2, data: Variant) -> void:
-	if data and not data.is_empty():
-		var other: TreeItem = get_item_at_position(at_position)
-		for item in data:
-			if valid_items(item, other):
-				move_stuff(item, other, at_position)
+	if data is Dictionary && data.has("tree_items"):
+		var items: Array = data["tree_items"]
+		if !items.is_empty():
+			var other: TreeItem = get_item_at_position(at_position)
+			for item in items:
+				if valid_items(item, other):
+					move_stuff(item, other, at_position)
+	
 	held_item.clear()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_END:
+		held_item.clear()
 
 func move_stuff(item: TreeItem, other_item: TreeItem, at_position: Vector2) -> void:
 	if item == other_item: return

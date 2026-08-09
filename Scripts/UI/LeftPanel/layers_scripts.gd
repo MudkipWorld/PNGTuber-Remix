@@ -92,6 +92,7 @@ func delete_layers():
 	root.set_text(0, "Model")
 	root.set_icon(0, preload("res://UI/Assets/FolderButton.png"))
 	root.set_icon_max_width(0,25)
+	await get_tree().process_frame
 	update_layers_count()
 
 func remake_layers(sprites : Array = get_tree().get_nodes_in_group("Sprites")):
