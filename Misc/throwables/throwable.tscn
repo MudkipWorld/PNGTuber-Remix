@@ -6,8 +6,6 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vemx8"]
 resource_local_to_scene = true
-friction = 0.0
-bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vemx8"]
 resource_local_to_scene = true
@@ -17,6 +15,7 @@ collision_layer = 2
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_vemx8")
 inertia = 2.0
+can_sleep = false
 continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 16

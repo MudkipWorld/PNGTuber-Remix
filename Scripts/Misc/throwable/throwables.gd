@@ -50,7 +50,6 @@ func _ready() -> void:
 	Global.throwable_spawner = self
 	update_polar_from_position()
 
-
 func _process(_delta: float) -> void:
 	if GlobInput.is_action_just_pressed('throwing'):
 		throw_item()
@@ -96,7 +95,7 @@ func throw_random_items(amount: int, custom_variance: float = -1.0, custom_both_
 			
 		var spawn_global_pos = target_global_pos + offset_from_target
 		spawn.position = to_local(spawn_global_pos)
-		add_child(spawn)
+		get_parent().add_child(spawn)
 		
 		var impulse_dir = (target_global_pos - spawn_global_pos).normalized()
 		var impulse = impulse_dir * throw_force
@@ -133,7 +132,7 @@ func throw_specific_item(img_data: ImageData, amount: int = 1, custom_variance: 
 			
 		var spawn_global_pos = target_global_pos + offset_from_target
 		spawn.position = to_local(spawn_global_pos)
-		add_child(spawn)
+		get_parent().add_child(spawn)
 		
 		var impulse_dir = (target_global_pos - spawn_global_pos).normalized()
 		var impulse = impulse_dir * throw_force

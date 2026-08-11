@@ -17,7 +17,6 @@ run/print_header=false
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.7")
 run/max_fps=60
-run/frame_delay_msec=4
 boot_splash/bg_color=Color(0.1118, 0.135361, 0.218212, 1)
 boot_splash/stretch_mode=0
 boot_splash/use_filter=false
@@ -374,10 +373,10 @@ limits/message_queue/max_size_mb=64
 
 [physics]
 
-3d/physics_engine="Dummy"
-3d/solver/solver_iterations=2
+2d/run_on_separate_thread=true
+3d/run_on_separate_thread=true
+2d/physics_engine="GodotPhysics2D"
 common/physics_interpolation=true
-common/enable_object_picking=false
 
 [rendering]
 
