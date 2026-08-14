@@ -164,6 +164,22 @@ popup/item_5/id = 5
 popup/item_6/text = "TR_CUSTOM"
 popup/item_6/id = 6
 
+[node name="GridButton" type="MenuButton" parent="TopBar/HBox" unique_id=985431217]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 14
+text = "Grid"
+item_count = 3
+popup/item_0/text = "Show Grid"
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Snap Position"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+popup/item_2/text = "Snap Size: 1.0 px"
+popup/item_2/id = 2
+
 [node name="BounceControlButton" type="MenuButton" parent="TopBar/HBox" unique_id=1613266894]
 unique_name_in_owner = true
 visible = false

@@ -3,6 +3,7 @@ extends Node
 @onready var files_button: MenuButton = %FilesButton
 @onready var mode_button: MenuButton = %ModeButton
 @onready var bg_button: MenuButton = %BGButton
+@onready var grid_button: MenuButton = %GridButton
 @onready var about_button: MenuButton = %AboutButton
 @onready var window_button: MenuButton = %WindowButton
 @onready var demos_popup: PopupMenu = %Demos
@@ -36,6 +37,8 @@ var settings_scene := preload("res://UI/EditorUI/TopUI/Components/Settings_popup
 var tutorial_scene := preload("res://UI/EditorUI/TopUI/Components/tutorial_pop_up.tscn")
 
 var file_import_submenu: PopupMenu = PopupMenu.new()
+var grid_size_dialog: AcceptDialog = null
+var grid_size_spinbox: SpinBox = null
 
 @onready var file_submenu_item_demos: PopupMenu = %Demos
 
@@ -47,10 +50,13 @@ func _ready() -> void:
 	files_button.get_popup().id_pressed.connect(_on_files_id_pressed)
 	mode_button.get_popup().id_pressed.connect(_on_mode_id_pressed)
 	bg_button.get_popup().id_pressed.connect(_on_bg_id_pressed)
+	grid_button.get_popup().id_pressed.connect(_on_grid_id_pressed)
+	_setup_grid()
 	about_button.get_popup().id_pressed.connect(_on_about_id_pressed)
 	window_button.get_popup().id_pressed.connect(_on_window_id_pressed)
 
 	Global.mode_changed.connect(_on_mode_changed)
+	Global.theme_update.connect(_on_grid_theme_update)
 	Global.deselect.connect(_deselect_everything)
 	Global.dev_mode.connect(_check_dev_mode)
 
@@ -215,6 +221,9 @@ func _on_demos_id_pressed(id: int) -> void:
 
 
 func _on_mode_changed(new_mode: int) -> void:
+	if Global.grid_overlay != null and is_instance_valid(Global.grid_overlay):
+		Global.grid_overlay.visible = Global.grid_visible and new_mode != 1
+
 	match new_mode:
 		0, 2:
 			preview_mode_check.show()
@@ -264,6 +273,114 @@ func _on_about_id_pressed(id: int) -> void:
 		2:
 			get_parent().add_child(tutorial_scene.instantiate())
 
+
+func _setup_grid() -> void:
+	var overlay_script: Script = preload("res://Scripts/UI/Others/grid.gd")
+	var origin: Node2D = null
+	if Global.main != null and is_instance_valid(Global.main):
+		origin = Global.main.get_node_or_null("SubViewportContainer/SubViewport/Node2D/Origin") as Node2D
+
+	if origin == null:
+		call_deferred("_setup_grid")
+		return
+
+	if Global.grid_overlay == null or !is_instance_valid(Global.grid_overlay):
+		var overlay: Node2D = Node2D.new()
+		overlay.set_script(overlay_script)
+		overlay.name = "GridOverlay"
+		origin.add_child(overlay)
+		Global.grid_overlay = overlay
+
+	Global.grid_overlay.visible = Global.grid_visible and Global.mode != 1
+
+	var popup: PopupMenu = grid_button.get_popup()
+	popup.set_item_checked(0, Global.grid_visible)
+	popup.set_item_checked(1, Global.grid_snap)
+	popup.set_item_text(2, "Snap Size: %.1f px" % Global.grid_size)
+
+func _on_grid_id_pressed(id: int) -> void:
+	match id:
+		0:
+			Global.grid_visible = !Global.grid_visible
+			if Global.grid_overlay != null and is_instance_valid(Global.grid_overlay):
+				Global.grid_overlay.visible = Global.grid_visible
+		1:
+			Global.grid_snap = !Global.grid_snap
+			if Global.grid_snap:
+				for sprite in Global.held_sprites:
+					var snapped: Vector2 = Global.snap_position(sprite.position)
+					sprite.position = snapped
+					sprite.sprite_data.position = snapped
+					sprite.save_state(Global.current_state)
+			Global.update_pos_spins.emit()
+		2:
+			_show_grid_size_dialog()
+
+	var popup: PopupMenu = grid_button.get_popup()
+	popup.set_item_checked(0, Global.grid_visible)
+	popup.set_item_checked(1, Global.grid_snap)
+	popup.set_item_text(2, "Snap Size: %.1f px" % Global.grid_size)
+
+func _on_grid_theme_update(new_theme: Theme = null) -> void:
+	if grid_size_dialog != null and is_instance_valid(grid_size_dialog):
+		grid_size_dialog.theme = new_theme if new_theme != null else Settings.current_theme
+
+func _show_grid_size_dialog() -> void:
+	if grid_size_dialog != null and is_instance_valid(grid_size_dialog):
+		grid_size_dialog.theme = Settings.current_theme
+		grid_size_dialog.popup_centered()
+		grid_size_spinbox.grab_focus()
+		grid_size_spinbox.get_line_edit().select_all()
+		return
+
+	grid_size_dialog = AcceptDialog.new()
+	grid_size_dialog.theme = Settings.current_theme
+	grid_size_dialog.title = "Grid Snap Size"
+	grid_size_dialog.ok_button_text = "Apply"
+	grid_size_dialog.min_size = Vector2i(320, 130)
+
+	var container: VBoxContainer = VBoxContainer.new()
+	container.add_theme_constant_override("separation", 8)
+	grid_size_dialog.add_child(container)
+
+	var label: Label = Label.new()
+	label.text = "Snap distance (0.1 to 100 pixels):"
+	container.add_child(label)
+
+	grid_size_spinbox = SpinBox.new()
+	grid_size_spinbox.min_value = 0.1
+	grid_size_spinbox.max_value = 100.0
+	grid_size_spinbox.step = 0.1
+	grid_size_spinbox.value = Global.grid_size
+	grid_size_spinbox.allow_greater = false
+	grid_size_spinbox.allow_lesser = false
+	grid_size_spinbox.tooltip_text = "Distance between snap points in pixels."
+	container.add_child(grid_size_spinbox)
+
+	grid_size_dialog.confirmed.connect(_apply_grid_size)
+	get_tree().current_scene.add_child(grid_size_dialog)
+	grid_size_dialog.popup_centered()
+	grid_size_spinbox.grab_focus()
+	grid_size_spinbox.get_line_edit().select_all()
+
+func _apply_grid_size() -> void:
+	if grid_size_spinbox == null:
+		return
+	Global.grid_size = clampf(grid_size_spinbox.value, 0.1, 100.0)
+
+	if Global.grid_overlay != null and is_instance_valid(Global.grid_overlay):
+		Global.grid_overlay.queue_redraw()
+
+	if Global.grid_snap:
+		for sprite in Global.held_sprites:
+			var snapped: Vector2 = Global.snap_position(sprite.position)
+			sprite.position = snapped
+			sprite.sprite_data.position = snapped
+			sprite.save_state(Global.current_state)
+		Global.update_pos_spins.emit()
+
+	var popup: PopupMenu = grid_button.get_popup()
+	popup.set_item_text(2, "Snap Size: %.1f px" % Global.grid_size)
 
 func _notification(what: int) -> void:
 	if not Global.is_editor:

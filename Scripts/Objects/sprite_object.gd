@@ -34,7 +34,7 @@ func _ready():
 	Global.deselect.connect(desel)
 	grab_object.button_down.connect(_on_grab_button_down)
 	grab_object.button_up.connect(_on_grab_button_up)
-	
+
 	await get_tree().create_timer(0.1).timeout
 	if sprite_object == null or static_collision == null: return
 	static_collision.shape.radius = 500
@@ -84,9 +84,9 @@ func animation():
 		if (get_value("hframes")*get_value("vframes")) - 1 > 1:
 			if !get_value("animate_to_mouse"):
 				%Sprite2D.frame = get_value("frame")
-	
+
 	if is_inside_tree():
-		$Animation.wait_time = 1.0/get_value("animation_speed") 
+		$Animation.wait_time = 1.0/get_value("animation_speed")
 		$Animation.start()
 
 func _process(_delta):
@@ -99,7 +99,7 @@ func _process(_delta):
 		%Selection.frame = %Sprite2D.frame
 		%Selection.flip_h = %Sprite2D.flip_h
 		%Selection.flip_v = %Sprite2D.flip_v
-		
+
 		if get_value("wiggle"):
 			%WiggleOrigin.show()
 			var pos = (%Sprite2D.material.get_shader_parameter("rotation_offset") * %Sprite2D.texture.get_size())/2
@@ -110,28 +110,30 @@ func _process(_delta):
 		else:
 			%Selection.material.set_shader_parameter("wiggle", false)
 			%WiggleOrigin.hide()
-		
+
 	else:
 		%Grab.mouse_filter = Control.MouseFilter.MOUSE_FILTER_IGNORE
 		%Selection.hide()
 		%Grab.modulate.a = 0.0
 		%WiggleOrigin.hide()
-	
+
 	if dragging:
 		var mouse_pos = get_parent().to_local(get_global_mouse_position())
 		for s in Global.held_sprites:
-			s.position = mouse_pos - drag_offsets[s]
-			s.sprite_data.position = s.position
+			var new_position: Vector2 = mouse_pos - drag_offsets[s]
+			new_position = Global.snap_position(new_position)
+			s.position = new_position
+			s.sprite_data.position = new_position
 			s.save_state(Global.current_state)
 		Global.update_pos_spins.emit()
-		
+
 	if !Global.static_view:
 		if get_value("wiggle"):
 			wiggle_sprite()
 	else:
 		if get_value("wiggle"):
 			%Sprite2D.material.set_shader_parameter("rotation", 0)
-		
+
 	advanced_lipsyc()
 
 func _on_grab_button_down():
@@ -168,9 +170,9 @@ func wiggle_sprite():
 					var c_parrent_length = movements_node.glob.y - drag_node.global_position.y
 					var c_parrent_length2 = movements_node.glob.x - drag_node.global_position.x
 					length += (c_parrent_length + c_parrent_length2) / 50.0
-	
+
 	wiggle_val = lerp(wiggle_val, sin((Global.tick * get_value("wiggle_freq"))+length)*get_value("wiggle_amp"), 0.05)
-	
+
 	if !get_parent() is Sprite2D:
 		%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
 	elif get_parent() is Sprite2D:
@@ -202,12 +204,12 @@ func get_state(id):
 		sprite_data.merge(dict, true)
 		if get_value("should_reset_state"):
 			%ReactionConfig.reset_anim()
-		
+
 		var old_glob = global_position
 		position = get_value("position")
-		%Sprite2D.position = get_value("offset") 
+		%Sprite2D.position = get_value("offset")
 		%Sprite2D.scale = Vector2(1,1)
-		
+
 		%Modifier1.z_index = get_value("z_index")
 		modulate = get_value("colored")
 		%Sprite2D.self_modulate = get_value("tint")
@@ -215,22 +217,22 @@ func get_state(id):
 		static_collision.disabled = !get_value("can_be_hit")
 		%HitDetection.set_collision_layer_value(2, get_value("can_be_hit"))
 	#	global_position = get_value("global_position")
-		
-		
+
+
 		if (global_position - old_glob).length() > get_value("drag_snap") && get_value("drag_snap") != 999999.0:
 			%Modifier.global_position = %Modifier1.global_position
 			%Dragger.global_position = %Modifier.global_position
-		
+
 		%Sprite2D.set_clip_children_mode(get_value("clip"))
 		rotation = get_value("rotation")
 		%Sprite2D.material.set_shader_parameter("wiggle", get_value("wiggle"))
 		%Sprite2D.material.set_shader_parameter("rotation_offset", get_value("wiggle_rot_offset"))
-		
+
 		if get_value("flip_sprite_h"):
 			%Sprite2D.scale.x = -1
 		else:
 			%Sprite2D.scale.x = 1
-		
+
 		if get_value("flip_sprite_v"):
 			%Sprite2D.scale.y = -1
 		else:
@@ -238,7 +240,7 @@ func get_state(id):
 
 		if get_value("advanced_lipsync"):
 			%Sprite2D.hframes = 6
-		
+
 		if !get_value("should_blink"):
 			%Modifier1.show()
 		else:
@@ -249,20 +251,20 @@ func get_state(id):
 		else:
 			modulate.a = get_value("colored").a
 			visible = get_value("visible")
-		
-			
+
+
 		animation()
 		set_blend(get_value("blend_mode"))
 		advanced_lipsyc()
-			
+
 		if !get_value("cycle") in range(Global.settings_dict.cycles.size() + 1):
 			sprite_data.cycle = 0
-		
+
 		if !get_value("should_blink"):
 			%Modifier1.modulate.a = 1
 			%Modifier1.show()
-		
-		
+
+
 	elif states[id].is_empty():
 		states[id] = sprite_data.duplicate(true)
 
