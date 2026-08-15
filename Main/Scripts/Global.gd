@@ -86,11 +86,11 @@ var settings_dict : Dictionary = {
 	dim_color = Color.DIM_GRAY,
 	auto_save = false,
 	auto_save_timer = 1.0,
-	
+
 	saved_inputs = [],
 	zoom = Vector2(1,1),
 	pan = Vector2(0, 0),
-	
+
 	should_delta = true,
 	max_fps = 60,
 	monitor = Monitor.ALL_SCREENS,
@@ -115,6 +115,19 @@ var spinbox_held : bool = false
 
 var main = null
 var sprite_container = null
+
+var grid_visible: bool = false
+var grid_snap: bool = false
+var grid_size: float = 1.0
+var grid_overlay: Node2D = null
+
+func snap_position(pos: Vector2) -> Vector2:
+	if !grid_snap or grid_size <= 0.0:
+		return pos
+	return Vector2(
+		round(pos.x / grid_size) * grid_size,
+		round(pos.y / grid_size) * grid_size
+	)
 var viewer = null
 var viewport = null
 var top_ui = null
@@ -138,7 +151,7 @@ var mesh_text_node : Node = null
 var save_path : String = ""
 var is_editor : bool = true:
 	set(x):
-		if x == is_editor: 
+		if x == is_editor:
 			is_editor = x
 			return
 		is_editor = x
@@ -172,7 +185,7 @@ func create_placeholders():
 func set_mode(new_mode) -> void:
 	if new_mode == mode: return
 	mode = new_mode
-	
+
 	match mode:
 		0:
 			get_viewport().transparent_bg = false
@@ -206,10 +219,10 @@ func set_mode(new_mode) -> void:
 				control.get_node("%BrushesPanel").show()
 				control.get_node("%BrushData").show()
 			is_editor = true
-	
+
 	for i in Global.get_tree().get_nodes_in_group("Meshes"):
 		i.get_node("%MeshEditor").queue_redraw()
-	
+
 	Settings.theme_settings.mode = mode
 	Settings.save()
 	mode_changed.emit(mode)
@@ -227,7 +240,7 @@ func load_sprite_states(state):
 	current_state = state
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		i.get_state(current_state)
-		
+
 	reinfo.emit()
 	animation_state.emit(current_state)
 	light_info.emit(current_state)
@@ -237,11 +250,11 @@ func get_sprite_states(state):
 	if state != current_state:
 		for i in get_tree().get_nodes_in_group("Sprites"):
 			i.save_state(current_state)
-	
+
 	current_state = state
 	for i in get_tree().get_nodes_in_group("Sprites"):
 		i.get_state(current_state)
-	
+
 	reinfo.emit()
 	animation_state.emit(current_state)
 	light_info.emit(current_state)
@@ -298,8 +311,8 @@ func moving_origin(delta):
 				i.global_position.x += 10 * delta
 
 				offset(i)
-			
-			
+
+
 		if main.can_scroll:
 			if Input.is_action_pressed("ctrl"):
 				if Input.is_action_just_pressed("lmb"):
@@ -325,12 +338,12 @@ func moving_sprite(delta):
 				i.position.y += 10 * delta
 				i.sprite_data.position.y += 10 * delta
 				update_spins()
-				
+
 			if Input.is_action_pressed("a"):
 				i.position.x -= 10 * delta
 				i.sprite_data.position.x -= 10 * delta
 				update_spins()
-				
+
 			elif Input.is_action_pressed("d"):
 				i.position.x += 10 * delta
 				i.sprite_data.position.x += 10 * delta

@@ -7,7 +7,7 @@ func _ready() -> void:
 	%ColorPickerButton.get_picker().presets_visible = false
 	%ColorPickerButton.get_picker().color_modes_visible = false
 	%BlendMode.get_popup().id_pressed.connect(_on_blend_state_pressed)
-	
+
 	Global.deselect.connect(nullfy)
 	Global.reinfo.connect(enable)
 	Global.update_offset_spins.connect(update_offset)
@@ -48,7 +48,7 @@ func enable():
 		if i != null && is_instance_valid(i):
 			if i.sprite_type == "Comment":
 				seen_comment = true
-			
+
 			%TintPickerButton.disabled = false
 			%ColorPickerButton.disabled = false
 			%EyeOption.disabled = false
@@ -66,7 +66,7 @@ func enable():
 			%ZOrderSpinbox.editable = true
 			%EyeOption.disabled = false
 			%MouthOption.disabled = false
-			
+
 			%OffsetXSpinBox.editable = true
 			%OffsetYSpinBox.editable = true
 			if !seen_comment:
@@ -76,7 +76,7 @@ func enable():
 				%FlipSpriteH.disabled = true
 				%FlipSpriteV.disabled = true
 			%RestModeOption.disabled = false
-			
+
 			set_data()
 
 func set_data():
@@ -88,25 +88,25 @@ func set_data():
 		%ZOrderSpinbox.value = i.get_value("z_index")
 		%SizeSpinBox.value = i.get_value("scale").x
 		%SizeSpinYBox.value = i.get_value("scale").y
-		
+
 		if i.get_node("%Sprite2D").get_clip_children_mode() == 0:
 			%ClipChildren.button_pressed = false
 		else:
 			%ClipChildren.button_pressed = true
-			
+
 		%BlendMode.text = i.get_value("blend_mode")
 		%OffsetXSpinBox.value = i.get_value("offset").x
 		%OffsetYSpinBox.value = i.get_value("offset").y
-		
+
 		%PosXSpinBox.value = i.get_value("position").x
 		%PosYSpinBox.value = i.get_value("position").y
 		%RotSpinBox.value = i.get_value("rotation") / 0.01745
-		
+
 		if !%PosXSpinBox.value_changed.is_connected(_on_pos_x_spin_box_value_changed):
 			%PosXSpinBox.value_changed.connect(_on_pos_x_spin_box_value_changed)
 			%PosYSpinBox.value_changed.connect(_on_pos_y_spin_box_value_changed)
 			%RotSpinBox.value_changed.connect(_on_rot_spin_box_value_changed)
-		
+
 		if i.get_value("should_blink"):
 			if i.get_value("open_eyes"):
 				%EyeOption.select(1)
@@ -114,7 +114,7 @@ func set_data():
 				%EyeOption.select(2)
 		else:
 			%EyeOption.select(0)
-		
+
 		if i.get_value("should_talk"):
 			if i.get_value("open_mouth"):
 				%MouthOption.select(1)
@@ -122,13 +122,13 @@ func set_data():
 				%MouthOption.select(2)
 		else:
 			%MouthOption.select(0)
-		
-		
+
+
 		%RestModeOption.select(i.rest_mode)
 		if i.sprite_type == "Sprite2D":
 			%FlipSpriteH.button_pressed = i.get_value("flip_sprite_h")
 			%FlipSpriteV.button_pressed = i.get_value("flip_sprite_v")
-		
+
 		elif i.sprite_type == "WiggleApp":
 			%FlipSpriteH.button_pressed = i.get_value("flip_h")
 			%FlipSpriteV.button_pressed = i.get_value("flip_v")
@@ -138,7 +138,7 @@ func set_data():
 func _on_blend_state_pressed(id):
 	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
-		var og_val = i.sprite_data.blend_mode 
+		var og_val = i.sprite_data.blend_mode
 		match id:
 			0:
 				i.sprite_data.blend_mode = "Normal"
@@ -148,21 +148,21 @@ func _on_blend_state_pressed(id):
 				i.sprite_data.blend_mode = "Subtract"
 			3:
 				i.sprite_data.blend_mode = "Multiply"
-				
+
 			4:
 				i.sprite_data.blend_mode = "Burn"
-				
+
 			5:
 				i.sprite_data.blend_mode = "HardMix"
-				
+
 			6:
 				i.sprite_data.blend_mode = "Cursed"
 		undo_redo_data.append({
 				node = i,
 				action = "blend_mode",
 				state = Global.current_state,
-				value = og_val, 
-				new_val = i.sprite_data.blend_mode 
+				value = og_val,
+				new_val = i.sprite_data.blend_mode
 			})
 		StateButton.multi_edit(i.sprite_data.blend_mode, "blend_mode", i, i.states)
 		%BlendMode.text = i.get_value("blend_mode")
@@ -216,12 +216,15 @@ func _on_tint_picker_button_color_changed(ncolor: Color) -> void:
 func _on_pos_x_spin_box_value_changed(value):
 	if %PosXSpinBox.get_line_edit().has_focus():
 		if should_change:
+			var snapped_value: float = value
+			if Global.grid_snap:
+				snapped_value = Global.snap_position(Vector2(value, 0.0)).x
 			var undo_redo_data : Array = []
 			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(value,i.position.y))
-				i.sprite_data.position.x = value
-				i.position.x = value
-				StateButton.multi_edit(value, "position", i, i.states, true, "x")
+				var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(snapped_value,i.position.y))
+				i.sprite_data.position.x = snapped_value
+				i.position.x = snapped_value
+				StateButton.multi_edit(snapped_value, "position", i, i.states, true, "x")
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
@@ -229,12 +232,15 @@ func _on_pos_x_spin_box_value_changed(value):
 func _on_pos_y_spin_box_value_changed(value):
 	if %PosYSpinBox.get_line_edit().has_focus():
 		if should_change:
+			var snapped_value: float = value
+			if Global.grid_snap:
+				snapped_value = Global.snap_position(Vector2(0.0, value)).y
 			var undo_redo_data : Array = []
 			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(i.position.x,value))
-				i.sprite_data.position.y = value
-				i.position.y = value
-				StateButton.multi_edit(value, "position", i, i.states, true, "y")
+				var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(i.position.x,snapped_value))
+				i.sprite_data.position.y = snapped_value
+				i.position.y = snapped_value
+				StateButton.multi_edit(snapped_value, "position", i, i.states, true, "y")
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
@@ -265,7 +271,7 @@ func _on_visible_toggled(toggled_on):
 				i.sprite_data.visible = false
 				i.visible = false
 				i.treeitem.set_button(0, 0, preload("res://UI/Assets/EyeButton2.png"))
-			
+
 			StateButton.multi_edit(i.sprite_data.visible, "visible", i, i.states)
 			i.save_state(Global.current_state)
 			undo_redo_data.append(d)
@@ -340,12 +346,12 @@ func _on_offset_x_spin_box_value_changed(value):
 				i.sprite_data.offset.x = value
 				StateButton.multi_edit(i.sprite_data.position.x, "position", i, i.states, true, "x")
 				StateButton.multi_edit(value, "offset", i, i.states, true, "x")
-				
+
 				i.get_node("%Sprite2D").position.x = i.get_value("offset").x
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
 			UndoRedoManager.push_data(undo_redo_data)
-			
+
 		update_pos_spins()
 
 func _on_flip_sprite_h_toggled(toggled_on: bool) -> void:
@@ -359,7 +365,7 @@ func _on_flip_sprite_h_toggled(toggled_on: bool) -> void:
 					i.get_node("%Sprite2D").scale.x = -1
 				else:
 					i.get_node("%Sprite2D").scale.x = 1
-				
+
 				StateButton.multi_edit(toggled_on, "flip_sprite_h", i, i.states)
 				undo_redo_data.append(d)
 				i.save_state(Global.current_state)
@@ -389,7 +395,7 @@ func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 				StateButton.multi_edit(toggled_on, "flip_sprite_v", i, i.states)
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
-				
+
 			elif i.sprite_type == "WiggleApp":
 				var d = submit_to_undo_redo_manager(i, "flip_v", Global.current_state, i.sprite_data.flip_h , toggled_on)
 				i.sprite_data.flip_v = toggled_on
@@ -400,7 +406,7 @@ func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 				StateButton.multi_edit(toggled_on, "flip_v", i, i.states)
 				i.save_state(Global.current_state)
 				undo_redo_data.append(d)
-			
+
 		UndoRedoManager.push_data(undo_redo_data)
 
 func _on_clip_children_toggled(toggled_on: bool) -> void:
@@ -434,11 +440,11 @@ func _on_eye_option_item_selected(index: int) -> void:
 				2:
 					i.sprite_data.should_blink = true
 					i.sprite_data.open_eyes = false
-				
+
 			StateButton.multi_edit(i.sprite_data.should_blink, "should_blink", i, i.states)
 			StateButton.multi_edit(i.sprite_data.open_eyes, "open_eyes", i, i.states)
-			
-		
+
+
 		Global.blink.emit()
 
 func _on_mouth_option_item_selected(index: int) -> void:
@@ -467,7 +473,7 @@ func submit_to_undo_redo_manager(node, action, state, value, new_value) -> Dicti
 				node = node,
 				action = action,
 				state = state,
-				value = value, 
+				value = value,
 				new_val =new_value
 			}
 	return d
