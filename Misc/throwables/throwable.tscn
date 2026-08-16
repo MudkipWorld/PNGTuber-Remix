@@ -6,6 +6,8 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vemx8"]
 resource_local_to_scene = true
+friction = 0.0
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vemx8"]
 resource_local_to_scene = true

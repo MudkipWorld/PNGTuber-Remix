@@ -7,7 +7,7 @@ var selected_items : Array = []
 var throw_per_trigger : int = 1
 var spawn_variance : float = 0.0
 var both_sides : bool = false
-var is_paused : bool = false
+static var is_paused : bool = false
 var current_throw_generation : int = 0
 var base_mass : float = 1
 var time_variance : float = 0.15
@@ -39,7 +39,9 @@ func _update_position():
 	var rad = deg_to_rad(spawn_degree)
 	var offset = Vector2(sin(rad), -cos(rad)) * spawn_distance
 	var target_global = get_target_global_position()
-	position = get_parent().to_local(target_global + offset)
+	var pos : Vector2 = get_parent().to_local(target_global + offset)
+	if !position.is_equal_approx(pos):
+		position = pos
 	if show_pointer_origin && Global.mode == 0:
 		%Pointer.show()
 		
@@ -95,7 +97,7 @@ func throw_random_items(amount: int, custom_variance: float = -1.0, custom_both_
 			
 		var spawn_global_pos = target_global_pos + offset_from_target
 		spawn.position = to_local(spawn_global_pos)
-		get_parent().add_child(spawn)
+		add_child(spawn)
 		
 		var impulse_dir = (target_global_pos - spawn_global_pos).normalized()
 		var impulse = impulse_dir * throw_force
@@ -132,7 +134,7 @@ func throw_specific_item(img_data: ImageData, amount: int = 1, custom_variance: 
 			
 		var spawn_global_pos = target_global_pos + offset_from_target
 		spawn.position = to_local(spawn_global_pos)
-		get_parent().add_child(spawn)
+		add_child(spawn)
 		
 		var impulse_dir = (target_global_pos - spawn_global_pos).normalized()
 		var impulse = impulse_dir * throw_force

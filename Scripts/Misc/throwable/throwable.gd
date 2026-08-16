@@ -6,6 +6,8 @@ var throw_resource : ThrowableResource
 @export var sprite_object : Sprite2D
 @export var collision : CollisionShape2D
 var audio_played : bool = false
+var tween : Tween
+
 
 func _ready() -> void:
 	if sprite_object == null or collision == null: return
@@ -46,7 +48,20 @@ func _physics_process(_delta: float) -> void:
 					%AudioPlayer.play()
 				obj.get_node("%Movements").hit_rotation -= vel.normalized().x * obj.get_value("reaction_strength") * mass
 				audio_played = true
+	
+	if tween == null && ThrowablesSpawner.is_paused:
+		fade_out()
+		set_physics_process(false)
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	await get_tree().create_timer(2).timeout
+	fade_out()
+
+func fade_out():
+	if tween:
+		return
+	
+	tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 1.0)
+	await tween.finished
 	queue_free()
