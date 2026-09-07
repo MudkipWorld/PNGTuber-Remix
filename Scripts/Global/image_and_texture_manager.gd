@@ -206,18 +206,24 @@ static func load_gif_from_buffer(buffer, image_data = null):
 		image_data.animated_frames.append(new_frame)
 
 static func _on_flip_h(texture) -> Texture2D:
+	if texture == null : return texture
+	if texture.get_image() == null: return texture
 	var diff_img : Image = texture.get_image().duplicate(true)
 	diff_img.flip_x()
 	var diff_texture = ImageTexture.create_from_image(diff_img)
 	return diff_texture
 
 static func _on_flip_v(texture) -> Texture2D:
+	if texture == null : return texture
+	if texture.get_image() == null: return texture
 	var diff_img : Image = texture.get_image().duplicate(true)
 	diff_img.flip_y()
 	var diff_texture = ImageTexture.create_from_image(diff_img)
 	return diff_texture
 
 static func _on_rotate_image(texture, obj = null) -> Texture2D:
+	if texture == null : return texture
+	if texture.get_image() == null: return texture
 	var diff_img : Image = texture.get_image().duplicate(true)
 	for i in obj.rotated:
 		diff_img.rotate_90(CLOCKWISE)
