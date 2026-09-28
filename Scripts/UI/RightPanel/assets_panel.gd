@@ -85,11 +85,37 @@ func _on_add_cycle_pressed() -> void:
 
 
 func _on_delete_cycle_pressed() -> void:
-	if %CycleChoice.get_selected_id() != 0:
-		Global.settings_dict.cycles.remove_at(%CycleChoice.get_selected_id() - 1)
-		# TODO: move forward remained IDs after the deleted ID
-		%CycleChoiceSprite.remove_item(%CycleChoice.get_selected_id())
-		%CycleChoice.remove_item(%CycleChoice.get_selected_id())
+	var deleted : int = %CycleChoice.get_selected_id()
+	if deleted <= 0 or deleted > Global.settings_dict.cycles.size():
+		return
+	Global.settings_dict.cycles.remove_at(deleted - 1)
+
+	# Cycle numbers are 1-based indexes into settings_dict.cycles, so sprites using a
+	# later cycle move down by one and sprites in the deleted cycle go back to None.
+	for sprite in get_tree().get_nodes_in_group("Sprites"):
+		if sprite == null or !is_instance_valid(sprite):
+			continue
+		var was_in_deleted : bool = sprite.sprite_data.get("cycle", 0) == deleted
+		sprite.sprite_data.cycle = _cycle_after_delete(sprite.sprite_data.get("cycle", 0), deleted)
+		for st in sprite.states:
+			if st is Dictionary and st.has("cycle"):
+				st.cycle = _cycle_after_delete(st.cycle, deleted)
+		if was_in_deleted:
+			sprite.get_node("%Sprite2D").show()
+
+	# Rebuild both dropdowns so item IDs match the new cycle indexes again (#65)
+	update_cycle_choice()
+	%CycleChoice.select(0)
+	_on_cycle_choice_item_selected(0)
+	if Global.held_sprites.size() > 0 and is_instance_valid(Global.held_sprites[0]):
+		%CycleChoiceSprite.select(Global.held_sprites[0].sprite_data.cycle)
+
+func _cycle_after_delete(cycle : int, deleted : int) -> int:
+	if cycle == deleted:
+		return 0
+	if cycle > deleted:
+		return cycle - 1
+	return cycle
 
 func _on_cycle_choice_sprite_item_selected(index: int) -> void:
 	if %CycleChoice.get_selected_id() != 0:
