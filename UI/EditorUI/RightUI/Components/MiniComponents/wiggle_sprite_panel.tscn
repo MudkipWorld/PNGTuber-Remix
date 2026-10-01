@@ -57,6 +57,7 @@ layout_mode = 2
 sp_type = ""
 label_text = "TR_ROT_THRESH"
 max_value = 10.0
+step = 0.01
 ui_type = 1
 value_to_update = "rotation_threshold"
 

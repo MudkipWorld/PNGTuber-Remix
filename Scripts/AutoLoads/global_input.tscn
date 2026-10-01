@@ -1,9 +1,11 @@
-[gd_scene format=3 uid="uid://rynbi5p27q1a"]
+[gd_scene load_steps=3 format=3 uid="uid://rynbi5p27q1a"]
 
 [ext_resource type="Script" uid="uid://c0qommc823y23" path="res://Scripts/AutoLoads/cycle.gd" id="1_13c7p"]
+[ext_resource type="Script" uid="uid://wgf4xm32sw07" path="res://Scripts/Global/StandGlobalInput.gd" id="1_jwel8"]
 
-[node name="GlobalInput" type="GlobalInput" unique_id=784182461]
-physics_interpolation_mode = 2
+[node name="GlobalInput" type="GlobalInput"]
+script = ExtResource("1_jwel8")
 
-[node name="Cycle" type="Node" parent="." unique_id=124913555]
+[node name="Cycle" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_13c7p")

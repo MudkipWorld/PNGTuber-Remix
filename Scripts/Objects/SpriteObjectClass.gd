@@ -160,7 +160,7 @@ const DEFAULT_DATA := {
 	
 	
 	# Other stuff idk
-	blend_mode = "Normal",
+	blend_mode = "TR_BLEND_NORMAL",
 	visible = true,
 	colored = Color.WHITE,
 	tint = Color.WHITE,
@@ -176,6 +176,7 @@ const DEFAULT_DATA := {
 	position = Vector2.ZERO,
 	rotation = 0.0,
 	offset = Vector2(0,0),
+	skew = Vector2(0,0),
 	ignore_bounce = false,
 	clip = 0,
 	fade = false,
@@ -187,6 +188,7 @@ const DEFAULT_DATA := {
 	should_reset = false,
 	should_reset_state = false,
 	one_shot = false,
+ 	never_reset = false,
 	rainbow = false,
 	rainbow_self = false,
 	rainbow_speed = 0.01,
@@ -231,6 +233,13 @@ const DEFAULT_DATA := {
 	mesh_phys_y = 75,
 	
 	use_object_pos = false,
+	# Mouse-follow range mapping (position follow only).
+	# false (default) = legacy 1.4.x rule: the Range X/Y sliders define how far
+	#   the mouse must move from the screen centre to reach min/max, so min/max
+	#   can be hit before the mouse reaches the screen edge.
+	# true = the min/max values are only reached when the mouse touches the edge
+	#   of the selected screen area.
+	use_screen_edge_range = false,
 	phys_eff = 25.0,
 	
 	can_be_hit = false,
@@ -239,6 +248,10 @@ const DEFAULT_DATA := {
 	
 	}
 
+var reaction_config = %ReactionConfig
+var modifier : Node2D = %Modifier
+var modifier1 : Node2D = %Modifier1
+var movements = %Movements
 @export var sprite_object : Node2D
 @export var grab_object : BaseButton
 @export var static_collision : CollisionShape2D
@@ -248,6 +261,8 @@ var referenced_data : ImageData  = null
 var referenced_data_normal : ImageData = null
 
 var tween : Tween
+var tween_speaking : Tween
+var tween_blinking : Tween
 #Movement
 var heldTicks = 0
 #Wobble
@@ -287,9 +302,14 @@ var was_active_before : bool = true
 var show_only : bool = false
 var should_disappear : bool = false
 var hold_to_show : bool = false
+var min_duration : float = 0.0
+var cast_time : float = 0.0
+var inclusive_key_check : bool = false
 var saved_keys : Array = []
 var disappear_keys : String = str(sprite_id) + "Disappear"
 var rest_mode : int = 0
+var ignore_if_rest : bool = false
+var auto_show : bool = false
 
 var last_mouse_position : Vector2 = Vector2(0,0)
 var last_dist : Vector2 = Vector2(0,0)
@@ -303,6 +323,14 @@ var drag_offsets = {}
 var target_ik : SpriteObject = null
 
 var hidden_target_id_check : float = -1
+
+#region shader
+@onready var sprite_normal_shader = (sprite_object.material as ShaderMaterial).shader
+var sprite_add_shader = preload("res://Scripts/Shaders/SpriteAddShader.gdshader")
+var sprite_sub_shader = preload("res://Scripts/Shaders/SpriteSubShader.gdshader")
+var sprite_multiply_shader = preload("res://Scripts/Shaders/SpriteMultiplyShader.gdshader")
+var sprite_masking_shader = preload("res://Scripts/Shaders/SpriteMaskingShader.gdshader")
+#endregion
 
 func get_default_object_data() -> Dictionary:
 	return {}
@@ -357,10 +385,11 @@ func get_value(key: String) -> Variant:
 	var state := Global.editing_for
 	
 	if state == Global.Mouth.Closed:
-		state = Global.mouth
+		return default
+		#state = Global.mouth
 	
 	match state:
-		Global.Mouth.Closed: pass
+		#Global.Mouth.Closed: return default
 		Global.Mouth.Open: key = "mo_" + key
 		Global.Mouth.Screaming: key = "scream_" + key
 	
@@ -371,26 +400,38 @@ func get_value(key: String) -> Variant:
 
 func set_blend(blend):
 	match  blend:
+		# TODO Completely upgrade other blend mode(SpriteShader)： Burn, HardMix, Cursed
 		"Normal":
+			(sprite_object.material as ShaderMaterial).shader = sprite_normal_shader
 			sprite_object.material.set_shader_parameter("enabled", false)
 		"Add":
+			(sprite_object.material as ShaderMaterial).shader = sprite_add_shader
 			sprite_object.material.set_shader_parameter("enabled", true)
-			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
+			#sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/add.png"))
 		"Subtract":
+			(sprite_object.material as ShaderMaterial).shader = sprite_sub_shader
 			sprite_object.material.set_shader_parameter("enabled", true)
-			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
+			#sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/exclusion.png"))
 		"Multiply":
+			(sprite_object.material as ShaderMaterial).shader = sprite_multiply_shader
 			sprite_object.material.set_shader_parameter("enabled", true)
-			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
+			#sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
 		"Burn":
+			(sprite_object.material as ShaderMaterial).shader = sprite_normal_shader
 			sprite_object.material.set_shader_parameter("enabled", true)
 			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/burn.png"))
 		"HardMix":
+			(sprite_object.material as ShaderMaterial).shader = sprite_normal_shader
 			sprite_object.material.set_shader_parameter("enabled", true)
 			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/hardmix.png"))
 		"Cursed":
+			(sprite_object.material as ShaderMaterial).shader = sprite_normal_shader
 			sprite_object.material.set_shader_parameter("enabled", true)
 			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/test1.png"))
+		"Masking":
+			(sprite_object.material as ShaderMaterial).shader = sprite_masking_shader
+			sprite_object.material.set_shader_parameter("enabled", true)
+			sprite_object.material.set_shader_parameter("Blend", preload("res://Misc/EasyBlend/Blends/multiply.png"))
 
 func reparent_obj(parent, no_global : bool = false):
 	for i in parent:
@@ -403,6 +444,7 @@ func reparent_obj(parent, no_global : bool = false):
 				i.get_parent().remove_child(i)
 				%Sprite2D.add_child(i)
 				i.global_position = og_pos
+				i.visibility_changed.emit()
 
 func image_replaced(image_date : ImageData):
 	if !get_value("folder"):
@@ -461,22 +503,35 @@ func trigger_fade(was_visible: bool):
 		visible = false
 
 func fade_asset(was_visible: bool, node: Node, node_hide: Node) -> bool:
-	if tween:
-		tween.kill()
+	var tween_name
+	if node == %Modifier:
+		tween_name = "tween_speaking"
+	elif node == %Modifier1:
+		tween_name = "tween_blinking"
+	else:
+		tween_name = "tween"
+		
+	var start_a = node.modulate.a
+	if self[tween_name]:
+		self[tween_name].kill()
 	var target = !was_visible
 	node_hide.visible = true  
 	if target:
-		node.modulate.a = 0.0
-		tween = get_tree().create_tween()
-		tween.tween_property(node, "modulate:a", get_value("colored").a, get_value("fade_speed_asset"))
-		await tween.finished
-		node.modulate.a = get_value("colored").a
+		if start_a == 1.0:
+			return true
+		node.modulate.a = start_a
+		self[tween_name] = get_tree().create_tween()
+		self[tween_name].tween_property(node, "modulate:a", 1.0, get_value("fade_speed_asset") * (1.0 - start_a))
+		await self[tween_name].finished
+		node.modulate.a = 1.0
 		return true
 	else:
-		node.modulate.a = get_value("colored").a
-		tween = get_tree().create_tween()
-		tween.tween_property(node, "modulate:a", 0.0, get_value("fade_speed_asset"))
-		await tween.finished
+		if start_a == 0.0:
+			return false
+		node.modulate.a = start_a
+		self[tween_name] = get_tree().create_tween()
+		self[tween_name].tween_property(node, "modulate:a", 0.0, get_value("fade_speed_asset") * start_a)
+		await self[tween_name].finished
 		node_hide.visible = false
 		return false
 
@@ -485,3 +540,21 @@ func reference_ik_target():
 		if i.sprite_id == hidden_target_id_check:
 			target_ik = i
 			break
+
+func fade_reset(node: Node = self):
+	var tween_name
+	if node == %Modifier:
+		tween_name = "tween_speaking"
+	elif node == %Modifier1:
+		tween_name = "tween_blinking"
+	else:
+		tween_name = "tween"
+	
+	if self[tween_name]:
+		self[tween_name].kill()
+	node.modulate.a = 1.0
+
+func sync_sprite_cycle_in_states():
+	for s in states:
+		s.is_cycle = sprite_data.is_cycle
+		s.cycle = sprite_data.cycle

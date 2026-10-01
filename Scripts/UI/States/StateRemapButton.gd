@@ -56,4 +56,5 @@ func _on_remove_pressed():
 	if StateButton.selected_state != null && is_instance_valid(StateButton.selected_state):
 		if InputMap.action_get_events(StateButton.selected_state.input_key).size() != 0:
 			InputMap.action_erase_events(StateButton.selected_state.input_key)
+			StateButton.selected_state.saved_event = null
 			update_key_text()

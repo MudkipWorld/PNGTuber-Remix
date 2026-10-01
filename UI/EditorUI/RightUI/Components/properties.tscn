@@ -11,7 +11,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="PropertiesScript" type="Node" parent="." unique_id=402965527]
 script = ExtResource("1_q3kfe")
@@ -123,6 +122,7 @@ size_flags_horizontal = 3
 min_value = -99999.0
 max_value = 99999.0
 step = 0.1
+script = ExtResource("1_tcd20")
 
 [node name="SizeLabel" type="Label" parent="VBoxContainer/Layouts" unique_id=1849689830]
 custom_minimum_size = Vector2(74, 0)
@@ -153,6 +153,40 @@ size_flags_horizontal = 3
 min_value = 0.1
 step = 0.01
 value = 1.0
+script = ExtResource("1_tcd20")
+
+[node name="SkewXLabel" type="Label" parent="VBoxContainer/Layouts"]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 15
+text = "TR_SKEW_X"
+
+[node name="SkewSpinXBox" type="SpinBox" parent="VBoxContainer/Layouts"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -89.9
+max_value = 89.9
+step = 0.1
+value = 0.1
+script = ExtResource("1_tcd20")
+
+[node name="SkewYLabel" type="Label" parent="VBoxContainer/Layouts"]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 15
+text = "TR_SKEW_Y"
+
+[node name="SkewSpinYBox" type="SpinBox" parent="VBoxContainer/Layouts"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -89.9
+max_value = 89.9
+step = 0.1
+value = 0.1
 script = ExtResource("1_tcd20")
 
 [node name="Sp3" type="HSeparator" parent="VBoxContainer" unique_id=690604835]
@@ -239,9 +273,10 @@ text = "TR_BLEND_LABEL"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "TR_BLEND_TOOLTIP"
 theme_override_font_sizes/font_size = 16
 selected = 0
-item_count = 7
+item_count = 8
 popup/item_0/text = "TR_BLEND_NORMAL"
 popup/item_0/id = 0
 popup/item_1/text = "TR_BLEND_ADD"
@@ -256,6 +291,8 @@ popup/item_5/text = "TR_BLEND_HARDMIX"
 popup/item_5/id = 5
 popup/item_6/text = "TR_BLEND_CURSED"
 popup/item_6/id = 6
+popup/item_7/text = "TR_BLEND_MASKING"
+popup/item_7/id = 101
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1710119569]
 layout_mode = 2
@@ -311,6 +348,7 @@ popup/item_2/id = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "TR_IGNORE_BOUNCE_TOOLTIP"
 theme_override_font_sizes/font_size = 16
 text = "TR_IGNORE_BOUNCE"
 script = ExtResource("2_7ymxr")
@@ -321,6 +359,7 @@ value_to_update = "ignore_bounce"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "TR_PHYSICS_TOOLTIP"
 theme_override_font_sizes/font_size = 16
 text = "TR_PHYSICS"
 script = ExtResource("2_7ymxr")
@@ -338,6 +377,7 @@ value_to_update = "static_obj"
 [node name="UseMouseVel" type="CheckBox" parent="VBoxContainer/Reactions" unique_id=8477927]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "TR_MOUSE_VELOCITY_TOOLTIP"
 text = "TR_MOUSE_VELOCITY"
 script = ExtResource("2_7ymxr")
 sp_type = ""
@@ -370,6 +410,7 @@ custom_minimum_size = Vector2(52, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "TR_REST_MODE_TOOLTIP"
+mouse_filter = 1
 theme_override_font_sizes/font_size = 16
 text = "TR_REST_MODE"
 
@@ -380,8 +421,8 @@ size_flags_horizontal = 3
 tooltip_text = "TR_REST_MODE_TOOLTIP"
 theme_override_font_sizes/font_size = 16
 selected = 0
-item_count = 6
-popup/item_0/text = "TR_DISABLED"
+item_count = 8
+popup/item_0/text = "TR_ALWAYS_ACTIVE"
 popup/item_0/id = 0
 popup/item_1/text = "TR_REST_FOLLOW"
 popup/item_1/id = 1
@@ -393,6 +434,10 @@ popup/item_4/text = "TR_DISABLE_MOVE"
 popup/item_4/id = 4
 popup/item_5/text = "TR_DISABLE_FOLLOW"
 popup/item_5/id = 5
+popup/item_6/text = "TR_DISABLE_BOTH"
+popup/item_6/id = 7
+popup/item_7/text = "TR_REST_MOVE_AND_RESET"
+popup/item_7/id = 6
 
 [node name="HiddenItem" type="CheckBox" parent="VBoxContainer/GridContainer" unique_id=203437404]
 unique_name_in_owner = true
@@ -413,6 +458,8 @@ value_to_update = "hidden_item"
 [connection signal="value_changed" from="VBoxContainer/Layouts/OffsetYSpinBox" to="PropertiesScript" method="_on_offset_y_spin_box_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Layouts/SizeSpinBox" to="PropertiesScript" method="_on_size_spin_box_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Layouts/SizeSpinYBox" to="PropertiesScript" method="_on_size_spin_y_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/SkewSpinXBox" to="PropertiesScript" method="_on_skew_spin_x_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Layouts/SkewSpinYBox" to="PropertiesScript" method="_on_skew_spin_y_box_value_changed"]
 [connection signal="toggled" from="VBoxContainer/Visibilty/Visible" to="PropertiesScript" method="_on_visible_toggled"]
 [connection signal="toggled" from="VBoxContainer/Visibilty/ClipChildren" to="PropertiesScript" method="_on_clip_children_toggled"]
 [connection signal="toggled" from="VBoxContainer/Visibilty/FlipSpriteH" to="PropertiesScript" method="_on_flip_sprite_h_toggled"]

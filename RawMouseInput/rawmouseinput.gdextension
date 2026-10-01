@@ -1,0 +1,9 @@
+[configuration]
+
+entry_symbol = "rawmouseinput_library_init"
+compatibility_minimum = "4.5"
+reloadable = true
+
+[libraries]
+windows.debug.x86_64 = "res://RawMouseInput/windows/rawmouseinput.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://RawMouseInput/windows/rawmouseinput.windows.template_release.x86_64.dll"

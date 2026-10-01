@@ -1,6 +1,7 @@
 extends Node
 
 var should_change : bool = false
+var undo_redo_data = []
 
 func _ready() -> void:
 	%ColorPickerButton.get_picker().picker_shape = 1
@@ -26,6 +27,8 @@ func nullfy():
 	%MouthOption.disabled = true
 	%SizeSpinBox.editable = false
 	%SizeSpinYBox.editable = false
+	%SkewSpinXBox.editable = false
+	%SkewSpinYBox.editable = false
 
 	%PosXSpinBox.editable = false
 	%PosYSpinBox.editable = false
@@ -55,6 +58,8 @@ func enable():
 			%MouthOption.disabled = false
 			%SizeSpinBox.editable = true
 			%SizeSpinYBox.editable = true
+			%SkewSpinXBox.editable = true
+			%SkewSpinYBox.editable = true
 
 			%PosXSpinBox.editable = true
 			%PosYSpinBox.editable = true
@@ -88,13 +93,16 @@ func set_data():
 		%ZOrderSpinbox.value = i.get_value("z_index")
 		%SizeSpinBox.value = i.get_value("scale").x
 		%SizeSpinYBox.value = i.get_value("scale").y
-
+		%SkewSpinXBox.value = i.get_value("skew").x
+		%SkewSpinYBox.value = i.get_value("skew").y
+		
 		if i.get_node("%Sprite2D").get_clip_children_mode() == 0:
 			%ClipChildren.button_pressed = false
 		else:
 			%ClipChildren.button_pressed = true
-
-		%BlendMode.text = i.get_value("blend_mode")
+		
+		%BlendMode.selected = %BlendMode.get_item_index(get_item_id_by_blend_mode(i.get_value("blend_mode")))
+		
 		%OffsetXSpinBox.value = i.get_value("offset").x
 		%OffsetYSpinBox.value = i.get_value("offset").y
 
@@ -124,7 +132,7 @@ func set_data():
 			%MouthOption.select(0)
 
 
-		%RestModeOption.select(i.rest_mode)
+		%RestModeOption.select(%RestModeOption.get_item_index(i.rest_mode))
 		if i.sprite_type == "Sprite2D":
 			%FlipSpriteH.button_pressed = i.get_value("flip_sprite_h")
 			%FlipSpriteV.button_pressed = i.get_value("flip_sprite_v")
@@ -135,53 +143,98 @@ func set_data():
 
 	should_change = true
 
+func get_item_id_by_blend_mode(blend_mode: String) -> int:
+	match blend_mode:
+		"Normal":
+			return 0
+		"Add":
+			return 1
+		"Subtract":
+			return 2
+		"Multiply":
+			return 3
+		"Burn":
+			return 4
+		"HardMix":
+			return 5
+		"Cursed":
+			return 6
+		"Masking":
+			return 101
+	return 0
+
+func get_blend_mode_by_id(id) -> String:
+	match id:
+		0:
+			return "Normal"
+		1:
+			return "Add"
+		2:
+			return "Subtract"
+		3:
+			return "Multiply"
+		4:
+			return "Burn"
+		5:
+			return "HardMix"
+		6:
+			return "Cursed"
+		101:
+			return "Masking"
+	return "Normal"
+
 func _on_blend_state_pressed(id):
-	var undo_redo_data : Array = []
+	undo_redo_data = []
 	for i in Global.held_sprites:
-		var og_val = i.sprite_data.blend_mode
-		match id:
-			0:
-				i.sprite_data.blend_mode = "Normal"
-			1:
-				i.sprite_data.blend_mode = "Add"
-			2:
-				i.sprite_data.blend_mode = "Subtract"
-			3:
-				i.sprite_data.blend_mode = "Multiply"
-
-			4:
-				i.sprite_data.blend_mode = "Burn"
-
-			5:
-				i.sprite_data.blend_mode = "HardMix"
-
-			6:
-				i.sprite_data.blend_mode = "Cursed"
-		undo_redo_data.append({
-				node = i,
-				action = "blend_mode",
-				state = Global.current_state,
-				value = og_val,
-				new_val = i.sprite_data.blend_mode
-			})
+		var d = submit_to_undo_redo_manager(i, "blend_mode", Global.current_state, i.sprite_data.blend_mode, get_blend_mode_by_id(id))
+		i.sprite_data.blend_mode = get_blend_mode_by_id(id)
 		StateButton.multi_edit(i.sprite_data.blend_mode, "blend_mode", i, i.states)
-		%BlendMode.text = i.get_value("blend_mode")
+		
 		i.set_blend(i.get_value("blend_mode"))
 		i.save_state(Global.current_state)
+		undo_redo_data.append(d)
+		
 	UndoRedoManager.push_data(undo_redo_data)
 
 func update_pos_spins():
+	var was_should_change = should_change
+	should_change = false
 	for i in Global.held_sprites:
-		%PosXSpinBox.value = i.position.x
-		%PosYSpinBox.value = i.position.y
-		%RotSpinBox.value = i.rotation / 0.01745
+		%PosXSpinBox.value = i.sprite_data.position.x
+		%PosYSpinBox.value =i.sprite_data.position.y
+		%RotSpinBox.value = rad_to_deg(i.sprite_data.rotation)
 		i.save_state(Global.current_state)
-
+	should_change = was_should_change
+	
 func update_offset():
+	var was_should_change = should_change
+	should_change = false
 	for i in Global.held_sprites:
 		%OffsetXSpinBox.value = i.get_value("offset").x
 		%OffsetYSpinBox.value = i.get_value("offset").y
 		update_pos_spins()
+	should_change = was_should_change
+	
+func init_undo_on_focus(spin_box: SpinBox):
+	if spin_box.get_line_edit().has_focus():
+		undo_redo_data = [] # new undo_redo_data
+		#print("init undo_redo: " + str(undo_redo_data))
+
+func add_or_merge_undo_redo(spin_box: SpinBox, data):
+	if spin_box.get_line_edit().has_focus():
+		undo_redo_data.append(data)
+	else:
+		for i in undo_redo_data:
+			if i.action == data.action:
+				i.merge({new_val = data.new_val}, true)
+	#print("modify undo_redo: " + str(undo_redo_data))
+
+func push_undo_redo_on_focus(spin_box: SpinBox):
+	if spin_box.get_line_edit().has_focus():
+		UndoRedoManager.push_data(undo_redo_data)
+		spin_box.get_line_edit().release_focus()
+		
+		print("push undo_redo: " + str(undo_redo_data))
 
 func _on_color_picker_button_color_changed(color: Color) -> void:
 	if should_change:
@@ -205,7 +258,7 @@ func _on_tint_picker_button_color_changed(ncolor: Color) -> void:
 	if should_change:
 		var undo_redo_data : Array = []
 		for i in Global.held_sprites:
-			var d = submit_to_undo_redo_manager(i, "tint", Global.current_state, i.sprite_data.tint , ncolor)
+			var d = submit_to_undo_redo_manager(i, "tint", Global.current_state, i.get_value("tint") , ncolor)
 			i.sprite_data.tint = ncolor
 			i.get_node("%Sprite2D").self_modulate = ncolor
 			StateButton.multi_edit(ncolor, "tint", i, i.states)
@@ -214,49 +267,52 @@ func _on_tint_picker_button_color_changed(ncolor: Color) -> void:
 		UndoRedoManager.push_data(undo_redo_data)
 
 func _on_pos_x_spin_box_value_changed(value):
-	if %PosXSpinBox.get_line_edit().has_focus():
-		if should_change:
-			var snapped_value: float = value
-			if Global.grid_snap:
-				snapped_value = Global.snap_position(Vector2(value, 0.0)).x
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(snapped_value,i.position.y))
-				i.sprite_data.position.x = snapped_value
-				i.position.x = snapped_value
-				StateButton.multi_edit(snapped_value, "position", i, i.states, true, "x")
-				i.save_state(Global.current_state)
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
+	if not should_change:
+		return
+	init_undo_on_focus(%PosXSpinBox)
+	for i in Global.held_sprites:
+		var snapped_value: float = value
+		if Global.grid_snap:
+			snapped_value = Global.snap_position(Vector2(value, 0.0)).x
+		var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(snapped_value,i.position.y))
+		i.sprite_data.position.x = snapped_value
+		i.position.x = snapped_value
+		StateButton.multi_edit(snapped_value, "position", i, i.states, true, "x")
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%PosXSpinBox, d)
+
+	push_undo_redo_on_focus(%PosXSpinBox)
 
 func _on_pos_y_spin_box_value_changed(value):
-	if %PosYSpinBox.get_line_edit().has_focus():
-		if should_change:
-			var snapped_value: float = value
-			if Global.grid_snap:
-				snapped_value = Global.snap_position(Vector2(0.0, value)).y
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(i.position.x,snapped_value))
-				i.sprite_data.position.y = snapped_value
-				i.position.y = snapped_value
-				StateButton.multi_edit(snapped_value, "position", i, i.states, true, "y")
-				i.save_state(Global.current_state)
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
+	if not should_change:
+		return
+	init_undo_on_focus(%PosYSpinBox)
+	for i in Global.held_sprites:
+		var snapped_value: float = value
+		if Global.grid_snap:
+			snapped_value = Global.snap_position(Vector2(0.0, value)).y
+		var d = submit_to_undo_redo_manager(i, "position", Global.current_state, i.position , Vector2(i.position.x,snapped_value))
+		i.sprite_data.position.y = snapped_value
+		i.position.y = snapped_value
+		StateButton.multi_edit(snapped_value, "position", i, i.states, true, "y")
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%PosYSpinBox, d)
+
+	push_undo_redo_on_focus(%PosYSpinBox)
 
 func _on_rot_spin_box_value_changed(value):
-	if %RotSpinBox.get_line_edit().has_focus():
-		if should_change:
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "rotation", Global.current_state, i.rotation , value)
-				i.rotation = value * 0.01745
-				i.sprite_data.rotation = value * 0.01745
-				StateButton.multi_edit(i.sprite_data.rotation, "rotation", i, i.states)
-				i.save_state(Global.current_state)
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
+	if not should_change:
+		return
+	init_undo_on_focus(%RotSpinBox)
+	for i in Global.held_sprites:
+		var d = submit_to_undo_redo_manager(i, "rotation", Global.current_state, i.rotation , value)
+		i.sprite_data.rotation = deg_to_rad(value)
+		i.apply_transform()
+		StateButton.multi_edit(i.sprite_data.rotation, "rotation", i, i.states)
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%RotSpinBox,d)
+		
+	push_undo_redo_on_focus(%RotSpinBox)
 
 func _on_visible_toggled(toggled_on):
 	if should_change:
@@ -278,85 +334,95 @@ func _on_visible_toggled(toggled_on):
 		UndoRedoManager.push_data(undo_redo_data)
 
 func _on_z_order_spinbox_value_changed(value):
-	if %ZOrderSpinbox.get_line_edit().has_focus():
-		if should_change:
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "z_index", Global.current_state, i.sprite_data.z_index , value)
-				i.sprite_data.z_index = value
-				StateButton.multi_edit(value, "z_index", i, i.states)
-				i.get_node("%Modifier1").z_index = value
-				i.save_state(Global.current_state)
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
+	if not should_change:
+		return
+	init_undo_on_focus(%ZOrderSpinbox)
+	for i in Global.held_sprites:
+		var d = submit_to_undo_redo_manager(i, "z_index", Global.current_state, i.sprite_data.z_index , value)
+		i.sprite_data.z_index = value
+		StateButton.multi_edit(value, "z_index", i, i.states)
+		i.get_node("%Modifier1").z_index = value
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%ZOrderSpinbox,d)
+		
+	push_undo_redo_on_focus(%ZOrderSpinbox)
 
 func _on_size_spin_y_box_value_changed(value):
-	if %SizeSpinYBox.get_line_edit().has_focus():
-		if should_change:
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "scale", Global.current_state, i.sprite_data.scale , Vector2(i.sprite_data.scale.x, value))
-				i.sprite_data.scale.y = value
-				i.scale.y = value
-				StateButton.multi_edit(value, "scale", i, i.states, true, )
-				i.save_state(Global.current_state)
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
+	if not should_change:
+		return
+	init_undo_on_focus(%SizeSpinYBox)
+	for i in Global.held_sprites:
+		var d = submit_to_undo_redo_manager(i, "scale", Global.current_state, i.sprite_data.scale , Vector2(i.sprite_data.scale.x, value))
+		i.sprite_data.scale.y = value
+		i.apply_transform()
+		StateButton.multi_edit(value, "scale", i, i.states, true, "y")
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%SizeSpinYBox,d)
+		
+	push_undo_redo_on_focus(%SizeSpinYBox)
 
 func _on_size_spin_box_value_changed(value):
-	if %SizeSpinBox.get_line_edit().has_focus():
-		if should_change:
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "scale", Global.current_state, i.sprite_data.scale , Vector2(value, i.sprite_data.scale.y))
-				i.sprite_data.scale.x = value
-				i.scale.x = value
-				StateButton.multi_edit(value, "scale", i, i.states, true, "x")
-				i.save_state(Global.current_state)
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
-
+	if not should_change:
+		return
+	init_undo_on_focus(%SizeSpinBox)
+	for i in Global.held_sprites:
+		var d = submit_to_undo_redo_manager(i, "scale", Global.current_state, i.sprite_data.scale , Vector2(value, i.sprite_data.scale.y))
+		i.sprite_data.scale.x = value
+		i.apply_transform()
+		StateButton.multi_edit(value, "scale", i, i.states, true, "x")
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%SizeSpinBox,d)
+		
+	push_undo_redo_on_focus(%SizeSpinBox)
+	
 func _on_offset_y_spin_box_value_changed(value):
-	if %OffsetYSpinBox.get_line_edit().has_focus():
-		if should_change:
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "offset", Global.current_state, i.sprite_data.offset , Vector2(i.sprite_data.offset.x, value))
-				var of = i.get_value("offset").y - value
-				i.sprite_data.position.y += of
-				i.position.y = i.get_value("position").y
-				i.sprite_data.offset.y = value
-				StateButton.multi_edit(i.sprite_data.position.y, "position", i, i.states, true, "y")
-				StateButton.multi_edit(value, "offset", i, i.states, true, "y")
-				i.get_node("%Sprite2D").position.y = i.get_value("offset").y
-				i.save_state(Global.current_state)
-				update_pos_spins()
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
+	if not should_change:
+		return
+	init_undo_on_focus(%OffsetYSpinBox)
+	for i in Global.held_sprites:
+		var of = i.get_value("offset").y - value
+		var d = submit_to_undo_redo_manager(i, "offset", Global.current_state, i.sprite_data.offset , Vector2(i.sprite_data.offset.x, value))
+		var d2 = submit_to_undo_redo_manager(i, "position", Global.current_state, i.sprite_data.position , Vector2(i.sprite_data.position.x, i.sprite_data.position.y +of))
+
+		i.sprite_data.position.y += of
+		i.position.y = i.get_value("position").y
+		i.sprite_data.offset.y = value
+		StateButton.multi_edit(i.sprite_data.position.y, "position", i, i.states, true, "y")
+		StateButton.multi_edit(value, "offset", i, i.states, true, "y")
+		i.get_node("%Sprite2D").position.y = i.get_value("offset").y
+		i.save_state(Global.current_state)
+		update_pos_spins()
+		add_or_merge_undo_redo(%OffsetYSpinBox,d)
+		add_or_merge_undo_redo(%OffsetYSpinBox,d2)
+		
+	push_undo_redo_on_focus(%OffsetYSpinBox)
 
 func _on_offset_x_spin_box_value_changed(value):
-	if %OffsetXSpinBox.get_line_edit().has_focus():
-		if should_change:
-			var undo_redo_data : Array = []
-			for i in Global.held_sprites:
-				var d = submit_to_undo_redo_manager(i, "offset", Global.current_state, i.sprite_data.offset , Vector2(value,i.sprite_data.offset.y))
-				var of = i.get_value("offset").x - value
-				i.sprite_data.position.x += of
-				i.position.x = i.get_value("position").x
-				i.sprite_data.offset.x = value
-				StateButton.multi_edit(i.sprite_data.position.x, "position", i, i.states, true, "x")
-				StateButton.multi_edit(value, "offset", i, i.states, true, "x")
-
-				i.get_node("%Sprite2D").position.x = i.get_value("offset").x
-				i.save_state(Global.current_state)
-				undo_redo_data.append(d)
-			UndoRedoManager.push_data(undo_redo_data)
-
+	if not should_change:
+		return
+	init_undo_on_focus(%OffsetXSpinBox)
+	for i in Global.held_sprites:
+		var of = i.get_value("offset").x - value
+		var d = submit_to_undo_redo_manager(i, "offset", Global.current_state, i.sprite_data.offset , Vector2(value,i.sprite_data.offset.y))
+		var d2 = submit_to_undo_redo_manager(i, "position", Global.current_state, i.sprite_data.position , Vector2(i.sprite_data.position.x +of,i.sprite_data.position.y))
+		
+		i.sprite_data.position.x += of
+		i.position.x = i.get_value("position").x
+		i.sprite_data.offset.x = value
+		StateButton.multi_edit(i.sprite_data.position.x, "position", i, i.states, true, "x")
+		StateButton.multi_edit(value, "offset", i, i.states, true, "x")
+		
+		i.get_node("%Sprite2D").position.x = i.get_value("offset").x
+		i.save_state(Global.current_state)
 		update_pos_spins()
+		add_or_merge_undo_redo(%OffsetXSpinBox,d)
+		add_or_merge_undo_redo(%OffsetXSpinBox,d2)
+		
+	push_undo_redo_on_focus(%OffsetXSpinBox)
 
 func _on_flip_sprite_h_toggled(toggled_on: bool) -> void:
 	if should_change:
-		var undo_redo_data : Array = []
+		undo_redo_data = []
 		for i in Global.held_sprites:
 			if i.sprite_type == "Sprite2D" or  i.sprite_type == "Mesh":
 				var d = submit_to_undo_redo_manager(i, "flip_sprite_h", Global.current_state, i.sprite_data.flip_sprite_h , toggled_on)
@@ -383,7 +449,7 @@ func _on_flip_sprite_h_toggled(toggled_on: bool) -> void:
 
 func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 	if should_change:
-		var undo_redo_data : Array = []
+		undo_redo_data = []
 		for i in Global.held_sprites:
 			if i.sprite_type == "Sprite2D" or  i.sprite_type == "Mesh":
 				var d = submit_to_undo_redo_manager(i, "flip_sprite_v", Global.current_state, i.sprite_data.flip_sprite_h , toggled_on)
@@ -411,7 +477,7 @@ func _on_flip_sprite_v_toggled(toggled_on: bool) -> void:
 
 func _on_clip_children_toggled(toggled_on: bool) -> void:
 	if should_change:
-		var undo_redo_data : Array = []
+		undo_redo_data = []
 		for i in Global.held_sprites:
 			var t = 0
 			if toggled_on:
@@ -429,44 +495,93 @@ func _on_clip_children_toggled(toggled_on: bool) -> void:
 
 func _on_eye_option_item_selected(index: int) -> void:
 	if should_change:
-		var _undo_redo_data : Array = []
+		undo_redo_data = []
 		for i in Global.held_sprites:
+			var is_should_blink = i.sprite_data.should_blink
+			var is_open_eyes = i.sprite_data.open_eyes
 			match index:
 				0:
-					i.sprite_data.should_blink = false
+					is_should_blink = false
 				1:
-					i.sprite_data.should_blink = true
-					i.sprite_data.open_eyes = true
+					is_should_blink = true
+					is_open_eyes = true
 				2:
-					i.sprite_data.should_blink = true
-					i.sprite_data.open_eyes = false
-
+					is_should_blink = true
+					is_open_eyes = false
+			var d = submit_to_undo_redo_manager(i, "should_blink", Global.current_state, i.sprite_data.should_blink , is_should_blink)
+			var d2 = submit_to_undo_redo_manager(i, "open_eyes", Global.current_state, i.sprite_data.open_eyes , is_open_eyes)
+			i.sprite_data.should_blink = is_should_blink
+			i.sprite_data.open_eyes = is_open_eyes
 			StateButton.multi_edit(i.sprite_data.should_blink, "should_blink", i, i.states)
 			StateButton.multi_edit(i.sprite_data.open_eyes, "open_eyes", i, i.states)
-
-
+			i.save_state(Global.current_state)
+			undo_redo_data.append(d)
+			undo_redo_data.append(d2)
+		
+		UndoRedoManager.push_data(undo_redo_data)
 		Global.blink.emit()
 
 func _on_mouth_option_item_selected(index: int) -> void:
 	if should_change:
-		var _undo_redo_data : Array = []
+		undo_redo_data = []
 		for i in Global.held_sprites:
+			var is_should_talk = i.sprite_data.should_talk
+			var is_open_mouth = i.sprite_data.open_mouth
 			match index:
 				0:
-					i.sprite_data.should_talk = false
+					is_should_talk = false
 				1:
-					i.sprite_data.should_talk = true
-					i.sprite_data.open_mouth = true
+					is_should_talk = true
+					is_open_mouth = true
 				2:
-					i.sprite_data.should_talk = true
-					i.sprite_data.open_mouth = false
+					is_should_talk = true
+					is_open_mouth = false
+			var d = submit_to_undo_redo_manager(i, "should_talk", Global.current_state, i.sprite_data.should_talk , is_should_talk)
+			var d2 = submit_to_undo_redo_manager(i, "open_mouth", Global.current_state, i.sprite_data.open_mouth , is_open_mouth)
+			i.sprite_data.should_talk = is_should_talk
+			i.sprite_data.open_mouth = is_open_mouth
 			StateButton.multi_edit(i.sprite_data.should_talk, "should_talk", i, i.states)
 			StateButton.multi_edit(i.sprite_data.open_mouth, "open_mouth", i, i.states)
+			i.save_state(Global.current_state)
+			undo_redo_data.append(d)
+			undo_redo_data.append(d2)
+		
+		UndoRedoManager.push_data(undo_redo_data)
 		Global.not_speaking.emit()
 
 func _on_rest_mode_option_item_selected(index: int) -> void:
 	for i in Global.held_sprites:
-		i.rest_mode = index
+		i.rest_mode = %RestModeOption.get_item_id(index)
+		i.save_state(Global.current_state)
+
+func _on_skew_spin_x_box_value_changed(value: float) -> void:
+	if not should_change:
+		return
+	init_undo_on_focus(%SkewSpinXBox)
+	for i in Global.held_sprites:
+		var d = submit_to_undo_redo_manager(i, "skew", Global.current_state, i.sprite_data.skew, Vector2(value, i.sprite_data.skew.y))
+		i.sprite_data.skew.x = value
+		i.apply_transform()
+		StateButton.multi_edit(value, "skew", i, i.states, true, "x")
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%SkewSpinXBox,d)
+		
+	push_undo_redo_on_focus(%SkewSpinXBox)
+
+
+func _on_skew_spin_y_box_value_changed(value: float) -> void:
+	if not should_change:
+		return
+	init_undo_on_focus(%SkewSpinYBox)
+	for i in Global.held_sprites:
+		var d = submit_to_undo_redo_manager(i, "skew", Global.current_state, i.sprite_data.skew, Vector2(i.sprite_data.skew.x, value))
+		i.sprite_data.skew.y = value
+		i.apply_transform()
+		StateButton.multi_edit(value, "skew", i, i.states, true, "y")
+		i.save_state(Global.current_state)
+		add_or_merge_undo_redo(%SkewSpinYBox,d)
+		
+	push_undo_redo_on_focus(%SkewSpinYBox)
 
 func submit_to_undo_redo_manager(node, action, state, value, new_value) -> Dictionary:
 	var d = {

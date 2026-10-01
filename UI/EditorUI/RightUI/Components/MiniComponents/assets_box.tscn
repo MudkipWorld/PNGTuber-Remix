@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://duusstqanilvd" path="res://Scripts/UI/RightPanel/assets_panel.gd" id="1_c51j7"]
 [ext_resource type="Script" uid="uid://cjsuqv0mug802" path="res://Scripts/UI/States/AssetStateButton.gd" id="2_dpute"]
+[ext_resource type="Script" uid="uid://181yhrus3jhb" path="res://Scripts/UI/Others/Spinboxes.gd" id="4_olugq"]
 [ext_resource type="Script" uid="uid://dy1cd6xda1pu5" path="res://UI/BetterSlider/BetterToggles.gd" id="6_w5yqn"]
 [ext_resource type="Script" uid="uid://dp6m7k27uygdf" path="res://Scripts/UI/RightPanel/CycleToggles.gd" id="7_hf4n0"]
 [ext_resource type="Texture2D" uid="uid://dsvnkyrgho1xx" path="res://UI/Assets/ui_buttons.png" id="8_olugq"]
@@ -95,15 +96,15 @@ focus_mode = 1
 focus_behavior_recursive = 1
 text = "TR_DONT_HIDE"
 
-[node name="ShouldDisappearCheck" type="CheckBox" parent="Buttons" unique_id=923178878]
+[node name="InclusiveKeyCheck" type="CheckBox" parent="Buttons" unique_id=2027350795]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "TR_SHOULD_DISAPPEAR_TOOLTIP"
+tooltip_text = "TR_INCLUSIVE_KEY_CHECK_TOOLTIP"
 focus_mode = 1
 focus_behavior_recursive = 1
-text = "TR_DISAPPEAR_KEYS"
+text = "TR_INCLUSIVE_KEY_CHECK"
 
 [node name="HoldToShowCheck" type="CheckBox" parent="Buttons" unique_id=1116284286]
 unique_name_in_owner = true
@@ -114,6 +115,84 @@ tooltip_text = "TR_HOLD_TO_SHOW_TOOLTIP"
 focus_mode = 1
 focus_behavior_recursive = 1
 text = "TR_HOLD_TO_SHOW"
+
+[node name="HBoxMinDuration" type="HBoxContainer" parent="Buttons" unique_id=317173065]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
+
+[node name="MinDurationLabel" type="Label" parent="Buttons/HBoxMinDuration" unique_id=956997576]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+tooltip_text = "TR_MIN_DURATION_TOOLTIP"
+mouse_filter = 1
+theme_override_font_sizes/font_size = 15
+text = "TR_MIN_DURATION"
+
+[node name="MinDurationSpinBox" type="SpinBox" parent="Buttons/HBoxMinDuration" unique_id=839950018]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
+max_value = 1000.0
+step = 0.01
+script = ExtResource("4_olugq")
+
+[node name="IgnoreIfRestCheck" type="CheckBox" parent="Buttons" unique_id=646076491]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_IGNORE_IF_REST_TOOLTIP"
+focus_mode = 1
+focus_behavior_recursive = 1
+text = "TR_IGNORE_IF_REST"
+
+[node name="HBoxCastTime" type="HBoxContainer" parent="Buttons" unique_id=1761560323]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
+
+[node name="CastTimeLabel" type="Label" parent="Buttons/HBoxCastTime" unique_id=10617719]
+custom_minimum_size = Vector2(74, 0)
+layout_mode = 2
+tooltip_text = "TR_CAST_TIME_TOOLTIP"
+mouse_filter = 1
+theme_override_font_sizes/font_size = 15
+text = "TR_CAST_TIME"
+
+[node name="CastTimeSpinBox" type="SpinBox" parent="Buttons/HBoxCastTime" unique_id=1224521450]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+focus_behavior_recursive = 1
+max_value = 1000.0
+step = 0.01
+script = ExtResource("4_olugq")
+
+[node name="AutoShowCheck" type="CheckBox" parent="Buttons" unique_id=1002072230]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_AUTO_SHOW_TOOLTIP"
+focus_mode = 1
+focus_behavior_recursive = 1
+text = "TR_AUTO_SHOW"
+
+[node name="ShouldDisappearCheck" type="CheckBox" parent="Buttons" unique_id=923178878]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_SHOULD_DISAPPEAR_TOOLTIP"
+focus_mode = 1
+focus_behavior_recursive = 1
+text = "TR_DISAPPEAR_KEYS"
 
 [node name="ShouldDisListContainer" type="VBoxContainer" parent="." unique_id=1183921443]
 unique_name_in_owner = true
@@ -180,8 +259,6 @@ focus_behavior_recursive = 1
 [node name="Label2" type="Label" parent="." unique_id=1991764357]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 1
-focus_behavior_recursive = 1
 text = "TR_CYCLE"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -250,26 +327,66 @@ icon = SubResource("AtlasTexture_u22l2")
 icon_alignment = 1
 expand_icon = true
 
-[node name="CycleMargin" type="PanelContainer" parent="." unique_id=1941641508]
+[node name="CycleDeleteTip" type="PanelContainer" parent="." unique_id=1927201522]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 1
+focus_behavior_recursive = 1
+
+[node name="Label" type="Label" parent="CycleDeleteTip" unique_id=1801152851]
+layout_mode = 2
+text = "TR_CYCLE_DELETE_TIP"
+
+[node name="CycleMargin" type="MarginContainer" parent="." unique_id=1941641508]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
 focus_behavior_recursive = 1
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Grid" type="GridContainer" parent="CycleMargin" unique_id=2063412805]
+[node name="CycleData" type="PanelContainer" parent="CycleMargin" unique_id=1370477811]
 layout_mode = 2
 focus_mode = 1
 focus_behavior_recursive = 1
-columns = 3
 
-[node name="Label" type="Label" parent="CycleMargin/Grid" unique_id=1920218107]
+[node name="VBoxContainer" type="VBoxContainer" parent="CycleMargin/CycleData" unique_id=1491880732]
+layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_constants/separation = 5
+
+[node name="Margin2" type="MarginContainer" parent="CycleMargin/CycleData/VBoxContainer" unique_id=201181937]
+layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Grid" type="GridContainer" parent="CycleMargin/CycleData/VBoxContainer/Margin2" unique_id=1126305111]
+layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
+columns = 2
+
+[node name="Label" type="Label" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid" unique_id=1094009756]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_CYCLE_TOGGLE_LABEL"
+
+[node name="HBoxAsset" type="HBoxContainer" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid" unique_id=1330109429]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 focus_behavior_recursive = 1
-text = "TR_CYCLE_TOGGLE_LABEL"
 
-[node name="CycleKey" type="Button" parent="CycleMargin/Grid" unique_id=2108905252]
+[node name="CycleKey" type="Button" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset" unique_id=1793732844]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -280,7 +397,7 @@ toggle_mode = true
 text = "TR_BIND_KEY"
 script = ExtResource("7_hf4n0")
 
-[node name="CycleDel" type="Button" parent="CycleMargin/Grid" unique_id=895783318]
+[node name="CycleDel" type="Button" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset" unique_id=466361896]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -291,14 +408,18 @@ icon = SubResource("AtlasTexture_ef4gi")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Label2" type="Label" parent="CycleMargin/Grid" unique_id=1504642349]
+[node name="Label2" type="Label" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid" unique_id=1181255244]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_CYCLE_FORWARD_LABEL"
+
+[node name="HBoxAsset2" type="HBoxContainer" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid" unique_id=1785957339]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 focus_behavior_recursive = 1
-text = "TR_CYCLE_FORWARD_LABEL"
 
-[node name="CycleForward" type="Button" parent="CycleMargin/Grid" unique_id=1272268275]
+[node name="CycleForward" type="Button" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset2" unique_id=1464949219]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -309,7 +430,7 @@ toggle_mode = true
 text = "TR_BIND_KEY"
 script = ExtResource("8_u22l2")
 
-[node name="CycleForDel" type="Button" parent="CycleMargin/Grid" unique_id=304480238]
+[node name="CycleForDel" type="Button" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset2" unique_id=211731187]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -320,14 +441,18 @@ icon = SubResource("AtlasTexture_2cqhf")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Label3" type="Label" parent="CycleMargin/Grid" unique_id=1794631948]
+[node name="Label3" type="Label" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid" unique_id=1550537619]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TR_CYCLE_BACKWARD_LABEL"
+
+[node name="HBoxAsset3" type="HBoxContainer" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid" unique_id=1187939917]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 focus_behavior_recursive = 1
-text = "TR_CYCLE_BACKWARD_LABEL"
 
-[node name="CycleBackward" type="Button" parent="CycleMargin/Grid" unique_id=1073055985]
+[node name="CycleBackward" type="Button" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset3" unique_id=98570447]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -338,7 +463,7 @@ toggle_mode = true
 text = "TR_BIND_KEY"
 script = ExtResource("9_olugq")
 
-[node name="CycleBackDel" type="Button" parent="CycleMargin/Grid" unique_id=919067531]
+[node name="CycleBackDel" type="Button" parent="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset3" unique_id=398196383]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -352,18 +477,26 @@ expand_icon = true
 [connection signal="toggled" from="Buttons/IsAssetCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_is_asset_check_toggled"]
 [connection signal="pressed" from="Buttons/HBoxContainer/RemoveAssetButton" to="Buttons/HBoxContainer/IsAssetButton" method="_on_remove_asset_button_pressed"]
 [connection signal="toggled" from="Buttons/DontHideOnToggleCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_dont_hide_on_toggle_check_toggled"]
-[connection signal="toggled" from="Buttons/ShouldDisappearCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_disappear_check_toggled"]
+[connection signal="toggled" from="Buttons/InclusiveKeyCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_inclusive_key_check_on_toggle_check_toggled"]
 [connection signal="toggled" from="Buttons/HoldToShowCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_hold_to_show_on_toggle_check_toggled"]
+[connection signal="value_changed" from="Buttons/HBoxMinDuration/MinDurationSpinBox" to="Buttons/HBoxContainer/IsAssetButton" method="_on_min_duration_spin_box_value_changed"]
+[connection signal="toggled" from="Buttons/IgnoreIfRestCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_ignore_if_rest_on_toggle_check_toggled"]
+[connection signal="value_changed" from="Buttons/HBoxCastTime/CastTimeSpinBox" to="Buttons/HBoxContainer/IsAssetButton" method="_on_cast_time_spin_box_value_changed"]
+[connection signal="toggled" from="Buttons/AutoShowCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_auto_show_on_toggle_check_toggled"]
+[connection signal="toggled" from="Buttons/ShouldDisappearCheck" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_disappear_check_toggled"]
 [connection signal="pressed" from="ShouldDisListContainer/HBoxContainer/ShouldDisAddButton" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_dis_add_button_pressed"]
 [connection signal="pressed" from="ShouldDisListContainer/HBoxContainer/ShouldDisDelButton" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_dis_del_button_pressed"]
 [connection signal="toggled" from="ShouldDisListContainer/HBoxContainer/ShouldDisRemapButton" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_dis_remap_button_toggled"]
 [connection signal="empty_clicked" from="ShouldDisListContainer/ShouldDisList" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_dis_list_empty_clicked"]
 [connection signal="focus_exited" from="ShouldDisListContainer/ShouldDisList" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_dis_list_focus_exited"]
 [connection signal="item_selected" from="ShouldDisListContainer/ShouldDisList" to="Buttons/HBoxContainer/IsAssetButton" method="_on_should_dis_list_item_selected"]
+[connection signal="toggled" from="CycleGrid/CheckBox" to="." method="_on_is_cycle_checkbox_changed"]
 [connection signal="item_selected" from="CycleGrid/CycleChoiceSprite" to="." method="_on_cycle_choice_sprite_item_selected"]
 [connection signal="item_selected" from="HBoxContainer/CycleChoice" to="." method="_on_cycle_choice_item_selected"]
 [connection signal="pressed" from="HBoxContainer/AddCycle" to="." method="_on_add_cycle_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/DeleteCycle" to="." method="_on_delete_cycle_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/DeleteCycle" to="." method="_on_delete_cycle_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/DeleteCycle" to="." method="_on_delete_cycle_pressed"]
-[connection signal="pressed" from="CycleMargin/Grid/CycleDel" to="CycleMargin/Grid/CycleKey" method="_on_cycle_del_pressed"]
-[connection signal="pressed" from="CycleMargin/Grid/CycleForDel" to="CycleMargin/Grid/CycleForward" method="_on_cycle_del_pressed"]
-[connection signal="pressed" from="CycleMargin/Grid/CycleBackDel" to="CycleMargin/Grid/CycleBackward" method="_on_cycle_del_pressed"]
+[connection signal="pressed" from="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset/CycleDel" to="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset/CycleKey" method="_on_cycle_del_pressed"]
+[connection signal="pressed" from="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset2/CycleForDel" to="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset2/CycleForward" method="_on_cycle_del_pressed"]
+[connection signal="pressed" from="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset3/CycleBackDel" to="CycleMargin/CycleData/VBoxContainer/Margin2/Grid/HBoxAsset3/CycleBackward" method="_on_cycle_del_pressed"]

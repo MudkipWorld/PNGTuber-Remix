@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://u4rstm0uk8wb" path="res://Scripts/Misc/file_importer.gd" id="2_j4lix"]
 [ext_resource type="Script" uid="uid://b6atx7ybrp5sq" path="res://Main/Scripts/SpritesContainer.gd" id="2_lv028"]
 [ext_resource type="PackedScene" uid="uid://ngta1o5yiqxs" path="res://UI/control.tscn" id="2_micm1"]
-[ext_resource type="Script" uid="uid://qgnk6t8mi76s" path="res://Scripts/UI/WindowHandler/window_handler.gd" id="2_o60nc"]
+[ext_resource type="Script" uid="uid://qgnk6t8mi76s" path="res://Scripts/UI/WindowHandler/window_handler.gd" id="2_rix8b"]
 [ext_resource type="PackedScene" uid="uid://dw4brgrpdpurf" path="res://Misc/LightSource/light_source.tscn" id="3_eo07p"]
 [ext_resource type="Shader" uid="uid://brpv37x267rmr" path="res://Scripts/Shaders/ColorBlindness.gdshader" id="3_o60nc"]
 [ext_resource type="Shader" uid="uid://bc5tbhguskdv2" path="res://Scripts/Shaders/ModelEffects.gdshader" id="3_rj11h"]
@@ -88,8 +88,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6pthk")
 
-[node name="WindowHandler" type="Node" parent="." unique_id=440670658]
-script = ExtResource("2_o60nc")
+[node name="WindowHandler" type="SubViewport" parent="." unique_id=440670658]
+gui_snap_controls_to_pixels = false
+positional_shadow_atlas_size = 0
+render_target_update_mode = 4
+script = ExtResource("2_rix8b")
 
 [node name="FileImporter" type="Node" parent="." unique_id=886724899]
 unique_name_in_owner = true
@@ -103,6 +106,7 @@ title = "TR_PLEASE_CONFIRM"
 initial_position = 2
 size = Vector2i(375, 150)
 unresizable = true
+content_scale_factor = 1.2
 ok_button_text = "TR_YES"
 dialog_text = "TR_TRIM_DIALOG_TEXT"
 cancel_button_text = "TR_NO"
@@ -205,15 +209,10 @@ z_index = 4096
 z_as_relative = false
 script = ExtResource("8_rix8b")
 
-[node name="Effects" type="TextureRect" parent="." unique_id=1951697743]
+[node name="Effects" type="TextureRect" parent="SubViewportContainer" unique_id=1951697743]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_qac2q")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 mouse_filter = 2
 texture = SubResource("ViewportTexture_rj11h")
 

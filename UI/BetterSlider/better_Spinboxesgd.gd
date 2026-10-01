@@ -73,6 +73,8 @@ func _on_spin_box_value_value_changed(nvalue):
 	if should_change:
 		if held_spinbox:
 			_apply_value_to_selected(nvalue, true)
+		else:
+			_apply_value_to_selected(nvalue, false)
 		held_spinbox = null
 		Global.spinbox_held = false
 		%SpinBoxValue.get_line_edit().release_focus()

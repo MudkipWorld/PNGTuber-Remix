@@ -13,6 +13,7 @@ var import_percent: float = 50.0
 
 func save_file(path : String):
 	save_model(path)
+	print("save_file")
 
 func save_data():
 	var sprites = get_tree().get_nodes_in_group("Sprites")
@@ -51,6 +52,8 @@ func save_data():
 		input_array.append({
 			"state_name": input.state_name,
 			"hot_key": input.saved_event,
+			"state_hold_to_show": input.state_hold_to_show,
+			"state_inclusive_key_check": input.state_inclusive_key_check
 		})
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
@@ -115,6 +118,11 @@ func save_data():
 			"show_only": sprt.show_only,
 			"saved_disappear": saved_events,
 			"hold_to_show":sprt.hold_to_show,
+			"min_duration":sprt.min_duration,
+			"cast_time":sprt.cast_time,
+			"inclusive_key_check":sprt.inclusive_key_check,
+			"ignore_if_rest":sprt.ignore_if_rest,
+			"auto_show":sprt.auto_show,
 			"is_collapsed": sprt.is_collapsed,
 			"is_premultiplied": true,
 			"layer_color": sprt.layer_color,
@@ -143,6 +151,11 @@ func save_data():
 				"show_only": sprt.show_only,
 				"saved_disappear": saved_events,
 				"hold_to_show":sprt.hold_to_show,
+				"min_duration":sprt.min_duration,
+				"cast_time":sprt.cast_time,
+				"inclusive_key_check":sprt.inclusive_key_check,
+				"ignore_if_rest":sprt.ignore_if_rest,
+				"auto_show":sprt.auto_show,
 				"is_collapsed": sprt.is_collapsed,
 				"is_premultiplied": true,
 				"layer_color": sprt.layer_color,
@@ -203,6 +216,8 @@ func save_data():
 			
 		}
 	}
+	
+	print("create_save_dict")
 
 func save_model(path: String) -> void:
 	Global.save_path = path
@@ -289,6 +304,8 @@ func load_model(path: String) -> void:
 			if typeof(data) == TYPE_DICTIONARY:
 				btn.saved_event = data.get("hot_key")
 				btn.state_name = data.get("state_name", "")
+				btn.state_hold_to_show = data.get("state_hold_to_show", false)
+				btn.state_inclusive_key_check = data.get("state_inclusive_key_check", false)
 				btn.text = data.get("state_name", "")
 				btn.update_stuff()
 			else:
@@ -390,6 +407,7 @@ func load_model(path: String) -> void:
 	Global.remake_image_manager.emit()
 	Global.load_model.emit()
 	Global.load_sprite_states(0)
+	GlobInput.refresh_action_cache()
 
 func resize_image_data(image_data: ImageData, sprite_node: Node2D, percent: float) -> void:
 	if percent == 100.0 or image_data.runtime_texture == null:
@@ -489,13 +507,22 @@ func load_objects(load_dict: Dictionary) -> void:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
 			set_common_data(sprite, sprite_obj)
 			load_normal_objects(load_dict, sprite, sprite_obj)
+			
+	# Cycle fix: set the cycle choice index for the sprite in cycle.sprites list
+	for sprite in get_tree().get_nodes_in_group("Sprites"):
+		for index in Global.settings_dict.cycles.size():
+			if  sprite.sprite_id in Global.settings_dict.cycles[index].sprites:
+				sprite.sprite_data.cycle = index + 1
+				sprite.sprite_data.is_cycle = true
+				sprite.sync_sprite_cycle_in_states()
+				continue
 
 func set_common_data(sprite, sprite_obj):
 	sprite_obj.layer_color = sprite.get("layer_color", Color.BLACK)
 	sprite_obj.used_image_id = sprite.get("image_id", 0)
 	sprite_obj.used_image_id_normal = sprite.get("normal_id", 0)
 	sprite_obj.sprite_id = sprite.sprite_id
-	sprite_obj.rest_mode = sprite.get("rest_mode", 1)
+	sprite_obj.rest_mode = sprite.get("rest_mode", 0)
 	sprite_obj.flipped_h = sprite.get("flipped_h", false)
 	sprite_obj.flipped_v = sprite.get("flipped_v", false)
 	sprite_obj.rotated = sprite.get("rotated", 0)
@@ -511,6 +538,16 @@ func set_common_data(sprite, sprite_obj):
 			sprite_obj.show_only = sprite.show_only
 		if sprite.has("hold_to_show"):
 			sprite_obj.hold_to_show = sprite.hold_to_show
+		if sprite.has("min_duration"):
+			sprite_obj.min_duration = sprite.min_duration
+		if sprite.has("cast_time"):
+			sprite_obj.cast_time = sprite.cast_time
+		if sprite.has("inclusive_key_check"):
+			sprite_obj.inclusive_key_check = sprite.inclusive_key_check
+		if sprite.has("ignore_if_rest"):
+			sprite_obj.ignore_if_rest = sprite.ignore_if_rest
+		if sprite.has("auto_show"):
+			sprite_obj.auto_show = sprite.auto_show
 		if sprite.is_asset:
 			sprite_obj.get_node("%Sprite2D").visible = sprite.was_active_before
 		else:

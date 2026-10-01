@@ -48,4 +48,4 @@ func global_lipsync():
 
 
 	await get_tree().create_timer(0.1).timeout
-	global_lipsync()
+	global_lipsync.call_deferred()

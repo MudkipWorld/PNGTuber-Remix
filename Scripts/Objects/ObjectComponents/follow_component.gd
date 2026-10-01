@@ -19,9 +19,24 @@ var dist_vel_anim : float = 0.0
 var frame_h : float = 0.0
 var frame_v : float = 0.0
 
+## Mouse delta (px per physics frame) above which the velocity follow reacts.
+const VELOCITY_ACTIVATION_THRESHOLD: float = 7.0
+## Movement magnitude that reaches the full displacement, as a multiple of the
+## activation threshold (3x = 21 px/physics frame = ~1260 px/s at 60 Hz physics).
+const VELOCITY_FULL_RESPONSE_RATIO: float = 3.0
+## Per-render-frame convergence of the movement lerp at 60 fps.
+const VELOCITY_FOLLOW_RATE: float = 0.35
+## Per-render-frame convergence of the return-to-origin decay at 60 fps.
+## Kept separate from VELOCITY_FOLLOW_RATE so the spring-back can be tuned alone.
+const VELOCITY_RETURN_RATE: float = 0.35
+
 var target_x : float = 0.0
 var target_y : float = 0.0
 var target_pos = Vector2.ZERO
+
+## Half size of the screen area the follow is relative to; ZERO when the mouse
+## offset cannot be normalised (object-relative mode keeps its own origin).
+var screen_half : Vector2 = Vector2.ZERO
 
 var mouse_delta :Vector2 = Vector2.ZERO
 var rest : bool = false
@@ -39,7 +54,12 @@ func _physics_process(delta: float) -> void:
 		target_pos = Vector2.ZERO
 		modifier.position = Vector2.ZERO
 		return
-	if Global.static_view or actor.rest_mode == 5:
+	if Global.static_view:
+		return
+	# rest_mode 5/7 fully disables the follow: snap the modifier back to its rest
+	# transform right away instead of freezing it at the last followed offset.
+	if actor.rest_mode in [5,7]:
+		reset_modifier()
 		return
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()
@@ -53,25 +73,44 @@ func reset_modifier() -> void:
 	modifier.scale = Vector2.ONE
 
 func mouse_delay():
-	mouse_delta = last_mouse_position - mouse_coords
+	#get mouse delta with relative movement in mouse inputs
+	if GlobInput.rawMouseInput != null:
+		if GlobInput.is_mouse_relative_movement:
+			mouse_delta = -GlobInput.mouse_relative_movement
+		else:
+			mouse_delta = Vector2.ZERO
+	else:
+		mouse_delta = last_mouse_position - mouse_coords
+	
 	last_mouse_position = mouse_coords
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if actor.get_value("follow_mouse_velocity"):
 		mouse_delay()
 
-		if mouse_delta.length() > 7.0:
-			var dir_vel_x = -sign(mouse_delta.x)
-			var dir_vel_y = -sign(mouse_delta.y)
-			var min_x = actor.get_value("pos_x_min")
-			var max_x = actor.get_value("pos_x_max")
-			var min_y = actor.get_value("pos_y_min")
-			var max_y = actor.get_value("pos_y_max")
-			var norm_x : float = (abs(min_x) + max_x) * 0.5
-			var norm_y : float = (abs(min_y) + max_y) * 0.5
+		# Frame-rate independent forms of lerp(x, y, rate) per rendered frame.
+		var k: float = 1.0 - pow(1.0 - VELOCITY_FOLLOW_RATE, delta * 60.0)
+		var k_return: float = 1.0 - pow(1.0 - VELOCITY_RETURN_RATE, delta * 60.0)
 
-			last_dist.x = lerp(last_dist.x, dir_vel_x * norm_x, 0.35)
-			last_dist.y = lerp(last_dist.y, dir_vel_y * norm_y, 0.35)
+		if mouse_delta.length() > VELOCITY_ACTIVATION_THRESHOLD:
+			var norms := _follow_norms()
+
+			# Use the real movement direction instead of per-axis sign(): sign()
+			# saturates both axes to +/-1, which always produced a 45 degree target.
+			var dir_vel := -mouse_delta.normalized()
+			# Scale with the movement size (the 4.4 tanh behaviour) so a small
+			# nudge moves the sprite a little and a flick moves it far.
+			var strength: float = clampf(
+					mouse_delta.length() / (VELOCITY_ACTIVATION_THRESHOLD * VELOCITY_FULL_RESPONSE_RATIO),
+					0.0, 1.0)
+
+			last_dist.x = lerp(last_dist.x, dir_vel.x * norms.x * strength, k)
+			last_dist.y = lerp(last_dist.y, dir_vel.y * norms.y * strength, k)
+		else:
+			# Mouse stopped: keep converging to the origin. The 4.4 behaviour did
+			# this implicitly (its lerp target collapsed to tanh(0) == 0), while
+			# the rewritten one froze last_dist and left the sprite displaced.
+			last_dist = last_dist.lerp(Vector2.ZERO, k_return)
 
 func process_follow(delta: float) -> void:
 	var dir = (mouse_coords - Vector2.ZERO).normalized() if mouse_coords.length() > 0.0001 else Vector2.ZERO
@@ -98,19 +137,37 @@ func follow_calculation(_delta = 0.0):
 func get_mouse_coords(main_marker, screen) -> Vector2:
 	var coord : Vector2 = Vector2.ZERO
 	if actor.get_value("use_object_pos"):
+		screen_half = Vector2.ZERO # object-relative mode keeps its own origin
 		var offset = Vector2(main_marker.get_cached_screen_position(screen))
 		coord = (actor.get_local_mouse_position() - offset)  / Global.camera.zoom.clampf(0.001, 10.0)
 	else:
-		var viewport_size = actor.get_viewport().size
-		var origin = actor.get_global_transform_with_canvas().origin
-		var x_per = 1.0 - origin.x/float(viewport_size.x)
-		var y_per = 1.0 - origin.y/float(viewport_size.y)
 		var display_size : Vector2 = main_marker.get_screen_size()
-		var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
 		var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(main_marker.get_cached_screen_position(screen))
-		coord = Vector2(mouse_pos - display_size) + offset
+		# The follow origin is the centre of the selected screen area, NOT the
+		# sprite's on-screen position: that one moves with the camera, which used
+		# to shift the origin whenever the canvas was panned.
+		screen_half = display_size * 0.5
+		coord = mouse_pos - screen_half
 
 	return coord
+
+## Midpoint of the configured per-axis displacement range: the displacement the
+## sprite reaches when the mouse sits at the edge of the screen area.
+func _follow_norms() -> Vector2:
+	return Vector2(
+			(abs(actor.get_value("pos_x_min")) + actor.get_value("pos_x_max")) * 0.5,
+			(abs(actor.get_value("pos_y_min")) + actor.get_value("pos_y_max")) * 0.5)
+
+
+## Smoothed velocity displacement as a share of its configured per-axis range,
+## signed (-1..1) and decaying back to 0 while the mouse is idle. follow_rotation
+## reads the sign, follow_scale reads the magnitude - both get a proportional
+## response for free instead of a binary one.
+func velocity_ratio() -> Vector2:
+	var norms := _follow_norms()
+	return Vector2(
+			clampf(last_dist.x / maxf(norms.x, 0.001), -1.0, 1.0),
+			clampf(last_dist.y / maxf(norms.y, 0.001), -1.0, 1.0))
 
 func update_controller_inputs() -> void:
 	axis_left = Input.get_vector("ControllerLeft", "ControllerRight", "ControllerUp", "ControllerDown")
@@ -133,7 +190,16 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	if follow_type == 0:
 		if actor.get_value("follow_mouse_velocity"):
 			follow_position_calculations(last_dist.sign(), last_dist.abs())
+		elif actor.get_value("use_screen_edge_range") and screen_half.x > 0.0 and screen_half.y > 0.0:
+			# Opt-in screen-edge mapping: normalise the offset within the
+			# selected screen area, so pos_min/max are reached exactly at its
+			# edges instead of after a fixed number of pixels from the origin.
+			var offset_ratio := mouse_coords / screen_half
+			follow_position_calculations(offset_ratio.sign(), offset_ratio.abs() * _follow_norms())
 		else:
+			# Legacy 1.4.x mapping (default): the raw pixel offset is clamped to
+			# the configured range, so min/max are reached before the mouse
+			# touches the screen edge.
 			follow_position_calculations(dir, Vector2(dist, dist))
 	elif follow_type in [1, 2, 10, 11, 12]:
 		var axis: Vector2 = axis_left
@@ -259,7 +325,7 @@ func follow_position_calculations(dir : Vector2, m_dist : Vector2 = Vector2.ZERO
 	if actor.get_value("snap_pos"):
 		if !is_zero_approx(dir.x) :
 			target_pos.x =  lerp(target_pos.x, x, actor.get_value("mouse_delay"))
-		if is_zero_approx(dir.y):
+		if !is_zero_approx(dir.y):
 			target_pos.y = lerp(target_pos.y, y, actor.get_value("mouse_delay"))
 	else:
 		var t = Vector2(x, y)

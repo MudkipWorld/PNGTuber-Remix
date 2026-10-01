@@ -2,22 +2,16 @@ extends PointLight2D
 
 var of = 0
 var dragging
-var light_controls = null
-var light_control_node = null
 
 
 func _ready():
-	if get_tree().get_root().has_node("Main"):
-		light_controls = get_tree().get_root().get_node("Main/%Control/%HBox25")
-		light_control_node = get_tree().get_root().get_node("Main/%Control/LightControl")
+	# 灯光设置面板（LightControl）已自监听 Global.light_info 刷新控件，
+	# 不再需要本节点直接寻址 UI（旧路径 Main/%Control/%HBox25 与 /LightControl 在重构后已失效）。
 	Global.light_info.connect(get_state)
 
 func _process(_delta):
 	if dragging && $Grab.visible:
 		global_position = get_global_mouse_position() - of
-		if light_controls != null && is_instance_valid(light_controls):
-			light_controls.get_node("LightPosXSpinBox").value = global_position.x
-			light_controls.get_node("LightPosYSpinBox").value = global_position.y
 
 func save_state(id):
 	var dict = {
@@ -50,9 +44,6 @@ func get_state(state):
 		$Grab.modulate = color
 		$Grab.hide()
 		blend_mode = Light2D.BLEND_MODE_ADD
-		
-		if light_control_node != null && is_instance_valid(light_control_node):
-			light_control_node.reset_info(self)
 
 func _on_grab_button_down():
 	if $Grab.visible:

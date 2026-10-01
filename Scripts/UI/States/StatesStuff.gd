@@ -2,7 +2,7 @@ extends Node
 class_name StateUI
 
 var state_button  = preload("res://UI/StateButton/state_button.tscn")
-
+static var is_showing_state_remap_popup = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.delete_states.connect(delete_all_states)
@@ -137,13 +137,25 @@ func _on_duplicate_state_pressed() -> void:
 func _on_state_remap_pressed() -> void:
 	if StateButton.selected_state != null && is_instance_valid(StateButton.selected_state):
 		%StateName.text = StateButton.selected_state.state_name
+		%StateHoldToShowCheck.set_pressed(StateButton.selected_state.state_hold_to_show)
+		%StateInclusiveKeyCheckCheck.set_pressed(StateButton.selected_state.state_inclusive_key_check)
 	%StateButtonHbox.get_node("StateRemapButton").update_key_text()
 	%StateRemapPopup.popup()
+	is_showing_state_remap_popup = true
 
 func _on_state_remap_popup_close_requested() -> void:
 	%StateRemapPopup.hide()
+	is_showing_state_remap_popup = false
 
 func _on_state_name_text_submitted(new_text: String) -> void:
 	if StateButton.selected_state != null && is_instance_valid(StateButton.selected_state):
 		StateButton.selected_state.state_name = new_text
 		StateButton.selected_state.text = new_text
+
+func _on_state_hold_to_show_check_toggled(toggled_on: bool) -> void:
+	if StateButton.selected_state != null && is_instance_valid(StateButton.selected_state):
+		StateButton.selected_state.state_hold_to_show = toggled_on
+
+func _on_state_inclusive_key_check_check_toggled(toggled_on: bool) -> void:
+	if StateButton.selected_state != null && is_instance_valid(StateButton.selected_state):
+		StateButton.selected_state.state_inclusive_key_check = toggled_on

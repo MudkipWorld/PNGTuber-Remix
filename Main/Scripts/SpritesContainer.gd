@@ -48,12 +48,16 @@ var bounceChange = 0.0
 var currenly_speaking : bool = false
 var tick = 0
 
+var movement_physics_process_stack: Array[Callable] = []
+var movement_process_stack: Array[Callable] = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.animation_state.connect(get_state)
 	Global.speaking.connect(speaking)
 	Global.not_speaking.connect(not_speaking)
 	Global.blink.connect(_squish)
+	process_physics_priority = 1
+	process_priority = 1
 
 func _squish():
 	if should_squish:
@@ -80,6 +84,7 @@ func _physics_process(delta: float) -> void:
 	
 	if get_parent().position.y < 16:
 		bounceChange = hold - get_parent().position.y
+
 #	get_parent().position.y = lerp(get_parent().position.y, 0.0, 0.05)
 	
 	if currenly_speaking:
@@ -128,6 +133,19 @@ func _physics_process(delta: float) -> void:
 		modulate = lerp(modulate, dim_color, 0.08)
 	else:
 		modulate = Color.WHITE
+		
+	# apply movements
+	for i in range(movement_physics_process_stack.size() - 1, -1, -1):
+		movement_physics_process_stack[i].call(delta)
+	
+	movement_physics_process_stack.clear()
+
+func _process(delta: float) -> void:
+	# apply movements
+	for i in range(movement_process_stack.size() - 1, -1, -1):
+		movement_process_stack[i].call(delta)
+	
+	movement_process_stack.clear()
 
 func save_state(id):
 	var dict = {
@@ -145,11 +163,15 @@ func save_state(id):
 	}
 	if id in range(Global.settings_dict.states.size()):
 		Global.settings_dict.states[id] = dict
+		print("save_current_state_model_stuff: " + str(id))
 	
 	if GlobalMicAudio.has_spoken:
 		speaking()
 	else:
 		not_speaking()
+
+func get_bounce_height():
+	return get_parent().position.y
 
 func get_state(state):
 	if !Global.settings_dict.states.is_empty():

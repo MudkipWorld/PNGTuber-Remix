@@ -110,7 +110,7 @@ layout_mode = 2
 sp_type = "WiggleApp"
 label_text = "TR_MAX_ANGLE_LABEL"
 max_value = 180.0
-step = 0.1
+step = 0.01
 value_to_update = "wiggle_max_angle"
 
 [node name="WiggleAppsPhysStiffBSlider" parent="." unique_id=1683902604 instance=ExtResource("2_cimjc")]
@@ -176,9 +176,9 @@ value_to_update = "segm_length"
 layout_mode = 2
 sp_type = "WiggleApp"
 label_text = "TR_GRAVITY_X_LABEL"
-mini_value = 1.0
-max_value = 10000.0
-step = 0.5
+mini_value = -100.0
+max_value = 100.0
+step = 0.1
 value_to_update = "wiggle_gravity"
 is_x = "x"
 
@@ -186,13 +186,13 @@ is_x = "x"
 layout_mode = 2
 sp_type = "WiggleApp"
 label_text = "TR_GRAVITY_Y_LABEL"
-mini_value = 1.0
-max_value = 10000.0
-step = 0.5
+mini_value = -100.0
+max_value = 100.0
+step = 0.1
 value_to_update = "wiggle_gravity"
 is_x = "y"
 
-[node name="WiggleGravityYSpin2" parent="GridContainer" unique_id=1439257325 instance=ExtResource("3_smak3")]
+[node name="WiggleSubDivision" parent="GridContainer" unique_id=1439257325 instance=ExtResource("3_smak3")]
 layout_mode = 2
 sp_type = "WiggleApp"
 label_text = "TR_SUB_DIVISION_LABEL"

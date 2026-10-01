@@ -36,13 +36,13 @@ static func some_keyboard_calc_wasd(type_name: String = "follow_type", actor: No
 	if actor.get_value(type_name) in [3, 4, 5]:
 		var ws: Vector2 = Vector2.ZERO
 		var ad: Vector2 = Vector2.ZERO
-		if GlobInput.is_action_pressed("KeyMovementW"):
+		if GlobInput.is_key_pressed(KEY_W):
 			ws.y = 1.0
-		if GlobInput.is_action_pressed("KeyMovementS"):
+		if GlobInput.is_key_pressed(KEY_S):
 			ws.x = 1.0
-		if GlobInput.is_action_pressed("KeyMovementA"):
+		if GlobInput.is_key_pressed(KEY_A):
 			ad.y = 1.0
-		if GlobInput.is_action_pressed("KeyMovementD"):
+		if GlobInput.is_key_pressed(KEY_D):
 			ad.x = 1.0
 
 		if actor.get_value(type_name) == 3:

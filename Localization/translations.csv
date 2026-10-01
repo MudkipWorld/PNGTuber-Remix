@@ -588,3 +588,41 @@ TR_PHYS_EFF,Physics Effect,Physics Effect
 TR_DISTANCE,Distance,Расстояние
 TR_DEGREE,Degree,Градус
 TR_THROW_FORCE,Throw Force,Сила броска
+TR_HOTKEY_NAME_COLUMN,Action,Действие
+TR_HOTKEY_COLUMN,Hotkey,Горячая клавиша
+TR_MIN_DURATION,Minimal Duration,Мин. длительность
+TR_MIN_DURATION_TOOLTIP,Sprite will be showed at least minimal duration to avoid disappearance.,"Спрайт будет показываться минимум указанное время, чтобы избежать исчезновения"
+TR_CAST_TIME,Cast Time,Время приведения
+TR_CAST_TIME_TOOLTIP,Sprite will be showed when hotkey is continuously pressed for more than the cast time,Спрайт появится только при непрерывном удержании горячей клавиши дольше времени приведения
+TR_INCLUSIVE_KEY_CHECK,Inclusive Key Check,Совместная проверка клавиш
+TR_INCLUSIVE_KEY_CHECK_TOOLTIP,"Modifier keys not included will be ignored (for example, Ctrl+1 will also trigger when Shift+Ctrl+1 is pressed), and the order of keys will be ignored","Модификаторы, не входящие в комбинацию, игнорируются (например, Ctrl+1 сработает и при Shift+Ctrl+1), порядок нажатия клавиш не важен"
+TR_IGNORE_IF_REST,Ignore If Rest,Игнорировать в покое
+TR_IGNORE_IF_REST_TOOLTIP,"If this sprite or its parent is rest, asset key input will be ignored","Если спрайт или его родитель находится в покое, ввод клавиш ресурса игнорируется"
+TR_AUTO_SHOW,Auto show,Автопоказ
+TR_AUTO_SHOW_TOOLTIP,Auto show when parent is show(or leaving rest),"Автопоказ, когда родитель видим (или выходит из состояния покоя)"
+TR_CYCLE_DELETE_TIP,"After deleting, the subsequent cycle numbers will be shifted forward to compensate.\n (Example: If Cycle 1 is deleted, the original Cycle 2 will be shifted to become Cycle 1)","После удаления номера последующих циклов сдвигаются вперёд\n (пример: если Cycle 1 удалён, бывший Cycle 2 становится Cycle 1)"
+TR_BLEND_MASKING,Masking,Masking
+TR_BLEND_TOOLTIP,"Blend mode is developing. \n - Multiply will also apply to both(this and background layer) transparency, which taking a layer mask effect \n - Burn, Hardmix, Cursed mode is unfinished","Blend mode is developing. \n - Multiply will also apply to both(this and background layer) transparency, which taking a layer mask effect \n - Burn, Hardmix, Cursed mode is unfinished"
+TR_IGNORE_BOUNCE_TOOLTIP,"Passive motion simulations (e.g. dragging, rotating, squeezing) will ignore bounce effects.\nFollow motion will still work normally.","Passive motion simulations (e.g. dragging, rotating, squeezing) will ignore bounce effects.\nFollow motion will still work normally."
+TR_MOUSE_VELOCITY_TOOLTIP,Mouse follow motion is based on the mouse velocity instead of its current position.,Mouse follow motion is based on the mouse velocity instead of its current position.
+TR_PHYSICS_TOOLTIP,"When enabled, motion is also affected by the parent's motion.","When enabled, motion is also affected by the parent's motion."
+TR_REST_MOVE_AND_RESET,Rest Move And Reset,Rest Move And Reset
+TR_SKEW_X,Skew-X,Skew-X
+TR_SKEW_Y,Skew-Y,Skew-Y
+TR_FILE_OPEN,Open,Открыть
+TR_REDO,Redo,Redo
+TR_UNDO,Undo,Undo
+TR_GRID,Grid,Grid
+TR_SHOW_GRID,Show Grid,Show Grid
+TR_SNAP_POSITION,Snap Position,Snap Position
+TR_SNAP_SIZE,Snap Size,Snap Size
+TR_SNAP_SIZE_TITLE,Grid Snap Size,Grid Snap Size
+TR_NEVER_RESET_TOOLTIP,Never resets the animation,Никогда не сбрасывает анимацию
+TR_EDIT_WINDOWS,Edit Windows,Edit Windows
+TR_NEVER_RESET,Never Reset,Никогда не сбрасывать
+TR_MOUSE_INPUT_AREA,(Mouse Bind Capture Area),(Область захвата ввода мыши)
+TR_SNAP_SIZE_INFO,Snap distance (0.1 to 100 pixels):,Snap distance (0.1 to 100 pixels):
+TR_ALWAYS_ACTIVE,Always Active,Always Active
+TR_DISABLE_BOTH,Disable Both,Disable Both
+TR_USE_SCREEN_EDGE_RANGE_TOOLTIP,"Off (default): the Range X/Y sliders define how far the mouse must be from the screen centre to reach min/max, so min/max can be hit before the mouse reaches the screen edge. On: min/max is only reached when the mouse touches the screen edge.","Выкл. (по умолчанию): ползунки «Диапазон X/Y» задают расстояние от центра экрана, на котором достигается максимум/минимум, поэтому предел может быть достигнут раньше края экрана. Вкл.: максимум/минимум достигается только у края экрана."
+TR_USE_SCREEN_EDGE_RANGE,Use Screen Edge as Range,Край экрана как диапазон

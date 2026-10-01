@@ -44,6 +44,8 @@ func _has_valid_held_sprite() -> bool:
 
 
 func held_sprite_is_null() -> void:
+	if !Global.is_editor:
+		return
 	%SpriteID.text = "%s %d" % [tr("TR_SPRITE_ID_LABEL"), 0]
 	%ParentID.text = "%s %d" % [tr("TR_PARENT_ID_LABEL"), 0]
 	%Name.editable = false
@@ -52,6 +54,8 @@ func held_sprite_is_null() -> void:
 
 
 func held_sprite_is_true() -> void:
+	if !Global.is_editor:
+		return
 	Global.top_ui.get_node("%DeselectButton").show()
 	%Name.editable = true
 	%AdvancedLipSync.disabled = true

@@ -230,6 +230,7 @@ func _on_confirmation_dialog_confirmed():
 	Global.settings_dict.monitor = Monitor.ALL_SCREENS
 	%ConfirmationDialog.hide()
 	Global.project_updates.emit("New Project!")
+	Global.load_sprite_states(0)
 
 func clear_sprites():
 	Global.held_sprite = null

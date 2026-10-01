@@ -53,6 +53,7 @@ func _on_effect_color_color_changed(color: Color) -> void:
 func _on_size_slider_value_changed(value: float) -> void:
 	if !should_change: return
 	%SizeSlider2.value = value
+	%SizeLabel.text = tr("TR_EFFECT_SIZE") + ": " + str(value)
 	Global.viewer.material.set_shader_parameter("line_scale", value)
 	Global.sprite_container.model_effects.effect_size = value
 	Global.sprite_container.save_state(Global.current_state)
@@ -69,6 +70,7 @@ func _on_color_blindness_helper_options_item_selected(index: int) -> void:
 func _on_size_slider_2_value_changed(value: float) -> void:
 	if !should_change: return
 	%SizeSlider.value = value
+	%SizeLabel2.text = tr("TR_EFFECT_SIZE") + ": " + str(value)
 	Global.viewer.material.set_shader_parameter("line_scale", value)
 	Global.sprite_container.model_effects.effect_size = value
 	Global.sprite_container.save_state(Global.current_state)
@@ -79,6 +81,12 @@ func _on_effect_color_2_color_changed(color: Color) -> void:
 	Global.viewer.material.set_shader_parameter("line_color", color)
 	Global.sprite_container.model_effects.effect_color = color
 	Global.sprite_container.save_state(Global.current_state)
+
+
+func _on_size_label_visibility_changed() -> void:
+	var value = Global.sprite_container.model_effects.effect_size
+	%SizeLabel.text = tr("TR_EFFECT_SIZE") + ": " + str(value)
+	%SizeLabel2.text = tr("TR_EFFECT_SIZE") + ": " + str(value)
 
 func _on_roll_speed_value_changed(value: float) -> void:
 	if !should_change: return

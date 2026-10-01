@@ -81,8 +81,8 @@ func desel():
 	selected = false
 
 func correct_sprite_size(ret : bool = false):
-	var w = %Sprite2D.texture.get_image().get_size().y / 0.98
-	var l = %Sprite2D.texture.get_image().get_size().x / 5
+	var w = sprite_object.texture.get_image().get_size().y / 0.98
+	var l = sprite_object.texture.get_image().get_size().x / 5
 	
 	sprite_data.width = w
 	sprite_data.segm_length = l
@@ -108,10 +108,10 @@ func _physics_process(_delta: float) -> void:
 	
 	if !Global.static_view:
 		if get_value("auto_wag"):
-			%Sprite2D.curvature = clamp(sin(Global.tick*(get_value("wag_freq")))*get_value("wag_speed"), deg_to_rad(get_value("wag_mini")), deg_to_rad(get_value("wag_max")))
+			sprite_object.curvature = clamp(sin(Global.tick*(get_value("wag_freq")))*get_value("wag_speed"), deg_to_rad(get_value("wag_mini")), deg_to_rad(get_value("wag_max")))
 	else:
 		if get_value("auto_wag"):
-			%Sprite2D.curvature = 0.0
+			sprite_object.curvature = 0.0
 		
 	%Grab.anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 
@@ -124,7 +124,7 @@ func wiggle_sprite():
 			wiggle_val = wiggle_val + (c_parrent_length/10)
 		
 		
-	%Sprite2D.material.set_shader_parameter("rotation", wiggle_val )
+	sprite_object.material.set_shader_parameter("rotation", wiggle_val )
 
 func save_state(id):
 	var dict : Dictionary = sprite_data.duplicate()
@@ -134,57 +134,58 @@ func get_state(id):
 	if not states[id].is_empty():
 		var dict = states[id]
 		sprite_data.merge(dict, true)
-		%Modifier1.z_index = get_value("z_index")
+		modifier1.z_index = get_value("z_index")
 		modulate = get_value("colored")
-		%Sprite2D.self_modulate = get_value("tint")
-		scale = get_value("scale")
+		sprite_object.self_modulate = get_value("tint")
 	#	global_position = get_value("global_position")
 		if get_value("should_reset_state"):
-			%ReactionConfig.reset_anim()
+			reaction_config.reset_anim()
 	
 		var old_glob = global_position
-		position = get_value("position")
-		if (global_position - old_glob).length() > get_value("drag_snap") && get_value("drag_snap") != 999999.0:
-			%Modifier.global_position = %Modifier1.global_position
+		apply_transform()
+		
+		var drag_snap = get_value("drag_snap")
+		if (global_position - old_glob).length() > drag_snap && drag_snap != 999999.0:
+			modifier.global_position = modifier1.global_position
 			%Dragger.global_position = %Modifier.global_position
 		
 		
-		%Sprite2D.position = get_value("offset") 
-		%Sprite2D.scale = Vector2(1,1)
+		sprite_object.position = get_value("offset") 
+		sprite_object.scale = Vector2(1,1)
 		
-		%Sprite2D.closed = get_value("wiggle_closed_loop")
-		%Sprite2D.gravity = get_value("wiggle_gravity")
-		%Sprite2D.texture_mode = get_value("tile")
+		sprite_object.closed = get_value("wiggle_closed_loop")
+		sprite_object.gravity = get_value("wiggle_gravity")
 		
+		sprite_object.texture_mode = get_value("tile")
 		match get_value("tile"):
 			0:
-				%Sprite2D.texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
+				sprite_object.texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
 			1:
-				%Sprite2D.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+				sprite_object.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 			2:
-				%Sprite2D.texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
+				sprite_object.texture_repeat = CanvasItem.TEXTURE_REPEAT_DISABLED
 		
-		%Sprite2D.keep_length = get_value("keep_length_anchor")
+		sprite_object.keep_length = get_value("keep_length_anchor")
 		static_collision.disabled = !get_value("can_be_hit")
 		%HitDetection.set_collision_layer_value(2, get_value("can_be_hit"))
 		
 		
-		%Sprite2D.set_clip_children_mode(get_value("clip"))
-		rotation = get_value("rotation")
+		sprite_object.set_clip_children_mode(get_value("clip"))
+		
 
 		if get_value("flip_h"):
-			%Sprite2D.scale.x = -1
+			sprite_object.scale.x = -1
 		else:
-			%Sprite2D.scale.x = 1
+			sprite_object.scale.x = 1
 		if get_value("flip_v"):
-			%Sprite2D.scale.y = -1
+			sprite_object.scale.y = -1
 		else:
-			%Sprite2D.scale.y = 1
+			sprite_object.scale.y = 1
 		
 		if !get_value("should_blink"):
-			%Modifier1.show()
+			modifier1.show()
 		else:
-			%ReactionConfig.update_to_mode_change(Global.mode)
+			reaction_config.update_to_mode_change(Global.mode)
 			
 		if get_value("fade"):
 			trigger_fade(visible)
@@ -206,83 +207,81 @@ func get_state(id):
 		if !get_value("should_blink"):
 			%Modifier1.modulate.a = 1
 			%Modifier1.show()
-			
-			
 	elif states[id].is_empty():
 		states[id] = sprite_data.duplicate(true)
 
 func set_anchor_sprite(_placeholder = null):
 	if get_value("anchor_id") == null:
-		%Sprite2D.anchor_target = null
+		sprite_object.anchor_target = null
 	else:
 		for i in Global.get_tree().get_nodes_in_group("Sprites"):
 			if i.sprite_id == get_value("anchor_id"):
-				%Sprite2D.anchor_target = i.get_node("%Sprite2D")
+				sprite_object.anchor_target = i.get_node("%Sprite2D")
 				return
 			else:
-				%Sprite2D.anchor_target = null
+				sprite_object.anchor_target = null
 				
 	if get_value("sync_appendage") == null:
-		%Sprite2D.sync_appendage = null
+		sprite_object.sync_appendage = null
 	else:
 		for i in Global.get_tree().get_nodes_in_group("Sprites"):
 			if i.sprite_id == get_value("sync_appendage"):
 				if i.get_node("%Sprite2D") is WigglyAppendage2D:
-					%Sprite2D.sync_appendage = i.get_node("%Sprite2D")
+					sprite_object.sync_appendage = i.get_node("%Sprite2D")
 				else:
-					%Sprite2D.sync_appendage = null
+					sprite_object.sync_appendage = null
 				return
 			else:
-				%Sprite2D.sync_appendage = null
+				sprite_object.sync_appendage = null
 
 func update_wiggle_parts():
-	if %Sprite2D.segment_count != get_value("wiggle_segm"):
-		%Sprite2D.segment_count = get_value("wiggle_segm")
-	if %Sprite2D.curvature != get_value("wiggle_curve"):
-		%Sprite2D.curvature = get_value("wiggle_curve")
-	if %Sprite2D.stiffness != get_value("wiggle_stiff"):
-		%Sprite2D.stiffness = get_value("wiggle_stiff")
-	if %Sprite2D.max_angle != get_value("wiggle_max_angle"):
-		%Sprite2D.max_angle = get_value("wiggle_max_angle")
-	
-	if %Sprite2D.width != get_value("width"):
-		%Sprite2D.width = get_value("width")
-	if %Sprite2D.segment_length != get_value("segm_length"):
-		%Sprite2D.segment_length = get_value("segm_length")
-	if %Sprite2D.subdivision!= get_value("subdivision"):
-		%Sprite2D.subdivision = get_value("subdivision")
-		
-	if %Sprite2D.comeback_speed!= get_value("comeback_speed"):
-		%Sprite2D.comeback_speed = get_value("comeback_speed")
-		
-	if %Sprite2D.max_angular_momentum!= get_value("max_angular_momentum"):
-		%Sprite2D.max_angular_momentum = get_value("max_angular_momentum")
-		
-	if %Sprite2D.damping!= get_value("damping"):
-		%Sprite2D.damping = get_value("damping")
-		
-	if %Sprite2D.rest_direction_angle!= get_value("appendage_angle"):
-		%Sprite2D.rest_direction_angle = get_value("appendage_angle")
-		
-	if %Sprite2D.max_length_stretch!= get_value("max_anchor_stretch"):
-		%Sprite2D.max_length_stretch = get_value("max_anchor_stretch")
-		
-	if %Sprite2D.mirror_anchor_movement_h!= get_value("mirror_anchor_movement_h"):
-		%Sprite2D.mirror_anchor_movement_h = get_value("mirror_anchor_movement_h")
-		
-	if %Sprite2D.mirror_anchor_movement_v!= get_value("mirror_anchor_movement_v"):
-		%Sprite2D.mirror_anchor_movement_v = get_value("mirror_anchor_movement_v")
+	if sprite_object.segment_count != get_value("wiggle_segm"):
+		sprite_object.segment_count = get_value("wiggle_segm")
+	if sprite_object.curvature != get_value("wiggle_curve"):
+		sprite_object.curvature = get_value("wiggle_curve")
+	if sprite_object.stiffness != get_value("wiggle_stiff"):
+		sprite_object.stiffness = get_value("wiggle_stiff")
+	if sprite_object.max_angle != get_value("wiggle_max_angle"):
+		sprite_object.max_angle = get_value("wiggle_max_angle")
 
-	if %Sprite2D.keep_length!= get_value("keep_length_anchor"):
-		%Sprite2D.keep_length = get_value("keep_length_anchor")
+	if sprite_object.width != get_value("width"):
+		sprite_object.width = get_value("width")
+	if sprite_object.segment_length != get_value("segm_length"):
+		sprite_object.segment_length = get_value("segm_length")
+	if sprite_object.subdivision!= get_value("subdivision"):
+		sprite_object.subdivision = get_value("subdivision")
 		
-	if %Sprite2D.closed!= get_value("wiggle_closed_loop"):
-		%Sprite2D.closed = get_value("wiggle_closed_loop")
+	if sprite_object.comeback_speed!= get_value("comeback_speed"):
+		sprite_object.comeback_speed = get_value("comeback_speed")
+		
+	if sprite_object.max_angular_momentum!= get_value("max_angular_momentum"):
+		sprite_object.max_angular_momentum = get_value("max_angular_momentum")
+		
+	if sprite_object.damping!= get_value("damping"):
+		sprite_object.damping = get_value("damping")
+		
+	if sprite_object.rest_direction_angle!= get_value("appendage_angle"):
+		sprite_object.rest_direction_angle = get_value("appendage_angle")
+		
+	if sprite_object.max_length_stretch!= get_value("max_anchor_stretch"):
+		sprite_object.max_length_stretch = get_value("max_anchor_stretch")
+		
+	if sprite_object.mirror_anchor_movement_h!= get_value("mirror_anchor_movement_h"):
+		sprite_object.mirror_anchor_movement_h = get_value("mirror_anchor_movement_h")
+		
+	if sprite_object.mirror_anchor_movement_v!= get_value("mirror_anchor_movement_v"):
+		sprite_object.mirror_anchor_movement_v = get_value("mirror_anchor_movement_v")
 
-	if %Sprite2D.texture_mode!= get_value("tile"):
-		%Sprite2D.texture_mode = get_value("tile")
-	if %Sprite2D.gravity!= get_value("wiggle_gravity"):
-		%Sprite2D.gravity = get_value("wiggle_gravity")
+	if sprite_object.keep_length!= get_value("keep_length_anchor"):
+		sprite_object.keep_length = get_value("keep_length_anchor")
+		
+	if sprite_object.closed!= get_value("wiggle_closed_loop"):
+		sprite_object.closed = get_value("wiggle_closed_loop")
+
+	if sprite_object.texture_mode!= get_value("tile"):
+		sprite_object.texture_mode = get_value("tile")
+	if sprite_object.gravity!= get_value("wiggle_gravity"):
+		sprite_object.gravity = get_value("wiggle_gravity")
 
 func check_talk():
 	if get_value("should_talk"):
@@ -310,3 +309,13 @@ func _input(event: InputEvent) -> void:
 		if selected && dragging:
 			save_state(Global.current_state)
 			dragging = false
+
+func apply_transform():
+	transform.x = Vector2.RIGHT
+	transform.y = Vector2.UP
+	position = get_value("position")
+	rotation = get_value("rotation")
+	scale = get_value("scale")
+	var skew = get_value("skew")
+	transform.x = transform.x.rotated(deg_to_rad(skew.x) )
+	transform.y = transform.y.rotated(deg_to_rad(skew.y) )

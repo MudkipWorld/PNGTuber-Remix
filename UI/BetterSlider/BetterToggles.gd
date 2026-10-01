@@ -64,7 +64,7 @@ func on_toggle(toggle : bool):
 	if sp_type == "Null": return
 	var undo_redo_data : Array = []
 	for i in Global.held_sprites:
-		var og_val = i.sprite_data[value_to_update]
+		var og_val = i.sprite_data.get(value_to_update)
 		if sp_type in [i.sprite_type, ""]:
 			i.sprite_data[value_to_update] = toggle != inverted
 			StateButton.multi_edit(i.sprite_data[value_to_update], value_to_update, i, i.states)
@@ -74,7 +74,7 @@ func on_toggle(toggle : bool):
 				action = value_to_update,
 				state = Global.current_state,
 				value = og_val, 
-				new_val = i.sprite_data[value_to_update]
+				new_val = i.sprite_data.get(value_to_update)
 			})
 		if i.sprite_type == "WiggleApp" and sp_type == "WiggleApp":
 			i.update_wiggle_parts()

@@ -35,7 +35,12 @@ var axis_shoulderr : Vector2 = Vector2.ZERO
 var axis_lr_3 : Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-	if Global.static_view or actor.rest_mode == 5:
+	if Global.static_view:
+		return
+	# rest_mode 5/7 fully disables the follow: snap the modifier back to its rest
+	# transform right away instead of freezing it at the last followed offset.
+	if actor.rest_mode in [5,7]:
+		reset_modifier()
 		return
 	if actor.rest_mode in [1,3] and rest:
 		reset_modifier()

@@ -7,6 +7,8 @@ var should_change: bool = false
 func _ready() -> void:
 	Global.deselect.connect(nullfy)
 	Global.reinfo.connect(enable)
+	(%CurrentSelVbox.get_node("%AnimationFramesSlider") as HSlider).value_changed.connect(_on_hframes_or_vframes_value_changed, CONNECT_DEFERRED)
+	(%CurrentSelVbox.get_node("%AnimationFramesSlider2") as HSlider).value_changed.connect(_on_hframes_or_vframes_value_changed, CONNECT_DEFERRED)
 	nullfy()
 
 
@@ -40,6 +42,8 @@ func set_data():
 		%NonAnimatedSheetCheck.button_pressed = i.get_value("non_animated_sheet")
 		%FrameSpinbox.value = i.get_value("frame")
 		%FrameSpinbox.max_value = (i.get_node("%Sprite2D").hframes * i.get_node("%Sprite2D").vframes) - 1
+	else:
+		%NonAnimatedSheetCheck.button_pressed = false
 
 	should_change = true
 
@@ -68,7 +72,7 @@ func _on_non_animated_sheet_check_toggled(toggled_on: bool) -> void:
 						%FrameHBox.hide()
 				else:
 					%FrameHBox.hide()
-
+				i.save_state(Global.current_state)
 
 func _on_frame_spinbox_value_changed(value: float) -> void:
 	if should_change:
@@ -78,9 +82,16 @@ func _on_frame_spinbox_value_changed(value: float) -> void:
 					%FrameSpinbox.max_value = (i.get_node("%Sprite2D").hframes * i.get_node("%Sprite2D").vframes) - 1
 					i.sprite_data.frame = clamp(value, 0, (i.get_node("%Sprite2D").hframes * i.get_node("%Sprite2D").vframes) - 1)
 					i.get_node("%Sprite2D").frame = clamp(value, 0, (i.get_node("%Sprite2D").hframes * i.get_node("%Sprite2D").vframes) - 1)
-
+					i.save_state(Global.current_state)
 
 func _on_frame_spinbox_mouse_entered() -> void:
+	if should_change:
+		for i in Global.held_sprites:
+			if i != null && is_instance_valid(i):
+				if i.sprite_type == "Sprite2D":
+					%FrameSpinbox.max_value = (i.get_node("%Sprite2D").hframes * i.get_node("%Sprite2D").vframes) - 1
+
+func _on_hframes_or_vframes_value_changed(value: float) -> void:
 	if should_change:
 		for i in Global.held_sprites:
 			if i != null && is_instance_valid(i):

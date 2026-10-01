@@ -92,6 +92,7 @@ func update_stuff():
 func _on_remove_asset_button_pressed():
 	if InputMap.action_get_events(action).size() != 0:
 		InputMap.action_erase_events(action)
+		Global.held_sprites[0].saved_event = null
 		update_key_text()
 
 func _on_is_asset_check_toggled(toggled_on):
@@ -99,12 +100,12 @@ func _on_is_asset_check_toggled(toggled_on):
 		if toggled_on:
 			if !InputMap.has_action(action):
 				InputMap.add_action(action)
-				Global.held_sprites[0].get_node("%Sprite2D").visible = true
+				ReactionConfig.sprite_show(Global.held_sprites[0], Global.held_sprites[0].sprite_object)
 		else:
 			if InputMap.has_action(action):
 				InputMap.erase_action(action)
 				Global.held_sprites[0].saved_event = null
-				Global.held_sprites[0].get_node("%Sprite2D").visible = true
+				ReactionConfig.sprite_show(Global.held_sprites[0], Global.held_sprites[0].sprite_object)
 				update_key_text()
 				%IsAssetButton.release_focus()
 
@@ -152,7 +153,7 @@ func _on_should_dis_remap_button_toggled(toggled_on):
 		if %ShouldDisList.item_count < id:
 			toggled_on = false
 			return
-		%ShouldDisList.set_item_text(id, "Awaiting Input.")
+		%ShouldDisList.set_item_text(id, tr("TR_AWAITING_INPUT"))
 	set_process_unhandled_input(toggled_on)
 
 func _on_should_dis_list_empty_clicked(_at_position, _mouse_button_index):
@@ -177,3 +178,23 @@ func _on_dont_hide_on_toggle_check_toggled(toggled_on: bool) -> void:
 func _on_hold_to_show_on_toggle_check_toggled(toggled_on: bool) -> void:
 	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 		Global.held_sprites[0].hold_to_show = toggled_on
+
+func _on_min_duration_spin_box_value_changed(value: float) -> void:
+	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
+		Global.held_sprites[0].min_duration = value
+
+func _on_inclusive_key_check_on_toggle_check_toggled(toggled_on: bool) -> void:
+	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
+		Global.held_sprites[0].inclusive_key_check = toggled_on
+
+func _on_ignore_if_rest_on_toggle_check_toggled(toggled_on: bool) -> void:
+	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
+		Global.held_sprites[0].ignore_if_rest = toggled_on
+
+func _on_auto_show_on_toggle_check_toggled(toggled_on: bool) -> void:
+	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
+		Global.held_sprites[0].auto_show = toggled_on
+
+func _on_cast_time_spin_box_value_changed(value: float) -> void:
+	if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
+		Global.held_sprites[0].cast_time = value

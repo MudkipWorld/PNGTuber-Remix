@@ -344,7 +344,8 @@ func _update_line():
 
 	# base array from physics
 	for point in physics_points:
-		new_line_points.append(to_local(point[POSITION]))
+		#new_line_points.append(to_local(point[POSITION]))
+		new_line_points.append(point[POSITION])
 
 	# insert a dynamic "extra start segment" before the root
 	if additional_start_segment:
@@ -360,6 +361,10 @@ func _update_line():
 				points.insert(0, extra_point)
 				return
 
+	#reset to local position and rotation
+	for point_index in new_line_points.size():
+		new_line_points[point_index] -= physics_points[0][POSITION]
+		new_line_points[point_index] = new_line_points[point_index].rotated(-global_transform.get_rotation())
 	# run bezier normally if no special-case insert happened above
 	points = _bezier_interpolate(new_line_points, subdivision)
 
@@ -402,7 +407,7 @@ func _signed_sqrt(value: float) -> float:
 	return sqrt(abs(value)) * sign(value)
 
 func _get_true_segment_length() -> float:
-	return segment_length * get_global_scale().x
+	return segment_length #* get_global_scale().x
 
 func _get_true_curvature() -> float:
 	var gt = get_global_transform()

@@ -98,6 +98,8 @@ var settings_dict : Dictionary = {
 	cycles = [],
 
 	trimmed = false,
+	
+	custom_hotkeys = {}
 }
 
 var image_manager_data : Array = []
@@ -223,6 +225,10 @@ func set_mode(new_mode) -> void:
 	for i in Global.get_tree().get_nodes_in_group("Meshes"):
 		i.get_node("%MeshEditor").queue_redraw()
 
+	#save current change
+	for i in get_tree().get_nodes_in_group("Sprites"):
+		i.save_state(current_state)
+
 	Settings.theme_settings.mode = mode
 	Settings.save()
 	mode_changed.emit(mode)
@@ -247,12 +253,14 @@ func load_sprite_states(state):
 	update_anim.emit()
 
 func get_sprite_states(state):
-	if state != current_state:
-		for i in get_tree().get_nodes_in_group("Sprites"):
+	var group_sprites: Array[Node] = get_tree().get_nodes_in_group("Sprites")
+	if is_editor:
+		for i in group_sprites:
 			i.save_state(current_state)
 
 	current_state = state
-	for i in get_tree().get_nodes_in_group("Sprites"):
+
+	for i in group_sprites:
 		i.get_state(current_state)
 
 	reinfo.emit()
@@ -286,7 +294,6 @@ func _process(delta):
 		tick = wrap(tick + delta, 0, 922337203685477630)
 	else:
 		tick = wrap(tick + 1, 0, 922337203685477630)
-	#	print(tick)
 	if !spinbox_held:
 		moving_origin(delta)
 		moving_sprite(delta)

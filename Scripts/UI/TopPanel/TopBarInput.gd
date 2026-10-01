@@ -1,4 +1,5 @@
 extends Node
+class_name TopBarInput
 
 @onready var files_button: MenuButton = %FilesButton
 @onready var mode_button: MenuButton = %ModeButton
@@ -110,7 +111,7 @@ func _update_window_button() -> void:
 	for window in WindowHandler.windows:
 		if not window.borderless:
 			continue
-		menu.add_item("Edit Windows", WindowMenuId.EDIT_WINDOWS)
+		menu.add_item(tr("TR_EDIT_WINDOWS"), WindowMenuId.EDIT_WINDOWS)
 		break
 
 
@@ -296,7 +297,7 @@ func _setup_grid() -> void:
 	var popup: PopupMenu = grid_button.get_popup()
 	popup.set_item_checked(0, Global.grid_visible)
 	popup.set_item_checked(1, Global.grid_snap)
-	popup.set_item_text(2, "Snap Size: %.1f px" % Global.grid_size)
+	popup.set_item_text(2, "%s: %.1f px" % [tr("TR_SNAP_SIZE"), Global.grid_size])
 
 func _on_grid_id_pressed(id: int) -> void:
 	match id:
@@ -308,9 +309,9 @@ func _on_grid_id_pressed(id: int) -> void:
 			Global.grid_snap = !Global.grid_snap
 			if Global.grid_snap:
 				for sprite in Global.held_sprites:
-					var snapped: Vector2 = Global.snap_position(sprite.position)
-					sprite.position = snapped
-					sprite.sprite_data.position = snapped
+					var snapped_position: Vector2 = Global.snap_position(sprite.position)
+					sprite.position = snapped_position
+					sprite.sprite_data.position = snapped_position
 					sprite.save_state(Global.current_state)
 			Global.update_pos_spins.emit()
 		2:
@@ -319,7 +320,7 @@ func _on_grid_id_pressed(id: int) -> void:
 	var popup: PopupMenu = grid_button.get_popup()
 	popup.set_item_checked(0, Global.grid_visible)
 	popup.set_item_checked(1, Global.grid_snap)
-	popup.set_item_text(2, "Snap Size: %.1f px" % Global.grid_size)
+	popup.set_item_text(2, "%s: %.1f px" % [tr("TR_SNAP_SIZE"), Global.grid_size])
 
 func _on_grid_theme_update(new_theme: Theme = null) -> void:
 	if grid_size_dialog != null and is_instance_valid(grid_size_dialog):
@@ -335,7 +336,7 @@ func _show_grid_size_dialog() -> void:
 
 	grid_size_dialog = AcceptDialog.new()
 	grid_size_dialog.theme = Settings.current_theme
-	grid_size_dialog.title = "Grid Snap Size"
+	grid_size_dialog.title = tr("TR_SNAP_SIZE_TITLE")
 	grid_size_dialog.ok_button_text = "Apply"
 	grid_size_dialog.min_size = Vector2i(320, 130)
 
@@ -380,7 +381,7 @@ func _apply_grid_size() -> void:
 		Global.update_pos_spins.emit()
 
 	var popup: PopupMenu = grid_button.get_popup()
-	popup.set_item_text(2, "Snap Size: %.1f px" % Global.grid_size)
+	popup.set_item_text(2, "%s: %.1f px" % [tr("TR_SNAP_SIZE"), Global.grid_size])
 
 func _notification(what: int) -> void:
 	if not Global.is_editor:
@@ -425,6 +426,10 @@ func _on_deselect_button_pressed() -> void:
 
 
 func _deselect_everything() -> void:
+	desel_everything()
+
+
+static func desel_everything() -> void:
 	if Global.held_sprite != null and is_instance_valid(Global.held_sprite):
 		if Global.held_sprite.has_node("%Origin"):
 			Global.held_sprite.get_node("%Origin").hide()

@@ -5,6 +5,8 @@ class_name StateButton
 @export var input_key : String = str(randi())
 var saved_event : InputEvent
 var state_name : String 
+var state_hold_to_show : bool = false
+var state_inclusive_key_check : bool = false
 static var selected_state : StateButton = null
 static var other_states : Array[StateButton] = []
 
@@ -14,7 +16,8 @@ func _ready():
 	text = state_name
 	if state == 0:
 		select_state()
-
+	
+	self.process_physics_priority = -1
 
 func _on_pressed():
 	if Input.is_action_pressed("ctrl"):
@@ -59,12 +62,40 @@ func select_state():
 func _physics_process(_delta: float) -> void:
 	if Global.settings_dict.checkinput != true:
 		return
+		
+	if StateUI.is_showing_state_remap_popup:
+		return
 	
-	if input_key != "Null" or input_key != "":
-		if GlobInput.is_action_just_pressed(input_key):
-			select_state()
-			Global.get_sprite_states(state)
-
+	if input_key == "Null" or input_key == "":
+		return
+	
+	if state_hold_to_show:
+		var is_action_pressed = GlobInput.is_input_pressed(saved_event, state_inclusive_key_check)
+		
+		if is_action_pressed:
+			if Global.current_state == state:
+				pass
+			elif GlobInput.is_input_pressed(selected_state.saved_event, state_inclusive_key_check):
+				pass
+			else:
+				select_state()
+				Global.get_sprite_states(state)
+				#print("switch on")
+		elif !is_action_pressed and Global.current_state == state:
+			var target_btn : StateButton = (get_parent().get_child(0) as StateButton)
+			
+			for btn in get_parent().get_children():
+				if btn.state_hold_to_show and GlobInput.is_input_pressed(btn.saved_event, state_inclusive_key_check):
+					target_btn = btn
+				
+			target_btn.select_state()
+			Global.get_sprite_states(target_btn.state)
+			#print("switch off")
+	elif GlobInput.is_input_just_pressed(saved_event, state_inclusive_key_check):
+		select_state()
+		Global.get_sprite_states(state)
+		#print("switch normal")
+	
 func update_stuff():
 	if saved_event != null && InputMap.has_action(input_key):
 		InputMap.action_erase_events(input_key)

@@ -171,4 +171,7 @@ func enable():
 			var _val = sprite.sprite_data[value_to_update]
 			%SpinBoxValue.value = _val
 			%SliderValue.value = _val
+		elif sp_type == "Null":
+			%SpinBoxValue.editable = true
+			%SliderValue.editable = true
 	should_change = true

@@ -34,6 +34,7 @@ min_value = 1.0
 max_value = 164.0
 value = 1.0
 rounded = true
+scrollable = false
 
 [node name="AnimationFramesLabel2" type="Label" parent="VBoxContainer" unique_id=1412799941]
 unique_name_in_owner = true
@@ -50,6 +51,7 @@ min_value = 1.0
 max_value = 164.0
 value = 1.0
 rounded = true
+scrollable = false
 
 [node name="AnimationSpeedLabel" type="Label" parent="VBoxContainer" unique_id=1325142812]
 unique_name_in_owner = true
@@ -65,6 +67,7 @@ mouse_force_pass_scroll_events = false
 min_value = 1.0
 max_value = 60.0
 value = 1.0
+scrollable = false
 
 [connection signal="value_changed" from="VBoxContainer/AnimationFramesSlider" to="AnimationPanelScripts" method="_on_animation_frames_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/AnimationFramesSlider2" to="AnimationPanelScripts" method="_on_animation_frames_slider_2_value_changed"]
