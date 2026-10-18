@@ -13,7 +13,7 @@ $env:GODOT_PATH = 'C:/Tools/Godot/Godot_v4.6-stable_win64_console.exe'
 
 The generator creates 32-byte AES and HMAC keys and a 16-byte identifier using the system cryptographic RNG. It refuses to overwrite existing keys. `Protected/generated/` is ignored by Git. Back up the generated file privately; do not attach it to a PR, issue, source archive, or customer delivery. No key values are printed by these tools. The fixed bytes in codec unit tests are public test fixtures, not build keys.
 
-Godot imports are performed before testing/exporting. Test output is in `build/tests/`. A missing key file produces an actionable script error; it does not silently generate a different key set. The normal source project can start without the generated file; protected operations then fail closed.
+Godot imports are performed before testing/exporting. A bootstrap pass creates upstream font/translation caches; a second pass must load them without resource or script errors. Test output is in `build/tests/`. A missing key file produces an actionable script error; it does not silently generate a different key set. The normal source project can start without the generated file; protected operations then fail closed.
 
 ## Export both roles
 

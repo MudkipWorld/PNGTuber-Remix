@@ -19,3 +19,7 @@ Motion compatibility is isolated in a separate commit. It intentionally replaces
 5. Rebuild with the current branch's required engine/templates, and perform physical input, microphone, rendering and OBS acceptance tests.
 
 No code or binaries have been pushed by the preparation workflow. The submission materials are intended to be reviewed before any public upload. They contain no production build keys or private customer models.
+
+## Mechanical merge audit
+
+A three-way `git merge-tree` check against the observed default branch found content conflicts in `Scripts/Objects/ObjectComponents/movements.gd` and `Scripts/Objects/sprite_object.gd`. The check does not modify the working tree. Other files auto-merging is not evidence of runtime compatibility; the schema/native/audio forward-port work above still applies.

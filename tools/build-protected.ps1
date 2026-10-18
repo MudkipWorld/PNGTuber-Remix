@@ -13,6 +13,9 @@ if(!$TemplateDir){$TemplateDir=Split-Path $GodotPath -Parent}
 $templateDir=$TemplateDir
 $releaseTemplate=(Join-Path $templateDir 'windows_release_x86_64.exe').Replace('\','/')
 $debugTemplate=(Join-Path $templateDir 'windows_debug_x86_64.exe').Replace('\','/')
+# First pass creates upstream font/translation caches required during startup.
+& $GodotPath --headless --path $projectRoot --editor --import --quit *> (Join-Path $outputDir 'import-bootstrap.log')
+if($LASTEXITCODE -ne 0){throw 'Initial Godot import failed'}
 & $GodotPath --headless --path $projectRoot --editor --import --quit *> (Join-Path $outputDir 'import.log')
 if($LASTEXITCODE -ne 0 -or (Select-String -LiteralPath (Join-Path $outputDir 'import.log') -Pattern 'SCRIPT ERROR|Parse Error|Failed loading resource' -Quiet)){throw 'Import failed; inspect build/<role>/import.log'}
 try {
