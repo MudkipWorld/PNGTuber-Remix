@@ -1,6 +1,6 @@
 # PNGTuber Remix 1.4.5 Motion Compatibility Report
 
-Date: 2026-10-18  
+Date: 2026-10-18
 Scope: The user-supplied Chinese-localized Windows runtime compared with the GitHub V1.4.5 source tag.
 
 ## Conclusion

@@ -30,7 +30,7 @@ Get-ChildItem 'C:/PR-Package/patches/*.patch' | Sort-Object Name | ForEach-Objec
 
 ```powershell
 git push -u origin feature/protected-model-v145
-# 使用 docs/pr/PR-BODY.en.md 中 PR body 部分作为正文。
+# 直接使用 docs/pr/PR-BODY.en.md 作为正文。
 gh pr create --repo MudkipWorld/PNGTuber-Remix --base 1.4.x --head YOUR_ACCOUNT:feature/protected-model-v145 --draft --title 'Add experimental protected model export and playback for V1.4.5' --body-file docs/pr/PR-BODY.en.md
 ```
 

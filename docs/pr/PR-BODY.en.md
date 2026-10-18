@@ -1,9 +1,3 @@
-# PR title
-
-Add experimental protected model export and playback for V1.4.5
-
-# PR body
-
 This draft introduces a creator export and a paired playback-only application for sharing a working PNGTuber model without exposing the ordinary editing, model-save, or asset-export workflow. **The implementation is based on V1.4.5 (`6b09389`), not current `1.4.x`. It requires forward-port review before merging into the current default branch.** See [integration status](docs/pr/UPSTREAM-INTEGRATION.md).
 
 ## Behavior
