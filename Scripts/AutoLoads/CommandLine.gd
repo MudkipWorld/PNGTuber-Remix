@@ -1,6 +1,8 @@
 extends Node
 
 func _ready():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	for argument in OS.get_cmdline_user_args():
 		if argument.contains("="):
 			var key_value = argument.split("=");

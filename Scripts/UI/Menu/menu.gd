@@ -16,6 +16,8 @@ func init_switch_session():
 		%Scene.add_child(%MenuScreenPopup.streamer_mode.instantiate())
 
 func auto_load_model():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if Settings.theme_settings.auto_load:
 		if FileAccess.file_exists(Settings.theme_settings.path):
 			await get_tree().create_timer(0.1).timeout
@@ -28,6 +30,8 @@ func _notification(what: int) -> void:
 		OS.kill(OS.get_process_id())
 
 func _input(event: InputEvent) -> void:
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if event.is_action_pressed("save"):
 		if Global.save_path:
 			SaveAndLoad.save_file(Global.save_path)

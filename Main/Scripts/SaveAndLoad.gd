@@ -165,6 +165,8 @@ func save_data():
 	}
 
 func save_model(path: String) -> void:
+	if not ProtectionPolicy.allows("save_model"):
+		return
 	Global.save_path = path
 	save_data()
 	var file := FileAccess.open(path, FileAccess.WRITE)
@@ -178,6 +180,11 @@ func save_model(path: String) -> void:
 	save_dict.clear()
 
 func load_file(path: String, autoload : bool = false):
+	if ProtectionPolicy.is_player():
+		await get_node("/root/ProtectedSession").load_protected(path)
+		return
+	if path.get_extension().to_lower() == "pngremixprotected":
+		return
 	if !FileAccess.file_exists(path):
 		return
 	if autoload:
@@ -197,6 +204,8 @@ func load_file(path: String, autoload : bool = false):
 	Global.camera.zoom = Global.settings_dict.zoom
 
 func load_model(path: String) -> void:
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	Global.delete_states.emit()
 	Global.main.clear_sprites()
 	Global.main.get_node("Timer").start()
@@ -229,6 +238,9 @@ func load_model(path: String) -> void:
 			new_file.close()
 
 
+	apply_model_data(load_dict, path)
+
+func apply_model_data(load_dict: Dictionary, path: String) -> bool:
 	Global.settings_dict.merge(load_dict.settings_dict, true)
 	if Global.settings_dict.monitor != Monitor.ALL_SCREENS:
 		if Global.settings_dict.monitor >= DisplayServer.get_screen_count():
@@ -239,7 +251,8 @@ func load_model(path: String) -> void:
 		Global.save_path = path
 		
 		
-	load_objects(load_dict)
+	if not load_objects(load_dict):
+		return false
 
 	if load_dict.input_array != null:
 		var buttons = get_tree().get_nodes_in_group("StateButtons")
@@ -296,6 +309,7 @@ func load_model(path: String) -> void:
 	Global.remake_image_manager.emit()
 	Global.load_model.emit()
 	Global.load_sprite_states(0)
+	return true
 
 func resize_image_data(image_data: ImageData, sprite_node: Node2D, percent: float) -> void:
 	if percent == 100.0 or image_data.runtime_texture == null:
@@ -334,7 +348,7 @@ func resize_apng_frames(image_data: ImageData, percent: float) -> void:
 	var apng_bytes := exporter.export_animation(image_data.frames, 24, null, null, [])
 	image_data.anim_texture = apng_bytes
 
-func load_objects(load_dict: Dictionary) -> void:
+func load_objects(load_dict: Dictionary) -> bool:
 	Global.image_manager_data.clear()
 	var sheet_textures: Dictionary = {}
 
@@ -381,20 +395,45 @@ func load_objects(load_dict: Dictionary) -> void:
 		var sprite_obj
 		if sprite.has("sprite_type") and sprite.sprite_type == "WiggleApp":
 			sprite_obj = preload("res://Misc/AppendageObject/Appendage_object.tscn").instantiate()
-			set_common_data(sprite, sprite_obj)
-			load_normal_objects(load_dict, sprite, sprite_obj)
+			if not set_common_data(sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
+			if not load_normal_objects(load_dict, sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
 		elif sprite.has("sprite_type") and sprite.sprite_type == "Comment":
 			sprite_obj = preload("res://Misc/CommentObject/comment_object.tscn").instantiate()
-			set_common_data(sprite, sprite_obj)
-			load_comment_block_object(load_dict, sprite, sprite_obj)
+			if not set_common_data(sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
+			if not load_comment_block_object(load_dict, sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
 		elif sprite.has("sprite_type") and sprite.sprite_type == "Mesh":
 			sprite_obj = preload("res://Misc/MeshObject/mesh_object.tscn").instantiate()
-			set_common_data(sprite, sprite_obj)
-			load_mesh_object(load_dict, sprite, sprite_obj)
+			if not set_common_data(sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
+			if not load_mesh_object(load_dict, sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
 		else:
 			sprite_obj = preload("res://Misc/SpriteObject/sprite_object.tscn").instantiate()
-			set_common_data(sprite, sprite_obj)
-			load_normal_objects(load_dict, sprite, sprite_obj)
+			if not set_common_data(sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
+			if not load_normal_objects(load_dict, sprite, sprite_obj):
+				if not sprite_obj.is_inside_tree():
+					sprite_obj.free()
+				return false
+	return true
 
 func set_common_data(sprite, sprite_obj):
 	sprite_obj.layer_color = sprite.get("layer_color", Color.BLACK)
@@ -457,6 +496,7 @@ func set_common_data(sprite, sprite_obj):
 			
 			
 	sprite_obj.sprite_name = sprite.sprite_name
+	return true
 
 func load_comment_block_object(_load_dict : Dictionary, sprite, sprite_obj):
 	var cleaned_array := []
@@ -480,6 +520,7 @@ func load_comment_block_object(_load_dict : Dictionary, sprite, sprite_obj):
 		sprite_obj.is_collapsed = sprite.is_collapsed
 	Global.sprite_container.add_child(sprite_obj)
 	sprite_obj.sprite_type = "Comment"
+	return true
 
 func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 	var cleaned_array := []
@@ -566,6 +607,7 @@ func load_mesh_object(_load_dict: Dictionary, sprite, sprite_obj):
 	sprite_obj.sprite_type = "Mesh"
 	sprite_obj.get_node("%Sprite2D").set_mesh_id(sprite.sprite_id)
 	sprite_obj.get_node("%Sprite2D").warps = sprite.get("warps", [])
+	return true
 
 func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 		var canv: CanvasTexture = CanvasTexture.new()
@@ -648,6 +690,7 @@ func load_normal_objects(load_dict : Dictionary, sprite, sprite_obj):
 			
 		sprite_obj.get_node("%Grab").anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 		Global.sprite_container.add_child(sprite_obj)
+		return true
 
 func load_sprite(sprite, image_data = null, normal = false):
 	var img_data
@@ -705,6 +748,8 @@ func make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> Pac
 #----------------------------------------------------------------------------
 # Global Backups
 func save_backup(data: Dictionary, previous_path: String) -> void:
+	if not ProtectionPolicy.allows("backup_model"):
+		return
 	if not DirAccess.dir_exists_absolute(backs_dir):
 		DirAccess.make_dir_absolute(backs_dir)
 	var extension := "." + previous_path.get_extension()
@@ -722,6 +767,8 @@ func save_backup(data: Dictionary, previous_path: String) -> void:
 	file.close()
 
 func export_images(images : Array = []) -> void:
+	if not ProtectionPolicy.allows("export_assets"):
+		return
 	if not DirAccess.dir_exists_absolute(dire):
 		DirAccess.make_dir_absolute(dire)
 		
@@ -761,11 +808,55 @@ func export_images(images : Array = []) -> void:
 #----------------------------------------------------------------------------
 # Misc Data
 func load_pngplus_file(_path):
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	pass
 	#LoadMisc.load_pngplus_file(path, can_load_plus)
 
 func load_images_from_psd(path : String):
+	if not ProtectionPolicy.allows("import_assets"):
+		return
 	LoadMisc.load_images_from_psd(path)
 
 func add_object_to_scene(image_data, add_as_appendage : bool = false, folder : bool = false, force_offset : bool = false, custom_name : String = ""):
+	if not ProtectionPolicy.allows("import_assets"):
+		return
 	LoadMisc.add_object_to_scene(image_data, add_as_appendage, folder, force_offset, custom_name)
+
+func apply_protected_data(data: Dictionary) -> Error:
+	var schema = load("res://Protected/ProtectedSchema.gd").new()
+	if not schema.valid_model(data):
+		return ERR_INVALID_DATA
+	# Retain a complete in-memory recovery snapshot; never write it to disk.
+	save_data()
+	var previous := save_dict.duplicate(true)
+	save_dict.clear()
+	var previous_state: int = Global.current_state
+	var previous_path: String = Global.save_path
+	var previous_zoom: Vector2 = Global.camera.zoom
+	var previous_pan: Vector2 = Global.camera_pos.global_position
+	var loaded = await replace_protected_data(data)
+	if loaded != true:
+		Global.settings_dict = previous.settings_dict.duplicate(true)
+		var recovered = await replace_protected_data(previous)
+		Global.save_path = previous_path
+		Global.camera.zoom = previous_zoom
+		Global.camera_pos.global_position = previous_pan
+		if recovered == true:
+			Global.load_sprite_states(previous_state)
+		return ERR_CANT_CREATE
+	Global.set_mode(1)
+	return OK
+
+func replace_protected_data(data: Dictionary):
+	Global.delete_states.emit()
+	Global.main.clear_sprites()
+	Global.delete_states.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var runtime_data := data.duplicate(true)
+	runtime_data.settings_dict.auto_save = false
+	import_trimmed = false
+	import_resized = false
+	var applied = apply_model_data(runtime_data, "res://protected-session")
+	return applied == true and get_tree().get_nodes_in_group("Sprites").size() == data.sprites_array.size()

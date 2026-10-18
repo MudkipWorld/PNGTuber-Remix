@@ -162,6 +162,8 @@ func create_placeholders():
 	image_data_normal.runtime_texture = preload("res://Misc/TestAssets/Placeholder_n.png")
 
 func set_mode(new_mode) -> void:
+	if ProtectionPolicy.is_player():
+		new_mode = 1
 	if new_mode == mode: return
 	mode = new_mode
 	
@@ -241,6 +243,8 @@ func get_sprite_states(state):
 	update_anim.emit()
 
 func _input(_event : InputEvent):
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	for i in held_sprites:
 		if i != null && is_instance_valid(i):
 			if Input.is_action_pressed("ctrl"):

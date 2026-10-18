@@ -12,6 +12,8 @@ func _ready() -> void:
 	confirmed.connect(close)
 
 func _on_editor_mode_pressed() -> void:
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if current_mode != 0:
 		save_between_sessions()
 		forced_backup_save()
@@ -30,6 +32,8 @@ func _on_editor_mode_pressed() -> void:
 		Global.mode_changed.emit(Global.mode)
 
 func _on_steamer_mode_pressed() -> void:
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if current_mode != 1:
 		save_between_sessions()
 		forced_backup_save()

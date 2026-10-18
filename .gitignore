@@ -55,3 +55,10 @@ Icon
 # Temporary files / logs
 *.tmp
 *.log
+
+.superpowers/
+Protected/generated/
+build/
+Preferences.pRDat
+WebsocketDocumentation.txt
+tests/protected/out/

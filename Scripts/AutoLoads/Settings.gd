@@ -67,12 +67,17 @@ var autosave_location = ""
 var websocket_api = ""
 
 func _enter_tree() -> void:
+	if ProtectionPolicy.is_player():
+		save_location = "user://player-theme.dat"
+		autosave_location = "user://disabled-autosaves"
+		websocket_api = "user://WebsocketDocumentation.txt"
+		return
 	save_location = path_helper(OS.get_executable_path().get_base_dir(), "/Preferences.pRDat")
 	autosave_location = path_helper(OS.get_executable_path().get_base_dir(), "/autosaves")
 	websocket_api = path_helper(OS.get_executable_path().get_base_dir(), "/WebsocketDocumentation.txt")
 
 func save_before_closing():
-	if theme_settings.save_on_exit:
+	if theme_settings.save_on_exit and ProtectionPolicy.allows("save_model"):
 		if FileAccess.file_exists(Global.save_path):
 			SaveAndLoad.save_file(Global.save_path)
 		else:
@@ -83,6 +88,8 @@ func save_before_closing():
 	get_tree().quit()
 
 func save() -> void:
+	if ProtectionPolicy.is_player():
+		return
 	var save_file := FileAccess.open(save_location, FileAccess.WRITE)
 	if not save_file:
 		push_error("Settings: failed to open file for writing: %s" % FileAccess.get_open_error())
@@ -92,6 +99,8 @@ func save() -> void:
 	save_file.close()
 
 func auto_save():
+	if not ProtectionPolicy.allows("save_model"):
+		return
 	if FileAccess.file_exists(Global.save_path):
 		SaveAndLoad.save_file(Global.save_path)
 	else:
@@ -116,7 +125,7 @@ func _ready():
 			save_data.store_string(WebsocketDoc.doc)
 			save_data.close()
 
-	if FileAccess.file_exists(save_location):
+	if not ProtectionPolicy.is_player() and FileAccess.file_exists(save_location):
 		var load_file = FileAccess.open(save_location, FileAccess.READ)
 		var info = load_file.get_var()
 		if info is Dictionary:
@@ -141,12 +150,12 @@ func _ready():
 		load_file.close()
 		
 	else:
-		var create_file = FileAccess.open(save_location, FileAccess.WRITE)
+		var create_file = null if ProtectionPolicy.is_player() else FileAccess.open(save_location, FileAccess.WRITE)
 		theme_settings.theme_id = 0
 		if (create_file):
 			create_file.store_var(theme_settings)
 			create_file.close()
-		else:
+		elif not ProtectionPolicy.is_player():
 			push_error(FileAccess.get_open_error())
 			file_error.emit("INITIAL_SAVE_ERROR", FileAccess.get_open_error())
 		loaded_UI(theme_settings.theme_id)

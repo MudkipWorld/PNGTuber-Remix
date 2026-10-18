@@ -37,6 +37,8 @@ var pending_peers: Array[PendingPeer] = []
 var peers: Dictionary
 
 func listen(nport: int) -> int:
+	if not ProtectionPolicy.allows("remote_control"):
+		return ERR_UNAUTHORIZED
 	# Stop any existing server before starting new one
 	if tcp_server.is_listening():
 		tcp_server.stop()

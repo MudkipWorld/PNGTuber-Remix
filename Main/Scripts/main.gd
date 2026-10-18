@@ -23,6 +23,8 @@ var of := Vector2.ZERO
 var cam_pos_before_pan := Vector2.ZERO
 
 func _ready():
+	if ProtectionPolicy.is_player():
+		%UIHold.hide()
 	Global.viewport = %SubViewportContainer
 	Global.viewer = %Effects
 	Global.main = self
@@ -32,6 +34,8 @@ func _ready():
 	Global.camera = %Camera2D
 	Global.camera_pos = %CamPos
 	Global.mesh_pointer = %MeshPointer
+	if ProtectionPolicy.is_player():
+		Global.set_mode(1)
 	Global.update_camera_smoothing()
 	
 	Global.theme_update.connect(update_theme)
@@ -48,6 +52,8 @@ func _ready():
 	get_window().files_dropped.connect(file_dropped)
 
 func file_dropped(files : PackedStringArray):
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	sprite_paths.clear()
 	for file in files:
 		if file.get_extension().to_lower() == "png":
@@ -85,6 +91,8 @@ func update_theme(new_theme : Theme = preload("res://Themes/PurpleTheme/GUITheme
 	%ConfirmationDialog.theme = new_theme
 
 func new_file():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	%ConfirmationDialog.popup()
 
 func load_file():
@@ -95,30 +103,40 @@ func load_file():
 	%FileDialog.show()
 
 func save_as_file():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	%FileDialog.filters = ["*.pngRemix"]
 	$FileDialog.file_mode = 4
 	current_state = State.SaveFileAs
 	%FileDialog.show()
 
 func load_sprites():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.svg", "*.apng"]
 	$FileDialog.file_mode = 1
 	current_state = State.LoadSprites
 	%FileDialog.show()
 
 func import_psd():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	%FileDialog.filters = ["*.psd"]
 	$FileDialog.file_mode = 0
 	current_state = State.ImportPSD
 	%FileDialog.show()
 
 func load_append_sprites():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	%FileDialog.filters = ["*.png, *.apng, *.gif", "*.png", "*.svg", "*.apng"]
 	$FileDialog.file_mode = 1
 	current_state = State.AddAppend
 	%FileDialog.show()
 
 func replacing_sprite():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if Global.held_sprites.size() == 1:
 		if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 			if not Global.held_sprites[0].get_value("folder"):
@@ -128,6 +146,8 @@ func replacing_sprite():
 				%FileDialog.show()
 
 func add_normal_sprite():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if Global.held_sprites.size() == 1:
 		if Global.held_sprites[0] != null && is_instance_valid(Global.held_sprites[0]):
 			if not Global.held_sprites[0].get_value("folder"):
@@ -184,6 +204,8 @@ func _on_file_dialog_file_selected(path):
 			SaveAndLoad.load_images_from_psd(path)
 
 func _on_file_dialog_files_selected(paths):
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if current_state == State.LoadSprites or current_state == State.AddAppend:
 		sprite_paths = paths
 		if Settings.theme_settings.enable_trimmer:
@@ -193,6 +215,8 @@ func _on_file_dialog_files_selected(paths):
 			import_objects()
 
 func import_objects():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 		for path in sprite_paths:
 			var sprte_obj
 			if current_state == State.LoadSprites:
@@ -218,6 +242,8 @@ func import_objects():
 				Global.update_layers.emit(0, sprte_obj, "Sprite2D")
 
 func _on_confirmation_dialog_confirmed():
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	Global.image_manager_data.clear()
 	Global.remake_image_manager.emit()
 	Global.save_path = ""

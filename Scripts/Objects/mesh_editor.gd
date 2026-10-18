@@ -137,6 +137,8 @@ func _draw():
 		draw_circle(v, 2.0, Color(1,0,0))
 
 func _input(event):
+	if not ProtectionPolicy.allows("edit_model"):
+		return
 	if mesh == null or !is_instance_valid(mesh):
 		return
 	if !mesh.editable:

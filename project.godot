@@ -34,6 +34,8 @@ driver/enable_input=true
 
 [autoload]
 
+ProtectionPolicy="*res://Protected/ProtectionPolicy.gd"
+
 VersionConverter="*res://Scripts/AutoLoads/VersionConversion/VersionConverter.tscn"
 Global="*res://Main/Scripts/Global.gd"
 LoadMisc="*uid://bqxqiptwa1wsc"
@@ -47,6 +49,10 @@ GlobInput="*res://Scripts/AutoLoads/global_input.tscn"
 CommandLine="*uid://bb316uj87yar8"
 Tracker="*res://Scripts/Trackings/TrackingBackend.gd"
 LanguageManager="*uid://htrtywrh8c4v"
+
+
+ProtectedSession="*res://Protected/ProtectedSession.gd"
+ProtectedUI="*res://Protected/ProtectedUI.gd"
 
 [debug]
 

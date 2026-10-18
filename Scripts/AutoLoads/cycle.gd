@@ -4,30 +4,27 @@ func _physics_process(_delta: float) -> void:
 	update_cycles()
 
 func update_cycles(settings_dict = Global.settings_dict):
-	for cycle in settings_dict.cycles:
+	for index in settings_dict.cycles.size():
+		var cycle = settings_dict.cycles[index]
 		if cycle.sprites.size() == 0:
 			continue
-		var toggle = cycle.get("toggle", null)
-		var forward = cycle.get("forward", null)
-		var backward = cycle.get("backward", null)
+		if event_pressed(index, "toggle", cycle.get("toggle")):
+			toggle_cycle(cycle)
+		if event_pressed(index, "forward", cycle.get("forward")):
+			toggle_forward(cycle)
+		if event_pressed(index, "backward", cycle.get("backward")):
+			toggle_backward(cycle)
 
-		if toggle != null:
-			if cycle.toggle is InputEventKey and GlobInput.is_key_just_pressed(cycle.toggle.keycode):
-				toggle_cycle(cycle)
-			elif cycle.toggle is InputEventMouseButton and GlobInput.is_mouse_just_pressed(cycle.toggle.button_index):
-				toggle_cycle(cycle)
-
-		if forward != null:
-			if cycle.forward is InputEventKey and GlobInput.is_key_just_pressed(cycle.forward.keycode):
-				toggle_forward(cycle)
-			elif cycle.forward is InputEventMouseButton and GlobInput.is_mouse_just_pressed(cycle.forward.button_index):
-				toggle_forward(cycle)
-
-		if backward != null:
-			if cycle.backward is InputEventKey and GlobInput.is_key_just_pressed(cycle.backward.keycode):
-				toggle_backward(cycle)
-			elif cycle.backward is InputEventMouseButton and GlobInput.is_mouse_just_pressed(cycle.backward.button_index):
-				toggle_backward(cycle)
+func event_pressed(index: int, action: String, event: InputEvent) -> bool:
+	if ProtectionPolicy.is_player():
+		var ui = get_node_or_null("/root/ProtectedUI")
+		if ui != null and ui.cycle_bindings != null and ui.cycle_bindings.has_override(index, action):
+			return GlobInput.is_action_just_pressed(ui.cycle_bindings.action_name(str(index) + ":" + action))
+	if event is InputEventKey:
+		return GlobInput.is_key_just_pressed(event.keycode)
+	if event is InputEventMouseButton:
+		return GlobInput.is_mouse_just_pressed(event.button_index)
+	return false
 
 func toggle_cycle(cycle):
 	cycle.active = !cycle.active
