@@ -59,3 +59,7 @@ Please, if you would like a direct contact with me. Join the official discord!
 * Mushie for the Documentation
 
 <br>Note : This used to be a forked of PNGTuber+, credits to Kaiakairos. make sure to support them :D</br>
+
+## Experimental protected creator and player
+
+This contribution targets V1.4.5. See [features, bilingual guides and build instructions](docs/protected/README.md), [motion compatibility evidence](docs/protected/motion-compatibility.en.md), and [upstream integration status](docs/pr/UPSTREAM-INTEGRATION.md). Private build keys are generated locally and are not included.
