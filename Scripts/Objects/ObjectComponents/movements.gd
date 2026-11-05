@@ -307,21 +307,22 @@ func rotational_drag(length, delta: float):
 				paused_rotation += delta if Global.settings_dict.should_delta else 1.
 		else:
 			last_rot = sin((Global.tick-paused_rotation) * actor.get_value("rot_frq"))
-			last_rot *= deg_to_rad(actor.get_value("rdragStr"))
+			last_rot *= deg_to_rad(actor.get_value("rot_degree"))
 	else:
 		last_rot = sin((Global.tick-paused_rotation) * actor.get_value("rot_frq"))
-		last_rot *= deg_to_rad(actor.get_value("rdragStr"))
+		last_rot *= deg_to_rad(actor.get_value("rot_degree"))
 
 	var min_rot : float = deg_to_rad(actor.get_value("rLimitMin"))
 	var max_rot : float = deg_to_rad(actor.get_value("rLimitMax"))
 
 	var final_last_rot : float = clamp(last_rot,min_rot, max_rot)
 
-	applied_rotation = lerp_angle(applied_rotation, final_last_rot, 0.15)
-	yvel = ((length * actor.get_value("rdragStr")))*(actor.get_value("phys_eff")/200.0)
+	yvel = ((length * deg_to_rad(actor.get_value("rdragStr"))))*(actor.get_value("phys_eff")/200.0)
 
 	yvel = clamp(yvel,min_rot, max_rot)
-	applied_rotation = lerp_angle(applied_rotation,deg_to_rad(yvel),0.15)
+	var final_rotation : float = yvel + final_last_rot
+	
+	applied_rotation = lerp_angle(applied_rotation,final_rotation,0.15)
 
 func stretch(length : float) -> void:
 	var syvel : float = (length * actor.get_value("stretchAmount") * 0.01)* (actor.get_value("phys_eff")/200.0)

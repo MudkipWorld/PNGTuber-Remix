@@ -55,6 +55,10 @@ func update_rotation(delta: float) -> void:
 		else:
 			target_rot = follow_controller_rotation(keyboard_axis)
 
+	elif follow_type2 == 14:
+		keyboard_axis = GlobalCalculations.some_keyboard_custom()
+		target_rot = follow_controller_rotation(keyboard_axis)
+
 	elif follow_type2 == 0:
 		if actor.get_value("follow_mouse_velocity"):
 			target_rot = follow_mouse_vel_rotation()

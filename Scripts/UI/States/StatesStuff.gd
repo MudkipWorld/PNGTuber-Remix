@@ -13,23 +13,16 @@ func _ready():
 	initial_state()
 
 func initial_state():
-		
 	add_state()
 
 func _on_delete_state_pressed():
 	if Global.settings_dict.states.size() > 1:
 		
 		var state_btn  = get_tree().get_nodes_in_group("StateButtons")
-		
 		InputMap.erase_action(state_btn[Global.current_state].input_key)
-		
-		
 		state_btn[Global.current_state].queue_free()
-
 		Global.settings_dict.states.remove_at(Global.current_state)
 		Global.settings_dict.light_states.remove_at(Global.current_state)
-		
-		
 		
 		var sprites = get_tree().get_nodes_in_group("Sprites")
 		for i in sprites:
@@ -98,7 +91,6 @@ func add_state():
 	
 	Global.settings_dict.saved_inputs.resize(Global.settings_dict.states.size())
 
-
 func update_states(states):
 	var states_size = states.size()
 	for l in states_size:
@@ -138,6 +130,10 @@ func _on_state_remap_pressed() -> void:
 	if StateButton.selected_state != null && is_instance_valid(StateButton.selected_state):
 		%StateName.text = StateButton.selected_state.state_name
 	%StateButtonHbox.get_node("StateRemapButton").update_key_text()
+	%CustomKeyUp.update_key_text()
+	%CustomKeyDown.update_key_text()
+	%CustomKeyLeft.update_key_text()
+	%CustomKeyRight.update_key_text()
 	%StateRemapPopup.popup()
 
 func _on_state_remap_popup_close_requested() -> void:

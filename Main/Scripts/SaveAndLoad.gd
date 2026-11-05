@@ -51,6 +51,10 @@ func save_data():
 		input_array.append({
 			"state_name": input.state_name,
 			"hot_key": input.saved_event,
+			"key_up": input.key_up,
+			"key_down": input.key_down,
+			"key_left": input.key_left,
+			"key_right": input.key_right,
 		})
 	for sprt in sprites:
 		sprt.save_state(Global.current_state)
@@ -288,6 +292,11 @@ func load_model(path: String) -> void:
 			var btn = buttons[i]
 			if typeof(data) == TYPE_DICTIONARY:
 				btn.saved_event = data.get("hot_key")
+				btn.key_up = data.get("key_up")
+				btn.key_down = data.get("key_down")
+				btn.key_left = data.get("key_left")
+				btn.key_right = data.get("key_right")
+				
 				btn.state_name = data.get("state_name", "")
 				btn.text = data.get("state_name", "")
 				btn.update_stuff()
@@ -787,6 +796,10 @@ func updated_follow_check(sprite, st) -> Dictionary:
 			st["pos_invert_x"] = true
 		if signi(st.get("look_at_mouse_pos_y", 0.0)) < 0:
 			st["pos_invert_y"] = true
+	
+	if typeof(st.get("rot_degree", false)) == TYPE_BOOL:
+		st['rot_degree'] = st.get("rdragStr", 0.0)
+	
 	return st
 
 func make_delta(verts: PackedVector2Array, original : PackedVector2Array) -> PackedVector2Array:

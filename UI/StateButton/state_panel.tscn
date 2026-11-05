@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bjehgsjwju532" path="res://Scripts/UI/States/StatesStuff.gd" id="1_j5jjx"]
 [ext_resource type="PackedScene" uid="uid://drok2umdmycjc" path="res://UI/StateButton/state_remap_button.tscn" id="2_dfbov"]
+[ext_resource type="Script" uid="uid://caf875hofgogu" path="res://Scripts/UI/FormattedLocalizedLabel.gd" id="3_10uej"]
+[ext_resource type="PackedScene" uid="uid://bmkyb1ujgedh0" path="res://UI/StateButton/state_custom_remap_button.tscn" id="4_sr73d"]
 
 [node name="StatePanel" type="VBoxContainer" unique_id=806621602]
 custom_minimum_size = Vector2(350, 107)
@@ -83,8 +85,9 @@ size_flags_vertical = 3
 [node name="StateRemapPopup" type="Window" parent="." unique_id=136442353]
 unique_name_in_owner = true
 transparent_bg = true
+oversampling_override = 1.0
 initial_position = 2
-size = Vector2i(358, 200)
+size = Vector2i(358, 350)
 visible = false
 popup_window = true
 
@@ -124,6 +127,36 @@ alignment = 1
 [node name="StateButtonHbox" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=629208021 instance=ExtResource("2_dfbov")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=876308532]
+layout_mode = 2
+
+[node name="FormattedLocalizedLabel" type="Label" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=1706324437]
+layout_mode = 2
+text = "Custom Keys"
+horizontal_alignment = 1
+script = ExtResource("3_10uej")
+metadata/_custom_type_script = "uid://caf875hofgogu"
+
+[node name="CustomKeyUp" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=312232708 instance=ExtResource("4_sr73d")]
+unique_name_in_owner = true
+layout_mode = 2
+key_type = "key_up"
+
+[node name="CustomKeyDown" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=835713689 instance=ExtResource("4_sr73d")]
+unique_name_in_owner = true
+layout_mode = 2
+key_type = "key_down"
+
+[node name="CustomKeyLeft" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=1523740111 instance=ExtResource("4_sr73d")]
+unique_name_in_owner = true
+layout_mode = 2
+key_type = "key_left"
+
+[node name="CustomKeyRight" parent="StateRemapPopup/Margin/Panel/VBox" unique_id=438640502 instance=ExtResource("4_sr73d")]
+unique_name_in_owner = true
+layout_mode = 2
+key_type = "key_right"
 
 [connection signal="pressed" from="HBoxContainer/AddState" to="StatesStuff" method="_on_add_state_pressed"]
 [connection signal="pressed" from="HBoxContainer/DuplicateState" to="StatesStuff" method="_on_duplicate_state_pressed"]

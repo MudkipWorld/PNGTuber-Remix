@@ -22,12 +22,12 @@ script = ExtResource("1_fsl5l")
 script = ExtResource("2_t2p8h")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=530834915]
-clip_contents = true
 custom_minimum_size = Vector2(320, 0)
-layout_direction = 2
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+layout_direction = 2
 
 [node name="SharedMovement" type="CheckBox" parent="VBoxContainer" unique_id=827652221]
 custom_minimum_size = Vector2(180, 0)
@@ -244,11 +244,22 @@ has_alt_values = true
 unique_name_in_owner = true
 layout_mode = 2
 sp_type = ""
-label_text = "TR_ROT_DEGREE"
+label_text = "Rot-Drag"
 mini_value = -180.0
 max_value = 180.0
 step = 0.01
 value_to_update = "rdragStr"
+has_alt_values = true
+
+[node name="RotationLevelBSlider2" parent="VBoxContainer" unique_id=1049037545 instance=ExtResource("1_h5u6y")]
+unique_name_in_owner = true
+layout_mode = 2
+sp_type = ""
+label_text = "TR_ROT_DEGREE"
+mini_value = -180.0
+max_value = 180.0
+step = 0.01
+value_to_update = "rot_degree"
 has_alt_values = true
 
 [node name="RotationFreqBSlider" parent="VBoxContainer" unique_id=425060054 instance=ExtResource("1_h5u6y")]
@@ -344,7 +355,6 @@ popup/item_13/id = 14
 popup/item_13/separator = true
 popup/item_14/text = "TR_CUSTOM"
 popup/item_14/id = 15
-popup/item_14/disabled = true
 popup/item_15/text = "TR_UDP_ITEM_NONE"
 popup/item_15/id = 999
 popup/item_16/id = 16
@@ -401,7 +411,6 @@ popup/item_13/id = 14
 popup/item_13/separator = true
 popup/item_14/text = "TR_CUSTOM"
 popup/item_14/id = 15
-popup/item_14/disabled = true
 popup/item_15/text = "TR_UDP_ITEM_NONE"
 popup/item_15/id = 999
 popup/item_16/id = 17
@@ -458,7 +467,6 @@ popup/item_13/id = 14
 popup/item_13/separator = true
 popup/item_14/text = "TR_CUSTOM"
 popup/item_14/id = 15
-popup/item_14/disabled = true
 popup/item_15/text = "TR_UDP_ITEM_NONE"
 popup/item_15/id = 999
 popup/item_16/id = 17

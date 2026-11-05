@@ -68,7 +68,9 @@ func sel():
 		selected = true
 		%Origin.show()
 		%Grab.stretch_mode = TextureButton.StretchMode.STRETCH_KEEP
-		%Grab.texture_normal.width =  %Sprite2D.texture.get_image().get_size().x/2
+		if %Sprite2D.texture != null:
+			if %Sprite2D.texture.get_image() != null:
+				%Grab.texture_normal.width =  %Sprite2D.texture.get_image().get_size().x/2
 		%Grab.texture_normal.height = get_value("width")
 		%Grab.anchors_preset = Control.LayoutPreset.PRESET_FULL_RECT
 		%Grab.position.x -= %Grab.texture_normal.width/2

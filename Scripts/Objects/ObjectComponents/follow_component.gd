@@ -148,6 +148,11 @@ func update_position(dir: Vector2, dist: float, _delta: float) -> void:
 	elif follow_type in [3, 4, 5, 6, 7, 8]:
 		keyboard_axis = GlobalCalculations.some_keyboard_calc_wasd("follow_type", actor)
 		follow_position_calculations(keyboard_axis)
+	
+	elif follow_type == 14:
+		keyboard_axis = GlobalCalculations.some_keyboard_custom()
+		follow_position_calculations(keyboard_axis)
+	
 	elif follow_type == 17 and Tracker.working:
 		match actor.get_value("udp_pos"):
 			0:

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bmkyb1ujgedh0"]
+
+[ext_resource type="Script" uid="uid://b20c3h0yctct2" path="res://Scripts/UI/States/state_custom_remap_button.gd" id="1_pl6kv"]
+[ext_resource type="Texture2D" uid="uid://8rb6kumug0p5" path="res://UI/Assets/DeleteButton.png" id="2_i28eu"]
+
+[node name="StateCustomHBox" type="HBoxContainer" unique_id=312232708]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_pl6kv")
+
+[node name="State" type="Label" parent="." unique_id=1323418055]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "TR_HOT_KEY_LABEL"
+
+[node name="StateRemapButton" type="Button" parent="." unique_id=225468902 groups=["StateRemapButton"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_behavior_recursive = 2
+toggle_mode = true
+text = "TR_BIND_KEY"
+
+[node name="Remove" type="Button" parent="." unique_id=1169589404]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+icon = ExtResource("2_i28eu")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="toggled" from="StateRemapButton" to="." method="_on_state_remap_button_toggled"]
+[connection signal="pressed" from="Remove" to="." method="_on_remove_pressed"]

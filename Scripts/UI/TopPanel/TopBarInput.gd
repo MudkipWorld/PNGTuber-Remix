@@ -308,9 +308,9 @@ func _on_grid_id_pressed(id: int) -> void:
 			Global.grid_snap = !Global.grid_snap
 			if Global.grid_snap:
 				for sprite in Global.held_sprites:
-					var snapped: Vector2 = Global.snap_position(sprite.position)
-					sprite.position = snapped
-					sprite.sprite_data.position = snapped
+					var _snapped: Vector2 = Global.snap_position(sprite.position)
+					sprite.position = _snapped
+					sprite.sprite_data.position = _snapped
 					sprite.save_state(Global.current_state)
 			Global.update_pos_spins.emit()
 		2:
@@ -373,9 +373,9 @@ func _apply_grid_size() -> void:
 
 	if Global.grid_snap:
 		for sprite in Global.held_sprites:
-			var snapped: Vector2 = Global.snap_position(sprite.position)
-			sprite.position = snapped
-			sprite.sprite_data.position = snapped
+			var _snapped: Vector2 = Global.snap_position(sprite.position)
+			sprite.position = _snapped
+			sprite.sprite_data.position = _snapped
 			sprite.save_state(Global.current_state)
 		Global.update_pos_spins.emit()
 

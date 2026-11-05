@@ -98,6 +98,19 @@ func update_scale(delta: float) -> void:
 				x_val = axis.x
 				y_val = axis.y
 
+		14:
+			keyboard_axis = GlobalCalculations.some_keyboard_custom()
+			var axis = follow_controller_scale(keyboard_axis)
+			if actor.get_value("snap_scale"):
+				if axis.x != 0:
+					x_val = axis.x
+					
+				if axis.y != 0:
+					y_val = axis.y
+			else:
+				x_val = axis.x
+				y_val = axis.y
+
 		3, 4, 5, 6, 7, 8:
 			keyboard_axis = GlobalCalculations.some_keyboard_calc_wasd("follow_type3", actor)
 			var axis = follow_controller_scale(keyboard_axis)

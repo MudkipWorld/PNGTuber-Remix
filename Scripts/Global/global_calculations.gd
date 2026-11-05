@@ -14,7 +14,6 @@ static func is_nan_or_inf(value, should_be_one := false):
 	
 	return value
 
-
 static func clamp_angle(value: float, min_angle: float, max_angle: float, rest: float = 0.0) -> float:
 	var v = value + rest
 	var n = min_angle + rest
@@ -26,7 +25,6 @@ static func clamp_angle(value: float, min_angle: float, max_angle: float, rest: 
 		var dist_max = abs(v - m)
 		return n if dist_min < dist_max else m
 	return v
-
 
 static func _get_distance(a: float, b: float) -> float:
 	return a - b
@@ -72,3 +70,28 @@ static func some_keyboard_calc_wasd(type_name: String = "follow_type", actor: No
 			normal = Vector2(ad.x - ad.y, ws.x - ws.y)
 
 	return normal
+
+static func some_keyboard_custom() -> Vector2:
+	var current_state : StateButton = StateButton.selected_state
+	var action : String = current_state.input_key
+	var action_up : String = 'key_up' + action
+	var action_down : String = 'key_down' + action
+	var action_left : String = 'key_left' + action
+	var action_right : String = 'key_right' + action
+	var up : float = 0.0
+	var down : float = 0.0
+	var left : float = 0.0
+	var right : float = 0.0
+
+	if GlobInput.is_action_pressed(action_up):
+		up = 1.0
+	if GlobInput.is_action_pressed(action_down):
+		down = 1.0
+	if GlobInput.is_action_pressed(action_left):
+		left = 1.0
+	if GlobInput.is_action_pressed(action_right):
+		right = 1.0
+	
+	var final_vector : Vector2 = Vector2(right - left , down - up)
+	
+	return final_vector

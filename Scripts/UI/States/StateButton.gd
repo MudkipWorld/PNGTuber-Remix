@@ -7,6 +7,10 @@ var saved_event : InputEvent
 var state_name : String 
 static var selected_state : StateButton = null
 static var other_states : Array[StateButton] = []
+var key_up : InputEvent
+var key_down : InputEvent
+var key_left : InputEvent
+var key_right : InputEvent
 
 func _ready():
 	if state_name.is_empty():
@@ -14,7 +18,6 @@ func _ready():
 	text = state_name
 	if state == 0:
 		select_state()
-
 
 func _on_pressed():
 	if Input.is_action_pressed("ctrl"):
@@ -66,9 +69,20 @@ func _physics_process(_delta: float) -> void:
 			Global.get_sprite_states(state)
 
 func update_stuff():
-	if saved_event != null && InputMap.has_action(input_key):
-		InputMap.action_erase_events(input_key)
-		InputMap.action_add_event(input_key, saved_event)
+	check_keys(input_key, saved_event)
+	check_keys('key_up' + input_key, key_up)
+	check_keys('key_down' + input_key, key_down)
+
+	check_keys('key_left' + input_key, key_left)
+	check_keys('key_right' + input_key, key_right)
+
+func check_keys(action : String, event : InputEvent) -> void:
+	if !InputMap.has_action(action):
+		InputMap.add_action(action)
+	
+	if event != null:
+		InputMap.action_erase_events(action)
+		InputMap.action_add_event(action, event)
 
 static func multi_edit(value, value_name, _obj : SpriteObject, states : Array, should_change : bool = false, type : String = "x"):
 	if other_states.size() > 0:
