@@ -63,19 +63,25 @@ just run the `PNGTube-Remix.sh` file
 
 ### macOS
 
-Due to macOS restrictions and code signing requirements, there is currently **no prebuilt release** available.  
-Official support for macOS has therefore been discontinued.  
+Download and extract `PNGTuber-Remix-macos-universal.zip`, then move `PNGTube-Remix.app` to `/Applications`.
 
-If macOS is still required, the application might can be built **manually from source** using the Godot engine.  
-This is intended for advanced users who are comfortable compiling and troubleshooting on macOS.  
+The app is not notarized. To open it, remove the quarantine attribute in Terminal:
+
+```sh
+xattr -dr com.apple.quarantine "/Applications/PNGTube-Remix.app"
+```
+
+Alternatively, try to open the app once, then go to **System Settings → Privacy & Security** and click **Open Anyway**.
+
+macOS will ask for microphone access the first time the app captures audio; allow it for lipsync.
+
+To use global hotkeys, enable the app under **System Settings → Privacy & Security → Input Monitoring**, then reopen the app.
+
+User files, including preferences, autosaves, and exported assets, are stored in `~/Library/Application Support/Godot/app_userdata/PNGTube-Remix/`.
 
 Things to keep in mind:  
-- No ready to run downloads are provided  
-- No guarantees for stability or compatibility  
-- No official support or updates for this platform  
-
-If that sounds acceptable, building it yourself is the only option.  
-If not… well, other platforms exist.  
+- The app is ad-hoc signed, so after an update macOS may ask for the microphone and Input Monitoring permissions again. If a permission seems stuck, remove the app from the list in System Settings and add it back.  
+- Importing GIFs requires macOS 14 or newer.  
 
 ## Interface
 ### Basic UI information
