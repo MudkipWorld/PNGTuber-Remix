@@ -371,7 +371,7 @@ func path_helper(path: String, dir: String = "") -> String:
 	var target = ""
 	var current = DirAccess.open(path)
 	if current == null:
-		target = OS.get_user_data_dir()
+		target = OS.get_user_data_dir() + dir
 		
 	else:
 		target = path + dir
