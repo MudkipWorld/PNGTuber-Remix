@@ -10,6 +10,9 @@ windows.x86_64.single.release = "windows/GlobalInput.windows.template_release.x8
 linux.x86_64.single.debug = "linux/GlobalInput.linux.template_debug.x86_64.so"
 linux.x86_64.single.release = "linux/GlobalInput.linux.template_release.x86_64.so"
 
+macos.debug = "macos/GlobalInput.macos.template_debug.universal.dylib"
+macos.release = "macos/GlobalInput.macos.template_release.universal.dylib"
+
 [dependencies]
 windows = {
     "windows/libgcc_s_seh-1.dll" : "",
