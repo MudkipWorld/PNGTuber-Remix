@@ -5,8 +5,8 @@ compatibility_minimum = "4.4"
 
 [libraries]
 
-macos.debug = "bin/godotgif.macos.template_debug.framework/libgodotgif.macos.template_debug"
-macos.release = "bin/godotgif.macos.template_release.framework/libgodotgif.macos.template_release"
+macos.debug = "bin/godotgif.macos.template_debug.framework"
+macos.release = "bin/godotgif.macos.template_release.framework"
 windows.debug.x86_32 = "bin/godotgif.windows.template_debug.x86_32.dll"
 windows.release.x86_32 = "bin/godotgif.windows.template_release.x86_32.dll"
 windows.debug.x86_64 = "bin/godotgif.windows.template_debug.x86_64.dll"

@@ -10,11 +10,8 @@ windows.x86_64.single.release = "windows/MiniAudio.windows.template_release.x86_
 linux.x86_64.single.debug = "linux/MiniAudio.linux.template_debug.x86_64.so"
 linux.x86_64.single.release = "linux/MiniAudio.linux.template_release.x86_64.so"
 
-macos.x86_64.debug = "macos/MiniAudio.macos.template_debug.universal.dylib"
-macos.x86_64.release = "macos/MiniAudio.macos.template_release.universal.dylib"
-
-macos.arm64.debug = "macos/MiniAudio.macos.template_debug.arm64.dylib"
-macos.arm64.release = "macos/MiniAudio.macos.template_release.arm64.dylib"
+macos.debug = "macos/MiniAudio.macos.template_debug.universal.dylib"
+macos.release = "macos/MiniAudio.macos.template_release.universal.dylib"
 
 
 [dependencies]

@@ -10,11 +10,8 @@ windows.x86_64.single.release = "windows/CustomMesh.windows.template_release.x86
 linux.x86_64.single.debug = "linux/CustomMesh.linux.template_debug.x86_64.so"
 linux.x86_64.single.release = "linux/CustomMesh.linux.template_release.x86_64.so"
 
-macos.x86_64.debug = "macos/CustomMesh.macos.template_debug.universal.dylib"
-macos.x86_64.release = "macos/CustomMesh.macos.template_release.universal.dylib"
-
-macos.arm64.debug = "macos/CustomMesh.macos.template_debug.arm64.dylib"
-macos.arm64.release = "macos/CustomMesh.macos.template_release.arm64.dylib"
+macos.debug = "macos/CustomMesh.macos.template_debug.universal.dylib"
+macos.release = "macos/CustomMesh.macos.template_release.universal.dylib"
 
 
 [dependencies]

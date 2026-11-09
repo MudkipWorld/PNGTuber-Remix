@@ -512,6 +512,7 @@ TR_TRACKING_BACKEND_DEFAULT,Default,По умолчанию
 TR_TRACKING_BACKEND_UIOHOOK,UIOHook,UIOHook
 TR_TRACKING_BACKEND_WINDOWS,Windows,Windows
 TR_TRACKING_BACKEND_X11,x11,x11
+TR_TRACKING_BACKEND_MACOS,macOS,macOS
 TR_TRACK_DEV_MODE,Developer Mode,Режим разработчика
 TR_TRACK_USING_GLOBAL_INPUT,Use Global Input for Tracking,Использовать глобальный ввод
 TR_TRACK_USING_GLOBAL_INPUT_TOOLTIP,Enables using the Global Input module to be used for mouse following instead of Godot's Built-in mouse tracking (Debug),Позволяет использовать модуль глобального ввода для отслеживания мыши вместо встроенного отслеживания мыши Godot (отладка)

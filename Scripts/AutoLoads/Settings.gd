@@ -28,7 +28,7 @@ const SAVED_LAYOUT_PATH := "user://layout.tres"
 	properties = 0,
 	layers = -100,
 	file_manager = 0,
-	lipsync_file_path = path_helper(OS.get_executable_path().get_base_dir(), "/DefaultTraining.tres"),
+	lipsync_file_path = path_helper(get_writable_base_dir(), "/DefaultTraining.tres"),
 	microphone = null,
 	enable_trimmer = true,
 	save_raw_sprite = false, #save the original sprite even when trimmed
@@ -67,9 +67,9 @@ var autosave_location = ""
 var websocket_api = ""
 
 func _enter_tree() -> void:
-	save_location = path_helper(OS.get_executable_path().get_base_dir(), "/Preferences.pRDat")
-	autosave_location = path_helper(OS.get_executable_path().get_base_dir(), "/autosaves")
-	websocket_api = path_helper(OS.get_executable_path().get_base_dir(), "/WebsocketDocumentation.txt")
+	save_location = path_helper(get_writable_base_dir(), "/Preferences.pRDat")
+	autosave_location = path_helper(get_writable_base_dir(), "/autosaves")
+	websocket_api = path_helper(get_writable_base_dir(), "/WebsocketDocumentation.txt")
 
 func save_before_closing():
 	if theme_settings.save_on_exit:
@@ -205,6 +205,11 @@ func update_tracking_backend():
 				GlobInput.backend = "x11"
 			else:
 				set_backed_default()
+		"macos":
+			if OS.has_feature("macos"):
+				GlobInput.backend = "macos"
+			else:
+				set_backed_default()
 		"dummy":
 			GlobInput.backend = "dummy"
 		_:
@@ -215,6 +220,8 @@ func set_backed_default():
 		GlobInput.backend = "windows"
 	elif OS.has_feature("linux"):
 		GlobInput.backend = "x11"
+	elif OS.has_feature("macos"):
+		GlobInput.backend = "macos"
 	else:
 		GlobInput.backend = "dummy"
 
@@ -352,11 +359,19 @@ func set_ui_pieces(val : int, id : int):
 		theme_settings.hide_bottom_bar = val
 	save()
 
+## Base folder for user-writable files. On macOS the executable sits inside the
+## .app bundle, which is signed and may be read-only (App Translocation), so the
+## user data folder is used instead.
+func get_writable_base_dir() -> String:
+	if OS.has_feature("macos"):
+		return OS.get_user_data_dir()
+	return OS.get_executable_path().get_base_dir()
+
 func path_helper(path: String, dir: String = "") -> String:
 	var target = ""
 	var current = DirAccess.open(path)
 	if current == null:
-		target = OS.get_user_data_dir()
+		target = OS.get_user_data_dir() + dir
 		
 	else:
 		target = path + dir

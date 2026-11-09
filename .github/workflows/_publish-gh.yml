@@ -110,7 +110,6 @@ jobs:
           files: 'build/windows/PNGTuber-Remix-win32-x86_64.zip'
 
   publish-mac-zip:
-    if: false
     needs: [publish-gh]
     runs-on: ubuntu-latest
 
@@ -124,16 +123,9 @@ jobs:
           name: mac
           path: 'build/mac/'
 
-      - name: Archive Zip
-        uses: thedoctor0/zip-release@main
-        with:
-          type: 'zip'
-          filename: 'PNGTuber-Remix-mac.zip'
-          directory: 'build/mac/'
-
       - name: Release to ${{ inputs.tag }} tag
         uses: softprops/action-gh-release@v2
         with:
           name: '${{ inputs.name }}'
           tag_name: ${{ inputs.tag }}
-          files: 'build/mac/PNGTuber-Remix-mac.zip'
+          files: 'build/mac/PNGTuber-Remix-macos-universal.zip'

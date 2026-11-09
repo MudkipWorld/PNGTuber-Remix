@@ -8,8 +8,8 @@ var import_trimmed: bool = false
 var import_resized: bool = false
 var import_percent: float = 50.0
 
-@onready var dire: String = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/ExportedAssets")
-@onready var backs_dir: String = Settings.path_helper(OS.get_executable_path().get_base_dir(), "/Backups")
+@onready var dire: String = Settings.path_helper(Settings.get_writable_base_dir(), "/ExportedAssets")
+@onready var backs_dir: String = Settings.path_helper(Settings.get_writable_base_dir(), "/Backups")
 
 func save_file(path : String):
 	save_model(path)

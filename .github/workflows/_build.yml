@@ -81,7 +81,6 @@ jobs:
           include-hidden-files: true
 
   export-mac:
-    if: false
     name: Mac Export
     runs-on: ubuntu-24.04  # Use 24.04 with godot 4
     container:
@@ -101,7 +100,7 @@ jobs:
           EXPORT_DIR="$(readlink -f build)"
           git config --global --add safe.directory /__w/PNGTuber-Remix/PNGTuber-Remix
           git describe --tags --exclude nightly --always > "$EXPORT_DIR/mac/version.txt"
-          godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/PNGTuber-Remix.zip"
+          godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/PNGTuber-Remix-macos-universal.zip"
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
