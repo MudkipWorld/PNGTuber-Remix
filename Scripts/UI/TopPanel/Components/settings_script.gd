@@ -73,12 +73,19 @@ func check_data():
 	if OS.has_feature("windows"):
 		%BackendOption.set_item_disabled(0, false)
 		%BackendOption.set_item_disabled(1, true)
+		%BackendOption.set_item_disabled(3, true)
 	elif OS.has_feature("linux"):
 		%BackendOption.set_item_disabled(1, false)
 		%BackendOption.set_item_disabled(0, true)
+		%BackendOption.set_item_disabled(3, true)
+	elif OS.has_feature("macos"):
+		%BackendOption.set_item_disabled(3, false)
+		%BackendOption.set_item_disabled(0, true)
+		%BackendOption.set_item_disabled(1, true)
 	else:
 		%BackendOption.set_item_disabled(0, true)
 		%BackendOption.set_item_disabled(1, true)
+		%BackendOption.set_item_disabled(3, true)
 		%BackendOption.select(2)
 
 	match Settings.theme_settings.backend_type:
@@ -93,6 +100,12 @@ func check_data():
 				%BackendOption.select(1)
 			else:
 				%BackendOption.set_item_disabled(1, true)
+				%BackendOption.select(2)
+		"macos":
+			if OS.has_feature("macos"):
+				%BackendOption.select(3)
+			else:
+				%BackendOption.set_item_disabled(3, true)
 				%BackendOption.select(2)
 		"dummy":
 			%BackendOption.select(2)
@@ -269,6 +282,8 @@ func _on_backend_option_item_selected(index: int) -> void:
 			Settings.theme_settings.backend_type = "x11"
 		2:
 			Settings.theme_settings.backend_type = "dummy"
+		3:
+			Settings.theme_settings.backend_type = "macos"
 	Settings.save()
 	Settings.update_tracking_backend()
 
