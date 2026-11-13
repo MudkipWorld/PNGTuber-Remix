@@ -205,7 +205,8 @@ func save_data():
 			'base_mass' : Global.throwable_spawner.base_mass,
 			'time_variance' : Global.throwable_spawner.time_variance,
 			
-		}
+		},
+		"gaze_lock_event" : InputMap.action_get_events(GazeLock.ACTION)[0] if InputMap.action_get_events(GazeLock.ACTION).size() > 0 else null,
 	}
 
 func save_model(path: String) -> void:
@@ -393,6 +394,12 @@ func load_model(path: String) -> void:
 			throw.recreate_audio()
 			Global.throwable_spawner.selected_items.append(throw)
 			
+
+	InputMap.action_erase_events(GazeLock.ACTION)
+	var gaze_event = load_dict.get("gaze_lock_event", null)
+	if gaze_event != null:
+		InputMap.action_add_event(GazeLock.ACTION, gaze_event)
+	GazeLock.reset()
 
 	Global.main.get_node("%Marker").current_screen = Global.settings_dict.monitor
 	Global.project_updates.emit("Project Loaded!")

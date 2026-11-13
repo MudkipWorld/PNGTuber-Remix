@@ -35,6 +35,10 @@ func _ready():
 	screen_count = DisplayServer.get_screen_count()
 	viewport_mouse_position = get_viewport().get_mouse_position()
 
+func _process(_delta: float) -> void:
+	if GlobInput.is_action_just_pressed(GazeLock.ACTION):
+		GazeLock.toggle()
+
 func _physics_process(_delta: float) -> void:
 	if current_screen == ALL_SCREENS:
 		set_mouse_positions()

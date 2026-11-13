@@ -358,6 +358,10 @@ throwing_pause={
 "deadzone": 0.2,
 "events": []
 }
+freeze_gaze={
+"deadzone": 0.2,
+"events": []
+}
 
 [input_devices]
 

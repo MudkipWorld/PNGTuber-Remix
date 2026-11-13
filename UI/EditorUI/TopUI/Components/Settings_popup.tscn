@@ -182,6 +182,28 @@ layout_mode = 2
 tooltip_text = "TR_SETTINGS_POPUP_OUT_OF_BOUNDS_TOOLTIP"
 text = "TR_SNAP_OUT_OF_BOUNDS"
 
+[node name="FreezeGazeRow" type="HBoxContainer" parent="SettingVbox/SettingsTab/Model/VBoxContainer" unique_id=1557072415]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingVbox/SettingsTab/Model/VBoxContainer/FreezeGazeRow" unique_id=711463082]
+layout_mode = 2
+text = "TR_FREEZE_GAZE_KEY"
+
+[node name="FreezeGazeKey" type="Button" parent="SettingVbox/SettingsTab/Model/VBoxContainer/FreezeGazeRow" unique_id=795270392]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "TR_FREEZE_GAZE_KEY_TOOLTIP"
+toggle_mode = true
+text = "TR_BIND_KEY"
+
+[node name="RemoveFreezeGazeKey" type="Button" parent="SettingVbox/SettingsTab/Model/VBoxContainer/FreezeGazeRow" unique_id=924221462]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "TR_DELETE_KEY"
+
 [node name="Audio" type="ScrollContainer" parent="SettingVbox/SettingsTab" unique_id=743431230]
 visible = false
 layout_mode = 2
@@ -614,6 +636,8 @@ popup/item_8/id = 8
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Model/VBoxContainer/GridContainer/MaxFPS" to="SettingsScript" method="_on_max_fps_item_selected"]
 [connection signal="item_selected" from="SettingVbox/SettingsTab/Model/VBoxContainer/HBoxContainer2/SelectedScreen" to="SettingsScript" method="_on_selected_screen_item_selected"]
 [connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/OutOfBounds" to="SettingsScript" method="_on_out_of_bounds_toggled"]
+[connection signal="toggled" from="SettingVbox/SettingsTab/Model/VBoxContainer/FreezeGazeRow/FreezeGazeKey" to="SettingsScript" method="_on_freeze_gaze_key_toggled"]
+[connection signal="pressed" from="SettingVbox/SettingsTab/Model/VBoxContainer/FreezeGazeRow/RemoveFreezeGazeKey" to="SettingsScript" method="_on_remove_freeze_gaze_key_pressed"]
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/VolumeBar/VolumeSlider" to="SettingsScript" method="_on_volume_slider_drag_ended"]
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/DelayBar/DelaySlider" to="SettingsScript" method="_on_delay_slider_drag_ended"]
 [connection signal="drag_ended" from="SettingVbox/SettingsTab/Audio/VBoxContainer/GridContainer2/SensitivityBar/SensitivitySlider" to="SettingsScript" method="_on_sensitivity_slider_drag_ended"]
