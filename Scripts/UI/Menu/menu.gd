@@ -20,6 +20,16 @@ func auto_load_model():
 		if FileAccess.file_exists(Settings.theme_settings.path):
 			await get_tree().create_timer(0.1).timeout
 			SaveAndLoad.load_file(Settings.theme_settings.path)
+		elif not Settings.theme_settings.path.is_empty():
+			var warning := AcceptDialog.new()
+			warning.theme = Settings.current_theme
+			warning.title = tr("TR_AUTO_LOAD_MODEL")
+			warning.dialog_text = tr("TR_AUTO_LOAD_MODEL_MISSING") % Settings.theme_settings.path
+			warning.dialog_autowrap = true
+			warning.confirmed.connect(warning.queue_free)
+			warning.canceled.connect(warning.queue_free)
+			add_child(warning)
+			warning.popup_centered(Vector2i(540, 180))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

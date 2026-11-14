@@ -46,6 +46,7 @@ TR_ASSETS,Assets,Ресурсы
 TR_ASSET_MODEL_DEMO,Asset Demo,Ресурсы
 TR_AURA,Aura,Аура
 TR_AUTO_LOAD_MODEL,Auto-Load Model,Автозагрузка модели
+TR_AUTO_LOAD_MODEL_MISSING,The last model could not be found: %s. Use Files > Open to select a model.,Не удалось найти последнюю модель: %s. Выберите модель через «Файлы» > «Открыть».
 TR_AUTO_ROTATION,Auto Rotation,Автоповорот
 TR_AUTO_SAVE,Auto-Save,Автосохранение
 TR_AUTO_START,Auto-Start,Автозапуск
