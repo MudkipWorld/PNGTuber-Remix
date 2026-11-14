@@ -514,6 +514,7 @@ func _on_message(peer_id: int, message: String):
 					if state_index >= 0:
 						var state_buttons = get_tree().get_nodes_in_group("StateButtons")
 						var state_button = state_buttons[state_index]
+						state_button.select_state()
 						Global.current_state = state_index
 						Global.load_sprite_states(Global.current_state)
 						send(peer_id, JSON.stringify({"event": "state", "result": "success", "state_id": state_index + 1, "state_name": state_button.state_name}))

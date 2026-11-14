@@ -1,0 +1,4 @@
+extends Node2D
+class_name SpriteObject
+
+# StateButton's unused multi_edit argument needs this application type to parse.
