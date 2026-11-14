@@ -1,5 +1,7 @@
 extends Node
 
+const WindowPolicy := preload("res://Main/Scripts/mac_window_policy.gd")
+
 signal theme_changed
 signal file_error
 
@@ -130,7 +132,9 @@ func _ready():
 			theme_settings.merge(info, true)
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
-			
+			if OS.has_feature("macos"):
+				theme_settings.merge(WindowPolicy.startup_settings(true, theme_settings), true)
+
 			if theme_settings.screen_window == 0:
 				get_window().mode = get_window().MODE_WINDOWED
 			elif theme_settings.screen_window == 1:
@@ -164,6 +168,8 @@ func _ready():
 	
 	await get_tree().create_timer(0.05).timeout
 	get_window().size = Settings.theme_settings.screen_size
+	if OS.has_feature("macos"):
+		restore_window_if_offscreen()
 	check_ui()
 #	top_bar.check_data()
 	if top_bar != null && is_instance_valid(top_bar):
@@ -242,6 +248,9 @@ func scale_window():
 	get_tree().get_root().get_window().content_scale_factor = theme_settings.ui_scaling
 
 func window_size_changed():
+	if not WindowPolicy.should_persist_window_geometry(OS.has_feature("macos"), get_window().mode == get_window().MODE_MINIMIZED):
+		return
+
 	Settings.theme_settings.screen_size = get_window().size
 	Settings.theme_settings.screen_pos = get_window().position
 	if get_window().mode == get_window().MODE_MAXIMIZED:
@@ -255,6 +264,20 @@ func window_size_changed():
 		if Global.main.has_node("%WindowSize"):
 			Global.main.get_node("%WindowSize").text = tr("TR_WINDOW_SIZE") + " " + str(Settings.theme_settings.screen_size)
 	save()
+
+func restore_window_if_offscreen() -> void:
+	var window_rect := Rect2i(get_window().position, get_window().size)
+	var usable_rects: Array[Rect2i] = []
+	for screen in DisplayServer.get_screen_count():
+		usable_rects.append(DisplayServer.screen_get_usable_rect(screen))
+	var primary_rect := DisplayServer.screen_get_usable_rect(DisplayServer.get_primary_screen())
+	var restored_position: Variant = WindowPolicy.restored_position(window_rect, usable_rects, primary_rect)
+	if restored_position == null:
+		return
+
+	# Keep the title bar reachable when a display was disconnected or the saved
+	# geometry no longer intersects any usable screen area.
+	get_window().position = restored_position
 
 func check_ui():
 	if top_bar != null && is_instance_valid(top_bar):

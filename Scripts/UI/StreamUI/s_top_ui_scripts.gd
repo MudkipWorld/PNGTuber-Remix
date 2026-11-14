@@ -28,7 +28,7 @@ func choosing_mode(id):
 	match id:
 		0:
 			Global.main.get_node("BG").show()
-			get_viewport().transparent_bg = false
+			Global.set_background_transparency(false)
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 			get_parent().get_parent().get_node("%UISplit").show()
 			Settings.theme_settings.software_mode = 0
@@ -37,7 +37,7 @@ func choosing_mode(id):
 		1:
 			Global.main.get_node("BG").hide()
 			RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
-			get_viewport().transparent_bg = Global.settings_dict.is_transparent
+			Global.set_background_transparency(Global.settings_dict.is_transparent)
 			get_parent().get_parent().get_node("%UISplit").hide()
 			Settings.theme_settings.software_mode = 1
 			Global.mode = Settings.theme_settings.software_mode
@@ -69,7 +69,7 @@ func choosing_bg_color(id):
 			#%Background.popup()
 	if not Global.is_editor:
 		RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
-		get_viewport().transparent_bg = Global.settings_dict.is_transparent
+		Global.set_background_transparency(Global.settings_dict.is_transparent)
 
 func choosing_window(id):
 	match id:
