@@ -132,7 +132,8 @@ func _ready():
 			theme_settings.merge(info, true)
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
-			theme_settings.merge(WindowPolicy.startup_settings(OS.has_feature("macos"), theme_settings), true)
+			if OS.has_feature("macos"):
+				theme_settings.merge(WindowPolicy.startup_settings(true, theme_settings), true)
 
 			if theme_settings.screen_window == 0:
 				get_window().mode = get_window().MODE_WINDOWED
