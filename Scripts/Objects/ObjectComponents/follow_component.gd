@@ -85,14 +85,14 @@ func follow_calculation(_delta = 0.0):
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO
 		if main_marker.current_screen == Monitor.ALL_SCREENS or main_marker.mouse_in_current_screen():
-			mouse_coords = get_mouse_coords(main_marker, 0)
+			mouse_coords = get_mouse_coords(main_marker, main_marker.get_reference_screen())
 	elif main_marker.current_screen != Monitor.ALL_SCREENS:
 		if !main_marker.mouse_in_current_screen() && Global.settings_dict.snap_out_of_bounds:
 			mouse_coords = Vector2.ZERO
 		else:
 			mouse_coords = get_mouse_coords(main_marker, main_marker.current_screen)
 	else:
-		mouse_coords = get_mouse_coords(main_marker, 0)
+		mouse_coords = get_mouse_coords(main_marker, main_marker.get_reference_screen())
 	return mouse_coords
 
 func get_mouse_coords(main_marker, screen) -> Vector2:
@@ -101,14 +101,12 @@ func get_mouse_coords(main_marker, screen) -> Vector2:
 		var offset = Vector2(main_marker.get_cached_screen_position(screen))
 		coord = (actor.get_local_mouse_position() - offset)  / Global.camera.zoom.clampf(0.001, 10.0)
 	else:
-		var viewport_size = actor.get_viewport().size
-		var origin = actor.get_global_transform_with_canvas().origin
-		var x_per = 1.0 - origin.x/float(viewport_size.x)
-		var y_per = 1.0 - origin.y/float(viewport_size.y)
-		var display_size : Vector2 = main_marker.get_screen_size()
-		var offset = Vector2(display_size.x * x_per, display_size.y * y_per)
-		var mouse_pos = Vector2(DisplayServer.mouse_get_position()) - Vector2(main_marker.get_cached_screen_position(screen))
-		coord = Vector2(mouse_pos - display_size) + offset
+		var screen_rect = Rect2(Vector2(main_marker.get_cached_screen_position(screen)), Vector2(main_marker.get_screen_size()))
+		coord = ScreenMapping.mouse_coords_on_screen(
+			Vector2(DisplayServer.mouse_get_position()),
+			screen_rect,
+			actor.get_global_transform_with_canvas().origin,
+			Vector2(actor.get_viewport().size))
 
 	return coord
 

@@ -1,0 +1,134 @@
+extends SceneTree
+
+## Checks how the mouse position is mapped to a screen for mouse-follow sprites.
+##
+## Run from the project folder:
+##   godot --headless --path . --script res://tests/test_screen_mapping.gd
+## The process exits with code 1 when any check fails.
+
+const Mapping = preload("res://Main/Scripts/screen_mapping.gd")
+
+# Two 1080p monitors side by side, the primary one on the left.
+const PRIMARY_SCREEN := Rect2(0, 0, 1920, 1080)
+const SECONDARY_SCREEN := Rect2(1920, 0, 1920, 1080)
+const SCREENS := [PRIMARY_SCREEN, SECONDARY_SCREEN]
+
+const VIEWPORT_SIZE := Vector2(1152, 648)
+const SPRITE_AT_CENTER := Vector2(576, 324)
+
+var failures := 0
+
+
+func _initialize() -> void:
+	test_selected_screen_is_used()
+	test_selected_screen_out_of_range_is_clamped()
+	test_all_screens_follows_the_window_screen()
+	test_single_monitor_is_unchanged()
+	test_window_on_secondary_looks_toward_mouse_on_primary()
+	test_window_on_primary_looks_toward_mouse_on_secondary()
+	test_screen_left_of_primary()
+	test_mixed_screen_sizes()
+	test_off_center_sprite_coordinates()
+	test_invalid_reference_indices()
+
+	if failures > 0:
+		printerr("%d check(s) failed" % failures)
+	else:
+		print("All checks passed")
+	quit(1 if failures > 0 else 0)
+
+
+func check(condition: bool, description: String) -> void:
+	if condition:
+		print("  ok   ", description)
+	else:
+		failures += 1
+		printerr("  FAIL ", description)
+
+
+func coords_for(window_screen: int, mouse_global: Vector2) -> Vector2:
+	var screen := Mapping.reference_screen(Mapping.ALL_SCREENS, window_screen, SCREENS.size())
+	return Mapping.mouse_coords_on_screen(mouse_global, SCREENS[screen], SPRITE_AT_CENTER, VIEWPORT_SIZE)
+
+
+func test_selected_screen_is_used() -> void:
+	check(Mapping.reference_screen(1, 0, 2) == 1,
+		"a screen picked in Settings is used even if the window is elsewhere")
+
+
+func test_selected_screen_out_of_range_is_clamped() -> void:
+	check(Mapping.reference_screen(3, 0, 2) == 1,
+		"a picked screen that no longer exists falls back to the last one")
+
+
+func test_all_screens_follows_the_window_screen() -> void:
+	check(Mapping.reference_screen(Mapping.ALL_SCREENS, 1, 2) == 1,
+		"with all screens, the screen the window is on is used")
+
+
+func test_single_monitor_is_unchanged() -> void:
+	check(Mapping.reference_screen(Mapping.ALL_SCREENS, 0, 1) == 0,
+		"with one monitor, screen 0 is used")
+	var coords := Mapping.mouse_coords_on_screen(Vector2(1800, 540), PRIMARY_SCREEN, SPRITE_AT_CENTER, VIEWPORT_SIZE)
+	check(coords == Vector2(840, 0),
+		"with one monitor, the mapping matches the previous behavior (got %s)" % coords)
+
+
+func test_window_on_secondary_looks_toward_mouse_on_primary() -> void:
+	# Mouse near the right edge of the primary screen, left of the window.
+	var coords := coords_for(1, Vector2(1800, 540))
+	check(coords.x < 0,
+		"window on the secondary screen looks left at a mouse on the primary screen (got %s)" % coords)
+
+
+func test_window_on_primary_looks_toward_mouse_on_secondary() -> void:
+	# Mouse on the secondary screen, right of the window.
+	var coords := coords_for(0, Vector2(2000, 540))
+	check(coords.x > 0,
+		"window on the primary screen looks right at a mouse on the secondary screen (got %s)" % coords)
+
+
+func test_screen_left_of_primary() -> void:
+	var left_screen := Rect2(-1920, 0, 1920, 1080)
+	var centered := Mapping.mouse_coords_on_screen(Vector2(-960, 540), left_screen, SPRITE_AT_CENTER, VIEWPORT_SIZE)
+	check(centered == Vector2.ZERO,
+		"a screen with a negative desktop origin maps its center to zero (got %s)" % centered)
+	var toward_primary := Mapping.mouse_coords_on_screen(Vector2(100, 540), left_screen, SPRITE_AT_CENTER, VIEWPORT_SIZE)
+	check(toward_primary.x > 0,
+		"a window left of the primary screen looks right toward the primary screen")
+
+
+func test_mixed_screen_sizes() -> void:
+	var larger_screen := Rect2(1920, -200, 2560, 1440)
+	var center := larger_screen.position + larger_screen.size / 2.0
+	var centered := Mapping.mouse_coords_on_screen(center, larger_screen, SPRITE_AT_CENTER, VIEWPORT_SIZE)
+	check(centered == Vector2.ZERO,
+		"the reference screen's size and origin are used together on mixed-resolution desktops (got %s)" % centered)
+	var sprite_origin := Vector2(288, 162)
+	var aligned_mouse := larger_screen.position + larger_screen.size * Vector2(0.25, 0.25)
+	check(Mapping.mouse_coords_on_screen(aligned_mouse, larger_screen, sprite_origin, VIEWPORT_SIZE) == Vector2.ZERO,
+		"the sprite's viewport offset is preserved on the larger screen")
+
+
+func test_off_center_sprite_coordinates() -> void:
+	# This sprite is one quarter across and three quarters down its viewport.
+	# On the screen below its target origin is (-1920, 780), not screen center.
+	var screen_rect := Rect2(-2560, -300, 2560, 1440)
+	var cases := [
+		[Vector2(-1920, 780), Vector2.ZERO],
+		[Vector2(-1600, 780), Vector2(320, 0)],
+		[Vector2(-1920, 600), Vector2(0, -180)],
+		[Vector2(-2400, 960), Vector2(-480, 180)],
+	]
+	for sample in cases:
+		var actual := Mapping.mouse_coords_on_screen(sample[0], screen_rect, Vector2(320, 540), Vector2(1280, 720))
+		check(actual == sample[1], "off-center sprite maps mouse %s to %s (got %s)" % [sample[0], sample[1], actual])
+	var distant := Mapping.mouse_coords_on_screen(Vector2.ZERO, Rect2(1920, 0, 3840, 2160), Vector2(960, 180), Vector2(1280, 720))
+	check(distant == Vector2(-4800, -540),
+		"a 4K reference screen preserves distance as well as direction (got %s)" % distant)
+
+
+func test_invalid_reference_indices() -> void:
+	check(Mapping.reference_screen(-1, 1, 2) == 0, "negative explicit selections clamp to screen zero")
+	check(Mapping.reference_screen(Mapping.ALL_SCREENS, -1, 2) == 0, "a negative window screen clamps to screen zero")
+	check(Mapping.reference_screen(Mapping.ALL_SCREENS, 3, 2) == 1, "a stale window screen clamps to the remaining screen range")

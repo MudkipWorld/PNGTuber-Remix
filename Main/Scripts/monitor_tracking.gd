@@ -2,7 +2,7 @@
 extends Control
 class_name Monitor
 
-const ALL_SCREENS = 9999
+const ALL_SCREENS = ScreenMapping.ALL_SCREENS
 var current_screen = ALL_SCREENS
 var coords : Vector2 = Vector2(0,0)
 var global_coords : Vector2 = Vector2(0,0)
@@ -17,17 +17,18 @@ func get_cached_screen_position(screen: int):
 	_cached_screen_positions[screen] = _position
 	return _position
 	
+## Screen the mouse-follow math uses, see ScreenMapping.reference_screen().
+func get_reference_screen() -> int:
+	return ScreenMapping.reference_screen(current_screen, DisplayServer.window_get_current_screen(), DisplayServer.get_screen_count())
+
 var _cached_screen
 var _cached_screen_size = Vector2.ZERO
 func get_screen_size():
-	if _cached_screen == current_screen:
+	var screen = get_reference_screen()
+	if _cached_screen == screen:
 		return _cached_screen_size
-	_cached_screen = current_screen
-	if current_screen == Monitor.ALL_SCREENS:
-		_cached_screen_size =  DisplayServer.screen_get_size(DisplayServer.SCREEN_PRIMARY)
-	else:
-		var idx = clamp(current_screen, 0, DisplayServer.get_screen_count() - 1)
-		_cached_screen_size = DisplayServer.screen_get_size(idx)
+	_cached_screen = screen
+	_cached_screen_size = DisplayServer.screen_get_size(screen)
 	return _cached_screen_size
 var viewport_mouse_position: Vector2 = Vector2.ZERO
 
