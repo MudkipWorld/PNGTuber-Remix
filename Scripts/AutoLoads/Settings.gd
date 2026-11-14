@@ -132,19 +132,9 @@ func _ready():
 			theme_settings.merge(info, true)
 			theme_settings.theme_id = info.theme_id
 			loaded_UI(theme_settings.theme_id)
+			theme_settings.merge(WindowPolicy.startup_settings(OS.has_feature("macos"), theme_settings), true)
 
-			if OS.has_feature("macos"):
-				# Start in the regular editor window. A saved streaming mode can
-				# otherwise reopen as a transparent surface with no visible UI.
-				theme_settings.mode = 0
-				theme_settings.software_mode = 0
-				theme_settings.screen_window = 0
-				theme_settings.borders = true
-				theme_settings.always_on_top = false
-				get_window().mode = get_window().MODE_WINDOWED
-				get_window().borderless = false
-				get_window().always_on_top = false
-			elif theme_settings.screen_window == 0:
+			if theme_settings.screen_window == 0:
 				get_window().mode = get_window().MODE_WINDOWED
 			elif theme_settings.screen_window == 1:
 				get_window().mode = get_window().MODE_MAXIMIZED
@@ -257,7 +247,7 @@ func scale_window():
 	get_tree().get_root().get_window().content_scale_factor = theme_settings.ui_scaling
 
 func window_size_changed():
-	if OS.has_feature("macos") and get_window().mode == get_window().MODE_MINIMIZED:
+	if not WindowPolicy.should_persist_window_geometry(OS.has_feature("macos"), get_window().mode == get_window().MODE_MINIMIZED):
 		return
 
 	Settings.theme_settings.screen_size = get_window().size

@@ -238,7 +238,7 @@ func set_background_transparency(enabled: bool) -> void:
 		get_viewport().transparent_bg = use_transparency
 		return
 
-	if enabled and not transparency_available:
+	if WindowPolicy.should_clear_transparency_preference(enabled, is_macos, transparency_available):
 		push_warning("Transparent windows are unavailable with the current display server; using an opaque background.")
 		settings_dict.is_transparent = false
 
