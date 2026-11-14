@@ -205,7 +205,8 @@ func save_data():
 			'base_mass' : Global.throwable_spawner.base_mass,
 			'time_variance' : Global.throwable_spawner.time_variance,
 			
-		}
+		},
+		"gaze_lock_event" : GazeLockBinding.current_event(),
 	}
 
 func save_model(path: String) -> void:
@@ -393,6 +394,8 @@ func load_model(path: String) -> void:
 			throw.recreate_audio()
 			Global.throwable_spawner.selected_items.append(throw)
 			
+
+	GazeLockBinding.restore_from_model(load_dict)
 
 	Global.main.get_node("%Marker").current_screen = Global.settings_dict.monitor
 	Global.project_updates.emit("Project Loaded!")

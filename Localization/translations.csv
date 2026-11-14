@@ -182,6 +182,8 @@ TR_FOLLOW_JOYPAD_DEMO,Joypad Demo,Геймпад
 TR_FOLLOW_MOUSE,Follow Movement,Следовать за движением
 TR_FOLLOW_MOUSE_DEMO,Follow Mouse Demo,Слежение за мышью
 TR_FOLLOW_MOUSE_SCREEN_LABEL,Mouse Follow Screen,Экран слежения за мышью
+TR_FREEZE_GAZE_KEY,Freeze Gaze Key,Клавиша фиксации взгляда
+TR_FREEZE_GAZE_KEY_TOOLTIP,"Press this key to keep the eyes looking where they are, even when the mouse moves. Press it again to follow the mouse.","Нажмите эту клавишу, чтобы глаза продолжали смотреть в ту же сторону, даже если мышь двигается. Нажмите ещё раз, чтобы снова следить за мышью."
 TR_FOLLOW_MOVEMENT,Follow Movement,Слежение за движением
 TR_FOLLOW_POSITION_LABEL,Follow Option (Position),Позиция
 TR_FOLLOW_ROTATION_LABEL,Follow Option (Rotation),Поворот

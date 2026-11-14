@@ -81,6 +81,10 @@ func process_follow(delta: float) -> void:
 	update_position(dir, dist, delta)
 
 func follow_calculation(_delta = 0.0):
+	mouse_coords = GazeLock.pick(mouse_coords, _live_mouse_coords)
+	return mouse_coords
+
+func _live_mouse_coords() -> Vector2:
 	var main_marker = Global.main.get_node("%Marker")
 	if WindowHandler.windows:
 		mouse_coords = Vector2.ZERO

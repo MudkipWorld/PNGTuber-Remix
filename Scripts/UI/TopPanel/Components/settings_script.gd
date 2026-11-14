@@ -3,8 +3,12 @@ extends Node
 var devices : Array = []
 var change_setting : bool = false
 var counter : int = 0
+var binding_freeze_gaze : bool = false
 
 func _ready() -> void:
+	set_process_unhandled_input(false)
+	update_freeze_gaze_key_text()
+	Global.load_model.connect(update_freeze_gaze_key_text)
 	%UIThemeButton.item_selected.connect(Settings._on_ui_theme_button_item_selected)
 	%UIThemeButton.select(Settings.theme_settings.theme_id)
 	%MicroPhoneMenu.get_popup().connect("id_pressed",choosing_device)
@@ -378,3 +382,27 @@ func match_fps(fps):
 			Global.settings_dict.max_fps = 60
 			Engine.max_fps = Global.settings_dict.max_fps
 			%MaxFPS.select(5)
+
+func _on_freeze_gaze_key_toggled(toggled_on: bool) -> void:
+	binding_freeze_gaze = toggled_on
+	set_process_unhandled_input(toggled_on)
+	if toggled_on:
+		%FreezeGazeKey.text = tr("TR_AWAITING_INPUT")
+		%FreezeGazeKey.release_focus()
+	else:
+		update_freeze_gaze_key_text()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if !binding_freeze_gaze or event is InputEventMouseMotion or !event.is_released():
+		return
+	GazeLockBinding.replace_event(event)
+	get_viewport().set_input_as_handled()
+	%FreezeGazeKey.button_pressed = false
+
+func _on_remove_freeze_gaze_key_pressed() -> void:
+	GazeLockBinding.replace_event(null)
+	update_freeze_gaze_key_text()
+
+func update_freeze_gaze_key_text() -> void:
+	var event := GazeLockBinding.current_event()
+	%FreezeGazeKey.text = event.as_text() if event != null else tr("TR_BIND_KEY")
