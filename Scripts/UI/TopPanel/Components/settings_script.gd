@@ -395,15 +395,14 @@ func _on_freeze_gaze_key_toggled(toggled_on: bool) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if !binding_freeze_gaze or event is InputEventMouseMotion or !event.is_released():
 		return
-	InputMap.action_erase_events(GazeLock.ACTION)
-	InputMap.action_add_event(GazeLock.ACTION, event)
+	GazeLockBinding.replace_event(event)
 	get_viewport().set_input_as_handled()
 	%FreezeGazeKey.button_pressed = false
 
 func _on_remove_freeze_gaze_key_pressed() -> void:
-	InputMap.action_erase_events(GazeLock.ACTION)
+	GazeLockBinding.replace_event(null)
 	update_freeze_gaze_key_text()
 
 func update_freeze_gaze_key_text() -> void:
-	var events := InputMap.action_get_events(GazeLock.ACTION)
-	%FreezeGazeKey.text = events[0].as_text() if events.size() > 0 else tr("TR_BIND_KEY")
+	var event := GazeLockBinding.current_event()
+	%FreezeGazeKey.text = event.as_text() if event != null else tr("TR_BIND_KEY")
