@@ -26,6 +26,8 @@ func _initialize() -> void:
 	test_single_monitor_is_unchanged()
 	test_window_on_secondary_looks_toward_mouse_on_primary()
 	test_window_on_primary_looks_toward_mouse_on_secondary()
+	test_screen_left_of_primary()
+	test_mixed_screen_sizes()
 
 	if failures > 0:
 		printerr("%d check(s) failed" % failures)
@@ -82,3 +84,25 @@ func test_window_on_primary_looks_toward_mouse_on_secondary() -> void:
 	var coords := coords_for(0, Vector2(2000, 540))
 	check(coords.x > 0,
 		"window on the primary screen looks right at a mouse on the secondary screen (got %s)" % coords)
+
+
+func test_screen_left_of_primary() -> void:
+	var left_screen := Rect2(-1920, 0, 1920, 1080)
+	var centered := Mapping.mouse_coords_on_screen(Vector2(-960, 540), left_screen, SPRITE_AT_CENTER, VIEWPORT_SIZE)
+	check(centered == Vector2.ZERO,
+		"a screen with a negative desktop origin maps its center to zero (got %s)" % centered)
+	var toward_primary := Mapping.mouse_coords_on_screen(Vector2(100, 540), left_screen, SPRITE_AT_CENTER, VIEWPORT_SIZE)
+	check(toward_primary.x > 0,
+		"a window left of the primary screen looks right toward the primary screen")
+
+
+func test_mixed_screen_sizes() -> void:
+	var larger_screen := Rect2(1920, -200, 2560, 1440)
+	var center := larger_screen.position + larger_screen.size / 2.0
+	var centered := Mapping.mouse_coords_on_screen(center, larger_screen, SPRITE_AT_CENTER, VIEWPORT_SIZE)
+	check(centered == Vector2.ZERO,
+		"the reference screen's size and origin are used together on mixed-resolution desktops (got %s)" % centered)
+	var sprite_origin := Vector2(288, 162)
+	var aligned_mouse := larger_screen.position + larger_screen.size * Vector2(0.25, 0.25)
+	check(Mapping.mouse_coords_on_screen(aligned_mouse, larger_screen, sprite_origin, VIEWPORT_SIZE) == Vector2.ZERO,
+		"the sprite's viewport offset is preserved on the larger screen")
