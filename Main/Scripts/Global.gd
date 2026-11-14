@@ -1,5 +1,7 @@
 extends Node2D
 
+const WindowPolicy := preload("res://Main/Scripts/mac_window_policy.gd")
+
 enum Mouth {
 	Closed,
 	Open,
@@ -188,7 +190,7 @@ func set_mode(new_mode) -> void:
 
 	match mode:
 		0:
-			get_viewport().transparent_bg = false
+			set_background_transparency(false)
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 			if main.has_node("%Control"):
 				main.get_node("%Control").show()
@@ -200,7 +202,7 @@ func set_mode(new_mode) -> void:
 			is_editor = true
 		1:
 			RenderingServer.set_default_clear_color(settings_dict.bg_color)
-			get_viewport().transparent_bg = settings_dict.is_transparent
+			set_background_transparency(settings_dict.is_transparent)
 			if main.has_node("%Control"):
 				main.get_node("%Control").hide()
 			is_editor = false
@@ -209,7 +211,7 @@ func set_mode(new_mode) -> void:
 			deselect.emit()
 			static_view = false
 		2:
-			get_viewport().transparent_bg = false
+			set_background_transparency(false)
 			RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 			if main.has_node("%Control"):
 				main.get_node("%Control").show()
@@ -226,6 +228,22 @@ func set_mode(new_mode) -> void:
 	Settings.theme_settings.mode = mode
 	Settings.save()
 	mode_changed.emit(mode)
+
+func set_background_transparency(enabled: bool) -> void:
+	var is_macos := OS.has_feature("macos")
+	var transparency_available := DisplayServer.is_window_transparency_available() if is_macos else false
+	var use_transparency := WindowPolicy.transparency_enabled(enabled, is_macos, transparency_available)
+	if not is_macos:
+		# Preserve the existing Windows/Linux viewport behavior exactly.
+		get_viewport().transparent_bg = use_transparency
+		return
+
+	if enabled and not transparency_available:
+		push_warning("Transparent windows are unavailable with the current display server; using an opaque background.")
+		settings_dict.is_transparent = false
+
+	get_window().transparent = use_transparency
+	get_viewport().transparent_bg = use_transparency
 
 func blinking():
 	blink_timer.wait_time = settings_dict.blink_speed

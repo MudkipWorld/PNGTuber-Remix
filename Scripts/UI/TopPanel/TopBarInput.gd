@@ -44,7 +44,7 @@ var grid_size_spinbox: SpinBox = null
 
 
 func _ready() -> void:
-	get_viewport().transparent_bg = false
+	Global.set_background_transparency(false)
 	RenderingServer.set_default_clear_color(Color.SLATE_GRAY)
 
 	files_button.get_popup().id_pressed.connect(_on_files_id_pressed)
@@ -263,7 +263,7 @@ func _on_bg_id_pressed(id: int) -> void:
 
 	if not Global.is_editor:
 		RenderingServer.set_default_clear_color(Global.settings_dict.bg_color)
-		get_viewport().transparent_bg = Global.settings_dict.is_transparent
+		Global.set_background_transparency(Global.settings_dict.is_transparent)
 
 
 func _on_about_id_pressed(id: int) -> void:
@@ -406,7 +406,7 @@ func update_bg_color(color: Color, transparency: bool) -> void:
 	bg_color_picker.color = color
 	if not Global.is_editor:
 		RenderingServer.set_default_clear_color(color)
-		get_viewport().transparent_bg = transparency
+		Global.set_background_transparency(transparency)
 
 
 func origin_alias() -> void:
