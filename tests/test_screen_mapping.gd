@@ -28,6 +28,8 @@ func _initialize() -> void:
 	test_window_on_primary_looks_toward_mouse_on_secondary()
 	test_screen_left_of_primary()
 	test_mixed_screen_sizes()
+	test_off_center_sprite_coordinates()
+	test_invalid_reference_indices()
 
 	if failures > 0:
 		printerr("%d check(s) failed" % failures)
@@ -106,3 +108,27 @@ func test_mixed_screen_sizes() -> void:
 	var aligned_mouse := larger_screen.position + larger_screen.size * Vector2(0.25, 0.25)
 	check(Mapping.mouse_coords_on_screen(aligned_mouse, larger_screen, sprite_origin, VIEWPORT_SIZE) == Vector2.ZERO,
 		"the sprite's viewport offset is preserved on the larger screen")
+
+
+func test_off_center_sprite_coordinates() -> void:
+	# This sprite is one quarter across and three quarters down its viewport.
+	# On the screen below its target origin is (-1920, 780), not screen center.
+	var screen_rect := Rect2(-2560, -300, 2560, 1440)
+	var cases := [
+		[Vector2(-1920, 780), Vector2.ZERO],
+		[Vector2(-1600, 780), Vector2(320, 0)],
+		[Vector2(-1920, 600), Vector2(0, -180)],
+		[Vector2(-2400, 960), Vector2(-480, 180)],
+	]
+	for sample in cases:
+		var actual := Mapping.mouse_coords_on_screen(sample[0], screen_rect, Vector2(320, 540), Vector2(1280, 720))
+		check(actual == sample[1], "off-center sprite maps mouse %s to %s (got %s)" % [sample[0], sample[1], actual])
+	var distant := Mapping.mouse_coords_on_screen(Vector2.ZERO, Rect2(1920, 0, 3840, 2160), Vector2(960, 180), Vector2(1280, 720))
+	check(distant == Vector2(-4800, -540),
+		"a 4K reference screen preserves distance as well as direction (got %s)" % distant)
+
+
+func test_invalid_reference_indices() -> void:
+	check(Mapping.reference_screen(-1, 1, 2) == 0, "negative explicit selections clamp to screen zero")
+	check(Mapping.reference_screen(Mapping.ALL_SCREENS, -1, 2) == 0, "a negative window screen clamps to screen zero")
+	check(Mapping.reference_screen(Mapping.ALL_SCREENS, 3, 2) == 1, "a stale window screen clamps to the remaining screen range")
