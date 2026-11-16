@@ -25,3 +25,17 @@ static func remembers_saved_model(is_macos: bool) -> bool:
 ## Whether closing the window runs the Save on Exit flow.
 static func saves_on_close(is_macos: bool) -> bool:
 	return is_macos
+
+## Copies the model file to `backups_dir` as "<name>_previous.<ext>" before it
+## is overwritten on close, so the last saved version can still be recovered.
+## Returns the copy's path, or "" when there is no model file to copy.
+static func keep_previous_version(model_path: String, backups_dir: String) -> String:
+	if model_path == "" or !FileAccess.file_exists(model_path):
+		return ""
+	DirAccess.make_dir_recursive_absolute(backups_dir)
+	var name := model_path.get_file().get_basename() + "_previous." + model_path.get_extension()
+	var copy_path := backups_dir.path_join(name)
+	if DirAccess.copy_absolute(model_path, copy_path) != OK:
+		push_error("SessionRestore: failed to keep the previous version at %s" % copy_path)
+		return ""
+	return copy_path

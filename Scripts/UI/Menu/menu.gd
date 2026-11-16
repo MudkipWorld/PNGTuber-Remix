@@ -24,6 +24,8 @@ func auto_load_model():
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		if SessionRestore.saves_on_close(OS.has_feature("macos")):
+			if Settings.theme_settings.save_on_exit:
+				SessionRestore.keep_previous_version(Global.save_path, SaveAndLoad.backs_dir)
 			Settings.save_before_closing()
 		GlobInput.stop_hook()
 		get_tree().quit()
