@@ -160,6 +160,9 @@ func _ready():
 		loaded_UI(theme_settings.theme_id)
 		set_backed_default()
 	
+	if SessionRestore.apply_platform_defaults(theme_settings, OS.has_feature("macos")):
+		save()
+
 	get_window().size_changed.connect(window_size_changed)
 	
 	await get_tree().create_timer(0.05).timeout

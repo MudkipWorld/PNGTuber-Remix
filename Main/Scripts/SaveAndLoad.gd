@@ -220,6 +220,10 @@ func save_model(path: String) -> void:
 	file.store_var(save_dict, true)
 	file.close()
 	
+	if !path.begins_with("res://") and SessionRestore.remembers_saved_model(OS.has_feature("macos")):
+		Settings.theme_settings.path = path
+		Settings.save()
+	
 	if !path.begins_with("res://"):
 		save_backup(save_dict, path)
 		await get_tree().process_frame
